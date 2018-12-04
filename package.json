@@ -1,0 +1,24 @@
+{
+  "name": "lokalise-api",
+  "version": "0.0.1",
+  "description": "Node lokalise api",
+  "license": "MIT",
+  "repository": "kutanov/lokalise-api",
+  "scripts": {
+    "test": "mocha -r ts-node/register test/**/*.spec.ts"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/mocha": "^5.2.5",
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^1.16.0",
+    "faker": "^4.1.0",
+    "mocha": "^5.2.0",
+    "mocha-tape-deck": "0.0.9",
+    "typings": "^2.1.1"
+  },
+  "dependencies": {
+    "ts-node": "^7.0.1"
+  }
+}
