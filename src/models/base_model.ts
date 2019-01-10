@@ -51,20 +51,6 @@ export class BaseModel {
     });
   }
 
-   create(params) {
-    let childClass = <typeof BaseModel>this.constructor;
-    let endpoint: string = childClass.endpoint;
-    let uri: string = endpoint;
-    return new Promise((resolve, reject) => {
-      let response: ApiRequest = new ApiRequest(uri, 'POST', params);
-      response.promise.then((result) => {
-        resolve(this.populateObjectFromJson(result));
-      }).then((data) => {
-        reject(data);
-      });
-    });
-  }
-
   update(params) {
     let childClass = <typeof BaseModel>this.constructor;
     let endpoint: string = childClass.endpoint;
