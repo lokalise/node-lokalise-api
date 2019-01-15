@@ -4,6 +4,6 @@
 //   // private projectInterface: Interfaces.Project;
 //   // private languageInterface: Interfaces.Language;
 // }
-import LokaliseApi from './lokalise/lokalise';
+import { LokaliseApi } from './lokalise/lokalise';
 
-export LokaliseApi;
+export { LokaliseApi };

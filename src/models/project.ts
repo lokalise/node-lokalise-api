@@ -5,9 +5,9 @@ import { ApiRequest } from '../http_client/base';
 
 export class Project extends BaseModel implements Interfaces.Project {
   protected static rootElementName:string = 'projects';
-  protected static endpoint:string = 'projects';
-  protected static mandaratoryParams: Array<string> = ['name']
-  protected static optionalParams: Array<string> = ['description', 'team_id']
+  protected static prefixURI:string = 'projects/{:id}';
+  // protected static mandaratoryParams: Array<string> = ['name']
+  // protected static optionalParams: Array<string> = ['description', 'team_id']
 
   public project_id: number;
   public name: string;

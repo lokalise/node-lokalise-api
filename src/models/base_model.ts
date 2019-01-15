@@ -1,15 +1,15 @@
 import {ApiRequest} from '../http_client/base';
 
 export class BaseModel {
-  protected static rootElementName: string = 'default';
-  protected static endpoint: string = ''
+  protected static rootElementName: string = null;
+  protected static endpoint: string = null;
+  protected static prefixURI: string = null;
 
   get(id) {
     let childClass = <typeof BaseModel>this.constructor;
     let endpoint: string = childClass.endpoint;
-    let uri: string = endpoint + '/' + id;
     return new Promise((resolve, reject) => {
-      let response: ApiRequest = new ApiRequest(uri, 'GET');
+      let response: ApiRequest = new ApiRequest(childClass.prefixURI, 'GET', null, { id: id });
       response.promise.then((result) => {
         resolve(this.populateObjectFromJson(result));
       }).then((data) => {
@@ -18,13 +18,11 @@ export class BaseModel {
     });
   }
 
-  list(): Promise<this[]> {
+  list(params={}): Promise<this[]> {
     return new Promise((resolve, reject) => {
       let childClass = <typeof BaseModel>this.constructor;
       let rootElementName: string = childClass.rootElementName;
-      let endpoint: string  = childClass.endpoint;
-      let uri = endpoint;
-      let response: ApiRequest = new ApiRequest(uri, 'GET');
+      let response: ApiRequest = new ApiRequest(childClass.prefixURI, 'GET', null, params);
       response.promise.then((result: Object) => {
         if (result[rootElementName]) {
           resolve(this.populateArrayFromJson(result[rootElementName]));
@@ -37,12 +35,12 @@ export class BaseModel {
     });
   }
 
-  create(params) {
+  create(body, params) {
     let childClass = <typeof BaseModel>this.constructor;
     let endpoint: string = childClass.endpoint;
     let uri: string = endpoint;
     return new Promise((resolve, reject) => {
-      let response: ApiRequest = new ApiRequest(uri, 'POST', params);
+      let response: ApiRequest = new ApiRequest(childClass, 'POST', body, params);
       response.promise.then((result) => {
         resolve(this.populateObjectFromJson(result));
       }).then((data) => {
@@ -51,7 +49,7 @@ export class BaseModel {
     });
   }
 
-  update(params) {
+  update(body, params) {
     let childClass = <typeof BaseModel>this.constructor;
     let endpoint: string = childClass.endpoint;
     let uri: string = endpoint;
@@ -64,6 +62,7 @@ export class BaseModel {
       });
     });
   }
+
 
   protected populateObjectFromJson(json: Object): this {
     for (let key in json) {

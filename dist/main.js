@@ -6,5 +6,5 @@ Object.defineProperty(exports, "__esModule", { value: true });
 //   // private languageInterface: Interfaces.Language;
 // }
 const lokalise_1 = require("./lokalise/lokalise");
-lokalise_1.default;
+exports.LokaliseApi = lokalise_1.LokaliseApi;
 //# sourceMappingURL=main.js.map

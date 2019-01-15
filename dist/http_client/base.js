@@ -12,25 +12,25 @@ class ApiRequest {
         let options = {
             url: this.urlRoot + uri,
             method: method,
-            headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey }
+            headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey, 'content-type': 'application/json' }
         };
-        if (params.length > 0) {
-            options['postData'] = params;
+        if (Object.keys(params).length > 0) {
+            options['body'] = JSON.stringify(params);
         }
+        console.log(options);
         return new Promise((resolve, reject) => {
             request(options, (error, response, body) => {
                 if (error) {
+                    console.log(error);
                     reject(error);
                 }
                 else {
-                    console.log(body);
                     resolve(JSON.parse(body));
                 }
             });
         });
     }
-    constructParameters(method, params) {
-    }
+    constructParameters(method, params) { }
 }
 exports.ApiRequest = ApiRequest;
 //# sourceMappingURL=base.js.map
