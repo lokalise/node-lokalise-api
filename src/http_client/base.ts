@@ -25,6 +25,9 @@ export class ApiRequest {
     if (Object.keys(this.params).length > 0) {
       this.composeQueryString();
       options['qs'] = this.qs;
+    }
+
+    if (body) {
       options['body'] = JSON.stringify(body);
     }
 

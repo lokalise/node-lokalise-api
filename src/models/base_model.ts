@@ -5,64 +5,25 @@ export class BaseModel {
   protected static endpoint: string = null;
   protected static prefixURI: string = null;
 
-  get(id) {
-    let childClass = <typeof BaseModel>this.constructor;
-    let endpoint: string = childClass.endpoint;
-    return new Promise((resolve, reject) => {
-      let response: ApiRequest = new ApiRequest(childClass.prefixURI, 'GET', null, { id: id });
-      response.promise.then((result) => {
-        resolve(this.populateObjectFromJson(result));
-      }).then((data) => {
-        reject(data);
-      });
-    });
+  get(id) : Promise<this> {
+    return this.createPromise('GET', {id: id}, this.populateObjectFromJson, this.handleReject, null)
   }
 
   list(params={}): Promise<this[]> {
-    return new Promise((resolve, reject) => {
-      let childClass = <typeof BaseModel>this.constructor;
-      let rootElementName: string = childClass.rootElementName;
-      let response: ApiRequest = new ApiRequest(childClass.prefixURI, 'GET', null, params);
-      response.promise.then((result: Object) => {
-        if (result[rootElementName]) {
-          resolve(this.populateArrayFromJson(result[rootElementName]));
-        } else {
-          reject('Server returned incorrect format');
-        }
-      }).then((data: any) => {
-        reject(data);
-      });
-    });
+    return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);
   }
 
-  create(body, params) {
-    let childClass = <typeof BaseModel>this.constructor;
-    let endpoint: string = childClass.endpoint;
-    let uri: string = endpoint;
-    return new Promise((resolve, reject) => {
-      let response: ApiRequest = new ApiRequest(childClass, 'POST', body, params);
-      response.promise.then((result) => {
-        resolve(this.populateObjectFromJson(result));
-      }).then((data) => {
-        reject(data);
-      });
-    });
+  create(body, params = {}): Promise<this> {
+    return this.createPromise('POST', params, this.populateObjectFromJson, this.handleReject, body);
   }
 
-  update(body, params) {
-    let childClass = <typeof BaseModel>this.constructor;
-    let endpoint: string = childClass.endpoint;
-    let uri: string = endpoint;
-    return new Promise((resolve, reject) => {
-      let response: ApiRequest = new ApiRequest(uri, 'PUT', params);
-      response.promise.then((result) => {
-        resolve(this.populateObjectFromJson(result));
-      }).then((data) => {
-        reject(data);
-      });
-    });
+  update(body, params = {}) : Promise<this> {
+    return this.createPromise('PUT', params, this.populateObjectFromJson, this.handleReject, body);
   }
 
+  delete(id, params = {}) {
+    return this.createPromise('DELETE', {id: id}, this.populateObjectFromJson, this.handleReject, null);
+  }
 
   protected populateObjectFromJson(json: Object): this {
     for (let key in json) {
@@ -77,5 +38,24 @@ export class BaseModel {
       arr.push(this.populateObjectFromJson(obj));
     }
     return arr;
+  }
+
+  protected handleReject(data) {
+    return data;
+  }
+
+  protected createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) : Promise<any> {
+    let childClass = <typeof BaseModel>this.constructor;
+    if (uri == null) {
+      uri = childClass.prefixURI;
+    }
+    return new Promise((resolve, reject) => {
+      let response: ApiRequest = new ApiRequest(uri, method, body, params);
+      response.promise.then((result) => {
+        resolve(resolveFn.call(result));
+      }).then((data) => {
+        reject(rejectFn.call(data));
+      });
+    });
   }
 }

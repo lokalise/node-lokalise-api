@@ -1,13 +1,10 @@
 import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
-// import { Projects as ProjectsEndpoint } from '../endpoints/projects';
 import { ApiRequest } from '../http_client/base';
 
 export class Project extends BaseModel implements Interfaces.Project {
   protected static rootElementName:string = 'projects';
   protected static prefixURI:string = 'projects/{:id}';
-  // protected static mandaratoryParams: Array<string> = ['name']
-  // protected static optionalParams: Array<string> = ['description', 'team_id']
 
   public project_id: number;
   public name: string;
@@ -16,4 +13,9 @@ export class Project extends BaseModel implements Interfaces.Project {
   public created_by_email: string;
   public created_at: string;
   public created_by: number;
+
+  empty(project_id) {
+    this.createPromise('PUT', { project_id: project_id}, 
+                       this.populateObjectFromJson, this.handleReject, null, 'projects/{!:project_id}/empty');
+  }
 }
