@@ -41,6 +41,10 @@ export class BaseModel {
     return arr;
   }
 
+  protected returnBareJSON(json: any) : any {
+    return json;
+  }
+
   protected handleReject(data) {
     return data;
   }
@@ -59,4 +63,5 @@ export class BaseModel {
       });
     });
   }
+
 }

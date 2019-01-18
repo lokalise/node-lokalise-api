@@ -13,11 +13,13 @@ export class Files extends BaseModel {
     return super.list(params);
   }
 
-  upload(upload: UploadFileParams) {
-    return super.create(upload, { id: 'upload' });
+  upload(project_id: string, upload: UploadFileParams) {
+    return this.createPromise('POST', { project_id: project_id}, this.returnBareJSON, this.handleReject, 
+                       upload, 'projects/{!:project_id}/files/upload');
   }
 
   download(download: DownloadFileParams) {
-    return super.get('download', download);
+    return this.createPromise('POST', {id: 'upload'}, this.returnBareJSON, this.handleReject, 
+                       download, 'projects/{!:project_id}/files/download');
   }
 }

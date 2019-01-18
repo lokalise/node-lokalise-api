@@ -1,7 +1,6 @@
 import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
 import { ApiRequest } from '../http_client/base';
-import { StandartParams } from '../interfaces/standart_params';
 
 export class Project extends BaseModel implements Interfaces.Project {
   protected static rootElementName:string = 'projects';
@@ -14,9 +13,6 @@ export class Project extends BaseModel implements Interfaces.Project {
   public created_by_email: string;
   public created_at: string;
   public created_by: number;
-
-
-
 
   empty(project_id) {
     this.createPromise('PUT', { project_id: project_id}, 

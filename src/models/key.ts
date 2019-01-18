@@ -1,5 +1,6 @@
 import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
+import { BulkUpdateKeysParams } from '../interfaces/bulk_update_key';
 
 export class Keys extends BaseModel {
   protected static rootElementName:string = 'keys';
@@ -22,4 +23,9 @@ export class Keys extends BaseModel {
   public base_words: number;
   public char_limit: number;
   public custom_attributes: any[];
+
+  bulk_update(project_id: string, keys: BulkUpdateKeysParams) {
+    this.createPromise('PUT', { project_id: project_id }, this.returnBareJSON, 
+                       this.returnBareJSON, keys, 'projects/{!:project_id}/keys');
+  }
 }
