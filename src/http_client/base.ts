@@ -6,7 +6,6 @@ export class ApiRequest {
   private urlRoot:string = 'https://api.lokalise.co/api2/'
   public promise: Promise<Object>;
   public params: any = {};
-  public qs: any = {}
 
 
   constructor(uri, method, body = null, params={}) {
@@ -16,15 +15,15 @@ export class ApiRequest {
   }
 
   createPromise(uri, method, body) {
-    let options = { 
-      url: this.urlRoot + this.composeURI(uri), 
+    let options = {
+      url: this.urlRoot + this.composeURI(uri),
       method: method,
       headers: { 'x-api-token': LokaliseApi.apiKey, 'content-type': 'application/json' }
     };
 
     if (Object.keys(this.params).length > 0) {
-      this.composeQueryString();
-      options['qs'] = this.qs;
+    //   this.composeQueryString();
+    options['qs'] = this.params;
     }
 
     if (body) {
@@ -42,17 +41,6 @@ export class ApiRequest {
         }
       });
     });
-  }
-
-  protected composeQueryString() {
-     if (this.params['page']) {
-       this.qs['page'] = this.params['page'];
-       delete this.params['page'];
-     }
-     if (this.params['limit']) {
-       this.qs['limit'] = this.params['limit'];
-       delete this.params['page'];
-     }
   }
 
   protected composeURI(uri) {

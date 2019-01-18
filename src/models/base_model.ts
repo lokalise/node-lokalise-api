@@ -1,27 +1,28 @@
-import {ApiRequest} from '../http_client/base';
+import { ApiRequest } from '../http_client/base';
+import { StandartParams } from '../interfaces/standart_params';
 
 export class BaseModel {
   protected static rootElementName: string = null;
   protected static endpoint: string = null;
   protected static prefixURI: string = null;
 
-  get(id) : Promise<this> {
-    return this.createPromise('GET', {id: id}, this.populateObjectFromJson, this.handleReject, null)
+  get(id, params: StandartParams = {}, body: any = null) : Promise<this> {
+    return this.createPromise('GET', {id: id}, this.populateObjectFromJson, this.handleReject, body)
   }
 
-  list(params={}): Promise<this[]> {
+  list(params : StandartParams ={}): Promise<this[]> {
     return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);
   }
 
-  create(body, params = {}): Promise<this> {
+  create(body, params: StandartParams = {}): Promise<this> {
     return this.createPromise('POST', params, this.populateObjectFromJson, this.handleReject, body);
   }
 
-  update(body, params = {}) : Promise<this> {
+  update(body, params : StandartParams = {}) : Promise<this> {
     return this.createPromise('PUT', params, this.populateObjectFromJson, this.handleReject, body);
   }
 
-  delete(id, params = {}) {
+  delete(id, params : StandartParams = {}) {
     return this.createPromise('DELETE', {id: id}, this.populateObjectFromJson, this.handleReject, null);
   }
 
