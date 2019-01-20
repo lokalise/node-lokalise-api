@@ -2,7 +2,7 @@ import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
 import { ApiRequest } from '../http_client/base';
 
-export class Project extends BaseModel implements Interfaces.Project {
+export class Projects extends BaseModel implements Interfaces.Project {
   protected static rootElementName:string = 'projects';
   protected static prefixURI:string = 'projects/{:id}';
 

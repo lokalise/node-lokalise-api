@@ -2,7 +2,7 @@ import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
 import { ApiRequest } from '../http_client/base';
 
-export class Language extends BaseModel {
+export class Languages extends BaseModel {
   protected static rootElementName:string = 'projects';
   protected static prefixURI:string = 'projects/{!:project_id}/languages/{:id}';
 

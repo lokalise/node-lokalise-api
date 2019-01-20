@@ -1,7 +1,7 @@
 import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
 
-export class Contributors extends BaseModel {
+export class Tasks extends BaseModel {
   protected static rootElementName:string = 'tasks';
   protected static prefixURI:string = 'projects/{!:project_id}/tasks/{:id}';
   public  task_id: number;

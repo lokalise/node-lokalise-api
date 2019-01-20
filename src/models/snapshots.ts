@@ -1,7 +1,7 @@
 import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
 
-export class Screenshot extends BaseModel {
+export class Snapshots extends BaseModel {
   protected static rootElementName:string = 'snapshot';
   protected static prefixURI:string = 'projects/{!:project_id}/snapshots/{:id}';
   public snapshot_id: number;
