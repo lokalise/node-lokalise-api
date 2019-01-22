@@ -1,4 +1,3 @@
-import { Comments } from '../endpoints/comments';
 import * as Models from '../models/index';
 
 export class LocaliseApiMethods {

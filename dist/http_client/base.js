@@ -3,21 +3,26 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const request = require("request");
 const lokalise_1 = require("../lokalise/lokalise");
 class ApiRequest {
-    constructor(uri, method, params = {}) {
+    constructor(uri, method, body = null, params = {}) {
         this.urlRoot = 'https://api.lokalise.co/api2/';
-        this.promise = this.createPromise(uri, method, params);
+        this.params = {};
+        this.params = params;
+        this.promise = this.createPromise(uri, method, body);
         return this;
     }
-    createPromise(uri, method, params) {
+    createPromise(uri, method, body) {
         let options = {
-            url: this.urlRoot + uri,
+            url: this.urlRoot + this.composeURI(uri),
             method: method,
             headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey, 'content-type': 'application/json' }
         };
-        if (Object.keys(params).length > 0) {
-            options['body'] = JSON.stringify(params);
+        if (Object.keys(this.params).length > 0) {
+            //   this.composeQueryString();
+            options['qs'] = this.params;
         }
-        console.log(options);
+        if (body) {
+            options['body'] = JSON.stringify(body);
+        }
         return new Promise((resolve, reject) => {
             request(options, (error, response, body) => {
                 if (error) {
@@ -25,10 +30,33 @@ class ApiRequest {
                     reject(error);
                 }
                 else {
+                    console.log(JSON.parse(body));
                     resolve(JSON.parse(body));
                 }
             });
         });
+    }
+    composeURI(uri) {
+        let regexp = /{(\!{0,1}):(\w*)\}/g;
+        let matches = uri.replace(regexp, this.mapUriParams(this.params));
+        console.log(matches);
+        return matches;
+    }
+    mapUriParams(params) {
+        console.log(params);
+        return (entity, isMandaratory, paramName) => {
+            if (params[paramName] != null) {
+                return params[paramName];
+            }
+            else {
+                if (isMandaratory == '!') {
+                    throw new Error('Required param ' + paramName);
+                }
+                else {
+                    return '';
+                }
+            }
+        };
     }
     constructParameters(method, params) { }
 }

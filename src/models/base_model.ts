@@ -34,8 +34,10 @@ export class BaseModel {
   }
 
   protected populateArrayFromJson(json: Array<any>): this[] {
+    let childClass = <typeof BaseModel>this.constructor;
     let arr: this[] = new Array();
-    for (let obj of json) {
+    let jsonArray = json[childClass.rootElementName];
+    for (let obj of jsonArray) {
       arr.push(this.populateObjectFromJson(obj));
     }
     return arr;
@@ -57,9 +59,9 @@ export class BaseModel {
     return new Promise((resolve, reject) => {
       let response: ApiRequest = new ApiRequest(uri, method, body, params);
       response.promise.then((result) => {
-        resolve(resolveFn.call(result));
+        resolve(resolveFn.call(this, result));
       }).then((data) => {
-        reject(rejectFn.call(data));
+        reject(rejectFn.call(this, data));
       });
     });
   }

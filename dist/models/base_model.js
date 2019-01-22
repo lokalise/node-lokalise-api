@@ -2,83 +2,20 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("../http_client/base");
 class BaseModel {
-    get(id) {
-        let childClass = this.constructor;
-        let endpoint = childClass.endpoint;
-        let uri = endpoint + '/' + id;
-        console.log(this.composeURI({ id: 1 }));
-        return new Promise((resolve, reject) => {
-            let response = new base_1.ApiRequest(uri, 'GET');
-            response.promise.then((result) => {
-                resolve(this.populateObjectFromJson(result));
-            }).then((data) => {
-                reject(data);
-            });
-        });
+    get(id, params = {}, body = null) {
+        return this.createPromise('GET', { id: id }, this.populateObjectFromJson, this.handleReject, body);
     }
-    list() {
-        return new Promise((resolve, reject) => {
-            let childClass = this.constructor;
-            let rootElementName = childClass.rootElementName;
-            let endpoint = childClass.endpoint;
-            let uri = endpoint;
-            let response = new base_1.ApiRequest(uri, 'GET');
-            response.promise.then((result) => {
-                if (result[rootElementName]) {
-                    resolve(this.populateArrayFromJson(result[rootElementName]));
-                }
-                else {
-                    reject('Server returned incorrect format');
-                }
-            }).then((data) => {
-                reject(data);
-            });
-        });
+    list(params = {}) {
+        return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);
     }
-    create(params) {
-        let childClass = this.constructor;
-        let endpoint = childClass.endpoint;
-        let uri = endpoint;
-        return new Promise((resolve, reject) => {
-            let response = new base_1.ApiRequest(uri, 'POST', params);
-            response.promise.then((result) => {
-                resolve(this.populateObjectFromJson(result));
-            }).then((data) => {
-                reject(data);
-            });
-        });
+    create(body, params = {}) {
+        return this.createPromise('POST', params, this.populateObjectFromJson, this.handleReject, body);
     }
-    update(params) {
-        let childClass = this.constructor;
-        let endpoint = childClass.endpoint;
-        let uri = endpoint;
-        return new Promise((resolve, reject) => {
-            let response = new base_1.ApiRequest(uri, 'PUT', params);
-            response.promise.then((result) => {
-                resolve(this.populateObjectFromJson(result));
-            }).then((data) => {
-                reject(data);
-            });
-        });
+    update(body, params = {}) {
+        return this.createPromise('PUT', params, this.populateObjectFromJson, this.handleReject, body);
     }
-    composeURI(params) {
-        let regexp = /{(\!{0,1})(\w*)\}/g;
-        let childClass = this.constructor;
-        let matches = childClass.prefixURI.replace(regexp, this.constructURI(entity, isMandaratory, paramName, params));
-    }
-    constructURI(entity, isMandaratory, paramName, params) {
-        let str = paramsName;
-        if (params[paramName]) {
-            return z;
-        }
-        else {
-            if (isMandaratory == '!') {
-                throw new Error('Reqeuired params');
-            }
-            else {
-                '';
-            }
-        }
+    delete(id, params = {}) {
+        return this.createPromise('DELETE', { id: id }, this.populateObjectFromJson, this.handleReject, null);
     }
     populateObjectFromJson(json) {
         for (let key in json) {
@@ -87,11 +24,33 @@ class BaseModel {
         return this;
     }
     populateArrayFromJson(json) {
+        let childClass = this.constructor;
         let arr = new Array();
-        for (let obj of json) {
+        let jsonArray = json[childClass.rootElementName];
+        for (let obj of jsonArray) {
             arr.push(this.populateObjectFromJson(obj));
         }
         return arr;
+    }
+    returnBareJSON(json) {
+        return json;
+    }
+    handleReject(data) {
+        return data;
+    }
+    createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) {
+        let childClass = this.constructor;
+        if (uri == null) {
+            uri = childClass.prefixURI;
+        }
+        return new Promise((resolve, reject) => {
+            let response = new base_1.ApiRequest(uri, method, body, params);
+            response.promise.then((result) => {
+                resolve(resolveFn.call(this, result));
+            }).then((data) => {
+                reject(rejectFn.call(this, data));
+            });
+        });
     }
 }
 BaseModel.rootElementName = null;
