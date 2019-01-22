@@ -1,11 +1,15 @@
 {
-  "name": "lokalise-api",
+  "name": "@lokalise/node-api",
   "version": "0.0.1",
   "description": "Node lokalise api",
   "license": "MIT",
-  "repository": "kutanov/lokalise-api",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lokalise/node-lokalise-api.git"
+  },
   "scripts": {
-    "test": "mocha -r ts-node/register test/**/*.spec.ts"
+    "test": "mocha -r ts-node/register test/**/*.spec.ts",
+    "doc": "typedoc --theme markdown --ignoreCompilerErrors --out ./docs --exclude '**/{node_modules, typings,dist,test,}/**/*' --excludeExternals ./src"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -16,6 +20,8 @@
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "mocha-tape-deck": "0.0.9",
+    "typedoc": "^0.14.2",
+    "typedoc-plugin-markdown": "^1.1.22",
     "typings": "^2.1.1"
   },
   "dependencies": {
@@ -23,5 +29,15 @@
     "axios": "^0.18.0",
     "request": "^2.88.0",
     "ts-node": "^7.0.1"
-  }
+  },
+  "bugs": {
+    "url": "https://github.com/lokalise/node-lokalise-api"
+  },
+  "homepage": "https://github.com/lokalise/node-lokalise-api#readme",
+  "main": "dist/main.js",
+  "directories": {
+    "doc": "docs",
+    "test": "test"
+  },
+  "author": "Roman Kutanov"
 }

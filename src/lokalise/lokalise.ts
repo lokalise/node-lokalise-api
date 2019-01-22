@@ -1,5 +1,5 @@
 import { LocaliseApiMethods } from './api_methods';
-
+// 
 export class LokaliseApi extends LocaliseApiMethods {
   public static apiKey: string = null;
   private static _instance: LokaliseApi;

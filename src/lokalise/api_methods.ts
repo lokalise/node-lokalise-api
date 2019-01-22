@@ -2,6 +2,7 @@ import { Comments } from '../endpoints/comments';
 import * as Models from '../models/index';
 
 export class LocaliseApiMethods {
+  // TODO: Lazy loading
   public comments = new Models.Comments();
   public contributors = new Models.Contributors();
   public files = new Models.Files()
