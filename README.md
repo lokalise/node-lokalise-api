@@ -6,6 +6,12 @@ Development is in progress. Currently, you may use open-source implementations l
 
 Lokalise API [documentation](https://lokalise.co/api2docs/curl/#resource-getting-started)
 
-[Wrapper's Documentation](https://github.com/lokalise/node-lokalise-api/tree/master/docs/README.txt)
+[Wrapper's Documentation](https://github.com/lokalise/node-lokalise-api/tree/master/docs/README.md)
 
+
+## Getting started
+
+```bash
+npm install @lokalise/node-api
+```
 
