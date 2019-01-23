@@ -26,11 +26,9 @@ class ApiRequest {
         return new Promise((resolve, reject) => {
             request(options, (error, response, body) => {
                 if (error) {
-                    console.log(error);
                     reject(error);
                 }
                 else {
-                    console.log(JSON.parse(body));
                     resolve(JSON.parse(body));
                 }
             });
@@ -39,11 +37,9 @@ class ApiRequest {
     composeURI(uri) {
         let regexp = /{(\!{0,1}):(\w*)\}/g;
         let matches = uri.replace(regexp, this.mapUriParams(this.params));
-        console.log(matches);
         return matches;
     }
     mapUriParams(params) {
-        console.log(params);
         return (entity, isMandaratory, paramName) => {
             if (params[paramName] != null) {
                 return params[paramName];

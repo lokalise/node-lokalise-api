@@ -1,21 +1,21 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const Models = require("../models/index");
+const Collectons = require("../collections/index");
 class LocaliseApiMethods {
     constructor() {
         // TODO: Lazy loading
-        this.comments = new Models.Comments();
-        this.contributors = new Models.Contributors();
-        this.files = new Models.Files();
-        this.keys = new Models.Keys();
-        this.languages = new Models.Languages();
-        this.projects = new Models.Projects();
-        this.screenshots = new Models.Screenshots();
-        this.snapshots = new Models.Snapshots();
-        this.tasks = new Models.Tasks();
-        this.teamUsers = new Models.TeamUsers();
-        this.userGroups = new Models.UserGroups();
-        this.translations = new Models.Translations();
+        this.comments = new Collectons.Comments();
+        this.contributors = new Collectons.Contributors();
+        this.files = new Collectons.Files();
+        this.keys = new Collectons.Keys();
+        this.languages = new Collectons.Languages();
+        this.projects = new Collectons.Projects();
+        this.screenshots = new Collectons.Screenshots();
+        this.snapshots = new Collectons.Snapshots();
+        this.tasks = new Collectons.Tasks();
+        this.teamUsers = new Collectons.TeamUsers();
+        this.userGroups = new Collectons.UserGroups();
+        this.translations = new Collectons.Translations();
     }
 }
 exports.LocaliseApiMethods = LocaliseApiMethods;
