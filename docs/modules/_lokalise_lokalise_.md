@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["lokalise/lokalise"](../modules/_lokalise_lokalise_.md)
+[lokalise](../README.md) > ["lokalise/lokalise"](../modules/_lokalise_lokalise_.md)
 
 # External module: "lokalise/lokalise"
 

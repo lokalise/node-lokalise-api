@@ -3,6 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_collection_1 = require("./base_collection");
 const contributor_1 = require("../models/contributor");
 class Contributors extends base_collection_1.BaseCollection {
+    create(body, params = {}) {
+        return this.createPromise('POST', params, this.populateArrayFromJson, this.handleReject, body, 'projects/{!:project_id}/contributors');
+    }
 }
 Contributors.rootElementName = 'contributors';
 Contributors.prefixURI = 'projects/{!:project_id}/contributors/{:id}';

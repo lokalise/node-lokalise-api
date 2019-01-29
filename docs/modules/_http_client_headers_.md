@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["http_client/headers"](../modules/_http_client_headers_.md)
+[lokalise](../README.md) > ["http_client/headers"](../modules/_http_client_headers_.md)
 
 # External module: "http_client/headers"
 

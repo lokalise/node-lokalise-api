@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["models/base_model"](../modules/_models_base_model_.md)
+[lokalise](../README.md) > ["models/base_model"](../modules/_models_base_model_.md)
 
 # External module: "models/base_model"
 

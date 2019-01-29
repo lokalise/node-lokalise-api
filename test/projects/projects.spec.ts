@@ -1,11 +1,12 @@
 import { Project as ProjectInterface } from '../../src/models/project';
 import { expect } from 'chai';
+import * as express from "express";
 import * as faker from 'faker';
+import { TapeDeck } from 'mocha-tape-deck';
 
 describe('Project Interface', () => {
 
   let project: ProjectInterface;
-
   let project_id: number;
   let name:string;
   let description:string;
@@ -13,6 +14,11 @@ describe('Project Interface', () => {
   let created_at:string;
   let created_by:number;
   let created_by_email;
+
+  let server;
+  const deck = new TapeDeck('./cassettes');
+  let response;
+
 
   beforeEach(() => {
     this.project_id = faker.random.number();
@@ -32,6 +38,8 @@ describe('Project Interface', () => {
         created_at: this.created_at,
         created_by: this.created_by
     };
+
+    const app = express();
   });
 
   it('should be valid', () => {

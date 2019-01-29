@@ -11,11 +11,13 @@ class BaseCollection {
     create(body, params = {}) {
         return this.createPromise('POST', params, this.populateObjectFromJson, this.handleReject, body);
     }
-    update(body, params = {}) {
+    update(id, body, params = {}) {
+        params['id'] = id;
         return this.createPromise('PUT', params, this.populateObjectFromJson, this.handleReject, body);
     }
     delete(id, params = {}) {
-        return this.createPromise('DELETE', { id: id }, this.populateObjectFromJson, this.handleReject, null);
+        params['id'] = id;
+        return this.createPromise('DELETE', params, this.populateObjectFromJson, this.handleReject, null);
     }
     populateObjectFromJson(json) {
         let childClass = this.constructor;

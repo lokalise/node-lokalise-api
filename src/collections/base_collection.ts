@@ -19,12 +19,14 @@ export class BaseCollection {
     return this.createPromise('POST', params, this.populateObjectFromJson, this.handleReject, body);
   }
 
-  update(body, params : StandartParams = {}) : Promise<any> {
+  update(id, body, params : StandartParams = {}) : Promise<any> {
+    params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJson, this.handleReject, body);
   }
 
   delete(id, params : StandartParams = {}) {
-    return this.createPromise('DELETE', {id: id}, this.populateObjectFromJson, this.handleReject, null);
+    params['id'] = id;
+    return this.createPromise('DELETE', params, this.populateObjectFromJson, this.handleReject, null);
   }
 
   protected populateObjectFromJson(json: Object): this {

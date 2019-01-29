@@ -6,6 +6,11 @@ export class LokaliseApi extends LocaliseApiMethods {
 
   public apiKey: string;
 
+/**
+ * Instantiate LokaliseApi to have access to methods
+ * @param apiKey  text, mandaratory
+ * @returns       LokaliseApi object to work with.
+ */
   constructor(apiKey:string) {
     super();
     LokaliseApi.apiKey = apiKey;

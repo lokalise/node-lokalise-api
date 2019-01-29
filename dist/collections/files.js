@@ -9,8 +9,8 @@ class Files extends base_collection_1.BaseCollection {
     upload(project_id, upload) {
         return this.createPromise('POST', { project_id: project_id }, this.returnBareJSON, this.handleReject, upload, 'projects/{!:project_id}/files/upload');
     }
-    download(download) {
-        return this.createPromise('POST', { id: 'upload' }, this.returnBareJSON, this.handleReject, download, 'projects/{!:project_id}/files/download');
+    download(project_id, download) {
+        return this.createPromise('POST', { project_id: project_id }, this.returnBareJSON, this.handleReject, download, 'projects/{!:project_id}/files/download');
     }
 }
 Files.rootElementName = 'files';

@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["interfaces/upload_file_params"](../modules/_interfaces_upload_file_params_.md) > [UploadFileParams](../interfaces/_interfaces_upload_file_params_.uploadfileparams.md)
+[lokalise](../README.md) > ["interfaces/upload_file_params"](../modules/_interfaces_upload_file_params_.md) > [UploadFileParams](../interfaces/_interfaces_upload_file_params_.uploadfileparams.md)
 
 # Interface: UploadFileParams
 
@@ -33,7 +33,7 @@
 
 **● apply_tm**: *`boolean`*
 
-*Defined in [interfaces/upload_file_params.ts:11](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L11)*
+*Defined in [interfaces/upload_file_params.ts:11](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L11)*
 
 ___
 <a id="cleanup_mode"></a>
@@ -42,7 +42,7 @@ ___
 
 **● cleanup_mode**: *`boolean`*
 
-*Defined in [interfaces/upload_file_params.ts:13](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L13)*
+*Defined in [interfaces/upload_file_params.ts:13](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L13)*
 
 ___
 <a id="convert_placeholder"></a>
@@ -51,7 +51,7 @@ ___
 
 **● convert_placeholder**: *`string`*
 
-*Defined in [interfaces/upload_file_params.ts:5](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L5)*
+*Defined in [interfaces/upload_file_params.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L5)*
 
 ___
 <a id="data"></a>
@@ -60,7 +60,7 @@ ___
 
 **● data**: *`string`*
 
-*Defined in [interfaces/upload_file_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L2)*
+*Defined in [interfaces/upload_file_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L2)*
 
 ___
 <a id="detect_icu_plurals"></a>
@@ -69,7 +69,7 @@ ___
 
 **● detect_icu_plurals**: *`boolean`*
 
-*Defined in [interfaces/upload_file_params.ts:6](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L6)*
+*Defined in [interfaces/upload_file_params.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L6)*
 
 ___
 <a id="filename"></a>
@@ -78,7 +78,7 @@ ___
 
 **● filename**: *`string`*
 
-*Defined in [interfaces/upload_file_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L3)*
+*Defined in [interfaces/upload_file_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L3)*
 
 ___
 <a id="hidden_from_contributors"></a>
@@ -87,7 +87,7 @@ ___
 
 **● hidden_from_contributors**: *`boolean`*
 
-*Defined in [interfaces/upload_file_params.ts:12](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L12)*
+*Defined in [interfaces/upload_file_params.ts:12](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L12)*
 
 ___
 <a id="keys_to_values"></a>
@@ -96,7 +96,7 @@ ___
 
 **● keys_to_values**: *`boolean`*
 
-*Defined in [interfaces/upload_file_params.ts:10](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L10)*
+*Defined in [interfaces/upload_file_params.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L10)*
 
 ___
 <a id="lang_iso"></a>
@@ -105,7 +105,7 @@ ___
 
 **● lang_iso**: *`string`*
 
-*Defined in [interfaces/upload_file_params.ts:4](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L4)*
+*Defined in [interfaces/upload_file_params.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L4)*
 
 ___
 <a id="replace_modified"></a>
@@ -114,7 +114,7 @@ ___
 
 **● replace_modified**: *`boolean`*
 
-*Defined in [interfaces/upload_file_params.ts:8](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L8)*
+*Defined in [interfaces/upload_file_params.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L8)*
 
 ___
 <a id="slashn_to_linebreak"></a>
@@ -123,7 +123,7 @@ ___
 
 **● slashn_to_linebreak**: *`boolean`*
 
-*Defined in [interfaces/upload_file_params.ts:9](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L9)*
+*Defined in [interfaces/upload_file_params.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L9)*
 
 ___
 <a id="tags"></a>
@@ -132,7 +132,7 @@ ___
 
 **● tags**: *`any`[]*
 
-*Defined in [interfaces/upload_file_params.ts:7](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/upload_file_params.ts#L7)*
+*Defined in [interfaces/upload_file_params.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/upload_file_params.ts#L7)*
 
 ___
 

@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["interfaces/file_params"](../modules/_interfaces_file_params_.md)
+[lokalise](../README.md) > ["interfaces/file_params"](../modules/_interfaces_file_params_.md)
 
 # External module: "interfaces/file_params"
 

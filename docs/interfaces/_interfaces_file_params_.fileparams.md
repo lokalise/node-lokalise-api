@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["interfaces/file_params"](../modules/_interfaces_file_params_.md) > [FileParams](../interfaces/_interfaces_file_params_.fileparams.md)
+[lokalise](../README.md) > ["interfaces/file_params"](../modules/_interfaces_file_params_.md) > [FileParams](../interfaces/_interfaces_file_params_.fileparams.md)
 
 # Interface: FileParams
 
@@ -29,7 +29,7 @@
 
 **● filter_filename**: *`string`*
 
-*Defined in [interfaces/file_params.ts:4](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/file_params.ts#L4)*
+*Defined in [interfaces/file_params.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/file_params.ts#L4)*
 
 ___
 <a id="limit"></a>
@@ -40,7 +40,7 @@ ___
 
 *Inherited from [StandartParams](_interfaces_standart_params_.standartparams.md).[limit](_interfaces_standart_params_.standartparams.md#limit)*
 
-*Defined in [interfaces/standart_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/standart_params.ts#L3)*
+*Defined in [interfaces/standart_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/standart_params.ts#L3)*
 
 ___
 <a id="page"></a>
@@ -51,7 +51,7 @@ ___
 
 *Inherited from [StandartParams](_interfaces_standart_params_.standartparams.md).[page](_interfaces_standart_params_.standartparams.md#page)*
 
-*Defined in [interfaces/standart_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/standart_params.ts#L2)*
+*Defined in [interfaces/standart_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/standart_params.ts#L2)*
 
 ___
 

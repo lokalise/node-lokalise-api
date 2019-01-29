@@ -3,6 +3,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const api_methods_1 = require("./api_methods");
 // 
 class LokaliseApi extends api_methods_1.LocaliseApiMethods {
+    /**
+     * Instantiate LokaliseApi to have access to methods
+     * @param apiKey  text, mandaratory
+     * @returns       LokaliseApi object to work with.
+     */
     constructor(apiKey) {
         super();
         LokaliseApi.apiKey = apiKey;

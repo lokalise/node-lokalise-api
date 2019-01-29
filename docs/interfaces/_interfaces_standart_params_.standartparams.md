@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["interfaces/standart_params"](../modules/_interfaces_standart_params_.md) > [StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)
+[lokalise](../README.md) > ["interfaces/standart_params"](../modules/_interfaces_standart_params_.md) > [StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)
 
 # Interface: StandartParams
 
@@ -28,7 +28,7 @@
 
 **● limit**: *`number`*
 
-*Defined in [interfaces/standart_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/standart_params.ts#L3)*
+*Defined in [interfaces/standart_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/standart_params.ts#L3)*
 
 ___
 <a id="page"></a>
@@ -37,7 +37,7 @@ ___
 
 **● page**: *`number`*
 
-*Defined in [interfaces/standart_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/standart_params.ts#L2)*
+*Defined in [interfaces/standart_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/standart_params.ts#L2)*
 
 ___
 

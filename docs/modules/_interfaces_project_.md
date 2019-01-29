@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["interfaces/project"](../modules/_interfaces_project_.md)
+[lokalise](../README.md) > ["interfaces/project"](../modules/_interfaces_project_.md)
 
 # External module: "interfaces/project"
 

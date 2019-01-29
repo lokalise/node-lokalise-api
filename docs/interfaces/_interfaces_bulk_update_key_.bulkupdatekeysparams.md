@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["interfaces/bulk_update_key"](../modules/_interfaces_bulk_update_key_.md) > [BulkUpdateKeysParams](../interfaces/_interfaces_bulk_update_key_.bulkupdatekeysparams.md)
+[lokalise](../README.md) > ["interfaces/bulk_update_key"](../modules/_interfaces_bulk_update_key_.md) > [BulkUpdateKeysParams](../interfaces/_interfaces_bulk_update_key_.bulkupdatekeysparams.md)
 
 # Interface: BulkUpdateKeysParams
 
@@ -22,7 +22,7 @@
 
 **● keys**: *[Key](_interfaces_key_.key.md)[]*
 
-*Defined in [interfaces/bulk_update_key.ts:4](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/interfaces/bulk_update_key.ts#L4)*
+*Defined in [interfaces/bulk_update_key.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/bulk_update_key.ts#L4)*
 
 ___
 

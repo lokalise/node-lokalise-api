@@ -8,16 +8,19 @@
     "url": "git+https://github.com/lokalise/node-lokalise-api.git"
   },
   "scripts": {
+    "build": "tsc",
     "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "doc": "typedoc --theme markdown --ignoreCompilerErrors --out ./docs --exclude '**/{node_modules, typings,dist,test,}/**/*' --excludeExternals ./src"
+    "doc": "typedoc --theme markdown --name lokalise --tsconfig tsconfig.json --ignoreCompilerErrors --out ./docs --exclude '**/{node_modules, typings,dist,test,}/**/*' --excludePrivate --excludeNotExported --excludePrivate --excludeNotExported ./src"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
+    "@types/express": "^4.16.1",
     "@types/mocha": "^5.2.5",
     "@types/node": "^10.12.18",
     "eslint": "^3.19.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^1.16.0",
+    "express": "^4.16.4",
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "mocha-tape-deck": "0.0.9",

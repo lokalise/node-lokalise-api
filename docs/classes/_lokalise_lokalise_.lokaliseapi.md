@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["lokalise/lokalise"](../modules/_lokalise_lokalise_.md) > [LokaliseApi](../classes/_lokalise_lokalise_.lokaliseapi.md)
+[lokalise](../README.md) > ["lokalise/lokalise"](../modules/_lokalise_lokalise_.md) > [LokaliseApi](../classes/_lokalise_lokalise_.lokaliseapi.md)
 
 # Class: LokaliseApi
 
@@ -29,7 +29,6 @@
 * [teamUsers](_lokalise_lokalise_.lokaliseapi.md#teamusers)
 * [translations](_lokalise_lokalise_.lokaliseapi.md#translations)
 * [userGroups](_lokalise_lokalise_.lokaliseapi.md#usergroups)
-* [_instance](_lokalise_lokalise_.lokaliseapi.md#_instance)
 * [apiKey](_lokalise_lokalise_.lokaliseapi.md#apikey-1)
 
 ---
@@ -42,15 +41,18 @@
 
 ⊕ **new LokaliseApi**(apiKey: *`string`*): [LokaliseApi](_lokalise_lokalise_.lokaliseapi.md)
 
-*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/lokalise.ts#L7)*
+*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/lokalise.ts#L7)*
+
+Instantiate LokaliseApi to have access to methods
 
 **Parameters:**
 
-| Name | Type |
-| ------ | ------ |
-| apiKey | `string` |
+| Name | Type | Description |
+| ------ | ------ | ------ |
+| apiKey | `string` |  text, mandaratory |
 
 **Returns:** [LokaliseApi](_lokalise_lokalise_.lokaliseapi.md)
+LokaliseApi object to work with.
 
 ___
 
@@ -62,148 +64,139 @@ ___
 
 **● apiKey**: *`string`*
 
-*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/lokalise.ts#L7)*
+*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/lokalise.ts#L7)*
 
 ___
 <a id="comments"></a>
 
 ###  comments
 
-**● comments**: *[Comments](_models_comments_.comments.md)* =  new Models.Comments()
+**● comments**: *[Comments](_collections_comments_.comments.md)* =  new Collectons.Comments()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[comments](_lokalise_api_methods_.localiseapimethods.md#comments)*
 
-*Defined in [lokalise/api_methods.ts:6](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L6)*
+*Defined in [lokalise/api_methods.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L5)*
 
 ___
 <a id="contributors"></a>
 
 ###  contributors
 
-**● contributors**: *[Contributors](_models_contributors_.contributors.md)* =  new Models.Contributors()
+**● contributors**: *[Contributors](_collections_contributors_.contributors.md)* =  new Collectons.Contributors()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[contributors](_lokalise_api_methods_.localiseapimethods.md#contributors)*
 
-*Defined in [lokalise/api_methods.ts:7](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L7)*
+*Defined in [lokalise/api_methods.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L6)*
 
 ___
 <a id="files"></a>
 
 ###  files
 
-**● files**: *[Files](_models_files_.files.md)* =  new Models.Files()
+**● files**: *[Files](_collections_files_.files.md)* =  new Collectons.Files()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[files](_lokalise_api_methods_.localiseapimethods.md#files)*
 
-*Defined in [lokalise/api_methods.ts:8](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L8)*
+*Defined in [lokalise/api_methods.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L7)*
 
 ___
 <a id="keys"></a>
 
 ###  keys
 
-**● keys**: *[Keys](_models_keys_.keys.md)* =  new Models.Keys()
+**● keys**: *[Keys](_collections_keys_.keys.md)* =  new Collectons.Keys()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[keys](_lokalise_api_methods_.localiseapimethods.md#keys)*
 
-*Defined in [lokalise/api_methods.ts:9](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L9)*
+*Defined in [lokalise/api_methods.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L8)*
 
 ___
 <a id="languages"></a>
 
 ###  languages
 
-**● languages**: *[Languages](_models_languages_.languages.md)* =  new Models.Languages()
+**● languages**: *[Languages](_collections_languages_.languages.md)* =  new Collectons.Languages()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[languages](_lokalise_api_methods_.localiseapimethods.md#languages)*
 
-*Defined in [lokalise/api_methods.ts:10](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L10)*
+*Defined in [lokalise/api_methods.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L9)*
 
 ___
 <a id="projects"></a>
 
 ###  projects
 
-**● projects**: *[Projects](_models_projects_.projects.md)* =  new Models.Projects()
+**● projects**: *[Projects](_collections_projects_.projects.md)* =  new Collectons.Projects()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[projects](_lokalise_api_methods_.localiseapimethods.md#projects)*
 
-*Defined in [lokalise/api_methods.ts:11](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L11)*
+*Defined in [lokalise/api_methods.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L10)*
 
 ___
 <a id="screenshots"></a>
 
 ###  screenshots
 
-**● screenshots**: *[Screenshots](_models_screenshots_.screenshots.md)* =  new Models.Screenshots()
+**● screenshots**: *[Screenshots](_collections_screenshots_.screenshots.md)* =  new Collectons.Screenshots()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[screenshots](_lokalise_api_methods_.localiseapimethods.md#screenshots)*
 
-*Defined in [lokalise/api_methods.ts:12](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L12)*
+*Defined in [lokalise/api_methods.ts:11](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L11)*
 
 ___
 <a id="snapshots"></a>
 
 ###  snapshots
 
-**● snapshots**: *[Snapshots](_models_snapshots_.snapshots.md)* =  new Models.Snapshots()
+**● snapshots**: *[Snapshots](_collections_snapshots_.snapshots.md)* =  new Collectons.Snapshots()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[snapshots](_lokalise_api_methods_.localiseapimethods.md#snapshots)*
 
-*Defined in [lokalise/api_methods.ts:13](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L13)*
+*Defined in [lokalise/api_methods.ts:12](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L12)*
 
 ___
 <a id="tasks"></a>
 
 ###  tasks
 
-**● tasks**: *[Tasks](_models_tasks_.tasks.md)* =  new Models.Tasks()
+**● tasks**: *[Tasks](_collections_tasks_.tasks.md)* =  new Collectons.Tasks()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[tasks](_lokalise_api_methods_.localiseapimethods.md#tasks)*
 
-*Defined in [lokalise/api_methods.ts:14](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L14)*
+*Defined in [lokalise/api_methods.ts:13](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L13)*
 
 ___
 <a id="teamusers"></a>
 
 ###  teamUsers
 
-**● teamUsers**: *[TeamUsers](_models_team_users_.teamusers.md)* =  new Models.TeamUsers()
+**● teamUsers**: *[TeamUsers](_collections_team_users_.teamusers.md)* =  new Collectons.TeamUsers()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[teamUsers](_lokalise_api_methods_.localiseapimethods.md#teamusers)*
 
-*Defined in [lokalise/api_methods.ts:15](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L15)*
+*Defined in [lokalise/api_methods.ts:14](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L14)*
 
 ___
 <a id="translations"></a>
 
 ###  translations
 
-**● translations**: *[Translations](_models_translations_.translations.md)* =  new Models.Translations()
+**● translations**: *[Translations](_collections_translations_.translations.md)* =  new Collectons.Translations()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[translations](_lokalise_api_methods_.localiseapimethods.md#translations)*
 
-*Defined in [lokalise/api_methods.ts:17](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L17)*
+*Defined in [lokalise/api_methods.ts:16](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L16)*
 
 ___
 <a id="usergroups"></a>
 
 ###  userGroups
 
-**● userGroups**: *[UserGroups](_models_user_groups_.usergroups.md)* =  new Models.UserGroups()
+**● userGroups**: *[UserGroups](_collections_user_groups_.usergroups.md)* =  new Collectons.UserGroups()
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[userGroups](_lokalise_api_methods_.localiseapimethods.md#usergroups)*
 
-*Defined in [lokalise/api_methods.ts:16](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/api_methods.ts#L16)*
-
-___
-<a id="_instance"></a>
-
-### `<Static>``<Private>` _instance
-
-**● _instance**: *[LokaliseApi](_lokalise_lokalise_.lokaliseapi.md)*
-
-*Defined in [lokalise/lokalise.ts:5](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/lokalise.ts#L5)*
+*Defined in [lokalise/api_methods.ts:15](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/api_methods.ts#L15)*
 
 ___
 <a id="apikey-1"></a>
@@ -212,7 +205,7 @@ ___
 
 **● apiKey**: *`string`* =  null
 
-*Defined in [lokalise/lokalise.ts:4](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/lokalise/lokalise.ts#L4)*
+*Defined in [lokalise/lokalise.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/lokalise/lokalise.ts#L4)*
 
 ___
 

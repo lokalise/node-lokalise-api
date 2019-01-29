@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["http_client/base"](../modules/_http_client_base_.md) > [ApiRequest](../classes/_http_client_base_.apirequest.md)
+[lokalise](../README.md) > ["http_client/base"](../modules/_http_client_base_.md) > [ApiRequest](../classes/_http_client_base_.apirequest.md)
 
 # Class: ApiRequest
 
@@ -16,7 +16,6 @@
 
 * [params](_http_client_base_.apirequest.md#params)
 * [promise](_http_client_base_.apirequest.md#promise)
-* [urlRoot](_http_client_base_.apirequest.md#urlroot)
 
 ### Methods
 
@@ -35,7 +34,7 @@
 
 ⊕ **new ApiRequest**(uri: *`any`*, method: *`any`*, body?: *`any`*, params?: *`object`*): [ApiRequest](_http_client_base_.apirequest.md)
 
-*Defined in [http_client/base.ts:8](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L8)*
+*Defined in [http_client/base.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/http_client/base.ts#L8)*
 
 **Parameters:**
 
@@ -58,7 +57,7 @@ ___
 
 **● params**: *`any`*
 
-*Defined in [http_client/base.ts:8](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L8)*
+*Defined in [http_client/base.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/http_client/base.ts#L8)*
 
 ___
 <a id="promise"></a>
@@ -67,16 +66,7 @@ ___
 
 **● promise**: *`Promise`<`Object`>*
 
-*Defined in [http_client/base.ts:7](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L7)*
-
-___
-<a id="urlroot"></a>
-
-### `<Private>` urlRoot
-
-**● urlRoot**: *`string`* = "https://api.lokalise.co/api2/"
-
-*Defined in [http_client/base.ts:6](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L6)*
+*Defined in [http_client/base.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/http_client/base.ts#L7)*
 
 ___
 
@@ -88,7 +78,7 @@ ___
 
 ▸ **composeURI**(uri: *`any`*): `any`
 
-*Defined in [http_client/base.ts:46](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L46)*
+*Defined in [http_client/base.ts:44](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/http_client/base.ts#L44)*
 
 **Parameters:**
 
@@ -105,7 +95,7 @@ ___
 
 ▸ **constructParameters**(method: *`any`*, params: *`any`*): `void`
 
-*Defined in [http_client/base.ts:69](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L69)*
+*Defined in [http_client/base.ts:65](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/http_client/base.ts#L65)*
 
 **Parameters:**
 
@@ -123,7 +113,7 @@ ___
 
 ▸ **createPromise**(uri: *`any`*, method: *`any`*, body: *`any`*): `Promise`<`Object`>
 
-*Defined in [http_client/base.ts:17](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L17)*
+*Defined in [http_client/base.ts:17](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/http_client/base.ts#L17)*
 
 **Parameters:**
 
@@ -142,7 +132,7 @@ ___
 
 ▸ **mapUriParams**(params: *`any`*): `(Anonymous function)`
 
-*Defined in [http_client/base.ts:53](https://github.com/lokalise/node-lokalise-api/blob/0885602/src/http_client/base.ts#L53)*
+*Defined in [http_client/base.ts:50](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/http_client/base.ts#L50)*
 
 **Parameters:**
 

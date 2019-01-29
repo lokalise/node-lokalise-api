@@ -18,8 +18,8 @@ export class Files extends BaseCollection {
                        upload, 'projects/{!:project_id}/files/upload');
   }
 
-  download(download: DownloadFileParams) {
-    return this.createPromise('POST', {id: 'upload'}, this.returnBareJSON, this.handleReject, 
+  download(project_id: string, download: DownloadFileParams) {
+    return this.createPromise('POST', { project_id: project_id }, this.returnBareJSON, this.handleReject, 
                        download, 'projects/{!:project_id}/files/download');
   }
 }

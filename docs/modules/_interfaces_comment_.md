@@ -1,4 +1,4 @@
-[lokalise-api](../README.md) > ["interfaces/comment"](../modules/_interfaces_comment_.md)
+[lokalise](../README.md) > ["interfaces/comment"](../modules/_interfaces_comment_.md)
 
 # External module: "interfaces/comment"
 
