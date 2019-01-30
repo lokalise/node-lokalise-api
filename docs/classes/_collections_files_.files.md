@@ -45,7 +45,7 @@
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[elementClass](_collections_base_collection_.basecollection.md#elementclass)*
 
-*Defined in [collections/base_collection.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L8)*
+*Defined in [collections/base_collection.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L8)*
 
 ___
 <a id="endpoint"></a>
@@ -56,7 +56,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[endpoint](_collections_base_collection_.basecollection.md#endpoint)*
 
-*Defined in [collections/base_collection.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L6)*
+*Defined in [collections/base_collection.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L6)*
 
 ___
 <a id="memberclass"></a>
@@ -65,7 +65,7 @@ ___
 
 **● memberClass**: *`Object`* =  File
 
-*Defined in [collections/files.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/files.ts#L10)*
+*Defined in [collections/files.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/files.ts#L10)*
 
 ___
 <a id="prefixuri"></a>
@@ -76,7 +76,7 @@ ___
 
 *Overrides [BaseCollection](_collections_base_collection_.basecollection.md).[prefixURI](_collections_base_collection_.basecollection.md#prefixuri)*
 
-*Defined in [collections/files.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/files.ts#L9)*
+*Defined in [collections/files.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/files.ts#L9)*
 
 ___
 <a id="rootelementname"></a>
@@ -87,7 +87,7 @@ ___
 
 *Overrides [BaseCollection](_collections_base_collection_.basecollection.md).[rootElementName](_collections_base_collection_.basecollection.md#rootelementname)*
 
-*Defined in [collections/files.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/files.ts#L8)*
+*Defined in [collections/files.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/files.ts#L8)*
 
 ___
 
@@ -101,7 +101,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[create](_collections_base_collection_.basecollection.md#create)*
 
-*Defined in [collections/base_collection.ts:18](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L18)*
+*Defined in [collections/base_collection.ts:18](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L18)*
 
 **Parameters:**
 
@@ -121,7 +121,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[createPromise](_collections_base_collection_.basecollection.md#createpromise)*
 
-*Defined in [collections/base_collection.ts:53](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L53)*
+*Defined in [collections/base_collection.ts:55](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L55)*
 
 **Parameters:**
 
@@ -145,7 +145,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[delete](_collections_base_collection_.basecollection.md#delete)*
 
-*Defined in [collections/base_collection.ts:26](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L26)*
+*Defined in [collections/base_collection.ts:27](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L27)*
 
 **Parameters:**
 
@@ -161,14 +161,15 @@ ___
 
 ###  download
 
-▸ **download**(download: *[DownloadFileParams](../interfaces/_interfaces_download_file_params_.downloadfileparams.md)*): `Promise`<`any`>
+▸ **download**(project_id: *`string`*, download: *[DownloadFileParams](../interfaces/_interfaces_download_file_params_.downloadfileparams.md)*): `Promise`<`any`>
 
-*Defined in [collections/files.ts:21](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/files.ts#L21)*
+*Defined in [collections/files.ts:21](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/files.ts#L21)*
 
 **Parameters:**
 
 | Name | Type |
 | ------ | ------ |
+| project_id | `string` |
 | download | [DownloadFileParams](../interfaces/_interfaces_download_file_params_.downloadfileparams.md) |
 
 **Returns:** `Promise`<`any`>
@@ -182,7 +183,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[get](_collections_base_collection_.basecollection.md#get)*
 
-*Defined in [collections/base_collection.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L10)*
+*Defined in [collections/base_collection.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L10)*
 
 **Parameters:**
 
@@ -203,7 +204,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[handleReject](_collections_base_collection_.basecollection.md#handlereject)*
 
-*Defined in [collections/base_collection.ts:49](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L49)*
+*Defined in [collections/base_collection.ts:51](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L51)*
 
 **Parameters:**
 
@@ -222,7 +223,7 @@ ___
 
 *Overrides [BaseCollection](_collections_base_collection_.basecollection.md).[list](_collections_base_collection_.basecollection.md#list)*
 
-*Defined in [collections/files.ts:12](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/files.ts#L12)*
+*Defined in [collections/files.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/files.ts#L12)*
 
 **Parameters:**
 
@@ -241,7 +242,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[populateArrayFromJson](_collections_base_collection_.basecollection.md#populatearrayfromjson)*
 
-*Defined in [collections/base_collection.ts:35](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L35)*
+*Defined in [collections/base_collection.ts:37](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L37)*
 
 **Parameters:**
 
@@ -260,7 +261,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[populateObjectFromJson](_collections_base_collection_.basecollection.md#populateobjectfromjson)*
 
-*Defined in [collections/base_collection.ts:30](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L30)*
+*Defined in [collections/base_collection.ts:32](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L32)*
 
 **Parameters:**
 
@@ -279,7 +280,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[returnBareJSON](_collections_base_collection_.basecollection.md#returnbarejson)*
 
-*Defined in [collections/base_collection.ts:45](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L45)*
+*Defined in [collections/base_collection.ts:47](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L47)*
 
 **Parameters:**
 
@@ -298,7 +299,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[update](_collections_base_collection_.basecollection.md#update)*
 
-*Defined in [collections/base_collection.ts:22](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L22)*
+*Defined in [collections/base_collection.ts:22](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L22)*
 
 **Parameters:**
 
@@ -317,7 +318,7 @@ ___
 
 ▸ **upload**(project_id: *`string`*, upload: *[UploadFileParams](../interfaces/_interfaces_upload_file_params_.uploadfileparams.md)*): `Promise`<`any`>
 
-*Defined in [collections/files.ts:16](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/files.ts#L16)*
+*Defined in [collections/files.ts:16](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/files.ts#L16)*
 
 **Parameters:**
 

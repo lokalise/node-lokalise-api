@@ -64,7 +64,7 @@
 
 **● elementClass**: *`any`* =  null
 
-*Defined in [collections/base_collection.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L8)*
+*Defined in [collections/base_collection.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L8)*
 
 ___
 <a id="endpoint"></a>
@@ -73,7 +73,7 @@ ___
 
 **● endpoint**: *`string`* =  null
 
-*Defined in [collections/base_collection.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L6)*
+*Defined in [collections/base_collection.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L6)*
 
 ___
 <a id="prefixuri"></a>
@@ -82,7 +82,7 @@ ___
 
 **● prefixURI**: *`string`* =  null
 
-*Defined in [collections/base_collection.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L7)*
+*Defined in [collections/base_collection.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L7)*
 
 ___
 <a id="rootelementname"></a>
@@ -91,7 +91,7 @@ ___
 
 **● rootElementName**: *`string`* =  null
 
-*Defined in [collections/base_collection.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L5)*
+*Defined in [collections/base_collection.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L5)*
 
 ___
 
@@ -103,7 +103,7 @@ ___
 
 ▸ **create**(body: *`any`*, params?: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*): `Promise`<`any`>
 
-*Defined in [collections/base_collection.ts:18](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L18)*
+*Defined in [collections/base_collection.ts:18](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L18)*
 
 **Parameters:**
 
@@ -121,7 +121,7 @@ ___
 
 ▸ **createPromise**(method: *`any`*, params: *`any`*, resolveFn: *`any`*, rejectFn?: *[handleReject](_collections_base_collection_.basecollection.md#handlereject)*, body?: *`any`*, uri?: *`any`*): `Promise`<`any`>
 
-*Defined in [collections/base_collection.ts:53](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L53)*
+*Defined in [collections/base_collection.ts:55](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L55)*
 
 **Parameters:**
 
@@ -143,7 +143,7 @@ ___
 
 ▸ **delete**(id: *`any`*, params?: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*): `Promise`<`any`>
 
-*Defined in [collections/base_collection.ts:26](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L26)*
+*Defined in [collections/base_collection.ts:27](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L27)*
 
 **Parameters:**
 
@@ -161,7 +161,7 @@ ___
 
 ▸ **get**(id: *`any`*, params?: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*, body?: *`any`*): `Promise`<`any`>
 
-*Defined in [collections/base_collection.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L10)*
+*Defined in [collections/base_collection.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L10)*
 
 **Parameters:**
 
@@ -180,7 +180,7 @@ ___
 
 ▸ **handleReject**(data: *`any`*): `any`
 
-*Defined in [collections/base_collection.ts:49](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L49)*
+*Defined in [collections/base_collection.ts:51](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L51)*
 
 **Parameters:**
 
@@ -197,7 +197,7 @@ ___
 
 ▸ **list**(params?: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*): `Promise`<`any`[]>
 
-*Defined in [collections/base_collection.ts:14](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L14)*
+*Defined in [collections/base_collection.ts:14](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L14)*
 
 **Parameters:**
 
@@ -214,7 +214,7 @@ ___
 
 ▸ **populateArrayFromJson**(json: *`Array`<`any`>*): `this`[]
 
-*Defined in [collections/base_collection.ts:35](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L35)*
+*Defined in [collections/base_collection.ts:37](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L37)*
 
 **Parameters:**
 
@@ -231,7 +231,7 @@ ___
 
 ▸ **populateObjectFromJson**(json: *`Object`*): `this`
 
-*Defined in [collections/base_collection.ts:30](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L30)*
+*Defined in [collections/base_collection.ts:32](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L32)*
 
 **Parameters:**
 
@@ -248,7 +248,7 @@ ___
 
 ▸ **returnBareJSON**(json: *`any`*): `any`
 
-*Defined in [collections/base_collection.ts:45](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L45)*
+*Defined in [collections/base_collection.ts:47](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L47)*
 
 **Parameters:**
 
@@ -265,7 +265,7 @@ ___
 
 ▸ **update**(id: *`any`*, body: *`any`*, params?: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*): `Promise`<`any`>
 
-*Defined in [collections/base_collection.ts:22](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L22)*
+*Defined in [collections/base_collection.ts:22](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L22)*
 
 **Parameters:**
 

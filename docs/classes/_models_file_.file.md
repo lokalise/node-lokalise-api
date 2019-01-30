@@ -31,7 +31,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -51,7 +51,7 @@ ___
 
 **● filename**: *`string`*
 
-*Defined in [models/file.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/file.ts#L7)*
+*Defined in [models/file.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/file.ts#L7)*
 
 ___
 <a id="key_count"></a>
@@ -60,7 +60,7 @@ ___
 
 **● key_count**: *`number`*
 
-*Defined in [models/file.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/file.ts#L8)*
+*Defined in [models/file.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/file.ts#L8)*
 
 ___
 

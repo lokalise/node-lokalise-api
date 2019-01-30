@@ -19,6 +19,7 @@
 
 ### Methods
 
+* [bulk_delete](_collections_keys_.keys.md#bulk_delete)
 * [bulk_update](_collections_keys_.keys.md#bulk_update)
 * [create](_collections_keys_.keys.md#create)
 * [createPromise](_collections_keys_.keys.md#createpromise)
@@ -43,7 +44,7 @@
 
 *Overrides [BaseCollection](_collections_base_collection_.basecollection.md).[elementClass](_collections_base_collection_.basecollection.md#elementclass)*
 
-*Defined in [collections/keys.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/keys.ts#L8)*
+*Defined in [collections/keys.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/keys.ts#L9)*
 
 ___
 <a id="endpoint"></a>
@@ -54,7 +55,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[endpoint](_collections_base_collection_.basecollection.md#endpoint)*
 
-*Defined in [collections/base_collection.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L6)*
+*Defined in [collections/base_collection.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L6)*
 
 ___
 <a id="prefixuri"></a>
@@ -65,7 +66,7 @@ ___
 
 *Overrides [BaseCollection](_collections_base_collection_.basecollection.md).[prefixURI](_collections_base_collection_.basecollection.md#prefixuri)*
 
-*Defined in [collections/keys.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/keys.ts#L7)*
+*Defined in [collections/keys.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/keys.ts#L8)*
 
 ___
 <a id="rootelementname"></a>
@@ -76,28 +77,46 @@ ___
 
 *Overrides [BaseCollection](_collections_base_collection_.basecollection.md).[rootElementName](_collections_base_collection_.basecollection.md#rootelementname)*
 
-*Defined in [collections/keys.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/keys.ts#L6)*
+*Defined in [collections/keys.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/keys.ts#L7)*
 
 ___
 
 ## Methods
 
-<a id="bulk_update"></a>
+<a id="bulk_delete"></a>
 
-###  bulk_update
+###  bulk_delete
 
-▸ **bulk_update**(project_id: *`string`*, keys: *[BulkUpdateKeysParams](../interfaces/_interfaces_bulk_update_key_.bulkupdatekeysparams.md)*): `void`
+▸ **bulk_delete**(keys: *`number`[] | `string`[]*, params: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*): `any`
 
-*Defined in [collections/keys.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/keys.ts#L10)*
+*Defined in [collections/keys.ts:21](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/keys.ts#L21)*
 
 **Parameters:**
 
 | Name | Type |
 | ------ | ------ |
-| project_id | `string` |
-| keys | [BulkUpdateKeysParams](../interfaces/_interfaces_bulk_update_key_.bulkupdatekeysparams.md) |
+| keys | `number`[] | `string`[] |
+| params | [StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md) |
 
-**Returns:** `void`
+**Returns:** `any`
+
+___
+<a id="bulk_update"></a>
+
+###  bulk_update
+
+▸ **bulk_update**(keys: *[BulkUpdateKeysParams](../interfaces/_interfaces_bulk_update_key_.bulkupdatekeysparams.md)*, params: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*): `Promise`<`any`>
+
+*Defined in [collections/keys.ts:16](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/keys.ts#L16)*
+
+**Parameters:**
+
+| Name | Type |
+| ------ | ------ |
+| keys | [BulkUpdateKeysParams](../interfaces/_interfaces_bulk_update_key_.bulkupdatekeysparams.md) |
+| params | [StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md) |
+
+**Returns:** `Promise`<`any`>
 
 ___
 <a id="create"></a>
@@ -106,9 +125,9 @@ ___
 
 ▸ **create**(body: *`any`*, params?: *[StandartParams](../interfaces/_interfaces_standart_params_.standartparams.md)*): `Promise`<`any`>
 
-*Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[create](_collections_base_collection_.basecollection.md#create)*
+*Overrides [BaseCollection](_collections_base_collection_.basecollection.md).[create](_collections_base_collection_.basecollection.md#create)*
 
-*Defined in [collections/base_collection.ts:18](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L18)*
+*Defined in [collections/keys.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/keys.ts#L12)*
 
 **Parameters:**
 
@@ -128,7 +147,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[createPromise](_collections_base_collection_.basecollection.md#createpromise)*
 
-*Defined in [collections/base_collection.ts:53](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L53)*
+*Defined in [collections/base_collection.ts:55](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L55)*
 
 **Parameters:**
 
@@ -152,7 +171,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[delete](_collections_base_collection_.basecollection.md#delete)*
 
-*Defined in [collections/base_collection.ts:26](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L26)*
+*Defined in [collections/base_collection.ts:27](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L27)*
 
 **Parameters:**
 
@@ -172,7 +191,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[get](_collections_base_collection_.basecollection.md#get)*
 
-*Defined in [collections/base_collection.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L10)*
+*Defined in [collections/base_collection.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L10)*
 
 **Parameters:**
 
@@ -193,7 +212,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[handleReject](_collections_base_collection_.basecollection.md#handlereject)*
 
-*Defined in [collections/base_collection.ts:49](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L49)*
+*Defined in [collections/base_collection.ts:51](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L51)*
 
 **Parameters:**
 
@@ -212,7 +231,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[list](_collections_base_collection_.basecollection.md#list)*
 
-*Defined in [collections/base_collection.ts:14](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L14)*
+*Defined in [collections/base_collection.ts:14](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L14)*
 
 **Parameters:**
 
@@ -231,7 +250,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[populateArrayFromJson](_collections_base_collection_.basecollection.md#populatearrayfromjson)*
 
-*Defined in [collections/base_collection.ts:35](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L35)*
+*Defined in [collections/base_collection.ts:37](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L37)*
 
 **Parameters:**
 
@@ -250,7 +269,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[populateObjectFromJson](_collections_base_collection_.basecollection.md#populateobjectfromjson)*
 
-*Defined in [collections/base_collection.ts:30](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L30)*
+*Defined in [collections/base_collection.ts:32](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L32)*
 
 **Parameters:**
 
@@ -269,7 +288,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[returnBareJSON](_collections_base_collection_.basecollection.md#returnbarejson)*
 
-*Defined in [collections/base_collection.ts:45](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L45)*
+*Defined in [collections/base_collection.ts:47](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L47)*
 
 **Parameters:**
 
@@ -288,7 +307,7 @@ ___
 
 *Inherited from [BaseCollection](_collections_base_collection_.basecollection.md).[update](_collections_base_collection_.basecollection.md#update)*
 
-*Defined in [collections/base_collection.ts:22](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/collections/base_collection.ts#L22)*
+*Defined in [collections/base_collection.ts:22](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/collections/base_collection.ts#L22)*
 
 **Parameters:**
 

@@ -36,7 +36,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -56,7 +56,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [models/user_group.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/user_group.ts#L7)*
+*Defined in [models/user_group.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/user_group.ts#L7)*
 
 ___
 <a id="group_id"></a>
@@ -65,7 +65,7 @@ ___
 
 **● group_id**: *`number`*
 
-*Defined in [models/user_group.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/user_group.ts#L4)*
+*Defined in [models/user_group.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/user_group.ts#L4)*
 
 ___
 <a id="members"></a>
@@ -74,7 +74,7 @@ ___
 
 **● members**: *`string`[]*
 
-*Defined in [models/user_group.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/user_group.ts#L10)*
+*Defined in [models/user_group.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/user_group.ts#L10)*
 
 ___
 <a id="name"></a>
@@ -83,7 +83,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [models/user_group.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/user_group.ts#L5)*
+*Defined in [models/user_group.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/user_group.ts#L5)*
 
 ___
 <a id="permissions"></a>
@@ -92,7 +92,7 @@ ___
 
 **● permissions**: *`object`*
 
-*Defined in [models/user_group.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/user_group.ts#L6)*
+*Defined in [models/user_group.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/user_group.ts#L6)*
 
 ___
 <a id="projects"></a>
@@ -101,7 +101,7 @@ ___
 
 **● projects**: *`object`[]*
 
-*Defined in [models/user_group.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/user_group.ts#L9)*
+*Defined in [models/user_group.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/user_group.ts#L9)*
 
 ___
 <a id="team_id"></a>
@@ -110,7 +110,7 @@ ___
 
 **● team_id**: *`number`*
 
-*Defined in [models/user_group.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/user_group.ts#L8)*
+*Defined in [models/user_group.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/user_group.ts#L8)*
 
 ___
 

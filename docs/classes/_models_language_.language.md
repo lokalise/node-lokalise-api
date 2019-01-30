@@ -34,7 +34,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ ___
 
 **● is_rtl**: *`boolean`*
 
-*Defined in [models/language.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/language.ts#L9)*
+*Defined in [models/language.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/language.ts#L9)*
 
 ___
 <a id="lang_id"></a>
@@ -63,7 +63,7 @@ ___
 
 **● lang_id**: *`number`*
 
-*Defined in [models/language.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/language.ts#L6)*
+*Defined in [models/language.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/language.ts#L6)*
 
 ___
 <a id="lang_iso"></a>
@@ -72,7 +72,7 @@ ___
 
 **● lang_iso**: *`string`*
 
-*Defined in [models/language.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/language.ts#L7)*
+*Defined in [models/language.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/language.ts#L7)*
 
 ___
 <a id="lang_name"></a>
@@ -81,7 +81,7 @@ ___
 
 **● lang_name**: *`string`*
 
-*Defined in [models/language.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/language.ts#L8)*
+*Defined in [models/language.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/language.ts#L8)*
 
 ___
 <a id="plural_forms"></a>
@@ -90,7 +90,7 @@ ___
 
 **● plural_forms**: *`string`[]*
 
-*Defined in [models/language.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/language.ts#L10)*
+*Defined in [models/language.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/language.ts#L10)*
 
 ___
 

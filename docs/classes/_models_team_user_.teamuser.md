@@ -34,7 +34,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [models/team_user.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/team_user.ts#L7)*
+*Defined in [models/team_user.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team_user.ts#L7)*
 
 ___
 <a id="email"></a>
@@ -63,7 +63,7 @@ ___
 
 **● email**: *`string`*
 
-*Defined in [models/team_user.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/team_user.ts#L5)*
+*Defined in [models/team_user.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team_user.ts#L5)*
 
 ___
 <a id="fullname"></a>
@@ -72,7 +72,7 @@ ___
 
 **● fullname**: *`string`*
 
-*Defined in [models/team_user.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/team_user.ts#L6)*
+*Defined in [models/team_user.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team_user.ts#L6)*
 
 ___
 <a id="role"></a>
@@ -81,7 +81,7 @@ ___
 
 **● role**: *`string`*
 
-*Defined in [models/team_user.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/team_user.ts#L8)*
+*Defined in [models/team_user.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team_user.ts#L8)*
 
 ___
 <a id="user_id"></a>
@@ -90,7 +90,7 @@ ___
 
 **● user_id**: *`number`*
 
-*Defined in [models/team_user.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/team_user.ts#L4)*
+*Defined in [models/team_user.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team_user.ts#L4)*
 
 ___
 

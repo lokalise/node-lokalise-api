@@ -50,7 +50,7 @@
 
 **● all_platforms**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L6)*
+*Defined in [interfaces/download_file_params.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L6)*
 
 ___
 <a id="bundle_structure"></a>
@@ -59,7 +59,7 @@ ___
 
 **● bundle_structure**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L4)*
+*Defined in [interfaces/download_file_params.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L4)*
 
 ___
 <a id="directory_prefix"></a>
@@ -68,7 +68,7 @@ ___
 
 **● directory_prefix**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L5)*
+*Defined in [interfaces/download_file_params.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L5)*
 
 ___
 <a id="disable_references"></a>
@@ -77,7 +77,7 @@ ___
 
 **● disable_references**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:19](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L19)*
+*Defined in [interfaces/download_file_params.ts:19](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L19)*
 
 ___
 <a id="escape_percent"></a>
@@ -86,7 +86,7 @@ ___
 
 **● escape_percent**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:25](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L25)*
+*Defined in [interfaces/download_file_params.ts:25](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L25)*
 
 ___
 <a id="exclude_tags"></a>
@@ -95,7 +95,7 @@ ___
 
 **● exclude_tags**: *`any`[]*
 
-*Defined in [interfaces/download_file_params.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L10)*
+*Defined in [interfaces/download_file_params.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L10)*
 
 ___
 <a id="export_empty_as"></a>
@@ -104,7 +104,7 @@ ___
 
 **● export_empty_as**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:12](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L12)*
+*Defined in [interfaces/download_file_params.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L12)*
 
 ___
 <a id="export_sort"></a>
@@ -113,7 +113,7 @@ ___
 
 **● export_sort**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:11](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L11)*
+*Defined in [interfaces/download_file_params.ts:11](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L11)*
 
 ___
 <a id="filter_data"></a>
@@ -122,7 +122,7 @@ ___
 
 **● filter_data**: *`any`[]*
 
-*Defined in [interfaces/download_file_params.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L8)*
+*Defined in [interfaces/download_file_params.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L8)*
 
 ___
 <a id="filter_langs"></a>
@@ -131,7 +131,7 @@ ___
 
 **● filter_langs**: *`any`[]*
 
-*Defined in [interfaces/download_file_params.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L7)*
+*Defined in [interfaces/download_file_params.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L7)*
 
 ___
 <a id="filter_repositories"></a>
@@ -140,7 +140,7 @@ ___
 
 **● filter_repositories**: *`any`[]*
 
-*Defined in [interfaces/download_file_params.ts:17](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L17)*
+*Defined in [interfaces/download_file_params.ts:17](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L17)*
 
 ___
 <a id="format"></a>
@@ -149,7 +149,7 @@ ___
 
 **● format**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L2)*
+*Defined in [interfaces/download_file_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L2)*
 
 ___
 <a id="icu_numeric"></a>
@@ -158,7 +158,7 @@ ___
 
 **● icu_numeric**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:24](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L24)*
+*Defined in [interfaces/download_file_params.ts:24](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L24)*
 
 ___
 <a id="include_comments"></a>
@@ -167,7 +167,7 @@ ___
 
 **● include_comments**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:13](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L13)*
+*Defined in [interfaces/download_file_params.ts:13](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L13)*
 
 ___
 <a id="include_description"></a>
@@ -176,7 +176,7 @@ ___
 
 **● include_description**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:14](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L14)*
+*Defined in [interfaces/download_file_params.ts:14](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L14)*
 
 ___
 <a id="include_pids"></a>
@@ -185,7 +185,7 @@ ___
 
 **● include_pids**: *`any`[]*
 
-*Defined in [interfaces/download_file_params.ts:15](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L15)*
+*Defined in [interfaces/download_file_params.ts:15](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L15)*
 
 ___
 <a id="include_tags"></a>
@@ -194,7 +194,7 @@ ___
 
 **● include_tags**: *`any`[]*
 
-*Defined in [interfaces/download_file_params.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L9)*
+*Defined in [interfaces/download_file_params.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L9)*
 
 ___
 <a id="indentation"></a>
@@ -203,7 +203,7 @@ ___
 
 **● indentation**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:26](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L26)*
+*Defined in [interfaces/download_file_params.ts:26](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L26)*
 
 ___
 <a id="java_properties_encoding"></a>
@@ -212,7 +212,7 @@ ___
 
 **● java_properties_encoding**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:29](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L29)*
+*Defined in [interfaces/download_file_params.ts:29](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L29)*
 
 ___
 <a id="java_properties_separator"></a>
@@ -221,7 +221,7 @@ ___
 
 **● java_properties_separator**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:30](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L30)*
+*Defined in [interfaces/download_file_params.ts:30](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L30)*
 
 ___
 <a id="json_unescaped_slashes"></a>
@@ -230,7 +230,7 @@ ___
 
 **● json_unescaped_slashes**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:28](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L28)*
+*Defined in [interfaces/download_file_params.ts:28](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L28)*
 
 ___
 <a id="language_mapping"></a>
@@ -239,7 +239,7 @@ ___
 
 **● language_mapping**: *`object`*
 
-*Defined in [interfaces/download_file_params.ts:23](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L23)*
+*Defined in [interfaces/download_file_params.ts:23](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L23)*
 
 ___
 <a id="original_filenames"></a>
@@ -248,7 +248,7 @@ ___
 
 **● original_filenames**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L3)*
+*Defined in [interfaces/download_file_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L3)*
 
 ___
 <a id="placeholder_format"></a>
@@ -257,7 +257,7 @@ ___
 
 **● placeholder_format**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:21](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L21)*
+*Defined in [interfaces/download_file_params.ts:21](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L21)*
 
 ___
 <a id="plural_format"></a>
@@ -266,7 +266,7 @@ ___
 
 **● plural_format**: *`string`[]*
 
-*Defined in [interfaces/download_file_params.ts:20](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L20)*
+*Defined in [interfaces/download_file_params.ts:20](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L20)*
 
 ___
 <a id="replace_breaks"></a>
@@ -275,7 +275,7 @@ ___
 
 **● replace_breaks**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:18](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L18)*
+*Defined in [interfaces/download_file_params.ts:18](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L18)*
 
 ___
 <a id="triggers"></a>
@@ -284,7 +284,7 @@ ___
 
 **● triggers**: *`string`[]*
 
-*Defined in [interfaces/download_file_params.ts:16](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L16)*
+*Defined in [interfaces/download_file_params.ts:16](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L16)*
 
 ___
 <a id="webhook_url"></a>
@@ -293,7 +293,7 @@ ___
 
 **● webhook_url**: *`string`*
 
-*Defined in [interfaces/download_file_params.ts:22](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L22)*
+*Defined in [interfaces/download_file_params.ts:22](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L22)*
 
 ___
 <a id="yaml_include_root"></a>
@@ -302,7 +302,7 @@ ___
 
 **● yaml_include_root**: *`boolean`*
 
-*Defined in [interfaces/download_file_params.ts:27](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/download_file_params.ts#L27)*
+*Defined in [interfaces/download_file_params.ts:27](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/download_file_params.ts#L27)*
 
 ___
 

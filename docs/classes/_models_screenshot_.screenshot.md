@@ -37,7 +37,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -57,7 +57,7 @@ ___
 
 **● description**: *`string`*
 
-*Defined in [models/screenshot.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L8)*
+*Defined in [models/screenshot.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L8)*
 
 ___
 <a id="height"></a>
@@ -66,7 +66,7 @@ ___
 
 **● height**: *`number`*
 
-*Defined in [models/screenshot.ts:11](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L11)*
+*Defined in [models/screenshot.ts:11](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L11)*
 
 ___
 <a id="key_ids"></a>
@@ -75,7 +75,7 @@ ___
 
 **● key_ids**: *`string`[]*
 
-*Defined in [models/screenshot.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L5)*
+*Defined in [models/screenshot.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L5)*
 
 ___
 <a id="screenshot_id"></a>
@@ -84,7 +84,7 @@ ___
 
 **● screenshot_id**: *`number`*
 
-*Defined in [models/screenshot.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L4)*
+*Defined in [models/screenshot.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L4)*
 
 ___
 <a id="screenshot_tags"></a>
@@ -93,7 +93,7 @@ ___
 
 **● screenshot_tags**: *`string`[]*
 
-*Defined in [models/screenshot.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L9)*
+*Defined in [models/screenshot.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L9)*
 
 ___
 <a id="title"></a>
@@ -102,7 +102,7 @@ ___
 
 **● title**: *`string`*
 
-*Defined in [models/screenshot.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L7)*
+*Defined in [models/screenshot.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L7)*
 
 ___
 <a id="url"></a>
@@ -111,7 +111,7 @@ ___
 
 **● url**: *`string`*
 
-*Defined in [models/screenshot.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L6)*
+*Defined in [models/screenshot.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L6)*
 
 ___
 <a id="width"></a>
@@ -120,7 +120,7 @@ ___
 
 **● width**: *`number`*
 
-*Defined in [models/screenshot.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/screenshot.ts#L10)*
+*Defined in [models/screenshot.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/screenshot.ts#L10)*
 
 ___
 

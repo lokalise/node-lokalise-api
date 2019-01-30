@@ -39,7 +39,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -61,7 +61,7 @@ ___
 
 *Implementation of [Comment](../interfaces/_interfaces_comment_.comment.md).[added_at](../interfaces/_interfaces_comment_.comment.md#added_at)*
 
-*Defined in [models/comment.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/comment.ts#L10)*
+*Defined in [models/comment.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/comment.ts#L10)*
 
 ___
 <a id="added_by"></a>
@@ -72,7 +72,7 @@ ___
 
 *Implementation of [Comment](../interfaces/_interfaces_comment_.comment.md).[added_by](../interfaces/_interfaces_comment_.comment.md#added_by)*
 
-*Defined in [models/comment.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/comment.ts#L8)*
+*Defined in [models/comment.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/comment.ts#L8)*
 
 ___
 <a id="added_by_email"></a>
@@ -83,7 +83,7 @@ ___
 
 *Implementation of [Comment](../interfaces/_interfaces_comment_.comment.md).[added_by_email](../interfaces/_interfaces_comment_.comment.md#added_by_email)*
 
-*Defined in [models/comment.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/comment.ts#L9)*
+*Defined in [models/comment.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/comment.ts#L9)*
 
 ___
 <a id="comment"></a>
@@ -94,7 +94,7 @@ ___
 
 *Implementation of [Comment](../interfaces/_interfaces_comment_.comment.md).[comment](../interfaces/_interfaces_comment_.comment.md#comment)*
 
-*Defined in [models/comment.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/comment.ts#L7)*
+*Defined in [models/comment.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/comment.ts#L7)*
 
 ___
 <a id="comment_id"></a>
@@ -105,7 +105,7 @@ ___
 
 *Implementation of [Comment](../interfaces/_interfaces_comment_.comment.md).[comment_id](../interfaces/_interfaces_comment_.comment.md#comment_id)*
 
-*Defined in [models/comment.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/comment.ts#L5)*
+*Defined in [models/comment.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/comment.ts#L5)*
 
 ___
 <a id="key_id"></a>
@@ -116,7 +116,7 @@ ___
 
 *Implementation of [Comment](../interfaces/_interfaces_comment_.comment.md).[key_id](../interfaces/_interfaces_comment_.comment.md#key_id)*
 
-*Defined in [models/comment.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/comment.ts#L6)*
+*Defined in [models/comment.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/comment.ts#L6)*
 
 ___
 

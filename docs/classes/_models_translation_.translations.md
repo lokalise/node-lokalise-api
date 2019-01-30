@@ -39,7 +39,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -59,7 +59,7 @@ ___
 
 **● is_fuzzy**: *`boolean`*
 
-*Defined in [models/translation.ts:11](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L11)*
+*Defined in [models/translation.ts:11](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L11)*
 
 ___
 <a id="is_reviewed"></a>
@@ -68,7 +68,7 @@ ___
 
 **● is_reviewed**: *`boolean`*
 
-*Defined in [models/translation.ts:12](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L12)*
+*Defined in [models/translation.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L12)*
 
 ___
 <a id="key_id"></a>
@@ -77,7 +77,7 @@ ___
 
 **● key_id**: *`number`*
 
-*Defined in [models/translation.ts:5](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L5)*
+*Defined in [models/translation.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L5)*
 
 ___
 <a id="language_iso"></a>
@@ -86,7 +86,7 @@ ___
 
 **● language_iso**: *`string`*
 
-*Defined in [models/translation.ts:6](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L6)*
+*Defined in [models/translation.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L6)*
 
 ___
 <a id="modified_at"></a>
@@ -95,7 +95,7 @@ ___
 
 **● modified_at**: *`string`*
 
-*Defined in [models/translation.ts:7](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L7)*
+*Defined in [models/translation.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L7)*
 
 ___
 <a id="modified_by"></a>
@@ -104,7 +104,7 @@ ___
 
 **● modified_by**: *`number`*
 
-*Defined in [models/translation.ts:8](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L8)*
+*Defined in [models/translation.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L8)*
 
 ___
 <a id="modified_by_email"></a>
@@ -113,7 +113,7 @@ ___
 
 **● modified_by_email**: *`string`*
 
-*Defined in [models/translation.ts:9](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L9)*
+*Defined in [models/translation.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L9)*
 
 ___
 <a id="translation"></a>
@@ -122,7 +122,7 @@ ___
 
 **● translation**: *`string`*
 
-*Defined in [models/translation.ts:10](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L10)*
+*Defined in [models/translation.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L10)*
 
 ___
 <a id="translation_id"></a>
@@ -131,7 +131,7 @@ ___
 
 **● translation_id**: *`number`*
 
-*Defined in [models/translation.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L4)*
+*Defined in [models/translation.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L4)*
 
 ___
 <a id="words"></a>
@@ -140,7 +140,7 @@ ___
 
 **● words**: *`number`*
 
-*Defined in [models/translation.ts:13](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/models/translation.ts#L13)*
+*Defined in [models/translation.ts:13](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/translation.ts#L13)*
 
 ___
 

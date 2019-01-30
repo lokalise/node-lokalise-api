@@ -65,7 +65,23 @@ lokaliseApi.projects.update(<projectId>, { name: "New name", description: "New d
 You should pass project\_id as a parameter
 
 ```js
-lokaliseApi.comments.list({ project_id: <projectId>});
+lokaliseApi.comments.list_project_comments({ project_id: <projectId>});
+```
+
+#### List comments
+
+You should pass project\_id, id as a parameters
+
+```js
+lokaliseApi.comments.list_project_comments({ project_id: <projectId>, key_id: <key_id>});
+```
+
+#### Get a comment
+
+You should pass commentId and project\_id, key\_id as a parameters
+
+```js
+lokaliseApi.comments.get(<commentId>, { project_id: <projectId>, key_id: <key_id>});
 ```
 
 #### Create project comments
@@ -78,20 +94,476 @@ lokaliseApi.comments.create({
       { comment: "Project comment 1" },
       { comment: "Project comment 2" }
     ],
-    { project_id: '<projectId>'});
+    { project_id: '<projectId>', key_id: '<keyId>'});
 ```
 
-#### Destroy project
+#### Destroy a comment
 
 ```js
-lokaliseApi.projects.delete(<projectId>, { key_id: <keyId>, project_id: <projectId> });
+lokaliseApi.comments.delete(<commentId>, { project_id: <projectId>, key_id: <keyId> });
 ```
 
-#### Update project
+### Contributors
+
+#### List project contributors
+
+You should pass project\_id as a parameter
 
 ```js
-lokaliseApi.projects.update(<projectId>, { name: "New name", description: "New description"});
+lokaliseApi.contributors.list({ project_id: <projectId> });
 ```
+
+#### Get a project contributor
+
+You should pass contributorId and project\_id as a parameter
+
+```js
+lokaliseApi.contributors.get(<contributorId>, { project_id: <projectId> });
+```
+
+#### Create a project contributor
+
+You should pass contributors object and project\_id as a parameter
+
+```js
+lokaliseApi.contributors.get({
+                "contributors": [
+                    {
+                        "email": "translator@mycompany.com",
+                        "fullname": "Mr. Translator",
+                        "is_admin": false,
+                        "is_reviewer": true,
+                        "languages": [
+                            {
+                                "lang_iso": "en",
+                                "is_writable": false
+                            },
+                            {
+                                "lang_iso": "ru",
+                                "is_writable": true
+                            }
+                        ],
+                        "admin_rights": [
+                            "keys", "languages"
+                        ]
+                    }
+                ]
+            },
+
+            { project_id: <projectId>, key_id: <key_id>});
+```
+
+#### Delete a project contributor
+
+You should pass contributorId and project\_id as a parameter
+
+```js
+lokaliseApi.contributors.delete(<contributorId>, {project_id: <projectId>});
+```
+
+### Files
+
+#### List project files
+
+Params like page or limit are optional.
+
+```js
+lokaliseApi.files.list({ project_id: <projectId>, page: 1, limit: 1000 });
+```
+
+#### Upload a file
+
+```js
+lokaliseApi.files.upload(<projectId>, {
+        "filename": "index.json",
+        "data": "D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGL.....",
+        "lang_iso": "en",
+        "tags": [
+            "index", "admin", "v2.0"
+        ],
+        "convert_placeholders": true
+      }
+    });
+```
+
+#### Download a file
+
+```js
+lokaliseApi.files.download(<projectId>, {
+    "format": "json",
+    "original_filenames": true
+});
+```
+
+### Keys
+
+#### List project files
+
+Params like page or limit are optional.
+
+```js
+lokaliseApi.files.list({ project_id: <projectId>, page: 1, limit: 1000 });
+```
+
+#### Upload a file
+
+```js
+lokaliseApi.files.upload(<projectId>, {
+        "filename": "index.json",
+        "data": "D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGL.....",
+        "lang_iso": "en",
+        "tags": [
+            "index", "admin", "v2.0"
+        ],
+        "convert_placeholders": true
+      }
+    });
+```
+
+#### Download a file
+
+```js
+lokaliseApi.files.download(<projectId>, {
+    "format": "json",
+    "original_filenames": true
+});
+```
+
+### Keys
+
+#### List project keys
+
+```js
+lokaliseApi.keys.list({project_id: <projectId>, page: 1, limit: 1})
+```
+
+#### Create project keys
+
+```js
+lokaliseApi.keys.create({
+    "keys": [
+        {
+            "key_name": "index.welcome",
+            "description": "Index app welcome",
+            "platforms": [
+                "web"
+            ],
+            "translations": [
+                {
+                    "language_iso": "en",
+                    "translation": "Welcome"
+                }
+            ]
+        },
+        {
+            "key_name": "index.apple",
+            "description": "Welcome apple",
+            "platforms": [
+                "web"
+            ],
+            "is_plural": true,
+            "translations": [
+                {
+                    "language_iso": "en",
+                    "translation": {
+                        "one": "I have one apple",
+                        "other": "I have a lot of apples"
+                    }
+                }
+            ]
+        },
+        {
+            "key_name": "index.hello",
+            "platforms": [
+                "web"
+            ]
+        }
+    ]
+}, 
+
+{project_id: <projectId, page: 1, limit: 1>});
+```
+
+#### Update a key
+
+lokaliseApi.keys.update(, { "platforms": \[ "web","other" \], "description": "Index app welcome" },
+
+{ project\_id: });
+
+```
+
+#### Update keys bulk
+
+```
+
+lokaliseApi.keys.bulk\_update({ "keys": \[ { "key\_id": 331223, "key\_name": "index.welcome", "description": "Index app welcome", "platforms": \[ "web" \] }, { "key\_id": 331224, "key\_name": "index.hello", "description": "Index greetings", "platforms": \[ "web" \] } \] }, { project\_id: });
+
+```
+
+#### Destroy a key
+
+lokaliseApi.keys.delete(<keyId>, { project_id: <projectId> });
+
+#### Destroy keys
+
+```
+
+lokaliseApi.keys.bulkdelete({ "keys": \[ 12345, 12346 \] }, { project\_id: });
+
+```
+
+### Languages
+
+#### List system languages
+
+```
+
+lokaliseApi.languages.system\_languages({page: 1, limit: 10000})
+
+```
+
+#### List project languages
+
+```
+
+lokaliseApi.languages.list({project\_id: });
+
+```
+
+#### Create project language
+
+```
+
+lokaliseApi.languages.create({ "languages": \[ { "lang\_iso": "en" }, { "lang\_iso": "ru"  
+} \]}, { project\_id: });
+
+```
+
+#### Get a project language
+
+```
+
+lokaliseApi.languages.create({ "languages": \[ { "lang\_iso": "en" }, { "lang\_iso": "ru"  
+} \]}, { project\_id: });
+
+```
+
+#### Create a project language
+
+```
+
+lokaliseApi.languages.create({project\_id: })
+
+```
+
+#### Update a project language
+
+```
+
+lokaliseApi.languages.update(, { "lang\_iso": "en-US", "plural\_forms": \[ "one", "zero", "few", "other" \] }, {project\_id: });
+
+```
+
+#### Delete a project language
+
+```
+
+lokaliseApi.languages.delete(, { project\_id: });
+
+```
+
+### Screenshots
+
+#### List screenshots
+
+```
+
+lokaliseApi.screenshots.list({project\_id: });
+
+```
+
+#### Create screenshots
+
+```
+
+lokaliseApi.screenshots.create({ "screenshots": \[ { "data": "data:image/jpeg;base64,D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGL.....", "ocr": false, "key\_ids": \[ 1132290, 1132292, 1132293 \], "tags": \[ "onboarding" \] } \] }, {project\_id: });
+
+```
+
+#### Get a screenshots
+
+```
+
+lokaliseApi.screenshots.get(, {project\_id: });
+
+```
+
+#### Update a screenshots
+
+```
+
+lokaliseApi.screenshots.update(, { "key\_ids": \[ 1132290, 1132292 \], "tags": \[ "main" \] } ,{project\_id: });
+
+```
+
+#### Delete a screenshots
+
+```
+
+lokaliseApi.screenshots.delete(, { project\_id: });
+
+```
+
+### Snapshots
+
+#### List snapshots
+
+```
+
+lokaliseApi.screenshots.list({project\_id: });
+
+```
+
+#### Create a snapshot
+
+```
+
+lokaliseApi.screenshots.create({ "title": "API snapshot" }, {project\_id: });
+
+```
+
+#### Restore a snapshot
+
+```
+
+lokaliseApi.screenshots.restore({ project\_id: , id: });
+
+```
+
+#### Delete a snapshot
+
+```
+
+lokaliseApi.screenshots.delete({ project\_id: , id: });
+
+```
+
+### Tasks
+
+#### List tasks
+
+```
+
+lokaliseApi.tasks.list({project\_id: });
+
+```
+
+#### Create a task
+
+```
+
+lokaliseApi.tasks.create({ "title": "Voicemail messages", "description": "Need your help with some voicemail message translation. Thanks!", "due\_date": "2018-12-31 12:00:00 (Etc/UTC)", "keys": \[ 11212, 11241, 11245 \], "languages": \[ { "language\_iso": "fi", "users": \[ 421 \] }, { "language\_iso": "ru", "groups": \[ 191 \] } \], "auto\_close\_languages": true, "auto\_close\_task": true, "task\_type": "translation", "parent\_task\_id": 12345, "closing\_tags": \["tag\_one", "tag\_two"\], "do\_lock\_translations": true }, {project\_id: });
+
+```
+
+#### Get a task
+
+```
+
+lokaliseApi.tasks.restore({ project\_id: , id: });
+
+```
+
+#### Delete a task
+
+```
+
+lokaliseApi.tasks.delete(id: , { project\_id: });
+
+```
+
+### Teams
+
+#### List teams
+
+```
+
+lokaliseApi.screenshots.list({ page 1, limit: 10000 });
+
+```
+
+### Team users
+
+#### List team users
+
+```
+
+lokaliseApi.team\_users.list({project\_id: });
+
+```
+
+#### Get a team user
+
+```
+
+lokaliseApi.team\_users.get(, { project\_id: });
+
+```
+
+#### Update a team user
+
+```
+
+lokaliseApi.tasks.update(, { "role": "admin" }, { project\_id: });
+
+```
+
+#### Delete a team user
+
+```
+
+lokaliseApi.tasks.delete(, { project\_id: });
+
+```
+
+### Team user group
+
+#### List team user group
+```
+
+lokaliseApi.user\_groups.list({ team\_id: });
+
+```
+
+#### List team user group
+
+```
+
+lokaliseApi.user\_groups.create({ "name": "Proofreaders", "is\_reviewer": true, "is\_admin": false, "admin\_rights": \[\], "languages": { "reference": \[\], "contributable": \[640\] } }, { team\_id: });
+
+```
+
+#### Get a team user group
+
+```
+
+lokaliseApi.user\_groups.get(, { team\_id: });
+
+```
+
+#### Add project to a group
+
+```
+
+lokaliseApi.user\_groups.add\_project\_to\_group(, , { "projects": \[ "598901215bexxx43dcba74.xxx" \] });
+
+```
+
+#### Remove a project from group 
+
+```
+
+lokaliseApi.user\_groups.remove\_project\_to\_group(, , { "projects": \[ "598901215bexxx43dcba74.xxx" \] }); `` ` ``
 
 ## Index
 

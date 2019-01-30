@@ -22,7 +22,7 @@
 
 **● keys**: *[Key](_interfaces_key_.key.md)[]*
 
-*Defined in [interfaces/bulk_update_key.ts:4](https://github.com/lokalise/node-lokalise-api/blob/4987c08/src/interfaces/bulk_update_key.ts#L4)*
+*Defined in [interfaces/bulk_update_key.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/bulk_update_key.ts#L4)*
 
 ___
 
