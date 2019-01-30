@@ -283,8 +283,10 @@ lokaliseApi.keys.create({
 
 {project_id: <projectId, page: 1, limit: 1>});
 ```
+
 #### Update a key
 
+```
 lokaliseApi.keys.update(<keyId>, {
     "platforms": [
         "web","other"
@@ -323,7 +325,9 @@ lokaliseApi.keys.bulk_update({
 
 #### Destroy a key
 
+```
 lokaliseApi.keys.delete(<keyId>, { project_id: <projectId> });
+```
 
 
 #### Destroy keys
