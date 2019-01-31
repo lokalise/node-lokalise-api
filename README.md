@@ -500,13 +500,13 @@ lokaliseApi.screenshots.create({
 ```
 
 
-#### Get a screenshots
+#### Get a screenshot
 
 ```
 lokaliseApi.screenshots.get(<screenshotId>, {project_id: <projectId>});
 ```
 
-#### Update a screenshots
+#### Update a screenshot
 
 ```
 lokaliseApi.screenshots.update(<screenshotId>, {
@@ -516,10 +516,10 @@ lokaliseApi.screenshots.update(<screenshotId>, {
     "tags": [
         "main"
     ]
-} ,{project_id: <projectId>});
+}, {project_id: <projectId>});
 ```
 
-#### Delete a screenshots
+#### Delete a screenshot
 
 ```
 lokaliseApi.screenshots.delete(<screenshotId>, { project_id: <projectId> });
@@ -631,14 +631,14 @@ lokaliseApi.team_users.get(<teamUserId>, { project_id: <projectId> });
 #### Update a team user
 
 ```
-lokaliseApi.tasks.update(<teamUserId>, { "role": "admin" },
+lokaliseApi.team_users.update(<teamUserId>, { "role": "admin" },
                         { project_id: <projectId> });
 ```
 
 #### Delete a team user
 
 ```
-lokaliseApi.tasks.delete(<teamUserId>, { project_id: <projectId> });
+lokaliseApi.team_users.delete(<teamUserId>, { project_id: <projectId> });
 ```
 
 ### Team user group
@@ -679,7 +679,7 @@ lokaliseApi.user_groups.add_project_to_group(<teamId>, <groupId>, {
                       });
 ```
 
-#### Remove a project from group 
+#### Remove a project from a group 
 
 ```
 lokaliseApi.user_groups.remove_project_from_group(<teamId>, <groupId>, {
