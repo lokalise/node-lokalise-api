@@ -48,7 +48,7 @@
 
 ⊕ **new BaseModel**(params: *`Object`*): [BaseModel](_models_base_model_.basemodel.md)
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/base_model.ts#L4)*
 
 **Parameters:**
 

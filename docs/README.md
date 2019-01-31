@@ -28,6 +28,76 @@ Usage
 
 Every reuqest return a promise with a corresponding object or array of object as the result.
 
+**Table of Contents** _generated with [DocToc](https://github.com/thlorenz/doctoc)_
+
+*   [Projects](#projects)
+    *   [List projects](#list-projects)
+    *   [Create project](#create-project)
+    *   [Destroy project](#destroy-project)
+    *   [Update project](#update-project)
+*   [Comments](#comments)
+    *   [List project comments](#list-project-comments)
+    *   [List comments](#list-comments)
+    *   [Get a comment](#get-a-comment)
+    *   [Create project comments](#create-project-comments)
+    *   [Destroy a comment](#destroy-a-comment)
+*   [Contributors](#contributors)
+    *   [List project contributors](#list-project-contributors)
+    *   [Get a project contributor](#get-a-project-contributor)
+    *   [Create a project contributor](#create-a-project-contributor)
+    *   [Delete a project contributor](#delete-a-project-contributor)
+*   [Files](#files)
+    *   [List project files](#list-project-files)
+    *   [Upload a file](#upload-a-file)
+    *   [Download a file](#download-a-file)
+*   [Keys](#keys)
+    *   [List project files](#list-project-files-1)
+    *   [Upload a file](#upload-a-file-1)
+    *   [Download a file](#download-a-file-1)
+*   [Keys](#keys-1)
+    *   [List project keys](#list-project-keys)
+    *   [Create project keys](#create-project-keys)
+    *   [Update a key](#update-a-key)
+    *   [Update keys bulk](#update-keys-bulk)
+    *   [Destroy a key](#destroy-a-key)
+    *   [Destroy keys](#destroy-keys)
+*   [Languages](#languages)
+    *   [List system languages](#list-system-languages)
+    *   [List project languages](#list-project-languages)
+    *   [Create project language](#create-project-language)
+    *   [Get a project language](#get-a-project-language)
+    *   [Update a project language](#update-a-project-language)
+    *   [Delete a project language](#delete-a-project-language)
+*   [Screenshots](#screenshots)
+    *   [List screenshots](#list-screenshots)
+    *   [Create screenshots](#create-screenshots)
+    *   [Get a screenshot](#get-a-screenshot)
+    *   [Update a screenshot](#update-a-screenshot)
+    *   [Delete a screenshot](#delete-a-screenshot)
+*   [Snapshots](#snapshots)
+    *   [List snapshots](#list-snapshots)
+    *   [Create a snapshot](#create-a-snapshot)
+    *   [Restore a snapshot](#restore-a-snapshot)
+    *   [Delete a snapshot](#delete-a-snapshot)
+*   [Tasks](#tasks)
+    *   [List tasks](#list-tasks)
+    *   [Create a task](#create-a-task)
+    *   [Get a task](#get-a-task)
+    *   [Delete a task](#delete-a-task)
+*   [Teams](#teams)
+    *   [List teams](#list-teams)
+*   [Team users](#team-users)
+    *   [List team users](#list-team-users)
+    *   [Get a team user](#get-a-team-user)
+    *   [Update a team user](#update-a-team-user)
+    *   [Delete a team user](#delete-a-team-user)
+*   [Team user group](#team-user-group)
+    *   [List team user group](#list-team-user-group)
+    *   [List team user group](#list-team-user-group-1)
+    *   [Get a team user group](#get-a-team-user-group)
+    *   [Add project to a group](#add-project-to-a-group)
+    *   [Remove a project from a group](#remove-a-project-from-a-group)
+
 ### Projects
 
 #### List projects
@@ -329,7 +399,7 @@ lokaliseApi.keys.delete(<keyId>, { project_id: <projectId> });
 #### Destroy keys
 
 ```
-lokaliseApi.keys.bulkdelete({
+lokaliseApi.keys.bulk_delete({
         "keys": [
             12345, 12346
         ]
@@ -415,13 +485,13 @@ lokaliseApi.screenshots.create({
     }, {project_id: <projectId>});
 ```
 
-#### Get a screenshots
+#### Get a screenshot
 
 ```
 lokaliseApi.screenshots.get(<screenshotId>, {project_id: <projectId>});
 ```
 
-#### Update a screenshots
+#### Update a screenshot
 
 ```
 lokaliseApi.screenshots.update(<screenshotId>, {
@@ -431,10 +501,10 @@ lokaliseApi.screenshots.update(<screenshotId>, {
     "tags": [
         "main"
     ]
-} ,{project_id: <projectId>});
+}, {project_id: <projectId>});
 ```
 
-#### Delete a screenshots
+#### Delete a screenshot
 
 ```
 lokaliseApi.screenshots.delete(<screenshotId>, { project_id: <projectId> });
@@ -521,10 +591,10 @@ lokaliseApi.tasks.delete(<taskId>, { project_id: <projectId>});
 
 ### Teams
 
-#### List teams
+#### List all teams
 
 ```
-lokaliseApi.screenshots.list({ page 1, limit: 10000 });
+lokaliseApi.teams.list({ page 1, limit: 10000 });
 ```
 
 ### Team users
@@ -544,14 +614,14 @@ lokaliseApi.team_users.get(<teamUserId>, { project_id: <projectId> });
 #### Update a team user
 
 ```
-lokaliseApi.tasks.update(<teamUserId>, { "role": "admin" },
+lokaliseApi.team_users.update(<teamUserId>, { "role": "admin" },
                         { project_id: <projectId> });
 ```
 
 #### Delete a team user
 
 ```
-lokaliseApi.tasks.delete(<teamUserId>, { project_id: <projectId> });
+lokaliseApi.team_users.delete(<teamUserId>, { project_id: <projectId> });
 ```
 
 ### Team user group
@@ -593,7 +663,7 @@ lokaliseApi.user_groups.add_project_to_group(<teamId>, <groupId>, {
                       });
 ```
 
-#### Remove a project from group
+#### Remove a project from a group
 
 ```
 lokaliseApi.user_groups.remove_project_from_group(<teamId>, <groupId>, {

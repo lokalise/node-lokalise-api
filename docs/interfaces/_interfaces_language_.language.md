@@ -26,7 +26,7 @@
 
 **● is_rtl**: *`boolean`*
 
-*Defined in [interfaces/language.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/language.ts#L5)*
+*Defined in [interfaces/language.ts:5](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/language.ts#L5)*
 
 ___
 <a id="lang_id"></a>
@@ -35,7 +35,7 @@ ___
 
 **● lang_id**: *`number`*
 
-*Defined in [interfaces/language.ts:2](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/language.ts#L2)*
+*Defined in [interfaces/language.ts:2](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/language.ts#L2)*
 
 ___
 <a id="lang_iso"></a>
@@ -44,7 +44,7 @@ ___
 
 **● lang_iso**: *`string`*
 
-*Defined in [interfaces/language.ts:3](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/language.ts#L3)*
+*Defined in [interfaces/language.ts:3](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/language.ts#L3)*
 
 ___
 <a id="lang_name"></a>
@@ -53,7 +53,7 @@ ___
 
 **● lang_name**: *`string`*
 
-*Defined in [interfaces/language.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/language.ts#L4)*
+*Defined in [interfaces/language.ts:4](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/language.ts#L4)*
 
 ___
 <a id="plural_forms"></a>
@@ -62,7 +62,7 @@ ___
 
 **● plural_forms**: *`string`[]*
 
-*Defined in [interfaces/language.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/language.ts#L6)*
+*Defined in [interfaces/language.ts:6](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/language.ts#L6)*
 
 ___
 

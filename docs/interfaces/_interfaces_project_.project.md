@@ -32,7 +32,7 @@
 
 **● created_at**: *`string`*
 
-*Defined in [interfaces/project.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/project.ts#L7)*
+*Defined in [interfaces/project.ts:7](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/project.ts#L7)*
 
 ___
 <a id="created_by"></a>
@@ -41,7 +41,7 @@ ___
 
 **● created_by**: *`number`*
 
-*Defined in [interfaces/project.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/project.ts#L8)*
+*Defined in [interfaces/project.ts:8](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/project.ts#L8)*
 
 ___
 <a id="created_by_email"></a>
@@ -50,7 +50,7 @@ ___
 
 **● created_by_email**: *`string`*
 
-*Defined in [interfaces/project.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/project.ts#L6)*
+*Defined in [interfaces/project.ts:6](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/project.ts#L6)*
 
 ___
 <a id="description"></a>
@@ -59,7 +59,7 @@ ___
 
 **● description**: *`string`*
 
-*Defined in [interfaces/project.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/project.ts#L4)*
+*Defined in [interfaces/project.ts:4](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/project.ts#L4)*
 
 ___
 <a id="name"></a>
@@ -68,7 +68,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [interfaces/project.ts:3](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/project.ts#L3)*
+*Defined in [interfaces/project.ts:3](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/project.ts#L3)*
 
 ___
 <a id="project_id"></a>
@@ -77,7 +77,7 @@ ___
 
 **● project_id**: *`number`*
 
-*Defined in [interfaces/project.ts:2](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/project.ts#L2)*
+*Defined in [interfaces/project.ts:2](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/project.ts#L2)*
 
 ___
 <a id="team_id"></a>
@@ -86,7 +86,7 @@ ___
 
 **● team_id**: *`number`*
 
-*Defined in [interfaces/project.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/project.ts#L5)*
+*Defined in [interfaces/project.ts:5](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/interfaces/project.ts#L5)*
 
 ___
 

@@ -35,7 +35,7 @@
 
 **● comments**: *[Comments](_collections_comments_.comments.md)* =  new Collectons.Comments()
 
-*Defined in [lokalise/api_methods.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L5)*
+*Defined in [lokalise/api_methods.ts:5](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L5)*
 
 ___
 <a id="contributors"></a>
@@ -44,7 +44,7 @@ ___
 
 **● contributors**: *[Contributors](_collections_contributors_.contributors.md)* =  new Collectons.Contributors()
 
-*Defined in [lokalise/api_methods.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L6)*
+*Defined in [lokalise/api_methods.ts:6](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L6)*
 
 ___
 <a id="files"></a>
@@ -53,7 +53,7 @@ ___
 
 **● files**: *[Files](_collections_files_.files.md)* =  new Collectons.Files()
 
-*Defined in [lokalise/api_methods.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L7)*
+*Defined in [lokalise/api_methods.ts:7](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L7)*
 
 ___
 <a id="keys"></a>
@@ -62,7 +62,7 @@ ___
 
 **● keys**: *[Keys](_collections_keys_.keys.md)* =  new Collectons.Keys()
 
-*Defined in [lokalise/api_methods.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L8)*
+*Defined in [lokalise/api_methods.ts:8](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L8)*
 
 ___
 <a id="languages"></a>
@@ -71,7 +71,7 @@ ___
 
 **● languages**: *[Languages](_collections_languages_.languages.md)* =  new Collectons.Languages()
 
-*Defined in [lokalise/api_methods.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L9)*
+*Defined in [lokalise/api_methods.ts:9](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L9)*
 
 ___
 <a id="projects"></a>
@@ -80,7 +80,7 @@ ___
 
 **● projects**: *[Projects](_collections_projects_.projects.md)* =  new Collectons.Projects()
 
-*Defined in [lokalise/api_methods.ts:10](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L10)*
+*Defined in [lokalise/api_methods.ts:10](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L10)*
 
 ___
 <a id="screenshots"></a>
@@ -89,7 +89,7 @@ ___
 
 **● screenshots**: *[Screenshots](_collections_screenshots_.screenshots.md)* =  new Collectons.Screenshots()
 
-*Defined in [lokalise/api_methods.ts:11](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L11)*
+*Defined in [lokalise/api_methods.ts:11](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L11)*
 
 ___
 <a id="snapshots"></a>
@@ -98,7 +98,7 @@ ___
 
 **● snapshots**: *[Snapshots](_collections_snapshots_.snapshots.md)* =  new Collectons.Snapshots()
 
-*Defined in [lokalise/api_methods.ts:12](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L12)*
+*Defined in [lokalise/api_methods.ts:12](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L12)*
 
 ___
 <a id="tasks"></a>
@@ -107,7 +107,7 @@ ___
 
 **● tasks**: *[Tasks](_collections_tasks_.tasks.md)* =  new Collectons.Tasks()
 
-*Defined in [lokalise/api_methods.ts:13](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L13)*
+*Defined in [lokalise/api_methods.ts:13](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L13)*
 
 ___
 <a id="teamusers"></a>
@@ -116,7 +116,7 @@ ___
 
 **● teamUsers**: *[TeamUsers](_collections_team_users_.teamusers.md)* =  new Collectons.TeamUsers()
 
-*Defined in [lokalise/api_methods.ts:14](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L14)*
+*Defined in [lokalise/api_methods.ts:14](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L14)*
 
 ___
 <a id="translations"></a>
@@ -125,7 +125,7 @@ ___
 
 **● translations**: *[Translations](_collections_translations_.translations.md)* =  new Collectons.Translations()
 
-*Defined in [lokalise/api_methods.ts:16](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L16)*
+*Defined in [lokalise/api_methods.ts:16](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L16)*
 
 ___
 <a id="usergroups"></a>
@@ -134,7 +134,7 @@ ___
 
 **● userGroups**: *[UserGroups](_collections_user_groups_.usergroups.md)* =  new Collectons.UserGroups()
 
-*Defined in [lokalise/api_methods.ts:15](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L15)*
+*Defined in [lokalise/api_methods.ts:15](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L15)*
 
 ___
 

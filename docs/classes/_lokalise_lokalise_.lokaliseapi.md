@@ -41,7 +41,7 @@
 
 ⊕ **new LokaliseApi**(apiKey: *`string`*): [LokaliseApi](_lokalise_lokalise_.lokaliseapi.md)
 
-*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/lokalise.ts#L7)*
+*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/lokalise.ts#L7)*
 
 Instantiate LokaliseApi to have access to methods
 
@@ -64,7 +64,7 @@ ___
 
 **● apiKey**: *`string`*
 
-*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/lokalise.ts#L7)*
+*Defined in [lokalise/lokalise.ts:7](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/lokalise.ts#L7)*
 
 ___
 <a id="comments"></a>
@@ -75,7 +75,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[comments](_lokalise_api_methods_.localiseapimethods.md#comments)*
 
-*Defined in [lokalise/api_methods.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L5)*
+*Defined in [lokalise/api_methods.ts:5](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L5)*
 
 ___
 <a id="contributors"></a>
@@ -86,7 +86,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[contributors](_lokalise_api_methods_.localiseapimethods.md#contributors)*
 
-*Defined in [lokalise/api_methods.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L6)*
+*Defined in [lokalise/api_methods.ts:6](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L6)*
 
 ___
 <a id="files"></a>
@@ -97,7 +97,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[files](_lokalise_api_methods_.localiseapimethods.md#files)*
 
-*Defined in [lokalise/api_methods.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L7)*
+*Defined in [lokalise/api_methods.ts:7](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L7)*
 
 ___
 <a id="keys"></a>
@@ -108,7 +108,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[keys](_lokalise_api_methods_.localiseapimethods.md#keys)*
 
-*Defined in [lokalise/api_methods.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L8)*
+*Defined in [lokalise/api_methods.ts:8](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L8)*
 
 ___
 <a id="languages"></a>
@@ -119,7 +119,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[languages](_lokalise_api_methods_.localiseapimethods.md#languages)*
 
-*Defined in [lokalise/api_methods.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L9)*
+*Defined in [lokalise/api_methods.ts:9](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L9)*
 
 ___
 <a id="projects"></a>
@@ -130,7 +130,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[projects](_lokalise_api_methods_.localiseapimethods.md#projects)*
 
-*Defined in [lokalise/api_methods.ts:10](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L10)*
+*Defined in [lokalise/api_methods.ts:10](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L10)*
 
 ___
 <a id="screenshots"></a>
@@ -141,7 +141,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[screenshots](_lokalise_api_methods_.localiseapimethods.md#screenshots)*
 
-*Defined in [lokalise/api_methods.ts:11](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L11)*
+*Defined in [lokalise/api_methods.ts:11](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L11)*
 
 ___
 <a id="snapshots"></a>
@@ -152,7 +152,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[snapshots](_lokalise_api_methods_.localiseapimethods.md#snapshots)*
 
-*Defined in [lokalise/api_methods.ts:12](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L12)*
+*Defined in [lokalise/api_methods.ts:12](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L12)*
 
 ___
 <a id="tasks"></a>
@@ -163,7 +163,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[tasks](_lokalise_api_methods_.localiseapimethods.md#tasks)*
 
-*Defined in [lokalise/api_methods.ts:13](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L13)*
+*Defined in [lokalise/api_methods.ts:13](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L13)*
 
 ___
 <a id="teamusers"></a>
@@ -174,7 +174,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[teamUsers](_lokalise_api_methods_.localiseapimethods.md#teamusers)*
 
-*Defined in [lokalise/api_methods.ts:14](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L14)*
+*Defined in [lokalise/api_methods.ts:14](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L14)*
 
 ___
 <a id="translations"></a>
@@ -185,7 +185,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[translations](_lokalise_api_methods_.localiseapimethods.md#translations)*
 
-*Defined in [lokalise/api_methods.ts:16](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L16)*
+*Defined in [lokalise/api_methods.ts:16](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L16)*
 
 ___
 <a id="usergroups"></a>
@@ -196,7 +196,7 @@ ___
 
 *Inherited from [LocaliseApiMethods](_lokalise_api_methods_.localiseapimethods.md).[userGroups](_lokalise_api_methods_.localiseapimethods.md#usergroups)*
 
-*Defined in [lokalise/api_methods.ts:15](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/api_methods.ts#L15)*
+*Defined in [lokalise/api_methods.ts:15](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/api_methods.ts#L15)*
 
 ___
 <a id="apikey-1"></a>
@@ -205,7 +205,7 @@ ___
 
 **● apiKey**: *`string`* =  null
 
-*Defined in [lokalise/lokalise.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/lokalise/lokalise.ts#L4)*
+*Defined in [lokalise/lokalise.ts:4](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/lokalise/lokalise.ts#L4)*
 
 ___
 

@@ -37,7 +37,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -57,7 +57,7 @@ ___
 
 **● admin_rights**: *`string`[]*
 
-*Defined in [models/contributor.ts:12](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L12)*
+*Defined in [models/contributor.ts:12](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L12)*
 
 ___
 <a id="created_at"></a>
@@ -66,7 +66,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [models/contributor.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L8)*
+*Defined in [models/contributor.ts:8](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L8)*
 
 ___
 <a id="email"></a>
@@ -75,7 +75,7 @@ ___
 
 **● email**: *`string`*
 
-*Defined in [models/contributor.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L6)*
+*Defined in [models/contributor.ts:6](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L6)*
 
 ___
 <a id="fullname"></a>
@@ -84,7 +84,7 @@ ___
 
 **● fullname**: *`string`*
 
-*Defined in [models/contributor.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L7)*
+*Defined in [models/contributor.ts:7](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L7)*
 
 ___
 <a id="is_admin"></a>
@@ -93,7 +93,7 @@ ___
 
 **● is_admin**: *`boolean`*
 
-*Defined in [models/contributor.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L9)*
+*Defined in [models/contributor.ts:9](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L9)*
 
 ___
 <a id="is_reviewer"></a>
@@ -102,7 +102,7 @@ ___
 
 **● is_reviewer**: *`boolean`*
 
-*Defined in [models/contributor.ts:10](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L10)*
+*Defined in [models/contributor.ts:10](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L10)*
 
 ___
 <a id="languages"></a>
@@ -111,7 +111,7 @@ ___
 
 **● languages**: *`object`*
 
-*Defined in [models/contributor.ts:11](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L11)*
+*Defined in [models/contributor.ts:11](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L11)*
 
 ___
 <a id="user_id"></a>
@@ -120,7 +120,7 @@ ___
 
 **● user_id**: *`number`*
 
-*Defined in [models/contributor.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/contributor.ts#L5)*
+*Defined in [models/contributor.ts:5](https://github.com/lokalise/node-lokalise-api/blob/7c5421a/src/models/contributor.ts#L5)*
 
 ___
 
