@@ -40,7 +40,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -62,7 +62,7 @@ ___
 
 *Implementation of [Project](../interfaces/_interfaces_project_.project.md).[created_at](../interfaces/_interfaces_project_.project.md#created_at)*
 
-*Defined in [models/project.ts:11](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/project.ts#L11)*
+*Defined in [models/project.ts:11](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/project.ts#L11)*
 
 ___
 <a id="created_by"></a>
@@ -73,7 +73,7 @@ ___
 
 *Implementation of [Project](../interfaces/_interfaces_project_.project.md).[created_by](../interfaces/_interfaces_project_.project.md#created_by)*
 
-*Defined in [models/project.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/project.ts#L12)*
+*Defined in [models/project.ts:12](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/project.ts#L12)*
 
 ___
 <a id="created_by_email"></a>
@@ -84,7 +84,7 @@ ___
 
 *Implementation of [Project](../interfaces/_interfaces_project_.project.md).[created_by_email](../interfaces/_interfaces_project_.project.md#created_by_email)*
 
-*Defined in [models/project.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/project.ts#L10)*
+*Defined in [models/project.ts:10](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/project.ts#L10)*
 
 ___
 <a id="description"></a>
@@ -95,7 +95,7 @@ ___
 
 *Implementation of [Project](../interfaces/_interfaces_project_.project.md).[description](../interfaces/_interfaces_project_.project.md#description)*
 
-*Defined in [models/project.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/project.ts#L8)*
+*Defined in [models/project.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/project.ts#L8)*
 
 ___
 <a id="name"></a>
@@ -106,7 +106,7 @@ ___
 
 *Implementation of [Project](../interfaces/_interfaces_project_.project.md).[name](../interfaces/_interfaces_project_.project.md#name)*
 
-*Defined in [models/project.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/project.ts#L7)*
+*Defined in [models/project.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/project.ts#L7)*
 
 ___
 <a id="project_id"></a>
@@ -117,7 +117,7 @@ ___
 
 *Implementation of [Project](../interfaces/_interfaces_project_.project.md).[project_id](../interfaces/_interfaces_project_.project.md#project_id)*
 
-*Defined in [models/project.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/project.ts#L6)*
+*Defined in [models/project.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/project.ts#L6)*
 
 ___
 <a id="team_id"></a>
@@ -128,7 +128,7 @@ ___
 
 *Implementation of [Project](../interfaces/_interfaces_project_.project.md).[team_id](../interfaces/_interfaces_project_.project.md#team_id)*
 
-*Defined in [models/project.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/project.ts#L9)*
+*Defined in [models/project.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/project.ts#L9)*
 
 ___
 

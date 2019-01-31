@@ -35,7 +35,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -55,7 +55,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [models/team.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team.ts#L6)*
+*Defined in [models/team.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/team.ts#L6)*
 
 ___
 <a id="name"></a>
@@ -64,7 +64,7 @@ ___
 
 **● name**: *`string`*
 
-*Defined in [models/team.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team.ts#L5)*
+*Defined in [models/team.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/team.ts#L5)*
 
 ___
 <a id="plan"></a>
@@ -73,7 +73,7 @@ ___
 
 **● plan**: *`string`*
 
-*Defined in [models/team.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team.ts#L7)*
+*Defined in [models/team.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/team.ts#L7)*
 
 ___
 <a id="quota_allowed"></a>
@@ -82,7 +82,7 @@ ___
 
 **● quota_allowed**: *`object`*
 
-*Defined in [models/team.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team.ts#L9)*
+*Defined in [models/team.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/team.ts#L9)*
 
 ___
 <a id="quota_usage"></a>
@@ -91,7 +91,7 @@ ___
 
 **● quota_usage**: *`object`*
 
-*Defined in [models/team.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team.ts#L8)*
+*Defined in [models/team.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/team.ts#L8)*
 
 ___
 <a id="team_id"></a>
@@ -100,7 +100,7 @@ ___
 
 **● team_id**: *`number`*
 
-*Defined in [models/team.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/team.ts#L4)*
+*Defined in [models/team.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/team.ts#L4)*
 
 ___
 

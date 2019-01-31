@@ -34,7 +34,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -54,7 +54,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [models/snapshot.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/snapshot.ts#L6)*
+*Defined in [models/snapshot.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/snapshot.ts#L6)*
 
 ___
 <a id="created_by"></a>
@@ -63,7 +63,7 @@ ___
 
 **● created_by**: *`number`*
 
-*Defined in [models/snapshot.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/snapshot.ts#L7)*
+*Defined in [models/snapshot.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/snapshot.ts#L7)*
 
 ___
 <a id="created_by_email"></a>
@@ -72,7 +72,7 @@ ___
 
 **● created_by_email**: *`string`*
 
-*Defined in [models/snapshot.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/snapshot.ts#L8)*
+*Defined in [models/snapshot.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/snapshot.ts#L8)*
 
 ___
 <a id="snapshot_id"></a>
@@ -81,7 +81,7 @@ ___
 
 **● snapshot_id**: *`number`*
 
-*Defined in [models/snapshot.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/snapshot.ts#L4)*
+*Defined in [models/snapshot.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/snapshot.ts#L4)*
 
 ___
 <a id="title"></a>
@@ -90,7 +90,7 @@ ___
 
 **● title**: *`string`*
 
-*Defined in [models/snapshot.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/snapshot.ts#L5)*
+*Defined in [models/snapshot.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/snapshot.ts#L5)*
 
 ___
 

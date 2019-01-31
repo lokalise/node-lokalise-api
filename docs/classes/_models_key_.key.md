@@ -47,7 +47,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -67,7 +67,7 @@ ___
 
 **● base_words**: *`number`*
 
-*Defined in [models/key.ts:21](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L21)*
+*Defined in [models/key.ts:21](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L21)*
 
 ___
 <a id="char_limit"></a>
@@ -76,7 +76,7 @@ ___
 
 **● char_limit**: *`number`*
 
-*Defined in [models/key.ts:22](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L22)*
+*Defined in [models/key.ts:22](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L22)*
 
 ___
 <a id="comments"></a>
@@ -85,7 +85,7 @@ ___
 
 **● comments**: *`object`*
 
-*Defined in [models/key.ts:13](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L13)*
+*Defined in [models/key.ts:13](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L13)*
 
 ___
 <a id="context"></a>
@@ -94,7 +94,7 @@ ___
 
 **● context**: *`string`*
 
-*Defined in [models/key.ts:20](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L20)*
+*Defined in [models/key.ts:20](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L20)*
 
 ___
 <a id="created_at"></a>
@@ -103,7 +103,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [models/key.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L7)*
+*Defined in [models/key.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L7)*
 
 ___
 <a id="custom_attributes"></a>
@@ -112,7 +112,7 @@ ___
 
 **● custom_attributes**: *`any`[]*
 
-*Defined in [models/key.ts:23](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L23)*
+*Defined in [models/key.ts:23](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L23)*
 
 ___
 <a id="description"></a>
@@ -121,7 +121,7 @@ ___
 
 **● description**: *`string`*
 
-*Defined in [models/key.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L10)*
+*Defined in [models/key.ts:10](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L10)*
 
 ___
 <a id="filenames"></a>
@@ -130,7 +130,7 @@ ___
 
 **● filenames**: *`object`*
 
-*Defined in [models/key.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L9)*
+*Defined in [models/key.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L9)*
 
 ___
 <a id="is_archived"></a>
@@ -139,7 +139,7 @@ ___
 
 **● is_archived**: *`boolean`*
 
-*Defined in [models/key.ts:19](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L19)*
+*Defined in [models/key.ts:19](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L19)*
 
 ___
 <a id="is_hidden"></a>
@@ -148,7 +148,7 @@ ___
 
 **● is_hidden**: *`boolean`*
 
-*Defined in [models/key.ts:18](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L18)*
+*Defined in [models/key.ts:18](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L18)*
 
 ___
 <a id="is_plural"></a>
@@ -157,7 +157,7 @@ ___
 
 **● is_plural**: *`boolean`*
 
-*Defined in [models/key.ts:16](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L16)*
+*Defined in [models/key.ts:16](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L16)*
 
 ___
 <a id="key_id"></a>
@@ -166,7 +166,7 @@ ___
 
 **● key_id**: *`number`*
 
-*Defined in [models/key.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L6)*
+*Defined in [models/key.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L6)*
 
 ___
 <a id="key_name"></a>
@@ -175,7 +175,7 @@ ___
 
 **● key_name**: *`string`*
 
-*Defined in [models/key.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L8)*
+*Defined in [models/key.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L8)*
 
 ___
 <a id="platforms"></a>
@@ -184,7 +184,7 @@ ___
 
 **● platforms**: *`string`[]*
 
-*Defined in [models/key.ts:11](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L11)*
+*Defined in [models/key.ts:11](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L11)*
 
 ___
 <a id="plural_name"></a>
@@ -193,7 +193,7 @@ ___
 
 **● plural_name**: *`string`*
 
-*Defined in [models/key.ts:17](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L17)*
+*Defined in [models/key.ts:17](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L17)*
 
 ___
 <a id="screenshots"></a>
@@ -202,7 +202,7 @@ ___
 
 **● screenshots**: *`object`*
 
-*Defined in [models/key.ts:14](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L14)*
+*Defined in [models/key.ts:14](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L14)*
 
 ___
 <a id="tags"></a>
@@ -211,7 +211,7 @@ ___
 
 **● tags**: *`string`[]*
 
-*Defined in [models/key.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L12)*
+*Defined in [models/key.ts:12](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L12)*
 
 ___
 <a id="translations"></a>
@@ -220,7 +220,7 @@ ___
 
 **● translations**: *`object` | `object`[]*
 
-*Defined in [models/key.ts:15](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/key.ts#L15)*
+*Defined in [models/key.ts:15](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/key.ts#L15)*
 
 ___
 

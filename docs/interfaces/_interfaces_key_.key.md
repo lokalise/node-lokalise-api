@@ -39,7 +39,7 @@
 
 **● base_words**: *`number`*
 
-*Defined in [interfaces/key.ts:17](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L17)*
+*Defined in [interfaces/key.ts:17](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L17)*
 
 ___
 <a id="char_limit"></a>
@@ -48,7 +48,7 @@ ___
 
 **● char_limit**: *`number`*
 
-*Defined in [interfaces/key.ts:18](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L18)*
+*Defined in [interfaces/key.ts:18](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L18)*
 
 ___
 <a id="comments"></a>
@@ -57,7 +57,7 @@ ___
 
 **● comments**: *`object`*
 
-*Defined in [interfaces/key.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L9)*
+*Defined in [interfaces/key.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L9)*
 
 ___
 <a id="context"></a>
@@ -66,7 +66,7 @@ ___
 
 **● context**: *`string`*
 
-*Defined in [interfaces/key.ts:16](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L16)*
+*Defined in [interfaces/key.ts:16](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L16)*
 
 ___
 <a id="created_at"></a>
@@ -75,7 +75,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [interfaces/key.ts:3](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L3)*
+*Defined in [interfaces/key.ts:3](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L3)*
 
 ___
 <a id="custom_attributes"></a>
@@ -84,7 +84,7 @@ ___
 
 **● custom_attributes**: *`any`[]*
 
-*Defined in [interfaces/key.ts:19](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L19)*
+*Defined in [interfaces/key.ts:19](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L19)*
 
 ___
 <a id="description"></a>
@@ -93,7 +93,7 @@ ___
 
 **● description**: *`string`*
 
-*Defined in [interfaces/key.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L6)*
+*Defined in [interfaces/key.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L6)*
 
 ___
 <a id="filenames"></a>
@@ -102,7 +102,7 @@ ___
 
 **● filenames**: *`object`*
 
-*Defined in [interfaces/key.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L5)*
+*Defined in [interfaces/key.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L5)*
 
 ___
 <a id="is_archived"></a>
@@ -111,7 +111,7 @@ ___
 
 **● is_archived**: *`boolean`*
 
-*Defined in [interfaces/key.ts:15](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L15)*
+*Defined in [interfaces/key.ts:15](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L15)*
 
 ___
 <a id="is_hidden"></a>
@@ -120,7 +120,7 @@ ___
 
 **● is_hidden**: *`boolean`*
 
-*Defined in [interfaces/key.ts:14](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L14)*
+*Defined in [interfaces/key.ts:14](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L14)*
 
 ___
 <a id="is_plural"></a>
@@ -129,7 +129,7 @@ ___
 
 **● is_plural**: *`boolean`*
 
-*Defined in [interfaces/key.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L12)*
+*Defined in [interfaces/key.ts:12](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L12)*
 
 ___
 <a id="key_id"></a>
@@ -138,7 +138,7 @@ ___
 
 **● key_id**: *`number`*
 
-*Defined in [interfaces/key.ts:2](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L2)*
+*Defined in [interfaces/key.ts:2](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L2)*
 
 ___
 <a id="key_name"></a>
@@ -147,7 +147,7 @@ ___
 
 **● key_name**: *`string`*
 
-*Defined in [interfaces/key.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L4)*
+*Defined in [interfaces/key.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L4)*
 
 ___
 <a id="platforms"></a>
@@ -156,7 +156,7 @@ ___
 
 **● platforms**: *`string`[]*
 
-*Defined in [interfaces/key.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L7)*
+*Defined in [interfaces/key.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L7)*
 
 ___
 <a id="plural_name"></a>
@@ -165,7 +165,7 @@ ___
 
 **● plural_name**: *`string`*
 
-*Defined in [interfaces/key.ts:13](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L13)*
+*Defined in [interfaces/key.ts:13](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L13)*
 
 ___
 <a id="screenshots"></a>
@@ -174,7 +174,7 @@ ___
 
 **● screenshots**: *`object`*
 
-*Defined in [interfaces/key.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L10)*
+*Defined in [interfaces/key.ts:10](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L10)*
 
 ___
 <a id="tags"></a>
@@ -183,7 +183,7 @@ ___
 
 **● tags**: *`string`[]*
 
-*Defined in [interfaces/key.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L8)*
+*Defined in [interfaces/key.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L8)*
 
 ___
 <a id="translations"></a>
@@ -192,7 +192,7 @@ ___
 
 **● translations**: *`object` | `object`[]*
 
-*Defined in [interfaces/key.ts:11](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/key.ts#L11)*
+*Defined in [interfaces/key.ts:11](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/key.ts#L11)*
 
 ___
 

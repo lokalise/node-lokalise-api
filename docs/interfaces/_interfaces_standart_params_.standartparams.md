@@ -28,7 +28,7 @@
 
 **● limit**: *`number`*
 
-*Defined in [interfaces/standart_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/standart_params.ts#L3)*
+*Defined in [interfaces/standart_params.ts:3](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/standart_params.ts#L3)*
 
 ___
 <a id="page"></a>
@@ -37,7 +37,7 @@ ___
 
 **● page**: *`number`*
 
-*Defined in [interfaces/standart_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/standart_params.ts#L2)*
+*Defined in [interfaces/standart_params.ts:2](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/standart_params.ts#L2)*
 
 ___
 

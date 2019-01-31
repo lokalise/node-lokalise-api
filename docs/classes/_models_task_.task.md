@@ -46,7 +46,7 @@
 
 *Inherited from [BaseModel](_models_base_model_.basemodel.md).[constructor](_models_base_model_.basemodel.md#constructor)*
 
-*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/base_model.ts#L4)*
+*Defined in [models/base_model.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/base_model.ts#L4)*
 
 **Parameters:**
 
@@ -66,7 +66,7 @@ ___
 
 **● auto_close_languages**: *`boolean`*
 
-*Defined in [models/task.ts:16](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L16)*
+*Defined in [models/task.ts:16](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L16)*
 
 ___
 <a id="auto_close_task"></a>
@@ -75,7 +75,7 @@ ___
 
 **● auto_close_task**: *`boolean`*
 
-*Defined in [models/task.ts:17](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L17)*
+*Defined in [models/task.ts:17](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L17)*
 
 ___
 <a id="completed_at"></a>
@@ -84,7 +84,7 @@ ___
 
 **● completed_at**: *`string`*
 
-*Defined in [models/task.ts:18](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L18)*
+*Defined in [models/task.ts:18](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L18)*
 
 ___
 <a id="completed_by"></a>
@@ -93,7 +93,7 @@ ___
 
 **● completed_by**: *`number`*
 
-*Defined in [models/task.ts:19](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L19)*
+*Defined in [models/task.ts:19](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L19)*
 
 ___
 <a id="completed_by_email"></a>
@@ -102,7 +102,7 @@ ___
 
 **● completed_by_email**: *`string`*
 
-*Defined in [models/task.ts:20](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L20)*
+*Defined in [models/task.ts:20](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L20)*
 
 ___
 <a id="created_at"></a>
@@ -111,7 +111,7 @@ ___
 
 **● created_at**: *`string`*
 
-*Defined in [models/task.ts:12](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L12)*
+*Defined in [models/task.ts:12](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L12)*
 
 ___
 <a id="created_by"></a>
@@ -120,7 +120,7 @@ ___
 
 **● created_by**: *`number`*
 
-*Defined in [models/task.ts:13](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L13)*
+*Defined in [models/task.ts:13](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L13)*
 
 ___
 <a id="created_by_email"></a>
@@ -129,7 +129,7 @@ ___
 
 **● created_by_email**: *`string`*
 
-*Defined in [models/task.ts:14](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L14)*
+*Defined in [models/task.ts:14](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L14)*
 
 ___
 <a id="description"></a>
@@ -138,7 +138,7 @@ ___
 
 **● description**: *`string`*
 
-*Defined in [models/task.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L6)*
+*Defined in [models/task.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L6)*
 
 ___
 <a id="due_date"></a>
@@ -147,7 +147,7 @@ ___
 
 **● due_date**: *`string`*
 
-*Defined in [models/task.ts:9](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L9)*
+*Defined in [models/task.ts:9](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L9)*
 
 ___
 <a id="keys_count"></a>
@@ -156,7 +156,7 @@ ___
 
 **● keys_count**: *`number`*
 
-*Defined in [models/task.ts:10](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L10)*
+*Defined in [models/task.ts:10](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L10)*
 
 ___
 <a id="languages"></a>
@@ -165,7 +165,7 @@ ___
 
 **● languages**: *`object`*
 
-*Defined in [models/task.ts:15](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L15)*
+*Defined in [models/task.ts:15](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L15)*
 
 ___
 <a id="progress"></a>
@@ -174,7 +174,7 @@ ___
 
 **● progress**: *`number`*
 
-*Defined in [models/task.ts:8](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L8)*
+*Defined in [models/task.ts:8](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L8)*
 
 ___
 <a id="status"></a>
@@ -183,7 +183,7 @@ ___
 
 **● status**: *`string`*
 
-*Defined in [models/task.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L7)*
+*Defined in [models/task.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L7)*
 
 ___
 <a id="task_id"></a>
@@ -192,7 +192,7 @@ ___
 
 **● task_id**: *`number`*
 
-*Defined in [models/task.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L4)*
+*Defined in [models/task.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L4)*
 
 ___
 <a id="title"></a>
@@ -201,7 +201,7 @@ ___
 
 **● title**: *`string`*
 
-*Defined in [models/task.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L5)*
+*Defined in [models/task.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L5)*
 
 ___
 <a id="words_count"></a>
@@ -210,7 +210,7 @@ ___
 
 **● words_count**: *`number`*
 
-*Defined in [models/task.ts:11](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/models/task.ts#L11)*
+*Defined in [models/task.ts:11](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/models/task.ts#L11)*
 
 ___
 

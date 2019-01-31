@@ -31,7 +31,7 @@
 
 **● added_at**: *`string`*
 
-*Defined in [interfaces/comment.ts:7](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/comment.ts#L7)*
+*Defined in [interfaces/comment.ts:7](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/comment.ts#L7)*
 
 ___
 <a id="added_by"></a>
@@ -40,7 +40,7 @@ ___
 
 **● added_by**: *`number`*
 
-*Defined in [interfaces/comment.ts:5](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/comment.ts#L5)*
+*Defined in [interfaces/comment.ts:5](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/comment.ts#L5)*
 
 ___
 <a id="added_by_email"></a>
@@ -49,7 +49,7 @@ ___
 
 **● added_by_email**: *`string`*
 
-*Defined in [interfaces/comment.ts:6](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/comment.ts#L6)*
+*Defined in [interfaces/comment.ts:6](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/comment.ts#L6)*
 
 ___
 <a id="comment"></a>
@@ -58,7 +58,7 @@ ___
 
 **● comment**: *`string`*
 
-*Defined in [interfaces/comment.ts:4](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/comment.ts#L4)*
+*Defined in [interfaces/comment.ts:4](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/comment.ts#L4)*
 
 ___
 <a id="comment_id"></a>
@@ -67,7 +67,7 @@ ___
 
 **● comment_id**: *`number`*
 
-*Defined in [interfaces/comment.ts:2](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/comment.ts#L2)*
+*Defined in [interfaces/comment.ts:2](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/comment.ts#L2)*
 
 ___
 <a id="key_id"></a>
@@ -76,7 +76,7 @@ ___
 
 **● key_id**: *`number`*
 
-*Defined in [interfaces/comment.ts:3](https://github.com/lokalise/node-lokalise-api/blob/324e932/src/interfaces/comment.ts#L3)*
+*Defined in [interfaces/comment.ts:3](https://github.com/lokalise/node-lokalise-api/blob/13b70eb/src/interfaces/comment.ts#L3)*
 
 ___
 
