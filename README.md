@@ -374,25 +374,8 @@ lokaliseApi.languages.create({
 #### Get a project language
 
 ```
-lokaliseApi.languages.create({
-      "languages": [
-          {
-              "lang_iso": "en"
-          },
-          {
-              "lang_iso": "ru"                        
-          }
-      ]},
-      { project_id: <projectId> });
+lokaliseApi.languages.get(<languageId>, { project_id: <projectId> });
 ```
-
-
-#### Create a project language
-
-```
-lokaliseApi.languages.create({project_id: <projectId>})
-```
-
 
 #### Update a project language
 
@@ -536,13 +519,13 @@ lokaliseApi.tasks.create({
 #### Get a task
 
 ```
-lokaliseApi.tasks.restore({ project_id: <projectId>, id: <taskId> });
+lokaliseApi.tasks.get(<taskId>, { project_id: <projectId> });
 ```
 
 #### Delete a task
 
 ```
-lokaliseApi.tasks.delete(id: <taskId>, { project_id: <projectId>});
+lokaliseApi.tasks.delete(<taskId>, { project_id: <projectId>});
 ```
 
 
@@ -622,7 +605,7 @@ lokaliseApi.user_groups.add_project_to_group(<teamId>, <groupId>, {
 #### Remove a project from group 
 
 ```
-lokaliseApi.user_groups.remove_project_to_group(<teamId>, <groupId>, {
+lokaliseApi.user_groups.remove_project_from_group(<teamId>, <groupId>, {
                           "projects": [
                               "598901215bexxx43dcba74.xxx"
                           ]

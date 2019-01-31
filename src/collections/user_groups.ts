@@ -19,7 +19,7 @@ export class UserGroups extends BaseCollection {
                               'teams/{!:team_id}/groups/{!:group_id}/projects/add' )
   }
 
-  remove_project_to_group(team_id, group_id, body, params) {
+  remove_project_from_group(team_id, group_id, body, params) {
     params = {}
     params['team_id'] = team_id;
     params['group_id'] = group_id;
