@@ -1,0 +1,114 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/479334065bfbef4ed4f6d7.99482900?id=479334065bfbef4ed4f6d7.99482900",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "479334065bfbef4ed4f6d7.99482900",
+      "name": "Sample Project",
+      "description": "",
+      "created_at": "2018-11-26 12:04:14 (Etc/UTC)",
+      "created_by": 25261,
+      "created_by_email": "kutanov@gmail.com",
+      "team_id": 179595,
+      "statistics": {
+        "progress_total": 27,
+        "keys_total": 12,
+        "team": 1,
+        "base_words": 189,
+        "qa_issues_total": 85,
+        "qa_issues": {
+          "not_reviewed": 77,
+          "unverified": 6,
+          "spelling_grammar": 0,
+          "inconsistent_placeholders": 1,
+          "inconsistent_html": 1,
+          "different_number_of_urls": 0,
+          "different_urls": 0,
+          "leading_whitespace": 0,
+          "trailing_whitespace": 0,
+          "different_number_of_email_address": 0,
+          "different_email_address": 0,
+          "different_brackets": 0,
+          "different_numbers": 0
+        },
+        "languages": [
+          {
+            "language_id": 640,
+            "language_iso": "en",
+            "progress": 100,
+            "words_to_do": 0
+          },
+          {
+            "language_id": 673,
+            "language_iso": "fr",
+            "progress": 14,
+            "words_to_do": 161
+          },
+          {
+            "language_id": 766,
+            "language_iso": "he",
+            "progress": 1,
+            "words_to_do": 186
+          },
+          {
+            "language_id": 643,
+            "language_iso": "ja",
+            "progress": 1,
+            "words_to_do": 186
+          },
+          {
+            "language_id": 597,
+            "language_iso": "ru",
+            "progress": 74,
+            "words_to_do": 49
+          },
+          {
+            "language_id": 602,
+            "language_iso": "zh_CN",
+            "progress": 0,
+            "words_to_do": 189
+          },
+          {
+            "language_id": 666,
+            "language_iso": "de",
+            "progress": 2,
+            "words_to_do": 185
+          }
+        ]
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Tue, 05 Feb 2019 11:24:21 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

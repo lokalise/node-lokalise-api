@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Node lokalise api",
   "license": "MIT",
   "repository": {
@@ -24,6 +24,7 @@
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "mocha-tape-deck": "0.0.9",
+    "request-promise": "^4.2.2",
     "typedoc": "^0.14.2",
     "typedoc-plugin-markdown": "^1.1.22"
   },

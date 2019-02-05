@@ -11,9 +11,9 @@ export class LokaliseApi extends LocaliseApiMethods {
  * @param apiKey  text, mandaratory
  * @returns       LokaliseApi object to work with.
  */
-  constructor(apiKey:string) {
+  constructor(params: Object = {}) {
     super();
-    LokaliseApi.apiKey = apiKey;
+    LokaliseApi.apiKey = params['apiKey'];
     if (LokaliseApi.apiKey == null || LokaliseApi.apiKey.length == 0) {
         throw new Error("Error: Instantiation failed: Please pass api key");
     }

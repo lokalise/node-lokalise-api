@@ -11,7 +11,7 @@ export class BaseCollection {
     return this.createPromise('GET', {id: id}, this.populateObjectFromJson, this.handleReject, body)
   }
 
-  list(params : StandartParams ={}): Promise<any[]> {
+  list(params : StandartParams = {}): Promise<any[]> {
     return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);
   }
 
@@ -35,6 +35,7 @@ export class BaseCollection {
   }
 
   protected populateArrayFromJson(json: Array<any>): this[] {
+    console.log(json);
     let childClass = <typeof BaseCollection>this.constructor;
     let arr: this[] = new Array();
     let jsonArray = json[childClass.rootElementName];

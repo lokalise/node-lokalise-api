@@ -1,54 +1,84 @@
 import { Project as ProjectInterface } from '../../src/models/project';
 import { expect } from 'chai';
-import * as express from "express";
-import * as faker from 'faker';
+// import * as express from "express";
+// import * as faker from 'faker';
 import { TapeDeck } from 'mocha-tape-deck';
+const rp = require("request-promise");
+const { LokaliseApi } = require('../../dist/main');
 
-describe('Project Interface', () => {
-
-  let project: ProjectInterface;
-  let project_id: number;
-  let name:string;
-  let description:string;
-  let team_id:number;
-  let created_at:string;
-  let created_by:number;
-  let created_by_email;
+describe('Projects', () => {
 
   let server;
-  const deck = new TapeDeck('./cassettes');
-  let response;
+  const deck = new TapeDeck('./test/cassettes');
 
-
-  beforeEach(() => {
-    this.project_id = faker.random.number();
-    this.name = faker.lorem.sentence();
-    this.description = faker.lorem.sentence();
-    this.team_id = faker.random.number();
-    this.created_at = faker.date.recent();
-    this.created_by = faker.random.number();
-    this.created_by_email = faker.random.word();
-
-    this.project = {
-        project_id: this.project_id,
-        name: this.name,
-        description: this.description,
-        team_id: this.team_id,
-        created_by_email: this.created_by_email,
-        created_at: this.created_at,
-        created_by: this.created_by
-    };
-
-    const app = express();
+  describe('List projects', function() {
+    // tests are executed in reverse order that they're compiled in
+    deck.createTest('projects can be listed', async () => {
+      const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
+      const projects = await lokaliseApi.projects.list();
+      expect(projects).to.be.not.null;
+    })
+    .playCassette('projects_list')
+    .register(this);
   });
 
-  it('should be valid', () => {
-    expect(this.project.project_id).to.equal(this.project_id);
-    expect(this.project.name).to.equal(this.name);
-    expect(this.project.description).to.equal(this.description);
-    expect(this.project.team_id).to.equal(this.team_id);
-    expect(this.project.created_by_email).to.equal(this.created_by_email);
-    expect(this.project.created_at).to.equal(this.created_at);
-    expect(this.project.created_by).to.equal(this.created_by);
+
+   describe('Create projects', function() {
+    // tests are executed in reverse order that they're compiled in
+    deck.createTest('project can be created', async () => {
+      const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
+      const project = await lokaliseApi.projects.create({
+        name: "Test name",
+        description: "Test description"
+      });
+      expect(project).to.be.not.null;
+      expect(project.name).to.equal("Test name");
+      expect(project.description).to.equal("Test description");
+    })
+    .playCassette('projects_create')
+    .register(this);
   });
+
+
+  describe('Get a projects', function() {
+    // tests are executed in reverse order that they're compiled in
+    deck.createTest('project can be gotten', async () => {
+      const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
+      const project = await lokaliseApi.projects.get('479334065bfbef4ed4f6d7.99482900');
+      expect(project).to.be.not.null;
+      expect(project.name).to.equal("Sample Project");
+      expect(project.description).to.equal("");
+    })
+    .playCassette('projects_get')
+    .register(this);
+  });
+
+  describe('Update a projects', function() {
+    // tests are executed in reverse order that they're compiled in
+    deck.createTest('can be written', async () => {
+      const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
+      const project = await lokaliseApi.projects.update('884076135c596ca76660f7.68401661', {
+        name: 'Sample Project 1',
+        description: 'Sample Project 1 description'
+      });
+      expect(project).to.be.not.null;
+      expect(project.name).to.equal('Sample Project 1')      
+      expect(project.description).to.equal('Sample Project 1 description')
+    })
+    .playCassette('projects_update')
+    .register(this);
+  });
+
+  describe('Delete a projects', function() {
+    // tests are executed in reverse order that they're compiled in
+    deck.createTest('project can be deleted', async () => {
+      const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
+      const response = await lokaliseApi.projects.delete('884076135c596ca76660f7.68401661');
+      expect(response).to.be.not.null;
+
+    })
+    .playCassette('projects_delete')
+    .register(this);
+  });
+
 });
