@@ -1,0 +1,81 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "PUT",
+    "path": "/api2/projects/136366185c376771890984.21179299?id=136366185c376771890984.21179299",
+    "body": {
+      "name": "Sample Project 1",
+      "description": "Sample Project 1 description"
+    },
+    "status": 200,
+    "response": {
+      "project_id": "136366185c376771890984.21179299",
+      "name": "Sample Project 1",
+      "description": "Sample Project 1 description",
+      "created_at": "2019-01-10 15:40:33 (Etc/UTC)",
+      "created_by": 25261,
+      "created_by_email": "kutanov@gmail.com",
+      "team_id": 179595,
+      "statistics": {
+        "progress_total": 0,
+        "keys_total": 0,
+        "team": 1,
+        "base_words": 0,
+        "qa_issues_total": 0,
+        "qa_issues": {
+          "not_reviewed": 0,
+          "unverified": 0,
+          "spelling_grammar": 0,
+          "inconsistent_placeholders": 0,
+          "inconsistent_html": 0,
+          "different_number_of_urls": 0,
+          "different_urls": 0,
+          "leading_whitespace": 0,
+          "trailing_whitespace": 0,
+          "different_number_of_email_address": 0,
+          "different_email_address": 0,
+          "different_brackets": 0,
+          "different_numbers": 0
+        },
+        "languages": [
+          {
+            "language_id": 640,
+            "language_iso": "en",
+            "progress": 0,
+            "words_to_do": 0
+          }
+        ]
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Tue, 05 Feb 2019 11:58:19 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

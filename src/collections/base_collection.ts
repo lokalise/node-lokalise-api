@@ -35,7 +35,6 @@ export class BaseCollection {
   }
 
   protected populateArrayFromJson(json: Array<any>): this[] {
-    console.log(json);
     let childClass = <typeof BaseCollection>this.constructor;
     let arr: this[] = new Array();
     let jsonArray = json[childClass.rootElementName];

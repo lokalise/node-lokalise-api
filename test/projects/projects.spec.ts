@@ -57,7 +57,7 @@ describe('Projects', () => {
     // tests are executed in reverse order that they're compiled in
     deck.createTest('can be written', async () => {
       const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
-      const project = await lokaliseApi.projects.update('884076135c596ca76660f7.68401661', {
+      const project = await lokaliseApi.projects.update('136366185c376771890984.21179299', {
         name: 'Sample Project 1',
         description: 'Sample Project 1 description'
       });
@@ -75,7 +75,8 @@ describe('Projects', () => {
       const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
       const response = await lokaliseApi.projects.delete('884076135c596ca76660f7.68401661');
       expect(response).to.be.not.null;
-
+      expect(response['project_id']).to.be.equal('884076135c596ca76660f7.68401661');
+      expect(response['project_deleted']).to.be.equal(true)
     })
     .playCassette('projects_delete')
     .register(this);

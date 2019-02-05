@@ -24,7 +24,6 @@ class BaseCollection {
         return new childClass.elementClass(json);
     }
     populateArrayFromJson(json) {
-        console.log(json);
         let childClass = this.constructor;
         let arr = new Array();
         let jsonArray = json[childClass.rootElementName];
