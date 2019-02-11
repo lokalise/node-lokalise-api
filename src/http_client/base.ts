@@ -35,7 +35,11 @@ export class ApiRequest {
         if (error) {
           reject(error)
         } else {
-          resolve(JSON.parse(body));
+          let responseJSON = JSON.parse(body);
+          if (responseJSON['error']) {
+            reject(responseJSON);
+          }
+          resolve(responseJSON);
         }
       });
     });

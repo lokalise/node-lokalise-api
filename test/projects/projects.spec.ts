@@ -6,12 +6,12 @@ import { TapeDeck } from 'mocha-tape-deck';
 const rp = require("request-promise");
 const { LokaliseApi } = require('../../dist/main');
 
-describe('Projects', () => {
+describe('Projects', function () {
 
   let server;
   const deck = new TapeDeck('./test/cassettes');
 
-  describe('List projects', function() {
+  describe('List projects', () => {
     // tests are executed in reverse order that they're compiled in
     deck.createTest('projects can be listed', async () => {
       const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
@@ -23,7 +23,7 @@ describe('Projects', () => {
   });
 
 
-   describe('Create projects', function() {
+   describe('Create projects', () => {
     // tests are executed in reverse order that they're compiled in
     deck.createTest('project can be created', async () => {
       const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
@@ -40,7 +40,7 @@ describe('Projects', () => {
   });
 
 
-  describe('Get a projects', function() {
+  describe('Get a projects', () => {
     // tests are executed in reverse order that they're compiled in
     deck.createTest('project can be gotten', async () => {
       const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
@@ -53,7 +53,7 @@ describe('Projects', () => {
     .register(this);
   });
 
-  describe('Update a projects', function() {
+  describe('Update a projects', () => {
     // tests are executed in reverse order that they're compiled in
     deck.createTest('can be written', async () => {
       const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
@@ -69,7 +69,7 @@ describe('Projects', () => {
     .register(this);
   });
 
-  describe('Delete a projects', function() {
+  describe('Delete a projects', () => {
     // tests are executed in reverse order that they're compiled in
     deck.createTest('project can be deleted', async () => {
       const lokaliseApi = new LokaliseApi({ apiKey: '44fd964aa8ac7196762d61a4949326fea38a5f60'});
@@ -81,5 +81,4 @@ describe('Projects', () => {
     .playCassette('projects_delete')
     .register(this);
   });
-
 });

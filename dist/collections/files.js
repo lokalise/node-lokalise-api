@@ -15,6 +15,6 @@ class Files extends base_collection_1.BaseCollection {
 }
 Files.rootElementName = 'files';
 Files.prefixURI = 'projects/{!:project_id}/files/{:id}';
-Files.memberClass = file_1.File;
+Files.elementClass = file_1.File;
 exports.Files = Files;
 //# sourceMappingURL=files.js.map

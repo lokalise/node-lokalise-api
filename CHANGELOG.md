@@ -4,4 +4,4 @@ All notable changes to this project will be documented in this file.
 
 ## 0.0.4
 
-- Fixed mismatch between the documentation and the code. The API is initialized now as stated in the documentation.
+- Fixed mismatch between the documentation and code. The API is initialized now as stated in the documentation.

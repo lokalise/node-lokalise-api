@@ -1,0 +1,64 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/505512295c596b25bce8d4.33297803/files/?project_id=505512295c596b25bce8d4.33297803",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "505512295c596b25bce8d4.33297803",
+      "files": [
+        {
+          "filename": "test.json",
+          "key_count": 3
+        },
+        {
+          "filename": "test1.json",
+          "key_count": 0
+        },
+        {
+          "filename": "__unassigned__",
+          "key_count": 0
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Mon, 11 Feb 2019 14:11:29 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "X-Pagination-Total-Count",
+      "3",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

@@ -7,7 +7,7 @@ import { DownloadFileParams } from '../interfaces/download_file_params';
 export class Files extends BaseCollection {
   protected static rootElementName:string = 'files';
   protected static prefixURI:string = 'projects/{!:project_id}/files/{:id}';
-  protected static memberClass: Object = File;
+  protected static elementClass: Object = File;
 
   list(params: FileParams = {}) : Promise<this[]> {
     return super.list(params);
