@@ -187,7 +187,7 @@ lokaliseApi.contributors.list({ project_id: <projectId> });
 
 #### Get a contributor
 
-You should pass *contributorId and *projectId* as parameters.
+You should pass *contributorId* and *projectId* as parameters.
 
 ```js
 lokaliseApi.contributors.get(<contributorId>, { project_id: <projectId> });
