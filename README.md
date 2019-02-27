@@ -105,7 +105,7 @@ Every request returns a promise with a corresponding object (or array of objects
 
 #### List projects
 
-Params like page or limit are optional.
+Parameters *page* or *limit* are optional.
 
 ```js
 lokaliseApi.projects.list({ page: 1, limit: 1000 });
@@ -133,31 +133,31 @@ lokaliseApi.projects.update(<projectId>, { name: "New name", description: "New d
 
 #### List project comments
 
-You should pass project_id as a parameter
+You should pass *projectId* as a parameter.
 
 ```js
 lokaliseApi.comments.list_project_comments({ project_id: <projectId>});
 ```
 
-#### List comments
+#### List key comments
 
-You should pass project_id, id as a parameters
+You should pass *projectId* and *keyId* as parameters.
 
 ```js
-lokaliseApi.comments.list_project_comments({ project_id: <projectId>, key_id: <key_id>});
+lokaliseApi.comments.list_project_comments({ project_id: <projectId>, key_id: <keyId>});
 ```
 
 #### Get a comment
 
-You should pass commentId and project_id, key_id as a parameters
+You should pass *commentId*, *projectId* and *keyId* as parameters.
 
 ```js
-lokaliseApi.comments.get(<commentId>, { project_id: <projectId>, key_id: <key_id>});
+lokaliseApi.comments.get(<commentId>, { project_id: <projectId>, key_id: <keyId>});
 ```
 
 #### Create project comments
 
-Return promise array of comments
+Returns promise array of comments.
 
 ```js
 lokaliseApi.comments.create({ 
@@ -179,23 +179,23 @@ lokaliseApi.comments.delete(<commentId>, { project_id: <projectId>, key_id: <key
 
 #### List project contributors
 
-You should pass project_id as a parameter
+You should pass *projectId* as a parameter.
 
 ```js
 lokaliseApi.contributors.list({ project_id: <projectId> });
 ```
 
-#### Get a project contributor
+#### Get a contributor
 
-You should pass contributorId and project_id as a parameter
+You should pass *contributorId and *projectId* as parameters.
 
 ```js
 lokaliseApi.contributors.get(<contributorId>, { project_id: <projectId> });
 ```
 
-#### Create a project contributor
+#### Create a contributor
 
-You should pass contributors object and project_id as a parameter
+You should pass *contributors* object and *projectId* as parameters.
 
 ```js
 lokaliseApi.contributors.get({
@@ -225,9 +225,9 @@ lokaliseApi.contributors.get({
             { project_id: <projectId>, key_id: <key_id>});
 ```
 
-#### Delete a project contributor
+#### Delete a contributor
 
-You should pass contributorId and project_id as a parameter
+You should pass *contributorId* and *projectId* as parameters.
 
 ```js
 lokaliseApi.contributors.delete(<contributorId>, {project_id: <projectId>});
@@ -237,7 +237,7 @@ lokaliseApi.contributors.delete(<contributorId>, {project_id: <projectId>});
 
 #### List project files
 
-Params like page or limit are optional.
+Parameters *page* or *limit* are optional.
 
 ```js
 lokaliseApi.files.list({ project_id: <projectId>, page: 1, limit: 1000 });
@@ -268,11 +268,11 @@ lokaliseApi.files.download(<projectId>, {
 ```
 
 
-### Keys
+### Files
 
 #### List project files
 
-Params like page or limit are optional.
+Params *page* and *limit* are optional.
 
 ```js
 lokaliseApi.files.list({ project_id: <projectId>, page: 1, limit: 1000 });
@@ -311,7 +311,7 @@ lokaliseApi.keys.list({project_id: <projectId>, page: 1, limit: 1})
 ```
 
 
-#### Create project keys
+#### Create keys
 
 ```js
 lokaliseApi.keys.create({
@@ -371,7 +371,7 @@ lokaliseApi.keys.update(<keyId>, {
 { project_id: <projectId> });
 ```
 
-#### Update keys bulk
+#### Update keys in bulk
 
 ```
 lokaliseApi.keys.bulk_update({
@@ -429,7 +429,7 @@ lokaliseApi.languages.system_languages({page: 1, limit: 10000})
 lokaliseApi.languages.list({project_id: <projectId>});
 ```
 
-#### Create project language
+#### Create a language
 
 ```
 lokaliseApi.languages.create({
@@ -445,13 +445,13 @@ lokaliseApi.languages.create({
 ```
 
 
-#### Get a project language
+#### Get a language
 
 ```
 lokaliseApi.languages.get(<languageId>, { project_id: <projectId> });
 ```
 
-#### Update a project language
+#### Update a language
 
 ```
 lokaliseApi.languages.update(<languageId>, {
@@ -462,7 +462,7 @@ lokaliseApi.languages.update(<languageId>, {
       }, {project_id: <projectId>});
 ```
 
-#### Delete a project language
+#### Delete a language
 
 ```
 lokaliseApi.languages.delete(<languageId>, { project_id: <projectId> });
@@ -638,14 +638,14 @@ lokaliseApi.team_users.update(<teamUserId>, { "role": "admin" },
 lokaliseApi.team_users.delete(<teamUserId>, { project_id: <projectId> });
 ```
 
-### Team user group
+### Team user groups
 
-#### List team user group
+#### List team user groups
 ```
 lokaliseApi.user_groups.list({ team_id: <teamId> });
 ```
 
-#### List team user group
+#### Create a team user group
 
 ```
 lokaliseApi.user_groups.create({
