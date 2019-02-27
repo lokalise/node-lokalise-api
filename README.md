@@ -23,7 +23,7 @@ const projects = await lokaliseApi.projects.list();
 
 ## Usage
 
-Every reuqest return a promise with a corresponding object or array of object as the result.
+Every request returns a promise with a corresponding object (or array of objects) as the result.
 
 
 
