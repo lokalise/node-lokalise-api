@@ -37,7 +37,7 @@ export class ApiRequest {
           return;
         } else {
           let responseJSON = JSON.parse(body);
-          if (responseJSON['error'] || responseJSON['errors']) {
+          if (responseJSON['error']  || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
             reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
             return;
           }
