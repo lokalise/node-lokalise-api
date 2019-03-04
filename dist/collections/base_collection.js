@@ -36,7 +36,8 @@ class BaseCollection {
         return json;
     }
     handleReject(data) {
-        return data;
+        console.log(data);
+        return;
     }
     createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) {
         let childClass = this.constructor;
@@ -47,7 +48,7 @@ class BaseCollection {
             let response = new base_1.ApiRequest(uri, method, body, params);
             response.promise.then((result) => {
                 resolve(resolveFn.call(this, result));
-            }).then((data) => {
+            }).catch((data) => {
                 reject(rejectFn.call(this, data));
             });
         });

@@ -49,7 +49,8 @@ export class BaseCollection {
   }
 
   protected handleReject(data) {
-    return data;
+    console.log(data);
+    return;
   }
 
   protected createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) : Promise<any> {
@@ -61,7 +62,7 @@ export class BaseCollection {
       let response: ApiRequest = new ApiRequest(uri, method, body, params);
       response.promise.then((result) => {
         resolve(resolveFn.call(this, result));
-      }).then((data) => {
+      }).catch((data) => {
         reject(rejectFn.call(this, data));
       });
     });

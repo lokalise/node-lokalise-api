@@ -34,12 +34,15 @@ export class ApiRequest {
       request(options, (error, response, body) => {
         if (error) {
           reject(error)
+          return;
         } else {
           let responseJSON = JSON.parse(body);
-          if (responseJSON['error']) {
-            reject(responseJSON);
+          if (responseJSON['error'] || responseJSON['errors']) {
+            reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
+            return;
           }
           resolve(responseJSON);
+          return;
         }
       });
     });
