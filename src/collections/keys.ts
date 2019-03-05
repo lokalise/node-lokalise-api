@@ -18,7 +18,7 @@ export class Keys extends BaseCollection {
                        this.handleReject, keys, 'projects/{!:project_id}/keys');
  }
 
- bulk_delete(keys: number[] | string[], params: StandartParams) : any {
+ bulk_delete(keys: BulkUpdateKeysParams, params: StandartParams) : any {
    return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, keys,
                              'projects/{!:project_id}/keys');
  }
