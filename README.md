@@ -527,25 +527,25 @@ lokaliseApi.screenshots.delete(<screenshotId>, { project_id: <projectId> });
 #### List snapshots
 
 ```
-lokaliseApi.screenshots.list({project_id: <projectId>});
+lokaliseApi.snapshots.list({project_id: <projectId>});
 ```
 
 #### Create a snapshot
 
 ```
-lokaliseApi.screenshots.create({ "title": "API snapshot" }, {project_id: <projectId>});
+lokaliseApi.snapshots.create({ "title": "API snapshot" }, {project_id: <projectId>});
 ```
 
 #### Restore a snapshot
 
 ```
-lokaliseApi.screenshots.restore({ project_id: <projectId>, id: <snapshotId>});
+lokaliseApi.snapshots.restore({ project_id: <projectId>, id: <snapshotId>});
 ```
 
 #### Delete a snapshot
 
 ```
-lokaliseApi.screenshots.delete({ project_id: <projectId>, id: <snapshotId>});
+lokaliseApi.snapshots.delete({ project_id: <projectId>, id: <snapshotId>});
 ```
 
 
