@@ -14,19 +14,20 @@
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
-    "@types/express": "^4.16.1",
-    "@types/mocha": "^5.2.5",
-    "@types/node": "^10.12.18",
-    "eslint": "^3.19.0",
+    "@types/express": "^4.17.0",
+    "@types/mocha": "^5.2.7",
+    "@types/node": "^10.14.8",
+    "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.1.0",
-    "eslint-plugin-import": "^1.16.0",
-    "express": "^4.16.4",
+    "eslint-plugin-import": "^2.14.0",
+    "express": "^4.17.1",
     "faker": "^4.1.0",
     "mocha": "^5.2.0",
     "mocha-tape-deck": "0.0.9",
-    "request-promise": "^4.2.2",
+    "request-promise": "^4.2.4",
     "typedoc": "^0.14.2",
-    "typedoc-plugin-markdown": "^1.1.22"
+    "typedoc-plugin-markdown": "^1.2.1",
+    "acorn": "^6.0.0"
   },
   "dependencies": {
     "@types/request": "^2.48.1",
