@@ -1,7 +1,7 @@
 {
   "name": "@lokalise/node-api",
-  "version": "0.0.8",
-  "description": "Node lokalise api",
+  "version": "0.0.9",
+  "description": "Official Lokalise API 2.0 Node.js client",
   "license": "MIT",
   "repository": {
     "type": "git",
@@ -46,5 +46,5 @@
     "doc": "docs",
     "test": "test"
   },
-  "author": "Roman Kutanov"
+  "author": "Roman Kutanov, Ilya Bodrov and Lokalise team"
 }
