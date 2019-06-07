@@ -3,7 +3,7 @@ import { expect } from 'chai';
 // import * as faker from 'faker';
 import { TapeDeck } from 'mocha-tape-deck';
 const rp = require("request-promise");
-const { LokaliseApi } = require('../../dist/main');
+const { LokaliseApi } = require('../../index');
 
 describe('Files', function () {
 

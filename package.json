@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Node lokalise api",
   "license": "MIT",
   "repository": {
@@ -39,7 +39,8 @@
     "url": "https://github.com/lokalise/node-lokalise-api"
   },
   "homepage": "https://github.com/lokalise/node-lokalise-api#readme",
-  "main": "dist/main.js",
+  "main": "./index.js",
+  "typings": "./index.d.ts",
   "directories": {
     "doc": "docs",
     "test": "test"
