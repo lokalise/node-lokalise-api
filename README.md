@@ -688,5 +688,8 @@ lokaliseApi.user_groups.remove_project_from_group(<teamId>, <groupId>, {
                       });
 ```
 
+## License
 
+This library is licensed under the [MIT License](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE).
 
+Copyright (c) [Lokalise team](http://lokalise.co), Roman Kutanov, [Ilya Bodrov](http://bodrovis.tech)
