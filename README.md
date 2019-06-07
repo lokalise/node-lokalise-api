@@ -1,5 +1,7 @@
 # Lokalise API 2.0 official Node.js client
 
+[![npm version](https://badge.fury.io/js/%40lokalise%2Fnode-api.svg)](https://badge.fury.io/js/%40lokalise%2Fnode-api)
+
 Lokalise lets you manage translations of your app, game or website – either on your own or with a team of collaborators.
 
 Lokalise API [documentation](https://lokalise.co/api2docs/curl/#resource-getting-started)
