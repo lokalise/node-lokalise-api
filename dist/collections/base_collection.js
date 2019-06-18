@@ -3,7 +3,8 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("../http_client/base");
 class BaseCollection {
     get(id, params = {}, body = null) {
-        return this.createPromise('GET', { id: id }, this.populateObjectFromJson, this.handleReject, body);
+        params['id'] = id;
+        return this.createPromise('GET', params, this.populateObjectFromJson, this.handleReject, body);
     }
     list(params = {}) {
         return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);

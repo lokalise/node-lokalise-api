@@ -1,0 +1,67 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/teams/176692/translation_providers/?team_id=176692",
+    "body": "",
+    "status": 200,
+    "response": {
+      "translation_providers": [
+        {
+          "provider_id": 1,
+          "name": "Gengo",
+          "slug": "gengo",
+          "price_pair_min": "0.00",
+          "website_url": "https://gengo.com",
+          "description": "At Gengo, our mission is to provide language services to everyone and connect a global community. Our network of over 18,000 translators are tested and qualified to meet stringent project standards. Translators are based around the world and in every timezone, which enables us to support over 35 languages and work towards the Gengo mission."
+        },
+        {
+          "provider_id": 4,
+          "name": "Lokalise",
+          "slug": "lokalise",
+          "price_pair_min": "10.00",
+          "website_url": "https://lokalise.co",
+          "description": "Our native professional translations are experts in mobile app, software, e-learning, website, multimedia and game localization. Translations in over 90 languages are available.\n<br><br>\nReach out for our translation managers in our in-web support chat. They will guide you through.\n<br><br>\n<strong>Lifetime quality guarantee</strong> applies."
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Tue, 18 Jun 2019 18:36:29 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=37cbeb5595008f18116dded06892d870; expires=Sat, 17-Aug-2019 18:36:29 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "2",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

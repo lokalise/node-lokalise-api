@@ -8,10 +8,11 @@ export class BaseCollection {
   protected static elementClass: any = null;
 
   get(id, params: StandartParams = {}, body: any = null) : Promise<any> {
-    return this.createPromise('GET', {id: id}, this.populateObjectFromJson, this.handleReject, body)
+    params['id'] = id;
+    return this.createPromise('GET', params, this.populateObjectFromJson, this.handleReject, body)
   }
 
-  list(params : StandartParams = {}): Promise<any[]> {
+  list(params: StandartParams = {}): Promise<any[]> {
     return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);
   }
 

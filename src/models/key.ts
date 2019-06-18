@@ -1,6 +1,5 @@
 import { Key as KeyInterface } from "../interfaces";
 import { BaseModel } from './base_model';
-import { BulkUpdateKeysParams } from '../interfaces/bulk_update_key';
 
 export class Key extends BaseModel implements KeyInterface {
   public key_id: number;

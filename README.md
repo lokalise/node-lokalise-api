@@ -2,134 +2,74 @@
 
 [![npm version](https://badge.fury.io/js/%40lokalise%2Fnode-api.svg)](https://badge.fury.io/js/%40lokalise%2Fnode-api)
 
-Lokalise lets you manage translations of your app, game or website – either on your own or with a team of collaborators.
+Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node/#resource-getting-started).
 
-Lokalise API [documentation](https://lokalise.co/api2docs/curl/#resource-getting-started)
+## Index
 
-[Wrapper's Documentation](https://github.com/lokalise/node-lokalise-api/tree/master/docs/README.md)
-
+* [Getting started](#getting-started)
+  - [Installation](#installation)
+  - [Initializing Client](#initializing-client)
+* [Usage](#usage)
+  + [Comments](#comments)
+  + [Contributors](#contributors)
+  + [Files](#files)
+  + [Keys](#keys)
+  + [Languages](#languages)
+  + [Projects](#projects)
+  + [Screenshots](#screenshots)
+  + [Snapshots](#snapshots)
+  + [Tasks](#tasks)
+  + [Teams](#teams)
+  + [Team users](#team-users)
+  + [Team user groups](#team-user-groups)
+  + [Translation Providers](#translation-providers)
+* [Additional Info](#additional-info)
+* [Running Tests](#running-tests)
 
 ## Getting started
+
+### Installation
+
+This library has no special requirements. Install it with [NPM](https://www.npmjs.com/):
 
 ```bash
 npm install @lokalise/node-api
 ```
 
+### Initializing Client
+
+In order to perform API requests, you require a special token that can be obtained in your [personal profile](https://lokalise.co/profile#apitokens) (*API tokens* section). Note that the owner of the token must have admin access rights.
+
+After you've obtained the token, initialize the client:
+
 ```js
 const { LokaliseApi } = require('@lokalise/node-api');
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
+```
 
-const projects = await lokaliseApi.projects.list();
+Now you may perform API requests, for example:
+
+```js
+const projects = lokaliseApi.projects.list();
+```
+
+### Pagination
+
+Bulk fetches support [pagination](https://lokalise.co/api2docs/node/#resource-pagination). There are two common parameters available:
+
+* `limit` (defaults to `100`, maximum is `5000`) - number of records to display per page
+* `page` (defaults  to `1`) - page to fetch
+
+For instance:
+
+```js
+lokaliseApi.translationProviders.list({team_id: team_id, page: 2, limit: 10});
 ```
 
 ## Usage
 
 Every request returns a promise with a corresponding object (or array of objects) as the result.
-
-
-
-<!-- START doctoc generated TOC please keep comment here to allow auto update -->
-<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
-
-- [Projects](#projects)
-  - [List projects](#list-projects)
-  - [Create project](#create-project)
-  - [Destroy project](#destroy-project)
-  - [Update project](#update-project)
-- [Comments](#comments)
-  - [List project comments](#list-project-comments)
-  - [List comments](#list-comments)
-  - [Get a comment](#get-a-comment)
-  - [Create project comments](#create-project-comments)
-  - [Destroy a comment](#destroy-a-comment)
-- [Contributors](#contributors)
-  - [List project contributors](#list-project-contributors)
-  - [Get a project contributor](#get-a-project-contributor)
-  - [Create a project contributor](#create-a-project-contributor)
-  - [Delete a project contributor](#delete-a-project-contributor)
-- [Files](#files)
-  - [List project files](#list-project-files)
-  - [Upload a file](#upload-a-file)
-  - [Download a file](#download-a-file)
-- [Keys](#keys)
-  - [List project files](#list-project-files-1)
-  - [Upload a file](#upload-a-file-1)
-  - [Download a file](#download-a-file-1)
-- [Keys](#keys-1)
-  - [List project keys](#list-project-keys)
-  - [Create project keys](#create-project-keys)
-  - [Update a key](#update-a-key)
-  - [Update keys bulk](#update-keys-bulk)
-  - [Destroy a key](#destroy-a-key)
-  - [Destroy keys](#destroy-keys)
-- [Languages](#languages)
-  - [List system languages](#list-system-languages)
-  - [List project languages](#list-project-languages)
-  - [Create project language](#create-project-language)
-  - [Get a project language](#get-a-project-language)
-  - [Update a project language](#update-a-project-language)
-  - [Delete a project language](#delete-a-project-language)
-- [Screenshots](#screenshots)
-  - [List screenshots](#list-screenshots)
-  - [Create screenshots](#create-screenshots)
-  - [Get a screenshot](#get-a-screenshot)
-  - [Update a screenshot](#update-a-screenshot)
-  - [Delete a screenshot](#delete-a-screenshot)
-- [Snapshots](#snapshots)
-  - [List snapshots](#list-snapshots)
-  - [Create a snapshot](#create-a-snapshot)
-  - [Restore a snapshot](#restore-a-snapshot)
-  - [Delete a snapshot](#delete-a-snapshot)
-- [Tasks](#tasks)
-  - [List tasks](#list-tasks)
-  - [Create a task](#create-a-task)
-  - [Get a task](#get-a-task)
-  - [Delete a task](#delete-a-task)
-- [Teams](#teams)
-  - [List teams](#list-teams)
-- [Team users](#team-users)
-  - [List team users](#list-team-users)
-  - [Get a team user](#get-a-team-user)
-  - [Update a team user](#update-a-team-user)
-  - [Delete a team user](#delete-a-team-user)
-- [Team user group](#team-user-group)
-  - [List team user group](#list-team-user-group)
-  - [List team user group](#list-team-user-group-1)
-  - [Get a team user group](#get-a-team-user-group)
-  - [Add project to a group](#add-project-to-a-group)
-  - [Remove a project from a group](#remove-a-project-from-a-group)
-
-<!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-### Projects
-
-#### List projects
-
-Parameters *page* or *limit* are optional.
-
-```js
-lokaliseApi.projects.list({ page: 1, limit: 1000 });
-```
-
-#### Create project
-
-```js
-lokaliseApi.projects.create({ name: "Project name", description: "Project description" });
-```
-
-#### Destroy project
-
-```js
-lokaliseApi.projects.delete(projectId);
-```
-
-#### Update project
-
-```js
-lokaliseApi.projects.update(<projectId>, { name: "New name", description: "New description"});
-```
 
 ### Comments
 
@@ -470,6 +410,33 @@ lokaliseApi.languages.update(<languageId>, {
 lokaliseApi.languages.delete(<languageId>, { project_id: <projectId> });
 ```
 
+### Projects
+
+#### List projects
+
+Parameters *page* or *limit* are optional.
+
+```js
+lokaliseApi.projects.list({ page: 1, limit: 1000 });
+```
+
+#### Create project
+
+```js
+lokaliseApi.projects.create({ name: "Project name", description: "Project description" });
+```
+
+#### Destroy project
+
+```js
+lokaliseApi.projects.delete(projectId);
+```
+
+#### Update project
+
+```js
+lokaliseApi.projects.update(<projectId>, { name: "New name", description: "New description"});
+```
 
 ### Screenshots
 
@@ -687,6 +654,37 @@ lokaliseApi.user_groups.remove_project_from_group(<teamId>, <groupId>, {
                           ]
                       });
 ```
+
+### Translation Providers
+
+[Documentation](https://lokalise.co/api2docs/node/#object-translation-providers)
+
+#### List translation providers
+
+```js
+lokaliseApi.translationProviders.list({team_id: team_id})
+```
+
+#### Retrieve translation provider
+
+```js
+lokaliseApi.translationProviders.get(translation_provider_id, {team_id: team_id});
+```
+
+## Additional Info
+
+### Error handling
+
+[Error codes](https://lokalise.co/api2docs/node/#resource-errors) are listed in the API docs.
+
+### API Rate Limits
+
+Lokalise does not [rate-limit API requests](https://lokalise.co/api2docs/node/#resource-rate-limits), however retain a right to decline the service in case of excessive use. Only one concurrent request per token is allowed. To ensure data consistency, it is not recommended to access the same project simultaneously using multiple tokens.
+
+## Running Tests
+
+1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
+3. Run `npm test`. Observe test results.
 
 ## License
 

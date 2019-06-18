@@ -1,6 +1,10 @@
-# Lokalise API 2.0 official Node.js client Change Log
+# Lokalise API Node Client Changelog
 
-All notable changes to this project will be documented in this file.
+## Unreleased
+
+* Update interfaces to match API changes
+* Update typings
+* Add new endpoints: `TranslationProvider`, `Order`, `PaymentCard` 
 
 ## 0.0.9 (07-06-19)
 

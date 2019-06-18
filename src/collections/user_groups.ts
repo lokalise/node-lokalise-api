@@ -12,7 +12,7 @@ export class UserGroups extends BaseCollection {
   }
 
   add_project_to_group(team_id, group_id, body, params) {
-    params = {}
+    params = {};
     params['team_id'] = team_id;
     params['group_id'] = group_id;
     return this.createPromise('PUT', params, this.returnBareJSON, this.handleReject, body, 
@@ -20,7 +20,7 @@ export class UserGroups extends BaseCollection {
   }
 
   remove_project_from_group(team_id, group_id, body, params) {
-    params = {}
+    params = {};
     params['team_id'] = team_id;
     params['group_id'] = group_id;
     return this.createPromise('PUT', params, this.returnBareJSON, this.handleReject, body, 

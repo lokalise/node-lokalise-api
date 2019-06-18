@@ -10,6 +10,7 @@ import { Task } from './task';
 import { Team } from './team';
 import { TeamUser } from './team_user';
 import { Translation } from './translation';
+import { TranslationProvider } from  './translation_provider';
 import { UserGroup } from './user_group';
 
 export {
@@ -25,5 +26,6 @@ export {
   Team,
   TeamUser,
   Translation,
+  TranslationProvider,
   UserGroup
 }

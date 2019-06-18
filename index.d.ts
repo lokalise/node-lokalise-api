@@ -203,6 +203,17 @@ declare module '@lokalise/node-api' {
     words: number;
   }
 
+  export interface TranslationProvider {
+    provider_id: number;
+    name: string;
+    slug: string;
+    price_pair_min: number;
+    website_url: string;
+    description: string;
+    tiers: object;
+    pairs: object;
+  }
+
   export interface UploadFileParams {
     data: string;
     filename: string;
@@ -233,10 +244,6 @@ declare module '@lokalise/node-api' {
     members: number[];
   }
 
-  export interface Headers {
-    [paramName: string]: any;
-  }
-
   export class ApiRequest {
     private urlRoot;
     promise: Promise<Object>;
@@ -250,107 +257,6 @@ declare module '@lokalise/node-api' {
     constructParameters(method: any, params: any): void;
   }
 
-  export class UserGroups extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    add_project_to_group(
-      team_id: any,
-      group_id: any,
-      body: any,
-      params: any,
-    ): Promise<any>;
-    remove_project_from_group(
-      team_id: any,
-      group_id: any,
-      body: any,
-      params: any,
-    ): Promise<any>;
-  }
-
-  export class Translations extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-  }
-  export class Teams extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-  }
-
-  export class TeamUsers extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-  }
-
-  export class Tasks extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-  }
-  export class Snapshots extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    restore(params: StandartParams): Promise<any>;
-  }
-
-  export class Screenshots extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-  }
-
-  export class Projects extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-    empty(project_id: any): void;
-  }
-  export class Languages extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-    system_languages(params: StandartParams): Promise<any>;
-    create(body: any, params?: StandartParams): Promise<any>;
-  }
-
-  export class Keys extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    bulk_update(
-      keys: BulkUpdateKeysParams,
-      params: StandartParams,
-    ): Promise<any>;
-    bulk_delete(keys: number[] | string[], params: StandartParams): any;
-  }
-
-  export class Files extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-    list(params?: FileParams): Promise<this[]>;
-    upload(project_id: string, upload: UploadFileParams): Promise<any>;
-    download(project_id: string, download: DownloadFileParams): Promise<any>;
-  }
-
-  export class Contributors extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-  }
-
-  export class Comments extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    list_project_comments(params?: StandartParams): Promise<any[]>;
-  }
   export class BaseCollection {
     protected static rootElementName: string;
     protected static endpoint: string;
@@ -375,6 +281,118 @@ declare module '@lokalise/node-api' {
     ): Promise<any>;
   }
 
+  export class Comments extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    create(body: any, params?: StandartParams): Promise<any>;
+    list_project_comments(params?: StandartParams): Promise<any[]>;
+  }
+
+  export class Contributors extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    create(body: any, params?: StandartParams): Promise<any>;
+  }
+
+  export class Files extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    list(params?: FileParams): Promise<this[]>;
+    upload(project_id: string, upload: UploadFileParams): Promise<any>;
+    download(project_id: string, download: DownloadFileParams): Promise<any>;
+  }
+
+  export class Keys extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    create(body: any, params?: StandartParams): Promise<any>;
+    bulk_update(
+      keys: BulkUpdateKeysParams,
+      params: StandartParams,
+    ): Promise<any>;
+    bulk_delete(keys: number[] | string[], params: StandartParams): any;
+  }
+
+  export class Languages extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    system_languages(params: StandartParams): Promise<any>;
+    create(body: any, params?: StandartParams): Promise<any>;
+  }
+
+  export class Projects extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    empty(project_id: any): void;
+  }
+
+  export class Screenshots extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+  }
+
+  export class Snapshots extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    restore(params: StandartParams): Promise<any>;
+  }
+
+  export class Tasks extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+  }
+
+  export class TeamUsers extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+  }
+
+  export class Teams extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+  }
+
+  export class TranslationProviders extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+  }
+
+  export class Translations extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+  }
+
+  export class UserGroups extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    create(body: any, params?: StandartParams): Promise<any>;
+    add_project_to_group(
+      team_id: any,
+      group_id: any,
+      body: any,
+      params: any,
+    ): Promise<any>;
+    remove_project_from_group(
+      team_id: any,
+      group_id: any,
+      body: any,
+      params: any,
+    ): Promise<any>;
+  }
+
   export class LocaliseApiMethods {
     comments: Comments;
     contributors: Contributors;
@@ -386,8 +404,9 @@ declare module '@lokalise/node-api' {
     snapshots: Snapshots;
     tasks: Tasks;
     teamUsers: TeamUsers;
-    userGroups: UserGroups;
+    translationProviders: TranslationProviders;
     translations: Translations;
+    userGroups: UserGroups;
   }
 
   export class LokaliseApi extends LocaliseApiMethods {
@@ -396,7 +415,7 @@ declare module '@lokalise/node-api' {
     apiKey: string;
     /**
      * Instantiate LokaliseApi to have access to methods
-     * @param apiKey  text, mandaratory
+     * @param params  object, mandaratory
      * @returns       LokaliseApi object to work with.
      */
     constructor(params?: Object);

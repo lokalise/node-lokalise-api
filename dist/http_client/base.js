@@ -43,8 +43,7 @@ class ApiRequest {
     }
     composeURI(uri) {
         let regexp = /{(\!{0,1}):(\w*)\}/g;
-        let matches = uri.replace(regexp, this.mapUriParams(this.params));
-        return matches;
+        return uri.replace(regexp, this.mapUriParams(this.params));
     }
     mapUriParams(params) {
         return (entity, isMandaratory, paramName) => {

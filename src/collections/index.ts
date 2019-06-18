@@ -7,9 +7,10 @@ import { Projects } from './projects';
 import { Screenshots } from './screenshots';
 import { Snapshots } from './snapshots';
 import { Tasks } from './tasks';
-import { TeamUsers } from './team_users';
 import { Teams } from './teams';
+import { TeamUsers } from './team_users';
 import { Translations } from './translations';
+import { TranslationProviders } from './translation_providers';
 import { UserGroups } from './user_groups';
 
 export {
@@ -25,5 +26,6 @@ export {
   TeamUsers,
   Teams,
   Translations,
+  TranslationProviders,
   UserGroups
 };

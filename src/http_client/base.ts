@@ -3,14 +3,14 @@ import { LokaliseApi } from '../lokalise/lokalise';
 
 export class ApiRequest {
 
-  private urlRoot:string = 'https://api.lokalise.co/api2/'
+  private urlRoot:string = 'https://api.lokalise.co/api2/';
   public promise: Promise<Object>;
   public params: any = {};
 
 
   constructor(uri, method, body = null, params={}) {
     this.params = params;
-    this.promise = this.createPromise(uri, method, body)
+    this.promise = this.createPromise(uri, method, body);
     return this;
   }
 
@@ -22,8 +22,8 @@ export class ApiRequest {
     };
 
     if (Object.keys(this.params).length > 0) {
-    //   this.composeQueryString();
-    options['qs'] = this.params;
+      //   this.composeQueryString();
+      options['qs'] = this.params;
     }
 
     if (body) {
@@ -33,7 +33,7 @@ export class ApiRequest {
     return new Promise((resolve, reject) => {
       request(options, (error, response, body) => {
         if (error) {
-          reject(error)
+          reject(error);
           return;
         } else {
           let responseJSON = JSON.parse(body);
@@ -50,8 +50,7 @@ export class ApiRequest {
 
   protected composeURI(uri) {
     let regexp: RegExp =/{(\!{0,1}):(\w*)\}/g;
-    let matches =  uri.replace(regexp, this.mapUriParams(this.params));
-    return matches;
+    return uri.replace(regexp, this.mapUriParams(this.params));
   }
 
   protected mapUriParams(params) {
