@@ -1,11 +1,12 @@
-import * as Interfaces from '../interfaces/index';
+import { Key as KeyInterface } from "../interfaces";
 import { BaseModel } from './base_model';
 import { BulkUpdateKeysParams } from '../interfaces/bulk_update_key';
 
-export class Key extends BaseModel {
+export class Key extends BaseModel implements KeyInterface {
   public key_id: number;
   public created_at: string;
-  public key_name: string;
+  public created_at_timestamp: number;
+  public key_name: object;
   public filenames: object;
   public description: string;
   public platforms: string[];

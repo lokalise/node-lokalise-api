@@ -3,9 +3,10 @@ export interface DownloadFileParams {
   original_filenames?: boolean;
   bundle_structure?: string;
   directory_prefix?: string;
-  all_platforms?: string
+  all_platforms?: boolean
   filter_langs?: any[];
   filter_data?: any[];
+  filter_filenames?: any[];
   include_tags?: any[];
   exclude_tags?: any[];
   export_sort?: string;
@@ -28,4 +29,5 @@ export interface DownloadFileParams {
   json_unescaped_slashes?: boolean;
   java_properties_encoding?: string;
   java_properties_separator?: string;
+  bundle_description?: string;
 }

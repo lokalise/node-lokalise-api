@@ -1,66 +1,28 @@
 declare module '@lokalise/node-api' {
-  export interface UploadFileParams {
-    data: string;
-    filename: string;
-    lang_iso: string;
-    convert_placeholder?: string;
-    detect_icu_plurals?: boolean;
-    tags?: any[];
-    replace_modified?: boolean;
-    slashn_to_linebreak?: boolean;
-    keys_to_values?: boolean;
-    apply_tm?: boolean;
-    hidden_from_contributors?: boolean;
-    cleanup_mode?: boolean;
+  export interface BulkUpdateKeysParams {
+    keys: Key[];
   }
 
-  export interface StandartParams {
-    page?: number;
-    limit?: number;
-    [paramName: string]: any;
-  }
-
-  export interface Project {
-    project_id: number;
-    name: string;
-    description: string;
-    team_id: number;
-    created_by_email: string;
-    created_at: string;
-    created_by: number;
-  }
-
-  export interface Language {
-    lang_id: number;
-    lang_iso: string;
-    lang_name: string;
-    is_rtl: boolean;
-    plural_forms: string[];
-  }
-
-  export interface Key {
+  export interface Comment {
+    comment_id: number;
     key_id: number;
-    created_at: string;
-    key_name: string;
-    filenames: object;
-    description: string;
-    platforms: string[];
-    tags: string[];
-    comments: object;
-    screenshots: object;
-    translations: object | object[];
-    is_plural: boolean;
-    plural_name: string;
-    is_hidden: boolean;
-    is_archived: boolean;
-    context: string;
-    base_words: number;
-    char_limit: number;
-    custom_attributes: any[];
+    comment: string;
+    added_by: number;
+    added_by_email: string;
+    added_at: string;
+    added_at_timestamp: number;
   }
 
-  export interface FileParams extends StandartParams {
-    filter_filename?: string;
+  export interface Contributor {
+    user_id: number;
+    email: string;
+    fullname: string;
+    created_at: string;
+    created_at_timestamp: number;
+    is_admin: boolean;
+    is_reviewer: boolean;
+    languages: object;
+    admin_rights: string[];
   }
 
   export interface DownloadFileParams {
@@ -68,16 +30,17 @@ declare module '@lokalise/node-api' {
     original_filenames?: boolean;
     bundle_structure?: string;
     directory_prefix?: string;
-    all_platforms?: string;
+    all_platforms?: boolean
     filter_langs?: any[];
     filter_data?: any[];
+    filter_filenames?: any[];
     include_tags?: any[];
     exclude_tags?: any[];
     export_sort?: string;
     export_empty_as?: string;
     include_comments?: boolean;
     include_description?: boolean;
-    include_pids?: any[];
+    include_pids? : any[];
     triggers?: string[];
     filter_repositories?: any[];
     replace_breaks?: boolean;
@@ -93,19 +56,181 @@ declare module '@lokalise/node-api' {
     json_unescaped_slashes?: boolean;
     java_properties_encoding?: string;
     java_properties_separator?: string;
+    bundle_description?: string;
   }
 
-  export interface Comment {
-    comment_id: number;
+  export interface File {
+    filename: string;
+    key_count: number;
+  }
+
+  export interface FileParams extends StandartParams {
+    filter_filename?: string;
+  }
+
+  export interface Key {
     key_id: number;
-    comment: string;
-    added_by: number;
-    added_by_email: string;
-    added_at: string;
+    created_at: string;
+    created_at_timestamp: number;
+    key_name: object;
+    filenames: object;
+    description: string;
+    platforms: string[];
+    tags: string[];
+    comments: object;
+    screenshots: object;
+    translations: object|object[];
+    is_plural: boolean;
+    plural_name: string;
+    is_hidden: boolean;
+    is_archived: boolean;
+    context: string;
+    base_words: number;
+    char_limit: number;
+    custom_attributes: any[];
   }
 
-  export interface BulkUpdateKeysParams {
-    keys: Key[];
+  export interface Language {
+    lang_id: number;
+    lang_iso: string;
+    lang_name: string;
+    is_rtl: boolean;
+    plural_forms: string[];
+  }
+
+  export interface Project {
+    project_id: string;
+    name: string;
+    description: string;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+    team_id: number;
+    base_language_id: number;
+    base_language_iso: string;
+    settings: object;
+    statistics: object;
+  }
+
+  export interface Screenshot {
+    screenshot_id: number;
+    key_ids: number[];
+    url: string;
+    title: string;
+    description: string;
+    screenshot_tags: string[];
+    width: number;
+    height: number;
+    created_at: string;
+    created_at_timestamp: number;
+  }
+
+  export interface Snapshot {
+    snapshot_id: number;
+    title: string;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+  }
+
+  export interface StandartParams {
+    page?: number;
+    limit?: number;
+    [paramName: string]: any;
+  }
+
+  export interface Task {
+    task_id: number;
+    title: string;
+    description: string;
+    status: string;
+    progress: number;
+    due_date: string;
+    due_date_timestamp: number;
+    keys_count: number;
+    words_count: number;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+    can_be_parent: boolean;
+    task_type: string;
+    parent_task_id: number;
+    closing_tags: string[];
+    do_lock_translations: boolean;
+    languages: object;
+    auto_close_languages: boolean;
+    auto_close_task: boolean;
+    completed_at: string;
+    completed_at_timestamp: number;
+    completed_by: number;
+    completed_by_email: string;
+  }
+
+  export interface Team {
+    team_id: number;
+    name: string;
+    created_at: string;
+    created_at_timestamp: number;
+    plan: string;
+    quota_usage: object;
+    quota_allowed: object;
+  }
+
+  export interface TeamUser {
+    user_id: number;
+    email: string;
+    fullname: string;
+    created_at: string;
+    created_at_timestamp: number;
+    role: string;
+  }
+
+  export interface Translation {
+    translation_id: number;
+    key_id: number;
+    language_iso: string;
+    modified_at: string;
+    modified_at_timestamp: number;
+    modified_by: number;
+    modified_by_email: string;
+    translation: string;
+    is_fuzzy: boolean;
+    is_reviewed: boolean;
+    reviewed_by: number;
+    words: number;
+  }
+
+  export interface UploadFileParams {
+    data: string;
+    filename: string;
+    lang_iso: string;
+    convert_placeholder?: boolean;
+    detect_icu_plurals?: boolean;
+    tags?: any[];
+    tag_inserted_keys?: boolean;
+    tag_updated_keys?: boolean;
+    tag_skipped_keys?: boolean;
+    replace_modified?: boolean;
+    slashn_to_linebreak?: boolean;
+    keys_to_values?: boolean;
+    distinguish_by_file?: boolean;
+    apply_tm?: boolean;
+    hidden_from_contributors?: boolean;
+    cleanup_mode?: boolean;
+  }
+
+  export interface UserGroup {
+    group_id: number;
+    name: string;
+    permissions: object;
+    created_at: string;
+    created_at_timestamp: number;
+    team_id: number;
+    projects: object[];
+    members: number[];
   }
 
   export interface Headers {

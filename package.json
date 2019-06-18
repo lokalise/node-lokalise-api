@@ -7,16 +7,23 @@
     "type": "git",
     "url": "git+https://github.com/lokalise/node-lokalise-api.git"
   },
+  "keywords": [
+    "api",
+    "node",
+    "typescript",
+    "lokalise",
+    "client",
+    "client library"
+  ],
   "scripts": {
     "build": "tsc",
-    "test": "mocha -r ts-node/register test/**/*.spec.ts",
-    "doc": "typedoc --theme markdown --name lokalise --tsconfig tsconfig.json --ignoreCompilerErrors --out ./docs --exclude '**/{node_modules, typings,dist,test,}/**/*' --excludePrivate --excludeNotExported --excludePrivate --excludeNotExported ./src"
+    "test": "mocha -r ts-node/register test/**/*.spec.ts"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
     "@types/express": "^4.17.0",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.0.7",
+    "@types/node": "^12.0.8",
     "eslint": "^5.3.0",
     "eslint-config-airbnb-base": "^13.1.0",
     "eslint-plugin-import": "^2.14.0",
@@ -25,25 +32,22 @@
     "mocha": "^6.1.4",
     "mocha-tape-deck": "0.0.9",
     "request-promise": "^4.2.4",
-    "typedoc": "^0.14.2",
-    "typedoc-plugin-markdown": "^1.2.1",
     "acorn": "^6.0.0"
   },
   "dependencies": {
     "@types/request": "^2.48.1",
     "axios": "^0.19.0",
     "request": "^2.88.0",
-    "ts-node": "^8.2.0",
-    "typescript": "^3.2.4"
+    "ts-node": "^8.3.0",
+    "typescript": "^3.5.2"
   },
   "bugs": {
-    "url": "https://github.com/lokalise/node-lokalise-api"
+    "url": "https://github.com/lokalise/node-lokalise-api/issues"
   },
   "homepage": "https://github.com/lokalise/node-lokalise-api#readme",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "directories": {
-    "doc": "docs",
     "test": "test"
   },
   "author": "Roman Kutanov, Ilya Bodrov and Lokalise team"

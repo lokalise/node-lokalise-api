@@ -5,4 +5,5 @@ export interface Comment {
   added_by: number;
   added_by_email: string;
   added_at: string;
+  added_at_timestamp: number;
 }

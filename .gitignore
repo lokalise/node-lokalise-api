@@ -80,3 +80,5 @@ typings/
 
 #MACOS
 .DS_Store
+
+.idea/
