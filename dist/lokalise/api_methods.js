@@ -9,6 +9,8 @@ class LocaliseApiMethods {
         this.files = new Collections.Files();
         this.keys = new Collections.Keys();
         this.languages = new Collections.Languages();
+        this.orders = new Collections.Orders();
+        this.paymentCards = new Collections.PaymentCards();
         this.projects = new Collections.Projects();
         this.screenshots = new Collections.Screenshots();
         this.snapshots = new Collections.Snapshots();

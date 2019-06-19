@@ -3,6 +3,8 @@ import { Contributors } from './contributors';
 import { Files } from './files';
 import { Keys } from './keys';
 import { Languages } from './languages';
+import { Orders } from './orders';
+import { PaymentCards } from './payment_cards';
 import { Projects } from './projects';
 import { Screenshots } from './screenshots';
 import { Snapshots } from './snapshots';
@@ -19,6 +21,8 @@ export {
   Files, 
   Keys,
   Languages,
+  Orders,
+  PaymentCards,
   Projects,
   Screenshots,
   Snapshots,

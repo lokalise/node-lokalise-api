@@ -98,6 +98,35 @@ declare module '@lokalise/node-api' {
     plural_forms: string[];
   }
 
+  export interface Order {
+    order_id: string;
+    project_id: string;
+    card_id: number;
+    status: string;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+    source_language_iso: string;
+    target_language_isos: string[];
+    keys: number[];
+    source_words: object;
+    provider_slug: string;
+    translation_style: string;
+    translation_tier: number;
+    translation_tier_name: string;
+    briefing: string;
+    total: number;
+  }
+
+  export interface PaymentCard {
+    card_id: number;
+    last4: string;
+    brand: string;
+    created_at: string;
+    created_at_timestamp: number;
+  }
+
   export interface Project {
     project_id: string;
     name: string;
@@ -259,6 +288,7 @@ declare module '@lokalise/node-api' {
 
   export class BaseCollection {
     protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
     protected static endpoint: string;
     protected static prefixURI: string;
     protected static elementClass: any;
@@ -267,6 +297,7 @@ declare module '@lokalise/node-api' {
     create(body: any, params?: StandartParams): Promise<any>;
     update(id: any, body: any, params?: StandartParams): Promise<any>;
     delete(id: any, params?: StandartParams): Promise<any>;
+    protected populateObjectFromJsonRoot(json: Object): this;
     protected populateObjectFromJson(json: Object): this;
     protected populateArrayFromJson(json: Array<any>): this[];
     protected returnBareJSON(json: any): any;
@@ -323,6 +354,19 @@ declare module '@lokalise/node-api' {
     protected static elementClass: Object;
     system_languages(params: StandartParams): Promise<any>;
     create(body: any, params?: StandartParams): Promise<any>;
+  }
+
+  export class Orders extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+  }
+
+  export class PaymentCards extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
   }
 
   export class Projects extends BaseCollection {
@@ -399,6 +443,8 @@ declare module '@lokalise/node-api' {
     files: Files;
     keys: Keys;
     languages: Languages;
+    orders: Orders;
+    paymentCards: PaymentCards;
     projects: Projects;
     screenshots: Screenshots;
     snapshots: Snapshots;

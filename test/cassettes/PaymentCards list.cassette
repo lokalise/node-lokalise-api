@@ -1,0 +1,66 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/payment_cards/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "user_id": 20181,
+      "payment_cards": [
+        {
+          "card_id": 1774,
+          "last4": "0358",
+          "brand": "Visa",
+          "created_at": "2019-03-19 17:49:07 (Etc/UTC)",
+          "created_at_timestamp": 1553017747
+        },
+        {
+          "card_id": 2184,
+          "last4": "8148",
+          "brand": "MasterCard",
+          "created_at": "2019-06-19 15:50:34 (Etc/UTC)",
+          "created_at_timestamp": 1560959434
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 19 Jun 2019 15:51:16 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=e636f1bb680e2166c98d4330be801799; expires=Sun, 18-Aug-2019 15:51:16 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "2",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

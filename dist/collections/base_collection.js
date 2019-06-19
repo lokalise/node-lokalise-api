@@ -4,7 +4,7 @@ const base_1 = require("../http_client/base");
 class BaseCollection {
     get(id, params = {}, body = null) {
         params['id'] = id;
-        return this.createPromise('GET', params, this.populateObjectFromJson, this.handleReject, body);
+        return this.createPromise('GET', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
     list(params = {}) {
         return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);
@@ -19,6 +19,13 @@ class BaseCollection {
     delete(id, params = {}) {
         params['id'] = id;
         return this.createPromise('DELETE', params, this.populateObjectFromJson, this.handleReject, null);
+    }
+    populateObjectFromJsonRoot(json) {
+        let childClass = this.constructor;
+        if (childClass.rootElementNameSingular != null) {
+            json = json[childClass.rootElementNameSingular];
+        }
+        return this.populateObjectFromJson(json);
     }
     populateObjectFromJson(json) {
         let childClass = this.constructor;
@@ -56,6 +63,7 @@ class BaseCollection {
     }
 }
 BaseCollection.rootElementName = null;
+BaseCollection.rootElementNameSingular = null;
 BaseCollection.endpoint = null;
 BaseCollection.prefixURI = null;
 BaseCollection.elementClass = null;

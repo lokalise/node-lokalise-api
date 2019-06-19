@@ -1,6 +1,8 @@
 import { Language } from './language';
 import { Project } from './project';
 import { Comment } from './comment';
+import { Order } from './order';
+import { PaymentCard } from './payment_card';
 import { Key } from './key';
 import { Screenshot } from './screenshot';
 import { Contributor } from './contributor';
@@ -14,13 +16,15 @@ import { TranslationProvider } from  './translation_provider';
 import { UserGroup } from './user_group';
 
 export {
-  Language,
-  Project,
   Comment,
-  Key,
-  Screenshot,
   Contributor,
   File,
+  Key,
+  Language,
+  Order,
+  PaymentCard,
+  Project,
+  Screenshot,
   Snapshot,
   Task,
   Team,

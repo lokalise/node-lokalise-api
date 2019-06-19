@@ -3,13 +3,14 @@ import { StandartParams } from '../interfaces/standart_params';
 
 export class BaseCollection {
   protected static rootElementName: string = null;
+  protected static rootElementNameSingular: string = null;
   protected static endpoint: string = null;
   protected static prefixURI: string = null;
   protected static elementClass: any = null;
 
   get(id, params: StandartParams = {}, body: any = null) : Promise<any> {
     params['id'] = id;
-    return this.createPromise('GET', params, this.populateObjectFromJson, this.handleReject, body)
+    return this.createPromise('GET', params, this.populateObjectFromJsonRoot, this.handleReject, body)
   }
 
   list(params: StandartParams = {}): Promise<any[]> {
@@ -28,6 +29,14 @@ export class BaseCollection {
   delete(id, params : StandartParams = {}) {
     params['id'] = id;
     return this.createPromise('DELETE', params, this.populateObjectFromJson, this.handleReject, null);
+  }
+
+  protected populateObjectFromJsonRoot(json: Object): this {
+    let childClass = <typeof BaseCollection>this.constructor;
+    if (childClass.rootElementNameSingular != null) {
+      json = json[childClass.rootElementNameSingular];
+    }
+    return this.populateObjectFromJson(json);
   }
 
   protected populateObjectFromJson(json: Object): this {

@@ -15,6 +15,7 @@ Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node
   + [Files](#files)
   + [Keys](#keys)
   + [Languages](#languages)
+  + [Payment cards](#payment-cards)
   + [Projects](#projects)
   + [Screenshots](#screenshots)
   + [Snapshots](#snapshots)
@@ -25,6 +26,7 @@ Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node
   + [Translation Providers](#translation-providers)
 * [Additional Info](#additional-info)
 * [Running Tests](#running-tests)
+* [Building](#building)
 
 ## Getting started
 
@@ -52,7 +54,10 @@ Now you may perform API requests, for example:
 
 ```js
 const projects = lokaliseApi.projects.list();
+projects[0].name;
 ```
+
+All object attributes may be found in the [interfaces](https://github.com/lokalise/node-lokalise-api/tree/master/src/interfaces).
 
 ### Pagination
 
@@ -115,7 +120,6 @@ lokaliseApi.comments.create({
 ```js
 lokaliseApi.comments.delete(<commentId>, { project_id: <projectId>, key_id: <keyId> });
 ```
-
 
 ### Contributors
 
@@ -356,7 +360,6 @@ lokaliseApi.keys.bulk_delete({
     }, { project_id: <projectId> });
 ```
 
-
 ### Languages
 
 #### List system languages
@@ -408,6 +411,39 @@ lokaliseApi.languages.update(<languageId>, {
 
 ```
 lokaliseApi.languages.delete(<languageId>, { project_id: <projectId> });
+```
+
+### Payment Cards
+
+[Documentation](https://lokalise.co/api2docs/node/#object-payment-cards)
+
+#### List payment cards
+
+```js
+lokaliseApi.paymentCards.list();
+```
+
+#### Retrieve payment card
+
+```js
+lokaliseApi.paymentCards.get(card_id);
+```
+
+#### Create payment card
+
+```js
+lokaliseApi.paymentCards.create({
+  number: '4242424242424242',
+  cvc: 123,
+  exp_month: 10,
+  exp_year: 2030
+});
+```
+
+#### Delete payment card
+
+```js
+lokaliseApi.paymentCards.delete(card_id);
 ```
 
 ### Projects
@@ -684,7 +720,12 @@ Lokalise does not [rate-limit API requests](https://lokalise.co/api2docs/node/#r
 ## Running Tests
 
 1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
-3. Run `npm test`. Observe test results.
+2 Run `npm test`. Observe test results and coverage.
+
+## Building
+
+1. Run `npm run-script build`
+2. Browse `dist/` folder
 
 ## License
 
