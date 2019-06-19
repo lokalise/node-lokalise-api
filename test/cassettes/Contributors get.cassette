@@ -1,0 +1,137 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/contributors/20181",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "contributor": {
+        "user_id": 20181,
+        "email": "bodrovis@protonmail.com",
+        "fullname": "Ilya B",
+        "created_at": "2018-08-21 15:35:25 (Etc/UTC)",
+        "created_at_timestamp": 1534865725,
+        "is_admin": true,
+        "is_reviewer": true,
+        "languages": [
+          {
+            "lang_id": 803,
+            "lang_iso": "sq",
+            "lang_name": "Albanian",
+            "is_writable": true
+          },
+          {
+            "lang_id": 731,
+            "lang_iso": "ar_001",
+            "lang_name": "Arabic (World)",
+            "is_writable": true
+          },
+          {
+            "lang_id": 934,
+            "lang_iso": "bm",
+            "lang_name": "Bambara",
+            "is_writable": true
+          },
+          {
+            "lang_id": 764,
+            "lang_iso": "ca",
+            "lang_name": "Catalan",
+            "is_writable": true
+          },
+          {
+            "lang_id": 601,
+            "lang_iso": "zh_TW",
+            "lang_name": "Chinese Traditional",
+            "is_writable": true
+          },
+          {
+            "lang_id": 10111,
+            "lang_iso": "custom_111",
+            "lang_name": "Custom Language 111",
+            "is_writable": true
+          },
+          {
+            "lang_id": 737,
+            "lang_iso": "nl",
+            "lang_name": "Dutch",
+            "is_writable": true
+          },
+          {
+            "lang_id": 640,
+            "lang_iso": "en",
+            "lang_name": "English",
+            "is_writable": true
+          },
+          {
+            "lang_id": 1055,
+            "lang_iso": "en-us",
+            "lang_name": "English (United States)",
+            "is_writable": true
+          },
+          {
+            "lang_id": 673,
+            "lang_iso": "f_over",
+            "lang_name": "fr overriden",
+            "is_writable": true
+          },
+          {
+            "lang_id": 597,
+            "lang_iso": "ru",
+            "lang_name": "Russian",
+            "is_writable": true
+          },
+          {
+            "lang_id": 1056,
+            "lang_iso": "es",
+            "lang_name": "Spanish",
+            "is_writable": true
+          }
+        ],
+        "admin_rights": [
+          "upload",
+          "download",
+          "tasks",
+          "contributors",
+          "screenshots",
+          "keys",
+          "languages",
+          "settings",
+          "activity",
+          "statistics"
+        ]
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 19 Jun 2019 20:02:38 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=9243a08bd98cc2f7c4a6362be749fb33; expires=Sun, 18-Aug-2019 20:02:38 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

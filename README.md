@@ -118,60 +118,53 @@ lokaliseApi.comments.delete(comment_id, {project_id: project_id, key_id: key_id}
 
 ### Contributors
 
+[Documentation](https://lokalise.co/api2docs/node/#object-contributors)
+
 #### List project contributors
 
-You should pass *projectId* as a parameter.
-
 ```js
-lokaliseApi.contributors.list({ project_id: <projectId> });
+lokaliseApi.contributors.list({project_id: project_id});
 ```
 
 #### Get a contributor
 
-You should pass *contributorId* and *projectId* as parameters.
-
 ```js
-lokaliseApi.contributors.get(<contributorId>, { project_id: <projectId> });
+lokaliseApi.contributors.get(user_id, {project_id: project_id});
 ```
 
-#### Create a contributor
-
-You should pass *contributors* object and *projectId* as parameters.
+#### Create contributors
 
 ```js
-lokaliseApi.contributors.get({
-                "contributors": [
-                    {
-                        "email": "translator@mycompany.com",
-                        "fullname": "Mr. Translator",
-                        "is_admin": false,
-                        "is_reviewer": true,
-                        "languages": [
-                            {
-                                "lang_iso": "en",
-                                "is_writable": false
-                            },
-                            {
-                                "lang_iso": "ru",
-                                "is_writable": true
-                            }
-                        ],
-                        "admin_rights": [
-                            "keys", "languages"
-                        ]
-                    }
-                ]
-            },
+lokaliseApi.contributors.create([
+  {
+    "email": "translator2@mycompany.com",
+    "fullname": "Mr. Translator",
+    "is_admin": false,
+    "is_reviewer": true,
+    "languages": [
+      {
+        "lang_iso": "en",
+        "is_writable": false
+      }
+    ]
+  }
+], {project_id: project_id});
+```
 
-            { project_id: <projectId>, key_id: <key_id>});
+#### Update contributor
+
+```js
+lokaliseApi.contributors.update(
+  user_id,
+  {is_admin: true},
+  {project_id: project_id}
+);
 ```
 
 #### Delete a contributor
 
-You should pass *contributorId* and *projectId* as parameters.
-
 ```js
-lokaliseApi.contributors.delete(<contributorId>, {project_id: <projectId>});
+lokaliseApi.contributors.delete(user_id, {project_id: project_id});
 ```
 
 ### Files

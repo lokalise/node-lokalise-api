@@ -324,9 +324,10 @@ declare module '@lokalise/node-api' {
 
   export class Contributors extends BaseCollection {
     protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
+    create(raw_body: any, params?: StandartParams): Promise<any>;
   }
 
   export class Files extends BaseCollection {

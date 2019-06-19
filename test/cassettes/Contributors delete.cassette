@@ -1,0 +1,43 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "DELETE",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/contributors/39938",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "contributor_deleted": true
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 19 Jun 2019 20:21:15 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=a40c5c7fa2fba8b40e41a2379f1b058e; expires=Sun, 18-Aug-2019 20:21:13 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
