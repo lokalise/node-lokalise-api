@@ -2,23 +2,23 @@
   {
     "scope": "https://api.lokalise.co:443",
     "method": "GET",
-    "path": "/api2/projects/505512295c596b25bce8d4.33297803/files/?project_id=505512295c596b25bce8d4.33297803",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/files/?project_id=803826145ba90b42d5d860.46800099",
     "body": "",
     "status": 200,
     "response": {
-      "project_id": "505512295c596b25bce8d4.33297803",
+      "project_id": "803826145ba90b42d5d860.46800099",
       "files": [
         {
-          "filename": "test.json",
+          "filename": "%LANG_ISO%.yml",
           "key_count": 3
         },
         {
-          "filename": "test1.json",
-          "key_count": 0
+          "filename": "ios_%LANG_ISO%.strings",
+          "key_count": 1
         },
         {
           "filename": "__unassigned__",
-          "key_count": 0
+          "key_count": 15
         }
       ]
     },
@@ -26,7 +26,7 @@
       "Server",
       "nginx",
       "Date",
-      "Mon, 11 Feb 2019 14:11:29 GMT",
+      "Wed, 19 Jun 2019 18:00:32 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
@@ -35,14 +35,14 @@
       "close",
       "Vary",
       "Accept-Encoding",
-      "X-Content-Type-Options",
-      "nosniff",
-      "X-Frame-Options",
-      "deny",
-      "X-XSS-Protection",
-      "1; mode=block",
-      "Strict-Transport-Security",
-      "max-age=31536000",
+      "Set-Cookie",
+      "PHPSESSID=d7050ed617bba149f6123ad2fb034fcf; expires=Sun, 18-Aug-2019 18:00:32 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
       "X-Pagination-Total-Count",
       "3",
       "X-Pagination-Page-Count",

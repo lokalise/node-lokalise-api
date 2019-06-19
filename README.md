@@ -181,38 +181,25 @@ lokaliseApi.contributors.delete(<contributorId>, {project_id: <projectId>});
 
 ### Files
 
+[Documentation](https://lokalise.co/api2docs/node/#object-files)
+
 #### List project files
 
-Parameters *page* or *limit* are optional.
-
 ```js
-lokaliseApi.files.list({ project_id: <projectId>, page: 1, limit: 1000 });
+lokaliseApi.files.list({project_id: project_id});
 ```
+
 #### Upload a file
 
 ```js
-lokaliseApi.files.upload(<projectId>, {
-        "filename": "index.json",
-        "data": "D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGL.....",
-        "lang_iso": "en",
-        "tags": [
-            "index", "admin", "v2.0"
-        ],
-        "convert_placeholders": true
-      }
-    });
+lokaliseApi.files.upload(project_id, {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
 ```
-
 
 #### Download a file
 
 ```js
-lokaliseApi.files.download(<projectId>, {
-    "format": "json",
-    "original_filenames": true
-});
+lokaliseApi.files.download(project_id, {format: 'json', "original_filenames": true});
 ```
-
 
 ### Files
 
@@ -413,6 +400,38 @@ lokaliseApi.languages.update(<languageId>, {
 lokaliseApi.languages.delete(<languageId>, { project_id: <projectId> });
 ```
 
+### Orders
+
+[Documentation](https://lokalise.co/api2docs/node/#object-orders)
+
+#### List orders
+
+```js
+lokaliseApi.orders.list({team_id: team_id})
+```
+
+#### Retrieve order
+
+```js
+lokaliseApi.orders.get(order_id, {team_id: team_id})
+```
+
+#### Create order
+
+```js
+lokaliseApi.orders.create({
+  project_id: '803xyz145ba90b42abc.46800',
+  card_id: '1774',
+  briefing: 'My briefing',
+  source_language_iso: 'en',
+  target_language_isos: ['nl'],
+  keys: [12345],
+  provider_slug: 'gengo',
+  translation_tier: '1'
+},
+{team_id: team_id});
+```
+
 ### Payment Cards
 
 [Documentation](https://lokalise.co/api2docs/node/#object-payment-cards)
@@ -448,12 +467,18 @@ lokaliseApi.paymentCards.delete(card_id);
 
 ### Projects
 
+[Documentation](https://lokalise.co/api2docs/node/#object-projects)
+
 #### List projects
 
-Parameters *page* or *limit* are optional.
+```js
+lokaliseApi.projects.list();
+```
+
+#### Retrieve project
 
 ```js
-lokaliseApi.projects.list({ page: 1, limit: 1000 });
+lokaliseApi.projects.get(project_id)
 ```
 
 #### Create project
@@ -462,16 +487,22 @@ lokaliseApi.projects.list({ page: 1, limit: 1000 });
 lokaliseApi.projects.create({ name: "Project name", description: "Project description" });
 ```
 
-#### Destroy project
-
-```js
-lokaliseApi.projects.delete(projectId);
-```
-
 #### Update project
 
 ```js
-lokaliseApi.projects.update(<projectId>, { name: "New name", description: "New description"});
+lokaliseApi.projects.update(project_id, { name: "New name", description: "New description"});
+```
+
+#### Empty project
+
+```js
+lokaliseApi.projects.empty(project_id)
+```
+
+#### Delete project
+
+```js
+lokaliseApi.projects.delete(project_id);
 ```
 
 ### Screenshots

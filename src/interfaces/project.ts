@@ -1,5 +1,6 @@
 export interface Project {
   project_id: string;
+  project_type: string;
   name: string;
   description: string;
   created_at: string;

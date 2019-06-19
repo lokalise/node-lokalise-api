@@ -1,43 +1,38 @@
+require('../setup');
 import { expect } from 'chai';
-// import * as express from "express";
-// import * as faker from 'faker';
 import { TapeDeck } from 'mocha-tape-deck';
-const rp = require("request-promise");
-const { LokaliseApi } = require('../../index');
+const { LokaliseApi } = require('../../src/lokalise/lokalise');
 
 describe('Files', function () {
-
-  let server;
   const deck = new TapeDeck('./test/cassettes');
+  const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
+  const project_id = '803826145ba90b42d5d860.46800099';
 
-  describe('List files', () => {
-    deck.createTest('files can be listed', async () => {
-      const lokaliseApi = new LokaliseApi({ apiKey: '159f62ee3930de0a4452073e26e5e288c026dfa5'});
-      const projects = await lokaliseApi.files.list({ project_id: '505512295c596b25bce8d4.33297803'});
-      expect(projects).to.be.not.null;
-    })
-    .playCassette('files_list')
-    .register(this);
-  });
+  deck.createTest('list', async () => {
+    const files = await lokaliseApi.files.list({ project_id: project_id});
+    const file = files[0];
 
-  describe('Upload files', () => {
-    deck.createTest('files can be uploaded', async () => {
-      const lokaliseApi = new LokaliseApi({ apiKey: '159f62ee3930de0a4452073e26e5e288c026dfa5'});
-      const projects = await lokaliseApi.files.upload('505512295c596b25bce8d4.33297803', { data: 'ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=', filename: 'test1.json', lang_iso: 'en'});
-      expect(projects).to.be.not.null;
-    })
-    .playCassette('files_upload')
-    .register(this);
-  });
+    expect(file.filename).to.eq('%LANG_ISO%.yml');
+    expect(file.key_count).to.eq(3);
+  }).register(this);
 
-  describe('Download files', () => {
-    deck.createTest('files can be downloaded', async () => {
-      const lokaliseApi = new LokaliseApi({ apiKey: '159f62ee3930de0a4452073e26e5e288c026dfa5'});
-      const projects = await lokaliseApi.files.download('505512295c596b25bce8d4.33297803', { format: 'json', "original_filenames": true });
-      expect(projects).to.be.not.null;1
-    })
-    .playCassette('files_download')
-    .register(this);
-  });
+  deck.createTest('upload', async () => {
+    const data = 'ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=';
+    const response = await lokaliseApi.files.upload(project_id,
+      {data: data, filename: 'test1.json', lang_iso: 'en'}
+    );
 
+    expect(response.project_id).to.eq(project_id);
+    expect(response.file).to.eq('test1.json');
+    expect(response.result['inserted']).to.eq(3);
+  }).register(this);
+
+  deck.createTest('download', async () => {
+    const response = await lokaliseApi.files.download(project_id,
+      { format: 'json', "original_filenames": true }
+    );
+
+    expect(response.project_id).to.eq(project_id);
+    expect(response.bundle_url).to.include('s3-eu-west-1.amazonaws.com');
+  }).register(this);
 });

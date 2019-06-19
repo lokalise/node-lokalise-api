@@ -1,9 +1,9 @@
 import { Project as ProjectInterface } from '../interfaces/index';
 import { BaseModel } from './base_model';
-import { ApiRequest } from '../http_client/base';
 
 export class Project extends BaseModel implements ProjectInterface {
   public project_id: string;
+  public project_type: string;
   public name: string;
   public description: string;
   public created_at: string;

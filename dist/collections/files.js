@@ -3,9 +3,6 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const base_collection_1 = require("./base_collection");
 const file_1 = require("../models/file");
 class Files extends base_collection_1.BaseCollection {
-    list(params = {}) {
-        return super.list(params);
-    }
     upload(project_id, upload) {
         return this.createPromise('POST', { project_id: project_id }, this.returnBareJSON, this.handleReject, upload, 'projects/{!:project_id}/files/upload');
     }

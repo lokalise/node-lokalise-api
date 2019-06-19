@@ -2,9 +2,12 @@
 
 ## Unreleased
 
-* Update interfaces to match API changes
-* Update typings
-* Add new endpoints: `TranslationProvider`, `Order`, `PaymentCard` 
+* Updated interfaces to match API changes
+* Updated typings
+* Added new endpoints: `TranslationProvider`, `Order`, `PaymentCard` 
+* Added tests for all endpoints
+* Added test coverage
+* Added support for Travis
 
 ## 0.0.9 (07-06-19)
 
