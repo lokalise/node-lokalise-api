@@ -1,0 +1,515 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/contributors/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "contributors": [
+        {
+          "user_id": 20181,
+          "email": "bodrovis@protonmail.com",
+          "fullname": "Ilya B",
+          "created_at": "2018-08-21 15:35:25 (Etc/UTC)",
+          "created_at_timestamp": 1534865725,
+          "is_admin": true,
+          "is_reviewer": true,
+          "languages": [
+            {
+              "lang_id": 803,
+              "lang_iso": "sq",
+              "lang_name": "Albanian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 731,
+              "lang_iso": "ar_001",
+              "lang_name": "Arabic (World)",
+              "is_writable": true
+            },
+            {
+              "lang_id": 934,
+              "lang_iso": "bm",
+              "lang_name": "Bambara",
+              "is_writable": true
+            },
+            {
+              "lang_id": 764,
+              "lang_iso": "ca",
+              "lang_name": "Catalan",
+              "is_writable": true
+            },
+            {
+              "lang_id": 601,
+              "lang_iso": "zh_TW",
+              "lang_name": "Chinese Traditional",
+              "is_writable": true
+            },
+            {
+              "lang_id": 10111,
+              "lang_iso": "custom_111",
+              "lang_name": "Custom Language 111",
+              "is_writable": true
+            },
+            {
+              "lang_id": 737,
+              "lang_iso": "nl",
+              "lang_name": "Dutch",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1055,
+              "lang_iso": "en-us",
+              "lang_name": "English (United States)",
+              "is_writable": true
+            },
+            {
+              "lang_id": 673,
+              "lang_iso": "f_over",
+              "lang_name": "fr overriden",
+              "is_writable": true
+            },
+            {
+              "lang_id": 597,
+              "lang_iso": "ru",
+              "lang_name": "Russian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1056,
+              "lang_iso": "es",
+              "lang_name": "Spanish",
+              "is_writable": true
+            }
+          ],
+          "admin_rights": [
+            "upload",
+            "download",
+            "tasks",
+            "contributors",
+            "screenshots",
+            "keys",
+            "languages",
+            "settings",
+            "activity",
+            "statistics"
+          ]
+        },
+        {
+          "user_id": 25261,
+          "email": "kutanov@gmail.com",
+          "fullname": "Roman",
+          "created_at": "2018-11-26 13:04:14 (Etc/UTC)",
+          "created_at_timestamp": 1543237454,
+          "is_admin": true,
+          "is_reviewer": true,
+          "languages": [
+            {
+              "lang_id": 803,
+              "lang_iso": "sq",
+              "lang_name": "Albanian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 731,
+              "lang_iso": "ar_001",
+              "lang_name": "Arabic (World)",
+              "is_writable": true
+            },
+            {
+              "lang_id": 934,
+              "lang_iso": "bm",
+              "lang_name": "Bambara",
+              "is_writable": true
+            },
+            {
+              "lang_id": 764,
+              "lang_iso": "ca",
+              "lang_name": "Catalan",
+              "is_writable": true
+            },
+            {
+              "lang_id": 601,
+              "lang_iso": "zh_TW",
+              "lang_name": "Chinese Traditional",
+              "is_writable": true
+            },
+            {
+              "lang_id": 10111,
+              "lang_iso": "custom_111",
+              "lang_name": "Custom Language 111",
+              "is_writable": true
+            },
+            {
+              "lang_id": 737,
+              "lang_iso": "nl",
+              "lang_name": "Dutch",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1055,
+              "lang_iso": "en-us",
+              "lang_name": "English (United States)",
+              "is_writable": true
+            },
+            {
+              "lang_id": 673,
+              "lang_iso": "f_over",
+              "lang_name": "fr overriden",
+              "is_writable": true
+            },
+            {
+              "lang_id": 597,
+              "lang_iso": "ru",
+              "lang_name": "Russian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1056,
+              "lang_iso": "es",
+              "lang_name": "Spanish",
+              "is_writable": true
+            }
+          ],
+          "admin_rights": [
+            "upload",
+            "download",
+            "tasks",
+            "contributors",
+            "screenshots",
+            "keys",
+            "languages",
+            "settings",
+            "activity",
+            "statistics"
+          ]
+        },
+        {
+          "user_id": 25753,
+          "email": "test2@example.com",
+          "fullname": "Unnamed",
+          "created_at": "2018-12-04 17:13:19 (Etc/UTC)",
+          "created_at_timestamp": 1543943599,
+          "is_admin": false,
+          "is_reviewer": true,
+          "languages": [
+            {
+              "lang_id": 601,
+              "lang_iso": "zh_TW",
+              "lang_name": "Chinese Traditional",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": false
+            }
+          ],
+          "admin_rights": []
+        },
+        {
+          "user_id": 33599,
+          "email": "twilight_church@list.ru",
+          "fullname": "Joe",
+          "created_at": "2019-03-26 15:46:41 (Etc/UTC)",
+          "created_at_timestamp": 1553615201,
+          "is_admin": false,
+          "is_reviewer": true,
+          "languages": [
+            {
+              "lang_id": 731,
+              "lang_iso": "ar_001",
+              "lang_name": "Arabic (World)",
+              "is_writable": true
+            },
+            {
+              "lang_id": 934,
+              "lang_iso": "bm",
+              "lang_name": "Bambara",
+              "is_writable": true
+            },
+            {
+              "lang_id": 764,
+              "lang_iso": "ca",
+              "lang_name": "Catalan",
+              "is_writable": true
+            },
+            {
+              "lang_id": 10111,
+              "lang_iso": "custom_111",
+              "lang_name": "Custom Language 111",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": false
+            },
+            {
+              "lang_id": 673,
+              "lang_iso": "f_over",
+              "lang_name": "fr overriden",
+              "is_writable": true
+            },
+            {
+              "lang_id": 597,
+              "lang_iso": "ru",
+              "lang_name": "Russian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1056,
+              "lang_iso": "es",
+              "lang_name": "Spanish",
+              "is_writable": true
+            }
+          ],
+          "admin_rights": []
+        },
+        {
+          "user_id": 34051,
+          "email": "demo2@example.com",
+          "fullname": "Demo 2 User",
+          "created_at": "2019-03-29 14:16:05 (Etc/UTC)",
+          "created_at_timestamp": 1553868965,
+          "is_admin": true,
+          "is_reviewer": true,
+          "languages": [
+            {
+              "lang_id": 803,
+              "lang_iso": "sq",
+              "lang_name": "Albanian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 731,
+              "lang_iso": "ar_001",
+              "lang_name": "Arabic (World)",
+              "is_writable": true
+            },
+            {
+              "lang_id": 934,
+              "lang_iso": "bm",
+              "lang_name": "Bambara",
+              "is_writable": true
+            },
+            {
+              "lang_id": 764,
+              "lang_iso": "ca",
+              "lang_name": "Catalan",
+              "is_writable": true
+            },
+            {
+              "lang_id": 601,
+              "lang_iso": "zh_TW",
+              "lang_name": "Chinese Traditional",
+              "is_writable": true
+            },
+            {
+              "lang_id": 10111,
+              "lang_iso": "custom_111",
+              "lang_name": "Custom Language 111",
+              "is_writable": true
+            },
+            {
+              "lang_id": 737,
+              "lang_iso": "nl",
+              "lang_name": "Dutch",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1055,
+              "lang_iso": "en-us",
+              "lang_name": "English (United States)",
+              "is_writable": true
+            },
+            {
+              "lang_id": 673,
+              "lang_iso": "f_over",
+              "lang_name": "fr overriden",
+              "is_writable": true
+            },
+            {
+              "lang_id": 597,
+              "lang_iso": "ru",
+              "lang_name": "Russian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1056,
+              "lang_iso": "es",
+              "lang_name": "Spanish",
+              "is_writable": true
+            }
+          ],
+          "admin_rights": [
+            "download",
+            "tasks",
+            "screenshots",
+            "keys",
+            "languages",
+            "settings",
+            "activity",
+            "statistics"
+          ]
+        },
+        {
+          "user_id": 34052,
+          "email": "translator@example.com",
+          "fullname": "Translator Demo",
+          "created_at": "2019-03-29 14:18:15 (Etc/UTC)",
+          "created_at_timestamp": 1553869095,
+          "is_admin": false,
+          "is_reviewer": false,
+          "languages": [
+            {
+              "lang_id": 803,
+              "lang_iso": "sq",
+              "lang_name": "Albanian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 934,
+              "lang_iso": "bm",
+              "lang_name": "Bambara",
+              "is_writable": true
+            },
+            {
+              "lang_id": 764,
+              "lang_iso": "ca",
+              "lang_name": "Catalan",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": false
+            }
+          ],
+          "admin_rights": []
+        },
+        {
+          "user_id": 35554,
+          "email": "golosizpru@ya.ru",
+          "fullname": "Joanne",
+          "created_at": "2019-04-17 13:39:19 (Etc/UTC)",
+          "created_at_timestamp": 1555508359,
+          "is_admin": false,
+          "is_reviewer": false,
+          "languages": [
+            {
+              "lang_id": 601,
+              "lang_iso": "zh_TW",
+              "lang_name": "Chinese Traditional",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": false
+            },
+            {
+              "lang_id": 597,
+              "lang_iso": "ru",
+              "lang_name": "Russian",
+              "is_writable": true
+            },
+            {
+              "lang_id": 1056,
+              "lang_iso": "es",
+              "lang_name": "Spanish",
+              "is_writable": true
+            }
+          ],
+          "admin_rights": []
+        },
+        {
+          "user_id": 35555,
+          "email": "john@example.com",
+          "fullname": "John",
+          "created_at": "2019-04-17 13:41:12 (Etc/UTC)",
+          "created_at_timestamp": 1555508472,
+          "is_admin": false,
+          "is_reviewer": false,
+          "languages": [
+            {
+              "lang_id": 601,
+              "lang_iso": "zh_TW",
+              "lang_name": "Chinese Traditional",
+              "is_writable": true
+            },
+            {
+              "lang_id": 640,
+              "lang_iso": "en",
+              "lang_name": "English",
+              "is_writable": false
+            }
+          ],
+          "admin_rights": []
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 19 Jun 2019 19:58:04 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=8c754a0166d257309f8b15265c5a1c32; expires=Sun, 18-Aug-2019 19:58:04 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "8",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

@@ -16,8 +16,6 @@ class ApiRequest {
             method: method,
             headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey, 'content-type': 'application/json' }
         };
-        console.log('AFTER');
-        console.log(this.params);
         if (Object.keys(this.params).length > 0) {
             options['qs'] = this.params;
         }
@@ -44,8 +42,6 @@ class ApiRequest {
     }
     composeURI(uri) {
         let regexp = /{(!{0,1}):(\w*)}/g;
-        console.log('BEFORE');
-        console.log(this.params);
         return uri.replace(regexp, this.mapUriParams(this.params));
     }
     mapUriParams(params) {
