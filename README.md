@@ -1,6 +1,7 @@
 # Lokalise API 2.0 official Node.js client
 
 [![npm version](https://badge.fury.io/js/%40lokalise%2Fnode-api.svg)](https://badge.fury.io/js/%40lokalise%2Fnode-api)
+[![Build Status](https://travis-ci.org/lokalise/node-lokalise-api.svg?branch=master)](https://travis-ci.org/lokalise/node-lokalise-api)
 
 Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node/#resource-getting-started).
 
