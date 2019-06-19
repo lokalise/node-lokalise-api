@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.co:443",
     "method": "DELETE",
-    "path": "/api2/projects/580641925d0a726ead2fd7.11048498?id=580641925d0a726ead2fd7.11048498",
+    "path": "/api2/projects/580641925d0a726ead2fd7.11048498",
     "body": "",
     "status": 200,
     "response": {

@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.co:443",
     "method": "GET",
-    "path": "/api2/teams/176692/translation_providers/?team_id=176692&page=2&limit=1",
+    "path": "/api2/teams/176692/translation_providers/?page=2&limit=1",
     "body": "",
     "status": 200,
     "response": {

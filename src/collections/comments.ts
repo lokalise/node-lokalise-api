@@ -4,11 +4,12 @@ import { StandartParams } from '../interfaces/standart_params';
 
 export class Comments extends BaseCollection {
   protected static rootElementName:string = 'comments';
-  protected static prefixURI:string = 'projects/{!:project_id}/comments/{!:key_id}/{:id}';
+  protected static rootElementNameSingular: string = 'comment';
+  protected static prefixURI:string = 'projects/{!:project_id}/keys/{!:key_id}/comments/{:id}';
   protected static elementClass: Object = Comment;
 
   create(body, params: StandartParams = {}): Promise<any> {
-    return this.createPromise('POST', params, this.populateObjectFromJson, this.handleReject, body);
+    return this.createPromise('POST', params, this.populateArrayFromJson, this.handleReject, body);
   }
 
   list_project_comments(params: StandartParams = {}) : Promise<any[]> {

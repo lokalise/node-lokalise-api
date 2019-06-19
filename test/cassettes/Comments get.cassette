@@ -1,19 +1,27 @@
 [
   {
     "scope": "https://api.lokalise.co:443",
-    "method": "PUT",
-    "path": "/api2/projects/580641925d0a726ead2fd7.11048498/empty",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/keys/15519786/comments/800745",
     "body": "",
     "status": 200,
     "response": {
-      "project_id": "580641925d0a726ead2fd7.11048498",
-      "keys_deleted": true
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "comment": {
+        "comment_id": 800745,
+        "key_id": 15519786,
+        "comment": "rspec comment",
+        "added_by": 20181,
+        "added_by_email": "bodrovis@protonmail.com",
+        "added_at": "2018-12-09 18:41:31 (Etc/UTC)",
+        "added_at_timestamp": 1544380891
+      }
     },
     "rawHeaders": [
       "Server",
       "nginx",
       "Date",
-      "Wed, 19 Jun 2019 17:53:03 GMT",
+      "Wed, 19 Jun 2019 19:17:10 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
@@ -23,7 +31,7 @@
       "Vary",
       "Accept-Encoding",
       "Set-Cookie",
-      "PHPSESSID=2905409b60032b52228142d822fd1977; expires=Sun, 18-Aug-2019 17:53:02 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "PHPSESSID=83506eb076ea70c617520c180d233de3; expires=Sun, 18-Aug-2019 19:17:10 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
       "Expires",
       "Thu, 19 Nov 1981 08:52:00 GMT",
       "Cache-Control",

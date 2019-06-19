@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.co:443",
     "method": "PUT",
-    "path": "/api2/projects/803826145ba90b42d5d860.46800099?id=803826145ba90b42d5d860.46800099",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099",
     "body": {
       "name": "Demo Phoenix",
       "description": "Description Phoenix"

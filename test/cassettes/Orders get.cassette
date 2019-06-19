@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.co:443",
     "method": "GET",
-    "path": "/api2/teams/176692/orders/201903198B2?team_id=176692&id=201903198B2",
+    "path": "/api2/teams/176692/orders/201903198B2",
     "body": "",
     "status": 200,
     "response": {

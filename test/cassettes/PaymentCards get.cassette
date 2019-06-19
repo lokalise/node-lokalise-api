@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.co:443",
     "method": "GET",
-    "path": "/api2/payment_cards/1774?id=1774",
+    "path": "/api2/payment_cards/1774",
     "body": "",
     "status": 200,
     "response": {

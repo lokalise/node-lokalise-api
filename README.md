@@ -79,47 +79,41 @@ Every request returns a promise with a corresponding object (or array of objects
 
 ### Comments
 
+[Documentation](https://lokalise.co/api2docs/node/#object-comments)
+
 #### List project comments
 
-You should pass *projectId* as a parameter.
-
 ```js
-lokaliseApi.comments.list_project_comments({ project_id: <projectId>});
+lokaliseApi.comments.list_project_comments({ project_id: project_id });
 ```
 
 #### List key comments
 
-You should pass *projectId* and *keyId* as parameters.
-
 ```js
-lokaliseApi.comments.list_project_comments({ project_id: <projectId>, key_id: <keyId>});
+lokaliseApi.comments.list({project_id: project_id, key_id: key_id})
 ```
 
-#### Get a comment
-
-You should pass *commentId*, *projectId* and *keyId* as parameters.
+#### Retrieve a comment
 
 ```js
-lokaliseApi.comments.get(<commentId>, { project_id: <projectId>, key_id: <keyId>});
+lokaliseApi.comments.get(comment_id, {project_id: project_id, key_id: key_id});
 ```
 
 #### Create project comments
 
-Returns promise array of comments.
-
 ```js
-lokaliseApi.comments.create({ 
+lokaliseApi.comments.create({
   'comments': [
-      { comment: "Project comment 1" },
-      { comment: "Project comment 2" }
-    ],
-    { project_id: '<projectId>', key_id: '<keyId>'});
+    { comment: "Project comment 1" },
+    { comment: "Project comment 2" }
+  ]
+}, { project_id: project_id, key_id: key_id});
 ```
 
-#### Destroy a comment
+#### Delete a comment
 
 ```js
-lokaliseApi.comments.delete(<commentId>, { project_id: <projectId>, key_id: <keyId> });
+lokaliseApi.comments.delete(comment_id, {project_id: project_id, key_id: key_id});
 ```
 
 ### Contributors

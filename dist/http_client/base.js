@@ -16,8 +16,9 @@ class ApiRequest {
             method: method,
             headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey, 'content-type': 'application/json' }
         };
+        console.log('AFTER');
+        console.log(this.params);
         if (Object.keys(this.params).length > 0) {
-            //   this.composeQueryString();
             options['qs'] = this.params;
         }
         if (body) {
@@ -42,13 +43,17 @@ class ApiRequest {
         });
     }
     composeURI(uri) {
-        let regexp = /{(\!{0,1}):(\w*)\}/g;
+        let regexp = /{(!{0,1}):(\w*)}/g;
+        console.log('BEFORE');
+        console.log(this.params);
         return uri.replace(regexp, this.mapUriParams(this.params));
     }
     mapUriParams(params) {
         return (entity, isMandaratory, paramName) => {
             if (params[paramName] != null) {
-                return params[paramName];
+                let t_param = params[paramName];
+                delete this.params[paramName];
+                return t_param;
             }
             else {
                 if (isMandaratory == '!') {

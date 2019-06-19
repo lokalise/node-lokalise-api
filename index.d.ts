@@ -315,6 +315,7 @@ declare module '@lokalise/node-api' {
 
   export class Comments extends BaseCollection {
     protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
     create(body: any, params?: StandartParams): Promise<any>;

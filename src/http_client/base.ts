@@ -22,7 +22,6 @@ export class ApiRequest {
     };
 
     if (Object.keys(this.params).length > 0) {
-      //   this.composeQueryString();
       options['qs'] = this.params;
     }
 
@@ -49,14 +48,16 @@ export class ApiRequest {
   }
 
   protected composeURI(uri) {
-    let regexp: RegExp =/{(\!{0,1}):(\w*)\}/g;
+    let regexp: RegExp =/{(!{0,1}):(\w*)}/g;
     return uri.replace(regexp, this.mapUriParams(this.params));
   }
 
   protected mapUriParams(params) {
     return (entity, isMandaratory, paramName) => {
       if (params[paramName] != null) {
-        return params[paramName];
+        let t_param = params[paramName];
+        delete this.params[paramName];
+        return t_param;
       } else {
         if (isMandaratory == '!') {
           throw new Error('Required param ' + paramName);

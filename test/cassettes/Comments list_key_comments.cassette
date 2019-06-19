@@ -1,0 +1,97 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/keys/15519786/comments/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "comments": [
+        {
+          "comment_id": 800745,
+          "key_id": 15519786,
+          "comment": "rspec comment",
+          "added_by": 20181,
+          "added_by_email": "bodrovis@protonmail.com",
+          "added_at": "2018-12-09 18:41:31 (Etc/UTC)",
+          "added_at_timestamp": 1544380891
+        },
+        {
+          "comment_id": 800746,
+          "key_id": 15519786,
+          "comment": "rspec comment",
+          "added_by": 20181,
+          "added_by_email": "bodrovis@protonmail.com",
+          "added_at": "2018-12-09 18:41:44 (Etc/UTC)",
+          "added_at_timestamp": 1544380904
+        },
+        {
+          "comment_id": 1312024,
+          "key_id": 15519786,
+          "comment": "Project comment 1",
+          "added_by": 20181,
+          "added_by_email": "bodrovis@protonmail.com",
+          "added_at": "2019-06-19 19:20:42 (Etc/UTC)",
+          "added_at_timestamp": 1560972042
+        },
+        {
+          "comment_id": 1312025,
+          "key_id": 15519786,
+          "comment": "Project comment 2",
+          "added_by": 20181,
+          "added_by_email": "bodrovis@protonmail.com",
+          "added_at": "2019-06-19 19:20:42 (Etc/UTC)",
+          "added_at_timestamp": 1560972042
+        },
+        {
+          "comment_id": 1312026,
+          "key_id": 15519786,
+          "comment": "Project comment 1",
+          "added_by": 20181,
+          "added_by_email": "bodrovis@protonmail.com",
+          "added_at": "2019-06-19 19:21:06 (Etc/UTC)",
+          "added_at_timestamp": 1560972066
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Wed, 19 Jun 2019 19:39:24 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=b0a68a99241543f11fc5d25983014681; expires=Sun, 18-Aug-2019 19:39:24 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "5",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
