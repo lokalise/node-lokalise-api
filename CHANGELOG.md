@@ -1,7 +1,10 @@
 # Lokalise API Node Client Changelog
 
-## Unreleased
+## 1.0.0 (Unreleased)
 
+**Note that this version is a major re-write and has API breaking changes! Check documentation for the specific endpoint to learn more.**
+
+* Fixed various bugs, make API calls more convenient
 * Updated interfaces to match API changes
 * Updated typings
 * Added new endpoints: `TranslationProvider`, `Order`, `PaymentCard` 

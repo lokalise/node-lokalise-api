@@ -7,7 +7,6 @@ export class ApiRequest {
   public promise: Promise<Object>;
   public params: any = {};
 
-
   constructor(uri, method, body = null, params={}) {
     this.params = params;
     this.promise = this.createPromise(uri, method, body);
@@ -36,7 +35,7 @@ export class ApiRequest {
           return;
         } else {
           let responseJSON = JSON.parse(body);
-          if (responseJSON['error']  || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
+          if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
             reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
             return;
           }
@@ -48,7 +47,7 @@ export class ApiRequest {
   }
 
   protected composeURI(uri) {
-    let regexp: RegExp =/{(!{0,1}):(\w*)}/g;
+    let regexp: RegExp = /{(!{0,1}):(\w*)}/g;
     return uri.replace(regexp, this.mapUriParams(this.params));
   }
 
