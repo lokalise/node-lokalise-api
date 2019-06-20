@@ -549,10 +549,12 @@ lokaliseApi.tasks.delete(task_id, {project_id: project_id});
 
 ### Teams
 
+[Documentation](https://lokalise.co/api2docs/node/#object-teams)
+
 #### List all teams
 
-```
-lokaliseApi.teams.list({ page 1, limit: 10000 });
+```js
+lokaliseApi.teams.list();
 ```
 
 ### Team users

@@ -1,0 +1,70 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/teams?page=2&limit=1",
+    "body": "",
+    "status": 200,
+    "response": {
+      "teams": [
+        {
+          "team_id": 176692,
+          "name": "Ilya's Team",
+          "plan": "Trial",
+          "created_at": "2018-08-21 15:35:25 (Etc/UTC)",
+          "created_at_timestamp": 1534865725,
+          "quota_usage": {
+            "users": 11,
+            "keys": 95,
+            "projects": 11,
+            "mau": 0
+          },
+          "quota_allowed": {
+            "users": 999999999,
+            "keys": 999999999,
+            "projects": 999999999,
+            "mau": 999999999
+          }
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 15:38:19 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=f356b62a09599cc473560eae3f291723; expires=Mon, 19-Aug-2019 15:38:19 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "3",
+      "X-Pagination-Page-Count",
+      "3",
+      "X-Pagination-Limit",
+      "1",
+      "X-Pagination-Page",
+      "2",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

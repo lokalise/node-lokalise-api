@@ -1,0 +1,108 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/teams",
+    "body": "",
+    "status": 200,
+    "response": {
+      "teams": [
+        {
+          "team_id": 186612,
+          "name": "NikaNika",
+          "plan": "Trial",
+          "created_at": "2019-04-11 11:12:49 (Etc/UTC)",
+          "created_at_timestamp": 1554981169,
+          "quota_usage": {
+            "users": 2,
+            "keys": 707,
+            "projects": 3,
+            "mau": 0
+          },
+          "quota_allowed": {
+            "users": 999999999,
+            "keys": 999999999,
+            "projects": 999999999,
+            "mau": 999999999
+          }
+        },
+        {
+          "team_id": 176692,
+          "name": "Ilya's Team",
+          "plan": "Trial",
+          "created_at": "2018-08-21 15:35:25 (Etc/UTC)",
+          "created_at_timestamp": 1534865725,
+          "quota_usage": {
+            "users": 11,
+            "keys": 95,
+            "projects": 11,
+            "mau": 0
+          },
+          "quota_allowed": {
+            "users": 999999999,
+            "keys": 999999999,
+            "projects": 999999999,
+            "mau": 999999999
+          }
+        },
+        {
+          "team_id": 170312,
+          "name": "Lokalise",
+          "plan": "Trial",
+          "created_at": "2017-10-17 09:10:00 (Etc/UTC)",
+          "created_at_timestamp": 1508231400,
+          "quota_usage": {
+            "users": 23,
+            "keys": 6496,
+            "projects": 18,
+            "mau": 0
+          },
+          "quota_allowed": {
+            "users": 999999999,
+            "keys": 999999999,
+            "projects": 999999999,
+            "mau": 999999999
+          }
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 15:37:32 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=89e614a412e0c4ecc657af059fd6fcdb; expires=Mon, 19-Aug-2019 15:37:32 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "3",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
