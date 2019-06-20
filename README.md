@@ -635,7 +635,7 @@ lokaliseApi.userGroups.update(
 );
 ```
 
-#### Add project to a group
+#### Add projects to a group
 
 ```js
 lokaliseApi.userGroups.add_projects_to_group(
@@ -645,7 +645,7 @@ lokaliseApi.userGroups.add_projects_to_group(
 );
 ```
 
-#### Remove a project from a group 
+#### Remove projects from a group 
 
 ```js
 lokaliseApi.userGroups.remove_projects_from_group(
@@ -655,7 +655,7 @@ lokaliseApi.userGroups.remove_projects_from_group(
 );
 ```
 
-#### Add user to a group
+#### Add users to a group
 
 ```js
 lokaliseApi.userGroups.add_members_to_group(
@@ -665,7 +665,7 @@ lokaliseApi.userGroups.add_members_to_group(
 );
 ```
 
-#### Remove user from a group
+#### Remove users from a group
 
 ```js
 lokaliseApi.userGroups.remove_members_from_group(
