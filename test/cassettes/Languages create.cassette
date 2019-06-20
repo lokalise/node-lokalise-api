@@ -1,0 +1,61 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "POST",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/languages/",
+    "body": {
+      "languages": [
+        {
+          "lang_iso": "ak"
+        }
+      ]
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "languages": [
+        {
+          "lang_id": 910,
+          "lang_iso": "ak",
+          "lang_name": "Akan",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        }
+      ],
+      "errors": []
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 14:22:31 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=c55ad822489cedb5bc92cca2324010bf; expires=Mon, 19-Aug-2019 14:22:30 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

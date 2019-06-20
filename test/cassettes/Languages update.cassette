@@ -1,0 +1,53 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "PUT",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/languages/601",
+    "body": {
+      "lang_name": "Chinese Traditional Custom"
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "language": {
+        "lang_id": 601,
+        "lang_iso": "zh_TW",
+        "lang_name": "Chinese Traditional Custom",
+        "is_rtl": false,
+        "plural_forms": [
+          "other"
+        ]
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 14:26:03 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=daf07d0f6957ddd480dd7827274477da; expires=Mon, 19-Aug-2019 14:26:03 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

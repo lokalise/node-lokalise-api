@@ -279,55 +279,48 @@ lokaliseApi.keys.bulk_delete([
 
 ### Languages
 
+[Documentation](https://lokalise.co/api2docs/node/#object-languages)
+
 #### List system languages
 
-```
-lokaliseApi.languages.system_languages({page: 1, limit: 10000})
+```js
+lokaliseApi.languages.system_languages();
 ```
 
 #### List project languages
 
-```
-lokaliseApi.languages.list({project_id: <projectId>});
-```
-
-#### Create a language
-
-```
-lokaliseApi.languages.create({
-      "languages": [
-          {
-              "lang_iso": "en"
-          },
-          {
-              "lang_iso": "ru"                        
-          }
-      ]},
-      { project_id: <projectId> });
+```js
+lokaliseApi.languages.list({project_id: project_id});
 ```
 
+#### Retrieve a language
 
-#### Get a language
-
+```js
+lokaliseApi.languages.get(lang_id, {project_id: project_id});
 ```
-lokaliseApi.languages.get(<languageId>, { project_id: <projectId> });
+
+#### Create languages
+
+```js
+lokaliseApi.languages.create([
+  {
+    "lang_iso": "ak"
+  }
+], { project_id: project_id });
 ```
 
 #### Update a language
 
-```
-lokaliseApi.languages.update(<languageId>, {
-          "lang_iso": "en-US",
-          "plural_forms": [
-              "one", "zero", "few", "other"
-          ]
-      }, {project_id: <projectId>});
+```js
+lokaliseApi.languages.update(lang_id, {
+  "lang_name": "Chinese Traditional Custom"
+}, { project_id: project_id });
 ```
 
 #### Delete a language
 
-```
-lokaliseApi.languages.delete(<languageId>, { project_id: <projectId> });
+```js
+lokaliseApi.languages.delete(lang_id, { project_id: project_id });
 ```
 
 ### Orders

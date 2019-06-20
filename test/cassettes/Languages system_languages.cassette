@@ -1,0 +1,75 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/system/languages?page=3&limit=2",
+    "body": "",
+    "status": 200,
+    "response": {
+      "languages": [
+        {
+          "lang_id": 792,
+          "lang_iso": "af_ZA",
+          "lang_name": "Afrikaans (South Africa)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 977,
+          "lang_iso": "agq",
+          "lang_name": "Aghem",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 14:16:17 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=7102e42b938bc5e8db9a8372c5afb53d; expires=Mon, 19-Aug-2019 14:16:17 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "619",
+      "X-Pagination-Page-Count",
+      "310",
+      "X-Pagination-Limit",
+      "2",
+      "X-Pagination-Page",
+      "3",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

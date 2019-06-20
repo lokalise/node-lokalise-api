@@ -1,0 +1,182 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/languages/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "languages": [
+        {
+          "lang_id": 803,
+          "lang_iso": "sq",
+          "lang_name": "Albanian",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 731,
+          "lang_iso": "ar_001",
+          "lang_name": "Arabic (World)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 934,
+          "lang_iso": "bm",
+          "lang_name": "Bambara",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 764,
+          "lang_iso": "ca",
+          "lang_name": "Catalan",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 601,
+          "lang_iso": "zh_TW",
+          "lang_name": "Chinese Traditional",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10001,
+          "lang_iso": "custom_1",
+          "lang_name": "Custom Language 1",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 737,
+          "lang_iso": "nl",
+          "lang_name": "Dutch",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 640,
+          "lang_iso": "en",
+          "lang_name": "English",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "two",
+            "few",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 1055,
+          "lang_iso": "en-us",
+          "lang_name": "English (United States)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 673,
+          "lang_iso": "f_over",
+          "lang_name": "fr overriden",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "few"
+          ]
+        },
+        {
+          "lang_id": 597,
+          "lang_iso": "ru",
+          "lang_name": "Russian",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 1056,
+          "lang_iso": "es",
+          "lang_name": "Spanish",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 14:12:35 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=6078131f17a09e9218b82bf006a13136; expires=Mon, 19-Aug-2019 14:12:35 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "12",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

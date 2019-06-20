@@ -351,10 +351,12 @@ declare module '@lokalise/node-api' {
 
   export class Languages extends BaseCollection {
     protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
     system_languages(params: StandartParams): Promise<any>;
-    create(body: any, params?: StandartParams): Promise<any>;
+    create(raw_body: any, params?: StandartParams): Promise<any>;
+    update(id, body, params: StandartParams): Promise<any>;
   }
 
   export class Orders extends BaseCollection {
