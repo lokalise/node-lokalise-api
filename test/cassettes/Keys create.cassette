@@ -1,0 +1,506 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "POST",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/keys/",
+    "body": {
+      "keys": [
+        {
+          "key_name": "welcome_web",
+          "description": "Index app welcome",
+          "platforms": [
+            "web"
+          ],
+          "translations": [
+            {
+              "language_iso": "en",
+              "translation": "Welcome"
+            }
+          ]
+        },
+        {
+          "key_name": "welcome_ios",
+          "description": "Welcome apple",
+          "platforms": [
+            "ios"
+          ],
+          "is_plural": true,
+          "translations": [
+            {
+              "language_iso": "en",
+              "translation": {
+                "one": "I have one apple",
+                "other": "I have a lot of apples"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "keys": [
+        {
+          "key_id": 23677306,
+          "created_at": "2019-06-20 13:31:28 (Etc/UTC)",
+          "created_at_timestamp": 1561037488,
+          "key_name": {
+            "ios": "welcome_web",
+            "android": "welcome_web",
+            "web": "welcome_web",
+            "other": "welcome_web"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "Index app welcome",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "comments": [],
+          "screenshots": [],
+          "translations": [
+            {
+              "translation_id": 130055608,
+              "key_id": 23677306,
+              "language_iso": "ru",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055615,
+              "key_id": 23677306,
+              "language_iso": "zh_TW",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055607,
+              "key_id": 23677306,
+              "language_iso": "en",
+              "translation": "Welcome",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": false,
+              "words": 1,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055609,
+              "key_id": 23677306,
+              "language_iso": "f_over",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055614,
+              "key_id": 23677306,
+              "language_iso": "ar_001",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055617,
+              "key_id": 23677306,
+              "language_iso": "nl",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055611,
+              "key_id": 23677306,
+              "language_iso": "ca",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055613,
+              "key_id": 23677306,
+              "language_iso": "sq",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055612,
+              "key_id": 23677306,
+              "language_iso": "bm",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055610,
+              "key_id": 23677306,
+              "language_iso": "en-us",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055616,
+              "key_id": 23677306,
+              "language_iso": "es",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055618,
+              "key_id": 23677306,
+              "language_iso": "custom_1",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            }
+          ],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 1,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 23677307,
+          "created_at": "2019-06-20 13:31:28 (Etc/UTC)",
+          "created_at_timestamp": 1561037488,
+          "key_name": {
+            "ios": "welcome_ios",
+            "android": "welcome_ios",
+            "web": "welcome_ios",
+            "other": "welcome_ios"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "Welcome apple",
+          "platforms": [
+            "ios"
+          ],
+          "tags": [],
+          "comments": [],
+          "screenshots": [],
+          "translations": [
+            {
+              "translation_id": 130055620,
+              "key_id": 23677307,
+              "language_iso": "ru",
+              "translation": "{\"one\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 4,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055627,
+              "key_id": 23677307,
+              "language_iso": "zh_TW",
+              "translation": "{\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 1,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055619,
+              "key_id": 23677307,
+              "language_iso": "en",
+              "translation": "{\"one\":\"I have one apple\",\"other\":\"I have a lot of apples\",\"two\":\"\",\"few\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": false,
+              "words": 14,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055621,
+              "key_id": 23677307,
+              "language_iso": "f_over",
+              "translation": "{\"one\":\"\",\"few\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 2,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055626,
+              "key_id": 23677307,
+              "language_iso": "ar_001",
+              "translation": "{\"zero\":\"\",\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 6,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055629,
+              "key_id": 23677307,
+              "language_iso": "nl",
+              "translation": "{\"one\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 2,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055623,
+              "key_id": 23677307,
+              "language_iso": "ca",
+              "translation": "{\"one\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 2,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055625,
+              "key_id": 23677307,
+              "language_iso": "sq",
+              "translation": "{\"one\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 2,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055624,
+              "key_id": 23677307,
+              "language_iso": "bm",
+              "translation": "{\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 1,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055622,
+              "key_id": 23677307,
+              "language_iso": "en-us",
+              "translation": "{\"one\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 2,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055628,
+              "key_id": 23677307,
+              "language_iso": "es",
+              "translation": "{\"one\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 2,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 130055630,
+              "key_id": 23677307,
+              "language_iso": "custom_1",
+              "translation": "{\"zero\":\"\",\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2019-06-20 13:31:28 (Etc/UTC)",
+              "modified_at_timestamp": 1561037488,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 6,
+              "custom_translation_statuses": []
+            }
+          ],
+          "is_plural": true,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 14,
+          "char_limit": 0,
+          "custom_attributes": ""
+        }
+      ],
+      "errors": []
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 13:31:28 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=b331928eebd5f849b6a8ae74ba6bf7d8; expires=Mon, 19-Aug-2019 13:31:28 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

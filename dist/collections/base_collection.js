@@ -18,7 +18,7 @@ class BaseCollection {
     }
     delete(id, params = {}) {
         params['id'] = id;
-        return this.createPromise('DELETE', params, this.populateObjectFromJson, this.handleReject, null);
+        return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, null);
     }
     populateObjectFromJsonRoot(json) {
         let childClass = this.constructor;

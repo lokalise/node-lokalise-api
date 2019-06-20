@@ -1,8 +1,4 @@
 declare module '@lokalise/node-api' {
-  export interface BulkUpdateKeysParams {
-    keys: Key[];
-  }
-
   export interface Comment {
     comment_id: number;
     key_id: number;
@@ -341,14 +337,16 @@ declare module '@lokalise/node-api' {
 
   export class Keys extends BaseCollection {
     protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
     create(body: any, params?: StandartParams): Promise<any>;
+    update(id: any, body: any, params?: StandartParams): Promise<any>;
     bulk_update(
-      keys: BulkUpdateKeysParams,
+      raw_keys: object[],
       params: StandartParams,
     ): Promise<any>;
-    bulk_delete(keys: number[] | string[], params: StandartParams): any;
+    bulk_delete(raw_keys: number[] | string[], params: StandartParams): any;
   }
 
   export class Languages extends BaseCollection {

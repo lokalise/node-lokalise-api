@@ -28,7 +28,7 @@ export class BaseCollection {
 
   delete(id, params : StandartParams = {}) {
     params['id'] = id;
-    return this.createPromise('DELETE', params, this.populateObjectFromJson, this.handleReject, null);
+    return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, null);
   }
 
   protected populateObjectFromJsonRoot(json: Object): this {

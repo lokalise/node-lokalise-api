@@ -1,0 +1,143 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/keys/?page=2&limit=3",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "keys": [
+        {
+          "key_id": 15814906,
+          "created_at": "2018-12-14 16:00:04 (Etc/UTC)",
+          "created_at_timestamp": 1544803204,
+          "key_name": {
+            "ios": "one_more_key",
+            "android": "one_more_key",
+            "web": "one_more_key",
+            "other": "one_more_key"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 9,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 18925476,
+          "created_at": "2019-02-27 15:42:46 (Etc/UTC)",
+          "created_at_timestamp": 1551282166,
+          "key_name": {
+            "ios": "hello",
+            "android": "hello",
+            "web": "hello",
+            "other": "hello"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "%LANG_ISO%.yml",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": true,
+          "is_archived": false,
+          "context": "",
+          "base_words": 2,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20822936,
+          "created_at": "2019-04-11 11:40:22 (Etc/UTC)",
+          "created_at_timestamp": 1554982822,
+          "key_name": {
+            "ios": "new key goes",
+            "android": "new key goes",
+            "web": "new key goes",
+            "other": "new key goes"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "%LANG_ISO%.yml",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 3,
+          "char_limit": 0,
+          "custom_attributes": ""
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 13:16:29 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=6b8525c790454dc861a7b1883a7e63b2; expires=Mon, 19-Aug-2019 13:16:29 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "21",
+      "X-Pagination-Page-Count",
+      "7",
+      "X-Pagination-Limit",
+      "3",
+      "X-Pagination-Page",
+      "2",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

@@ -189,150 +189,92 @@ lokaliseApi.files.upload(project_id, {data: data_base64, filename: 'test1.json',
 lokaliseApi.files.download(project_id, {format: 'json', "original_filenames": true});
 ```
 
-### Files
-
-#### List project files
-
-Params *page* and *limit* are optional.
-
-```js
-lokaliseApi.files.list({ project_id: <projectId>, page: 1, limit: 1000 });
-```
-#### Upload a file
-
-```js
-lokaliseApi.files.upload(<projectId>, {
-        "filename": "index.json",
-        "data": "D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGL.....",
-        "lang_iso": "en",
-        "tags": [
-            "index", "admin", "v2.0"
-        ],
-        "convert_placeholders": true
-      }
-    });
-```
-
-
-#### Download a file
-
-```js
-lokaliseApi.files.download(<projectId>, {
-    "format": "json",
-    "original_filenames": true
-});
-```
-
 ### Keys
 
-#### List project keys
+[Documentation](https://lokalise.co/api2docs/node/#object-keys)
+
+#### List keys
 
 ```js
-lokaliseApi.keys.list({project_id: <projectId>, page: 1, limit: 1})
+lokaliseApi.keys.list({project_id: project_id});
 ```
 
+#### Retrieve key
+
+```js
+lokaliseApi.keys.get(key_id, {project_id: project_id});
+```
 
 #### Create keys
 
 ```js
-lokaliseApi.keys.create({
-    "keys": [
-        {
-            "key_name": "index.welcome",
-            "description": "Index app welcome",
-            "platforms": [
-                "web"
-            ],
-            "translations": [
-                {
-                    "language_iso": "en",
-                    "translation": "Welcome"
-                }
-            ]
-        },
-        {
-            "key_name": "index.apple",
-            "description": "Welcome apple",
-            "platforms": [
-                "web"
-            ],
-            "is_plural": true,
-            "translations": [
-                {
-                    "language_iso": "en",
-                    "translation": {
-                        "one": "I have one apple",
-                        "other": "I have a lot of apples"
-                    }
-                }
-            ]
-        },
-        {
-            "key_name": "index.hello",
-            "platforms": [
-                "web"
-            ]
-        }
+lokaliseApi.keys.create([
+  {
+    "key_name": "welcome_web",
+    "description": "Index app welcome",
+    "platforms": ["web"],
+    "translations": [
+      {
+        "language_iso": "en",
+        "translation": "Welcome"
+      }
     ]
-}, 
-
-{project_id: <projectId, page: 1, limit: 1>});
+  },
+  {
+    "key_name": "welcome_ios",
+    "description": "Welcome apple",
+    "platforms": ["ios"],
+    "is_plural": true,
+    "translations": [
+      {
+        "language_iso": "en",
+        "translation": {
+          "one": "I have one apple",
+          "other": "I have a lot of apples"
+        }
+      }
+    ]
+  }
+], {project_id: project_id});
 ```
 
 #### Update a key
 
-```
-lokaliseApi.keys.update(<keyId>, {
-    "platforms": [
-        "web","other"
-    ],
-    "description": "Index app welcome"
-},
-
-{ project_id: <projectId> });
+```js
+lokaliseApi.keys.update(key_id, {
+  "platforms": ["web", "other"],
+  "description": "Node updated"
+}, { project_id: project_id });
 ```
 
 #### Update keys in bulk
 
-```
-lokaliseApi.keys.bulk_update({
-    "keys": [
-        {
-            "key_id": 331223,
-            "key_name": "index.welcome",
-            "description": "Index app welcome",
-            "platforms": [
-                "web"
-           ]
-        },
-        {
-            "key_id": 331224,
-            "key_name": "index.hello",
-            "description": "Index greetings",
-            "platforms": [
-                "web"
-           ]
-        }
-    ]
-}, { project_id: <projectId>});
+```js
+lokaliseApi.keys.bulk_update([
+  {
+    "key_id": key_id,
+    "description": "Bulk node",
+    "platforms": ["web"]
+  },
+  {
+    "key_id": second_key_id,
+    "description": "Second bulk",
+  }
+], { project_id: project_id});
 ```
 
+#### Delete a key
 
-#### Destroy a key
-
+```js
+lokaliseApi.keys.delete(key_id, { project_id: project_id });
 ```
-lokaliseApi.keys.delete(<keyId>, { project_id: <projectId> });
-```
 
+#### Delete multiple keys
 
-#### Destroy keys
-
-```
-lokaliseApi.keys.bulk_delete({
-        "keys": [
-            12345, 12346
-        ]
-    }, { project_id: <projectId> });
+```js
+lokaliseApi.keys.bulk_delete([
+  key_id, second_key_id
+], { project_id: project_id });
 ```
 
 ### Languages
@@ -741,7 +683,7 @@ Lokalise does not [rate-limit API requests](https://lokalise.co/api2docs/node/#r
 This library is tested with Node 8, 9, 10, 11, and 12. To test locally:
 
 1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
-2 Run `npm test`. Observe test results and coverage.
+2. Run `npm test`. Observe test results and coverage.
 
 ## Building
 

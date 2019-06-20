@@ -1,0 +1,699 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/keys/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "keys": [
+        {
+          "key_id": 15519786,
+          "created_at": "2018-12-09 18:39:20 (Etc/UTC)",
+          "created_at_timestamp": 1544380760,
+          "key_name": {
+            "ios": "another_k",
+            "android": "another_k",
+            "web": "another_k",
+            "other": "another_k"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 3,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 15571975,
+          "created_at": "2018-12-10 17:35:34 (Etc/UTC)",
+          "created_at_timestamp": 1544463334,
+          "key_name": {
+            "ios": "rspec k",
+            "android": "rspec k",
+            "web": "rspec k",
+            "other": "rspec k"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "My description",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 5,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 15571976,
+          "created_at": "2018-12-10 17:36:41 (Etc/UTC)",
+          "created_at_timestamp": 1544463401,
+          "key_name": {
+            "ios": "my demo key",
+            "android": "my demo key",
+            "web": "my demo key",
+            "other": "my demo key"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 3,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 15814906,
+          "created_at": "2018-12-14 16:00:04 (Etc/UTC)",
+          "created_at_timestamp": 1544803204,
+          "key_name": {
+            "ios": "one_more_key",
+            "android": "one_more_key",
+            "web": "one_more_key",
+            "other": "one_more_key"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 9,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 18925476,
+          "created_at": "2019-02-27 15:42:46 (Etc/UTC)",
+          "created_at_timestamp": 1551282166,
+          "key_name": {
+            "ios": "hello",
+            "android": "hello",
+            "web": "hello",
+            "other": "hello"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "%LANG_ISO%.yml",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": true,
+          "is_archived": false,
+          "context": "",
+          "base_words": 2,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20822936,
+          "created_at": "2019-04-11 11:40:22 (Etc/UTC)",
+          "created_at_timestamp": 1554982822,
+          "key_name": {
+            "ios": "new key goes",
+            "android": "new key goes",
+            "web": "new key goes",
+            "other": "new key goes"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "%LANG_ISO%.yml",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 3,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20945747,
+          "created_at": "2019-04-15 15:41:06 (Etc/UTC)",
+          "created_at_timestamp": 1555342866,
+          "key_name": {
+            "ios": "welc",
+            "android": "welc",
+            "web": "welc",
+            "other": "welc"
+          },
+          "filenames": {
+            "ios": "ios_%LANG_ISO%.strings",
+            "android": "",
+            "web": "%LANG_ISO%.yml",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web",
+            "other"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 1,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988544,
+          "created_at": "2019-04-16 12:02:34 (Etc/UTC)",
+          "created_at_timestamp": 1555416154,
+          "key_name": {
+            "ios": "callback",
+            "android": "callback",
+            "web": "callback",
+            "other": "callback"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 9,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988547,
+          "created_at": "2019-04-16 12:02:45 (Etc/UTC)",
+          "created_at_timestamp": 1555416165,
+          "key_name": {
+            "ios": "statement",
+            "android": "statement",
+            "web": "statement",
+            "other": "statement"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 3,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988554,
+          "created_at": "2019-04-16 12:03:39 (Etc/UTC)",
+          "created_at_timestamp": 1555416219,
+          "key_name": {
+            "ios": "welcome_user",
+            "android": "welcome_user",
+            "web": "welcome_user",
+            "other": "welcome_user"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [
+            "demo",
+            "new_tag"
+          ],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": true,
+          "is_archived": false,
+          "context": "",
+          "base_words": 1,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988567,
+          "created_at": "2019-04-16 12:08:50 (Etc/UTC)",
+          "created_at_timestamp": 1555416530,
+          "key_name": {
+            "ios": "aaa",
+            "android": "aaa",
+            "web": "aaa",
+            "other": "aaa"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988568,
+          "created_at": "2019-04-16 12:08:56 (Etc/UTC)",
+          "created_at_timestamp": 1555416536,
+          "key_name": {
+            "ios": "aaaaa",
+            "android": "aaaaa",
+            "web": "aaaaa",
+            "other": "aaaaa"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988569,
+          "created_at": "2019-04-16 12:09:00 (Etc/UTC)",
+          "created_at_timestamp": 1555416540,
+          "key_name": {
+            "ios": "bbaa",
+            "android": "bbaa",
+            "web": "bbaa",
+            "other": "bbaa"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988570,
+          "created_at": "2019-04-16 12:09:04 (Etc/UTC)",
+          "created_at_timestamp": 1555416544,
+          "key_name": {
+            "ios": "aabbbbb",
+            "android": "aabbbbb",
+            "web": "aabbbbb",
+            "other": "aabbbbb"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988571,
+          "created_at": "2019-04-16 12:09:10 (Etc/UTC)",
+          "created_at_timestamp": 1555416550,
+          "key_name": {
+            "ios": "bbbaaaaccc",
+            "android": "bbbaaaaccc",
+            "web": "bbbaaaaccc",
+            "other": "bbbaaaaccc"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 20988596,
+          "created_at": "2019-04-16 12:09:56 (Etc/UTC)",
+          "created_at_timestamp": 1555416596,
+          "key_name": {
+            "ios": "cccaaa",
+            "android": "cccaaa",
+            "web": "cccaaa",
+            "other": "cccaaa"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 21717815,
+          "created_at": "2019-05-13 15:55:43 (Etc/UTC)",
+          "created_at_timestamp": 1557762943,
+          "key_name": {
+            "ios": "fxvxcvx",
+            "android": "fxvxcvx",
+            "web": "fxvxcvx",
+            "other": "fxvxcvx"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 23467257,
+          "created_at": "2019-06-14 19:05:22 (Etc/UTC)",
+          "created_at_timestamp": 1560539122,
+          "key_name": {
+            "ios": "plural",
+            "android": "plural",
+            "web": "plural",
+            "other": "plural"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "is_plural": true,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 0,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 23646010,
+          "created_at": "2019-06-19 18:04:04 (Etc/UTC)",
+          "created_at_timestamp": 1560967444,
+          "key_name": {
+            "ios": "fruit",
+            "android": "fruit",
+            "web": "fruit",
+            "other": "fruit"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "test1.json",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 1,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 23646011,
+          "created_at": "2019-06-19 18:04:04 (Etc/UTC)",
+          "created_at_timestamp": 1560967444,
+          "key_name": {
+            "ios": "size",
+            "android": "size",
+            "web": "size",
+            "other": "size"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "test1.json",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 1,
+          "char_limit": 0,
+          "custom_attributes": ""
+        },
+        {
+          "key_id": 23646012,
+          "created_at": "2019-06-19 18:04:04 (Etc/UTC)",
+          "created_at_timestamp": 1560967444,
+          "key_name": {
+            "ios": "color",
+            "android": "color",
+            "web": "color",
+            "other": "color"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "test1.json",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "web"
+          ],
+          "tags": [],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 1,
+          "char_limit": 0,
+          "custom_attributes": ""
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 13:15:16 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=e9c934ea04a348f65f236fb32381c957; expires=Mon, 19-Aug-2019 13:15:16 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "21",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
