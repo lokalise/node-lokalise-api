@@ -430,55 +430,46 @@ lokaliseApi.projects.delete(project_id);
 
 ### Screenshots
 
+[Documentation](https://lokalise.co/api2docs/node/#object-screenshots)
+
 #### List screenshots
 
+```js
+lokaliseApi.screenshots.list({project_id: project_id});
 ```
-lokaliseApi.screenshots.list({project_id: <projectId>});
+
+#### Retrieve screenshot
+
+```js
+lokaliseApi.screenshots.get(screenshot_id, {project_id: project_id});
 ```
 
 #### Create screenshots
 
-```
-lokaliseApi.screenshots.create({
-        "screenshots": [
-            {
-                "data": "data:image/jpeg;base64,D94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGL.....",
-                "ocr": false,
-                "key_ids": [
-                    1132290, 1132292, 1132293
-                ],
-                "tags": [
-                    "onboarding"
-                ]
-            }
-        ]
-    }, {project_id: <projectId>});
-```
-
-
-#### Get a screenshot
-
-```
-lokaliseApi.screenshots.get(<screenshotId>, {project_id: <projectId>});
+```js
+lokaliseApi.screenshots.create([
+  {
+    data: data,
+    "ocr": false,
+    "key_ids": [key_id],
+    "tags": ["onboarding"]
+  }
+],{project_id: project_id});
 ```
 
 #### Update a screenshot
 
-```
-lokaliseApi.screenshots.update(<screenshotId>, {
-    "key_ids": [
-        1132290, 1132292
-    ],
-    "tags": [
-        "main"
-    ]
-}, {project_id: <projectId>});
+```js
+lokaliseApi.screenshots.update(screenshot_id,
+  {title: 'node screen', description: 'node desc'},
+  {project_id: project_id}
+);
 ```
 
 #### Delete a screenshot
 
-```
-lokaliseApi.screenshots.delete(<screenshotId>, { project_id: <projectId> });
+```js
+lokaliseApi.screenshots.delete(screenshot_id, {project_id: project_id});
 ```
 
 ### Snapshots

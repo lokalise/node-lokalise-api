@@ -1,0 +1,74 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "POST",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/screenshots/",
+    "body": {
+      "screenshots": [
+        {
+          "data": "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAAH0AAAAgCAIAAACw8uBbAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAAASdEVYdFNvZnR3YXJlAEdyZWVuc2hvdF5VCAUAAALkSURBVGhD7ZnNattAEIDzAO65r+CWtNCrqWUby01SHISVCqMeQujBhda0hlx8co6pDy0Un9pT60AuPRZKUK59APeNOquR5NXoZ7XyOnJgzYeQRrOzu99uJIj2Hjwycnj42PjZ7P1pH8DxSdOafflGIPlArf7u0rsem00Sz6d2uvCuLp7VJVuxvrzb8Od5C0uyAo/12SsxBkS2rcA7sP+0DdLhSOJZyHqvmRc/PPhJL5USavVX46tg5WSXbZO2Yu+abaC9V8Pe81ZHc/do79WgvVeDhPf351M4Xi6+8/AJmuIU9Q7S0TIvHSOaEhTyjtLRcmQ8imhKIPYeSUfL0XkU2QUaxtFy5MzNNomXQGGpHKTfq/fduzBzV7wT0QSSXBXaO4zbnJ+5/96+BpZ9NnoSwYktXWc1GkyMdsM8vhmxu3jJ8uORQIQ9wAo3tplVc94PGmIOX4pLCy5X7hHm+NXWQ/rYPEwtpRbp54x1MhR47w/iU2KC+NHj5EN9vi9/c0FDCGZEXKzJiuNi0F78nLPjId5aL5gbrD1bAFaWr0+ac0MKS4Wt+GQlZHr/1O39PThMAnHypiXgFotE+5fBRg4i3Mz5/Yh7MCXC54fntJfMnHXXE5etAZ8Zkdocb2ErPFdIpneim+elNcjxjgxtB6yxeYq9x+/m58elrHtJy9ncO/6x3qn3adckuhGIT6YzoXcApPhPidTnDD/J5N38/Ji1sJeUHCyF1qI1yM7kg8EAkptAFXnP968mfdRAZPThPJKe6h0er8EjIhwxzgSDyR3nzy32riORhBTfVLyX1By+1IrrETY+qZxsDu9YrL+NzQ4I3qu/ei8i6XDunr7hpad61xRB4N1sdX776uFoWzaRDpB8TUEE3gGn0wXpcCRxzSaIvWu2gfZeDdp7NWjv1aC9V4OEd/19VSFFvevvq2op5F1/X1WO2PvufF9tGOOFdz1zFPzDRGGpcki/V++Fd2Fmxd5bnf90pEGocXtKKgAAAABJRU5ErkJggg==",
+          "ocr": false,
+          "key_ids": [
+            15519786
+          ],
+          "tags": [
+            "onboarding"
+          ]
+        }
+      ]
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "screenshots": [
+        {
+          "screenshot_id": 189268,
+          "title": "",
+          "description": "",
+          "screenshot_tags": [
+            "onboarding"
+          ],
+          "url": "https://s3-eu-west-1.amazonaws.com/lokalise-assets/files/screenshots/803826145ba90b42d5d860.46800099/b0a4cffb2a3a06a2ccaca4a7a502e7582d8ec1b1.jpg",
+          "key_ids": [
+            15519786
+          ],
+          "width": 125,
+          "height": 32,
+          "created_at": "2019-06-20 14:51:28 (Etc/UTC)",
+          "created_at_timestamp": 1561042288
+        }
+      ],
+      "errors": []
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 14:51:28 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=81573051b45d283a371b3d027f9ace6e; expires=Mon, 19-Aug-2019 14:51:28 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
