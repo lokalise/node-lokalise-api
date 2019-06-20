@@ -16,6 +16,7 @@ Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node
   + [Files](#files)
   + [Keys](#keys)
   + [Languages](#languages)
+  + [Orders](#orders)
   + [Payment cards](#payment-cards)
   + [Projects](#projects)
   + [Screenshots](#screenshots)
