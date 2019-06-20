@@ -474,30 +474,31 @@ lokaliseApi.screenshots.delete(screenshot_id, {project_id: project_id});
 
 ### Snapshots
 
+[Documentation](https://lokalise.co/api2docs/node/#object-snapshots)
+
 #### List snapshots
 
-```
-lokaliseApi.snapshots.list({project_id: <projectId>});
+```js
+lokaliseApi.snapshots.list({project_id: project_id});
 ```
 
 #### Create a snapshot
 
-```
-lokaliseApi.snapshots.create({ "title": "API snapshot" }, {project_id: <projectId>});
+```js
+lokaliseApi.snapshots.create({"title": "API snapshot"}, {project_id: project_id});
 ```
 
 #### Restore a snapshot
 
-```
-lokaliseApi.snapshots.restore({ project_id: <projectId>, id: <snapshotId>});
+```js
+lokaliseApi.snapshots.restore(snapshot_id, {project_id: project_id});
 ```
 
 #### Delete a snapshot
 
+```js
+lokaliseApi.snapshots.delete(snapshot_id, {project_id: project_id});
 ```
-lokaliseApi.snapshots.delete({ project_id: <projectId>, id: <snapshotId>});
-```
-
 
 ### Tasks
 

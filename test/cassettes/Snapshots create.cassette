@@ -1,0 +1,52 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "POST",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/snapshots/",
+    "body": {
+      "title": "API snapshot"
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "snapshot": {
+        "snapshot_id": 89351,
+        "title": "API snapshot",
+        "created_by": 20181,
+        "created_by_email": "bodrovis@protonmail.com",
+        "created_at": "2019-06-20 15:01:49 (Etc/UTC)",
+        "created_at_timestamp": 1561042909
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 15:01:49 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=cb77af24f2faf405ac5064e119e6cd55; expires=Mon, 19-Aug-2019 15:01:49 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
