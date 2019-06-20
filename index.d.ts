@@ -440,18 +440,11 @@ declare module '@lokalise/node-api' {
     protected static prefixURI: string;
     protected static elementClass: Object;
     create(body: any, params?: StandartParams): Promise<any>;
-    add_project_to_group(
-      team_id: any,
-      group_id: any,
-      body: any,
-      params: any,
-    ): Promise<any>;
-    remove_project_from_group(
-      team_id: any,
-      group_id: any,
-      body: any,
-      params: any,
-    ): Promise<any>;
+    update(id, body, params : StandartParams) : Promise<any>;
+    add_projects_to_group(team_id, group_id, raw_body: any[], params): Promise<any>;
+    remove_projects_from_group(team_id, group_id, raw_body: any[], params): Promise<any>;
+    add_members_to_group(team_id, group_id, raw_body: any[], params): Promise<any>;
+    remove_members_from_group(team_id, group_id, raw_body: any[], params): Promise<any>;
   }
 
   export class LocaliseApiMethods {

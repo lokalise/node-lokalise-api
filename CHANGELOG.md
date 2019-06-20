@@ -1,6 +1,6 @@
 # Lokalise API Node Client Changelog
 
-## 1.0.0 (Unreleased)
+## 1.0.0 (20-06-19)
 
 **Note that this version is a major re-write and has API breaking changes! Check documentation for the specific endpoint to learn more.**
 
@@ -10,7 +10,7 @@
 * Added new endpoints: `TranslationProvider`, `Order`, `PaymentCard` 
 * Added tests for all endpoints
 * Added test coverage
-* Added support for Travis
+* Added Travis
 
 ## 0.0.9 (07-06-19)
 

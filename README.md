@@ -592,50 +592,93 @@ lokaliseApi.teamUsers.delete(user_id, {team_id: team_id});
 
 ### Team user groups
 
+[Documentation](https://lokalise.co/api2docs/node/#object-team-user-groups)
+
 #### List team user groups
+
+```js
+lokaliseApi.userGroups.list({team_id: team_id});
 ```
-lokaliseApi.user_groups.list({ team_id: <teamId> });
+
+#### Retrieve team user group
+
+```js
+lokaliseApi.userGroups.get(group_id, {team_id: team_id});
 ```
 
 #### Create a team user group
 
-```
-lokaliseApi.user_groups.create({
-      "name": "Proofreaders",
-      "is_reviewer": true,
-      "is_admin": false,
-      "admin_rights": [],
-      "languages": {
-          "reference": [],
-          "contributable": [640]
-      }
-  }, { team_id: <teamId> });
+```js
+lokaliseApi.userGroups.create(
+  {
+    name: 'Node',
+    is_reviewer: false,
+    is_admin: true,
+    admin_rights: ['upload']
+  },
+  {team_id: team_id}
+);
 ```
 
-#### Get a team user group
+#### Update team user group
 
-```
-lokaliseApi.user_groups.get(<groupId>, { team_id: <teamId> });
+```js
+lokaliseApi.userGroups.update(
+  group_id,
+  {
+    name: 'Node updated',
+    is_reviewer: false,
+    is_admin: true,
+    admin_rights: ['upload']
+  },
+  {team_id: team_id}
+);
 ```
 
 #### Add project to a group
 
-```
-lokaliseApi.user_groups.add_project_to_group(<teamId>, <groupId>, {
-                          "projects": [
-                              "598901215bexxx43dcba74.xxx"
-                          ]
-                      });
+```js
+lokaliseApi.userGroups.add_projects_to_group(
+  team_id,
+  group_id,
+  [project_id]
+);
 ```
 
 #### Remove a project from a group 
 
+```js
+lokaliseApi.userGroups.remove_projects_from_group(
+  team_id,
+  group_id,
+  [project_id]
+);
 ```
-lokaliseApi.user_groups.remove_project_from_group(<teamId>, <groupId>, {
-                          "projects": [
-                              "598901215bexxx43dcba74.xxx"
-                          ]
-                      });
+
+#### Add user to a group
+
+```js
+lokaliseApi.userGroups.add_members_to_group(
+  team_id,
+  group_id,
+  [user_id]
+);
+```
+
+#### Remove user from a group
+
+```js
+lokaliseApi.userGroups.remove_members_from_group(
+  team_id,
+  group_id,
+  [user_id]
+);
+```
+
+#### Delete group
+
+```js
+lokaliseApi.userGroups.delete(new_group_id, {team_id: team_id});
 ```
 
 ### Translations

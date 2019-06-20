@@ -1,0 +1,63 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "PUT",
+    "path": "/api2/teams/176692/groups/762/members/remove",
+    "body": {
+      "users": [
+        20181
+      ]
+    },
+    "status": 200,
+    "response": {
+      "team_id": 176692,
+      "group": {
+        "group_id": 762,
+        "name": "Node updated",
+        "permissions": {
+          "is_admin": true,
+          "is_reviewer": false,
+          "admin_rights": [
+            "upload"
+          ],
+          "languages": []
+        },
+        "created_at": "2019-06-20 17:35:39 (Etc/UTC)",
+        "created_at_timestamp": 1561052139,
+        "team_id": 176692,
+        "projects": [],
+        "members": []
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 17:52:37 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=62bfe1a4044ec59de9fb5aa2e6d5147e; expires=Mon, 19-Aug-2019 17:52:37 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

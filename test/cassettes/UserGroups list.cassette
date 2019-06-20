@@ -1,0 +1,84 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/teams/176692/groups/?page=1&limit=1",
+    "body": "",
+    "status": 200,
+    "response": {
+      "team_id": 176692,
+      "user_groups": [
+        {
+          "group_id": 515,
+          "name": "Demo",
+          "permissions": {
+            "is_admin": true,
+            "is_reviewer": false,
+            "admin_rights": [
+              "upload",
+              "download",
+              "tasks",
+              "contributors",
+              "screenshots",
+              "keys",
+              "languages",
+              "settings",
+              "activity",
+              "statistics"
+            ],
+            "languages": []
+          },
+          "created_at": "2019-03-19 19:53:04 (Etc/UTC)",
+          "created_at_timestamp": 1553025184,
+          "team_id": 176692,
+          "projects": [
+            "531138705d0ba0c18f5b43.63503311",
+            "803826145ba90b42d5d860.46800099"
+          ],
+          "members": [
+            20181,
+            25753
+          ]
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 17:23:28 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=ed8fd3b2698bbe9d2b14afdd63268733; expires=Mon, 19-Aug-2019 17:23:28 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "1",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "1",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "0.0.9",
+  "version": "1.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "MIT",
   "repository": {
