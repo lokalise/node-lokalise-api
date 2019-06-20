@@ -559,29 +559,34 @@ lokaliseApi.teams.list();
 
 ### Team users
 
+[Documentation](https://lokalise.co/api2docs/node/#object-team-users)
+
 #### List team users
 
-```
-lokaliseApi.team_users.list({project_id: <projectId>});
+```js
+lokaliseApi.teamUsers.list({team_id: team_id});
 ```
 
-#### Get a team user
+#### Retrieve a team user
 
-```
-lokaliseApi.team_users.get(<teamUserId>, { project_id: <projectId> });
+```js
+lokaliseApi.teamUsers.get(user_id, {team_id: team_id});
 ```
 
 #### Update a team user
 
-```
-lokaliseApi.team_users.update(<teamUserId>, { "role": "admin" },
-                        { project_id: <projectId> });
+```js
+lokaliseApi.teamUsers.update(
+  user_id,
+  {role: 'admin'},
+  {team_id: team_id}
+);
 ```
 
 #### Delete a team user
 
-```
-lokaliseApi.team_users.delete(<teamUserId>, { project_id: <projectId> });
+```js
+lokaliseApi.teamUsers.delete(user_id, {team_id: team_id});
 ```
 
 ### Team user groups

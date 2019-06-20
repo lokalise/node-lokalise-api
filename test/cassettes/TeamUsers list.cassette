@@ -1,0 +1,140 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/teams/176692/users/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "team_id": 176692,
+      "team_users": [
+        {
+          "user_id": 39938,
+          "email": "translator2@mycompany.com",
+          "fullname": "Mr. Translator",
+          "created_at": "2019-06-19 20:12:11 (Etc/UTC)",
+          "created_at_timestamp": 1560975131,
+          "role": "member"
+        },
+        {
+          "user_id": 35555,
+          "email": "john@example.com",
+          "fullname": "John",
+          "created_at": "2019-04-17 13:41:12 (Etc/UTC)",
+          "created_at_timestamp": 1555508472,
+          "role": "member"
+        },
+        {
+          "user_id": 35554,
+          "email": "golosizpru@ya.ru",
+          "fullname": "Joanne",
+          "created_at": "2019-04-17 13:39:19 (Etc/UTC)",
+          "created_at_timestamp": 1555508359,
+          "role": "member"
+        },
+        {
+          "user_id": 34052,
+          "email": "translator@example.com",
+          "fullname": "Translator Demo",
+          "created_at": "2019-03-29 14:18:15 (Etc/UTC)",
+          "created_at_timestamp": 1553869095,
+          "role": "member"
+        },
+        {
+          "user_id": 34051,
+          "email": "demo2@example.com",
+          "fullname": "Demo 2 User",
+          "created_at": "2019-03-29 14:16:05 (Etc/UTC)",
+          "created_at_timestamp": 1553868965,
+          "role": "member"
+        },
+        {
+          "user_id": 33599,
+          "email": "twilight_church@list.ru",
+          "fullname": "Joe",
+          "created_at": "2019-03-26 15:46:41 (Etc/UTC)",
+          "created_at_timestamp": 1553615201,
+          "role": "member"
+        },
+        {
+          "user_id": 31113,
+          "email": "translator@mycompany.com",
+          "fullname": "Mr. Translator",
+          "created_at": "2019-02-28 12:36:18 (Etc/UTC)",
+          "created_at_timestamp": 1551357378,
+          "role": "member"
+        },
+        {
+          "user_id": 25753,
+          "email": "test2@example.com",
+          "fullname": "Unnamed",
+          "created_at": "2018-12-04 17:13:19 (Etc/UTC)",
+          "created_at_timestamp": 1543943599,
+          "role": "member"
+        },
+        {
+          "user_id": 25261,
+          "email": "kutanov@gmail.com",
+          "fullname": "Roman",
+          "created_at": "2018-11-26 13:04:14 (Etc/UTC)",
+          "created_at_timestamp": 1543237454,
+          "role": "owner"
+        },
+        {
+          "user_id": 20181,
+          "email": "bodrovis@protonmail.com",
+          "fullname": "Ilya B",
+          "created_at": "2018-08-21 15:35:25 (Etc/UTC)",
+          "created_at_timestamp": 1534865725,
+          "role": "owner"
+        },
+        {
+          "user_id": 5870,
+          "email": "test@example.com",
+          "fullname": "John Doe",
+          "created_at": "2017-06-09 11:56:00 (Etc/UTC)",
+          "created_at_timestamp": 1497009360,
+          "role": "member"
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 16:24:00 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=e05ba30e1b99eb23478fb3f4d626db30; expires=Mon, 19-Aug-2019 16:24:00 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "11",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

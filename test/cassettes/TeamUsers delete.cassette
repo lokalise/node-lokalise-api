@@ -1,0 +1,43 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "DELETE",
+    "path": "/api2/teams/176692/users/39938",
+    "body": "",
+    "status": 200,
+    "response": {
+      "team_id": 176692,
+      "team_user_deleted": true
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 16:30:34 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=5e26176986ff32af5a4dde3e035fc80a; expires=Mon, 19-Aug-2019 16:30:34 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

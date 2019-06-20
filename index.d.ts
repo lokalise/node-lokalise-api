@@ -409,8 +409,10 @@ declare module '@lokalise/node-api' {
 
   export class TeamUsers extends BaseCollection {
     protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
+    update(id, body, params : StandartParams) : Promise<any>;
   }
 
   export class Teams extends BaseCollection {

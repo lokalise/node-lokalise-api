@@ -1,0 +1,52 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "PUT",
+    "path": "/api2/teams/176692/users/39938",
+    "body": {
+      "role": "admin"
+    },
+    "status": 200,
+    "response": {
+      "team_id": 176692,
+      "team_user": {
+        "user_id": 39938,
+        "email": "translator2@mycompany.com",
+        "fullname": "Mr. Translator",
+        "created_at": "2019-06-19 20:12:11 (Etc/UTC)",
+        "created_at_timestamp": 1560975131,
+        "role": "admin"
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 16:29:31 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=a82658ea7fb7222ed9d8ebb473f9df7c; expires=Mon, 19-Aug-2019 16:29:31 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

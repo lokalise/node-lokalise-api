@@ -1,0 +1,60 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/teams/176692/users/?page=3&limit=1",
+    "body": "",
+    "status": 200,
+    "response": {
+      "team_id": 176692,
+      "team_users": [
+        {
+          "user_id": 35554,
+          "email": "golosizpru@ya.ru",
+          "fullname": "Joanne",
+          "created_at": "2019-04-17 13:39:19 (Etc/UTC)",
+          "created_at_timestamp": 1555508359,
+          "role": "member"
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 16:24:55 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=5ac3347a00ab4403abafa3ade3cf255b; expires=Mon, 19-Aug-2019 16:24:55 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "11",
+      "X-Pagination-Page-Count",
+      "11",
+      "X-Pagination-Limit",
+      "1",
+      "X-Pagination-Page",
+      "3",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
