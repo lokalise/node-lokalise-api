@@ -1,0 +1,59 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "PUT",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/translations/79607647",
+    "body": {
+      "translation": "тест"
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "translation": {
+        "translation_id": 79607647,
+        "key_id": 15519786,
+        "language_iso": "ru",
+        "translation": "тест",
+        "modified_by": 20181,
+        "modified_by_email": "bodrovis@protonmail.com",
+        "modified_at": "2019-06-20 16:53:49 (Etc/UTC)",
+        "modified_at_timestamp": 1561049629,
+        "is_reviewed": true,
+        "reviewed_by": 33599,
+        "is_fuzzy": false,
+        "words": 1,
+        "custom_translation_statuses": []
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 16:53:49 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=757439b6470ffa416e348f79d8092503; expires=Mon, 19-Aug-2019 16:53:49 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

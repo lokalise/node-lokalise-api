@@ -1,0 +1,57 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/translations/79607647",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "translation": {
+        "translation_id": 79607647,
+        "key_id": 15519786,
+        "language_iso": "ru",
+        "translation": "Ещё один английский ключ",
+        "modified_by": 33599,
+        "modified_by_email": "twilight_church@list.ru",
+        "modified_at": "2019-05-13 16:13:34 (Etc/UTC)",
+        "modified_at_timestamp": 1557764014,
+        "is_reviewed": true,
+        "reviewed_by": 33599,
+        "is_fuzzy": false,
+        "words": 4,
+        "custom_translation_statuses": []
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 16:50:03 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=9be6755415ad061e8ed4e98ec6ea12b6; expires=Mon, 19-Aug-2019 16:50:03 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

@@ -24,6 +24,7 @@ Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node
   + [Teams](#teams)
   + [Team users](#team-users)
   + [Team user groups](#team-user-groups)
+  + [Translations](#translations)
   + [Translation Providers](#translation-providers)
 * [Additional Info](#additional-info)
 * [Running Tests](#running-tests)
@@ -635,6 +636,32 @@ lokaliseApi.user_groups.remove_project_from_group(<teamId>, <groupId>, {
                               "598901215bexxx43dcba74.xxx"
                           ]
                       });
+```
+
+### Translations
+
+[Documentation](https://lokalise.co/api2docs/node/#object-translations)
+
+#### List translations
+
+```js
+lokaliseApi.translations.list({project_id: project_id});
+```
+
+#### Retrieve translation
+
+```js
+lokaliseApi.translations.get(translation_id, {project_id: project_id});
+```
+
+#### Update translation
+
+```js
+lokaliseApi.translations.update(
+  translation_id,
+  {translation: 'updated'},
+  {project_id: project_id}
+);
 ```
 
 ### Translation Providers
