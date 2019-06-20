@@ -1,0 +1,449 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "PUT",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/tasks/11925",
+    "body": {
+      "title": "node updated"
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "task": {
+        "task_id": 11925,
+        "title": "node updated",
+        "can_be_parent": true,
+        "task_type": "review",
+        "parent_task_id": null,
+        "closing_tags": [],
+        "description": "",
+        "status": "in progress",
+        "progress": 1,
+        "due_date": null,
+        "due_date_timestamp": null,
+        "keys_count": 16,
+        "words_count": 275,
+        "created_at": "2019-05-13 16:15:26 (Etc/UTC)",
+        "created_at_timestamp": 1557764126,
+        "created_by": 20181,
+        "created_by_email": "bodrovis@protonmail.com",
+        "languages": [
+          {
+            "language_iso": "sq",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15519786,
+              15571975,
+              15571976,
+              15814906,
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988554,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 16,
+            "words_count": 37,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "ar_001",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              },
+              {
+                "user_id": 33599,
+                "email": "twilight_church@list.ru",
+                "fullname": "Joe"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15519786,
+              15571975,
+              15571976,
+              15814906,
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 15,
+            "words_count": 36,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "bm",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              },
+              {
+                "user_id": 33599,
+                "email": "twilight_church@list.ru",
+                "fullname": "Joe"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988554,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 12,
+            "words_count": 17,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "ca",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              },
+              {
+                "user_id": 33599,
+                "email": "twilight_church@list.ru",
+                "fullname": "Joe"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 11,
+            "words_count": 16,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "zh_TW",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15519786,
+              15814906,
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988554,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 14,
+            "words_count": 29,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": null,
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              },
+              {
+                "user_id": 33599,
+                "email": "twilight_church@list.ru",
+                "fullname": "Joe"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              0
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 16,
+            "words_count": 37,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "en-us",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15519786,
+              15571975,
+              15571976,
+              15814906,
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988554,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 16,
+            "words_count": 37,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "ru",
+            "users": [
+              {
+                "user_id": 33599,
+                "email": "twilight_church@list.ru",
+                "fullname": "Joe"
+              },
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15571975,
+              15571976,
+              20822936,
+              20988567,
+              20988568,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "in progress",
+            "progress": 11,
+            "initial_tm_leverage": [],
+            "keys_count": 9,
+            "words_count": 11,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "es",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              },
+              {
+                "user_id": 33599,
+                "email": "twilight_church@list.ru",
+                "fullname": "Joe"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15519786,
+              15814906,
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 13,
+            "words_count": 28,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          },
+          {
+            "language_iso": "f_over",
+            "users": [
+              {
+                "user_id": 33599,
+                "email": "twilight_church@list.ru",
+                "fullname": "Joe"
+              },
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15519786,
+              15571975,
+              15571976,
+              20822936,
+              20945747,
+              20988544,
+              20988547,
+              20988567,
+              20988568,
+              20988569,
+              20988570,
+              20988571,
+              20988596,
+              21717815
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 14,
+            "words_count": 27,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          }
+        ],
+        "auto_close_languages": true,
+        "auto_close_task": true,
+        "completed_at": null,
+        "completed_at_timestamp": null,
+        "completed_by": null,
+        "completed_by_email": null,
+        "do_lock_translations": false,
+        "custom_translation_status_ids": []
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 15:28:16 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=bca136676c195d41448db86559926a0a; expires=Mon, 19-Aug-2019 15:28:16 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

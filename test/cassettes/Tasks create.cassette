@@ -1,0 +1,107 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "POST",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/tasks/",
+    "body": {
+      "title": "node task",
+      "keys": [
+        15519786
+      ],
+      "languages": [
+        {
+          "language_iso": "en",
+          "users": [
+            20181
+          ]
+        }
+      ]
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "task": {
+        "task_id": 15526,
+        "title": "node task",
+        "can_be_parent": true,
+        "task_type": "translation",
+        "parent_task_id": null,
+        "closing_tags": [],
+        "description": "",
+        "status": "created",
+        "progress": 0,
+        "due_date": null,
+        "due_date_timestamp": null,
+        "keys_count": 1,
+        "words_count": 3,
+        "created_at": "2019-06-20 15:25:04 (Etc/UTC)",
+        "created_at_timestamp": 1561044304,
+        "created_by": 20181,
+        "created_by_email": "bodrovis@protonmail.com",
+        "languages": [
+          {
+            "language_iso": "en",
+            "users": [
+              {
+                "user_id": 20181,
+                "email": "bodrovis@protonmail.com",
+                "fullname": "Ilya B"
+              }
+            ],
+            "groups": [],
+            "keys": [
+              15519786
+            ],
+            "status": "created",
+            "progress": 0,
+            "initial_tm_leverage": [],
+            "keys_count": 1,
+            "words_count": 3,
+            "completed_at": null,
+            "completed_at_timestamp": null,
+            "completed_by": null,
+            "completed_by_email": null
+          }
+        ],
+        "auto_close_languages": true,
+        "auto_close_task": true,
+        "completed_at": null,
+        "completed_at_timestamp": null,
+        "completed_by": null,
+        "completed_by_email": null,
+        "do_lock_translations": false,
+        "custom_translation_status_ids": []
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 20 Jun 2019 15:25:05 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=fb7932e45f0fd39c2c664e450bbecb50; expires=Mon, 19-Aug-2019 15:25:04 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

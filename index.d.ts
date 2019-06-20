@@ -1,5 +1,3 @@
-import {StandartParams} from "./src/interfaces/standart_params";
-
 declare module '@lokalise/node-api' {
   export interface Comment {
     comment_id: number;
@@ -391,15 +389,22 @@ declare module '@lokalise/node-api' {
   }
 
   export class Snapshots extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    restore(params: StandartParams): Promise<any>;
+    protected static rootElementName:string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI:string;
+    protected static elementClass: Object;
+    restore(id, params: StandartParams): Promise<any>;
+    create(body, params: StandartParams): Promise<any>;
   }
 
   export class Tasks extends BaseCollection {
     protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
+
+    create(body, params: StandartParams): Promise<any>;
+    update(id, body, params : StandartParams) : Promise<any>;
   }
 
   export class TeamUsers extends BaseCollection {

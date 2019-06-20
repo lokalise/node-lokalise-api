@@ -502,57 +502,50 @@ lokaliseApi.snapshots.delete(snapshot_id, {project_id: project_id});
 
 ### Tasks
 
+[Documentation](https://lokalise.co/api2docs/node/#object-tasks)
+
 #### List tasks
 
+```js
+lokaliseApi.tasks.list({project_id: project_id});
 ```
-lokaliseApi.tasks.list({project_id: <projectId>});
+
+#### Retrieve task
+
+```js
+lokaliseApi.tasks.get(task_id, {project_id: project_id});
 ```
 
 #### Create a task
 
-```
+```js
 lokaliseApi.tasks.create({
-    "title": "Voicemail messages",
-    "description": "Need your help with some voicemail message translation. Thanks!",
-    "due_date": "2018-12-31 12:00:00 (Etc\/UTC)",
-    "keys": [
-        11212, 11241, 11245
-    ],
-    "languages": [
-        {
-            "language_iso": "fi",
-            "users": [
-                421
-            ]
-        },
-        {
-            "language_iso": "ru",
-            "groups": [
-                191
-            ]
-        }
-    ],
-    "auto_close_languages": true,
-    "auto_close_task": true,
-    "task_type": "translation",
-    "parent_task_id": 12345,
-    "closing_tags": ["tag_one", "tag_two"],
-    "do_lock_translations": true
-}, {project_id: <projectId>});
+  title: 'node task',
+  keys: [key1, key2],
+  languages: [
+    {
+      "language_iso": "en",
+      "users": [user1, user2]
+    }
+  ]
+}, {project_id: project_id});
 ```
 
-#### Get a task
+#### Update a task
 
-```
-lokaliseApi.tasks.get(<taskId>, { project_id: <projectId> });
+```js
+lokaliseApi.tasks.update(
+  task_id,
+  {title: 'node updated'},
+  {project_id: project_id}
+);
 ```
 
 #### Delete a task
 
+```js
+lokaliseApi.tasks.delete(task_id, {project_id: project_id});
 ```
-lokaliseApi.tasks.delete(<taskId>, { project_id: <projectId>});
-```
-
 
 ### Teams
 
