@@ -27,6 +27,7 @@ Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node
   + [Team user groups](#team-user-groups)
   + [Translations](#translations)
   + [Translation Providers](#translation-providers)
+  + [Translation Statuses](#translation-statuses)
 * [Additional Info](#additional-info)
 * [Running Tests](#running-tests)
 * [Building](#building)
