@@ -24,7 +24,7 @@
     "@types/chai": "^4.1.7",
     "@types/express": "^4.17.0",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^12.6.2",
+    "@types/node": "^12.6.8",
     "acorn": "^6.2.0",
     "dotenv": "^8.0.0",
     "lodash": "^4.17.14",
@@ -36,7 +36,7 @@
     "ts-node": "^8.3.0"
   },
   "dependencies": {
-    "@types/request": "^2.48.1",
+    "@types/request": "^2.48.2",
     "axios": "^0.19.0",
     "request": "^2.88.0",
     "typescript": "^3.5.3"

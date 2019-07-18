@@ -1,0 +1,57 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/custom_translation_statuses/?page=2&limit=1",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "custom_translation_statuses": [
+        {
+          "status_id": 127,
+          "title": "tested",
+          "color": "#61bd4f"
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 18 Jul 2019 16:39:47 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=284f84e2aa2f8ef76f7dcc637c0531f8; expires=Mon, 16-Sep-2019 16:39:47 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "2",
+      "X-Pagination-Page-Count",
+      "2",
+      "X-Pagination-Limit",
+      "1",
+      "X-Pagination-Page",
+      "2",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

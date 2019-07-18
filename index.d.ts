@@ -30,6 +30,8 @@ declare module '@lokalise/node-api' {
     filter_langs?: any[];
     filter_data?: any[];
     filter_filenames?: any[];
+    add_newline_eof?: boolean;
+    custom_translation_status_ids?: any[];
     include_tags?: any[];
     exclude_tags?: any[];
     export_sort?: string;
@@ -193,6 +195,7 @@ declare module '@lokalise/node-api' {
     completed_at_timestamp: number;
     completed_by: number;
     completed_by_email: string;
+    custom_translation_status_ids: number[];
   }
 
   export interface Team {
@@ -227,6 +230,7 @@ declare module '@lokalise/node-api' {
     is_reviewed: boolean;
     reviewed_by: number;
     words: number;
+    custom_translation_statuses: object[];
   }
 
   export interface TranslationProvider {
@@ -238,6 +242,12 @@ declare module '@lokalise/node-api' {
     description: string;
     tiers: object;
     pairs: object;
+  }
+
+  export interface TranslationStatus {
+    status_id: number;
+    title: string;
+    color: string;
   }
 
   export interface UploadFileParams {
@@ -433,6 +443,17 @@ declare module '@lokalise/node-api' {
     protected static prefixURI: string;
     protected static elementClass: Object;
     update(id, body, params : StandartParams) : Promise<any>;
+  }
+
+  export class TranslationStatuses extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    protected static rootElementNameSingular: string;
+
+    create(body, params: StandartParams): Promise<any>;
+    update(id, body, params: StandartParams): Promise<any>;
+    available_colors(params: StandartParams): Promise<any>;
   }
 
   export class UserGroups extends BaseCollection {

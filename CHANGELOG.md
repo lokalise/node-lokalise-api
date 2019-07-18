@@ -1,5 +1,10 @@
 # Lokalise API Node Client Changelog
 
+## 1.1.0 (18-Jul-19)
+
+* Incorporate new API changes
+* Added support for [`TranslationStatus` endpoint](https://lokalise.co/api2docs/node/#resource-translation-statuses)
+
 ## 1.0.1 (12-07-19)
 
 * Updated dependencies

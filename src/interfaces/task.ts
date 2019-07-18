@@ -24,4 +24,5 @@ export interface Task {
   completed_at_timestamp: number;
   completed_by: number;
   completed_by_email: string;
+  custom_translation_status_ids: number[];
 }

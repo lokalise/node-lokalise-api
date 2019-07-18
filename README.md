@@ -724,6 +724,53 @@ lokaliseApi.translationProviders.list({team_id: team_id})
 lokaliseApi.translationProviders.get(translation_provider_id, {team_id: team_id});
 ```
 
+### Translation Statuses
+
+[Documentation](https://lokalise.co/api2docs/node/#resource-translation-statuses)
+
+#### List translation statuses
+
+```js
+lokaliseApi.translationStatuses.list({project_id: project_id});
+```
+
+#### Retrieve translation status
+
+```js
+lokaliseApi.translationStatuses.get(status_id, {project_id: project_id});
+```
+
+#### Create translation status
+
+```js
+lokaliseApi.translationStatuses.create(
+    {title: 'my status', color: '#344563'},
+    {project_id: project_id}
+ );
+```
+
+#### Update translation status
+
+```js
+lokaliseApi.translationStatuses.update(
+    status_id,
+    {title: 'my status updated', color: '#f2d600'},
+    {project_id: project_id}
+ );
+```
+
+#### Delete translation status
+
+```js
+lokaliseApi.translationStatuses.delete(status_id, {project_id: project_id});
+```
+
+#### Retrieve available colors for translation statuses
+
+```js
+lokaliseApi.translationStatuses.available_colors({project_id: project_id});
+```
+
 ## Additional Info
 
 ### Error handling
@@ -736,7 +783,7 @@ Lokalise does not [rate-limit API requests](https://lokalise.co/api2docs/node/#r
 
 ## Running Tests
 
-This library is tested with Node 8, 9, 10, 11, and 12. To test locally:
+This library is tested with Node 8, 9, 10, 11, and 12. To test it locally:
 
 1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
 2. Run `npm test`. Observe test results and coverage.

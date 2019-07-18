@@ -14,4 +14,5 @@ export class Translation extends BaseModel implements TranslationInterface {
   public is_reviewed: boolean;
   public reviewed_by: number;
   public words: number;
+  public custom_translation_statuses: object[];
 }

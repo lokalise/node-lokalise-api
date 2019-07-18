@@ -17,5 +17,6 @@ export class LocaliseApiMethods {
   public teamUsers = new Collections.TeamUsers();
   public translationProviders = new Collections.TranslationProviders();
   public translations = new Collections.Translations();
+  public translationStatuses = new Collections.TranslationStatuses();
   public userGroups = new Collections.UserGroups();
 }

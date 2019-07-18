@@ -11,4 +11,5 @@ export interface Translation {
   is_reviewed: boolean;
   reviewed_by: number;
   words: number;
+  custom_translation_statuses: object[];
 }

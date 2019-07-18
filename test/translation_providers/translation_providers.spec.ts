@@ -14,7 +14,9 @@ describe('TranslationProviders', function () {
   }).register(this);
 
   deck.createTest('list_pagination', async () => {
-    const providers = await lokaliseApi.translationProviders.list({team_id: team_id, page: 2, limit: 1});
+    const providers = await lokaliseApi.translationProviders.list({
+      team_id: team_id, page: 2, limit: 1
+    });
     expect(providers[0].name).to.eq('Lokalise');
   }).register(this);
 

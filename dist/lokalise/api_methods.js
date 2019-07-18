@@ -19,6 +19,7 @@ class LocaliseApiMethods {
         this.teamUsers = new Collections.TeamUsers();
         this.translationProviders = new Collections.TranslationProviders();
         this.translations = new Collections.Translations();
+        this.translationStatuses = new Collections.TranslationStatuses();
         this.userGroups = new Collections.UserGroups();
     }
 }

@@ -7,6 +7,8 @@ export interface DownloadFileParams {
   filter_langs?: any[];
   filter_data?: any[];
   filter_filenames?: any[];
+  add_newline_eof?: boolean;
+  custom_translation_status_ids?: any[];
   include_tags?: any[];
   exclude_tags?: any[];
   export_sort?: string;

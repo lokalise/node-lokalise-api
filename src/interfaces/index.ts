@@ -13,6 +13,7 @@ import { Team } from './team';
 import { TeamUser } from './team_user';
 import { Translation } from './translation';
 import { TranslationProvider } from  './translation_provider';
+import { TranslationStatus } from  './translation_status';
 import { UserGroup } from './user_group';
 
 export {
@@ -31,5 +32,6 @@ export {
   TeamUser,
   Translation,
   TranslationProvider,
+  TranslationStatus,
   UserGroup
 }

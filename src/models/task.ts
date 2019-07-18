@@ -27,4 +27,5 @@ export class Task extends BaseModel implements TaskInterface {
   public completed_at_timestamp: number;
   public completed_by: number;
   public completed_by_email: string;
+  public custom_translation_status_ids: number[];
 }

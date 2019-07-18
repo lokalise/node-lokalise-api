@@ -1,0 +1,49 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "PUT",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/custom_translation_statuses/131",
+    "body": {
+      "title": "node updated"
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "custom_translation_status": {
+        "status_id": 131,
+        "title": "node updated",
+        "color": "#344563"
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 18 Jul 2019 16:56:33 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=55a53eee65f74e3c3c1e68cfe265853d; expires=Mon, 16-Sep-2019 16:56:33 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]
