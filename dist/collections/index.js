@@ -34,4 +34,6 @@ const translation_statuses_1 = require("./translation_statuses");
 exports.TranslationStatuses = translation_statuses_1.TranslationStatuses;
 const user_groups_1 = require("./user_groups");
 exports.UserGroups = user_groups_1.UserGroups;
+const webhooks_1 = require("./webhooks");
+exports.Webhooks = webhooks_1.Webhooks;
 //# sourceMappingURL=index.js.map

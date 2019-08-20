@@ -1,0 +1,103 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/webhooks/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "webhooks": [
+        {
+          "webhook_id": "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a",
+          "url": "https://serios.webhook",
+          "secret": "5efb67362d6408c43e2cc541729e07925cf636d1",
+          "events": [
+            "project.imported",
+            "project.key.added",
+            "project.keys.deleted",
+            "project.translation.updated"
+          ],
+          "event_lang_map": [
+            {
+              "event": "project.translation.updated",
+              "lang_iso_codes": [
+                "nl"
+              ]
+            }
+          ]
+        },
+        {
+          "webhook_id": "c7eb7e6e3c2fb2b26d0b64d0de083a5a71675b3d",
+          "url": "https://canihaz.hook",
+          "secret": "a62450cd9eeca8dfc84f3c0cf9b7a6a370267d6f",
+          "events": [
+            "project.snapshot",
+            "project.imported",
+            "project.exported",
+            "project.languages.added",
+            "project.language.removed",
+            "project.language.settings_changed",
+            "project.translation.updated"
+          ],
+          "event_lang_map": [
+            {
+              "event": "project.translation.updated",
+              "lang_iso_codes": [
+                "sq",
+                "ar_001",
+                "bm",
+                "ca",
+                "custom_1",
+                "nl",
+                "en",
+                "en-us",
+                "f_over",
+                "ru",
+                "es"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Tue, 20 Aug 2019 15:15:31 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=34cdadec09776373b1a53d023a09b2d2; expires=Sat, 19-Oct-2019 15:15:31 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "X-Pagination-Total-Count",
+      "2",
+      "X-Pagination-Page-Count",
+      "1",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

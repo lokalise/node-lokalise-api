@@ -1,5 +1,9 @@
 # Lokalise API Node Client Changelog
 
+## 1.2.0 (20-Aug-19)
+
+* Added support for [`Webhook` endpoint](https://lokalise.co/api2docs/node/#resource-webhooks)
+
 ## 1.1.0 (18-Jul-19)
 
 * Incorporate new API changes

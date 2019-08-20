@@ -1,0 +1,61 @@
+[
+  {
+    "scope": "https://api.lokalise.co:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/webhooks/795565582e5ab15a59bb68156c7e2e9eaa1e8d1a",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "webhook": {
+        "webhook_id": "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a",
+        "url": "https://serios.webhook",
+        "secret": "5efb67362d6408c43e2cc541729e07925cf636d1",
+        "events": [
+          "project.imported",
+          "project.key.added",
+          "project.keys.deleted",
+          "project.translation.updated"
+        ],
+        "event_lang_map": [
+          {
+            "event": "project.translation.updated",
+            "lang_iso_codes": [
+              "nl"
+            ]
+          }
+        ]
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Tue, 20 Aug 2019 15:17:25 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Set-Cookie",
+      "PHPSESSID=665f3770fdc6c7eb435b4b7baae35c31; expires=Sat, 19-Oct-2019 15:17:25 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "no-store, no-cache",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ]
+  }
+]

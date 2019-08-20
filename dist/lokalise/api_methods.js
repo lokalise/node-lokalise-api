@@ -21,6 +21,7 @@ class LocaliseApiMethods {
         this.translations = new Collections.Translations();
         this.translationStatuses = new Collections.TranslationStatuses();
         this.userGroups = new Collections.UserGroups();
+        this.webhooks = new Collections.Webhooks();
     }
 }
 exports.LocaliseApiMethods = LocaliseApiMethods;

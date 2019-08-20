@@ -28,6 +28,7 @@ Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node
   + [Translations](#translations)
   + [Translation Providers](#translation-providers)
   + [Translation Statuses](#translation-statuses)
+  + [Webhooks](#webhooks)
 * [Additional Info](#additional-info)
 * [Running Tests](#running-tests)
 * [Building](#building)
@@ -770,6 +771,50 @@ lokaliseApi.translationStatuses.delete(status_id, {project_id: project_id});
 
 ```js
 lokaliseApi.translationStatuses.available_colors({project_id: project_id});
+```
+
+### Webhooks
+
+[Documentation](https://lokalise.co/api2docs/node/#resource-webhooks)
+
+#### List webhooks
+
+```js
+lokaliseApi.webhooks.list({project_id: project_id});
+```
+
+#### Retrieve webhook
+
+```js
+lokaliseApi.webhooks.get(webhook_id, {project_id: project_id});
+```
+
+#### Create webhook
+
+```js
+lokaliseApi.webhooks.create(
+  {url: 'https://example.com', events: ['project.exported']},
+  {project_id: project_id}
+);
+```
+
+#### Update webhook
+
+```js
+lokaliseApi.webhooks.update(
+  webhook_id,
+  {url: 'http://example.com', events: ['project.snapshot']},
+  {project_id: project_id}
+);
+```
+
+#### Delete webhook
+
+```js
+lokaliseApi.webhooks.delete(
+  webhook_id,
+  {project_id: project_id}
+);
 ```
 
 ## Additional Info

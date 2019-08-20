@@ -15,6 +15,7 @@ import { Translation } from './translation';
 import { TranslationProvider } from  './translation_provider';
 import { TranslationStatus } from  './translation_status';
 import { UserGroup } from './user_group';
+import { Webhook } from './webhook';
 
 export {
   Comment,
@@ -33,5 +34,6 @@ export {
   Translation,
   TranslationProvider,
   TranslationStatus,
-  UserGroup
+  UserGroup,
+  Webhook
 }

@@ -19,4 +19,5 @@ export class LocaliseApiMethods {
   public translations = new Collections.Translations();
   public translationStatuses = new Collections.TranslationStatuses();
   public userGroups = new Collections.UserGroups();
+  public webhooks = new Collections.Webhooks();
 }

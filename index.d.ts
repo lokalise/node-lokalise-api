@@ -280,6 +280,14 @@ declare module '@lokalise/node-api' {
     members: number[];
   }
 
+  export interface Webhook {
+    webhook_id: number;
+    url: string;
+    secret: string;
+    events: string[];
+    event_lang_map: object;
+  }
+
   export class ApiRequest {
     private urlRoot;
     promise: Promise<Object>;
@@ -466,6 +474,16 @@ declare module '@lokalise/node-api' {
     remove_projects_from_group(team_id, group_id, raw_body: any[], params): Promise<any>;
     add_members_to_group(team_id, group_id, raw_body: any[], params): Promise<any>;
     remove_members_from_group(team_id, group_id, raw_body: any[], params): Promise<any>;
+  }
+
+  export class Webhooks extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+
+    create(body, params: StandartParams): Promise<any>;
+    update(id, body, params : StandartParams) : Promise<any>
   }
 
   export class LocaliseApiMethods {
