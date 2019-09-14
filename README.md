@@ -843,4 +843,4 @@ This library is tested with Node 8, 9, 10, 11, and 12. To test it locally:
 
 This library is licensed under the [MIT License](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE).
 
-Copyright (c) [Lokalise team](http://lokalise.co), Roman Kutanov, [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) [Lokalise team](http://lokalise.com), Roman Kutanov, [Ilya Bodrov](http://bodrovis.tech)
