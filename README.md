@@ -1,15 +1,17 @@
-# Lokalise API 2.0 official Node.js client
+# Lokalise API v2 official Node.js client
 
 [![npm version](https://badge.fury.io/js/%40lokalise%2Fnode-api.svg)](https://badge.fury.io/js/%40lokalise%2Fnode-api)
 [![Build Status](https://travis-ci.org/lokalise/node-lokalise-api.svg?branch=master)](https://travis-ci.org/lokalise/node-lokalise-api)
 
-Official Node interface for the [Lokalise API](https://lokalise.co/api2docs/node/#resource-getting-started).
+Official Node interface for the [Lokalise API](https://lokalise.com/api2docs/curl/#resource-getting-started).
 
 ## Index
 
 * [Getting started](#getting-started)
   - [Installation](#installation)
   - [Initializing Client](#initializing-client)
+  - [Branching](#branching)
+  - [Pagination](#pagination)
 * [Usage](#usage)
   + [Comments](#comments)
   + [Contributors](#contributors)
@@ -45,7 +47,7 @@ npm install @lokalise/node-api
 
 ### Initializing Client
 
-In order to perform API requests, you require a special token that can be obtained in your [personal profile](https://lokalise.co/profile#apitokens) (*API tokens* section). Note that the owner of the token must have admin access rights.
+In order to perform API requests, you require a special token that can be obtained in your [personal profile](https://lokalise.com/profile#apitokens) (*API tokens* section). Note that the owner of the token must have admin access rights.
 
 After you've obtained the token, initialize the client:
 
@@ -64,9 +66,17 @@ projects[0].name;
 
 All object attributes may be found in the [interfaces](https://github.com/lokalise/node-lokalise-api/tree/master/src/interfaces).
 
+### Branching
+
+If you are using [project branching feature](https://docs.lokalise.com/en/articles/3391861-project-branching), simply add branch name separated by semicolon to your project ID in any endpoint to access the branch. For example, in order to access `new-feature` branch for the project with an id `123abcdef.01`:
+
+```js
+lokaliseApi.files.list({project_id: '123abcdef.01:new-feature'});
+```
+
 ### Pagination
 
-Bulk fetches support [pagination](https://lokalise.co/api2docs/node/#resource-pagination). There are two common parameters available:
+Bulk fetches support [pagination](https://lokalise.com/api2docs/curl/#resource-pagination). There are two common parameters available:
 
 * `limit` (defaults to `100`, maximum is `5000`) - number of records to display per page
 * `page` (defaults  to `1`) - page to fetch
@@ -83,7 +93,7 @@ Every request returns a promise with a corresponding object (or array of objects
 
 ### Comments
 
-[Documentation](https://lokalise.co/api2docs/node/#object-comments)
+[Documentation](https://lokalise.com/api2docs/curl/#object-comments)
 
 #### List project comments
 
@@ -122,7 +132,7 @@ lokaliseApi.comments.delete(comment_id, {project_id: project_id, key_id: key_id}
 
 ### Contributors
 
-[Documentation](https://lokalise.co/api2docs/node/#object-contributors)
+[Documentation](https://lokalise.com/api2docs/curl/#object-contributors)
 
 #### List project contributors
 
@@ -173,7 +183,7 @@ lokaliseApi.contributors.delete(user_id, {project_id: project_id});
 
 ### Files
 
-[Documentation](https://lokalise.co/api2docs/node/#object-files)
+[Documentation](https://lokalise.com/api2docs/curl/#object-files)
 
 #### List project files
 
@@ -195,7 +205,7 @@ lokaliseApi.files.download(project_id, {format: 'json', "original_filenames": tr
 
 ### Keys
 
-[Documentation](https://lokalise.co/api2docs/node/#object-keys)
+[Documentation](https://lokalise.com/api2docs/curl/#object-keys)
 
 #### List keys
 
@@ -283,7 +293,7 @@ lokaliseApi.keys.bulk_delete([
 
 ### Languages
 
-[Documentation](https://lokalise.co/api2docs/node/#object-languages)
+[Documentation](https://lokalise.com/api2docs/curl/#object-languages)
 
 #### List system languages
 
@@ -329,7 +339,7 @@ lokaliseApi.languages.delete(lang_id, { project_id: project_id });
 
 ### Orders
 
-[Documentation](https://lokalise.co/api2docs/node/#object-orders)
+[Documentation](https://lokalise.com/api2docs/curl/#object-orders)
 
 #### List orders
 
@@ -361,7 +371,7 @@ lokaliseApi.orders.create({
 
 ### Payment Cards
 
-[Documentation](https://lokalise.co/api2docs/node/#object-payment-cards)
+[Documentation](https://lokalise.com/api2docs/curl/#object-payment-cards)
 
 #### List payment cards
 
@@ -394,7 +404,7 @@ lokaliseApi.paymentCards.delete(card_id);
 
 ### Projects
 
-[Documentation](https://lokalise.co/api2docs/node/#object-projects)
+[Documentation](https://lokalise.com/api2docs/curl/#object-projects)
 
 #### List projects
 
@@ -434,7 +444,7 @@ lokaliseApi.projects.delete(project_id);
 
 ### Screenshots
 
-[Documentation](https://lokalise.co/api2docs/node/#object-screenshots)
+[Documentation](https://lokalise.com/api2docs/curl/#object-screenshots)
 
 #### List screenshots
 
@@ -478,7 +488,7 @@ lokaliseApi.screenshots.delete(screenshot_id, {project_id: project_id});
 
 ### Snapshots
 
-[Documentation](https://lokalise.co/api2docs/node/#object-snapshots)
+[Documentation](https://lokalise.com/api2docs/curl/#object-snapshots)
 
 #### List snapshots
 
@@ -506,7 +516,7 @@ lokaliseApi.snapshots.delete(snapshot_id, {project_id: project_id});
 
 ### Tasks
 
-[Documentation](https://lokalise.co/api2docs/node/#object-tasks)
+[Documentation](https://lokalise.com/api2docs/curl/#object-tasks)
 
 #### List tasks
 
@@ -553,7 +563,7 @@ lokaliseApi.tasks.delete(task_id, {project_id: project_id});
 
 ### Teams
 
-[Documentation](https://lokalise.co/api2docs/node/#object-teams)
+[Documentation](https://lokalise.com/api2docs/curl/#object-teams)
 
 #### List all teams
 
@@ -563,7 +573,7 @@ lokaliseApi.teams.list();
 
 ### Team users
 
-[Documentation](https://lokalise.co/api2docs/node/#object-team-users)
+[Documentation](https://lokalise.com/api2docs/curl/#object-team-users)
 
 #### List team users
 
@@ -595,7 +605,7 @@ lokaliseApi.teamUsers.delete(user_id, {team_id: team_id});
 
 ### Team user groups
 
-[Documentation](https://lokalise.co/api2docs/node/#object-team-user-groups)
+[Documentation](https://lokalise.com/api2docs/curl/#object-team-user-groups)
 
 #### List team user groups
 
@@ -686,7 +696,7 @@ lokaliseApi.userGroups.delete(new_group_id, {team_id: team_id});
 
 ### Translations
 
-[Documentation](https://lokalise.co/api2docs/node/#object-translations)
+[Documentation](https://lokalise.com/api2docs/curl/#object-translations)
 
 #### List translations
 
@@ -712,7 +722,7 @@ lokaliseApi.translations.update(
 
 ### Translation Providers
 
-[Documentation](https://lokalise.co/api2docs/node/#object-translation-providers)
+[Documentation](https://lokalise.com/api2docs/curl/#object-translation-providers)
 
 #### List translation providers
 
@@ -728,7 +738,7 @@ lokaliseApi.translationProviders.get(translation_provider_id, {team_id: team_id}
 
 ### Translation Statuses
 
-[Documentation](https://lokalise.co/api2docs/node/#resource-translation-statuses)
+[Documentation](https://lokalise.com/api2docs/curl/#resource-translation-statuses)
 
 #### List translation statuses
 
@@ -775,7 +785,7 @@ lokaliseApi.translationStatuses.available_colors({project_id: project_id});
 
 ### Webhooks
 
-[Documentation](https://lokalise.co/api2docs/node/#resource-webhooks)
+[Documentation](https://lokalise.com/api2docs/curl/#resource-webhooks)
 
 #### List webhooks
 
@@ -821,11 +831,11 @@ lokaliseApi.webhooks.delete(
 
 ### Error handling
 
-[Error codes](https://lokalise.co/api2docs/node/#resource-errors) are listed in the API docs.
+[Error codes](https://lokalise.com/api2docs/curl/#resource-errors) are listed in the API docs.
 
 ### API Rate Limits
 
-Lokalise does not [rate-limit API requests](https://lokalise.co/api2docs/node/#resource-rate-limits), however retain a right to decline the service in case of excessive use. Only one concurrent request per token is allowed. To ensure data consistency, it is not recommended to access the same project simultaneously using multiple tokens.
+Lokalise does not [rate-limit API requests](https://lokalise.com/api2docs/curl/#resource-rate-limits), however retain a right to decline the service in case of excessive use. Only one concurrent request per token is allowed. To ensure data consistency, it is not recommended to access the same project simultaneously using multiple tokens.
 
 ## Running Tests
 
@@ -843,4 +853,4 @@ This library is tested with Node 8, 9, 10, 11, and 12. To test it locally:
 
 This library is licensed under the [MIT License](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE).
 
-Copyright (c) [Lokalise team](http://lokalise.co), Roman Kutanov, [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) [Lokalise team](http://lokalise.com), Roman Kutanov, [Ilya Bodrov](http://bodrovis.tech)
