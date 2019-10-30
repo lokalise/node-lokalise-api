@@ -37,7 +37,7 @@ describe('Branches', function () {
   deck.createTest('update', async () => {
     const branch = await lokaliseApi.branches.update(branch_id, {
       "name": "hotfix/not-really-important"
-    }, { project_id: project_id});
+    }, {project_id: project_id});
 
     expect(branch.name).to.eq('hotfix/not-really-important');
   }).register(this);

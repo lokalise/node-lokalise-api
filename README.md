@@ -13,6 +13,7 @@ Official Node interface for the [Lokalise API](https://lokalise.com/api2docs/cur
   - [Branching](#branching)
   - [Pagination](#pagination)
 * [Usage](#usage)
+  + [Branches](#branches)
   + [Comments](#comments)
   + [Contributors](#contributors)
   + [Files](#files)
@@ -90,6 +91,46 @@ lokaliseApi.translationProviders.list({team_id: team_id, page: 2, limit: 10});
 ## Usage
 
 Every request returns a promise with a corresponding object (or array of objects) as the result.
+
+### Branches
+
+[Documentation](https://lokalise.com/api2docs/curl/#resource-branches)
+
+#### List branches
+
+```js
+lokaliseApi.branches.list({project_id: project_id});
+```
+
+#### Retrieve branch
+
+```js
+lokaliseApi.branches.get(branch_id, {project_id: project_id});
+```
+
+#### Create branch
+
+```js
+lokaliseApi.branches.create(
+  {"name": "hotfix/really-important"},
+  { project_id: project_id}
+);
+```
+
+#### Update branch
+
+```js
+lokaliseApi.branches.update(branch_id,
+  {"name": "hotfix/not-really-important"},
+  {project_id: project_id}
+);
+```
+
+#### Delete branch
+
+```js
+lokaliseApi.branches.delete(branch_id, {project_id: project_id});
+```
 
 ### Comments
 
@@ -839,7 +880,7 @@ Lokalise does not [rate-limit API requests](https://lokalise.com/api2docs/curl/#
 
 ## Running Tests
 
-This library is tested with Node 8, 9, 10, 11, and 12. To test it locally:
+This library is tested with Node 8, 9, 10, 11, 12, and 13. To test it locally:
 
 1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
 2. Run `npm test`. Observe test results and coverage.
