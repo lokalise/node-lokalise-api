@@ -10,6 +10,8 @@ Official Node interface for the [Lokalise API](https://lokalise.com/api2docs/cur
 * [Getting started](#getting-started)
   - [Installation](#installation)
   - [Initializing Client](#initializing-client)
+  - [Branching](#branching)
+  - [Pagination](#pagination)
 * [Usage](#usage)
   + [Comments](#comments)
   + [Contributors](#contributors)
@@ -63,6 +65,14 @@ projects[0].name;
 ```
 
 All object attributes may be found in the [interfaces](https://github.com/lokalise/node-lokalise-api/tree/master/src/interfaces).
+
+### Branching
+
+If you are using [project branching feature](https://docs.lokalise.com/en/articles/3391861-project-branching), simply add branch name separated by semicolon to your project ID in any endpoint to access the branch. For example, in order to access `new-feature` branch for the project with an id `123abcdef.01`:
+
+```js
+lokaliseApi.files.list({project_id: '123abcdef.01:new-feature'});
+```
 
 ### Pagination
 
