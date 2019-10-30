@@ -2,6 +2,7 @@ import * as Collections from '../collections/index';
 
 export class LocaliseApiMethods {
   // TODO: Lazy loading
+  public branches = new Collections.Branches();
   public comments = new Collections.Comments();
   public contributors = new Collections.Contributors();
   public files = new Collections.Files();

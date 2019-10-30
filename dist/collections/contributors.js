@@ -12,9 +12,9 @@ class Contributors extends base_collection_1.BaseCollection {
         return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
 }
+exports.Contributors = Contributors;
 Contributors.rootElementName = 'contributors';
 Contributors.rootElementNameSingular = 'contributor';
 Contributors.prefixURI = 'projects/{!:project_id}/contributors/{:id}';
 Contributors.elementClass = contributor_1.Contributor;
-exports.Contributors = Contributors;
 //# sourceMappingURL=contributors.js.map

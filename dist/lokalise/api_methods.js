@@ -4,6 +4,7 @@ const Collections = require("../collections/index");
 class LocaliseApiMethods {
     constructor() {
         // TODO: Lazy loading
+        this.branches = new Collections.Branches();
         this.comments = new Collections.Comments();
         this.contributors = new Collections.Contributors();
         this.files = new Collections.Files();

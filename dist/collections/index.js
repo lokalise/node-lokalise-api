@@ -1,5 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+const branches_1 = require("./branches");
+exports.Branches = branches_1.Branches;
 const comments_1 = require("./comments");
 exports.Comments = comments_1.Comments;
 const contributors_1 = require("./contributors");

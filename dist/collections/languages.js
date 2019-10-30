@@ -15,9 +15,9 @@ class Languages extends base_collection_1.BaseCollection {
         return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
 }
+exports.Languages = Languages;
 Languages.rootElementName = 'languages';
 Languages.rootElementNameSingular = 'language';
 Languages.prefixURI = 'projects/{!:project_id}/languages/{:id}';
 Languages.elementClass = language_1.Language;
-exports.Languages = Languages;
 //# sourceMappingURL=languages.js.map

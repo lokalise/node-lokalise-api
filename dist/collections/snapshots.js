@@ -11,9 +11,9 @@ class Snapshots extends base_collection_1.BaseCollection {
         return this.createPromise('POST', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
 }
+exports.Snapshots = Snapshots;
 Snapshots.rootElementName = 'snapshots';
 Snapshots.rootElementNameSingular = 'snapshot';
 Snapshots.prefixURI = 'projects/{!:project_id}/snapshots/{:id}';
 Snapshots.elementClass = snapshot_1.Snapshot;
-exports.Snapshots = Snapshots;
 //# sourceMappingURL=snapshots.js.map

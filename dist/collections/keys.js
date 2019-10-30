@@ -20,9 +20,9 @@ class Keys extends base_collection_1.BaseCollection {
         return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, keys, 'projects/{!:project_id}/keys');
     }
 }
+exports.Keys = Keys;
 Keys.rootElementName = 'keys';
 Keys.rootElementNameSingular = 'key';
 Keys.prefixURI = 'projects/{!:project_id}/keys/{:id}';
 Keys.elementClass = key_1.Key;
-exports.Keys = Keys;
 //# sourceMappingURL=keys.js.map

@@ -14,9 +14,9 @@ class TranslationStatuses extends base_collection_1.BaseCollection {
         return this.createPromise('GET', params, this.returnBareJSON, this.handleReject, {}, 'projects/{!:project_id}/custom_translation_statuses/colors');
     }
 }
+exports.TranslationStatuses = TranslationStatuses;
 TranslationStatuses.rootElementName = 'custom_translation_statuses';
 TranslationStatuses.prefixURI = 'projects/{!:project_id}/custom_translation_statuses/{:id}';
 TranslationStatuses.elementClass = translation_status_1.TranslationStatus;
 TranslationStatuses.rootElementNameSingular = 'custom_translation_status';
-exports.TranslationStatuses = TranslationStatuses;
 //# sourceMappingURL=translation_statuses.js.map

@@ -10,9 +10,9 @@ class Comments extends base_collection_1.BaseCollection {
         return this.createPromise('GET', { project_id: params['project_id'] }, this.populateArrayFromJson, this.handleReject, null, 'projects/{!:project_id}/comments');
     }
 }
+exports.Comments = Comments;
 Comments.rootElementName = 'comments';
 Comments.rootElementNameSingular = 'comment';
 Comments.prefixURI = 'projects/{!:project_id}/keys/{!:key_id}/comments/{:id}';
 Comments.elementClass = comment_1.Comment;
-exports.Comments = Comments;
 //# sourceMappingURL=comments.js.map

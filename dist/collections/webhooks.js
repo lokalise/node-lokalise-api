@@ -11,9 +11,9 @@ class Webhooks extends base_collection_1.BaseCollection {
         return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
 }
+exports.Webhooks = Webhooks;
 Webhooks.rootElementName = 'webhooks';
 Webhooks.rootElementNameSingular = 'webhook';
 Webhooks.prefixURI = 'projects/{!:project_id}/webhooks/{:id}';
 Webhooks.elementClass = webhook_1.Webhook;
-exports.Webhooks = Webhooks;
 //# sourceMappingURL=webhooks.js.map

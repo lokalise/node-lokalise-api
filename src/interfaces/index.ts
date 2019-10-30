@@ -1,3 +1,4 @@
+import { Branch } from './branch';
 import { Language } from './language';
 import { Project } from './project';
 import { Comment } from './comment';
@@ -18,6 +19,7 @@ import { UserGroup } from './user_group';
 import { Webhook } from './webhook';
 
 export {
+  Branch,
   Comment,
   Contributor,
   File,

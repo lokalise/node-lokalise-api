@@ -1,5 +1,11 @@
 # Lokalise API Node Client Changelog
 
+## 1.3.0 (30-Oct-19)
+
+* Added support for [`Branch` endpoint](https://lokalise.com/api2docs/curl/#resource-branches)
+* Test against Node 13
+* Update dependencies
+
 ## 1.2.0 (20-Aug-19)
 
 * Added support for [`Webhook` endpoint](https://lokalise.co/api2docs/node/#resource-webhooks)

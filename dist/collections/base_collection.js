@@ -62,10 +62,10 @@ class BaseCollection {
         });
     }
 }
+exports.BaseCollection = BaseCollection;
 BaseCollection.rootElementName = null;
 BaseCollection.rootElementNameSingular = null;
 BaseCollection.endpoint = null;
 BaseCollection.prefixURI = null;
 BaseCollection.elementClass = null;
-exports.BaseCollection = BaseCollection;
 //# sourceMappingURL=base_collection.js.map

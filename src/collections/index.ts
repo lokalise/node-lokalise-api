@@ -1,3 +1,4 @@
+import { Branches } from './branches';
 import { Comments } from './comments';
 import { Contributors } from './contributors';
 import { Files } from './files';
@@ -18,6 +19,7 @@ import { UserGroups } from './user_groups';
 import { Webhooks } from './webhooks';
 
 export {
+  Branches,
   Comments,
   Contributors,
   Files, 

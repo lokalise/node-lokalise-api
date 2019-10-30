@@ -16,6 +16,6 @@ class LokaliseApi extends api_methods_1.LocaliseApiMethods {
         return this;
     }
 }
-LokaliseApi.apiKey = null;
 exports.LokaliseApi = LokaliseApi;
+LokaliseApi.apiKey = null;
 //# sourceMappingURL=lokalise.js.map

@@ -39,8 +39,8 @@ class UserGroups extends base_collection_1.BaseCollection {
         return this.populateObjectFromJson(json);
     }
 }
+exports.UserGroups = UserGroups;
 UserGroups.rootElementName = 'user_groups';
 UserGroups.prefixURI = 'teams/{!:team_id}/groups/{:id}';
 UserGroups.elementClass = user_group_1.UserGroup;
-exports.UserGroups = UserGroups;
 //# sourceMappingURL=user_groups.js.map

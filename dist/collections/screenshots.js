@@ -12,9 +12,9 @@ class Screenshots extends base_collection_1.BaseCollection {
         return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
 }
+exports.Screenshots = Screenshots;
 Screenshots.rootElementName = 'screenshots';
 Screenshots.rootElementNameSingular = 'screenshot';
 Screenshots.prefixURI = 'projects/{!:project_id}/screenshots/{:id}';
 Screenshots.elementClass = screenshot_1.Screenshot;
-exports.Screenshots = Screenshots;
 //# sourceMappingURL=screenshots.js.map

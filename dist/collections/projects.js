@@ -7,8 +7,8 @@ class Projects extends base_collection_1.BaseCollection {
         return this.createPromise('PUT', { project_id: project_id }, this.populateObjectFromJson, this.handleReject, null, 'projects/{!:project_id}/empty');
     }
 }
+exports.Projects = Projects;
 Projects.rootElementName = 'projects';
 Projects.prefixURI = 'projects/{:id}';
 Projects.elementClass = project_1.Project;
-exports.Projects = Projects;
 //# sourceMappingURL=projects.js.map

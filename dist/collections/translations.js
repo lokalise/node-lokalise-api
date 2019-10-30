@@ -8,9 +8,9 @@ class Translations extends base_collection_1.BaseCollection {
         return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
 }
+exports.Translations = Translations;
 Translations.rootElementName = 'translations';
 Translations.rootElementNameSingular = 'translation';
 Translations.prefixURI = 'projects/{!:project_id}/translations/{:id}';
 Translations.elementClass = translation_1.Translation;
-exports.Translations = Translations;
 //# sourceMappingURL=translations.js.map

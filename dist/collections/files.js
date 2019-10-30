@@ -10,8 +10,8 @@ class Files extends base_collection_1.BaseCollection {
         return this.createPromise('POST', { project_id: project_id }, this.returnBareJSON, this.handleReject, download, 'projects/{!:project_id}/files/download');
     }
 }
+exports.Files = Files;
 Files.rootElementName = 'files';
 Files.prefixURI = 'projects/{!:project_id}/files/{:id}';
 Files.elementClass = file_1.File;
-exports.Files = Files;
 //# sourceMappingURL=files.js.map

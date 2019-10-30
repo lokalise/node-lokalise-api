@@ -1,4 +1,13 @@
 declare module '@lokalise/node-api' {
+  export interface Branch {
+    branch_id: number;
+    name: string;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+  }
+
   export interface Comment {
     comment_id: number;
     key_id: number;
@@ -327,6 +336,15 @@ declare module '@lokalise/node-api' {
     ): Promise<any>;
   }
 
+  export class Branches extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+    create(body, params: StandartParams): Promise<any>;
+    update(id, body, params : StandartParams) : Promise<any>;
+  }
+
   export class Comments extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
@@ -487,6 +505,7 @@ declare module '@lokalise/node-api' {
   }
 
   export class LocaliseApiMethods {
+    branches: Branches;
     comments: Comments;
     contributors: Contributors;
     files: Files;
@@ -498,10 +517,13 @@ declare module '@lokalise/node-api' {
     screenshots: Screenshots;
     snapshots: Snapshots;
     tasks: Tasks;
+    teams: Teams;
     teamUsers: TeamUsers;
     translationProviders: TranslationProviders;
     translations: Translations;
+    translationStatuses: TranslationStatuses;
     userGroups: UserGroups;
+    webhooks: Webhooks;
   }
 
   export class LokaliseApi extends LocaliseApiMethods {
