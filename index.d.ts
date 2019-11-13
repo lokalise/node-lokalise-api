@@ -343,6 +343,7 @@ declare module '@lokalise/node-api' {
     protected static elementClass: Object;
     create(body, params: StandartParams): Promise<any>;
     update(id, body, params : StandartParams) : Promise<any>;
+    merge(id, body, params: StandartParams) : Promise<any>;
   }
 
   export class Comments extends BaseCollection {
