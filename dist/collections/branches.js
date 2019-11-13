@@ -10,6 +10,10 @@ class Branches extends base_collection_1.BaseCollection {
         params['id'] = id;
         return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
+    merge(id, body = {}, params = {}) {
+        params['id'] = id;
+        return this.createPromise('POST', params, this.returnBareJSON, this.handleReject, body, 'projects/{!:project_id}/branches/{:id}/merge');
+    }
 }
 exports.Branches = Branches;
 Branches.rootElementName = 'branches';

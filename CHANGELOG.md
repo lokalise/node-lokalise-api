@@ -1,5 +1,9 @@
 # Lokalise API Node Client Changelog
 
+## 1.4.0 (13-Nov-19)
+
+* Added `merge` method for the branches endpoint allowing to [perform merges](https://lokalise.com/api2docs/curl/#transition-merge-a-branch-post)
+
 ## 1.3.0 (30-Oct-19)
 
 * Added support for [`Branch` endpoint](https://lokalise.com/api2docs/curl/#resource-branches)

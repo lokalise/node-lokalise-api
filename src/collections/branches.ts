@@ -16,4 +16,10 @@ export class Branches extends BaseCollection {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
+
+  merge(id, body = {}, params: StandartParams = {}) : Promise<any> {
+    params['id'] = id;
+    return this.createPromise('POST', params, this.returnBareJSON, this.handleReject,
+      body, 'projects/{!:project_id}/branches/{:id}/merge')
+  }
 }

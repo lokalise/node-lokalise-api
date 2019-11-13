@@ -132,6 +132,15 @@ lokaliseApi.branches.update(branch_id,
 lokaliseApi.branches.delete(branch_id, {project_id: project_id});
 ```
 
+#### Merge branch
+
+```js
+lokaliseApi.branches.merge(branch_id_to_merge, 
+  {"force_conflict_resolve_using": "master"},
+  {project_id: project_id}
+);
+```
+
 ### Comments
 
 [Documentation](https://lokalise.com/api2docs/curl/#object-comments)
