@@ -12,12 +12,12 @@
 
 ## 1.2.0 (20-Aug-19)
 
-* Added support for [`Webhook` endpoint](https://lokalise.co/api2docs/node/#resource-webhooks)
+* Added support for [`Webhook` endpoint](https://lokalise.co/api2docs/curl/#resource-webhooks)
 
 ## 1.1.0 (18-Jul-19)
 
 * Incorporate new API changes
-* Added support for [`TranslationStatus` endpoint](https://lokalise.co/api2docs/node/#resource-translation-statuses)
+* Added support for [`TranslationStatus` endpoint](https://lokalise.co/api2docs/curl/#resource-translation-statuses)
 
 ## 1.0.1 (12-07-19)
 
