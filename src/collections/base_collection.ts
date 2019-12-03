@@ -1,5 +1,6 @@
 import { ApiRequest } from '../http_client/base';
 import { StandartParams } from '../interfaces/standart_params';
+import { ApiError } from '../models/api_error';
 
 export class BaseCollection {
   protected static rootElementName: string = '';
@@ -54,13 +55,16 @@ export class BaseCollection {
     return arr;
   }
 
-  protected returnBareJSON(json: any) : any {
+  protected populateApiErrorFromJson(json: Object): ApiError {
+    return <ApiError>json;
+  }
+
+  protected returnBareJSON(json: any): any {
     return json;
   }
 
-  protected handleReject(data: any) {
-    console.log(data);
-    return;
+  protected handleReject(data: any): ApiError {
+    return this.populateApiErrorFromJson(data);
   }
 
   protected createPromise(method: any, params: any, resolveFn: any, rejectFn = this.handleReject, body: any = null, uri: any = null) : Promise<any> {

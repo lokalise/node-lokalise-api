@@ -85,3 +85,4 @@ typings/
 .env
 
 .nyc_output
+.vscode
