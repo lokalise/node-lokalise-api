@@ -1,3 +1,5 @@
+import {ApiError} from "../../src/interfaces/api_error";
+
 require('../setup');
 import { expect } from 'chai';
 import { TapeDeck } from 'mocha-tape-deck';
@@ -12,7 +14,7 @@ describe('Branches', function () {
   deck.createTest('error', async () => {
     const error = await lokaliseApi.branches.create({
       "name": "hotfix/really-important"
-    }, { project_id: "803" }).catch((e) => {
+    }, { project_id: "803" }).catch((e: ApiError) => {
       expect(e.code).to.equal(401);
     });
   }).register(this);
