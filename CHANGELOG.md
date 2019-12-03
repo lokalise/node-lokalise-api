@@ -1,5 +1,10 @@
 # Lokalise API Node Client Changelog
 
+## 1.5.0
+
+* Set `noImplicitAny` and `strictNullChecks` to `true` in `tsconfig.json`
+* Fixed errors related to the options above
+
 ## 1.4.0 (13-Nov-19)
 
 * Added `merge` method for the branches endpoint allowing to [perform merges](https://lokalise.com/api2docs/curl/#transition-merge-a-branch-post)

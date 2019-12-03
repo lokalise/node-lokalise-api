@@ -8,12 +8,12 @@ export class TranslationStatuses extends BaseCollection {
   protected static elementClass: Object = TranslationStatus;
   protected static rootElementNameSingular: string = 'custom_translation_status';
 
-  create(body, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams = {}): Promise<any> {
     return this.createPromise('POST', params, this.populateObjectFromJsonRoot,
       this.handleReject, body);
   }
 
-  update(id, body, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }

@@ -8,7 +8,7 @@ export class Comments extends BaseCollection {
   protected static prefixURI:string = 'projects/{!:project_id}/keys/{!:key_id}/comments/{:id}';
   protected static elementClass: Object = Comment;
 
-  create(body, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams = {}): Promise<any> {
     return this.createPromise('POST', params, this.populateArrayFromJson, this.handleReject, body);
   }
 

@@ -33,7 +33,7 @@ class BaseCollection {
     }
     populateArrayFromJson(json) {
         let childClass = this.constructor;
-        let arr = new Array();
+        let arr = [];
         let jsonArray = json[childClass.rootElementName];
         for (let obj of jsonArray) {
             arr.push(this.populateObjectFromJson(obj));
@@ -63,7 +63,7 @@ class BaseCollection {
     }
 }
 exports.BaseCollection = BaseCollection;
-BaseCollection.rootElementName = null;
+BaseCollection.rootElementName = '';
 BaseCollection.rootElementNameSingular = null;
 BaseCollection.endpoint = null;
 BaseCollection.prefixURI = null;

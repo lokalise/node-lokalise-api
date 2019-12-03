@@ -8,7 +8,7 @@ export class Translations extends BaseCollection {
   protected static prefixURI:string = 'projects/{!:project_id}/translations/{:id}';
   protected static elementClass: Object = Translation;
 
-  update(id, body, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }

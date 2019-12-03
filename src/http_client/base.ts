@@ -2,19 +2,18 @@ import request = require('request');
 import { LokaliseApi } from '../lokalise/lokalise';
 
 export class ApiRequest {
-
-  private urlRoot:string = 'https://api.lokalise.co/api2/';
-  public promise: Promise<Object>;
+  private urlRoot: string = 'https://api.lokalise.co/api2/';
+  public promise: Promise<any>;
   public params: any = {};
 
-  constructor(uri, method, body = null, params={}) {
+  constructor(uri: any, method: any, body: any = null, params: any = {}) {
     this.params = params;
     this.promise = this.createPromise(uri, method, body);
     return this;
   }
 
-  createPromise(uri, method, body) {
-    let options = {
+  createPromise(uri: any, method: any, body: any) {
+    let options: any = {
       url: this.urlRoot + this.composeURI(uri),
       method: method,
       headers: { 'x-api-token': LokaliseApi.apiKey, 'content-type': 'application/json' }
@@ -29,7 +28,7 @@ export class ApiRequest {
     }
 
     return new Promise((resolve, reject) => {
-      request(options, (error, response, body) => {
+      request(options, (error: any, response: any, body: any) => {
         if (error) {
           reject(error);
           return;
@@ -46,13 +45,13 @@ export class ApiRequest {
     });
   }
 
-  protected composeURI(uri) {
+  protected composeURI(uri: any) {
     let regexp: RegExp = /{(!{0,1}):(\w*)}/g;
     return uri.replace(regexp, this.mapUriParams(this.params));
   }
 
-  protected mapUriParams(params) {
-    return (entity, isMandaratory, paramName) => {
+  protected mapUriParams(params: any) {
+    return (entity: any, isMandaratory: any, paramName: any) => {
       if (params[paramName] != null) {
         let t_param = params[paramName];
         delete this.params[paramName];
@@ -68,5 +67,5 @@ export class ApiRequest {
     }
   }
 
-  constructParameters(method, params) {}
+  constructParameters(method: any, params: any) {}
 }

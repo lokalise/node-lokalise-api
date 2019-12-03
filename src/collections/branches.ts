@@ -8,16 +8,16 @@ export class Branches extends BaseCollection {
   protected static prefixURI: string = 'projects/{!:project_id}/branches/{:id}';
   protected static elementClass: Object = Branch;
 
-  create(body, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams = {}): Promise<any> {
     return this.createPromise('POST', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
 
-  update(id, body, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
 
-  merge(id, body = {}, params: StandartParams = {}) : Promise<any> {
+  merge(id: any, body: any = {}, params: StandartParams = {}) : Promise<any> {
     params['id'] = id;
     return this.createPromise('POST', params, this.returnBareJSON, this.handleReject,
       body, 'projects/{!:project_id}/branches/{:id}/merge')

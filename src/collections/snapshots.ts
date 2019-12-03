@@ -8,12 +8,12 @@ export class Snapshots extends BaseCollection {
   protected static prefixURI:string = 'projects/{!:project_id}/snapshots/{:id}';
   protected static elementClass: Object = Snapshot;
 
-  restore(id, params: StandartParams){
+  restore(id: any, params: StandartParams){
     params['id'] = id;
     return this.createPromise('POST', params, this.returnBareJSON, this.handleReject, {});
   }
 
-  create(body, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams = {}): Promise<any> {
     return this.createPromise('POST', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
 }

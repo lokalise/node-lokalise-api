@@ -8,7 +8,7 @@ export class TeamUsers extends BaseCollection {
   protected static prefixURI:string = 'teams/{!:team_id}/users/{:id}';
   protected static elementClass: Object = TeamUser;
 
-  update(id, body, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
