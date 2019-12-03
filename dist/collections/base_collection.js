@@ -40,12 +40,14 @@ class BaseCollection {
         }
         return arr;
     }
+    populateApiErrorFromJson(json) {
+        return json;
+    }
     returnBareJSON(json) {
         return json;
     }
     handleReject(data) {
-        console.log(data);
-        return;
+        return this.populateApiErrorFromJson(data);
     }
     createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) {
         let childClass = this.constructor;

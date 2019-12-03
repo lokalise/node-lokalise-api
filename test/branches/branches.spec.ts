@@ -9,6 +9,14 @@ describe('Branches', function () {
   const project_id = '803826145ba90b42d5d860.46800099';
   const branch_id = 41284;
 
+  deck.createTest('error', async () => {
+    const error = await lokaliseApi.branches.create({
+      "name": "hotfix/really-important"
+    }, { project_id: "803" }).catch((e) => {
+      expect(e.code).to.equal(401);
+    });
+  }).register(this);
+
   deck.createTest('list', async () => {
     const branches = await lokaliseApi.branches.list({project_id: project_id});
 
