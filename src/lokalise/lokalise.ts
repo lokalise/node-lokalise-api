@@ -1,7 +1,7 @@
 import { LocaliseApiMethods } from './api_methods';
 
 export class LokaliseApi extends LocaliseApiMethods {
-  public static apiKey: string = null;
+  public static apiKey: string | null = null;
   private static _instance: LokaliseApi;
 
   public apiKey: string;
@@ -11,7 +11,7 @@ export class LokaliseApi extends LocaliseApiMethods {
    * @param params  object, mandaratory
    * @returns       LokaliseApi object to work with.
    */
-  constructor(params: Object = {}) {
+  constructor(params: any = {}) {
     super();
     LokaliseApi.apiKey = params['apiKey'];
     if (LokaliseApi.apiKey == null || LokaliseApi.apiKey.length == 0) {

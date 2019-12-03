@@ -12,12 +12,12 @@ export class Languages extends BaseCollection {
     return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null, 'system/languages');
   }
 
-  create(raw_body, params: StandartParams = {}): Promise<any> {
+  create(raw_body: any, params: StandartParams = {}): Promise<any> {
     const body = {"languages": raw_body};
     return this.createPromise('POST', params, this.populateArrayFromJson, this.handleReject, body);
   }
 
-  update(id, body, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }

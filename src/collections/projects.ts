@@ -6,7 +6,7 @@ export class Projects extends BaseCollection {
   protected static prefixURI:string = 'projects/{:id}';
   protected static elementClass: Object = Project;
 
-  empty(project_id) {
+  empty(project_id: any) {
     return this.createPromise('PUT', { project_id: project_id},
       this.populateObjectFromJson, this.handleReject, null, 'projects/{!:project_id}/empty');
   }
