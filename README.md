@@ -881,6 +881,8 @@ lokaliseApi.webhooks.delete(
 
 ### Error handling
 
+To handle request errors, you may use the following approach:
+
 ```js
 lokaliseApi.projects.list().catch(
   (e) => {

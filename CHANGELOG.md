@@ -1,6 +1,11 @@
 # Lokalise API Node Client Changelog
 
-## 1.5.0
+## 2.0.0 (05-Dec-19)
+
+* Added [error handling mechanism](https://github.com/lokalise/node-lokalise-api#error-handling)
+* Updated dependencies
+
+## 1.5.0-rc.1 (04-Dec-19)
 
 * Set `noImplicitAny` and `strictNullChecks` to `true` in `tsconfig.json`
 * Fixed errors related to the options above
