@@ -881,6 +881,14 @@ lokaliseApi.webhooks.delete(
 
 ### Error handling
 
+```js
+lokaliseApi.projects.list().catch(
+  (e) => {
+    console.log(e);
+  }
+);
+```
+
 [Error codes](https://lokalise.com/api2docs/curl/#resource-errors) are listed in the API docs.
 
 ### API Rate Limits
