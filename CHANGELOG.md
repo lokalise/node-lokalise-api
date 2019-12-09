@@ -1,5 +1,9 @@
 # Lokalise API Node Client Changelog
 
+## 2.0.1 (09-Dec-19)
+
+* Fixed file download params
+
 ## 2.0.0 (05-Dec-19)
 
 * Added [error handling mechanism](https://github.com/lokalise/node-lokalise-api#error-handling)
