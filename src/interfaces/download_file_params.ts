@@ -20,7 +20,7 @@ export interface DownloadFileParams {
   filter_repositories?: any[];
   replace_breaks?: boolean;
   disable_references?: boolean;
-  plural_format?: string[];
+  plural_format?: string;
   placeholder_format?: string;
   webhook_url?: string;
   language_mapping?: object;
