@@ -2,6 +2,13 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const base_1 = require("../http_client/base");
 class BaseCollection {
+    constructor() {
+        // Workaround for handling HTTP header pagination params
+        this.totalResults = null;
+        this.totalPages = null;
+        this.resultsPerPage = null;
+        this.currentPage = null;
+    }
     get(id, params = {}, body = null) {
         params['id'] = id;
         return this.createPromise('GET', params, this.populateObjectFromJsonRoot, this.handleReject, body);
@@ -19,6 +26,12 @@ class BaseCollection {
     delete(id, params = {}) {
         params['id'] = id;
         return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, null);
+    }
+    populatePaginationDataFor(headers) {
+        this.totalResults = parseInt(headers['x-pagination-total-count']);
+        this.totalPages = parseInt(headers['x-pagination-page-count']);
+        this.resultsPerPage = parseInt(headers['x-pagination-limit']);
+        this.currentPage = parseInt(headers['x-pagination-page']);
     }
     populateObjectFromJsonRoot(json) {
         let childClass = this.constructor;
@@ -57,7 +70,10 @@ class BaseCollection {
         return new Promise((resolve, reject) => {
             let response = new base_1.ApiRequest(uri, method, body, params);
             response.promise.then((result) => {
-                resolve(resolveFn.call(this, result));
+                let headers = result['headers'];
+                this.populatePaginationDataFor(headers);
+                let json = result['body'];
+                resolve(resolveFn.call(this, json));
             }).catch((data) => {
                 reject(rejectFn.call(this, data));
             });

@@ -9,6 +9,13 @@ export class BaseCollection {
   protected static prefixURI: string | null = null;
   protected static elementClass: any = null;
 
+  // Workaround for handling HTTP header pagination params
+
+  totalResults: number | null  = null;
+  totalPages: number | null  = null;
+  resultsPerPage: number | null = null;
+  currentPage:number | null = null;
+
   get(id: any, params: StandartParams = {}, body: any = null) : Promise<any> {
     params['id'] = id;
     return this.createPromise('GET', params, this.populateObjectFromJsonRoot, this.handleReject, body)
@@ -30,6 +37,13 @@ export class BaseCollection {
   delete(id: any, params: StandartParams = {}) {
     params['id'] = id;
     return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, null);
+  }
+
+  populatePaginationDataFor(headers:any) {
+    this.totalResults = parseInt(headers['x-pagination-total-count']);
+    this.totalPages = parseInt(headers['x-pagination-page-count']);
+    this.resultsPerPage = parseInt(headers['x-pagination-limit']);
+    this.currentPage = parseInt(headers['x-pagination-page']);
   }
 
   protected populateObjectFromJsonRoot(json: any): this {
@@ -75,7 +89,10 @@ export class BaseCollection {
     return new Promise((resolve, reject) => {
       let response: ApiRequest = new ApiRequest(uri, method, body, params);
       response.promise.then((result) => {
-        resolve(resolveFn.call(this, result));
+        let headers = result['headers'];
+        this.populatePaginationDataFor(headers);
+        let json = result['body']
+        resolve(resolveFn.call(this, json));
       }).catch((data) => {
         reject(rejectFn.call(this, data));
       });

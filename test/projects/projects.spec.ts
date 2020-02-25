@@ -17,8 +17,11 @@ describe('Projects', function () {
   deck.createTest('list_pagination', async () => {
     const projects = await lokaliseApi.projects.list({page: 3, limit: 2});
     expect(projects[0].name).to.eq('demo phoenix copy');
+    expect(lokaliseApi.projects.totalResults).to.eq(13);
+    expect(lokaliseApi.projects.totalPages).to.eq(7);
+    expect(lokaliseApi.projects.resultsPerPage).to.eq(2);
+    expect(lokaliseApi.projects.currentPage).to.eq(3);
   }).register(this);
-
 
   deck.createTest('create', async () => {
     const project = await lokaliseApi.projects.create({

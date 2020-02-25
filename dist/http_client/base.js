@@ -34,7 +34,11 @@ class ApiRequest {
                         reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
                         return;
                     }
-                    resolve(responseJSON);
+                    // Workaround to pass header parameters
+                    let result = {};
+                    result['headers'] = response.headers;
+                    result['body'] = responseJSON;
+                    resolve(result);
                     return;
                 }
             });

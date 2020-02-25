@@ -1,5 +1,9 @@
 # Lokalise API Node Client Changelog
 
+## 2.0.2 (25-Feb-20)
+
+* Hotfix the pagination parameters are now available under collection names like under following names: totalResults, totalPages, resultsPerPage, currentPage 
+
 ## 2.0.1 (09-Dec-19)
 
 * Fixed file download params

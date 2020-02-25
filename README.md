@@ -82,6 +82,13 @@ Bulk fetches support [pagination](https://lokalise.com/api2docs/curl/#resource-p
 * `limit` (defaults to `100`, maximum is `5000`) - number of records to display per page
 * `page` (defaults  to `1`) - page to fetch
 
+The response pagination data are now available under collection names like under following names: totalResults, totalPages, resultsPerPage, currentPage. They are safe to use only in a synchronized manner. If you will run a concurrent request using the same lokaliseApi instance, the pagination data may be corrupted. It will be fixed later
+
+```js
+const projects = lokaliseApi.projects.totalResults
+```
+
+
 For instance:
 
 ```js
