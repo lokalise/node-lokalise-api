@@ -88,11 +88,16 @@ For instance:
 lokaliseApi.translationProviders.list({team_id: team_id, page: 2, limit: 10});
 ```
 
-The response pagination data are now available under collection names like under following names: totalResults, totalPages, resultsPerPage, currentPage. They are safe to use only in a synchronized manner. If you will run a concurrent request using the same lokaliseApi instance, the pagination data may be corrupted. It will be fixed later
+The response pagination data can be fetched in the following way:
 
 ```js
-const projects = lokaliseApi.projects.totalResults
+lokaliseApi.projects.totalResults;
+lokaliseApi.projects.totalPages;
+lokaliseApi.projects.resultsPerPage;
+lokaliseApi.projects.currentPage;
 ```
+
+These methods are safe to use only in a synchronized manner. If you are running a concurrent request using the same `lokaliseApi` instance, the pagination data may be corrupted. This will be fixed in the upcoming releases.
 
 ## Usage
 
