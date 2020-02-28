@@ -1,6 +1,6 @@
 [
   {
-    "scope": "https://api.lokalise.co:443",
+    "scope": "https://api.lokalise.com:443",
     "method": "PUT",
     "path": "/api2/teams/176692/groups/762/members/remove",
     "body": {

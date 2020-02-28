@@ -1,6 +1,6 @@
 [
   {
-    "scope": "https://api.lokalise.co:443",
+    "scope": "https://api.lokalise.com:443",
     "method": "PUT",
     "path": "/api2/projects/580641925d0a726ead2fd7.11048498/empty",
     "body": "",

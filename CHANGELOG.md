@@ -1,5 +1,9 @@
 # Lokalise API Node Client Changelog
 
+## 2.1.0 (28-Feb-20)
+
+* Added method to [regenerate webhook secret](https://lokalise.com/api2docs/curl/#transition-regenerate-a-webhook-secret-patch): `lokaliseApi.webhooks.regenerate_secret(webhook_id, {project_id: project_id});`
+
 ## 2.0.2 (25-Feb-20)
 
 * Pagination data can now be fetched using the following methods: `totalResults`, `totalPages`, `resultsPerPage`, `currentPage` 

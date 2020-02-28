@@ -1,6 +1,6 @@
 [
   {
-    "scope": "https://api.lokalise.co:443",
+    "scope": "https://api.lokalise.com:443",
     "method": "GET",
     "path": "/api2/projects/803826145ba90b42d5d860.46800099/webhooks/795565582e5ab15a59bb68156c7e2e9eaa1e8d1a",
     "body": "",

@@ -4,7 +4,7 @@ const request = require("request");
 const lokalise_1 = require("../lokalise/lokalise");
 class ApiRequest {
     constructor(uri, method, body = null, params = {}) {
-        this.urlRoot = 'https://api.lokalise.co/api2/';
+        this.urlRoot = 'https://api.lokalise.com/api2/';
         this.params = {};
         this.params = params;
         this.promise = this.createPromise(uri, method, body);

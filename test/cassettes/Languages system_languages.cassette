@@ -1,6 +1,6 @@
 [
   {
-    "scope": "https://api.lokalise.co:443",
+    "scope": "https://api.lokalise.com:443",
     "method": "GET",
     "path": "/api2/system/languages?page=3&limit=2",
     "body": "",

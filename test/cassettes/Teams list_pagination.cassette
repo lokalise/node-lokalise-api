@@ -1,6 +1,6 @@
 [
   {
-    "scope": "https://api.lokalise.co:443",
+    "scope": "https://api.lokalise.com:443",
     "method": "GET",
     "path": "/api2/teams?page=2&limit=1",
     "body": "",

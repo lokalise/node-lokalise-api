@@ -91,7 +91,7 @@ export class BaseCollection {
       response.promise.then((result) => {
         let headers = result['headers'];
         this.populatePaginationDataFor(headers);
-        let json = result['body']
+        let json = result['body'];
         resolve(resolveFn.call(this, json));
       }).catch((data) => {
         reject(rejectFn.call(this, data));

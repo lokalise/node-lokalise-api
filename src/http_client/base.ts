@@ -2,7 +2,7 @@ import request = require('request');
 import { LokaliseApi } from '../lokalise/lokalise';
 
 export class ApiRequest {
-  private urlRoot: string = 'https://api.lokalise.co/api2/';
+  private urlRoot: string = 'https://api.lokalise.com/api2/';
   public promise: Promise<any>;
   public params: any = {};
 

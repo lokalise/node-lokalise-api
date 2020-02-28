@@ -888,6 +888,15 @@ lokaliseApi.webhooks.delete(
 );
 ```
 
+#### Regenerate webhook secret
+
+```js
+lokaliseApi.webhooks.regenerate_secret(
+  webhook_id,
+  {project_id: project_id}
+);
+```
+
 ## Additional Info
 
 ### Error handling

@@ -67,4 +67,14 @@ describe('Webhooks', function () {
     expect(response.project_id).to.eq(project_id);
     expect(response.webhook_deleted).to.eq(true);
   }).register(this);
+
+  deck.createTest('regenerate_secret', async () => {
+    const response = await lokaliseApi.webhooks.regenerate_secret(
+      '795565582e5ab15a59bb68156c7e2e9eaa1e8d1a',
+      {project_id: project_id}
+    );
+
+    expect(response.project_id).to.eq(project_id);
+    expect(response.secret).to.eq('06fbaf3aba6f1b47ec68c3cf6f6a8a361a0572b7');
+  }).register(this);
 });

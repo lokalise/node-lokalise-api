@@ -1,6 +1,6 @@
 [
   {
-    "scope": "https://api.lokalise.co:443",
+    "scope": "https://api.lokalise.com:443",
     "method": "DELETE",
     "path": "/api2/projects/803826145ba90b42d5d860.46800099/webhooks/fb60b95ff86631c9f4df2fb8f5e77ba879cf9156",
     "body": "",

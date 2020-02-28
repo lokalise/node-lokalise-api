@@ -502,7 +502,8 @@ declare module '@lokalise/node-api' {
     protected static elementClass: Object;
 
     create(body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams) : Promise<any>
+    update(id: any, body: any, params: StandartParams) : Promise<any>;
+    regenerate_secret(id: any, params : StandartParams) : Promise<any>;
   }
 
   export class LocaliseApiMethods {

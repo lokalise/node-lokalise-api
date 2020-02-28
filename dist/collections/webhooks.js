@@ -10,6 +10,10 @@ class Webhooks extends base_collection_1.BaseCollection {
         params['id'] = id;
         return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
+    regenerate_secret(id, params = {}) {
+        params['id'] = id;
+        return this.createPromise('PATCH', params, this.returnBareJSON, this.handleReject, null, 'projects/{!:project_id}/webhooks/{:id}/secret/regenerate');
+    }
 }
 exports.Webhooks = Webhooks;
 Webhooks.rootElementName = 'webhooks';
