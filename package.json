@@ -20,10 +20,10 @@
     "test": "tsc && mocha -r ts-node/register test/**/*.spec.ts --timeout 5000"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.5",
-    "@types/express": "^4.17.2",
+    "@types/chai": "^4.2.11",
+    "@types/express": "^4.17.3",
     "@types/mocha": "^5.2.7",
-    "@types/node": "^13.7.6",
+    "@types/node": "^13.9.1",
     "acorn": "^7.1.0",
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
@@ -37,7 +37,7 @@
     "@types/request": "^2.48.3",
     "axios": "^0.19.0",
     "request": "^2.88.0",
-    "typescript": "^3.7.3"
+    "typescript": "^3.8.3"
   },
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
