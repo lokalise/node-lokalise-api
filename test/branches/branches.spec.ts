@@ -2,11 +2,11 @@ import {ApiError} from "../../src/interfaces/api_error";
 
 require('../setup');
 import { expect } from 'chai';
-import { TapeDeck } from 'mocha-tape-deck';
+import { Vcr } from 'mocha-vcr';
 const { LokaliseApi } = require('../../src/lokalise/lokalise');
 
 describe('Branches', function () {
-  const deck = new TapeDeck('./test/cassettes');
+  const deck = new Vcr('./test/cassettes');
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
   const project_id = '803826145ba90b42d5d860.46800099';
   const branch_id = 41284;

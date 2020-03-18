@@ -1,6 +1,6 @@
 require('../setup');
 import { expect } from 'chai';
-import { TapeDeck } from 'mocha-tape-deck';
+import { TapeDeck } from 'mocha-vcr';
 const { LokaliseApi } = require('../../src/lokalise/lokalise');
 
 describe('Tasks', function () {
