@@ -28,7 +28,7 @@
     "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "mocha": "^7.1.1",
-    "mocha-cassettes": "0.0.1-alpha",
+    "mocha-cassettes": "0.0.1-alpha2",
     "mocha-tape-deck": "0.0.9",
     "request-promise": "^4.2.5",
     "source-map-support": "^0.5.16",
