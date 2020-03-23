@@ -1,20 +1,20 @@
 require('../setup');
 import { expect } from 'chai';
-import { TapeDeck } from 'mocha-vcr';
-const { LokaliseApi } = require('../../src/lokalise/lokalise');
+import { Cassettes } from 'mocha-cassettes';
+import { LokaliseApi } from '../../src/lokalise/lokalise';
 
 describe('Projects', function () {
-  const deck = new TapeDeck('./test/cassettes');
+  const cassette = new Cassettes('./test/cassettes');
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
   const project_id = '803826145ba90b42d5d860.46800099';
   const new_project_id = '580641925d0a726ead2fd7.11048498';
 
-  deck.createTest('list', async () => {
+  cassette.createTest('list', async () => {
     const projects = await lokaliseApi.projects.list();
     expect(projects[0].name).to.eq('contrib');
   }).register(this);
 
-  deck.createTest('list_pagination', async () => {
+  cassette.createTest('list_pagination', async () => {
     const projects = await lokaliseApi.projects.list({page: 3, limit: 2});
     expect(projects[0].name).to.eq('demo phoenix copy');
     expect(lokaliseApi.projects.totalResults).to.eq(13);
@@ -23,7 +23,7 @@ describe('Projects', function () {
     expect(lokaliseApi.projects.currentPage).to.eq(3);
   }).register(this);
 
-  deck.createTest('create', async () => {
+  cassette.createTest('create', async () => {
     const project = await lokaliseApi.projects.create({
       name: "Node.js test",
       description: "Test description"
@@ -34,7 +34,7 @@ describe('Projects', function () {
     expect(project.description).to.equal("Test description");
   }).register(this);
 
-  deck.createTest('get', async () => {
+  cassette.createTest('get', async () => {
     const project = await lokaliseApi.projects.get(project_id);
 
     expect(project.project_id).to.equal(project_id);
@@ -52,7 +52,7 @@ describe('Projects', function () {
     expect(project.statistics['progress_total']).to.equal(17);
   }).register(this);
 
-  deck.createTest('update', async () => {
+  cassette.createTest('update', async () => {
     const project = await lokaliseApi.projects.update(project_id, {
       name: 'Demo Phoenix',
       description: 'Description Phoenix'
@@ -63,14 +63,14 @@ describe('Projects', function () {
     expect(project.description).to.equal('Description Phoenix')
   }).register(this);
 
-  deck.createTest('empty', async () => {
+  cassette.createTest('empty', async () => {
     const response = await lokaliseApi.projects.empty(new_project_id);
 
     expect(response.project_id).to.equal(new_project_id);
     expect(response.keys_deleted).to.be.true;
   }).register(this);
 
-  deck.createTest('delete', async () => {
+  cassette.createTest('delete', async () => {
     const response = await lokaliseApi.projects.delete(new_project_id);
     expect(response.project_id).to.be.equal(new_project_id);
     expect(response.project_deleted).to.be.true;

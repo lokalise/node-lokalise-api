@@ -1,28 +1,28 @@
 require('../setup');
 import { expect } from 'chai';
-import { TapeDeck } from 'mocha-vcr';
-const { LokaliseApi } = require('../../src/lokalise/lokalise');
+import { Cassettes } from 'mocha-cassettes';
+import { LokaliseApi } from '../../src/lokalise/lokalise';
 
 describe('Tasks', function () {
-  const deck = new TapeDeck('./test/cassettes');
+  const cassette = new Cassettes('./test/cassettes');
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
   const project_id = '803826145ba90b42d5d860.46800099';
   const task_id = 11925;
   const new_task_id = 15526;
 
-  deck.createTest('list', async () => {
+  cassette.createTest('list', async () => {
     const tasks = await lokaliseApi.tasks.list({project_id: project_id});
 
     expect(tasks[0].task_id).to.eq(task_id);
   }).register(this);
 
-  deck.createTest('list_pagination', async () => {
+  cassette.createTest('list_pagination', async () => {
     const tasks = await lokaliseApi.tasks.list({project_id: project_id, page: 2, limit: 1});
 
     expect(tasks[0].task_id).to.eq(10001);
   }).register(this);
 
-  deck.createTest('get', async () => {
+  cassette.createTest('get', async () => {
     const task = await lokaliseApi.tasks.get(task_id, {project_id: project_id});
 
     expect(task.task_id).to.eq(task_id);
@@ -53,7 +53,7 @@ describe('Tasks', function () {
     expect(task.custom_translation_status_ids).to.have.lengthOf(0);
   }).register(this);
 
-  deck.createTest('create', async () => {
+  cassette.createTest('create', async () => {
     const task = await lokaliseApi.tasks.create({
       title: 'node task',
       keys: [15519786],
@@ -70,7 +70,7 @@ describe('Tasks', function () {
     expect(task.languages[0].language_iso).to.eq('en');
   }).register(this);
 
-  deck.createTest('update', async () => {
+  cassette.createTest('update', async () => {
     const task = await lokaliseApi.tasks.update(
       task_id,
       {title: 'node updated'},
@@ -80,7 +80,7 @@ describe('Tasks', function () {
     expect(task.title).to.eq('node updated');
   }).register(this);
 
-  deck.createTest('delete', async () => {
+  cassette.createTest('delete', async () => {
     const response = await lokaliseApi.tasks.delete(new_task_id, {project_id: project_id});
 
     expect(response.project_id).to.eq(project_id);

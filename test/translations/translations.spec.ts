@@ -1,21 +1,21 @@
 require('../setup');
 import { expect } from 'chai';
-import { TapeDeck } from 'mocha-vcr';
-const { LokaliseApi } = require('../../src/lokalise/lokalise');
+import { Cassettes } from 'mocha-cassettes';
+import { LokaliseApi } from '../../src/lokalise/lokalise';
 
 describe('Translations', function () {
-  const deck = new TapeDeck('./test/cassettes');
+  const cassette = new Cassettes('./test/cassettes');
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
   const project_id = '803826145ba90b42d5d860.46800099';
   const translation_id = 79607647;
 
-  deck.createTest('list', async () => {
+  cassette.createTest('list', async () => {
     const translations = await lokaliseApi.translations.list({project_id: project_id});
 
     expect(translations[0].translation_id).to.eq(translation_id);
   }).register(this);
 
-  deck.createTest('list_pagination', async () => {
+  cassette.createTest('list_pagination', async () => {
     const translations = await lokaliseApi.translations.list(
       {project_id: project_id, page: 2, limit: 1}
     );
@@ -23,7 +23,7 @@ describe('Translations', function () {
     expect(translations[0].translation_id).to.eq(80015148);
   }).register(this);
 
-  deck.createTest('get', async () => {
+  cassette.createTest('get', async () => {
     const translation = await lokaliseApi.translations.get(translation_id, {project_id: project_id});
 
     expect(translation.translation_id).to.eq(translation_id);
@@ -41,7 +41,7 @@ describe('Translations', function () {
     expect(translation.custom_translation_statuses).to.have.lengthOf(0);
   }).register(this);
 
-  deck.createTest('update', async () => {
+  cassette.createTest('update', async () => {
     const translation = await lokaliseApi.translations.update(
       translation_id,
       {translation: 'тест'},

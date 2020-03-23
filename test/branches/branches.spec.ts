@@ -3,29 +3,29 @@ import {ApiError} from "../../src/interfaces/api_error";
 require('../setup');
 import { expect } from 'chai';
 import { Cassettes } from 'mocha-cassettes';
-const { LokaliseApi } = require('../../src/lokalise/lokalise');
+import { LokaliseApi } from '../../src/lokalise/lokalise';
 
 describe('Branches', function () {
-  const deck = new Cassettes('./test/cassettes');
+  const cassette = new Cassettes('./test/cassettes');
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
   const project_id = '803826145ba90b42d5d860.46800099';
   const branch_id = 41284;
 
-  deck.createTest('error', async () => {
-    const error = await lokaliseApi.branches.create({
+  cassette.createTest('error', async () => {
+    await lokaliseApi.branches.create({
       "name": "hotfix/really-important"
     }, { project_id: "803" }).catch((e: ApiError) => {
       expect(e.code).to.equal(401);
     });
   }).register(this);
 
-  deck.createTest('list', async () => {
+  cassette.createTest('list', async () => {
     const branches = await lokaliseApi.branches.list({project_id: project_id});
 
     expect(branches[0].branch_id).to.eq(branch_id);
   }).register(this);
 
-  deck.createTest('get', async () => {
+  cassette.createTest('get', async () => {
     const branch = await lokaliseApi.branches.get(branch_id, {project_id: project_id});
 
     expect(branch.branch_id).to.eq(branch_id);
@@ -36,7 +36,7 @@ describe('Branches', function () {
     expect(branch.created_by_email).to.eq('bodrovis@protonmail.com');
   }).register(this);
 
-  deck.createTest('create', async () => {
+  cassette.createTest('create', async () => {
     const branch = await lokaliseApi.branches.create({
       "name": "hotfix/really-important"
     }, { project_id: project_id});
@@ -44,7 +44,7 @@ describe('Branches', function () {
     expect(branch.name).to.eq('hotfix/really-important');
   }).register(this);
 
-  deck.createTest('update', async () => {
+  cassette.createTest('update', async () => {
     const branch = await lokaliseApi.branches.update(branch_id, {
       "name": "hotfix/not-really-important"
     }, {project_id: project_id});
@@ -52,7 +52,7 @@ describe('Branches', function () {
     expect(branch.name).to.eq('hotfix/not-really-important');
   }).register(this);
 
-  deck.createTest('delete', async () => {
+  cassette.createTest('delete', async () => {
     const response = await lokaliseApi.branches.delete(branch_id,
       {project_id: project_id}
     );
@@ -61,7 +61,7 @@ describe('Branches', function () {
     expect(response.branch_deleted).to.be.true;
   }).register(this);
 
-  deck.createTest('merge', async () => {
+  cassette.createTest('merge', async () => {
     const branch_id_merge = 42303;
     const response = await lokaliseApi.branches.merge(branch_id_merge, {
       "force_conflict_resolve_using": "master"
