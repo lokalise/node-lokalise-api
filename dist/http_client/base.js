@@ -16,14 +16,15 @@ class ApiRequest {
             headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey },
             agent: false
         };
+        let url = this.urlRoot + this.composeURI(uri);
         if (Object.keys(this.params).length > 0) {
             options['searchParams'] = (new URLSearchParams(this.params)).toString();
         }
-        if (body) {
+        if (method != 'GET' && body) {
             options['body'] = JSON.stringify(body);
         }
         return new Promise((resolve, reject) => {
-            got(this.urlRoot + this.composeURI(uri), options).then((response) => {
+            got(url, options).then((response) => {
                 let responseJSON = JSON.parse(response.body);
                 if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
                     reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
@@ -36,11 +37,12 @@ class ApiRequest {
                 resolve(result);
                 return;
             }).then((error) => {
-                reject(error);
-                return;
+                console.log(error);
+                reject(error.code);
+                return error;
             }).catch((error) => {
                 reject(error);
-                return;
+                return error;
             });
         });
     }

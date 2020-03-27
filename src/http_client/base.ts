@@ -20,16 +20,18 @@ export class ApiRequest {
       agent: false
     };
 
+    let url:string = this.urlRoot + this.composeURI(uri)
+
     if (Object.keys(this.params).length > 0) {
       options['searchParams'] = (new URLSearchParams(this.params)).toString();
     }
 
-    if (body) {
+    if (method != 'GET' && body) {
       options['body'] = JSON.stringify(body);
     }
 
     return new Promise((resolve, reject) => {
-      got(this.urlRoot + this.composeURI(uri), options).then((response: Response) => {
+      got(url, options).then((response: Response) => {
           let responseJSON = JSON.parse(<string>response.body);
           if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
             reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
@@ -42,11 +44,12 @@ export class ApiRequest {
           resolve(result);
           return;
       }).then((error:GotError) => {
-          reject(error);
-          return;
+          console.log(error);
+          reject(error.code);
+          return error;
       }).catch((error:any) => {
          reject(error);
-         return
+         return error;
       });
     });
   }
