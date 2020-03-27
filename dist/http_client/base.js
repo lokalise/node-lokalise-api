@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-const request = require("request");
+const got = require('got');
 const lokalise_1 = require("../lokalise/lokalise");
 class ApiRequest {
     constructor(uri, method, body = null, params = {}) {
@@ -12,35 +12,36 @@ class ApiRequest {
     }
     createPromise(uri, method, body) {
         let options = {
-            url: this.urlRoot + this.composeURI(uri),
             method: method,
-            headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey, 'content-type': 'application/json' }
+            headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey },
+            responseType: 'json',
+            agent: false
         };
         if (Object.keys(this.params).length > 0) {
-            options['qs'] = this.params;
+            options['searchParams'] = (new URLSearchParams(this.params)).toString();
         }
         if (body) {
             options['body'] = JSON.stringify(body);
         }
         return new Promise((resolve, reject) => {
-            request(options, (error, response, body) => {
-                if (error) {
-                    reject(error);
+            got(this.urlRoot + this.composeURI(uri), options).then((response) => {
+                let responseJSON = JSON.parse(response.body);
+                if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
+                    reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
                     return;
                 }
-                else {
-                    let responseJSON = JSON.parse(body);
-                    if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
-                        reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
-                        return;
-                    }
-                    // Workaround to pass header parameters
-                    let result = {};
-                    result['headers'] = response.headers;
-                    result['body'] = responseJSON;
-                    resolve(result);
-                    return;
-                }
+                // Workaround to pass header parameters
+                let result = {};
+                result['headers'] = response.headers;
+                result['body'] = responseJSON;
+                resolve(result);
+                return;
+            }).then((error) => {
+                reject(error);
+                return;
+            }).catch((error) => {
+                reject(error);
+                return;
             });
         });
     }

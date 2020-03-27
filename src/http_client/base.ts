@@ -1,4 +1,5 @@
-import request = require('request');
+import { GotRequestMethod, GotError, Response, Options } from 'got';
+const got = require('got');
 import { LokaliseApi } from '../lokalise/lokalise';
 
 export class ApiRequest {
@@ -13,14 +14,15 @@ export class ApiRequest {
   }
 
   createPromise(uri: any, method: any, body: any) {
-    let options: any = {
-      url: this.urlRoot + this.composeURI(uri),
+    let options: Options = {
       method: method,
-      headers: { 'x-api-token': LokaliseApi.apiKey, 'content-type': 'application/json' }
+      headers: {'x-api-token': <string>LokaliseApi.apiKey},
+      responseType: 'json',
+      agent: false
     };
 
     if (Object.keys(this.params).length > 0) {
-      options['qs'] = this.params;
+      options['searchParams'] = (new URLSearchParams(this.params)).toString();
     }
 
     if (body) {
@@ -28,12 +30,8 @@ export class ApiRequest {
     }
 
     return new Promise((resolve, reject) => {
-      request(options, (error: any, response: any, body: any) => {
-        if (error) {
-          reject(error);
-          return;
-        } else {
-          let responseJSON = JSON.parse(body);
+      got(this.urlRoot + this.composeURI(uri), options).then((response: Response) => {
+          let responseJSON = JSON.parse(<string>response.body);
           if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
             reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
             return;
@@ -44,7 +42,12 @@ export class ApiRequest {
           result['body'] = responseJSON;
           resolve(result);
           return;
-        }
+      }).then((error:GotError) => {
+          reject(error);
+          return;
+      }).catch((error:any) => {
+         reject(error);
+         return
       });
     });
   }
