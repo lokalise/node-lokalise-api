@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "2.1.0",
+  "version": "3.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "MIT",
   "repository": {
@@ -21,12 +21,11 @@
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
-    "@types/express": "^4.17.3",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^13.9.3",
+    "@types/node": "^13.9.5",
     "acorn": "^7.1.0",
-    "dotenv": "^8.2.0",
     "chai": "^4.2.0",
+    "dotenv": "^8.2.0",
     "lodash": "^4.17.15",
     "mocha": "^7.1.1",
     "mocha-cassettes": "0.0.1",

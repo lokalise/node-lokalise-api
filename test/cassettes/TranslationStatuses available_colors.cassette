@@ -3,7 +3,7 @@
     "scope": "https://api.lokalise.com:443",
     "method": "GET",
     "path": "/api2/projects/803826145ba90b42d5d860.46800099/custom_translation_statuses/colors",
-    "body": {},
+    "body": "",
     "status": 200,
     "response": {
       "colors": [
@@ -21,8 +21,6 @@
     "rawHeaders": [
       "Server",
       "nginx",
-      "Date",
-      "Thu, 18 Jul 2019 16:49:29 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
@@ -31,22 +29,27 @@
       "close",
       "Vary",
       "Accept-Encoding",
-      "Set-Cookie",
-      "PHPSESSID=26013957616a94c0b9ac32a4814fe659; expires=Mon, 16-Sep-2019 16:49:29 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "Date",
+      "Fri, 27 Mar 2020 16:46:23 GMT",
+      "Pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
       "Expires",
-      "Thu, 19 Nov 1981 08:52:00 GMT",
-      "Cache-Control",
-      "no-store, no-cache, must-revalidate",
-      "Pragma",
-      "no-cache",
-      "Pragma",
-      "no-cache",
-      "Cache-Control",
-      "no-store, no-cache",
+      "Fri, 27 Mar 2020 16:46:23 GMT",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Headers",
       "Content-Type"
-    ]
+    ],
+    "responseIsBinary": false
   }
 ]

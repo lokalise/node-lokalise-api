@@ -1,5 +1,6 @@
-import { GotRequestMethod, GotError, Response, Options } from 'got';
+import { GotError, Response, Options } from 'got';
 const got = require('got');
+const pkg = require('../../package.json');
 import { LokaliseApi } from '../lokalise/lokalise';
 
 export class ApiRequest {
@@ -16,13 +17,17 @@ export class ApiRequest {
   createPromise(uri: any, method: any, body: any) {
     let options: Options = {
       method: method,
-      headers: {'x-api-token': <string>LokaliseApi.apiKey},
+      prefixUrl: this.urlRoot,
+      headers: {
+        'x-api-token': <string>LokaliseApi.apiKey,
+        'user-agent': `node-lokalise-api/${pkg.version}`
+      },
       agent: false,
       throwHttpErrors : false,
       decompress: false
     };
 
-    let url:string = this.urlRoot + this.composeURI(uri)
+    let url:string = this.composeURI(uri);
 
     if (Object.keys(this.params).length > 0) {
       options['searchParams'] = (new URLSearchParams(this.params)).toString();
@@ -45,7 +50,7 @@ export class ApiRequest {
           result['body'] = responseJSON;
           resolve(result);
           return;
-      }).then((error:GotError, error2:any) => {
+      }).then((error:GotError, _error2:any) => {
           reject(error.code);
           return error;
       }).catch((error:any) => {
@@ -61,7 +66,7 @@ export class ApiRequest {
   }
 
   protected mapUriParams(params: any) {
-    return (entity: any, isMandaratory: any, paramName: any) => {
+    return (_entity: any, isMandaratory: any, paramName: any) => {
       if (params[paramName] != null) {
         let t_param = params[paramName];
         delete this.params[paramName];
@@ -77,5 +82,5 @@ export class ApiRequest {
     }
   }
 
-  constructParameters(method: any, params: any) {}
+  constructParameters(_method: any, _params: any) {}
 }

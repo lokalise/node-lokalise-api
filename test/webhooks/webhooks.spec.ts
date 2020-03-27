@@ -75,6 +75,6 @@ describe('Webhooks', function () {
     );
 
     expect(response.project_id).to.eq(project_id);
-    expect(response.secret).to.eq('06fbaf3aba6f1b47ec68c3cf6f6a8a361a0572b7');
+    expect(response.secret).to.eq('8c91d28b46a8874c7ef0064494587b83944675ab');
   }).register(this);
 });

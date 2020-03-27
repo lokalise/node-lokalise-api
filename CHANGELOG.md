@@ -1,12 +1,20 @@
 # Lokalise API Node Client Changelog
 
+## 3.0.0 (27-Mar-20)
+
+* **Dropped support for Node < 10**
+* Added custom statuses-related params to `UploadFileParams`
+* Use own [mocha-cassettes](https://github.com/bodrovis/mocha-cassettes) solution to record HTTP interactions
+* Replace [request](https://github.com/request/request) (which is not longer maintained) with [got](https://github.com/sindresorhus/got)
+* Update all dependencies to the latest versions
+
 ## 2.1.0 (28-Feb-20)
 
 * Added method to [regenerate webhook secret](https://lokalise.com/api2docs/curl/#transition-regenerate-a-webhook-secret-patch): `lokaliseApi.webhooks.regenerate_secret(webhook_id, {project_id: project_id});`
 
 ## 2.0.2 (25-Feb-20)
 
-* Pagination data can now be fetched using the following methods: `totalResults`, `totalPages`, `resultsPerPage`, `currentPage` 
+* Pagination data can now be fetched using the following methods: `totalResults`, `totalPages`, `resultsPerPage`, `currentPage`
 
 ## 2.0.1 (09-Dec-19)
 
@@ -52,7 +60,7 @@
 * Fixed various bugs, make API calls more convenient
 * Updated interfaces to match API changes
 * Updated typings
-* Added new endpoints: `TranslationProvider`, `Order`, `PaymentCard` 
+* Added new endpoints: `TranslationProvider`, `Order`, `PaymentCard`
 * Added tests for all endpoints
 * Added test coverage
 * Added Travis

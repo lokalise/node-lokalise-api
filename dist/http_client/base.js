@@ -1,6 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const got = require('got');
+const pkg = require('../../package.json');
 const lokalise_1 = require("../lokalise/lokalise");
 class ApiRequest {
     constructor(uri, method, body = null, params = {}) {
@@ -13,12 +14,16 @@ class ApiRequest {
     createPromise(uri, method, body) {
         let options = {
             method: method,
-            headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey },
+            prefixUrl: this.urlRoot,
+            headers: {
+                'x-api-token': lokalise_1.LokaliseApi.apiKey,
+                'user-agent': `node-lokalise-api/${pkg.version}`
+            },
             agent: false,
             throwHttpErrors: false,
             decompress: false
         };
-        let url = this.urlRoot + this.composeURI(uri);
+        let url = this.composeURI(uri);
         if (Object.keys(this.params).length > 0) {
             options['searchParams'] = (new URLSearchParams(this.params)).toString();
         }
@@ -38,7 +43,7 @@ class ApiRequest {
                 result['body'] = responseJSON;
                 resolve(result);
                 return;
-            }).then((error, error2) => {
+            }).then((error, _error2) => {
                 reject(error.code);
                 return error;
             }).catch((error) => {
@@ -52,7 +57,7 @@ class ApiRequest {
         return uri.replace(regexp, this.mapUriParams(this.params));
     }
     mapUriParams(params) {
-        return (entity, isMandaratory, paramName) => {
+        return (_entity, isMandaratory, paramName) => {
             if (params[paramName] != null) {
                 let t_param = params[paramName];
                 delete this.params[paramName];
@@ -68,7 +73,7 @@ class ApiRequest {
             }
         };
     }
-    constructParameters(method, params) { }
+    constructParameters(_method, _params) { }
 }
 exports.ApiRequest = ApiRequest;
 //# sourceMappingURL=base.js.map

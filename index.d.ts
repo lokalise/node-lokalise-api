@@ -307,7 +307,7 @@ declare module '@lokalise/node-api' {
     protected mapUriParams(
       params: any,
     ): (entity: any, isMandaratory: any, paramName: any) => any;
-    constructParameters(method: any, params: any): void;
+    constructParameters(_method: any, _params: any): void;
   }
 
   export class BaseCollection {
