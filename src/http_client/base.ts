@@ -17,7 +17,8 @@ export class ApiRequest {
     let options: Options = {
       method: method,
       headers: {'x-api-token': <string>LokaliseApi.apiKey},
-      agent: false
+      agent: false,
+      throwHttpErrors : false
     };
 
     let url:string = this.urlRoot + this.composeURI(uri)
@@ -43,8 +44,7 @@ export class ApiRequest {
           result['body'] = responseJSON;
           resolve(result);
           return;
-      }).then((error:GotError) => {
-          console.log(error);
+      }).then((error:GotError, error2:any) => {
           reject(error.code);
           return error;
       }).catch((error:any) => {
