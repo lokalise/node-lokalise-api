@@ -40,7 +40,7 @@ Official Node interface for the [Lokalise API](https://lokalise.com/api2docs/cur
 
 ### Installation
 
-This library has no special requirements. Install it with [NPM](https://www.npmjs.com/):
+This library requires Node 10 and above. Install it with [NPM](https://www.npmjs.com/):
 
 ```bash
 npm install @lokalise/node-api
