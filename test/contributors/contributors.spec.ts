@@ -1,22 +1,22 @@
 require('../setup');
 import { expect } from 'chai';
-import { TapeDeck } from 'mocha-tape-deck';
-const { LokaliseApi } = require('../../src/lokalise/lokalise');
+import { Cassettes } from 'mocha-cassettes';
+import { LokaliseApi } from '../../src/lokalise/lokalise';
 
 describe('Contributors', function () {
-  const deck = new TapeDeck('./test/cassettes');
+  const cassette = new Cassettes('./test/cassettes');
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
   const project_id = '803826145ba90b42d5d860.46800099';
   const user_id = 20181;
   const new_user_id = 39938;
 
-  deck.createTest('list', async () => {
+  cassette.createTest('list', async () => {
     const contributors = await lokaliseApi.contributors.list({project_id: project_id});
 
     expect(contributors[0].user_id).to.eq(user_id);
   }).register(this);
 
-  deck.createTest('list_pagination', async () => {
+  cassette.createTest('list_pagination', async () => {
     const contributors = await lokaliseApi.contributors.list(
       {project_id: project_id, page: 2, limit: 3}
     );
@@ -24,7 +24,7 @@ describe('Contributors', function () {
     expect(contributors[0].user_id).to.eq(33599);
   }).register(this);
 
-  deck.createTest('get', async () => {
+  cassette.createTest('get', async () => {
     const contributor = await lokaliseApi.contributors.get(user_id, {project_id: project_id});
 
     expect(contributor.user_id).to.eq(user_id);
@@ -38,7 +38,7 @@ describe('Contributors', function () {
     expect(contributor.admin_rights).to.include('upload');
   }).register(this);
 
-  deck.createTest('create', async () => {
+  cassette.createTest('create', async () => {
     const contributors = await lokaliseApi.contributors.create([
       {
         "email": "translator2@mycompany.com",
@@ -62,7 +62,7 @@ describe('Contributors', function () {
     expect(contributors[0].user_id).to.eq(new_user_id);
   }).register(this);
 
-  deck.createTest('update', async () => {
+  cassette.createTest('update', async () => {
     const contributor = await lokaliseApi.contributors.update(
       new_user_id,
       {is_admin: true},
@@ -73,7 +73,7 @@ describe('Contributors', function () {
     expect(contributor.is_admin).to.be.true;
   }).register(this);
 
-  deck.createTest('delete', async () => {
+  cassette.createTest('delete', async () => {
     const response = await lokaliseApi.contributors.delete(new_user_id, {project_id: project_id});
 
     expect(response.project_id).to.eq(project_id);

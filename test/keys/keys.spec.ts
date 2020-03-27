@@ -1,26 +1,26 @@
 require('../setup');
 import { expect } from 'chai';
-import { TapeDeck } from 'mocha-tape-deck';
-const { LokaliseApi } = require('../../src/lokalise/lokalise');
+import { Cassettes } from 'mocha-cassettes';
+import { LokaliseApi } from '../../src/lokalise/lokalise';
 
 describe('Keys', function () {
-  const deck = new TapeDeck('./test/cassettes');
+  const cassette = new Cassettes('./test/cassettes');
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY});
   const project_id = '803826145ba90b42d5d860.46800099';
   const key_id = 15519786;
   const second_key_id = 15814906;
 
-  deck.createTest('list', async () => {
+  cassette.createTest('list', async () => {
     const keys = await lokaliseApi.keys.list({project_id: project_id});
     expect(keys[0].key_id).to.eq(key_id);
   }).register(this);
 
-  deck.createTest('list_pagination', async () => {
+  cassette.createTest('list_pagination', async () => {
     const keys = await lokaliseApi.keys.list({project_id: project_id, page: 2, limit: 3});
     expect(keys[0].key_id).to.eq(15814906);
   }).register(this);
 
-  deck.createTest('get', async () => {
+  cassette.createTest('get', async () => {
     const key = await lokaliseApi.keys.get(key_id,{project_id: project_id, disable_references: 1});
     expect(key.key_id).to.eq(key_id);
     expect(key.created_at).to.eq('2018-12-09 18:39:20 (Etc/UTC)');
@@ -43,7 +43,7 @@ describe('Keys', function () {
     expect(key.custom_attributes).to.eq('');
   }).register(this);
 
-  deck.createTest('create', async () => {
+  cassette.createTest('create', async () => {
     const keys = await lokaliseApi.keys.create([
       {
         "key_name": "welcome_web",
@@ -82,7 +82,7 @@ describe('Keys', function () {
     expect(keys[1].translations[2].language_iso).to.eq('en');
   }).register(this);
 
-  deck.createTest('update', async () => {
+  cassette.createTest('update', async () => {
     const key = await lokaliseApi.keys.update(key_id, {
       "platforms": ["web", "other"],
       "description": "Node updated"
@@ -93,7 +93,7 @@ describe('Keys', function () {
     expect(key.description).to.eq('Node updated');
   }).register(this);
 
-  deck.createTest('bulk_update', async () => {
+  cassette.createTest('bulk_update', async () => {
     const keys = await lokaliseApi.keys.bulk_update([
       {
         "key_id": key_id,
@@ -115,7 +115,7 @@ describe('Keys', function () {
     expect(keys[1].description).to.eq('Second bulk');
   }).register(this);
 
-  deck.createTest('delete', async () => {
+  cassette.createTest('delete', async () => {
     const response = await lokaliseApi.keys.delete(23677306, { project_id: project_id });
 
     expect(response.project_id).to.eq(project_id);
@@ -123,7 +123,7 @@ describe('Keys', function () {
     expect(response.keys_locked).to.eq(0);
   }).register(this);
 
-  deck.createTest('bulk_delete', async () => {
+  cassette.createTest('bulk_delete', async () => {
     const response = await lokaliseApi.keys.bulk_delete([
       23646011
     ], { project_id: project_id });
