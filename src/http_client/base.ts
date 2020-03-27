@@ -17,7 +17,6 @@ export class ApiRequest {
     let options: Options = {
       method: method,
       headers: {'x-api-token': <string>LokaliseApi.apiKey},
-      responseType: 'json',
       agent: false
     };
 

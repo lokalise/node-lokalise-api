@@ -14,7 +14,6 @@ class ApiRequest {
         let options = {
             method: method,
             headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey },
-            responseType: 'json',
             agent: false
         };
         if (Object.keys(this.params).length > 0) {
