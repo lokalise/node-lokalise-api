@@ -18,7 +18,8 @@ export class ApiRequest {
       method: method,
       headers: {'x-api-token': <string>LokaliseApi.apiKey},
       agent: false,
-      throwHttpErrors : false
+      throwHttpErrors : false,
+      decompress: false
     };
 
     let url:string = this.urlRoot + this.composeURI(uri)

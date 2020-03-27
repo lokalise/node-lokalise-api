@@ -15,7 +15,8 @@ class ApiRequest {
             method: method,
             headers: { 'x-api-token': lokalise_1.LokaliseApi.apiKey },
             agent: false,
-            throwHttpErrors: false
+            throwHttpErrors: false,
+            decompress: false
         };
         let url = this.urlRoot + this.composeURI(uri);
         if (Object.keys(this.params).length > 0) {
