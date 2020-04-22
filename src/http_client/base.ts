@@ -1,6 +1,6 @@
 import { RequestError, Response, Options } from 'got';
 const got = require('got');
-import * as pkg from '../../package.json';
+const pkg = require('../../package.json');
 import { LokaliseApi } from '../lokalise/lokalise';
 
 export class ApiRequest {
