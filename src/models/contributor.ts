@@ -1,4 +1,3 @@
-import * as Interfaces from '../interfaces/index';
 import { BaseModel } from './base_model';
 import { Contributor as ContributorInterface } from "../interfaces/index";
 

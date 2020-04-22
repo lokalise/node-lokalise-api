@@ -4,7 +4,7 @@
 
 * Updated for Got 11
 * Updated some other dependencies
-* Set `resolveJsonModule` to `true`
+* Set stricter compiler options
 
 ## 3.0.0 (27-Mar-20)
 
