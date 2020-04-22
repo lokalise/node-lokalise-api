@@ -1,14 +1,10 @@
 # Lokalise API Node Client Changelog
 
-## 3.0.2 (22-Apr-20)
+## 3.0.3 (22-Apr-20)
 
 * Updated for Got 11
 * Updated some other dependencies
 * Set stricter compiler options
-
-# 3.0.1
-
-*Deprecated to an incorrect build.*
 
 ## 3.0.0 (27-Mar-20)
 
