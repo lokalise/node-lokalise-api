@@ -1,5 +1,11 @@
 # Lokalise API Node Client Changelog
 
+## 3.0.1 (22-Apr-20)
+
+* Updated for Got 11
+* Updated some other dependencies
+* Set `resolveJsonModule` to `true`
+
 ## 3.0.0 (27-Mar-20)
 
 * **Dropped support for Node < 10**

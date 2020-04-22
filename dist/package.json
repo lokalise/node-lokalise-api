@@ -1,0 +1,49 @@
+{
+    "name": "@lokalise/node-api",
+    "version": "3.0.1",
+    "description": "Official Lokalise API 2.0 Node.js client",
+    "license": "MIT",
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/lokalise/node-lokalise-api.git"
+    },
+    "keywords": [
+        "api",
+        "node",
+        "typescript",
+        "lokalise",
+        "client",
+        "client library"
+    ],
+    "scripts": {
+        "build": "tsc",
+        "test": "tsc && mocha -r ts-node/register test/**/*.spec.ts --timeout 5000"
+    },
+    "devDependencies": {
+        "@types/chai": "^4.2.11",
+        "@types/mocha": "^7.0.2",
+        "@types/node": "^13.13.2",
+        "acorn": "^7.1.0",
+        "chai": "^4.2.0",
+        "dotenv": "^8.2.0",
+        "lodash": "^4.17.15",
+        "mocha": "^7.1.1",
+        "mocha-cassettes": "0.0.2",
+        "source-map-support": "^0.5.18",
+        "ts-node": "^8.9.0"
+    },
+    "dependencies": {
+        "typescript": "^3.8.3",
+        "got": "^11.0.2"
+    },
+    "bugs": {
+        "url": "https://github.com/lokalise/node-lokalise-api/issues"
+    },
+    "homepage": "https://github.com/lokalise/node-lokalise-api#readme",
+    "main": "./index.js",
+    "typings": "./index.d.ts",
+    "directories": {
+        "test": "test"
+    },
+    "author": "Roman Kutanov, Ilya Bodrov, and Lokalise team"
+}

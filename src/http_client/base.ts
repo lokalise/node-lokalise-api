@@ -1,6 +1,6 @@
-import { GotError, Response, Options } from 'got';
+import { RequestError, Response, Options } from 'got';
 const got = require('got');
-const pkg = require('../../package.json');
+import * as pkg from '../../package.json';
 import { LokaliseApi } from '../lokalise/lokalise';
 
 export class ApiRequest {
@@ -50,7 +50,7 @@ export class ApiRequest {
           result['body'] = responseJSON;
           resolve(result);
           return;
-      }).then((error:GotError, _error2:any) => {
+      }).then((error:RequestError, _error2:any) => {
           reject(error.code);
           return error;
       }).catch((error:any) => {
