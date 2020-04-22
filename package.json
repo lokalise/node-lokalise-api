@@ -43,7 +43,8 @@
   "main": "./index.js",
   "typings": "./index.d.ts",
   "directories": {
-    "test": "test"
+    "lib": "./src",
+    "test": "./test"
   },
   "author": "Roman Kutanov, Ilya Bodrov, and Lokalise team"
 }
