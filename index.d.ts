@@ -290,7 +290,7 @@ declare module '@lokalise/node-api' {
   }
 
   export interface Webhook {
-    webhook_id: number;
+    webhook_id: string;
     url: string;
     secret: string;
     events: string[];

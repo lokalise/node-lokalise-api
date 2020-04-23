@@ -5,7 +5,6 @@ class BaseModel {
         for (let key of Object.keys(params)) {
             this[key] = params[key];
         }
-        return this;
     }
 }
 exports.BaseModel = BaseModel;

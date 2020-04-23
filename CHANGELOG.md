@@ -1,5 +1,10 @@
 # Lokalise API Node Client Changelog
 
+## Unreleased
+
+* Test against Node 14
+* Fix `webhook_id` type for `Webhooks` endpoint
+
 ## 3.0.3 (22-Apr-20)
 
 * Updated for Got 11
