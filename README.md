@@ -919,7 +919,7 @@ Lokalise does not [rate-limit API requests](https://lokalise.com/api2docs/curl/#
 
 ## Running Tests
 
-This library is tested with Node 10, 11, 12, and 13. To test it locally:
+This library is tested with [Node 10+](https://github.com/lokalise/node-lokalise-api/blob/master/.travis.yml). To test it locally:
 
 1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
 2. Run `npm test`. Observe test results and coverage.
