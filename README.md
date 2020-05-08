@@ -67,6 +67,8 @@ projects[0].name;
 
 All object attributes may be found in the [interfaces](https://github.com/lokalise/node-lokalise-api/tree/master/src/interfaces).
 
+Please not that Lokalise API locks parallel requests which means you should call methods in a synchronous manner.
+
 ### Branching
 
 If you are using [project branching feature](https://docs.lokalise.com/en/articles/3391861-project-branching), simply add branch name separated by semicolon to your project ID in any endpoint to access the branch. For example, in order to access `new-feature` branch for the project with an id `123abcdef.01`:
@@ -96,8 +98,6 @@ lokaliseApi.projects.totalPages;
 lokaliseApi.projects.resultsPerPage;
 lokaliseApi.projects.currentPage;
 ```
-
-These methods are safe to use only in a synchronized manner. If you are running a concurrent request using the same `lokaliseApi` instance, the pagination data may be corrupted. This will be fixed in the upcoming releases.
 
 ## Usage
 
