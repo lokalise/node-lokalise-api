@@ -3,9 +3,9 @@ import { Screenshot } from '../models/screenshot';
 import { StandartParams } from "../interfaces/standart_params";
 
 export class Screenshots extends BaseCollection {
-  protected static rootElementName:string = 'screenshots';
+  protected static rootElementName: string = 'screenshots';
   protected static rootElementNameSingular: string = 'screenshot';
-  protected static prefixURI:string = 'projects/{!:project_id}/screenshots/{:id}';
+  protected static prefixURI: string = 'projects/{!:project_id}/screenshots/{:id}';
   protected static elementClass: Object = Screenshot;
 
   create(raw_body: any, params: StandartParams = {}): Promise<any> {
@@ -13,7 +13,7 @@ export class Screenshots extends BaseCollection {
     return this.createPromise('POST', params, this.populateArrayFromJson, this.handleReject, body);
   }
 
-  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }

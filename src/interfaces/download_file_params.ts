@@ -3,7 +3,7 @@ export interface DownloadFileParams {
   original_filenames?: boolean;
   bundle_structure?: string;
   directory_prefix?: string;
-  all_platforms?: boolean
+  all_platforms?: boolean;
   filter_langs?: any[];
   filter_data?: any[];
   filter_filenames?: any[];

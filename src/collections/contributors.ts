@@ -3,9 +3,9 @@ import { Contributor } from '../models/contributor';
 import { StandartParams } from '../interfaces/standart_params';
 
 export class Contributors extends BaseCollection {
-  protected static rootElementName:string = 'contributors';
+  protected static rootElementName: string = 'contributors';
   protected static rootElementNameSingular: string = 'contributor';
-  protected static prefixURI:string = 'projects/{!:project_id}/contributors/{:id}';
+  protected static prefixURI: string = 'projects/{!:project_id}/contributors/{:id}';
   protected static elementClass: Object = Contributor;
 
   create(raw_body: any, params: StandartParams = {}): Promise<any> {
@@ -14,7 +14,7 @@ export class Contributors extends BaseCollection {
                              'projects/{!:project_id}/contributors');
   }
 
-  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }

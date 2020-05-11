@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+**Upcoming breaking change** Uploading files in the background is now a preferred method. Synchronous uploading is still supported but will be removed in the near future.
+
 * Test against Node 14
 * Fix `webhook_id` type for `Webhooks` endpoint
 

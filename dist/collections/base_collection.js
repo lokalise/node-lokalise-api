@@ -32,23 +32,24 @@ class BaseCollection {
         this.totalPages = parseInt(headers['x-pagination-page-count']);
         this.resultsPerPage = parseInt(headers['x-pagination-limit']);
         this.currentPage = parseInt(headers['x-pagination-page']);
+        return;
     }
     populateObjectFromJsonRoot(json) {
-        let childClass = this.constructor;
+        const childClass = this.constructor;
         if (childClass.rootElementNameSingular != null) {
             json = json[childClass.rootElementNameSingular];
         }
         return this.populateObjectFromJson(json);
     }
     populateObjectFromJson(json) {
-        let childClass = this.constructor;
+        const childClass = this.constructor;
         return new childClass.elementClass(json);
     }
     populateArrayFromJson(json) {
-        let childClass = this.constructor;
-        let arr = [];
-        let jsonArray = json[childClass.rootElementName];
-        for (let obj of jsonArray) {
+        const childClass = this.constructor;
+        const arr = [];
+        const jsonArray = json[childClass.rootElementName];
+        for (const obj of jsonArray) {
             arr.push(this.populateObjectFromJson(obj));
         }
         return arr;
@@ -63,16 +64,16 @@ class BaseCollection {
         return this.populateApiErrorFromJson(data);
     }
     createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) {
-        let childClass = this.constructor;
+        const childClass = this.constructor;
         if (uri == null) {
             uri = childClass.prefixURI;
         }
         return new Promise((resolve, reject) => {
-            let response = new base_1.ApiRequest(uri, method, body, params);
+            const response = new base_1.ApiRequest(uri, method, body, params);
             response.promise.then((result) => {
-                let headers = result['headers'];
+                const headers = result['headers'];
                 this.populatePaginationDataFor(headers);
-                let json = result['body'];
+                const json = result['body'];
                 resolve(resolveFn.call(this, json));
             }).catch((data) => {
                 reject(rejectFn.call(this, data));

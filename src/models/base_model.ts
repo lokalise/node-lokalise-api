@@ -1,7 +1,7 @@
 export class BaseModel {
   constructor(params: any) {
-    for (let key of Object.keys(params)) {
-      (this as any)[key] = params[key]
+    for (const key of Object.keys(params)) {
+      (<any>this)[key] = params[key]
     }
   }
 }

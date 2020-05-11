@@ -3,12 +3,12 @@ import { Snapshot } from '../models/snapshot';
 import { StandartParams } from '../interfaces/standart_params';
 
 export class Snapshots extends BaseCollection {
-  protected static rootElementName:string = 'snapshots';
+  protected static rootElementName: string = 'snapshots';
   protected static rootElementNameSingular: string = 'snapshot';
-  protected static prefixURI:string = 'projects/{!:project_id}/snapshots/{:id}';
+  protected static prefixURI: string = 'projects/{!:project_id}/snapshots/{:id}';
   protected static elementClass: Object = Snapshot;
 
-  restore(id: any, params: StandartParams){
+  restore(id: any, params: StandartParams): Promise<any> {
     params['id'] = id;
     return this.createPromise('POST', params, this.returnBareJSON, this.handleReject, {});
   }

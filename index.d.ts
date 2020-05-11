@@ -35,7 +35,7 @@ declare module '@lokalise/node-api' {
     original_filenames?: boolean;
     bundle_structure?: string;
     directory_prefix?: string;
-    all_platforms?: boolean
+    all_platforms?: boolean;
     filter_langs?: any[];
     filter_data?: any[];
     filter_filenames?: any[];
@@ -342,8 +342,8 @@ declare module '@lokalise/node-api' {
     protected static prefixURI: string;
     protected static elementClass: Object;
     create(body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params : StandartParams) : Promise<any>;
-    merge(id: any, body: any, params: StandartParams) : Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
+    merge(id: any, body: any, params: StandartParams): Promise<any>;
   }
 
   export class Comments extends BaseCollection {
@@ -422,13 +422,13 @@ declare module '@lokalise/node-api' {
     protected static prefixURI: string;
     protected static elementClass: Object;
     create(raw_body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params : StandartParams) : Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
   }
 
   export class Snapshots extends BaseCollection {
-    protected static rootElementName:string;
+    protected static rootElementName: string;
     protected static rootElementNameSingular: string;
-    protected static prefixURI:string;
+    protected static prefixURI: string;
     protected static elementClass: Object;
     restore(id: any, params: StandartParams): Promise<any>;
     create(body: any, params: StandartParams): Promise<any>;
@@ -441,7 +441,7 @@ declare module '@lokalise/node-api' {
     protected static elementClass: Object;
 
     create(body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params : StandartParams) : Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
   }
 
   export class TeamUsers extends BaseCollection {
@@ -449,7 +449,7 @@ declare module '@lokalise/node-api' {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
-    update(id: any, body: any, params : StandartParams) : Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
   }
 
   export class Teams extends BaseCollection {
@@ -469,7 +469,7 @@ declare module '@lokalise/node-api' {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
-    update(id: any, body: any, params : StandartParams) : Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
   }
 
   export class TranslationStatuses extends BaseCollection {
@@ -488,7 +488,7 @@ declare module '@lokalise/node-api' {
     protected static prefixURI: string;
     protected static elementClass: Object;
     create(body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params : StandartParams) : Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
     add_projects_to_group(team_id: any, group_id: any, raw_body: any[], params: any): Promise<any>;
     remove_projects_from_group(team_id: any, group_id: any, raw_body: any[], params: any): Promise<any>;
     add_members_to_group(team_id: any, group_id: any, raw_body: any[], params: any): Promise<any>;
@@ -502,8 +502,8 @@ declare module '@lokalise/node-api' {
     protected static elementClass: Object;
 
     create(body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams) : Promise<any>;
-    regenerate_secret(id: any, params : StandartParams) : Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
+    regenerate_secret(id: any, params: StandartParams): Promise<any>;
   }
 
   export class LocaliseApiMethods {

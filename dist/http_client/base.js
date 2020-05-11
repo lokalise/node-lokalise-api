@@ -12,7 +12,7 @@ class ApiRequest {
         return this;
     }
     createPromise(uri, method, body) {
-        let options = {
+        const options = {
             method: method,
             prefixUrl: this.urlRoot,
             headers: {
@@ -23,7 +23,7 @@ class ApiRequest {
             throwHttpErrors: false,
             decompress: false
         };
-        let url = this.composeURI(uri);
+        const url = this.composeURI(uri);
         if (Object.keys(this.params).length > 0) {
             options['searchParams'] = (new URLSearchParams(this.params)).toString();
         }
@@ -32,18 +32,18 @@ class ApiRequest {
         }
         return new Promise((resolve, reject) => {
             got(url, options).then((response) => {
-                let responseJSON = JSON.parse(response.body);
+                const responseJSON = JSON.parse(response.body);
                 if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
                     reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
                     return;
                 }
                 // Workaround to pass header parameters
-                let result = {};
+                const result = {};
                 result['headers'] = response.headers;
                 result['body'] = responseJSON;
                 resolve(result);
                 return;
-            }).then((error, _error2) => {
+            }).then((error) => {
                 reject(error.code);
                 return error;
             }).catch((error) => {
@@ -53,13 +53,13 @@ class ApiRequest {
         });
     }
     composeURI(uri) {
-        let regexp = /{(!{0,1}):(\w*)}/g;
+        const regexp = /{(!{0,1}):(\w*)}/g;
         return uri.replace(regexp, this.mapUriParams(this.params));
     }
     mapUriParams(params) {
         return (_entity, isMandaratory, paramName) => {
             if (params[paramName] != null) {
-                let t_param = params[paramName];
+                const t_param = params[paramName];
                 delete this.params[paramName];
                 return t_param;
             }
@@ -73,7 +73,6 @@ class ApiRequest {
             }
         };
     }
-    constructParameters(_method, _params) { }
 }
 exports.ApiRequest = ApiRequest;
 //# sourceMappingURL=base.js.map
