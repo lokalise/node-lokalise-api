@@ -10,13 +10,16 @@ module.exports = {
   },
   plugins: [
     '@typescript-eslint',
-    'node'
+    'node',
+    'prettier'
   ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    "plugin:node/recommended"
+    "plugin:node/recommended",
+    "plugin:prettier/recommended",
+    "prettier/@typescript-eslint"
   ],
   settings: {
     node: {
@@ -24,6 +27,7 @@ module.exports = {
     },
   },
   "rules": {
+    "prettier/prettier": "error",
     "@typescript-eslint/consistent-type-assertions": [
       "warn", {
         "assertionStyle": "angle-bracket"
