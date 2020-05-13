@@ -1,6 +1,7 @@
 export interface UploadFileParams {
   data: string;
   filename: string;
+  queue?: boolean;
   lang_iso: string;
   convert_placeholder?: boolean;
   detect_icu_plurals?: boolean;

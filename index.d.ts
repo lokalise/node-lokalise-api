@@ -126,6 +126,18 @@ declare module '@lokalise/node-api' {
     total: number;
   }
 
+  export interface QueuedProcess {
+    process_id: string;
+    type: string;
+    status: string;
+    message: string;
+    created_by: number;
+    created_by_email: string;
+    created_at: string;
+    created_at_timestamp: number;
+    url: string;
+  }
+
   export interface PaymentCard {
     card_id: number;
     last4: string;
@@ -262,6 +274,7 @@ declare module '@lokalise/node-api' {
   export interface UploadFileParams {
     data: string;
     filename: string;
+    queue?: boolean;
     lang_iso: string;
     convert_placeholder?: boolean;
     detect_icu_plurals?: boolean;
@@ -316,13 +329,16 @@ declare module '@lokalise/node-api' {
     protected static endpoint: string | null;
     protected static prefixURI: string | null;
     protected static elementClass: any | null;
+    protected static secondaryElementNameSingular: string | null;
+    protected static secondaryElementClass: any;
     get(id: any, params?: StandartParams, body?: any): Promise<any>;
     list(params?: StandartParams): Promise<any[]>;
     create(body: any, params?: StandartParams): Promise<any>;
     update(id: any, body: any, params?: StandartParams): Promise<any>;
     delete(id: any, params?: StandartParams): Promise<any>;
     protected populateObjectFromJsonRoot(json: Object): this;
-    protected populateObjectFromJson(json: Object): this;
+    protected populateSecondaryObjectFromJsonRoot(json: any): this;
+    protected populateObjectFromJson(json: Object, secondary: boolean): this;
     protected populateArrayFromJson(json: Array<any>): this[];
     protected returnBareJSON(json: any): any;
     protected handleReject(data: any): void;
@@ -367,9 +383,12 @@ declare module '@lokalise/node-api' {
     protected static rootElementName: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
+    protected static secondaryElementNameSingular: string;
+    protected static secondaryElementClass: Object;
     list(params?: FileParams): Promise<this[]>;
     upload(project_id: string, upload: UploadFileParams): Promise<any>;
     download(project_id: string, download: DownloadFileParams): Promise<any>;
+    choosePopulator(uploadParams: UploadFileParams): any;
   }
 
   export class Keys extends BaseCollection {
@@ -414,6 +433,15 @@ declare module '@lokalise/node-api' {
     protected static prefixURI: string;
     protected static elementClass: Object;
     empty(project_id: any): void;
+  }
+
+  export class QueuedProcesses extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: Object;
+
+    getDetailed(id: any, params: StandartParams, type: string): Promise<any>;
   }
 
   export class Screenshots extends BaseCollection {
@@ -530,7 +558,6 @@ declare module '@lokalise/node-api' {
 
   export class LokaliseApi extends LocaliseApiMethods {
     static apiKey: string | null;
-    private static _instance: LokaliseApi;
     apiKey: string;
     /**
      * Instantiate LokaliseApi to have access to methods

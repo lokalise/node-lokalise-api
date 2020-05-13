@@ -8,6 +8,11 @@ export class BaseCollection {
   protected static endpoint: string | null = null;
   protected static prefixURI: string | null = null;
   protected static elementClass: any = null;
+  
+  // Secondaries are used when an instance of a different class has to be created
+  // For example, uploading a File may return a QueuedProcess
+  protected static secondaryElementNameSingular: string | null = null;
+  protected static secondaryElementClass: any = null;
 
   // Workaround for handling HTTP header pagination params
 
@@ -55,9 +60,21 @@ export class BaseCollection {
     return this.populateObjectFromJson(json);
   }
 
-  protected populateObjectFromJson(json: Object): this {
+  protected populateSecondaryObjectFromJsonRoot(json: any): this {
     const childClass = <typeof BaseCollection>this.constructor;
-    return new childClass.elementClass(json);
+    if (childClass.secondaryElementNameSingular != null) {
+      json = json[childClass.secondaryElementNameSingular];
+    }
+    return this.populateObjectFromJson(json, true);
+  }
+
+  protected populateObjectFromJson(json: Object, secondary: boolean = false): this {
+    const childClass = <typeof BaseCollection>this.constructor;
+    if (secondary) {
+      return new childClass.secondaryElementClass(json);
+    } else {
+      return new childClass.elementClass(json);
+    }
   }
 
   protected populateArrayFromJson(json: Array<any>): this[] {

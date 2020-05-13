@@ -1,11 +1,14 @@
 # Lokalise API Node Client Changelog
 
-## Unreleased
+## 4.0.0 (13-May-20)
 
 **Upcoming breaking change** Uploading files in the background is now a preferred method. Synchronous uploading is still supported but will be removed in the near future.
 
+* Added support for [`QueuedProcess` endpoint](https://app.lokalise.com/api2docs/curl/#resource-queued-processes)
+* Added support for background file uploading
 * Test against Node 14
 * Fix `webhook_id` type for `Webhooks` endpoint
+* Added linter
 
 ## 3.0.3 (22-Apr-20)
 

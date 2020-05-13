@@ -7,6 +7,7 @@ import { Languages } from './languages';
 import { Orders } from './orders';
 import { PaymentCards } from './payment_cards';
 import { Projects } from './projects';
+import { QueuedProcesses } from './queued_processes';
 import { Screenshots } from './screenshots';
 import { Snapshots } from './snapshots';
 import { Tasks } from './tasks';
@@ -22,12 +23,13 @@ export {
   Branches,
   Comments,
   Contributors,
-  Files, 
+  Files,
   Keys,
   Languages,
   Orders,
   PaymentCards,
   Projects,
+  QueuedProcesses,
   Screenshots,
   Snapshots,
   Tasks,
