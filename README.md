@@ -16,7 +16,7 @@ Official Node interface for the [Lokalise API](https://lokalise.com/api2docs/cur
   + [Branches](#branches)
   + [Comments](#comments)
   + [Contributors](#contributors)
-  + [Files](#files)
+  + [Files](#translation-files)
   + [Keys](#keys)
   + [Languages](#languages)
   + [Orders](#orders)
@@ -243,7 +243,7 @@ lokaliseApi.contributors.update(
 lokaliseApi.contributors.delete(user_id, {project_id: project_id});
 ```
 
-### Files
+### Translation files
 
 [Documentation](https://lokalise.com/api2docs/curl/#object-files)
 
@@ -526,7 +526,7 @@ lokaliseApi.projects.empty(project_id)
 lokaliseApi.projects.delete(project_id);
 ```
 
-### QueuedProcesses
+### Queued Processes
 
 [Documentation](https://app.lokalise.com/api2docs/curl/#resource-queued-processes)
 
