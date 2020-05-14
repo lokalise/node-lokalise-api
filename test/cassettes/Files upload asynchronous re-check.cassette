@@ -2,22 +2,22 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "GET",
-    "path": "/api2/projects/803826145ba90b42d5d860.46800099/processes/file-import/3b943469e6b3e324b5bdad639b122a623e6e7a1a",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/processes/file-import/c0f2ea978ac6382f46babfd5de844062835280f8",
     "body": "",
     "status": 200,
     "response": {
       "project_id": "803826145ba90b42d5d860.46800099",
       "branch": "master",
       "process": {
-        "process_id": "3b943469e6b3e324b5bdad639b122a623e6e7a1a",
+        "process_id": "c0f2ea978ac6382f46babfd5de844062835280f8",
         "type": "file-import",
         "status": "finished",
         "message": "",
         "created_by": "20181",
         "created_by_email": "bodrovis@protonmail.com",
-        "created_at": "2020-05-13 11:24:37 (Etc/UTC)",
-        "created_at_timestamp": 1589369077,
-        "url": "/api2/projects/803826145ba90b42d5d860.46800099/processes/file-import/3b943469e6b3e324b5bdad639b122a623e6e7a1a",
+        "created_at": "2020-05-14 10:00:09 (Etc/UTC)",
+        "created_at_timestamp": 1589450409,
+        "url": "/api2/projects/803826145ba90b42d5d860.46800099/processes/file-import/c0f2ea978ac6382f46babfd5de844062835280f8",
         "files": [
           {
             "status": "finished",
@@ -26,9 +26,9 @@
             "name_custom": null,
             "word_count_total": 3,
             "key_count_total": 3,
-            "key_count_inserted": 1,
+            "key_count_inserted": 0,
             "key_count_updated": 0,
-            "key_count_skipped": 2
+            "key_count_skipped": 3
           }
         ]
       }
@@ -47,7 +47,7 @@
       "Cache-Control",
       "max-age=0, must-revalidate, no-cache, no-store, private",
       "Date",
-      "Wed, 13 May 2020 11:28:11 GMT",
+      "Thu, 14 May 2020 10:01:09 GMT",
       "Pragma",
       "no-cache",
       "X-Content-Type-Options",
@@ -59,7 +59,7 @@
       "Strict-Transport-Security",
       "max-age=31536000",
       "Expires",
-      "Wed, 13 May 2020 11:28:11 GMT",
+      "Thu, 14 May 2020 10:01:09 GMT",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Headers",

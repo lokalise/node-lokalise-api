@@ -253,30 +253,23 @@ lokaliseApi.contributors.delete(user_id, {project_id: project_id});
 lokaliseApi.files.list({project_id: project_id});
 ```
 
-#### Upload a file synchronously
+#### Upload a file
 
-**Synchronous file uploading is deprecated and will be removed in the near future! Use asynchronous uploading instead.**
-
-```js
-lokaliseApi.files.upload(project_id, {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
-```
-
-#### Upload a file asynchronously
-
-**Asynchronous uploading is the preferred method starting from 9 May 2020.** To upload a file asynchronously, set the `queue` option to `true`. This option will default to `true` starting from summer 2020.
+**Asynchronous uploading is the preferred method of importing files starting from 9 May 2020.** Node-lokalise-api version 4 supports only asynchronous uploading. To upload a file synchronously, use version 3 but keep in mind that this feature will be completely removed in summer 2020.
 
 ```js
-lokaliseApi.files.upload(project_id,
+process = await lokaliseApi.files.upload(project_id,
   {data: data_base64, filename: 'test1.json', lang_iso: 'en', queue: true})
+process.status // => 'queued'
 ```
 
 Asynchronous upload will return a [`QueuedProcess`](#queued-processes) containing process ID, status of the process (`queued`, `finished`, `failed` etc) and some other info. You may periodically check the status of the process by using either `get()` or `getDetailed()` methods (detailed info will contain the uploaded file data):
 
 ```js
-// You wil obtain `process_id` after calling `upload()`
-process = await lokaliseApi.queuedProcesses.get(process_id, { project_id: project_id })
+// You'll obtain `process_id` after calling `upload()`
+process = await lokaliseApi.queuedProcesses.get(process.process_id, { project_id: project_id })
 // OR
-process = await lokaliseApi.queuedProcesses.getDetailed(process_id, { project_id: project_id }, 'file-import')
+process = await lokaliseApi.queuedProcesses.getDetailed(process.process_id, { project_id: project_id }, 'file-import')
 
 process.status // => 'finished'
 ```

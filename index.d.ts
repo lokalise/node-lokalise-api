@@ -388,7 +388,6 @@ declare module '@lokalise/node-api' {
     list(params?: FileParams): Promise<this[]>;
     upload(project_id: string, upload: UploadFileParams): Promise<any>;
     download(project_id: string, download: DownloadFileParams): Promise<any>;
-    choosePopulator(uploadParams: UploadFileParams): any;
   }
 
   export class Keys extends BaseCollection {

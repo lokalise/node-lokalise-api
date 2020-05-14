@@ -7,7 +7,7 @@ describe('Files', function () {
   const cassette = new Cassettes('./test/cassettes')
   const lokaliseApi = new LokaliseApi({apiKey: process.env.API_KEY})
   const project_id = '803826145ba90b42d5d860.46800099'
-  const process_id = '3b943469e6b3e324b5bdad639b122a623e6e7a1a'
+  const process_id = 'c0f2ea978ac6382f46babfd5de844062835280f8'
 
   cassette.createTest('list', async () => {
     const files = await lokaliseApi.files.list({ project_id: project_id});
@@ -19,19 +19,8 @@ describe('Files', function () {
 
   cassette.createTest('upload', async () => {
     const data = 'ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=';
-    const response = await lokaliseApi.files.upload(project_id,
-      {data: data, filename: 'test1.json', lang_iso: 'en'}
-    );
-
-    expect(response.project_id).to.eq(project_id);
-    expect(response.file).to.eq('test1.json');
-    expect(response.result['inserted']).to.eq(3);
-  }).register(this);
-
-  cassette.createTest('upload asynchronous', async () => {
-    const data = 'ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=';
     const process = await lokaliseApi.files.upload(project_id,
-      {data: data, filename: 'test_async.json', lang_iso: 'en', queue: true}
+      {data: data, filename: 'test_async.json', lang_iso: 'en'}
     )
 
     expect(process.process_id).to.eq(process_id)
@@ -39,10 +28,10 @@ describe('Files', function () {
     expect(process.status).to.eq('queued')
     expect(process.message).to.eq('')
     expect(process.created_by).to.eq('20181')
-    expect(process.created_by_email).to.eq('bodrovis@protonmail.com')
-    expect(process.created_at).to.eq('2020-05-13 11:24:37 (Etc/UTC)')
-    expect(process.created_at_timestamp).to.eq(1589369077)
-    expect(process.url).to.eq('/api2/projects/803826145ba90b42d5d860.46800099/processes/file-import/3b943469e6b3e324b5bdad639b122a623e6e7a1a')
+     expect(process.created_by_email).to.eq('bodrovis@protonmail.com')
+     expect(process.created_at).to.eq('2020-05-14 10:00:09 (Etc/UTC)')
+     expect(process.created_at_timestamp).to.eq(1589450409)
+     expect(process.url).to.eq('/api2/projects/803826145ba90b42d5d860.46800099/processes/file-import/c0f2ea978ac6382f46babfd5de844062835280f8')
   }).register(this);
 
   cassette.createTest('upload asynchronous re-check', async () => {

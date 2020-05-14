@@ -13,23 +13,15 @@ export class Files extends BaseCollection {
   protected static secondaryElementClass: Object = QueuedProcess;
 
   upload(project_id: string, upload: UploadFileParams): Promise<any> {
+    // Always upload in the background
+    upload.queue = true
     return this.createPromise('POST', { project_id: project_id },
-      this.choosePopulator(upload),
+      this.populateSecondaryObjectFromJsonRoot,
       this.handleReject, upload, 'projects/{!:project_id}/files/upload');
   }
 
   download(project_id: string, download: DownloadFileParams): Promise<any> {
     return this.createPromise('POST', { project_id: project_id }, this.returnBareJSON,
       this.handleReject, download, 'projects/{!:project_id}/files/download');
-  }
-
-  private choosePopulator(uploadParams: UploadFileParams): any {
-    // Temporary solution for backwards compatibility with sync file uploading
-    // Sync uploading will be removed by summer 2020
-    if (uploadParams.queue) {
-      return this.populateSecondaryObjectFromJsonRoot
-    } else {
-      return this.returnBareJSON
-    }
   }
 }

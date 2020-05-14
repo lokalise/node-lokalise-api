@@ -9,5 +9,4 @@ export declare class Files extends BaseCollection {
     protected static secondaryElementClass: Object;
     upload(project_id: string, upload: UploadFileParams): Promise<any>;
     download(project_id: string, download: DownloadFileParams): Promise<any>;
-    private choosePopulator;
 }
