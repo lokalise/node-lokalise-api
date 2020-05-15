@@ -7,6 +7,5 @@ export interface QueuedProcess {
     created_by_email: string;
     created_at: string;
     created_at_timestamp: number;
-    url: string;
-    files?: object[];
+    details?: object[];
 }

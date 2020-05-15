@@ -5,10 +5,6 @@ const queued_process_1 = require("../models/queued_process");
 const base_collection_1 = require("./base_collection");
 let QueuedProcesses = /** @class */ (() => {
     class QueuedProcesses extends base_collection_1.BaseCollection {
-        getDetailed(id, params = {}, type = 'file-import') {
-            params['id'] = id;
-            return this.createPromise('GET', params, this.populateObjectFromJsonRoot, this.handleReject, null, `projects/{!:project_id}/processes/${type}/{:id}`);
-        }
     }
     QueuedProcesses.rootElementName = 'processes';
     QueuedProcesses.rootElementNameSingular = 'process';

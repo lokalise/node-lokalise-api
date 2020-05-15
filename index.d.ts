@@ -135,7 +135,7 @@ declare module '@lokalise/node-api' {
     created_by_email: string;
     created_at: string;
     created_at_timestamp: number;
-    url: string;
+    details?: object[];
   }
 
   export interface PaymentCard {
@@ -439,8 +439,6 @@ declare module '@lokalise/node-api' {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
-
-    getDetailed(id: any, params: StandartParams, type: string): Promise<any>;
   }
 
   export class Screenshots extends BaseCollection {
