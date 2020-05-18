@@ -11,6 +11,7 @@ export class LocaliseApiMethods {
   public orders = new Collections.Orders();
   public paymentCards = new Collections.PaymentCards();
   public projects = new Collections.Projects();
+  public queuedProcesses = new Collections.QueuedProcesses();
   public screenshots = new Collections.Screenshots();
   public snapshots = new Collections.Snapshots();
   public tasks = new Collections.Tasks();

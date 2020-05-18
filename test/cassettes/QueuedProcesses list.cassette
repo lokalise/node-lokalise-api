@@ -1,0 +1,138 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/processes/",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "branch": "master",
+      "processes": [
+        {
+          "process_id": "3b943469e6b3e324b5bdad639b122a623e6e7a1a",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-13 11:24:37 (Etc/UTC)",
+          "created_at_timestamp": 1589369077
+        },
+        {
+          "process_id": "f0292f2d7e360641e2aa18db195d0a68031c8aeb",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-14 09:58:47 (Etc/UTC)",
+          "created_at_timestamp": 1589450327
+        },
+        {
+          "process_id": "7055ee34fab2a5f38b8adaaf55132ff4659ceaf8",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-14 09:59:37 (Etc/UTC)",
+          "created_at_timestamp": 1589450377
+        },
+        {
+          "process_id": "c0f2ea978ac6382f46babfd5de844062835280f8",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-14 10:00:09 (Etc/UTC)",
+          "created_at_timestamp": 1589450409
+        },
+        {
+          "process_id": "596d4058c863e1d2355db8b48e37ac1355772b78",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-14 10:15:10 (Etc/UTC)",
+          "created_at_timestamp": 1589451310
+        },
+        {
+          "process_id": "fb59937f47be1999b3643a7022d17bd46d807fad",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-14 10:18:03 (Etc/UTC)",
+          "created_at_timestamp": 1589451483
+        },
+        {
+          "process_id": "ff1876382b7ba81f2bb465da8f030196ec401fa6",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-15 10:38:35 (Etc/UTC)",
+          "created_at_timestamp": 1589539115
+        },
+        {
+          "process_id": "fb57b3b0704c081468c2e25a20aaaa599a004f9d",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-15 10:44:42 (Etc/UTC)",
+          "created_at_timestamp": 1589539482
+        },
+        {
+          "process_id": "c23eb693ff46cd9a78310132dfbc6a42c93b0fc2",
+          "type": "file-import",
+          "status": "finished",
+          "message": "",
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "created_at": "2020-05-15 11:16:48 (Etc/UTC)",
+          "created_at_timestamp": 1589541408
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "Date",
+      "Fri, 15 May 2020 11:27:57 GMT",
+      "Pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Expires",
+      "Fri, 15 May 2020 11:27:57 GMT",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

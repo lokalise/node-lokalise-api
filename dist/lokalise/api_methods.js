@@ -1,5 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.LocaliseApiMethods = void 0;
 const Collections = require("../collections/index");
 class LocaliseApiMethods {
     constructor() {
@@ -13,6 +14,7 @@ class LocaliseApiMethods {
         this.orders = new Collections.Orders();
         this.paymentCards = new Collections.PaymentCards();
         this.projects = new Collections.Projects();
+        this.queuedProcesses = new Collections.QueuedProcesses();
         this.screenshots = new Collections.Screenshots();
         this.snapshots = new Collections.Snapshots();
         this.tasks = new Collections.Tasks();

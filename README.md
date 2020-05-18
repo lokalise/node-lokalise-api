@@ -3,7 +3,7 @@
 [![npm version](https://badge.fury.io/js/%40lokalise%2Fnode-api.svg)](https://badge.fury.io/js/%40lokalise%2Fnode-api)
 [![Build Status](https://travis-ci.org/lokalise/node-lokalise-api.svg?branch=master)](https://travis-ci.org/lokalise/node-lokalise-api)
 
-Official Node interface for the [Lokalise API](https://lokalise.com/api2docs/curl/#resource-getting-started).
+Official Node interface for the [Lokalise API](https://app.lokalise.com/api2docs/curl/#resource-getting-started).
 
 ## Index
 
@@ -16,12 +16,13 @@ Official Node interface for the [Lokalise API](https://lokalise.com/api2docs/cur
   + [Branches](#branches)
   + [Comments](#comments)
   + [Contributors](#contributors)
-  + [Files](#files)
+  + [Files](#translation-files)
   + [Keys](#keys)
   + [Languages](#languages)
   + [Orders](#orders)
   + [Payment cards](#payment-cards)
   + [Projects](#projects)
+  + [QueuedProcesses](#queued-processes)
   + [Screenshots](#screenshots)
   + [Snapshots](#snapshots)
   + [Tasks](#tasks)
@@ -79,7 +80,7 @@ lokaliseApi.files.list({project_id: '123abcdef.01:new-feature'});
 
 ### Pagination
 
-Bulk fetches support [pagination](https://lokalise.com/api2docs/curl/#resource-pagination). There are two common parameters available:
+Bulk fetches support [pagination](https://app.lokalise.com/api2docs/curl/#resource-pagination). There are two common parameters available:
 
 * `limit` (defaults to `100`, maximum is `5000`) - number of records to display per page
 * `page` (defaults  to `1`) - page to fetch
@@ -105,7 +106,7 @@ Every request returns a promise with a corresponding object (or array of objects
 
 ### Branches
 
-[Documentation](https://lokalise.com/api2docs/curl/#resource-branches)
+[Documentation](https://app.lokalise.com/api2docs/curl/#resource-branches)
 
 #### List branches
 
@@ -154,7 +155,7 @@ lokaliseApi.branches.merge(branch_id_to_merge,
 
 ### Comments
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-comments)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-comments)
 
 #### List project comments
 
@@ -193,7 +194,7 @@ lokaliseApi.comments.delete(comment_id, {project_id: project_id, key_id: key_id}
 
 ### Contributors
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-contributors)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-contributors)
 
 #### List project contributors
 
@@ -242,9 +243,9 @@ lokaliseApi.contributors.update(
 lokaliseApi.contributors.delete(user_id, {project_id: project_id});
 ```
 
-### Files
+### Translation files
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-files)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-files)
 
 #### List project files
 
@@ -254,8 +255,21 @@ lokaliseApi.files.list({project_id: project_id});
 
 #### Upload a file
 
+**Asynchronous uploading is the preferred method of importing files starting from 9 May 2020.** Node-lokalise-api version 4 supports only asynchronous uploading. To upload a file synchronously, use version 3 but keep in mind that this feature will be completely removed in summer 2020.
+
 ```js
-lokaliseApi.files.upload(project_id, {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
+process = await lokaliseApi.files.upload(project_id,
+  {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
+process.status // => 'queued'
+```
+
+Asynchronous upload will return a [`QueuedProcess`](#queued-processes) containing process ID, status of the process (`queued`, `finished`, `failed` etc) and some other info. You may periodically check the status of the process by using `get()` method:
+
+```js
+// You'll obtain `process_id` after calling `upload()`
+process = await lokaliseApi.queuedProcesses.get(process.process_id, { project_id: project_id })
+
+process.status // => 'finished'
 ```
 
 #### Download a file
@@ -266,7 +280,7 @@ lokaliseApi.files.download(project_id, {format: 'json', "original_filenames": tr
 
 ### Keys
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-keys)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-keys)
 
 #### List keys
 
@@ -354,7 +368,7 @@ lokaliseApi.keys.bulk_delete([
 
 ### Languages
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-languages)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-languages)
 
 #### List system languages
 
@@ -400,7 +414,7 @@ lokaliseApi.languages.delete(lang_id, { project_id: project_id });
 
 ### Orders
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-orders)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-orders)
 
 #### List orders
 
@@ -432,7 +446,7 @@ lokaliseApi.orders.create({
 
 ### Payment Cards
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-payment-cards)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-payment-cards)
 
 #### List payment cards
 
@@ -465,7 +479,7 @@ lokaliseApi.paymentCards.delete(card_id);
 
 ### Projects
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-projects)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-projects)
 
 #### List projects
 
@@ -503,9 +517,25 @@ lokaliseApi.projects.empty(project_id)
 lokaliseApi.projects.delete(project_id);
 ```
 
+### Queued Processes
+
+[Documentation](https://app.lokalise.com/api2docs/curl/#resource-queued-processes)
+
+#### List queued processes
+
+```js
+lokaliseApi.queuedProcesses.list({ project_id: project_id })
+```
+
+#### Retreive queued process
+
+```js
+lokaliseApi.queuedProcesses.get(process_id, { project_id: project_id })
+```
+
 ### Screenshots
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-screenshots)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-screenshots)
 
 #### List screenshots
 
@@ -549,7 +579,7 @@ lokaliseApi.screenshots.delete(screenshot_id, {project_id: project_id});
 
 ### Snapshots
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-snapshots)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-snapshots)
 
 #### List snapshots
 
@@ -577,7 +607,7 @@ lokaliseApi.snapshots.delete(snapshot_id, {project_id: project_id});
 
 ### Tasks
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-tasks)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-tasks)
 
 #### List tasks
 
@@ -624,7 +654,7 @@ lokaliseApi.tasks.delete(task_id, {project_id: project_id});
 
 ### Teams
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-teams)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-teams)
 
 #### List all teams
 
@@ -634,7 +664,7 @@ lokaliseApi.teams.list();
 
 ### Team users
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-team-users)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-team-users)
 
 #### List team users
 
@@ -666,7 +696,7 @@ lokaliseApi.teamUsers.delete(user_id, {team_id: team_id});
 
 ### Team user groups
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-team-user-groups)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-team-user-groups)
 
 #### List team user groups
 
@@ -757,7 +787,7 @@ lokaliseApi.userGroups.delete(new_group_id, {team_id: team_id});
 
 ### Translations
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-translations)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-translations)
 
 #### List translations
 
@@ -783,7 +813,7 @@ lokaliseApi.translations.update(
 
 ### Translation Providers
 
-[Documentation](https://lokalise.com/api2docs/curl/#object-translation-providers)
+[Documentation](https://app.lokalise.com/api2docs/curl/#object-translation-providers)
 
 #### List translation providers
 
@@ -799,7 +829,7 @@ lokaliseApi.translationProviders.get(translation_provider_id, {team_id: team_id}
 
 ### Translation Statuses
 
-[Documentation](https://lokalise.com/api2docs/curl/#resource-translation-statuses)
+[Documentation](https://app.lokalise.com/api2docs/curl/#resource-translation-statuses)
 
 #### List translation statuses
 
@@ -846,7 +876,7 @@ lokaliseApi.translationStatuses.available_colors({project_id: project_id});
 
 ### Webhooks
 
-[Documentation](https://lokalise.com/api2docs/curl/#resource-webhooks)
+[Documentation](https://app.lokalise.com/api2docs/curl/#resource-webhooks)
 
 #### List webhooks
 
@@ -911,11 +941,11 @@ lokaliseApi.projects.list().catch(
 );
 ```
 
-[Error codes](https://lokalise.com/api2docs/curl/#resource-errors) are listed in the API docs.
+[Error codes](https://app.lokalise.com/api2docs/curl/#resource-errors) are listed in the API docs.
 
 ### API Rate Limits
 
-Lokalise does not [rate-limit API requests](https://lokalise.com/api2docs/curl/#resource-rate-limits), however retain a right to decline the service in case of excessive use. Only one concurrent request per token is allowed. To ensure data consistency, it is not recommended to access the same project simultaneously using multiple tokens.
+Lokalise does not [rate-limit API requests](https://app.lokalise.com/api2docs/curl/#resource-rate-limits), however retain a right to decline the service in case of excessive use. Only one concurrent request per token is allowed. To ensure data consistency, it is not recommended to access the same project simultaneously using multiple tokens.
 
 ## Running Tests
 

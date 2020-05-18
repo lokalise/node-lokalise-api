@@ -8,5 +8,5 @@ export declare class Keys extends BaseCollection {
     create(raw_body: any, params?: StandartParams): Promise<any>;
     update(id: any, body: any, params?: StandartParams): Promise<any>;
     bulk_update(raw_keys: object[], params: StandartParams): Promise<any>;
-    bulk_delete(raw_keys: number[] | string[], params: StandartParams): any;
+    bulk_delete(raw_keys: number[] | string[], params: StandartParams): Promise<any>;
 }

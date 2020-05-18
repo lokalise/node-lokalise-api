@@ -13,12 +13,12 @@ export class Webhooks extends BaseCollection {
       this.handleReject, body);
   }
 
-  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
 
-  regenerate_secret(id: any, params : StandartParams = {}) : Promise<any> {
+  regenerate_secret(id: any, params: StandartParams = {}): Promise<any> {
     params['id'] = id;
     return this.createPromise('PATCH', params, this.returnBareJSON, this.handleReject, null,
       'projects/{!:project_id}/webhooks/{:id}/secret/regenerate');

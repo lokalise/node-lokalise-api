@@ -9,6 +9,7 @@ export declare class LocaliseApiMethods {
     orders: Collections.Orders;
     paymentCards: Collections.PaymentCards;
     projects: Collections.Projects;
+    queuedProcesses: Collections.QueuedProcesses;
     screenshots: Collections.Screenshots;
     snapshots: Collections.Snapshots;
     tasks: Collections.Tasks;

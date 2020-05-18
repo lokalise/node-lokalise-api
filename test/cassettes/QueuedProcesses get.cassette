@@ -1,0 +1,71 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "GET",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/processes/c23eb693ff46cd9a78310132dfbc6a42c93b0fc2",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "branch": "master",
+      "process": {
+        "process_id": "c23eb693ff46cd9a78310132dfbc6a42c93b0fc2",
+        "type": "file-import",
+        "status": "finished",
+        "message": "",
+        "created_by": 20181,
+        "created_by_email": "bodrovis@protonmail.com",
+        "created_at": "2020-05-15 11:16:48 (Etc/UTC)",
+        "created_at_timestamp": 1589541408,
+        "details": {
+          "files": [
+            {
+              "status": "finished",
+              "message": "",
+              "name_original": "test_async.json",
+              "name_custom": null,
+              "word_count_total": 3,
+              "key_count_total": 3,
+              "key_count_inserted": 1,
+              "key_count_updated": 0,
+              "key_count_skipped": 2
+            }
+          ]
+        }
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "Date",
+      "Fri, 15 May 2020 11:27:58 GMT",
+      "Pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Expires",
+      "Fri, 15 May 2020 11:27:58 GMT",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

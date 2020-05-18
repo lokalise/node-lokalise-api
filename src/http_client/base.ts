@@ -14,8 +14,8 @@ export class ApiRequest {
     return this;
   }
 
-  createPromise(uri: any, method: any, body: any) {
-    let options: Options = {
+  createPromise(uri: any, method: any, body: any): Promise<any> {
+    const options: Options = {
       method: method,
       prefixUrl: this.urlRoot,
       headers: {
@@ -27,7 +27,7 @@ export class ApiRequest {
       decompress: false
     };
 
-    let url:string = this.composeURI(uri);
+    const url: string = this.composeURI(uri);
 
     if (Object.keys(this.params).length > 0) {
       options['searchParams'] = (new URLSearchParams(this.params)).toString();
@@ -39,36 +39,36 @@ export class ApiRequest {
 
     return new Promise((resolve, reject) => {
       got(url, options).then((response: Response) => {
-          let responseJSON = JSON.parse(<string>response.body);
+          const responseJSON = JSON.parse(<string>response.body);
           if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
             reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
             return;
           }
           // Workaround to pass header parameters
-          let result: any = {};
+          const result: any = {};
           result['headers'] = response.headers;
           result['body'] = responseJSON;
           resolve(result);
           return;
-      }).then((error:RequestError, _error2:any) => {
+      }).then((error: RequestError) => {
           reject(error.code);
           return error;
-      }).catch((error:any) => {
+      }).catch((error: any) => {
          reject(error);
          return error;
       });
     });
   }
 
-  protected composeURI(uri: any) {
-    let regexp: RegExp = /{(!{0,1}):(\w*)}/g;
+  protected composeURI(uri: any): string {
+    const regexp: RegExp = /{(!{0,1}):(\w*)}/g;
     return uri.replace(regexp, this.mapUriParams(this.params));
   }
 
   protected mapUriParams(params: any) {
-    return (_entity: any, isMandaratory: any, paramName: any) => {
+    return (_entity: any, isMandaratory: any, paramName: any): any => {
       if (params[paramName] != null) {
-        let t_param = params[paramName];
+        const t_param = params[paramName];
         delete this.params[paramName];
         return t_param;
       } else {
@@ -81,6 +81,4 @@ export class ApiRequest {
       }
     }
   }
-
-  constructParameters(_method: any, _params: any) {}
 }

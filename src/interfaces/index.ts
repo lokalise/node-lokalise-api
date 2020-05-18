@@ -1,6 +1,7 @@
 import { Branch } from './branch';
 import { Language } from './language';
 import { Project } from './project';
+import { QueuedProcess } from './queued_process';
 import { Comment } from './comment';
 import { Order } from './order';
 import { PaymentCard } from './payment_card';
@@ -28,6 +29,7 @@ export {
   Order,
   PaymentCard,
   Project,
+  QueuedProcess,
   Screenshot,
   Snapshot,
   Task,

@@ -1,8 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
+exports.BaseModel = void 0;
 class BaseModel {
     constructor(params) {
-        for (let key of Object.keys(params)) {
+        for (const key of Object.keys(params)) {
             this[key] = params[key];
         }
     }

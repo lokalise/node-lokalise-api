@@ -122,7 +122,6 @@ declare module '@lokalise/node-api' {
     protected mapUriParams(
       params: any,
     ): (entity: any, isMandaratory: any, paramName: any) => any;
-    constructParameters(method: any, params: any): void;
   }
 
   export class UserGroups extends BaseCollection {

@@ -5,48 +5,53 @@
     "path": "/api2/projects/803826145ba90b42d5d860.46800099/files/upload",
     "body": {
       "data": "ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=",
-      "filename": "test1.json",
-      "lang_iso": "en"
+      "filename": "test_async.json",
+      "lang_iso": "en",
+      "queue": true
     },
-    "status": 200,
+    "status": 202,
     "response": {
       "project_id": "803826145ba90b42d5d860.46800099",
-      "file": "test1.json",
-      "result": {
-        "skipped": 0,
-        "inserted": 3,
-        "updated": 0
+      "branch": "master",
+      "process": {
+        "process_id": "c23eb693ff46cd9a78310132dfbc6a42c93b0fc2",
+        "type": "file-import",
+        "status": "queued",
+        "message": "",
+        "created_by": 20181,
+        "created_by_email": "bodrovis@protonmail.com",
+        "created_at": "2020-05-15 11:16:48 (Etc/UTC)",
+        "created_at_timestamp": 1589541408
       }
     },
     "rawHeaders": [
       "Server",
       "nginx",
-      "Date",
-      "Wed, 19 Jun 2019 18:04:05 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
       "chunked",
       "Connection",
       "close",
-      "Vary",
-      "Accept-Encoding",
-      "Set-Cookie",
-      "PHPSESSID=4027e0ea9229a3093f1acbf1c1bcd669; expires=Sun, 18-Aug-2019 18:04:04 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "Date",
+      "Fri, 15 May 2020 11:16:48 GMT",
+      "Location",
+      "/api2/projects/803826145ba90b42d5d860.46800099/processes/c23eb693ff46cd9a78310132dfbc6a42c93b0fc2",
+      "Pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
       "Expires",
-      "Thu, 19 Nov 1981 08:52:00 GMT",
-      "Cache-Control",
-      "no-store, no-cache, must-revalidate",
-      "Pragma",
-      "no-cache",
-      "Pragma",
-      "no-cache",
-      "Cache-Control",
-      "no-store, no-cache",
-      "Access-Control-Allow-Origin",
-      "*",
-      "Access-Control-Allow-Headers",
-      "Content-Type"
-    ]
+      "Fri, 15 May 2020 11:16:48 GMT"
+    ],
+    "responseIsBinary": false
   }
 ]

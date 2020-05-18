@@ -12,12 +12,12 @@ export class Branches extends BaseCollection {
     return this.createPromise('POST', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
 
-  update(id: any, body: any, params : StandartParams = {}) : Promise<any> {
+  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
     params['id'] = id;
     return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
   }
 
-  merge(id: any, body: any = {}, params: StandartParams = {}) : Promise<any> {
+  merge(id: any, body: any = {}, params: StandartParams = {}): Promise<any> {
     params['id'] = id;
     return this.createPromise('POST', params, this.returnBareJSON, this.handleReject,
       body, 'projects/{!:project_id}/branches/{:id}/merge')

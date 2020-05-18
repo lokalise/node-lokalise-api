@@ -6,6 +6,8 @@ export declare class BaseCollection {
     protected static endpoint: string | null;
     protected static prefixURI: string | null;
     protected static elementClass: any;
+    protected static secondaryElementNameSingular: string | null;
+    protected static secondaryElementClass: any;
     totalResults: number | null;
     totalPages: number | null;
     resultsPerPage: number | null;
@@ -17,7 +19,8 @@ export declare class BaseCollection {
     delete(id: any, params?: StandartParams): Promise<any>;
     populatePaginationDataFor(headers: any): void;
     protected populateObjectFromJsonRoot(json: any): this;
-    protected populateObjectFromJson(json: Object): this;
+    protected populateSecondaryObjectFromJsonRoot(json: any): this;
+    protected populateObjectFromJson(json: Object, secondary?: boolean): this;
     protected populateArrayFromJson(json: Array<any>): this[];
     protected populateApiErrorFromJson(json: Object): ApiError;
     protected returnBareJSON(json: any): any;
