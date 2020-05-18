@@ -1,4 +1,4 @@
-import { BaseCollection } from './base_collection';
+import { BaseCollection } from "./base_collection";
 export declare class Projects extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;

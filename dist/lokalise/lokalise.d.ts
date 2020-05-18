@@ -1,4 +1,4 @@
-import { LocaliseApiMethods } from './api_methods';
+import { LocaliseApiMethods } from "./api_methods";
 export declare class LokaliseApi extends LocaliseApiMethods {
     static apiKey: string | null;
     apiKey: string;

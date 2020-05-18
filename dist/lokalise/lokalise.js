@@ -11,7 +11,7 @@ let LokaliseApi = /** @class */ (() => {
          */
         constructor(params = {}) {
             super();
-            LokaliseApi.apiKey = params['apiKey'];
+            LokaliseApi.apiKey = params["apiKey"];
             if (LokaliseApi.apiKey == null || LokaliseApi.apiKey.length == 0) {
                 throw new Error("Error: Instantiation failed: Please pass an API key");
             }

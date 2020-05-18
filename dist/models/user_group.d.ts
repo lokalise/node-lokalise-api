@@ -1,4 +1,4 @@
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 import { UserGroup as UserGroupInterface } from "../interfaces";
 export declare class UserGroup extends BaseModel implements UserGroupInterface {
     group_id: number;

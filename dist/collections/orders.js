@@ -6,8 +6,8 @@ const base_collection_1 = require("./base_collection");
 let Orders = /** @class */ (() => {
     class Orders extends base_collection_1.BaseCollection {
     }
-    Orders.rootElementName = 'orders';
-    Orders.prefixURI = 'teams/{!:team_id}/orders/{:id}';
+    Orders.rootElementName = "orders";
+    Orders.prefixURI = "teams/{!:team_id}/orders/{:id}";
     Orders.elementClass = order_1.Order;
     return Orders;
 })();

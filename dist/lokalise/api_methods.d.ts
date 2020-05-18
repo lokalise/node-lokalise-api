@@ -1,4 +1,4 @@
-import * as Collections from '../collections/index';
+import * as Collections from "../collections/index";
 export declare class LocaliseApiMethods {
     branches: Collections.Branches;
     comments: Collections.Comments;

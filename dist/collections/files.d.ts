@@ -1,6 +1,6 @@
-import { BaseCollection } from './base_collection';
-import { UploadFileParams } from '../interfaces/upload_file_params';
-import { DownloadFileParams } from '../interfaces/download_file_params';
+import { BaseCollection } from "./base_collection";
+import { UploadFileParams } from "../interfaces/upload_file_params";
+import { DownloadFileParams } from "../interfaces/download_file_params";
 export declare class Files extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;

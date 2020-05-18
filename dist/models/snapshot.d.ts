@@ -1,4 +1,4 @@
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 import { Snapshot as SnapshotInterface } from "../interfaces";
 export declare class Snapshot extends BaseModel implements SnapshotInterface {
     snapshot_id: number;

@@ -9,16 +9,16 @@ let Files = /** @class */ (() => {
         upload(project_id, upload) {
             // Always upload in the background
             upload.queue = true;
-            return this.createPromise('POST', { project_id: project_id }, this.populateSecondaryObjectFromJsonRoot, this.handleReject, upload, 'projects/{!:project_id}/files/upload');
+            return this.createPromise("POST", { project_id: project_id }, this.populateSecondaryObjectFromJsonRoot, this.handleReject, upload, "projects/{!:project_id}/files/upload");
         }
         download(project_id, download) {
-            return this.createPromise('POST', { project_id: project_id }, this.returnBareJSON, this.handleReject, download, 'projects/{!:project_id}/files/download');
+            return this.createPromise("POST", { project_id: project_id }, this.returnBareJSON, this.handleReject, download, "projects/{!:project_id}/files/download");
         }
     }
-    Files.rootElementName = 'files';
-    Files.prefixURI = 'projects/{!:project_id}/files/{:id}';
+    Files.rootElementName = "files";
+    Files.prefixURI = "projects/{!:project_id}/files/{:id}";
     Files.elementClass = file_1.File;
-    Files.secondaryElementNameSingular = 'process';
+    Files.secondaryElementNameSingular = "process";
     Files.secondaryElementClass = queued_process_1.QueuedProcess;
     return Files;
 })();

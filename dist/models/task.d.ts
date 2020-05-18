@@ -1,4 +1,4 @@
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 import { Task as TaskInterface } from "../interfaces";
 export declare class Task extends BaseModel implements TaskInterface {
     task_id: number;

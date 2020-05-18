@@ -1,5 +1,5 @@
-import { Project as ProjectInterface } from '../interfaces/index';
-import { BaseModel } from './base_model';
+import { Project as ProjectInterface } from "../interfaces/index";
+import { BaseModel } from "./base_model";
 export declare class Project extends BaseModel implements ProjectInterface {
     project_id: string;
     project_type: string;

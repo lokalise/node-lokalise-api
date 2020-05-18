@@ -1,4 +1,4 @@
-import { BaseCollection } from './base_collection';
+import { BaseCollection } from "./base_collection";
 import { StandartParams } from "../interfaces/standart_params";
 export declare class Translations extends BaseCollection {
     protected static rootElementName: string;

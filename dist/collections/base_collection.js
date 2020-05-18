@@ -12,28 +12,28 @@ let BaseCollection = /** @class */ (() => {
             this.currentPage = null;
         }
         get(id, params = {}, body = null) {
-            params['id'] = id;
-            return this.createPromise('GET', params, this.populateObjectFromJsonRoot, this.handleReject, body);
+            params["id"] = id;
+            return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, body);
         }
         list(params = {}) {
-            return this.createPromise('GET', params, this.populateArrayFromJson, this.handleReject, null);
+            return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
         }
         create(body, params = {}) {
-            return this.createPromise('POST', params, this.populateObjectFromJson, this.handleReject, body);
+            return this.createPromise("POST", params, this.populateObjectFromJson, this.handleReject, body);
         }
         update(id, body, params = {}) {
-            params['id'] = id;
-            return this.createPromise('PUT', params, this.populateObjectFromJson, this.handleReject, body);
+            params["id"] = id;
+            return this.createPromise("PUT", params, this.populateObjectFromJson, this.handleReject, body);
         }
         delete(id, params = {}) {
-            params['id'] = id;
-            return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, null);
+            params["id"] = id;
+            return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, null);
         }
         populatePaginationDataFor(headers) {
-            this.totalResults = parseInt(headers['x-pagination-total-count']);
-            this.totalPages = parseInt(headers['x-pagination-page-count']);
-            this.resultsPerPage = parseInt(headers['x-pagination-limit']);
-            this.currentPage = parseInt(headers['x-pagination-page']);
+            this.totalResults = parseInt(headers["x-pagination-total-count"]);
+            this.totalPages = parseInt(headers["x-pagination-page-count"]);
+            this.resultsPerPage = parseInt(headers["x-pagination-limit"]);
+            this.currentPage = parseInt(headers["x-pagination-page"]);
             return;
         }
         populateObjectFromJsonRoot(json) {
@@ -84,18 +84,20 @@ let BaseCollection = /** @class */ (() => {
             }
             return new Promise((resolve, reject) => {
                 const response = new base_1.ApiRequest(uri, method, body, params);
-                response.promise.then((result) => {
-                    const headers = result['headers'];
+                response.promise
+                    .then((result) => {
+                    const headers = result["headers"];
                     this.populatePaginationDataFor(headers);
-                    const json = result['body'];
+                    const json = result["body"];
                     resolve(resolveFn.call(this, json));
-                }).catch((data) => {
+                })
+                    .catch((data) => {
                     reject(rejectFn.call(this, data));
                 });
             });
         }
     }
-    BaseCollection.rootElementName = '';
+    BaseCollection.rootElementName = "";
     BaseCollection.rootElementNameSingular = null;
     BaseCollection.endpoint = null;
     BaseCollection.prefixURI = null;

@@ -1,5 +1,5 @@
-import { BaseCollection } from './base_collection';
-import { StandartParams } from '../interfaces/standart_params';
+import { BaseCollection } from "./base_collection";
+import { StandartParams } from "../interfaces/standart_params";
 export declare class Languages extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

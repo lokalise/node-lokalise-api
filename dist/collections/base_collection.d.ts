@@ -1,5 +1,5 @@
-import { StandartParams } from '../interfaces/standart_params';
-import { ApiError } from '../models/api_error';
+import { StandartParams } from "../interfaces/standart_params";
+import { ApiError } from "../models/api_error";
 export declare class BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string | null;

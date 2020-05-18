@@ -1,4 +1,4 @@
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 import { Screenshot as ScreenshotInterface } from "../interfaces";
 export declare class Screenshot extends BaseModel implements ScreenshotInterface {
     screenshot_id: number;

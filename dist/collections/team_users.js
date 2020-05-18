@@ -6,13 +6,13 @@ const team_user_1 = require("../models/team_user");
 let TeamUsers = /** @class */ (() => {
     class TeamUsers extends base_collection_1.BaseCollection {
         update(id, body, params = {}) {
-            params['id'] = id;
-            return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
+            params["id"] = id;
+            return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
         }
     }
-    TeamUsers.rootElementName = 'team_users';
-    TeamUsers.rootElementNameSingular = 'team_user';
-    TeamUsers.prefixURI = 'teams/{!:team_id}/users/{:id}';
+    TeamUsers.rootElementName = "team_users";
+    TeamUsers.rootElementNameSingular = "team_user";
+    TeamUsers.prefixURI = "teams/{!:team_id}/users/{:id}";
     TeamUsers.elementClass = team_user_1.TeamUser;
     return TeamUsers;
 })();

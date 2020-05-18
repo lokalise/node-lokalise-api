@@ -6,20 +6,20 @@ const translation_status_1 = require("../models/translation_status");
 let TranslationStatuses = /** @class */ (() => {
     class TranslationStatuses extends base_collection_1.BaseCollection {
         create(body, params = {}) {
-            return this.createPromise('POST', params, this.populateObjectFromJsonRoot, this.handleReject, body);
+            return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
         }
         update(id, body, params = {}) {
-            params['id'] = id;
-            return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
+            params["id"] = id;
+            return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
         }
         available_colors(params = {}) {
-            return this.createPromise('GET', params, this.returnBareJSON, this.handleReject, {}, 'projects/{!:project_id}/custom_translation_statuses/colors');
+            return this.createPromise("GET", params, this.returnBareJSON, this.handleReject, {}, "projects/{!:project_id}/custom_translation_statuses/colors");
         }
     }
-    TranslationStatuses.rootElementName = 'custom_translation_statuses';
-    TranslationStatuses.prefixURI = 'projects/{!:project_id}/custom_translation_statuses/{:id}';
+    TranslationStatuses.rootElementName = "custom_translation_statuses";
+    TranslationStatuses.prefixURI = "projects/{!:project_id}/custom_translation_statuses/{:id}";
     TranslationStatuses.elementClass = translation_status_1.TranslationStatus;
-    TranslationStatuses.rootElementNameSingular = 'custom_translation_status';
+    TranslationStatuses.rootElementNameSingular = "custom_translation_status";
     return TranslationStatuses;
 })();
 exports.TranslationStatuses = TranslationStatuses;

@@ -6,25 +6,25 @@ const key_1 = require("../models/key");
 let Keys = /** @class */ (() => {
     class Keys extends base_collection_1.BaseCollection {
         create(raw_body, params = {}) {
-            const body = { 'keys': raw_body };
-            return this.createPromise('POST', params, this.populateArrayFromJson, this.handleReject, body);
+            const body = { keys: raw_body };
+            return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
         }
         update(id, body, params = {}) {
-            params['id'] = id;
-            return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
+            params["id"] = id;
+            return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
         }
         bulk_update(raw_keys, params) {
-            const keys = { 'keys': raw_keys };
-            return this.createPromise('PUT', params, this.populateArrayFromJson, this.handleReject, keys, 'projects/{!:project_id}/keys');
+            const keys = { keys: raw_keys };
+            return this.createPromise("PUT", params, this.populateArrayFromJson, this.handleReject, keys, "projects/{!:project_id}/keys");
         }
         bulk_delete(raw_keys, params) {
-            const keys = { 'keys': raw_keys };
-            return this.createPromise('DELETE', params, this.returnBareJSON, this.handleReject, keys, 'projects/{!:project_id}/keys');
+            const keys = { keys: raw_keys };
+            return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, keys, "projects/{!:project_id}/keys");
         }
     }
-    Keys.rootElementName = 'keys';
-    Keys.rootElementNameSingular = 'key';
-    Keys.prefixURI = 'projects/{!:project_id}/keys/{:id}';
+    Keys.rootElementName = "keys";
+    Keys.rootElementNameSingular = "key";
+    Keys.prefixURI = "projects/{!:project_id}/keys/{:id}";
     Keys.elementClass = key_1.Key;
     return Keys;
 })();

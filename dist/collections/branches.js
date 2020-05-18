@@ -6,20 +6,20 @@ const branch_1 = require("../models/branch");
 let Branches = /** @class */ (() => {
     class Branches extends base_collection_1.BaseCollection {
         create(body, params = {}) {
-            return this.createPromise('POST', params, this.populateObjectFromJsonRoot, this.handleReject, body);
+            return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
         }
         update(id, body, params = {}) {
-            params['id'] = id;
-            return this.createPromise('PUT', params, this.populateObjectFromJsonRoot, this.handleReject, body);
+            params["id"] = id;
+            return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
         }
         merge(id, body = {}, params = {}) {
-            params['id'] = id;
-            return this.createPromise('POST', params, this.returnBareJSON, this.handleReject, body, 'projects/{!:project_id}/branches/{:id}/merge');
+            params["id"] = id;
+            return this.createPromise("POST", params, this.returnBareJSON, this.handleReject, body, "projects/{!:project_id}/branches/{:id}/merge");
         }
     }
-    Branches.rootElementName = 'branches';
-    Branches.rootElementNameSingular = 'branch';
-    Branches.prefixURI = 'projects/{!:project_id}/branches/{:id}';
+    Branches.rootElementName = "branches";
+    Branches.rootElementNameSingular = "branch";
+    Branches.prefixURI = "projects/{!:project_id}/branches/{:id}";
     Branches.elementClass = branch_1.Branch;
     return Branches;
 })();
