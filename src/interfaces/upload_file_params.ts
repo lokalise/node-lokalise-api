@@ -16,7 +16,7 @@ export interface UploadFileParams {
   apply_tm?: boolean;
   hidden_from_contributors?: boolean;
   cleanup_mode?: boolean;
-  custom_translation_status_ids?: string|number[];
+  custom_translation_status_ids?: string | number[];
   custom_translation_status_inserted_keys?: boolean;
   custom_translation_status_updated_keys?: boolean;
   custom_translation_status_skipped_keys?: boolean;

@@ -1,4 +1,4 @@
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 import { QueuedProcess as QueuedProcessInterface } from "../interfaces";
 
 export class QueuedProcess extends BaseModel implements QueuedProcessInterface {

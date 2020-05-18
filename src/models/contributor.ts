@@ -1,4 +1,4 @@
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 import { Contributor as ContributorInterface } from "../interfaces/index";
 
 export class Contributor extends BaseModel implements ContributorInterface {

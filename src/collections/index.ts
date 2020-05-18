@@ -1,23 +1,23 @@
-import { Branches } from './branches';
-import { Comments } from './comments';
-import { Contributors } from './contributors';
-import { Files } from './files';
-import { Keys } from './keys';
-import { Languages } from './languages';
-import { Orders } from './orders';
-import { PaymentCards } from './payment_cards';
-import { Projects } from './projects';
-import { QueuedProcesses } from './queued_processes';
-import { Screenshots } from './screenshots';
-import { Snapshots } from './snapshots';
-import { Tasks } from './tasks';
-import { Teams } from './teams';
-import { TeamUsers } from './team_users';
-import { Translations } from './translations';
-import { TranslationProviders } from './translation_providers';
-import { TranslationStatuses } from './translation_statuses';
-import { UserGroups } from './user_groups';
-import { Webhooks } from './webhooks';
+import { Branches } from "./branches";
+import { Comments } from "./comments";
+import { Contributors } from "./contributors";
+import { Files } from "./files";
+import { Keys } from "./keys";
+import { Languages } from "./languages";
+import { Orders } from "./orders";
+import { PaymentCards } from "./payment_cards";
+import { Projects } from "./projects";
+import { QueuedProcesses } from "./queued_processes";
+import { Screenshots } from "./screenshots";
+import { Snapshots } from "./snapshots";
+import { Tasks } from "./tasks";
+import { Teams } from "./teams";
+import { TeamUsers } from "./team_users";
+import { Translations } from "./translations";
+import { TranslationProviders } from "./translation_providers";
+import { TranslationStatuses } from "./translation_statuses";
+import { UserGroups } from "./user_groups";
+import { Webhooks } from "./webhooks";
 
 export {
   Branches,
@@ -39,5 +39,5 @@ export {
   TranslationProviders,
   TranslationStatuses,
   UserGroups,
-  Webhooks
+  Webhooks,
 };

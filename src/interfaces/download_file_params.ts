@@ -15,7 +15,7 @@ export interface DownloadFileParams {
   export_empty_as?: string;
   include_comments?: boolean;
   include_description?: boolean;
-  include_pids? : any[];
+  include_pids?: any[];
   triggers?: string[];
   filter_repositories?: any[];
   replace_breaks?: boolean;

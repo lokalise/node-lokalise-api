@@ -1,5 +1,5 @@
 import { Key as KeyInterface } from "../interfaces";
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 
 export class Key extends BaseModel implements KeyInterface {
   public key_id: number;
@@ -12,7 +12,7 @@ export class Key extends BaseModel implements KeyInterface {
   public tags: string[];
   public comments: object;
   public screenshots: object;
-  public translations: object|object[];
+  public translations: object | object[];
   public is_plural: boolean;
   public plural_name: string;
   public is_hidden: boolean;

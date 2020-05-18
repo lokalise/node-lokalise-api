@@ -1,10 +1,10 @@
-import { RequestError, Response, Options } from 'got';
-const got = require('got');
-const pkg = require('../../package.json');
-import { LokaliseApi } from '../lokalise/lokalise';
+import { RequestError, Response, Options } from "got";
+const got = require("got");
+const pkg = require("../../package.json");
+import { LokaliseApi } from "../lokalise/lokalise";
 
 export class ApiRequest {
-  private urlRoot: string = 'https://api.lokalise.com/api2/';
+  private urlRoot: string = "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
   public params: any = {};
 
@@ -19,44 +19,52 @@ export class ApiRequest {
       method: method,
       prefixUrl: this.urlRoot,
       headers: {
-        'x-api-token': <string>LokaliseApi.apiKey,
-        'user-agent': `node-lokalise-api/${pkg.version}`
+        "x-api-token": <string>LokaliseApi.apiKey,
+        "user-agent": `node-lokalise-api/${pkg.version}`,
       },
       agent: false,
-      throwHttpErrors : false,
-      decompress: false
+      throwHttpErrors: false,
+      decompress: false,
     };
 
     const url: string = this.composeURI(uri);
 
     if (Object.keys(this.params).length > 0) {
-      options['searchParams'] = (new URLSearchParams(this.params)).toString();
+      options["searchParams"] = new URLSearchParams(this.params).toString();
     }
 
-    if (method != 'GET' && body) {
-      options['body'] = JSON.stringify(body);
+    if (method != "GET" && body) {
+      options["body"] = JSON.stringify(body);
     }
 
     return new Promise((resolve, reject) => {
-      got(url, options).then((response: Response) => {
+      got(url, options)
+        .then((response: Response) => {
           const responseJSON = JSON.parse(<string>response.body);
-          if (responseJSON['error'] || (responseJSON['errors'] && responseJSON['errors'].length != 0)) {
-            reject(responseJSON['error'] || responseJSON['errors'] || responseJSON);
+          if (
+            responseJSON["error"] ||
+            (responseJSON["errors"] && responseJSON["errors"].length != 0)
+          ) {
+            reject(
+              responseJSON["error"] || responseJSON["errors"] || responseJSON
+            );
             return;
           }
           // Workaround to pass header parameters
           const result: any = {};
-          result['headers'] = response.headers;
-          result['body'] = responseJSON;
+          result["headers"] = response.headers;
+          result["body"] = responseJSON;
           resolve(result);
           return;
-      }).then((error: RequestError) => {
+        })
+        .then((error: RequestError) => {
           reject(error.code);
           return error;
-      }).catch((error: any) => {
-         reject(error);
-         return error;
-      });
+        })
+        .catch((error: any) => {
+          reject(error);
+          return error;
+        });
     });
   }
 
@@ -72,13 +80,12 @@ export class ApiRequest {
         delete this.params[paramName];
         return t_param;
       } else {
-        if (isMandaratory == '!') {
-          throw new Error('Required param ' + paramName);
-        }
-        else {
-          return '';
+        if (isMandaratory == "!") {
+          throw new Error("Required param " + paramName);
+        } else {
+          return "";
         }
       }
-    }
+    };
   }
 }

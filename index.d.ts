@@ -1,4 +1,4 @@
-declare module '@lokalise/node-api' {
+declare module "@lokalise/node-api" {
   export interface Branch {
     branch_id: number;
     name: string;
@@ -47,7 +47,7 @@ declare module '@lokalise/node-api' {
     export_empty_as?: string;
     include_comments?: boolean;
     include_description?: boolean;
-    include_pids? : any[];
+    include_pids?: any[];
     triggers?: string[];
     filter_repositories?: any[];
     replace_breaks?: boolean;
@@ -86,7 +86,7 @@ declare module '@lokalise/node-api' {
     tags: string[];
     comments: object;
     screenshots: object;
-    translations: object|object[];
+    translations: object | object[];
     is_plural: boolean;
     plural_name: string;
     is_hidden: boolean;
@@ -318,7 +318,7 @@ declare module '@lokalise/node-api' {
     createPromise(uri: any, method: any, body: any): Promise<{}>;
     protected composeURI(uri: any): any;
     protected mapUriParams(
-      params: any,
+      params: any
     ): (entity: any, isMandaratory: any, paramName: any) => any;
     constructParameters(_method: any, _params: any): void;
   }
@@ -348,7 +348,7 @@ declare module '@lokalise/node-api' {
       resolveFn: any,
       rejectFn?: (data: any) => void,
       body?: any,
-      uri?: any,
+      uri?: any
     ): Promise<any>;
   }
 
@@ -397,10 +397,7 @@ declare module '@lokalise/node-api' {
     protected static elementClass: Object;
     create(body: any, params?: StandartParams): Promise<any>;
     update(id: any, body: any, params?: StandartParams): Promise<any>;
-    bulk_update(
-      raw_keys: object[],
-      params: StandartParams,
-    ): Promise<any>;
+    bulk_update(raw_keys: object[], params: StandartParams): Promise<any>;
     bulk_delete(raw_keys: number[] | string[], params: StandartParams): any;
   }
 
@@ -514,10 +511,30 @@ declare module '@lokalise/node-api' {
     protected static elementClass: Object;
     create(body: any, params?: StandartParams): Promise<any>;
     update(id: any, body: any, params: StandartParams): Promise<any>;
-    add_projects_to_group(team_id: any, group_id: any, raw_body: any[], params: any): Promise<any>;
-    remove_projects_from_group(team_id: any, group_id: any, raw_body: any[], params: any): Promise<any>;
-    add_members_to_group(team_id: any, group_id: any, raw_body: any[], params: any): Promise<any>;
-    remove_members_from_group(team_id: any, group_id: any, raw_body: any[], params: any): Promise<any>;
+    add_projects_to_group(
+      team_id: any,
+      group_id: any,
+      raw_body: any[],
+      params: any
+    ): Promise<any>;
+    remove_projects_from_group(
+      team_id: any,
+      group_id: any,
+      raw_body: any[],
+      params: any
+    ): Promise<any>;
+    add_members_to_group(
+      team_id: any,
+      group_id: any,
+      raw_body: any[],
+      params: any
+    ): Promise<any>;
+    remove_members_from_group(
+      team_id: any,
+      group_id: any,
+      raw_body: any[],
+      params: any
+    ): Promise<any>;
   }
 
   export class Webhooks extends BaseCollection {

@@ -1,4 +1,4 @@
-import * as Collections from '../collections/index';
+import * as Collections from "../collections/index";
 
 export class LocaliseApiMethods {
   // TODO: Lazy loading

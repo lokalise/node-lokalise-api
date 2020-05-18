@@ -1,5 +1,5 @@
 import { PaymentCard as PaymentCardInterface } from "../interfaces";
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 
 export class PaymentCard extends BaseModel implements PaymentCardInterface {
   public card_id: number;

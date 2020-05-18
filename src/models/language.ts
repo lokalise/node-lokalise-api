@@ -1,5 +1,5 @@
 import { Language as LanguageInterface } from "../interfaces";
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 
 export class Language extends BaseModel implements LanguageInterface {
   public lang_id: number;

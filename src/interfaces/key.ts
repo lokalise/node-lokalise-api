@@ -9,7 +9,7 @@ export interface Key {
   tags: string[];
   comments: object;
   screenshots: object;
-  translations: object|object[];
+  translations: object | object[];
   is_plural: boolean;
   plural_name: string;
   is_hidden: boolean;

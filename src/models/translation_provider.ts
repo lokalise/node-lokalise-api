@@ -1,7 +1,8 @@
-import { BaseModel } from './base_model';
+import { BaseModel } from "./base_model";
 import { TranslationProvider as TranslationProviderInterface } from "../interfaces";
 
-export class TranslationProvider extends BaseModel implements TranslationProviderInterface {
+export class TranslationProvider extends BaseModel
+  implements TranslationProviderInterface {
   public provider_id: number;
   public name: string;
   public slug: string;
