@@ -1,5 +1,10 @@
 # Lokalise API Node Client Changelog
 
+## 4.0.1 (16-Jun-20)
+
+* Update all dependencies to recent versions
+* Update linters
+
 ## 4.0.0 (18-May-20)
 
 * **Breaking change** [All translation files are now uploaded in the background](https://github.com/lokalise/node-lokalise-api#upload-a-file). A `QueuedProcess` with the job status will be returned as a result. Synchronous uploading is still supported by the API but will be removed in the near future (use version 3 to upload synchronously).

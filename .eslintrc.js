@@ -15,7 +15,6 @@ module.exports = {
   ],
   extends: [
     'eslint:recommended',
-    'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
     "plugin:node/recommended",
     "plugin:prettier/recommended",
@@ -36,8 +35,8 @@ module.exports = {
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-explicit-any": "off",
-    "@typescript-eslint/camelcase": "off",
     "@typescript-eslint/no-inferrable-types": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
     "node/no-unsupported-features/es-syntax": "off",
     "node/no-unpublished-import": "off",
     "node/no-unpublished-require": "off",

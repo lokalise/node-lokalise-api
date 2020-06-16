@@ -1,1 +1,1 @@
-{"version":3,"file":"teams.js","sourceRoot":"","sources":["../../src/collections/teams.ts"],"names":[],"mappings":";;;AAAA,uDAAmD;AACnD,yCAAsC;AAEtC;IAAA,MAAa,KAAM,SAAQ,gCAAc;;IACtB,qBAAe,GAAW,OAAO,CAAC;IAClC,eAAS,GAAW,OAAO,CAAC;IAC5B,kBAAY,GAAW,WAAI,CAAC;IAC/C,YAAC;KAAA;AAJY,sBAAK"}
+{"version":3,"file":"teams.js","sourceRoot":"","sources":["../../src/collections/teams.ts"],"names":[],"mappings":";;;AAAA,uDAAmD;AACnD,yCAAsC;AAEtC,MAAa,KAAM,SAAQ,gCAAc;;AAAzC,sBAIC;AAHkB,qBAAe,GAAW,OAAO,CAAC;AAClC,eAAS,GAAW,OAAO,CAAC;AAC5B,kBAAY,GAAW,WAAI,CAAC"}
