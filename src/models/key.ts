@@ -21,4 +21,8 @@ export class Key extends BaseModel implements KeyInterface {
   public base_words: number;
   public char_limit: number;
   public custom_attributes: any[];
+  public modified_at: string;
+  public modified_at_timestamp: number;
+  public translations_modified_at: string;
+  public translations_modified_at_timestamp: number;
 }

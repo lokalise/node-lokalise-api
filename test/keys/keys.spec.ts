@@ -30,29 +30,35 @@ describe("Keys", function () {
 
   cassette
     .createTest("get", async () => {
-      const key = await lokaliseApi.keys.get(key_id, {
+      const key = await lokaliseApi.keys.get(44596066, {
         project_id: project_id,
         disable_references: 1,
       });
-      expect(key.key_id).to.eq(key_id);
-      expect(key.created_at).to.eq("2018-12-09 18:39:20 (Etc/UTC)");
-      expect(key.created_at_timestamp).to.eq(1544380760);
-      expect(key.key_name.ios).to.eq("another_k");
-      expect(key.filenames.ios).to.eq("");
+      expect(key.key_id).to.eq(44596066);
+      expect(key.created_at).to.eq("2020-05-11 11:20:33 (Etc/UTC)");
+      expect(key.created_at_timestamp).to.eq(1589196033);
+      expect(key.key_name.ios).to.eq("static_pages:index:welcome");
+      expect(key.filenames.web).to.eq("%LANG_ISO%.yml");
       expect(key.description).to.eq("");
-      expect(key.platforms).to.include("ios");
+      expect(key.platforms).to.include("web");
       expect(key.tags).to.have.lengthOf(0);
-      expect(key.comments[0].comment).to.eq("rspec comment");
+      expect(key.comments).to.have.lengthOf(0);
       expect(key.screenshots).to.have.lengthOf(0);
-      expect(key.translations[0].words).to.eq(4);
+      expect(key.translations[0].words).to.eq(2);
       expect(key.is_plural).to.be.false;
       expect(key.plural_name).to.eq("");
-      expect(key.is_hidden).to.be.false;
+      expect(key.is_hidden).to.be.true;
       expect(key.is_archived).to.be.false;
       expect(key.context).to.eq("");
-      expect(key.base_words).to.eq(3);
+      expect(key.base_words).to.eq(1);
       expect(key.char_limit).to.eq(0);
       expect(key.custom_attributes).to.eq("");
+      expect(key.modified_at).to.eq("2020-05-11 11:20:33 (Etc/UTC)");
+      expect(key.modified_at_timestamp).to.eq(1589196033);
+      expect(key.translations_modified_at).to.eq(
+        "2020-05-15 10:44:42 (Etc/UTC)"
+      );
+      expect(key.translations_modified_at_timestamp).to.eq(1589539482);
     })
     .register(this);
 

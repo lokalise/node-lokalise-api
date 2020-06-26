@@ -1,5 +1,9 @@
 # Lokalise API Node Client Changelog
 
+## 4.1.0 (26-Jun-20)
+
+* Added all recently introduced attributes
+
 ## 4.0.1 (16-Jun-20)
 
 * Update all dependencies to recent versions
