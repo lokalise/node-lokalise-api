@@ -3,6 +3,7 @@
 ## 4.1.0 (26-Jun-20)
 
 * Added all recently introduced attributes
+* API now supports only background file uploads, and the `queue` parameter doesn't have any effect anymore. Therefore, removed all code and docs related to sync uploading.
 
 ## 4.0.1 (16-Jun-20)
 
