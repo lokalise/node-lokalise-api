@@ -49,6 +49,7 @@ class ApiRequest {
             })
                 .then((error) => {
                 reject(error.code);
+                /* istanbul ignore next */
                 return error;
             })
                 .catch((error) => {
@@ -69,6 +70,7 @@ class ApiRequest {
                 return t_param;
             }
             else {
+                /* istanbul ignore if */
                 if (isMandaratory == "!") {
                     throw new Error("Required param " + paramName);
                 }

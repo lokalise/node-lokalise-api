@@ -59,6 +59,7 @@ export class ApiRequest {
         })
         .then((error: RequestError) => {
           reject(error.code);
+          /* istanbul ignore next */
           return error;
         })
         .catch((error: any) => {
@@ -80,6 +81,7 @@ export class ApiRequest {
         delete this.params[paramName];
         return t_param;
       } else {
+        /* istanbul ignore if */
         if (isMandaratory == "!") {
           throw new Error("Required param " + paramName);
         } else {
