@@ -8,7 +8,7 @@ export class Keys extends BaseCollection {
   protected static prefixURI: string = "projects/{!:project_id}/keys/{:id}";
   protected static elementClass: Object = Key;
 
-  create(raw_body: any, params: StandartParams = {}): Promise<any> {
+  create(raw_body: any, params: StandartParams): Promise<any> {
     const body = { keys: raw_body };
     return this.createPromise(
       "POST",
@@ -19,7 +19,7 @@ export class Keys extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(id: any, body: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

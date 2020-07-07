@@ -10,7 +10,7 @@ export class LokaliseApi extends LocaliseApiMethods {
    * @param params  object, mandaratory
    * @returns       LokaliseApi object to work with.
    */
-  constructor(params: any = {}) {
+  constructor(params: any) {
     super();
     LokaliseApi.apiKey = params["apiKey"];
     if (LokaliseApi.apiKey == null || LokaliseApi.apiKey.length == 0) {

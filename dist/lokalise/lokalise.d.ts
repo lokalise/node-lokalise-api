@@ -7,5 +7,5 @@ export declare class LokaliseApi extends LocaliseApiMethods {
      * @param params  object, mandaratory
      * @returns       LokaliseApi object to work with.
      */
-    constructor(params?: any);
+    constructor(params: any);
 }

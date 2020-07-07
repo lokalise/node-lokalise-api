@@ -148,9 +148,9 @@ lokaliseApi.branches.delete(branch_id, {project_id: project_id});
 
 ```js
 lokaliseApi.branches.merge(branch_id_to_merge,
-  {"force_conflict_resolve_using": "master"},
-  {project_id: project_id}
-);
+  {project_id: project_id},
+  {"force_conflict_resolve_using": "master"}
+)
 ```
 
 ### Comments

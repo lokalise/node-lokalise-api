@@ -8,6 +8,7 @@ export class ApiRequest {
   public promise: Promise<any>;
   public params: any = {};
 
+  /* istanbul ignore next */
   constructor(uri: any, method: any, body: any = null, params: any = {}) {
     this.params = params;
     this.promise = this.createPromise(uri, method, body);
@@ -45,6 +46,7 @@ export class ApiRequest {
             responseJSON["error"] ||
             (responseJSON["errors"] && responseJSON["errors"].length != 0)
           ) {
+            /* istanbul ignore next */
             reject(
               responseJSON["error"] || responseJSON["errors"] || responseJSON
             );

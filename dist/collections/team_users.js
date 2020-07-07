@@ -4,7 +4,7 @@ exports.TeamUsers = void 0;
 const base_collection_1 = require("./base_collection");
 const team_user_1 = require("../models/team_user");
 class TeamUsers extends base_collection_1.BaseCollection {
-    update(id, body, params = {}) {
+    update(id, body, params) {
         params["id"] = id;
         return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }

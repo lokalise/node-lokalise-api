@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "4.1.0",
+  "version": "5.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "MIT",
   "repository": {
@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && nyc --reporter=lcov mocha -r ts-node/register test/**/*.spec.ts --timeout 5000"
+    "test": "tsc && nyc --reporter=lcov mocha -r ts-node/register/transpile-only --r source-map-support/register test/**/*.spec.ts --timeout 5000"
   },
   "devDependencies": {
     "@types/chai": "^4.2.11",
@@ -38,7 +38,8 @@
     "nyc": "^15.1",
     "prettier": "2.0.5",
     "source-map-support": "^0.5.19",
-    "ts-node": "^8.10.2"
+    "ts-node": "^8.10.2",
+    "@istanbuljs/nyc-config-typescript": "^1.0.1"
   },
   "dependencies": {
     "got": "^11.4.0",

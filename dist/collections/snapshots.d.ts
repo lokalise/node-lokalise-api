@@ -6,5 +6,5 @@ export declare class Snapshots extends BaseCollection {
     protected static prefixURI: string;
     protected static elementClass: Object;
     restore(id: any, params: StandartParams): Promise<any>;
-    create(body: any, params?: StandartParams): Promise<any>;
+    create(body: any, params: StandartParams): Promise<any>;
 }

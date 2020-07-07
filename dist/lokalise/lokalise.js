@@ -8,7 +8,7 @@ class LokaliseApi extends api_methods_1.LocaliseApiMethods {
      * @param params  object, mandaratory
      * @returns       LokaliseApi object to work with.
      */
-    constructor(params = {}) {
+    constructor(params) {
         super();
         LokaliseApi.apiKey = params["apiKey"];
         if (LokaliseApi.apiKey == null || LokaliseApi.apiKey.length == 0) {

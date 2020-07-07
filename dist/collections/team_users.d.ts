@@ -5,5 +5,5 @@ export declare class TeamUsers extends BaseCollection {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
-    update(id: any, body: any, params?: StandartParams): Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
 }

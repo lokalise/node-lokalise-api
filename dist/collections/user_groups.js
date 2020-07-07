@@ -4,10 +4,10 @@ exports.UserGroups = void 0;
 const base_collection_1 = require("./base_collection");
 const user_group_1 = require("../models/user_group");
 class UserGroups extends base_collection_1.BaseCollection {
-    create(body, params = {}) {
+    create(body, params) {
         return this.createPromise("POST", params, this.populateGroupFromJsonRoot, this.handleReject, body);
     }
-    update(id, body, params = {}) {
+    update(id, body, params) {
         params["id"] = id;
         return this.createPromise("PUT", params, this.populateGroupFromJsonRoot, this.handleReject, body);
     }

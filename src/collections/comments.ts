@@ -9,7 +9,7 @@ export class Comments extends BaseCollection {
     "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
   protected static elementClass: Object = Comment;
 
-  create(body: any, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams): Promise<any> {
     return this.createPromise(
       "POST",
       params,
@@ -19,7 +19,7 @@ export class Comments extends BaseCollection {
     );
   }
 
-  list_project_comments(params: StandartParams = {}): Promise<any[]> {
+  list_project_comments(params: StandartParams): Promise<any[]> {
     return this.createPromise(
       "GET",
       { project_id: params["project_id"] },

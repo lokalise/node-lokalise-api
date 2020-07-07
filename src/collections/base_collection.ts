@@ -92,6 +92,7 @@ export class BaseCollection {
 
   protected populateSecondaryObjectFromJsonRoot(json: any): this {
     const childClass = <typeof BaseCollection>this.constructor;
+    /* istanbul ignore next */
     if (childClass.secondaryElementNameSingular != null) {
       json = json[childClass.secondaryElementNameSingular];
     }
@@ -132,6 +133,7 @@ export class BaseCollection {
     return this.populateApiErrorFromJson(data);
   }
 
+  /* istanbul ignore next */
   protected createPromise(
     method: any,
     params: any,

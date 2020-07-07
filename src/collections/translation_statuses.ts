@@ -10,7 +10,7 @@ export class TranslationStatuses extends BaseCollection {
   protected static rootElementNameSingular: string =
     "custom_translation_status";
 
-  create(body: any, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams): Promise<any> {
     return this.createPromise(
       "POST",
       params,
@@ -20,7 +20,7 @@ export class TranslationStatuses extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(id: any, body: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",
@@ -31,7 +31,7 @@ export class TranslationStatuses extends BaseCollection {
     );
   }
 
-  available_colors(params: StandartParams = {}): Promise<any> {
+  available_colors(params: StandartParams): Promise<any> {
     return this.createPromise(
       "GET",
       params,

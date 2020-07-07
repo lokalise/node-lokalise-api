@@ -1,0 +1,62 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "POST",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/branches/68628/merge",
+    "body": {},
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "branch_merged": true,
+      "branch": {
+        "branch_id": 68628,
+        "name": "merge-it",
+        "created_at": "2020-07-07 10:34:00 (Etc/UTC)",
+        "created_at_timestamp": 1594118040,
+        "created_by": 20181,
+        "created_by_email": "bodrovis@protonmail.com"
+      },
+      "target_branch": {
+        "branch_id": 14699,
+        "name": "master",
+        "created_at": "2018-09-24 16:05:22 (Etc/UTC)",
+        "created_at_timestamp": 1537805122,
+        "created_by": 20181,
+        "created_by_email": "bodrovis@protonmail.com"
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "Date",
+      "Tue, 07 Jul 2020 10:34:49 GMT",
+      "Pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Expires",
+      "Tue, 07 Jul 2020 10:34:49 GMT",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

@@ -7,7 +7,7 @@ export class UserGroups extends BaseCollection {
   protected static prefixURI: string = "teams/{!:team_id}/groups/{:id}";
   protected static elementClass: Object = UserGroup;
 
-  create(body: any, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams): Promise<any> {
     return this.createPromise(
       "POST",
       params,
@@ -17,7 +17,7 @@ export class UserGroups extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(id: any, body: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

@@ -9,7 +9,7 @@ export class Translations extends BaseCollection {
     "projects/{!:project_id}/translations/{:id}";
   protected static elementClass: Object = Translation;
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(id: any, body: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",
