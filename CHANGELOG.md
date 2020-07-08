@@ -1,5 +1,19 @@
 # Lokalise API Node Client Changelog
 
+## 5.0.0 (08-Jul-20)
+
+* Added all recently introduced attributes for the following endpoints: `Key` and `File`.
+* API now supports only background file uploads, and the `queue` parameter doesn't have any effect anymore. Therefore, removed all code and docs related to sync uploading.
+* Parameters required by the API are now enforced by the client as well.
+* Updated the `merge` method for the `Branches` endpoint. It now accepts the branch ID to merge, the project ID and the optional list of additional parameters:
+
+```js
+lokaliseApi.branches.merge(34567,
+  {project_id: '123.abc'},
+  {"force_conflict_resolve_using": "master"}
+)
+```
+
 ## 4.0.1 (16-Jun-20)
 
 * Update all dependencies to recent versions

@@ -5,7 +5,7 @@ export declare class Branches extends BaseCollection {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params?: StandartParams): Promise<any>;
-    merge(id: any, body?: any, params?: StandartParams): Promise<any>;
+    create(body: any, params: StandartParams): Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
+    merge(id: any, params: StandartParams, body?: any): Promise<any>;
 }

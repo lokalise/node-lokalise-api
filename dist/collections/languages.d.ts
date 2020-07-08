@@ -6,6 +6,6 @@ export declare class Languages extends BaseCollection {
     protected static prefixURI: string;
     protected static elementClass: Object;
     system_languages(params: StandartParams): Promise<any>;
-    create(raw_body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params?: StandartParams): Promise<any>;
+    create(raw_body: any, params: StandartParams): Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
 }

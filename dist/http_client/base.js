@@ -5,6 +5,7 @@ const got = require("got");
 const pkg = require("../../package.json");
 const lokalise_1 = require("../lokalise/lokalise");
 class ApiRequest {
+    /* istanbul ignore next */
     constructor(uri, method, body = null, params = {}) {
         this.urlRoot = "https://api.lokalise.com/api2/";
         this.params = {};
@@ -37,6 +38,7 @@ class ApiRequest {
                 const responseJSON = JSON.parse(response.body);
                 if (responseJSON["error"] ||
                     (responseJSON["errors"] && responseJSON["errors"].length != 0)) {
+                    /* istanbul ignore next */
                     reject(responseJSON["error"] || responseJSON["errors"] || responseJSON);
                     return;
                 }
@@ -49,6 +51,7 @@ class ApiRequest {
             })
                 .then((error) => {
                 reject(error.code);
+                /* istanbul ignore next */
                 return error;
             })
                 .catch((error) => {
@@ -69,6 +72,7 @@ class ApiRequest {
                 return t_param;
             }
             else {
+                /* istanbul ignore if */
                 if (isMandaratory == "!") {
                     throw new Error("Required param " + paramName);
                 }

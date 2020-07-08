@@ -13,8 +13,6 @@ export class Files extends BaseCollection {
   protected static secondaryElementClass: Object = QueuedProcess;
 
   upload(project_id: string, upload: UploadFileParams): Promise<any> {
-    // Always upload in the background
-    upload.queue = true;
     return this.createPromise(
       "POST",
       { project_id: project_id },

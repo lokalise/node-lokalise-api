@@ -8,7 +8,7 @@ class Snapshots extends base_collection_1.BaseCollection {
         params["id"] = id;
         return this.createPromise("POST", params, this.returnBareJSON, this.handleReject, {});
     }
-    create(body, params = {}) {
+    create(body, params) {
         return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
 }

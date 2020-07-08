@@ -18,4 +18,8 @@ export interface Key {
     base_words: number;
     char_limit: number;
     custom_attributes: any[];
+    modified_at: string;
+    modified_at_timestamp: number;
+    translations_modified_at: string;
+    translations_modified_at_timestamp: number;
 }

@@ -20,7 +20,7 @@ export class Snapshots extends BaseCollection {
     );
   }
 
-  create(body: any, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams): Promise<any> {
     return this.createPromise(
       "POST",
       params,

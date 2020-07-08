@@ -95,6 +95,10 @@ declare module "@lokalise/node-api" {
     base_words: number;
     char_limit: number;
     custom_attributes: any[];
+    modified_at: string;
+    modified_at_timestamp: number;
+    translations_modified_at: string;
+    translations_modified_at_timestamp: number;
   }
 
   export interface Language {
@@ -359,7 +363,7 @@ declare module "@lokalise/node-api" {
     protected static elementClass: Object;
     create(body: any, params: StandartParams): Promise<any>;
     update(id: any, body: any, params: StandartParams): Promise<any>;
-    merge(id: any, body: any, params: StandartParams): Promise<any>;
+    merge(id: any, params: StandartParams, body: any): Promise<any>;
   }
 
   export class Comments extends BaseCollection {

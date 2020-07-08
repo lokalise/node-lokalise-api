@@ -148,9 +148,9 @@ lokaliseApi.branches.delete(branch_id, {project_id: project_id});
 
 ```js
 lokaliseApi.branches.merge(branch_id_to_merge,
-  {"force_conflict_resolve_using": "master"},
-  {project_id: project_id}
-);
+  {project_id: project_id},
+  {"force_conflict_resolve_using": "master"}
+)
 ```
 
 ### Comments
@@ -255,7 +255,7 @@ lokaliseApi.files.list({project_id: project_id});
 
 #### Upload a file
 
-**Asynchronous uploading is the preferred method of importing files starting from 9 May 2020.** Node-lokalise-api version 4 supports only asynchronous uploading. To upload a file synchronously, use version 3 but keep in mind that this feature will be completely removed in summer 2020.
+**Background uploading is the only method of importing files since July 2020.**
 
 ```js
 process = await lokaliseApi.files.upload(project_id,

@@ -8,7 +8,7 @@ export class Webhooks extends BaseCollection {
   protected static prefixURI: string = "projects/{!:project_id}/webhooks/{:id}";
   protected static elementClass: Object = Webhook;
 
-  create(body: any, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams): Promise<any> {
     return this.createPromise(
       "POST",
       params,
@@ -18,7 +18,7 @@ export class Webhooks extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(id: any, body: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",
@@ -29,7 +29,7 @@ export class Webhooks extends BaseCollection {
     );
   }
 
-  regenerate_secret(id: any, params: StandartParams = {}): Promise<any> {
+  regenerate_secret(id: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PATCH",

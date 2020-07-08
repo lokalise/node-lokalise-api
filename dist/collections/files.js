@@ -6,8 +6,6 @@ const file_1 = require("../models/file");
 const queued_process_1 = require("../models/queued_process");
 class Files extends base_collection_1.BaseCollection {
     upload(project_id, upload) {
-        // Always upload in the background
-        upload.queue = true;
         return this.createPromise("POST", { project_id: project_id }, this.populateSecondaryObjectFromJsonRoot, this.handleReject, upload, "projects/{!:project_id}/files/upload");
     }
     download(project_id, download) {

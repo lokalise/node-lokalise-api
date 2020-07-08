@@ -5,7 +5,7 @@ export declare class TranslationStatuses extends BaseCollection {
     protected static prefixURI: string;
     protected static elementClass: Object;
     protected static rootElementNameSingular: string;
-    create(body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params?: StandartParams): Promise<any>;
-    available_colors(params?: StandartParams): Promise<any>;
+    create(body: any, params: StandartParams): Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
+    available_colors(params: StandartParams): Promise<any>;
 }

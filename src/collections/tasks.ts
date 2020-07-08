@@ -8,7 +8,7 @@ export class Tasks extends BaseCollection {
   protected static prefixURI: string = "projects/{!:project_id}/tasks/{:id}";
   protected static elementClass: Object = Task;
 
-  create(body: any, params: StandartParams = {}): Promise<any> {
+  create(body: any, params: StandartParams): Promise<any> {
     return this.createPromise(
       "POST",
       params,
@@ -18,7 +18,7 @@ export class Tasks extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(id: any, body: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

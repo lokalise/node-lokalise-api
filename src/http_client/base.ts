@@ -8,6 +8,7 @@ export class ApiRequest {
   public promise: Promise<any>;
   public params: any = {};
 
+  /* istanbul ignore next */
   constructor(uri: any, method: any, body: any = null, params: any = {}) {
     this.params = params;
     this.promise = this.createPromise(uri, method, body);
@@ -45,6 +46,7 @@ export class ApiRequest {
             responseJSON["error"] ||
             (responseJSON["errors"] && responseJSON["errors"].length != 0)
           ) {
+            /* istanbul ignore next */
             reject(
               responseJSON["error"] || responseJSON["errors"] || responseJSON
             );
@@ -59,6 +61,7 @@ export class ApiRequest {
         })
         .then((error: RequestError) => {
           reject(error.code);
+          /* istanbul ignore next */
           return error;
         })
         .catch((error: any) => {
@@ -80,6 +83,7 @@ export class ApiRequest {
         delete this.params[paramName];
         return t_param;
       } else {
+        /* istanbul ignore if */
         if (isMandaratory == "!") {
           throw new Error("Required param " + paramName);
         } else {

@@ -20,4 +20,5 @@ export interface UploadFileParams {
     custom_translation_status_inserted_keys?: boolean;
     custom_translation_status_updated_keys?: boolean;
     custom_translation_status_skipped_keys?: boolean;
+    skip_detect_lang_iso?: boolean;
 }

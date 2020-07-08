@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "4.0.1",
+  "version": "5.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "MIT",
   "repository": {
@@ -17,30 +17,33 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && mocha -r ts-node/register test/**/*.spec.ts --timeout 5000"
+    "test": "tsc && nyc --reporter=lcov mocha -r ts-node/register/transpile-only --r source-map-support/register test/**/*.spec.ts --timeout 5000"
   },
   "devDependencies": {
+    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.11",
     "@types/mocha": "^7.0.2",
-    "@types/node": "^14.0.13",
-    "@typescript-eslint/eslint-plugin": "^3.3.0",
-    "@typescript-eslint/parser": "^3.3.0",
+    "@types/node": "^14.0.19",
+    "@typescript-eslint/eslint-plugin": "^3.6.0",
+    "@typescript-eslint/parser": "^3.6.0",
     "acorn": "^7.3.1",
     "chai": "^4.2.0",
+    "codecov": "^3.1.0",
     "dotenv": "^8.2.0",
-    "eslint": "^7.2.0",
+    "eslint": "^7.4.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
     "mocha": "^8.0.0",
     "mocha-cassettes": "1.0.0",
+    "nyc": "^15.1",
     "prettier": "2.0.5",
     "source-map-support": "^0.5.19",
     "ts-node": "^8.10.2"
   },
   "dependencies": {
-    "got": "^11.3.0",
-    "typescript": "^3.9.5"
+    "got": "^11.5.0",
+    "typescript": "^3.9.6"
   },
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"

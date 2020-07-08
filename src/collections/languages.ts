@@ -20,7 +20,7 @@ export class Languages extends BaseCollection {
     );
   }
 
-  create(raw_body: any, params: StandartParams = {}): Promise<any> {
+  create(raw_body: any, params: StandartParams): Promise<any> {
     const body = { languages: raw_body };
     return this.createPromise(
       "POST",
@@ -31,7 +31,7 @@ export class Languages extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(id: any, body: any, params: StandartParams): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

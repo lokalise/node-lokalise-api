@@ -94,11 +94,24 @@ describe("Branches", function () {
       const branch_id_merge = 42303;
       const response = await lokaliseApi.branches.merge(
         branch_id_merge,
+        { project_id: project_id },
         {
           force_conflict_resolve_using: "master",
-        },
-        { project_id: project_id }
+        }
       );
+
+      expect(response.project_id).to.eq(project_id);
+      expect(response.branch_merged).to.eq(true);
+      expect(response.branch["branch_id"]).to.eq(branch_id_merge);
+    })
+    .register(this);
+
+  cassette
+    .createTest("merge with defaults", async () => {
+      const branch_id_merge = 68628;
+      const response = await lokaliseApi.branches.merge(branch_id_merge, {
+        project_id: project_id,
+      });
 
       expect(response.project_id).to.eq(project_id);
       expect(response.branch_merged).to.eq(true);

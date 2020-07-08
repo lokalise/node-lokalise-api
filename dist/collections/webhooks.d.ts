@@ -5,7 +5,7 @@ export declare class Webhooks extends BaseCollection {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params?: StandartParams): Promise<any>;
-    regenerate_secret(id: any, params?: StandartParams): Promise<any>;
+    create(body: any, params: StandartParams): Promise<any>;
+    update(id: any, body: any, params: StandartParams): Promise<any>;
+    regenerate_secret(id: any, params: StandartParams): Promise<any>;
 }

@@ -7,7 +7,7 @@ describe("Files", function () {
   const cassette = new Cassettes("./test/cassettes");
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
   const project_id = "803826145ba90b42d5d860.46800099";
-  const process_id = "c23eb693ff46cd9a78310132dfbc6a42c93b0fc2";
+  const process_id = "d217930e61f717a21f257372e7662a054f822d8e";
 
   cassette
     .createTest("list", async () => {
@@ -35,8 +35,8 @@ describe("Files", function () {
       expect(process.message).to.eq("");
       expect(process.created_by).to.eq(20181);
       expect(process.created_by_email).to.eq("bodrovis@protonmail.com");
-      expect(process.created_at).to.eq("2020-05-15 11:16:48 (Etc/UTC)");
-      expect(process.created_at_timestamp).to.eq(1589541408);
+      expect(process.created_at).to.eq("2020-07-02 15:13:45 (Etc/UTC)");
+      expect(process.created_at_timestamp).to.eq(1593702825);
     })
     .register(this);
 

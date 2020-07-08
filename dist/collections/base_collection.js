@@ -44,6 +44,7 @@ class BaseCollection {
     }
     populateSecondaryObjectFromJsonRoot(json) {
         const childClass = this.constructor;
+        /* istanbul ignore next */
         if (childClass.secondaryElementNameSingular != null) {
             json = json[childClass.secondaryElementNameSingular];
         }
@@ -76,6 +77,7 @@ class BaseCollection {
     handleReject(data) {
         return this.populateApiErrorFromJson(data);
     }
+    /* istanbul ignore next */
     createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) {
         const childClass = this.constructor;
         if (uri == null) {
