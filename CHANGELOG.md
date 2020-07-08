@@ -1,6 +1,6 @@
 # Lokalise API Node Client Changelog
 
-## 5.0.0 (07-Jul-20)
+## 5.0.0 (08-Jul-20)
 
 * Added all recently introduced attributes for the following endpoints: `Key` and `File`.
 * API now supports only background file uploads, and the `queue` parameter doesn't have any effect anymore. Therefore, removed all code and docs related to sync uploading.
