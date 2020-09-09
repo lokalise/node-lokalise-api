@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && nyc --reporter=lcov mocha -r ts-node/register/transpile-only --r source-map-support/register test/**/*.spec.ts --timeout 5000"
+    "test": "tsc && nyc --reporter=lcov mocha -r ts-node/register/transpile-only --r source-map-support/register test/**/*.spec.ts --timeout 10000"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
