@@ -69,7 +69,7 @@ projects[0].name;
 
 All object attributes may be found in the [interfaces](https://github.com/lokalise/node-lokalise-api/tree/master/src/interfaces).
 
-Please not that Lokalise API locks parallel requests which means you should call methods in a synchronous manner.
+Please note that Lokalise API locks parallel requests which means you should call methods in a synchronous manner.
 
 ### Branching
 
