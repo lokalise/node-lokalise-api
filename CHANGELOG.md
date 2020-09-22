@@ -1,5 +1,10 @@
 # Lokalise API Node Client Changelog
 
+## 5.1.0 (09-Sep-20)
+
+* Update all dependencies
+* The library's license is now BSD 3 Clause
+
 ## 5.0.0 (08-Jul-20)
 
 * Added all recently introduced attributes for the following endpoints: `Key` and `File`.

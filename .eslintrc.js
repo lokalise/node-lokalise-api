@@ -1,36 +1,33 @@
 module.exports = {
   root: true,
-  parser: '@typescript-eslint/parser',
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaVersion: 2018,
-    "sourceType": "module",
-    "ecmaFeatures": {
-      "modules": true
-    }
+    sourceType: "module",
+    ecmaFeatures: {
+      modules: true,
+    },
   },
-  plugins: [
-    '@typescript-eslint',
-    'node',
-    'prettier'
-  ],
+  plugins: ["@typescript-eslint", "node", "prettier"],
   extends: [
-    'eslint:recommended',
-    'plugin:@typescript-eslint/recommended',
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
     "plugin:node/recommended",
     "plugin:prettier/recommended",
-    "prettier/@typescript-eslint"
+    "prettier/@typescript-eslint",
   ],
   settings: {
     node: {
-      tryExtensions: ['.js', '.json', '.node', '.ts'],
+      tryExtensions: [".js", ".json", ".node", ".ts"],
     },
   },
-  "rules": {
+  rules: {
     "prettier/prettier": "error",
     "@typescript-eslint/consistent-type-assertions": [
-      "warn", {
-        "assertionStyle": "angle-bracket"
-      }
+      "warn",
+      {
+        assertionStyle: "angle-bracket",
+      },
     ],
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/no-var-requires": "off",
@@ -48,6 +45,6 @@ module.exports = {
     "node/prefer-global/url-search-params": ["error", "always"],
     "node/prefer-global/url": ["error", "always"],
     "node/prefer-promises/dns": "error",
-    "node/prefer-promises/fs": "error"
-  }
+    "node/prefer-promises/fs": "error",
+  },
 };

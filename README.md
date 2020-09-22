@@ -962,6 +962,6 @@ This library is tested with [Node 10+](https://github.com/lokalise/node-lokalise
 
 ## License
 
-This library is licensed under the [MIT License](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE).
+This library is licensed under the [BSD 3 Clause](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE). Prior to version 5.1.0 the license was MIT.
 
-Copyright (c) [Lokalise team](http://lokalise.com), Roman Kutanov, [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) [Lokalise group](http://lokalise.com), [Ilya Bodrov](http://bodrovis.tech)
