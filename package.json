@@ -55,7 +55,7 @@
     "lib": "./src",
     "test": "./test"
   },
-  "author": "Roman Kutanov, Ilya Bodrov, and Lokalise team",
+  "author": "Lokalise group, Ilya Bodrov",
   "engines": {
     "node": ">=10"
   }
