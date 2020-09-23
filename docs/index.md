@@ -1,0 +1,38 @@
+---
+# Feel free to add content and custom Front Matter to this file.
+# To modify the layout, see https://jekyllrb.com/docs/themes/#overriding-theme-defaults
+
+layout: default
+---
+
+# Lokalise APIv2 Node interface
+
+Install the library:
+
+    npm install @lokalise/node-api
+
+Obtain Lokalise API token in your personal profile, initialize and use the client:
+
+```ts
+const { LokaliseApi } = require('@lokalise/node-api');
+
+const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
+const projects = lokaliseApi.projects.list();
+projects[0].name;
+
+process = await lokaliseApi.files.upload(project_id,
+  {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
+process.status // => 'queued'
+```
+
+## Usage
+
+<nav class="index">
+  {% include nav_full.html %}
+</nav>
+
+## Additional info
+
+<nav class="index">
+  {% include nav_full_additional.html %}
+</nav>

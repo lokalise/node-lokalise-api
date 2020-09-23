@@ -1,0 +1,20 @@
+<ul>
+{% for item in site.data.additional_items %}
+  <li>
+    {% assign css_class = nil %}
+    {% if page.url contains item.path %}
+      {% assign css_class = 'active' %}
+    {% endif %}
+
+    {% if css_class %}
+      <span class="{{ css_class }}">
+        {{ item.title }}
+      </span>
+    {% else %}
+      <a href="{{ site.baseurl }}/additional_info/{{ item.path }}">
+        {{ item.title }}
+      </a>
+    {% endif %}
+  </li>
+{% endfor %}
+</ul>

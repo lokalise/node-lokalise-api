@@ -948,18 +948,6 @@ lokaliseApi.projects.list().catch(
 
 Lokalise does not [rate-limit API requests](https://app.lokalise.com/api2docs/curl/#resource-rate-limits), however retain a right to decline the service in case of excessive use. Only one concurrent request per token is allowed. To ensure data consistency, it is not recommended to access the same project simultaneously using multiple tokens.
 
-## Running Tests
-
-This library is tested with [Node 10+](https://github.com/lokalise/node-lokalise-api/blob/master/.travis.yml). To test it locally:
-
-1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
-2. Run `npm test`. Observe test results and coverage.
-
-## Building
-
-1. Run `npm run-script build`
-2. Browse `dist/` folder
-
 ## License
 
 This library is licensed under the [BSD 3 Clause](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE). Prior to version 5.1.0 the license was MIT.
