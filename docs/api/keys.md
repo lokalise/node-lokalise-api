@@ -6,128 +6,96 @@
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
 
-```ruby
-@client.keys(project_id, params = {})   # Input:
-                                        ## project_id (string, required)
-                                        ## params (hash)
-                                        ### :page and :limit
-                                        # Output:
-                                        ## Collection of keys available in the given project
+```js
+lokaliseApi.keys.list({project_id: project_id});
 ```
 
 ## Fetch a single project key
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
 
-```ruby
-@client.key(project_id, key_id, params = {})    # Input:
-                                                ## project_id (string, required)
-                                                ## key_id (string, required)
-                                                ## params (hash)
-                                                ### :disable_references (string) - possible values are "1" and "0".
-                                                # Output:
-                                                ## Project key
+```js
+lokaliseApi.keys.get(key_id, {project_id: project_id});
 ```
 
 ## Create project keys
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
 
-```ruby
-@client.create_keys(project_id, params)   # Input:
-                                          ## project_id (string, required)
-                                          ## params (array of hashes or hash, required)
-                                          ### :key_name (string or hash, required) - for projects with enabled per-platform key names, pass hash with "ios", "android", "web" and "other" params.
-                                          ### :platforms (array) - supported values are "ios", "android", "web" and "other"
-                                          ### Find all other supported attributes at https://app.lokalise.com/api2docs/curl/#transition-create-keys-post
-                                          # Output:
-                                          ## Collection of newly created keys
+```js
+lokaliseApi.keys.create([
+  {
+    "key_name": "welcome_web",
+    "description": "Index app welcome",
+    "platforms": ["web"],
+    "translations": [
+      {
+        "language_iso": "en",
+        "translation": "Welcome"
+      }
+    ]
+  },
+  {
+    "key_name": "welcome_ios",
+    "description": "Welcome apple",
+    "platforms": ["ios"],
+    "is_plural": true,
+    "translations": [
+      {
+        "language_iso": "en",
+        "translation": {
+          "one": "I have one apple",
+          "other": "I have a lot of apples"
+        }
+      }
+    ]
+  }
+], {project_id: project_id});
 ```
 
 ## Update project key
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
 
-```ruby
-@client.update_key(project_id, key_id, params = {})   # Input:
-                                                      ## project_id (string, required)
-                                                      ## key_id (string, required)
-                                                      ## params (hash)
-                                                      ### Find a list of supported attributes at https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put
-                                                      # Output:
-                                                      ## Updated key
-```
-
-Alternatively:
-
-```ruby
-key = @client.key('project_id', 'key_id')
-key.update(params)
+```js
+lokaliseApi.keys.update(key_id, {
+  "platforms": ["web", "other"],
+  "description": "Node updated"
+}, { project_id: project_id });
 ```
 
 ## Bulk update project keys
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
 
-```ruby
-@client.update_keys(project_id, params)  # Input:
-                                         ## project_id (string, required)
-                                         ## params (hash or array of hashes, required)
-                                         ### :key_id (string, required)
-                                         ### Find all other supported attributes at https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put
-                                         # Output:
-                                         ## Collection of updated keys
-```
-
-Example:
-
-```ruby
-client.update_keys '123.abc', [
+```js
+lokaliseApi.keys.bulk_update([
   {
-    key_id: 456,
-    description: 'bulk updated'
+    "key_id": key_id,
+    "description": "Bulk node",
+    "platforms": ["web"]
   },
   {
-    key_id: 769,
-    tags: %w[bulk update]
+    "key_id": second_key_id,
+    "description": "Second bulk",
   }
-]
+], { project_id: project_id});
 ```
 
 ## Delete project key
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
 
-```ruby
-@client.destroy_key(project_id, key_id) # Input:
-                                        ## project_id (string, required)
-                                        ## key_id (string, required)
-                                        # Output:
-                                        ## Hash with project_id and "key_removed" set to "true"
-```
-
-Alternatively:
-
-```ruby
-key = @client.key('project_id', 'key_id')
-key.destroy
+```js
+lokaliseApi.keys.delete(key_id, { project_id: project_id });
 ```
 
 ## Bulk delete project keys
 
 [Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
 
-```ruby
-@client.destroy_keys(project_id, key_ids) # Input:
-                                          ## project_id (string, required)
-                                          ## key_ids (array, required)
-                                          # Output:
-                                          ## Hash with project_id and "keys_removed" set to "true"
-```
-
-Alternatively:
-
-```ruby
-keys = @client.keys('project_id')
-keys.destroy_all # => will effectively destroy all keys in the project
+```js
+lokaliseApi.keys.bulk_delete([
+  key_id, second_key_id
+], { project_id: project_id });
 ```

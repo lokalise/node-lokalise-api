@@ -5,10 +5,8 @@
       path: installation-and-requirements
     - title: Initializing the Client
       path: initializing-the-client
-    - title: Objects and models
-      path: objects-and-models
-    - title: Collections of resources and pagination
-      path: collections-of-resources-and-pagination
+    - title: Pagination
+      path: pagination
     - title: Branching
       path: branching
 - title: Branches

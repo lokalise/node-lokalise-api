@@ -1,17 +1,6 @@
-- title: Customization
-  path: customization
-  sub_paths:
-    - title: Choosing Network Adapter
-      path: choosing-network-adapter
-    - title: Setting Timeouts
-      path: setting-timeouts
-    - title: Customizing JSON parser
-      path: customizing-json-parser
 - title: Exception handling
   path: exception_handling
   sub_paths:
-    - title: Error codes
-      path: error-codes
     - title: API Rate Limits
       path: api-rate-limits
 - title: Contributing
@@ -19,6 +8,8 @@
   sub_paths:
     - title: Running tests
       path: running-tests
+    - title: Building
+      path: building
     - title: Previewing the docs locally
       path: previewing-the-docs-locally
 - title: Changelog
