@@ -48,7 +48,7 @@
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
   },
-  "homepage": "https://github.com/lokalise/node-lokalise-api#readme",
+  "homepage": "https://lokalise.github.io/node-lokalise-api",
   "main": "./index.js",
   "typings": "./index.d.ts",
   "directories": {
