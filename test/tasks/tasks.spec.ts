@@ -35,7 +35,7 @@ describe("Tasks", function () {
       const task = await lokaliseApi.tasks.get(task_id, {
         project_id: project_id,
       });
-      console.log(task);
+
       expect(task.task_id).to.eq(task_id);
       expect(task.title).to.eq("node updated");
       expect(task.can_be_parent).be.false;
