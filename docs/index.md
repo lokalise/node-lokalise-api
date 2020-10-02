@@ -11,7 +11,7 @@ Install the library:
 
     npm install @lokalise/node-api
 
-Obtain Lokalise API token in your personal profile, initialize and use the client:
+Obtain [Lokalise API token](https://docs.lokalise.com/en/articles/1929556-api-tokens) in your personal profile, initialize and use the client:
 
 ```ts
 const { LokaliseApi } = require('@lokalise/node-api');
