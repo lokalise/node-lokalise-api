@@ -1,0 +1,255 @@
+- title: Getting started
+  path: getting-started
+  sub_paths:
+    - title: Installation and Requirements
+      path: installation-and-requirements
+    - title: Initializing the Client
+      path: initializing-the-client
+    - title: Pagination
+      path: pagination
+    - title: Branching
+      path: branching
+- title: Branches
+  path: branches
+  sub_paths:
+    - title: Fetch branches
+      path: fetch-branches
+    - title: Fetch branch
+      path: fetch-branch
+    - title: Create branch
+      path: create-branch
+    - title: Update branch
+      path: update-branch
+    - title: Delete branch
+      path: delete-branch
+    - title: Merge branch
+      path: merge-branch
+- title: Comments
+  path: comments
+  sub_paths:
+    - title: Fetch project comments
+      path: fetch-project-comments
+    - title: Fetch key comments
+      path: fetch-key-comments
+    - title: Create key comments
+      path: create-key-comments
+    - title: Fetch key comment
+      path: fetch-key-comment
+    - title: Delete key comment
+      path: delete-key-comment
+- title: Contributors
+  path: contributors
+  sub_paths:
+    - title: Fetch contributors
+      path: fetch-contributors
+    - title: Fetch a single contributor
+      path: fetch-a-single-contributor
+    - title: Create contributors
+      path: create-contributors
+    - title: Update contributor
+      path: update-contributor
+    - title: Delete contributor
+      path: delete-contributor
+- title: Translation files
+  path: files
+  sub_paths:
+    - title: Fetch translation files
+      path: fetch-translation-files
+    - title: Download translation files
+      path: download-translation-files
+    - title: Upload translation file
+      path: upload-translation-file
+- title: Translation keys
+  path: keys
+  sub_paths:
+    - title: Fetch project keys
+      path: fetch-project-keys
+    - title: Fetch a single project key
+      path: fetch-a-single-project-key
+    - title: Create project keys
+      path: create-project-keys
+    - title: Update project key
+      path: update-project-key
+    - title: Bulk update project keys
+      path: bulk-update-project-keys
+    - title: Delete project key
+      path: delete-project-key
+    - title: Bulk delete project keys
+      path: bulk-delete-project-keys
+- title: Languages
+  path: languages
+  sub_paths:
+    - title: Fetch system languages
+      path: fetch-system-languages
+    - title: Fetch project languages
+      path: fetch-project-languages
+    - title: Fetch a single project language
+      path: fetch-a-single-project-language
+    - title: Create project languages
+      path: create-project-languages
+    - title: Update project language
+      path: update-project-language
+    - title: Delete project language
+      path: delete-project-language
+- title: Translation orders
+  path: orders
+  sub_paths:
+    - title: Fetch orders
+      path: fetch-orders
+    - title: Fetch a single order
+      path: fetch-a-single-order
+    - title: Create an order
+      path: create-an-order
+- title: Payment cards
+  path: payment-cards
+  sub_paths:
+    - title: Fetch payment cards
+      path: fetch-payment-cards
+    - title: Fetch a single payment card
+      path: fetch-a-single-payment-card
+    - title: Create a payment card
+      path: fetch-a-single-payment-card
+    - title: Delete a payment card
+      path: delete-a-payment-card
+- title: Projects
+  path: projects
+  sub_paths:
+    - title: Fetch projects
+      path: fetch-projects
+    - title: Fetch a single project
+      path: fetch-a-single-project
+    - title: Create a project
+      path: create-a-project
+    - title: Update a project
+      path: update-a-project
+    - title: Empty a project
+      path: empty-a-project
+    - title: Delete a project
+      path: delete-a-project
+- title: Queued processes
+  path: queued-processes
+  sub_paths:
+    - title: Fetch queued processes
+      path: fetch-queued-processes
+    - title: Fetch a single queued process
+      path: fetch-a-single-queued-process
+- title: Screenshots
+  path: screenshots
+  sub_paths:
+    - title: Fetch screenshots
+      path: fetch-screenshots
+    - title: Fetch a single screenshot
+      path: fetch-a-single-screenshot
+    - title: Create screenshots
+      path: create-screenshots
+    - title: Update screenshot
+      path: update-screenshot
+    - title: Delete screenshot
+      path: delete-screenshot
+- title: Snapshots
+  path: snapshots
+  sub_paths:
+    - title: Fetch snapshots
+      path: fetch-snapshots
+    - title: Create snapshot
+      path: create-snapshot
+    - title: Restore snapshot
+      path: restore-snapshot
+    - title: Delete snapshot
+      path: delete-snapshot
+- title: Tasks
+  path: tasks
+  sub_paths:
+    - title: Fetch tasks
+      path: fetch-tasks
+    - title: Fetch a single task
+      path: fetch-a-single-task
+    - title: Create task
+      path: create-task
+    - title: Update task
+      path: update-task
+    - title: Delete task
+      path: delete-task
+- title: Teams
+  path: teams
+  sub_paths:
+    - title: Fetch teams
+      path: fetch-teams
+- title: Team users
+  path: team-users
+  sub_paths:
+    - title: Fetch team users
+      path: fetch-team-users
+    - title: Fetch a single team user
+      path: fetch-a-single-team-user
+    - title: Update team user
+      path: update-team-user
+    - title: Delete team user
+      path: delete-team-user
+- title: Team user groups
+  path: team-user-groups
+  sub_paths:
+    - title: Fetch team user groups
+      path: fetch-team-user-groups
+    - title: Fetch a single group
+      path: fetch-a-single-group
+    - title: Create group
+      path: create-group
+    - title: Update group
+      path: update-group
+    - title: Add projects to group
+      path: add-projects-to-group
+    - title: Remove projects from group
+      path: remove-projects-from-group
+    - title: Add users to group
+      path: add-users-to-group
+    - title: Remove users from group
+      path: remove-users-from-group
+    - title: Destroy group
+      path: destroy-group
+- title: Translations
+  path: translations
+  sub_paths:
+    - title: Fetch translations
+      path: fetch-translations
+    - title: Fetch a single translation
+      path: fetch-a-single-translation
+    - title: Update translation
+      path: update-translation
+- title: Translation providers
+  path: translation-providers
+  sub_paths:
+    - title: Fetch translation providers
+      path: fetch-translation-providers
+    - title: Fetch a single translation provider
+      path: fetch-a-single-translation-provider
+- title: Custom translation statuses
+  path: custom-translation-statuses
+  sub_paths:
+    - title: Fetch translation statuses
+      path: fetch-translation-statuses
+    - title: Fetch a single translation status
+      path: fetch-a-single-translation-status
+    - title: Create translation status
+      path: create-translation-status
+    - title: Update translation status
+      path: update-translation-status
+    - title: Delete translation status
+      path: delete-translation-status
+    - title: Supported color codes for translation statuses
+      path: supported-color-codes-for-translation-statuses
+- title: Webhooks
+  path: webhooks
+  sub_paths:
+    - title: Fetch webhooks
+      path: fetch-webhooks
+    - title: Fetch a single webhook
+      path: fetch-a-single-webhook
+    - title: Create webhook
+      path: create-webhook
+    - title: Update webhook
+      path: update-webhook
+    - title: Delete webhook
+      path: delete-webhook
+    - title: Regenerate webhook secret
+      path: regenerate-webhook-secret

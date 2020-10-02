@@ -1,0 +1,18 @@
+- title: Exception handling
+  path: exception_handling
+  sub_paths:
+    - title: API Rate Limits
+      path: api-rate-limits
+- title: Contributing
+  path: contribution_guide
+  sub_paths:
+    - title: Running tests
+      path: running-tests
+    - title: Building
+      path: building
+    - title: Previewing the docs locally
+      path: previewing-the-docs-locally
+- title: Changelog
+  path: changelog
+- title: License
+  path: license_type

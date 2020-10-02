@@ -1,0 +1,18 @@
+<ul>
+{% for item in site.data.api_items %}
+  <li>
+    <a href="{{ site.baseurl }}/api/{{ item.path }}">
+      {{ item.title }}
+    </a>
+    <ul>
+      {% for sub_item in item.sub_paths %}
+        <li>
+          <a href="{{ site.baseurl }}/api/{{ item.path }}#{{ sub_item.path }}">
+            {{ sub_item.title }}
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </li>
+{% endfor %}
+</ul>
