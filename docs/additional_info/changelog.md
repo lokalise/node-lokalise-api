@@ -1,5 +1,10 @@
 # Changelog
 
+## 5.2.0 (02-Oct-20)
+
+* Provide missing typings
+* Added `source_language_iso` for the `Task`
+
 ## 5.1.0 (09-Sep-20)
 
 * Update all dependencies
