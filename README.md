@@ -30,7 +30,7 @@ process.status // => 'queued'
 
 ## Usage
 
-Detailed documentation can be found at.
+Detailed documentation can be found at [lokalise.github.io/node-lokalise-api](https://lokalise.github.io/node-lokalise-api/).
 
 ## License
 
