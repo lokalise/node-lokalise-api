@@ -35,16 +35,16 @@ describe("Tasks", function () {
       const task = await lokaliseApi.tasks.get(task_id, {
         project_id: project_id,
       });
-
+      console.log(task);
       expect(task.task_id).to.eq(task_id);
-      expect(task.title).to.eq("Demo review");
-      expect(task.can_be_parent).be.true;
+      expect(task.title).to.eq("node updated");
+      expect(task.can_be_parent).be.false;
       expect(task.task_type).to.eq("review");
       expect(task.parent_task_id).to.be.null;
       expect(task.closing_tags).to.have.lengthOf(0);
       expect(task.description).to.eq("");
-      expect(task.status).to.eq("in progress");
-      expect(task.progress).to.eq(1);
+      expect(task.status).to.eq("completed");
+      expect(task.progress).to.eq(0);
       expect(task.due_date).to.be.null;
       expect(task.due_date_timestamp).to.be.null;
       expect(task.keys_count).to.eq(16);
@@ -53,13 +53,14 @@ describe("Tasks", function () {
       expect(task.created_at_timestamp).to.eq(1557764126);
       expect(task.created_by).to.eq(20181);
       expect(task.created_by_email).to.eq("bodrovis@protonmail.com");
+      expect(task.source_language_iso).to.eq("en");
       expect(task.languages[0].language_iso).to.eq("sq");
       expect(task.auto_close_languages).to.be.true;
       expect(task.auto_close_task).to.be.true;
-      expect(task.completed_at).to.be.null;
-      expect(task.completed_at_timestamp).to.be.null;
-      expect(task.completed_by).to.be.null;
-      expect(task.completed_by_email).to.be.null;
+      expect(task.completed_at).to.eq("2019-10-01 11:09:12 (Etc/UTC)");
+      expect(task.completed_at_timestamp).to.eq(1569928152);
+      expect(task.completed_by).to.eq(20181);
+      expect(task.completed_by_email).to.eq("bodrovis@protonmail.com");
       expect(task.do_lock_translations).to.be.false;
       expect(task.custom_translation_status_ids).to.have.lengthOf(0);
     })

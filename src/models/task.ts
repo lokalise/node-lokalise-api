@@ -21,6 +21,7 @@ export class Task extends BaseModel implements TaskInterface {
   public closing_tags: string[];
   public do_lock_translations: boolean;
   public languages: object;
+  public source_language_iso: string;
   public auto_close_languages: boolean;
   public auto_close_task: boolean;
   public completed_at: string;

@@ -6,5 +6,6 @@ describe("LokaliseApi", function () {
     expect(function () {
       new LokaliseApi({ apiKey: "" });
     }).to.throw(Error);
+    new LokaliseApi({ apiKey: process.env.API_KEY }); // weird issue when the token gets unloaded for all tests
   });
 });
