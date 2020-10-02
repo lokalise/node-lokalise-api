@@ -7,7 +7,7 @@ layout: default
 
 # Lokalise APIv2 Node interface
 
-Install the library:
+Install the library using [NPM](https://npmjs.com/):
 
     npm install @lokalise/node-api
 
