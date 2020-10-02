@@ -4,7 +4,7 @@
 
 ## Fetch screenshots
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-screenshots-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-screenshots-get)
 
 ```js
 lokaliseApi.screenshots.list({project_id: project_id});
@@ -12,7 +12,7 @@ lokaliseApi.screenshots.list({project_id: project_id});
 
 ## Fetch a single screenshot
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-screenshot-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-screenshot-get)
 
 ```js
 lokaliseApi.screenshots.get(screenshot_id, {project_id: project_id});
@@ -20,7 +20,7 @@ lokaliseApi.screenshots.get(screenshot_id, {project_id: project_id});
 
 ## Create screenshots
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-screenshots-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-screenshots-post)
 
 ```js
 lokaliseApi.screenshots.create([
@@ -35,7 +35,7 @@ lokaliseApi.screenshots.create([
 
 ## Update screenshot
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-screenshot-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-screenshot-put)
 
 ```js
 lokaliseApi.screenshots.update(screenshot_id,
@@ -46,7 +46,7 @@ lokaliseApi.screenshots.update(screenshot_id,
 
 ## Delete screenshot
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-screenshot-delete)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-screenshot-delete)
 
 ```js
 lokaliseApi.screenshots.delete(screenshot_id, {project_id: project_id});

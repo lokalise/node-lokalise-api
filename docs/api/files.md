@@ -4,7 +4,7 @@
 
 ## Fetch translation files
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-files-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-files-get)
 
 ```js
 lokaliseApi.files.list({project_id: project_id});
@@ -12,7 +12,7 @@ lokaliseApi.files.list({project_id: project_id});
 
 ## Download translation files
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-download-files-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-download-files-post)
 
 Exports project files as a `.zip` bundle and makes them available to download (the link is valid for 12 months).
 
@@ -22,7 +22,7 @@ lokaliseApi.files.download(project_id, {format: 'json', "original_filenames": tr
 
 ## Upload translation file
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-upload-a-file-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-upload-a-file-post)
 
 **Background uploading is the only method of importing files since July 2020.**
 

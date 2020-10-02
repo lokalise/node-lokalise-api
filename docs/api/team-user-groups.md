@@ -4,7 +4,7 @@
 
 ## Fetch team user groups
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-groups-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-groups-get)
 
 ```js
 lokaliseApi.userGroups.list({team_id: team_id});
@@ -12,7 +12,7 @@ lokaliseApi.userGroups.list({team_id: team_id});
 
 ## Fetch a single group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-group-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-group-get)
 
 ```js
 lokaliseApi.userGroups.get(group_id, {team_id: team_id});
@@ -20,7 +20,7 @@ lokaliseApi.userGroups.get(group_id, {team_id: team_id});
 
 ## Create group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-group-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-group-post)
 
 ```js
 lokaliseApi.userGroups.create(
@@ -36,7 +36,7 @@ lokaliseApi.userGroups.create(
 
 ## Update group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-group-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-group-put)
 
 ```js
 lokaliseApi.userGroups.update(
@@ -53,7 +53,7 @@ lokaliseApi.userGroups.update(
 
 ## Add projects to group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-add-projects-to-group-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-add-projects-to-group-put)
 
 ```js
 lokaliseApi.userGroups.add_projects_to_group(
@@ -65,7 +65,7 @@ lokaliseApi.userGroups.add_projects_to_group(
 
 ## Remove projects from group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-projects-from-group-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-remove-projects-from-group-put)
 
 ```js
 lokaliseApi.userGroups.remove_projects_from_group(
@@ -77,7 +77,7 @@ lokaliseApi.userGroups.remove_projects_from_group(
 
 ## Add users to group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-add-members-to-group-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-add-members-to-group-put)
 
 ```js
 lokaliseApi.userGroups.add_members_to_group(
@@ -89,7 +89,7 @@ lokaliseApi.userGroups.add_members_to_group(
 
 ## Remove users from group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-remove-members-from-group-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-remove-members-from-group-put)
 
 ```js
 lokaliseApi.userGroups.remove_members_from_group(
@@ -101,7 +101,7 @@ lokaliseApi.userGroups.remove_members_from_group(
 
 ## Destroy group
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-group-delete)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-group-delete)
 
 ```js
 lokaliseApi.userGroups.delete(new_group_id, {team_id: team_id});

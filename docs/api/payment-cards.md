@@ -4,7 +4,7 @@
 
 ## Fetch payment cards
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-cards-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-cards-get)
 
 ```js
 lokaliseApi.paymentCards.list();
@@ -12,7 +12,7 @@ lokaliseApi.paymentCards.list();
 
 ## Fetch a single payment card
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-card-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-card-get)
 
 ```js
 lokaliseApi.paymentCards.get(card_id);
@@ -20,7 +20,7 @@ lokaliseApi.paymentCards.get(card_id);
 
 ## Create a payment card
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-card-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-card-post)
 
 ```js
 lokaliseApi.paymentCards.create({
@@ -33,7 +33,7 @@ lokaliseApi.paymentCards.create({
 
 ## Delete a payment card
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-card-delete)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-card-delete)
 
 ```js
 lokaliseApi.paymentCards.delete(card_id);

@@ -4,7 +4,7 @@
 
 ## Fetch project keys
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
 
 ```js
 lokaliseApi.keys.list({project_id: project_id});
@@ -12,7 +12,7 @@ lokaliseApi.keys.list({project_id: project_id});
 
 ## Fetch a single project key
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
 
 ```js
 lokaliseApi.keys.get(key_id, {project_id: project_id});
@@ -20,7 +20,7 @@ lokaliseApi.keys.get(key_id, {project_id: project_id});
 
 ## Create project keys
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
 
 ```js
 lokaliseApi.keys.create([
@@ -55,7 +55,7 @@ lokaliseApi.keys.create([
 
 ## Update project key
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
 
 ```js
 lokaliseApi.keys.update(key_id, {
@@ -66,7 +66,7 @@ lokaliseApi.keys.update(key_id, {
 
 ## Bulk update project keys
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
 
 ```js
 lokaliseApi.keys.bulk_update([
@@ -84,7 +84,7 @@ lokaliseApi.keys.bulk_update([
 
 ## Delete project key
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
 
 ```js
 lokaliseApi.keys.delete(key_id, { project_id: project_id });
@@ -92,7 +92,7 @@ lokaliseApi.keys.delete(key_id, { project_id: project_id });
 
 ## Bulk delete project keys
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
 
 ```js
 lokaliseApi.keys.bulk_delete([

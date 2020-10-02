@@ -4,7 +4,7 @@
 
 ## Fetch tasks
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
 
 ```js
 lokaliseApi.tasks.list({project_id: project_id});
@@ -12,7 +12,7 @@ lokaliseApi.tasks.list({project_id: project_id});
 
 ## Fetch a single task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
 
 ```js
 lokaliseApi.tasks.get(task_id, {project_id: project_id});
@@ -20,7 +20,7 @@ lokaliseApi.tasks.get(task_id, {project_id: project_id});
 
 ## Create task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
 
 ```js
 lokaliseApi.tasks.create({
@@ -37,7 +37,7 @@ lokaliseApi.tasks.create({
 
 ## Update task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
 
 ```js
 lokaliseApi.tasks.update(
@@ -49,7 +49,7 @@ lokaliseApi.tasks.update(
 
 ## Delete task
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
 
 ```js
 lokaliseApi.tasks.delete(task_id, {project_id: project_id});

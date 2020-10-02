@@ -4,7 +4,7 @@
 
 ## Fetch projects
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-projects-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-projects-get)
 
 ```js
 lokaliseApi.projects.list();
@@ -12,7 +12,7 @@ lokaliseApi.projects.list();
 
 ## Fetch a single project
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-project-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-project-get)
 
 ```js
 lokaliseApi.projects.get(project_id)
@@ -20,7 +20,7 @@ lokaliseApi.projects.get(project_id)
 
 ## Create a project
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-project-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-project-post)
 
 ```js
 lokaliseApi.projects.create({ name: "Project name", description: "Project description" });
@@ -28,7 +28,7 @@ lokaliseApi.projects.create({ name: "Project name", description: "Project descri
 
 ## Update a project
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-project-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-project-put)
 
 ```js
 lokaliseApi.projects.update(project_id, { name: "New name", description: "New description"});
@@ -36,7 +36,7 @@ lokaliseApi.projects.update(project_id, { name: "New name", description: "New de
 
 ## Empty a project
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-empty-a-project-put)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-empty-a-project-put)
 
 Deletes *all* keys and translations from the project.
 
@@ -46,7 +46,7 @@ lokaliseApi.projects.empty(project_id)
 
 ## Delete a project
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-project-delete)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-project-delete)
 
 ```js
 lokaliseApi.projects.delete(project_id);

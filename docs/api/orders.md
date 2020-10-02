@@ -4,7 +4,7 @@
 
 ## Fetch orders
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-orders-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-orders-get)
 
 ```js
 lokaliseApi.orders.list({team_id: team_id})
@@ -12,7 +12,7 @@ lokaliseApi.orders.list({team_id: team_id})
 
 ## Fetch a single order
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-an-order-get)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-an-order-get)
 
 ```js
 lokaliseApi.orders.get(order_id, {team_id: team_id})
@@ -20,7 +20,7 @@ lokaliseApi.orders.get(order_id, {team_id: team_id})
 
 ## Create an order
 
-[Doc](https://app.lokalise.com/api2docs/curl/#transition-create-an-order-post)
+[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-an-order-post)
 
 ```js
 lokaliseApi.orders.create({
