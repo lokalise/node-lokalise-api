@@ -135,7 +135,7 @@ declare module "@lokalise/node-api" {
     type: string;
     status: string;
     message: string;
-    created_by: number;
+    created_by: string;
     created_by_email: string;
     created_at: string;
     created_at_timestamp: number;
@@ -214,6 +214,7 @@ declare module "@lokalise/node-api" {
     closing_tags: string[];
     do_lock_translations: boolean;
     languages: object;
+    source_language_iso: string;
     auto_close_languages: boolean;
     auto_close_task: boolean;
     completed_at: string;
@@ -293,6 +294,11 @@ declare module "@lokalise/node-api" {
     apply_tm?: boolean;
     hidden_from_contributors?: boolean;
     cleanup_mode?: boolean;
+    custom_translation_status_ids?: string | number[];
+    custom_translation_status_inserted_keys?: boolean;
+    custom_translation_status_updated_keys?: boolean;
+    custom_translation_status_skipped_keys?: boolean;
+    skip_detect_lang_iso?: boolean;
   }
 
   export interface UserGroup {
@@ -562,6 +568,7 @@ declare module "@lokalise/node-api" {
     orders: Orders;
     paymentCards: PaymentCards;
     projects: Projects;
+    queuedProcesses: QueuedProcesses;
     screenshots: Screenshots;
     snapshots: Snapshots;
     tasks: Tasks;

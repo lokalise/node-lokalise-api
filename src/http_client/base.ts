@@ -20,8 +20,8 @@ export class ApiRequest {
       method: method,
       prefixUrl: this.urlRoot,
       headers: {
-        "x-api-token": <string>LokaliseApi.apiKey,
-        "user-agent": `node-lokalise-api/${pkg.version}`,
+        "X-Api-Token": <string>LokaliseApi.apiKey,
+        "User-Agent": `node-lokalise-api/${pkg.version}`,
       },
       agent: false,
       throwHttpErrors: false,

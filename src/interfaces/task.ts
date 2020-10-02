@@ -18,6 +18,7 @@ export interface Task {
   closing_tags: string[];
   do_lock_translations: boolean;
   languages: object;
+  source_language_iso: string;
   auto_close_languages: boolean;
   auto_close_task: boolean;
   completed_at: string;
