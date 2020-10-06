@@ -1,0 +1,278 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "POST",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/keys/",
+    "body": {
+      "keys": [
+        {
+          "key_name": {
+            "ios": "name_for_ios",
+            "web": "name_for_web",
+            "android": "android_name",
+            "other": "other_name"
+          },
+          "platforms": [
+            "web",
+            "ios"
+          ],
+          "translations": [
+            {
+              "language_iso": "en",
+              "translation": "Per-platform key names"
+            }
+          ]
+        }
+      ]
+    },
+    "status": 200,
+    "response": {
+      "project_id": "803826145ba90b42d5d860.46800099",
+      "branch": "master",
+      "keys": [
+        {
+          "key_id": 59354812,
+          "created_at": "2020-10-06 15:42:43 (Etc/UTC)",
+          "created_at_timestamp": 1601998963,
+          "key_name": {
+            "ios": "name_for_ios",
+            "android": "name_for_ios",
+            "web": "name_for_web",
+            "other": "name_for_ios"
+          },
+          "filenames": {
+            "ios": "",
+            "android": "",
+            "web": "",
+            "other": ""
+          },
+          "description": "",
+          "platforms": [
+            "ios",
+            "web"
+          ],
+          "tags": [],
+          "comments": [],
+          "screenshots": [],
+          "translations": [
+            {
+              "translation_id": 426449335,
+              "key_id": 59354812,
+              "language_iso": "ru",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449325,
+              "key_id": 59354812,
+              "language_iso": "en",
+              "translation": "Per-platform key names",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": false,
+              "words": 3,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449334,
+              "key_id": 59354812,
+              "language_iso": "f_over",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449329,
+              "key_id": 59354812,
+              "language_iso": "ar_001",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449327,
+              "key_id": 59354812,
+              "language_iso": "nl",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449332,
+              "key_id": 59354812,
+              "language_iso": "ca",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449330,
+              "key_id": 59354812,
+              "language_iso": "sq",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449331,
+              "key_id": 59354812,
+              "language_iso": "bm",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449333,
+              "key_id": 59354812,
+              "language_iso": "en-us",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449328,
+              "key_id": 59354812,
+              "language_iso": "es",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            },
+            {
+              "translation_id": 426449326,
+              "key_id": 59354812,
+              "language_iso": "custom_1",
+              "translation": "",
+              "modified_by": 20181,
+              "modified_by_email": "bodrovis@protonmail.com",
+              "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+              "modified_at_timestamp": 1601998963,
+              "is_reviewed": false,
+              "reviewed_by": 0,
+              "is_fuzzy": true,
+              "words": 0,
+              "custom_translation_statuses": []
+            }
+          ],
+          "is_plural": false,
+          "plural_name": "",
+          "is_hidden": false,
+          "is_archived": false,
+          "context": "",
+          "base_words": 3,
+          "char_limit": 0,
+          "custom_attributes": "",
+          "modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+          "modified_at_timestamp": 1601998963,
+          "translations_modified_at": "2020-10-06 15:42:43 (Etc/UTC)",
+          "translations_modified_at_timestamp": 1601998963
+        }
+      ],
+      "errors": []
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "Date",
+      "Tue, 06 Oct 2020 15:42:43 GMT",
+      "Pragma",
+      "no-cache",
+      "Allow",
+      "GET",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "Expires",
+      "Tue, 06 Oct 2020 15:42:43 GMT",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

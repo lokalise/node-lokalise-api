@@ -28,6 +28,9 @@ lokaliseApi.keys.create([
     "key_name": "welcome_web",
     "description": "Index app welcome",
     "platforms": ["web"],
+    "filenames": {
+      "web": "my_filename.json"
+    },
     "translations": [
       {
         "language_iso": "en",
@@ -52,6 +55,32 @@ lokaliseApi.keys.create([
   }
 ], {project_id: project_id});
 ```
+
+Creating a key with per-platform names:
+
+```js
+lokaliseApi.keys.create(
+  [{
+    key_name: {
+      ios: "name_for_ios",
+      web: "name_for_web",
+      android: "android_name",
+      other: "other_name"
+    },
+    platforms: ["web", "ios"],
+    translations: [{
+      language_iso: "en",
+      translation: "Per-platform key names"
+    }],
+  }],
+  { project_id: project_id }
+);
+```
+
+Things to note:
+
+* "Per-platform key names" option must be enabled in the project settings
+* You have to provide key names for all four platform (`ios`, `web`, `android`, `other`) even if the key does not belong to all of them
 
 ## Update project key
 

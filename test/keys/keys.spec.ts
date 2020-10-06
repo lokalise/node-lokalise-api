@@ -98,14 +98,42 @@ describe("Keys", function () {
         ],
         { project_id: project_id }
       );
-      console.log(keys)
-      // expect(keys[0].key_name["web"]).to.eq("welcome_web");
-      // expect(keys[0].platforms).to.include("web");
-      // expect(keys[0].translations[2].translation).to.eq("Welcome");
-      //
-      // expect(keys[1].key_name["ios"]).to.eq("welcome_ios");
-      // expect(keys[1].platforms).to.include("ios");
-      // expect(keys[1].translations[2].language_iso).to.eq("en");
+
+      expect(keys[0].key_name["web"]).to.eq("welcome_web");
+      expect(keys[0].platforms).to.include("web");
+      expect(keys[0].filenames['web']).to.eq("my_filename.json");
+      expect(keys[0].translations[1].translation).to.eq("Welcome");
+
+      expect(keys[1].key_name["ios"]).to.eq("welcome_ios");
+      expect(keys[1].platforms).to.include("ios");
+      expect(keys[1].translations[1].language_iso).to.eq("en");
+    })
+    .register(this);
+
+  cassette
+    .createTest("create per-platform", async () => {
+      const keys = await lokaliseApi.keys.create(
+        [{
+          key_name: {
+            ios: "name_for_ios",
+            web: "name_for_web",
+            android: "android_name",
+            other: "other_name"
+          },
+          platforms: ["web", "ios"],
+          translations: [{
+            language_iso: "en",
+            translation: "Per-platform key names"
+          }],
+        }],
+        { project_id: project_id }
+      );
+      const key = keys[0]
+
+      expect(key.key_name["web"]).to.eq("name_for_web");
+      expect(key.key_name["ios"]).to.eq("name_for_ios");
+      expect(key.platforms).to.include("web", "ios");
+      expect(key.platforms).not.to.include("android", "other");
     })
     .register(this);
 
