@@ -31,6 +31,19 @@ describe("Translations", function () {
     })
     .register(this);
 
+    cassette
+      .createTest("list with opts", async () => {
+        const translations = await lokaliseApi.translations.list({
+          project_id: project_id,
+          filter_is_reviewed: 0,
+          filter_lang_id: 803
+        });
+        console.log(translations[0])
+        expect(translations[0].translation_id).to.eq(304581213);
+        expect(translations[0].language_iso).to.eq("sq");
+      })
+      .register(this);
+
   cassette
     .createTest("get", async () => {
       const translation = await lokaliseApi.translations.get(translation_id, {
