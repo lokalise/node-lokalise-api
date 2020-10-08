@@ -14,7 +14,7 @@ lokaliseApi.translations.list({
 });
 ```
 
-Please note that is you would like to filter translations by their language, you have to provide *language ID*, not language ISO code, as it is shown in the example above!
+Please note that if you would like to filter translations by their language, you have to provide *language ID*, not language ISO code, as it is shown in the example above!
 
 ## Fetch a single translation
 
