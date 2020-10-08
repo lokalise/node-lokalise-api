@@ -38,7 +38,7 @@ describe("Translations", function () {
           filter_is_reviewed: 0,
           filter_lang_id: 803
         });
-        console.log(translations[0])
+        
         expect(translations[0].translation_id).to.eq(304581213);
         expect(translations[0].language_iso).to.eq("sq");
       })
