@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.1 (03-Nov-20)
+
+* Update dependencies
+
 ## 5.2.0 (02-Oct-20)
 
 * Provide missing typings
