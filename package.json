@@ -28,7 +28,7 @@
     "@typescript-eslint/parser": "^4.6.1",
     "acorn": "^8.0.4",
     "chai": "^4.2.0",
-    "codecov": "^3.8.0",
+    "codecov": "^3.8.1",
     "dotenv": "^8.2.0",
     "eslint": "^7.12.1",
     "eslint-config-prettier": "^6.15.0",
