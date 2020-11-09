@@ -1,5 +1,9 @@
 # Changelog
 
+## 5.2.2 (09-Nov-20)
+
+* Update lodash to the latest version
+
 ## 5.2.1 (03-Nov-20)
 
 * Update dependencies
