@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "repository": {
@@ -30,10 +30,11 @@
     "chai": "^4.2.0",
     "codecov": "^3.8.1",
     "dotenv": "^8.2.0",
-    "eslint": "^7.12.1",
+    "eslint": "^7.13.0",
     "eslint-config-prettier": "^6.15.0",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "lodash": "^4.17.20",
     "mocha": "^8.2.1",
     "mocha-cassettes": "1.2.1",
     "nyc": "^15.1",

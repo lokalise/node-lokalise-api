@@ -71,7 +71,7 @@ describe("Keys", function () {
             description: "Index app welcome",
             platforms: ["web"],
             filenames: {
-              web: "my_filename.json"
+              web: "my_filename.json",
             },
             translations: [
               {
@@ -101,7 +101,7 @@ describe("Keys", function () {
 
       expect(keys[0].key_name["web"]).to.eq("welcome_web");
       expect(keys[0].platforms).to.include("web");
-      expect(keys[0].filenames['web']).to.eq("my_filename.json");
+      expect(keys[0].filenames["web"]).to.eq("my_filename.json");
       expect(keys[0].translations[1].translation).to.eq("Welcome");
 
       expect(keys[1].key_name["ios"]).to.eq("welcome_ios");
@@ -113,22 +113,26 @@ describe("Keys", function () {
   cassette
     .createTest("create per-platform", async () => {
       const keys = await lokaliseApi.keys.create(
-        [{
-          key_name: {
-            ios: "name_for_ios",
-            web: "name_for_web",
-            android: "android_name",
-            other: "other_name"
+        [
+          {
+            key_name: {
+              ios: "name_for_ios",
+              web: "name_for_web",
+              android: "android_name",
+              other: "other_name",
+            },
+            platforms: ["web", "ios"],
+            translations: [
+              {
+                language_iso: "en",
+                translation: "Per-platform key names",
+              },
+            ],
           },
-          platforms: ["web", "ios"],
-          translations: [{
-            language_iso: "en",
-            translation: "Per-platform key names"
-          }],
-        }],
+        ],
         { project_id: project_id }
       );
-      const key = keys[0]
+      const key = keys[0];
 
       expect(key.key_name["web"]).to.eq("name_for_web");
       expect(key.key_name["ios"]).to.eq("name_for_ios");
