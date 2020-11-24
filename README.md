@@ -1,7 +1,7 @@
 # Lokalise API v2 official Node.js client
 
 [![npm version](https://badge.fury.io/js/%40lokalise%2Fnode-api.svg)](https://badge.fury.io/js/%40lokalise%2Fnode-api)
-[![Build Status](https://travis-ci.org/lokalise/node-lokalise-api.svg?branch=master)](https://travis-ci.org/lokalise/node-lokalise-api)
+[![Build Status](https://travis-ci.com/lokalise/node-lokalise-api.svg?branch=master)](https://travis-ci.com/github/lokalise/node-lokalise-api)
 [![Test Coverage](https://codecov.io/gh/lokalise/node-lokalise-api/graph/badge.svg)](https://codecov.io/gh/lokalise/node-lokalise-api)
 ![Downloads total](https://img.shields.io/npm/dt/@lokalise/node-api)
 
