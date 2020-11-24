@@ -41,6 +41,22 @@ describe("Files", function () {
     .register(this);
 
   cassette
+    .createTest("upload without automations", async () => {
+      const data =
+        "ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=";
+      const process = await lokaliseApi.files.upload(project_id, {
+        data: data,
+        filename: "test_async.json",
+        lang_iso: "en",
+        use_automations: false,
+      });
+
+      expect(process.type).to.eq("file-import");
+      expect(process.status).to.eq("queued");
+    })
+    .register(this);
+
+  cassette
     .createTest("upload asynchronous re-check", async () => {
       const process = await lokaliseApi.queuedProcesses.get(process_id, {
         project_id: project_id,

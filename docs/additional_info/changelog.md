@@ -1,5 +1,11 @@
 # Changelog
 
+## 5.3.0 (24-Nov-20)
+
+* Add `use_automations` flag to `UploadFileParams` (default is `true`)
+* Update dependencies
+* Test against Node 15
+
 ## 5.2.2 (09-Nov-20)
 
 * Update lodash to the latest version
