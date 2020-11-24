@@ -292,6 +292,7 @@ declare module "@lokalise/node-api" {
     keys_to_values?: boolean;
     distinguish_by_file?: boolean;
     apply_tm?: boolean;
+    use_automations?: boolean;
     hidden_from_contributors?: boolean;
     cleanup_mode?: boolean;
     custom_translation_status_ids?: string | number[];
