@@ -38,7 +38,7 @@
     "mocha": "^8.2.1",
     "mocha-cassettes": "1.2.1",
     "nyc": "^15.1",
-    "prettier": "2.1.2",
+    "prettier": "2.2.1",
     "source-map-support": "^0.5.19",
     "ts-node": "^9.0.0"
   },
