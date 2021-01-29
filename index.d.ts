@@ -1,4 +1,9 @@
 declare module "@lokalise/node-api" {
+  export interface ApiError {
+    code: number;
+    message: string;
+  }
+
   export interface Branch {
     branch_id: number;
     name: string;

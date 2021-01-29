@@ -12,7 +12,7 @@ export class Files extends BaseCollection {
   protected static secondaryElementNameSingular: string = "process";
   protected static secondaryElementClass: Object = QueuedProcess;
 
-  upload(project_id: string, upload: UploadFileParams): Promise<any> {
+  upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess> {
     return this.createPromise(
       "POST",
       { project_id: project_id },
@@ -23,7 +23,7 @@ export class Files extends BaseCollection {
     );
   }
 
-  download(project_id: string, download: DownloadFileParams): Promise<any> {
+  download(project_id: string, download: DownloadFileParams): Promise<Object> {
     return this.createPromise(
       "POST",
       { project_id: project_id },

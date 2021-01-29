@@ -4,18 +4,27 @@ const pkg = require("../../package.json");
 import { LokaliseApi } from "../lokalise/lokalise";
 
 export class ApiRequest {
-  private urlRoot: string = "https://api.lokalise.com/api2/";
+  private urlRoot: string | URL = "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
   public params: any = {};
 
   /* istanbul ignore next */
-  constructor(uri: any, method: any, body: any = null, params: any = {}) {
+  constructor(
+    uri: string,
+    method: string,
+    body: Object | Array<Object> | null = null,
+    params: Object = {}
+  ) {
     this.params = params;
     this.promise = this.createPromise(uri, method, body);
     return this;
   }
 
-  createPromise(uri: any, method: any, body: any): Promise<any> {
+  createPromise(
+    uri: string,
+    method: any,
+    body: Object | Array<Object> | null
+  ): Promise<any> {
     const options: Options = {
       method: method,
       prefixUrl: this.urlRoot,
@@ -42,25 +51,18 @@ export class ApiRequest {
       got(url, options)
         .then((response: Response) => {
           const responseJSON = JSON.parse(<string>response.body);
-          if (
-            responseJSON["error"] ||
-            (responseJSON["errors"] && responseJSON["errors"].length != 0)
-          ) {
+          if (response.statusCode > 299) {
             /* istanbul ignore next */
             reject(
               responseJSON["error"] || responseJSON["errors"] || responseJSON
             );
             return;
           }
-          // Workaround to pass header parameters
-          const result: any = {};
-          result["headers"] = response.headers;
-          result["body"] = responseJSON;
-          resolve(result);
+          resolve({ json: responseJSON, headers: response.headers });
           return;
         })
         .then((error: RequestError) => {
-          reject(error.code);
+          reject(error);
           /* istanbul ignore next */
           return error;
         })

@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "5.3.0",
+  "version": "6.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "repository": {
@@ -36,7 +36,7 @@
     "eslint-plugin-prettier": "^3.3.0",
     "lodash": "^4.17.20",
     "mocha": "^8.2.1",
-    "mocha-cassettes": "1.2.1",
+    "mocha-cassettes": "1.2.2",
     "nyc": "^15.1",
     "prettier": "^2.2.1",
     "source-map-support": "^0.5.19",

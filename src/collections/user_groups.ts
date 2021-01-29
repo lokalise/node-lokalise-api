@@ -104,8 +104,8 @@ export class UserGroups extends BaseCollection {
     );
   }
 
-  protected populateGroupFromJsonRoot(json: any): this {
+  protected populateGroupFromJsonRoot(json: any, headers: any): this {
     const formatted_json = json["group"];
-    return this.populateObjectFromJson(formatted_json);
+    return <this>this.populateObjectFromJson(formatted_json, headers);
   }
 }

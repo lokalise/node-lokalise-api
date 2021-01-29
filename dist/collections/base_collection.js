@@ -2,17 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.BaseCollection = void 0;
 const base_1 = require("../http_client/base");
+const paginated_result_1 = require("../models/paginated_result");
 class BaseCollection {
-    constructor() {
-        // Workaround for handling HTTP header pagination params
-        this.totalResults = null;
-        this.totalPages = null;
-        this.resultsPerPage = null;
-        this.currentPage = null;
-    }
-    get(id, params = {}, body = null) {
+    get(id, params = {}, _body = null) {
         params["id"] = id;
-        return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+        return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, _body);
     }
     list(params = {}) {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
@@ -28,29 +22,22 @@ class BaseCollection {
         params["id"] = id;
         return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, null);
     }
-    populatePaginationDataFor(headers) {
-        this.totalResults = parseInt(headers["x-pagination-total-count"]);
-        this.totalPages = parseInt(headers["x-pagination-page-count"]);
-        this.resultsPerPage = parseInt(headers["x-pagination-limit"]);
-        this.currentPage = parseInt(headers["x-pagination-page"]);
-        return;
-    }
-    populateObjectFromJsonRoot(json) {
+    populateObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;
-        if (childClass.rootElementNameSingular != null) {
-            json = json[childClass.rootElementNameSingular];
+        if (childClass.rootElementNameSingular) {
+            json = Object(json)[childClass.rootElementNameSingular];
         }
-        return this.populateObjectFromJson(json);
+        return this.populateObjectFromJson(json, headers);
     }
-    populateSecondaryObjectFromJsonRoot(json) {
+    populateSecondaryObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;
         /* istanbul ignore next */
-        if (childClass.secondaryElementNameSingular != null) {
-            json = json[childClass.secondaryElementNameSingular];
+        if (childClass.secondaryElementNameSingular) {
+            json = Object(json)[childClass.secondaryElementNameSingular];
         }
-        return this.populateObjectFromJson(json, true);
+        return this.populateObjectFromJson(json, headers, true);
     }
-    populateObjectFromJson(json, secondary = false) {
+    populateObjectFromJson(json, _headers, secondary = false) {
         const childClass = this.constructor;
         if (secondary) {
             return new childClass.secondaryElementClass(json);
@@ -59,14 +46,31 @@ class BaseCollection {
             return new childClass.elementClass(json);
         }
     }
-    populateArrayFromJson(json) {
+    populateArrayFromJson(json, headers) {
         const childClass = this.constructor;
         const arr = [];
         const jsonArray = json[childClass.rootElementName];
         for (const obj of jsonArray) {
-            arr.push(this.populateObjectFromJson(obj));
+            arr.push(this.populateObjectFromJson(obj, headers));
         }
-        return arr;
+        if (Object(headers)["x-pagination-total-count"] &&
+            Object(headers)["x-pagination-page"]) {
+            const result = new paginated_result_1.PaginatedResult(arr, headers);
+            return result;
+        }
+        else {
+            // Handle rare cases when the response is success but there were errors along with other data
+            // Currently, it can only happen when creating or updating items in bulk
+            if (json["errors"]) {
+                const result = {};
+                result.errors = json["errors"];
+                result.items = arr;
+                return result;
+            }
+            else {
+                return arr;
+            }
+        }
     }
     populateApiErrorFromJson(json) {
         return json;
@@ -86,16 +90,21 @@ class BaseCollection {
         return new Promise((resolve, reject) => {
             const response = new base_1.ApiRequest(uri, method, body, params);
             response.promise
-                .then((result) => {
-                const headers = result["headers"];
-                this.populatePaginationDataFor(headers);
-                const json = result["body"];
-                resolve(resolveFn.call(this, json));
+                .then((data) => {
+                resolve(resolveFn.call(this, data["json"], data["headers"]));
             })
                 .catch((data) => {
                 reject(rejectFn.call(this, data));
             });
         });
+    }
+    objToArray(raw_body) {
+        if (!Array.isArray(raw_body)) {
+            return Array(raw_body);
+        }
+        else {
+            return raw_body;
+        }
     }
 }
 exports.BaseCollection = BaseCollection;

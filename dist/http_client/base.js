@@ -36,21 +36,16 @@ class ApiRequest {
             got(url, options)
                 .then((response) => {
                 const responseJSON = JSON.parse(response.body);
-                if (responseJSON["error"] ||
-                    (responseJSON["errors"] && responseJSON["errors"].length != 0)) {
+                if (response.statusCode > 299) {
                     /* istanbul ignore next */
                     reject(responseJSON["error"] || responseJSON["errors"] || responseJSON);
                     return;
                 }
-                // Workaround to pass header parameters
-                const result = {};
-                result["headers"] = response.headers;
-                result["body"] = responseJSON;
-                resolve(result);
+                resolve({ json: responseJSON, headers: response.headers });
                 return;
             })
                 .then((error) => {
-                reject(error.code);
+                reject(error);
                 /* istanbul ignore next */
                 return error;
             })

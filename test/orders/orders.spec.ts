@@ -12,7 +12,7 @@ describe("Orders", function () {
   cassette
     .createTest("list", async () => {
       const orders = await lokaliseApi.orders.list({ team_id: team_id });
-      expect(orders[0].order_id).to.eq(order_id);
+      expect(orders.items[0].order_id).to.eq(order_id);
     })
     .register(this);
 
@@ -23,7 +23,11 @@ describe("Orders", function () {
         page: 2,
         limit: 1,
       });
-      expect(orders[0].order_id).to.eq("20190611AC2");
+      expect(orders.items[0].order_id).to.eq("20190611AC2");
+      expect(orders.totalResults).to.eq(2);
+      expect(orders.totalPages).to.eq(2);
+      expect(orders.resultsPerPage).to.eq(1);
+      expect(orders.currentPage).to.eq(2);
     })
     .register(this);
 

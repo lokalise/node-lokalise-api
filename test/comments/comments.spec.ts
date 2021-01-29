@@ -16,7 +16,8 @@ describe("Comments", function () {
         project_id: project_id,
       });
 
-      expect(comments[0].comment_id).to.eq(comment_id);
+      expect(comments.items[0].comment_id).to.eq(comment_id);
+      expect(comments.totalResults).to.eq(4);
     })
     .register(this);
 
@@ -27,8 +28,9 @@ describe("Comments", function () {
         key_id: key_id,
       });
 
-      expect(comments[0].comment_id).to.eq(comment_id);
-      expect(comments[0].key_id).to.eq(key_id);
+      expect(comments.items[0].comment_id).to.eq(comment_id);
+      expect(comments.items[0].key_id).to.eq(key_id);
+      expect(comments.resultsPerPage).to.eq(100);
     })
     .register(this);
 
@@ -52,16 +54,22 @@ describe("Comments", function () {
   cassette
     .createTest("create", async () => {
       const comments = await lokaliseApi.comments.create(
-        {
-          comments: [
-            { comment: "Project comment 1" },
-            { comment: "Project comment 2" },
-          ],
-        },
+        [{ comment: "Project comment 1" }, { comment: "Project comment 2" }],
         { project_id: project_id, key_id: key_id }
       );
 
       expect(comments[0].comment).to.eq("Project comment 1");
+    })
+    .register(this);
+
+  cassette
+    .createTest("create_single", async () => {
+      const comments = await lokaliseApi.comments.create(
+        { comment: "Single" },
+        { project_id: project_id, key_id: 74189435 }
+      );
+
+      expect(comments[0].comment).to.eq("Single");
     })
     .register(this);
 

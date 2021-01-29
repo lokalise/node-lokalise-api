@@ -35,9 +35,9 @@ class UserGroups extends base_collection_1.BaseCollection {
         const body = { projects: raw_body };
         return this.createPromise("PUT", params, this.populateGroupFromJsonRoot, this.handleReject, body, "teams/{!:team_id}/groups/{!:group_id}/projects/remove");
     }
-    populateGroupFromJsonRoot(json) {
+    populateGroupFromJsonRoot(json, headers) {
         const formatted_json = json["group"];
-        return this.populateObjectFromJson(formatted_json);
+        return this.populateObjectFromJson(formatted_json, headers);
     }
 }
 exports.UserGroups = UserGroups;

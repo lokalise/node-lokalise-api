@@ -10,5 +10,5 @@ export declare class UserGroups extends BaseCollection {
     remove_members_from_group(team_id: any, group_id: any, raw_body: any[], params?: any): Promise<any>;
     add_projects_to_group(team_id: any, group_id: any, raw_body: any[], params?: any): Promise<any>;
     remove_projects_from_group(team_id: any, group_id: any, raw_body: any[], params?: any): Promise<any>;
-    protected populateGroupFromJsonRoot(json: any): this;
+    protected populateGroupFromJsonRoot(json: any, headers: any): this;
 }

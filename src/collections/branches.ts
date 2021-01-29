@@ -8,7 +8,7 @@ export class Branches extends BaseCollection {
   protected static prefixURI: string = "projects/{!:project_id}/branches/{:id}";
   protected static elementClass: Object = Branch;
 
-  create(body: any, params: StandartParams): Promise<any> {
+  create(body: Object, params: StandartParams): Promise<Branch> {
     return this.createPromise(
       "POST",
       params,
@@ -18,7 +18,11 @@ export class Branches extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: Object,
+    params: StandartParams
+  ): Promise<Branch> {
     params["id"] = id;
     return this.createPromise(
       "PUT",
@@ -29,7 +33,11 @@ export class Branches extends BaseCollection {
     );
   }
 
-  merge(id: any, params: StandartParams, body: any = {}): Promise<any> {
+  merge(
+    id: string | number,
+    params: StandartParams,
+    body: Object = {}
+  ): Promise<Object> {
     params["id"] = id;
     return this.createPromise(
       "POST",

@@ -11,7 +11,7 @@ describe("Teams", function () {
     .createTest("list", async () => {
       const teams = await lokaliseApi.teams.list();
 
-      expect(teams[0].team_id).to.eq(186612);
+      expect(teams.items[0].team_id).to.eq(186612);
     })
     .register(this);
 
@@ -19,7 +19,11 @@ describe("Teams", function () {
     .createTest("list_pagination", async () => {
       const teams = await lokaliseApi.teams.list({ page: 2, limit: 1 });
 
-      expect(teams[0].team_id).to.eq(176692);
+      expect(teams.items[0].team_id).to.eq(176692);
+      expect(teams.totalResults).to.eq(3);
+      expect(teams.totalPages).to.eq(3);
+      expect(teams.resultsPerPage).to.eq(1);
+      expect(teams.currentPage).to.eq(2);
     })
     .register(this);
 });

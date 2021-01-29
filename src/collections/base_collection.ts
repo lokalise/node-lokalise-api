@@ -1,6 +1,8 @@
 import { ApiRequest } from "../http_client/base";
 import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
+import { PaginatedResult } from "../models/paginated_result";
+import { Keyable } from "../interfaces/keyable";
 
 export class BaseCollection {
   protected static rootElementName: string = "";
@@ -14,25 +16,22 @@ export class BaseCollection {
   protected static secondaryElementNameSingular: string | null = null;
   protected static secondaryElementClass: any = null;
 
-  // Workaround for handling HTTP header pagination params
-
-  totalResults: number | null = null;
-  totalPages: number | null = null;
-  resultsPerPage: number | null = null;
-  currentPage: number | null = null;
-
-  get(id: any, params: StandartParams = {}, body: any = null): Promise<any> {
+  get(
+    id: string | number,
+    params: StandartParams = {},
+    _body: any = null
+  ): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "GET",
       params,
       this.populateObjectFromJsonRoot,
       this.handleReject,
-      body
+      _body
     );
   }
 
-  list(params: StandartParams = {}): Promise<any[]> {
+  list(params: StandartParams = {}): Promise<PaginatedResult> {
     return this.createPromise(
       "GET",
       params,
@@ -42,7 +41,10 @@ export class BaseCollection {
     );
   }
 
-  create(body: any, params: StandartParams = {}): Promise<any> {
+  create(
+    body: Object | Array<Object> | null,
+    params: StandartParams = {}
+  ): Promise<any> {
     return this.createPromise(
       "POST",
       params,
@@ -52,7 +54,11 @@ export class BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams = {}): Promise<any> {
+  update(
+    id: string | number,
+    body: Object | Array<Object> | null,
+    params: StandartParams = {}
+  ): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "PUT",
@@ -63,7 +69,7 @@ export class BaseCollection {
     );
   }
 
-  delete(id: any, params: StandartParams = {}): Promise<any> {
+  delete(id: string | number, params: StandartParams = {}): Promise<Keyable> {
     params["id"] = id;
     return this.createPromise(
       "DELETE",
@@ -74,35 +80,31 @@ export class BaseCollection {
     );
   }
 
-  populatePaginationDataFor(headers: any): void {
-    this.totalResults = parseInt(headers["x-pagination-total-count"]);
-    this.totalPages = parseInt(headers["x-pagination-page-count"]);
-    this.resultsPerPage = parseInt(headers["x-pagination-limit"]);
-    this.currentPage = parseInt(headers["x-pagination-page"]);
-    return;
-  }
-
-  protected populateObjectFromJsonRoot(json: any): this {
+  protected populateObjectFromJsonRoot(json: Object, headers: Object): Object {
     const childClass = <typeof BaseCollection>this.constructor;
-    if (childClass.rootElementNameSingular != null) {
-      json = json[childClass.rootElementNameSingular];
+    if (childClass.rootElementNameSingular) {
+      json = Object(json)[childClass.rootElementNameSingular];
     }
-    return this.populateObjectFromJson(json);
+    return this.populateObjectFromJson(json, headers);
   }
 
-  protected populateSecondaryObjectFromJsonRoot(json: any): this {
+  protected populateSecondaryObjectFromJsonRoot(
+    json: Object,
+    headers: Object
+  ): Object {
     const childClass = <typeof BaseCollection>this.constructor;
     /* istanbul ignore next */
-    if (childClass.secondaryElementNameSingular != null) {
-      json = json[childClass.secondaryElementNameSingular];
+    if (childClass.secondaryElementNameSingular) {
+      json = Object(json)[childClass.secondaryElementNameSingular];
     }
-    return this.populateObjectFromJson(json, true);
+    return this.populateObjectFromJson(json, headers, true);
   }
 
   protected populateObjectFromJson(
     json: Object,
+    _headers: Object,
     secondary: boolean = false
-  ): this {
+  ): Object {
     const childClass = <typeof BaseCollection>this.constructor;
     if (secondary) {
       return new childClass.secondaryElementClass(json);
@@ -111,21 +113,44 @@ export class BaseCollection {
     }
   }
 
-  protected populateArrayFromJson(json: Array<any>): this[] {
+  protected populateArrayFromJson(
+    json: Keyable,
+    headers: Object
+  ): PaginatedResult | Keyable | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
     const jsonArray = json[(<any>childClass).rootElementName];
     for (const obj of jsonArray) {
-      arr.push(this.populateObjectFromJson(obj));
+      arr.push(<this>this.populateObjectFromJson(obj, headers));
     }
-    return arr;
+
+    if (
+      Object(headers)["x-pagination-total-count"] &&
+      Object(headers)["x-pagination-page"]
+    ) {
+      const result: PaginatedResult = new PaginatedResult(arr, headers);
+      return result;
+    } else {
+      // Handle rare cases when the response is success but there were errors along with other data
+      // Currently, it can only happen when creating or updating items in bulk
+      if (json["errors"]) {
+        const result: Keyable = {};
+        result.errors = json["errors"];
+        result.items = arr;
+        return result;
+      } else {
+        return arr;
+      }
+    }
   }
 
-  protected populateApiErrorFromJson(json: Object): ApiError {
+  protected populateApiErrorFromJson(json: any): ApiError {
     return <ApiError>json;
   }
 
-  protected returnBareJSON(json: any): any {
+  protected returnBareJSON(
+    json: Object | Array<Object>
+  ): Object | Array<Object> {
     return json;
   }
 
@@ -135,29 +160,39 @@ export class BaseCollection {
 
   /* istanbul ignore next */
   protected createPromise(
-    method: any,
-    params: any,
-    resolveFn: any,
-    rejectFn = this.handleReject,
-    body: any = null,
-    uri: any = null
+    method: string,
+    params: Object,
+    resolveFn: Function,
+    rejectFn: Function = this.handleReject,
+    body: Object | Array<Object> | null = null,
+    uri: string | null = null
   ): Promise<any> {
     const childClass = <typeof BaseCollection>this.constructor;
     if (uri == null) {
       uri = childClass.prefixURI;
     }
     return new Promise((resolve, reject) => {
-      const response: ApiRequest = new ApiRequest(uri, method, body, params);
+      const response: ApiRequest = new ApiRequest(
+        <string>uri,
+        method,
+        body,
+        params
+      );
       response.promise
-        .then((result) => {
-          const headers = result["headers"];
-          this.populatePaginationDataFor(headers);
-          const json = result["body"];
-          resolve(resolveFn.call(this, json));
+        .then((data) => {
+          resolve(resolveFn.call(this, data["json"], data["headers"]));
         })
         .catch((data) => {
           reject(rejectFn.call(this, data));
         });
     });
+  }
+
+  protected objToArray(raw_body: Object | Object[]): Array<Object> {
+    if (!Array.isArray(raw_body)) {
+      return Array<Object>(raw_body);
+    } else {
+      return raw_body;
+    }
   }
 }

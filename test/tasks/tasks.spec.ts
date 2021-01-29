@@ -14,7 +14,7 @@ describe("Tasks", function () {
     .createTest("list", async () => {
       const tasks = await lokaliseApi.tasks.list({ project_id: project_id });
 
-      expect(tasks[0].task_id).to.eq(task_id);
+      expect(tasks.items[0].task_id).to.eq(task_id);
     })
     .register(this);
 
@@ -26,7 +26,11 @@ describe("Tasks", function () {
         limit: 1,
       });
 
-      expect(tasks[0].task_id).to.eq(10001);
+      expect(tasks.items[0].task_id).to.eq(10001);
+      expect(tasks.totalResults).to.eq(3);
+      expect(tasks.totalPages).to.eq(3);
+      expect(tasks.resultsPerPage).to.eq(1);
+      expect(tasks.currentPage).to.eq(2);
     })
     .register(this);
 

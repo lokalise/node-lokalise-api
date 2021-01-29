@@ -9,8 +9,11 @@ export class Contributors extends BaseCollection {
     "projects/{!:project_id}/contributors/{:id}";
   protected static elementClass: Object = Contributor;
 
-  create(raw_body: any, params: StandartParams): Promise<any> {
-    const body = { contributors: raw_body };
+  create(
+    raw_body: Object | Array<Object>,
+    params: StandartParams
+  ): Promise<Contributor[]> {
+    const body: Object = { contributors: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -21,7 +24,11 @@ export class Contributors extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: Object,
+    params: StandartParams
+  ): Promise<Contributor> {
     params["id"] = id;
     return this.createPromise(
       "PUT",
