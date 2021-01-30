@@ -56,6 +56,7 @@ export class ApiRequest {
         .then((response: Response) => {
           const responseJSON = JSON.parse(<string>response.body);
           if (response.statusCode > 299) {
+            /* istanbul ignore next */
             reject(responseJSON["error"] || responseJSON);
             return;
           }
@@ -66,6 +67,7 @@ export class ApiRequest {
           reject(error);
           return error;
         })
+        /* istanbul ignore next */
         .catch((error: any) => {
           /* istanbul ignore next */
           reject(error);

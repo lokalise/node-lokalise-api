@@ -84,10 +84,12 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("available_colors", async () => {
-      const colors = await lokaliseApi.translationStatuses.available_colors({
-        project_id: project_id,
-      });
-      expect(colors["colors"]).to.include("#f2d600");
+      const colors_data = await lokaliseApi.translationStatuses.available_colors(
+        {
+          project_id: project_id,
+        }
+      );
+      expect(colors_data.colors).to.include("#f2d600");
     })
     .register(this);
 });

@@ -1,5 +1,115 @@
 # Changelog
 
+## 6.0.0
+
+This is a major release that contains quite a lot of changes mostly aimed towards pagination and typings system. Also the docs were updated, and various fixes were introduced.
+
+**Breaking change**: pagination data is now attached directly to the collection returned by the request. Previously the following code was not working because pagination was stored in a separate object unrelated to the collection:
+
+```js
+const projects = lokaliseApi.projects.list({team_id: team_id, page: 2, limit: 10});
+projects.totalResults; // => undefined
+```
+
+Therefore, you had to do the following inconvenient trick (for example, see [#53](https://github.com/lokalise/node-lokalise-api/issues/53)):
+
+```js
+lokaliseApi.projects.list().totalResults;
+```
+
+**This is not the case anymore**! Paginated collections now have the following attributes and functions:
+
+```js
+projects.totalResults; // => 30
+projects.totalPages; // => 3
+projects.resultsPerPage; // => 10
+projects.currentPage; // => 2
+projects.hasNextPage(); // => true
+projects.hasPrevPage(); // => true
+projects.isLastPage(); // => false
+projects.isFirstPage(); // => false
+projects.nextPage(); // => 3
+projects.prevPage(); // => 1
+```
+
+However **to get the actual data from the paginated response**, you must use the `.items` attribute now:
+
+```js
+const projects = lokaliseApi.projects.list({team_id: team_id, page: 2, limit: 10});
+
+// CORRECT:
+const project = projects.items[0]; // .items will fetch all projects data and [0] will get the first project
+project.name
+
+// INCORRECT:
+const project = projects[0]; // this will not work anymore!
+project.name
+
+// And pagination can be fetched in the following way:
+projects.totalResults; // => 30
+projects.hasNextPage(); // => true
+```
+
+**Breaking change**: potential errors returned by the API when performing bulk create or bulk update operations are not swallowed anymore. For example, Lokalise APIv2 allows to create translation keys in bulk. If one of the key names is already taken, it won't be created and the corresponding error message will be added to the `errors` response attribute. However, the whole operation will *not* fail and all other valid keys will still be created. The response has the following structure:
+
+```js
+{
+    "project_id": "300abc.877xyz",
+    "keys": [
+      // keys that were successfully created
+    ],
+    "errors": [
+        {
+            "message": "This key name is already taken",
+            "code": 400,
+            "key": {
+                "key_name": "button.ok" // this key name cannot be created because of the duplicating name
+            }
+        }
+    ]
+}
+```
+
+Previously such errors were silently swallowed, however that's not the case anymore. Specifically, changes were made to the following methods:
+
+* `keys.create`
+* `keys.bulk_update` (note that `keys.update` is unaffected by this change)
+* `languages.create`
+
+**To fetch the actual data returned by these methods** you now have to use the `.items` attribute. **To fetch the errors**, use `.errors`:
+
+```js
+const keys = await lokaliseApi.keys.create(
+  [
+    {
+      key_name: "valid.key.name",
+      platforms: ["web"],
+      filenames: { web: "%LANG_ISO%.yml", },
+      translations: [
+        {
+          language_iso: "en",
+          translation: "Valid key",
+        },
+      ],
+    },
+    {
+      key_name: "duplicate.key",
+      platforms: ["web"],
+      translations: [
+        {
+          language_iso: "en",
+          translation: "Duplicate!",
+        },
+      ],
+    },
+  ],
+  { project_id: '123.abc' }
+);
+
+keys.errors[0].message // => "This key name is already taken" -- this key was not created
+keys.items[0].key_name.ios // => "valid.key.name" -- this key was created
+```
+
 ## 5.3.0 (24-Nov-20)
 
 * Add `use_automations` flag to `UploadFileParams` (default is `true`)

@@ -24,7 +24,7 @@ Now you may perform API requests, for example:
 
 ```js
 const projects = lokaliseApi.projects.list();
-projects[0].name;
+projects.items[0].name;
 ```
 
 Every request returns a promise with a corresponding object (or array of objects) as the result. Please note that Lokalise API locks parallel requests which means you should call methods in a synchronous manner.
@@ -41,16 +41,39 @@ Bulk fetches support [pagination](https://app.lokalise.com/api2docs/curl/#resour
 For instance:
 
 ```js
-lokaliseApi.translationProviders.list({team_id: team_id, page: 2, limit: 10});
+const projects = lokaliseApi.projects.list({page: 2, limit: 10});
 ```
 
 The response pagination data can be fetched in the following way:
 
 ```js
-lokaliseApi.projects.totalResults;
-lokaliseApi.projects.totalPages;
-lokaliseApi.projects.resultsPerPage;
-lokaliseApi.projects.currentPage;
+projects.totalResults; // => 30
+projects.totalPages; // => 3
+projects.resultsPerPage; // => 10
+projects.currentPage; // => 2
+```
+
+You can also utilize the following functions:
+
+```js
+projects.hasNextPage(); // => true
+projects.hasPrevPage(); // => true
+projects.isLastPage(); // => false
+projects.isFirstPage(); // => false
+projects.nextPage(); // => 3
+projects.prevPage(); // => 1
+```
+
+**Please note** that in order to get the actual data from the paginated response, you have to use the `.items` attribute:
+
+```js
+// CORRECT:
+const project = projects.items[0]; // .items will fetch all projects data and [0] will get the first project
+project.name
+
+// INCORRECT:
+const project = projects[0];
+project.name
 ```
 
 ## Branching
