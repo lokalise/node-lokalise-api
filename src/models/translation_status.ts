@@ -1,5 +1,5 @@
 import { BaseModel } from "./base_model";
-import { TranslationStatus as TranslationStatusInterface } from "../interfaces";
+import { TranslationStatus as TranslationStatusInterface } from "../interfaces/translation_status";
 
 export class TranslationStatus
   extends BaseModel

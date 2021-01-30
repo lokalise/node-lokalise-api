@@ -1,3 +1,5 @@
+import { Options } from "got";
+
 declare module "@lokalise/node-api" {
   export interface ApiError {
     code: number;
@@ -31,7 +33,7 @@ declare module "@lokalise/node-api" {
     created_at_timestamp: number;
     is_admin: boolean;
     is_reviewer: boolean;
-    languages: object;
+    languages: Keyable;
     admin_rights: string[];
   }
 
@@ -106,6 +108,10 @@ declare module "@lokalise/node-api" {
     translations_modified_at_timestamp: number;
   }
 
+  export interface Keyable {
+    [key: string]: any;
+  }
+
   export interface Language {
     lang_id: number;
     lang_iso: string;
@@ -135,18 +141,6 @@ declare module "@lokalise/node-api" {
     total: number;
   }
 
-  export interface QueuedProcess {
-    process_id: string;
-    type: string;
-    status: string;
-    message: string;
-    created_by: string;
-    created_by_email: string;
-    created_at: string;
-    created_at_timestamp: number;
-    details?: object[];
-  }
-
   export interface PaymentCard {
     card_id: number;
     last4: string;
@@ -169,6 +163,18 @@ declare module "@lokalise/node-api" {
     base_language_iso: string;
     settings: object;
     statistics: object;
+  }
+
+  export interface QueuedProcess {
+    process_id: string;
+    type: string;
+    status: string;
+    message: string;
+    created_by: string;
+    created_by_email: string;
+    created_at: string;
+    created_at_timestamp: number;
+    details?: object[];
   }
 
   export interface Screenshot {
@@ -310,7 +316,7 @@ declare module "@lokalise/node-api" {
   export interface UserGroup {
     group_id: number;
     name: string;
-    permissions: object;
+    permissions: Keyable;
     created_at: string;
     created_at_timestamp: number;
     team_id: number;
@@ -326,17 +332,39 @@ declare module "@lokalise/node-api" {
     event_lang_map: object;
   }
 
+  export interface PaginatedResult {
+    totalResults: number;
+    totalPages: number;
+    resultsPerPage: number;
+    currentPage: number;
+    items: any[];
+    hasNextPage(): boolean;
+    hasPrevPage(): boolean;
+    isLastPage(): boolean;
+    isFirstPage(): boolean;
+    nextPage(): number;
+    prevPage(): number;
+  }
+
   export class ApiRequest {
-    private urlRoot: string;
+    private urlRoot: string | URL;
     promise: Promise<any>;
-    params: any;
-    constructor(uri: any, method: any, body?: any, params?: {});
-    createPromise(uri: any, method: any, body: any): Promise<{}>;
-    protected composeURI(uri: any): any;
+    params: StandartParams;
+    constructor(
+      uri: string,
+      method: Options["method"],
+      body?: object | object[] | null,
+      params?: StandartParams
+    );
+    createPromise(
+      uri: string,
+      method: Options["method"],
+      body: object | object[] | null
+    ): Promise<{}>;
+    protected composeURI(uri: string): string;
     protected mapUriParams(
-      params: any
-    ): (entity: any, isMandaratory: any, paramName: any) => any;
-    constructParameters(_method: any, _params: any): void;
+      params: StandartParams
+    ): (entity: any, isMandaratory: any, paramName: string) => string;
   }
 
   export class BaseCollection {
@@ -344,27 +372,47 @@ declare module "@lokalise/node-api" {
     protected static rootElementNameSingular: string | null;
     protected static endpoint: string | null;
     protected static prefixURI: string | null;
-    protected static elementClass: any | null;
+    protected static elementClass: any;
     protected static secondaryElementNameSingular: string | null;
     protected static secondaryElementClass: any;
-    get(id: any, params?: StandartParams, body?: any): Promise<any>;
-    list(params?: StandartParams): Promise<any[]>;
-    create(body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params?: StandartParams): Promise<any>;
-    delete(id: any, params?: StandartParams): Promise<any>;
-    protected populateObjectFromJsonRoot(json: Object): this;
-    protected populateSecondaryObjectFromJsonRoot(json: any): this;
-    protected populateObjectFromJson(json: Object, secondary: boolean): this;
-    protected populateArrayFromJson(json: Array<any>): this[];
-    protected returnBareJSON(json: any): any;
-    protected handleReject(data: any): void;
+    get(id: string | number, params?: StandartParams, body?: any): Promise<any>;
+    list(params?: StandartParams): Promise<PaginatedResult>;
+    create(
+      body: object | object[] | null,
+      params?: StandartParams
+    ): Promise<any>;
+    update(
+      id: string | number,
+      body: object | object[] | null,
+      params?: StandartParams
+    ): Promise<any>;
+    delete(id: string | number, params?: StandartParams): Promise<Keyable>;
+    protected populateObjectFromJsonRoot(json: object, headers: object): any;
+    protected populateSecondaryObjectFromJsonRoot(
+      json: object,
+      headers: object
+    ): any;
+    protected populateObjectFromJson(
+      json: object,
+      _headers: object,
+      secondary: boolean
+    ): any;
+    protected populateArrayFromJson(
+      json: Keyable,
+      headers: object
+    ): PaginatedResult | Keyable | this[];
+    protected populateApiErrorFromJson(json: any): ApiError;
+    protected returnBareJSON(
+      json: Keyable | Array<Keyable>
+    ): Keyable | Array<Keyable>;
+    protected handleReject(data: any): ApiError;
     protected createPromise(
-      method: any,
-      params: any,
-      resolveFn: any,
-      rejectFn?: (data: any) => void,
-      body?: any,
-      uri?: any
+      method: Options["method"],
+      params: StandartParams,
+      resolveFn: Function,
+      rejectFn: Function,
+      body: object | object[] | null,
+      uri: string | null
     ): Promise<any>;
   }
 
@@ -372,113 +420,163 @@ declare module "@lokalise/node-api" {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
-    merge(id: any, params: StandartParams, body: any): Promise<any>;
+    protected static elementClass: object;
+    create(body: object, params: StandartParams): Promise<Branch>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<Branch>;
+    merge(
+      id: string | number,
+      params: StandartParams,
+      body?: object
+    ): Promise<Keyable>;
   }
 
   export class Comments extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    list_project_comments(params?: StandartParams): Promise<any[]>;
+    protected static elementClass: object;
+    create(
+      raw_body: object | object[],
+      params: StandartParams
+    ): Promise<Comment[]>;
+    list_project_comments(params: StandartParams): Promise<PaginatedResult>;
   }
 
   export class Contributors extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(raw_body: any, params?: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    create(
+      raw_body: object | object[],
+      params: StandartParams
+    ): Promise<Contributor[]>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<Contributor>;
   }
 
   export class Files extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
+    protected static elementClass: object;
     protected static secondaryElementNameSingular: string;
-    protected static secondaryElementClass: Object;
-    list(params?: FileParams): Promise<this[]>;
-    upload(project_id: string, upload: UploadFileParams): Promise<any>;
-    download(project_id: string, download: DownloadFileParams): Promise<any>;
+    protected static secondaryElementClass: object;
+    upload(
+      project_id: string,
+      upload: UploadFileParams
+    ): Promise<QueuedProcess>;
+    download(
+      project_id: string,
+      download: DownloadFileParams
+    ): Promise<Keyable>;
   }
 
   export class Keys extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params?: StandartParams): Promise<any>;
-    bulk_update(raw_keys: object[], params: StandartParams): Promise<any>;
-    bulk_delete(raw_keys: number[] | string[], params: StandartParams): any;
+    protected static elementClass: object;
+    create(
+      raw_body: object | object[],
+      params: StandartParams
+    ): Promise<Keyable>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<Key>;
+    bulk_update(
+      raw_keys: object | object[],
+      params: StandartParams
+    ): Promise<Keyable>;
+    bulk_delete(
+      raw_keys: number[] | string[],
+      params: StandartParams
+    ): Promise<Keyable>;
   }
 
   export class Languages extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    system_languages(params: StandartParams): Promise<any>;
-    create(raw_body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    system_languages(params: StandartParams): Promise<PaginatedResult>;
+    create(
+      raw_body: object | object[],
+      params: StandartParams
+    ): Promise<Keyable>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<Language>;
   }
 
   export class Orders extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
+    protected static elementClass: object;
   }
 
   export class PaymentCards extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
+    protected static elementClass: object;
   }
 
   export class Projects extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    empty(project_id: any): void;
+    protected static elementClass: object;
+    empty(project_id: any): Promise<Keyable>;
   }
 
   export class QueuedProcesses extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
+    protected static elementClass: object;
   }
 
   export class Screenshots extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(raw_body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    create(
+      raw_body: object | object[],
+      params: StandartParams
+    ): Promise<Keyable>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<Screenshot>;
   }
 
   export class Snapshots extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    restore(id: any, params: StandartParams): Promise<any>;
-    create(body: any, params: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    restore(id: string | number, params: StandartParams): Promise<Keyable>;
+    create(body: object, params: StandartParams): Promise<Snapshot>;
   }
 
   export class Tasks extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-
-    create(body: any, params: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    create(body: object, params: StandartParams): Promise<Task>;
     update(id: any, body: any, params: StandartParams): Promise<any>;
   }
 
@@ -486,82 +584,100 @@ declare module "@lokalise/node-api" {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<TeamUser>;
   }
 
   export class Teams extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
+    protected static elementClass: object;
   }
 
   export class TranslationProviders extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
+    protected static elementClass: object;
   }
 
   export class Translations extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<Translation>;
   }
 
   export class TranslationStatuses extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
+    protected static elementClass: object;
     protected static rootElementNameSingular: string;
-
-    create(body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
-    available_colors(params: StandartParams): Promise<any>;
+    create(body: object, params: StandartParams): Promise<TranslationStatus>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<TranslationStatus>;
+    available_colors(params: StandartParams): Promise<Keyable>;
   }
 
   export class UserGroups extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-    create(body: any, params?: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
-    add_projects_to_group(
-      team_id: any,
-      group_id: any,
-      raw_body: any[],
-      params: any
-    ): Promise<any>;
-    remove_projects_from_group(
-      team_id: any,
-      group_id: any,
-      raw_body: any[],
-      params: any
-    ): Promise<any>;
+    protected static elementClass: object;
+    create(body: object, params: StandartParams): Promise<UserGroup>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<UserGroup>;
     add_members_to_group(
-      team_id: any,
-      group_id: any,
-      raw_body: any[],
-      params: any
-    ): Promise<any>;
+      team_id: string | number,
+      group_id: string | number,
+      raw_body: string[] | number[]
+    ): Promise<UserGroup>;
     remove_members_from_group(
-      team_id: any,
-      group_id: any,
-      raw_body: any[],
-      params: any
-    ): Promise<any>;
+      team_id: string | number,
+      group_id: string | number,
+      raw_body: string[] | number[]
+    ): Promise<UserGroup>;
+    add_projects_to_group(
+      team_id: string | number,
+      group_id: string | number,
+      raw_body: string[] | number[]
+    ): Promise<UserGroup>;
+    remove_projects_from_group(
+      team_id: string | number,
+      group_id: string | number,
+      raw_body: string[] | number[]
+    ): Promise<UserGroup>;
+    protected populateGroupFromJsonRoot(json: Keyable, headers: object): this;
   }
 
   export class Webhooks extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: Object;
-
-    create(body: any, params: StandartParams): Promise<any>;
-    update(id: any, body: any, params: StandartParams): Promise<any>;
-    regenerate_secret(id: any, params: StandartParams): Promise<any>;
+    protected static elementClass: object;
+    create(body: object, params: StandartParams): Promise<Webhook>;
+    update(
+      id: string | number,
+      body: object,
+      params: StandartParams
+    ): Promise<Webhook>;
+    regenerate_secret(
+      id: string | number,
+      params: StandartParams
+    ): Promise<Keyable>;
   }
 
   export class LocaliseApiMethods {
@@ -592,9 +708,9 @@ declare module "@lokalise/node-api" {
     apiKey: string;
     /**
      * Instantiate LokaliseApi to have access to methods
-     * @param params  object, mandaratory
+     * @param params  object, mandatory
      * @returns       LokaliseApi object to work with.
      */
-    constructor(params?: any);
+    constructor(params: Object);
   }
 }

@@ -1,3 +1,4 @@
+import { Options } from "got";
 import { ApiRequest } from "../http_client/base";
 import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
@@ -16,18 +17,14 @@ export class BaseCollection {
   protected static secondaryElementNameSingular: string | null = null;
   protected static secondaryElementClass: any = null;
 
-  get(
-    id: string | number,
-    params: StandartParams = {},
-    _body: any = null
-  ): Promise<any> {
+  get(id: string | number, params: StandartParams = {}): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "GET",
       params,
       this.populateObjectFromJsonRoot,
       this.handleReject,
-      _body
+      null
     );
   }
 
@@ -42,7 +39,7 @@ export class BaseCollection {
   }
 
   create(
-    body: Object | Array<Object> | null,
+    body: object | object[] | null,
     params: StandartParams = {}
   ): Promise<any> {
     return this.createPromise(
@@ -56,7 +53,7 @@ export class BaseCollection {
 
   update(
     id: string | number,
-    body: Object | Array<Object> | null,
+    body: object | object[] | null,
     params: StandartParams = {}
   ): Promise<any> {
     params["id"] = id;
@@ -80,7 +77,7 @@ export class BaseCollection {
     );
   }
 
-  protected populateObjectFromJsonRoot(json: Object, headers: Object): Object {
+  protected populateObjectFromJsonRoot(json: object, headers: object): any {
     const childClass = <typeof BaseCollection>this.constructor;
     if (childClass.rootElementNameSingular) {
       json = Object(json)[childClass.rootElementNameSingular];
@@ -89,22 +86,19 @@ export class BaseCollection {
   }
 
   protected populateSecondaryObjectFromJsonRoot(
-    json: Object,
-    headers: Object
-  ): Object {
+    json: object,
+    headers: object
+  ): any {
     const childClass = <typeof BaseCollection>this.constructor;
-    /* istanbul ignore next */
-    if (childClass.secondaryElementNameSingular) {
-      json = Object(json)[childClass.secondaryElementNameSingular];
-    }
+    json = Object(json)[<string>childClass.secondaryElementNameSingular];
     return this.populateObjectFromJson(json, headers, true);
   }
 
   protected populateObjectFromJson(
-    json: Object,
-    _headers: Object,
+    json: object,
+    _headers: object,
     secondary: boolean = false
-  ): Object {
+  ): any {
     const childClass = <typeof BaseCollection>this.constructor;
     if (secondary) {
       return new childClass.secondaryElementClass(json);
@@ -115,7 +109,7 @@ export class BaseCollection {
 
   protected populateArrayFromJson(
     json: Keyable,
-    headers: Object
+    headers: object
   ): PaginatedResult | Keyable | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
@@ -134,9 +128,10 @@ export class BaseCollection {
       // Handle rare cases when the response is success but there were errors along with other data
       // Currently, it can only happen when creating or updating items in bulk
       if (json["errors"]) {
-        const result: Keyable = {};
-        result.errors = json["errors"];
-        result.items = arr;
+        const result: Keyable = {
+          errors: json["errors"],
+          items: arr,
+        };
         return result;
       } else {
         return arr;
@@ -149,8 +144,8 @@ export class BaseCollection {
   }
 
   protected returnBareJSON(
-    json: Object | Array<Object>
-  ): Object | Array<Object> {
+    json: Keyable | Array<Keyable>
+  ): Keyable | Array<Keyable> {
     return json;
   }
 
@@ -158,17 +153,16 @@ export class BaseCollection {
     return this.populateApiErrorFromJson(data);
   }
 
-  /* istanbul ignore next */
   protected createPromise(
-    method: string,
-    params: Object,
+    method: Options["method"],
+    params: StandartParams,
     resolveFn: Function,
-    rejectFn: Function = this.handleReject,
-    body: Object | Array<Object> | null = null,
+    rejectFn: Function,
+    body: object | object[] | null,
     uri: string | null = null
   ): Promise<any> {
     const childClass = <typeof BaseCollection>this.constructor;
-    if (uri == null) {
+    if (!uri) {
       uri = childClass.prefixURI;
     }
     return new Promise((resolve, reject) => {
@@ -188,7 +182,7 @@ export class BaseCollection {
     });
   }
 
-  protected objToArray(raw_body: Object | Object[]): Array<Object> {
+  protected objToArray(raw_body: object | object[]): Array<object> {
     if (!Array.isArray(raw_body)) {
       return Array<Object>(raw_body);
     } else {

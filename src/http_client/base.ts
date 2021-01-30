@@ -2,18 +2,18 @@ import { RequestError, Response, Options } from "got";
 const got = require("got");
 const pkg = require("../../package.json");
 import { LokaliseApi } from "../lokalise/lokalise";
+import { StandartParams } from "../interfaces/standart_params";
 
 export class ApiRequest {
   private urlRoot: string | URL = "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
-  public params: any = {};
+  public params: StandartParams = {};
 
-  /* istanbul ignore next */
   constructor(
     uri: string,
-    method: string,
-    body: Object | Array<Object> | null = null,
-    params: Object = {}
+    method: Options["method"],
+    body: object | object[] | null,
+    params: StandartParams
   ) {
     this.params = params;
     this.promise = this.createPromise(uri, method, body);
@@ -22,8 +22,8 @@ export class ApiRequest {
 
   createPromise(
     uri: string,
-    method: any,
-    body: Object | Array<Object> | null
+    method: Options["method"],
+    body: object | object[] | null
   ): Promise<any> {
     const options: Options = {
       method: method,
@@ -40,10 +40,14 @@ export class ApiRequest {
     const url: string = this.composeURI(uri);
 
     if (Object.keys(this.params).length > 0) {
-      options["searchParams"] = new URLSearchParams(this.params).toString();
+      const formattedParams = new URLSearchParams();
+      Object.entries(this.params).forEach(([key, value]) => {
+        formattedParams.set(key, <string>value);
+      });
+      options["searchParams"] = formattedParams.toString();
     }
 
-    if (method != "GET" && body) {
+    if (method !== "GET" && body) {
       options["body"] = JSON.stringify(body);
     }
 
@@ -52,10 +56,7 @@ export class ApiRequest {
         .then((response: Response) => {
           const responseJSON = JSON.parse(<string>response.body);
           if (response.statusCode > 299) {
-            /* istanbul ignore next */
-            reject(
-              responseJSON["error"] || responseJSON["errors"] || responseJSON
-            );
+            reject(responseJSON["error"] || responseJSON);
             return;
           }
           resolve({ json: responseJSON, headers: response.headers });
@@ -63,29 +64,29 @@ export class ApiRequest {
         })
         .then((error: RequestError) => {
           reject(error);
-          /* istanbul ignore next */
           return error;
         })
         .catch((error: any) => {
+          /* istanbul ignore next */
           reject(error);
+          /* istanbul ignore next */
           return error;
         });
     });
   }
 
-  protected composeURI(uri: any): string {
+  protected composeURI(uri: string): string {
     const regexp: RegExp = /{(!{0,1}):(\w*)}/g;
     return uri.replace(regexp, this.mapUriParams(this.params));
   }
 
-  protected mapUriParams(params: any) {
-    return (_entity: any, isMandaratory: any, paramName: any): any => {
+  protected mapUriParams(params: StandartParams) {
+    return (_entity: any, isMandaratory: any, paramName: string): string => {
       if (params[paramName] != null) {
         const t_param = params[paramName];
         delete this.params[paramName];
         return t_param;
       } else {
-        /* istanbul ignore if */
         if (isMandaratory == "!") {
           throw new Error("Required param " + paramName);
         } else {

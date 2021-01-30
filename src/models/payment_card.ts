@@ -1,4 +1,4 @@
-import { PaymentCard as PaymentCardInterface } from "../interfaces";
+import { PaymentCard as PaymentCardInterface } from "../interfaces/payment_card";
 import { BaseModel } from "./base_model";
 
 export class PaymentCard extends BaseModel implements PaymentCardInterface {

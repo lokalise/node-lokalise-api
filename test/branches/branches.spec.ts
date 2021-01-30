@@ -27,6 +27,21 @@ describe("Branches", function () {
     .register(this);
 
   cassette
+    .createTest("error 500", async () => {
+      await lokaliseApi.branches
+        .create(
+          {
+            name: "hotfix/really-important",
+          },
+          { project_id: "803" }
+        )
+        .catch((e: ApiError) => {
+          expect(e.message).to.include("Something very bad has happened");
+        });
+    })
+    .register(this);
+
+  cassette
     .createTest("list", async () => {
       const branches = await lokaliseApi.branches.list({
         project_id: project_id,
@@ -121,7 +136,7 @@ describe("Branches", function () {
 
       expect(response.project_id).to.eq(project_id);
       expect(response.branch_merged).to.eq(true);
-      expect(response.branch["branch_id"]).to.eq(branch_id_merge);
+      expect(response.branch.branch_id).to.eq(branch_id_merge);
     })
     .register(this);
 

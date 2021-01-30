@@ -7,13 +7,13 @@ export class Keys extends BaseCollection {
   protected static rootElementName: string = "keys";
   protected static rootElementNameSingular: string = "key";
   protected static prefixURI: string = "projects/{!:project_id}/keys/{:id}";
-  protected static elementClass: Object = Key;
+  protected static elementClass: object = Key;
 
   create(
-    raw_body: Object | Array<Object>,
+    raw_body: object | object[],
     params: StandartParams
   ): Promise<Keyable> {
-    const body: Object = { keys: raw_body };
+    const body: object = { keys: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -25,7 +25,7 @@ export class Keys extends BaseCollection {
 
   update(
     id: string | number,
-    body: Object,
+    body: object,
     params: StandartParams
   ): Promise<Key> {
     params["id"] = id;
@@ -39,10 +39,10 @@ export class Keys extends BaseCollection {
   }
 
   bulk_update(
-    raw_keys: Object | Array<Object>,
+    raw_keys: object | object[],
     params: StandartParams
   ): Promise<Keyable> {
-    const keys: Object = { keys: raw_keys };
+    const keys: Object = { keys: this.objToArray(raw_keys) };
     return this.createPromise(
       "PUT",
       params,
@@ -57,7 +57,7 @@ export class Keys extends BaseCollection {
     raw_keys: number[] | string[],
     params: StandartParams
   ): Promise<Keyable> {
-    const keys: Object = { keys: raw_keys };
+    const keys: Object = { keys: this.objToArray(raw_keys) };
     return this.createPromise(
       "DELETE",
       params,

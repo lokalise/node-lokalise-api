@@ -11,27 +11,35 @@ class UserGroups extends base_collection_1.BaseCollection {
         params["id"] = id;
         return this.createPromise("PUT", params, this.populateGroupFromJsonRoot, this.handleReject, body);
     }
-    add_members_to_group(team_id, group_id, raw_body, params = {}) {
-        params["team_id"] = team_id;
-        params["group_id"] = group_id;
+    add_members_to_group(team_id, group_id, raw_body) {
+        const params = {
+            team_id: team_id,
+            group_id: group_id,
+        };
         const body = { users: raw_body };
         return this.createPromise("PUT", params, this.populateGroupFromJsonRoot, this.handleReject, body, "teams/{!:team_id}/groups/{!:group_id}/members/add");
     }
-    remove_members_from_group(team_id, group_id, raw_body, params = {}) {
-        params["team_id"] = team_id;
-        params["group_id"] = group_id;
+    remove_members_from_group(team_id, group_id, raw_body) {
+        const params = {
+            team_id: team_id,
+            group_id: group_id,
+        };
         const body = { users: raw_body };
         return this.createPromise("PUT", params, this.populateGroupFromJsonRoot, this.handleReject, body, "teams/{!:team_id}/groups/{!:group_id}/members/remove");
     }
-    add_projects_to_group(team_id, group_id, raw_body, params = {}) {
-        params["team_id"] = team_id;
-        params["group_id"] = group_id;
+    add_projects_to_group(team_id, group_id, raw_body) {
+        const params = {
+            team_id: team_id,
+            group_id: group_id,
+        };
         const body = { projects: raw_body };
         return this.createPromise("PUT", params, this.populateGroupFromJsonRoot, this.handleReject, body, "teams/{!:team_id}/groups/{!:group_id}/projects/add");
     }
-    remove_projects_from_group(team_id, group_id, raw_body, params = {}) {
-        params["team_id"] = team_id;
-        params["group_id"] = group_id;
+    remove_projects_from_group(team_id, group_id, raw_body) {
+        const params = {
+            team_id: team_id,
+            group_id: group_id,
+        };
         const body = { projects: raw_body };
         return this.createPromise("PUT", params, this.populateGroupFromJsonRoot, this.handleReject, body, "teams/{!:team_id}/groups/{!:group_id}/projects/remove");
     }

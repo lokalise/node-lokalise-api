@@ -9,7 +9,7 @@ export class Languages extends BaseCollection {
   protected static rootElementNameSingular: string = "language";
   protected static prefixURI: string =
     "projects/{!:project_id}/languages/{:id}";
-  protected static elementClass: Object = Language;
+  protected static elementClass: object = Language;
 
   system_languages(params: StandartParams): Promise<PaginatedResult> {
     return this.createPromise(
@@ -23,10 +23,10 @@ export class Languages extends BaseCollection {
   }
 
   create(
-    raw_body: Object | Array<Object>,
+    raw_body: object | object[],
     params: StandartParams
   ): Promise<Keyable> {
-    const body: Object = { languages: raw_body };
+    const body: object = { languages: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -38,7 +38,7 @@ export class Languages extends BaseCollection {
 
   update(
     id: string | number,
-    body: Object,
+    body: object,
     params: StandartParams
   ): Promise<Language> {
     params["id"] = id;

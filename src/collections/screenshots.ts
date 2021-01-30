@@ -8,13 +8,13 @@ export class Screenshots extends BaseCollection {
   protected static rootElementNameSingular: string = "screenshot";
   protected static prefixURI: string =
     "projects/{!:project_id}/screenshots/{:id}";
-  protected static elementClass: Object = Screenshot;
+  protected static elementClass: object = Screenshot;
 
   create(
-    raw_body: Object | Array<Object>,
+    raw_body: object | object[],
     params: StandartParams
   ): Promise<Keyable> {
-    const body = { screenshots: raw_body };
+    const body = { screenshots: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -26,7 +26,7 @@ export class Screenshots extends BaseCollection {
 
   update(
     id: string | number,
-    body: Object,
+    body: object,
     params: StandartParams
   ): Promise<Screenshot> {
     params["id"] = id;

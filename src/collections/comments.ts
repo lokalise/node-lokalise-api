@@ -8,13 +8,13 @@ export class Comments extends BaseCollection {
   protected static rootElementNameSingular: string = "comment";
   protected static prefixURI: string =
     "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
-  protected static elementClass: Object = Comment;
+  protected static elementClass: object = Comment;
 
   create(
-    raw_body: Object | Array<Object>,
+    raw_body: object | object[],
     params: StandartParams
   ): Promise<Comment[]> {
-    const body: Object = { comments: this.objToArray(raw_body) };
+    const body: object = { comments: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,

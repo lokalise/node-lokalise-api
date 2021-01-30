@@ -1,4 +1,4 @@
-import { Language as LanguageInterface } from "../interfaces";
+import { Language as LanguageInterface } from "../interfaces/language";
 import { BaseModel } from "./base_model";
 
 export class Language extends BaseModel implements LanguageInterface {

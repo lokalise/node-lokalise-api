@@ -28,6 +28,8 @@ describe("Orders", function () {
       expect(orders.totalPages).to.eq(2);
       expect(orders.resultsPerPage).to.eq(1);
       expect(orders.currentPage).to.eq(2);
+      expect(orders.hasNextPage()).to.be.false;
+      expect(orders.nextPage()).to.eq(2);
     })
     .register(this);
 

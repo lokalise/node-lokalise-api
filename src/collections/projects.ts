@@ -5,7 +5,7 @@ import { Keyable } from "../interfaces/keyable";
 export class Projects extends BaseCollection {
   protected static rootElementName: string = "projects";
   protected static prefixURI: string = "projects/{:id}";
-  protected static elementClass: Object = Project;
+  protected static elementClass: object = Project;
 
   empty(project_id: any): Promise<Keyable> {
     return this.createPromise(

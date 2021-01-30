@@ -1,3 +1,4 @@
+import { Options } from "got";
 import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
 import { PaginatedResult } from "../models/paginated_result";
@@ -10,18 +11,18 @@ export declare class BaseCollection {
     protected static elementClass: any;
     protected static secondaryElementNameSingular: string | null;
     protected static secondaryElementClass: any;
-    get(id: string | number, params?: StandartParams, _body?: any): Promise<any>;
+    get(id: string | number, params?: StandartParams): Promise<any>;
     list(params?: StandartParams): Promise<PaginatedResult>;
-    create(body: Object | Array<Object> | null, params?: StandartParams): Promise<any>;
-    update(id: string | number, body: Object | Array<Object> | null, params?: StandartParams): Promise<any>;
+    create(body: object | object[] | null, params?: StandartParams): Promise<any>;
+    update(id: string | number, body: object | object[] | null, params?: StandartParams): Promise<any>;
     delete(id: string | number, params?: StandartParams): Promise<Keyable>;
-    protected populateObjectFromJsonRoot(json: Object, headers: Object): Object;
-    protected populateSecondaryObjectFromJsonRoot(json: Object, headers: Object): Object;
-    protected populateObjectFromJson(json: Object, _headers: Object, secondary?: boolean): Object;
-    protected populateArrayFromJson(json: Keyable, headers: Object): PaginatedResult | Keyable | this[];
+    protected populateObjectFromJsonRoot(json: object, headers: object): any;
+    protected populateSecondaryObjectFromJsonRoot(json: object, headers: object): any;
+    protected populateObjectFromJson(json: object, _headers: object, secondary?: boolean): any;
+    protected populateArrayFromJson(json: Keyable, headers: object): PaginatedResult | Keyable | this[];
     protected populateApiErrorFromJson(json: any): ApiError;
-    protected returnBareJSON(json: Object | Array<Object>): Object | Array<Object>;
+    protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;
-    protected createPromise(method: string, params: Object, resolveFn: Function, rejectFn?: Function, body?: Object | Array<Object> | null, uri?: string | null): Promise<any>;
-    protected objToArray(raw_body: Object | Object[]): Array<Object>;
+    protected createPromise(method: Options["method"], params: StandartParams, resolveFn: Function, rejectFn: Function, body: object | object[] | null, uri?: string | null): Promise<any>;
+    protected objToArray(raw_body: object | object[]): Array<object>;
 }

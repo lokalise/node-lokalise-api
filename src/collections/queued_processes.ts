@@ -6,5 +6,5 @@ export class QueuedProcesses extends BaseCollection {
   protected static rootElementNameSingular: string = "process";
   protected static prefixURI: string =
     "projects/{!:project_id}/processes/{:id}";
-  protected static elementClass: Object = QueuedProcess;
+  protected static elementClass: object = QueuedProcess;
 }

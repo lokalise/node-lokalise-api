@@ -4,9 +4,9 @@ exports.BaseCollection = void 0;
 const base_1 = require("../http_client/base");
 const paginated_result_1 = require("../models/paginated_result");
 class BaseCollection {
-    get(id, params = {}, _body = null) {
+    get(id, params = {}) {
         params["id"] = id;
-        return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, _body);
+        return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, null);
     }
     list(params = {}) {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
@@ -31,10 +31,7 @@ class BaseCollection {
     }
     populateSecondaryObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;
-        /* istanbul ignore next */
-        if (childClass.secondaryElementNameSingular) {
-            json = Object(json)[childClass.secondaryElementNameSingular];
-        }
+        json = Object(json)[childClass.secondaryElementNameSingular];
         return this.populateObjectFromJson(json, headers, true);
     }
     populateObjectFromJson(json, _headers, secondary = false) {
@@ -62,9 +59,10 @@ class BaseCollection {
             // Handle rare cases when the response is success but there were errors along with other data
             // Currently, it can only happen when creating or updating items in bulk
             if (json["errors"]) {
-                const result = {};
-                result.errors = json["errors"];
-                result.items = arr;
+                const result = {
+                    errors: json["errors"],
+                    items: arr,
+                };
                 return result;
             }
             else {
@@ -81,10 +79,9 @@ class BaseCollection {
     handleReject(data) {
         return this.populateApiErrorFromJson(data);
     }
-    /* istanbul ignore next */
-    createPromise(method, params, resolveFn, rejectFn = this.handleReject, body = null, uri = null) {
+    createPromise(method, params, resolveFn, rejectFn, body, uri = null) {
         const childClass = this.constructor;
-        if (uri == null) {
+        if (!uri) {
             uri = childClass.prefixURI;
         }
         return new Promise((resolve, reject) => {
