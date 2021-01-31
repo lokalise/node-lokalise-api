@@ -222,6 +222,8 @@ describe("Keys", function () {
 
       expect(keys.items[1].key_id).to.eq(second_key_id);
       expect(keys.items[1].description).to.eq("Second bulk");
+
+      expect(keys.errors.length).to.eq(0);
     })
     .register(this);
 

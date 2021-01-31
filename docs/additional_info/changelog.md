@@ -75,6 +75,7 @@ Previously such errors were silently swallowed, however that's not the case anym
 * `keys.create`
 * `keys.bulk_update` (note that `keys.update` is unaffected by this change)
 * `languages.create`
+* `screenshots.create`
 
 **To fetch the actual data returned by these methods** you now have to use the `.items` attribute. **To fetch the errors**, use `.errors`:
 

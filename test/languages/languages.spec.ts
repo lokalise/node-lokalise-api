@@ -81,6 +81,7 @@ describe("Languages", function () {
 
       expect(languages.items[0].lang_id).to.eq(second_lang_id);
       expect(languages.items[0].lang_name).to.eq("Akan");
+      expect(languages.errors.length).to.eq(0);
     })
     .register(this);
 

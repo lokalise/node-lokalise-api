@@ -2,7 +2,7 @@
 
 ## Installation and Requirements
 
-This library requires Node 10 and above. Install it with [NPM](https://www.npmjs.com/):
+This library requires [Node 10](https://nodejs.org) and above. Install it with [NPM](https://www.npmjs.com/):
 
 ```bash
 npm install @lokalise/node-api
@@ -35,8 +35,8 @@ All object attributes may be found in the [interfaces](https://github.com/lokali
 
 Bulk fetches support [pagination](https://app.lokalise.com/api2docs/curl/#resource-pagination). There are two common parameters available:
 
-* `limit` (defaults to `100`, maximum is `5000`) - number of records to display per page
-* `page` (defaults  to `1`) - page to fetch
+* `limit` (defaults to `100`, maximum is `5000`) &mdash; number of records to display per page
+* `page` (defaults  to `1`) &mdash; page to fetch
 
 For instance:
 
