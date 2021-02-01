@@ -7,7 +7,13 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-snapshots-get)
 
 ```js
-lokaliseApi.snapshots.list({project_id: project_id});
+const snapshots = await lokaliseApi.snapshots.list({
+  project_id: project_id,
+  page: 2,
+  limit: 1,
+});
+
+snapshots.items[0].snapshot_id;
 ```
 
 ## Create snapshot
@@ -15,7 +21,9 @@ lokaliseApi.snapshots.list({project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-snapshot-post)
 
 ```js
-lokaliseApi.snapshots.create({"title": "API snapshot"}, {project_id: project_id});
+const snapshot = await lokaliseApi.snapshots.create({"title": "API snapshot"}, {project_id: project_id});
+
+snapshot.snapshot_id;
 ```
 
 ## Restore snapshot
@@ -23,7 +31,9 @@ lokaliseApi.snapshots.create({"title": "API snapshot"}, {project_id: project_id}
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-restore-a-snapshot-post)
 
 ```js
-lokaliseApi.snapshots.restore(snapshot_id, {project_id: project_id});
+const response = await lokaliseApi.snapshots.restore(snapshot_id, {project_id: project_id});
+
+response.project_id;
 ```
 
 ## Delete snapshot
@@ -31,5 +41,7 @@ lokaliseApi.snapshots.restore(snapshot_id, {project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-snapshot-delete)
 
 ```js
-lokaliseApi.snapshots.delete(snapshot_id, {project_id: project_id});
+const response = await lokaliseApi.snapshots.delete(snapshot_id, {project_id: project_id});
+
+response.snapshot_deleted;
 ```

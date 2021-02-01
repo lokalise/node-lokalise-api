@@ -15,10 +15,24 @@ describe("QueuedProcesses", function () {
         project_id: project_id,
       });
 
-      expect(processes.length).to.eq(9);
-      expect(processes[0].process_id).to.eq(
-        "3b943469e6b3e324b5bdad639b122a623e6e7a1a"
+      expect(processes.items[0].process_id).to.eq(
+        "8a635e096e652c26c4ce6ef5f5e389e007ce31f0"
       );
+    })
+    .register(this);
+
+  cassette
+    .createTest("list_pagination", async () => {
+      const processes = await lokaliseApi.queuedProcesses.list({
+        project_id: project_id,
+        limit: 1,
+        page: 2,
+      });
+      expect(processes.items[0].type).to.eq("file-import");
+      expect(processes.totalResults).to.eq(2);
+      expect(processes.totalPages).to.eq(2);
+      expect(processes.resultsPerPage).to.eq(1);
+      expect(processes.currentPage).to.eq(2);
     })
     .register(this);
 

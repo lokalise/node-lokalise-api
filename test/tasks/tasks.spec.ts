@@ -14,7 +14,7 @@ describe("Tasks", function () {
     .createTest("list", async () => {
       const tasks = await lokaliseApi.tasks.list({ project_id: project_id });
 
-      expect(tasks[0].task_id).to.eq(task_id);
+      expect(tasks.items[0].task_id).to.eq(task_id);
     })
     .register(this);
 
@@ -26,7 +26,11 @@ describe("Tasks", function () {
         limit: 1,
       });
 
-      expect(tasks[0].task_id).to.eq(10001);
+      expect(tasks.items[0].task_id).to.eq(10001);
+      expect(tasks.totalResults).to.eq(3);
+      expect(tasks.totalPages).to.eq(3);
+      expect(tasks.resultsPerPage).to.eq(1);
+      expect(tasks.currentPage).to.eq(2);
     })
     .register(this);
 
@@ -57,6 +61,7 @@ describe("Tasks", function () {
       expect(task.languages[0].language_iso).to.eq("sq");
       expect(task.auto_close_languages).to.be.true;
       expect(task.auto_close_task).to.be.true;
+      expect(task.auto_close_items).to.be.true;
       expect(task.completed_at).to.eq("2019-10-01 11:09:12 (Etc/UTC)");
       expect(task.completed_at_timestamp).to.eq(1569928152);
       expect(task.completed_by).to.eq(20181);

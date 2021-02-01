@@ -1,5 +1,5 @@
 import { BaseModel } from "./base_model";
-import { TranslationProvider as TranslationProviderInterface } from "../interfaces";
+import { TranslationProvider as TranslationProviderInterface } from "../interfaces/translation_provider";
 export declare class TranslationProvider extends BaseModel implements TranslationProviderInterface {
     provider_id: number;
     name: string;

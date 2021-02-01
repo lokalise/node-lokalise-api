@@ -1,5 +1,5 @@
 import { BaseModel } from "./base_model";
-import { Task as TaskInterface } from "../interfaces";
+import { Task as TaskInterface } from "../interfaces/task";
 
 export class Task extends BaseModel implements TaskInterface {
   public task_id: number;
@@ -24,6 +24,7 @@ export class Task extends BaseModel implements TaskInterface {
   public source_language_iso: string;
   public auto_close_languages: boolean;
   public auto_close_task: boolean;
+  public auto_close_items: boolean;
   public completed_at: string;
   public completed_at_timestamp: number;
   public completed_by: number;

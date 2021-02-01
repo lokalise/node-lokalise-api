@@ -27,12 +27,46 @@ describe("Branches", function () {
     .register(this);
 
   cassette
+    .createTest("error 500", async () => {
+      await lokaliseApi.branches
+        .create(
+          {
+            name: "hotfix/really-important",
+          },
+          { project_id: "803" }
+        )
+        .catch((e: ApiError) => {
+          expect(e.message).to.include("Something very bad has happened");
+        });
+    })
+    .register(this);
+
+  cassette
     .createTest("list", async () => {
       const branches = await lokaliseApi.branches.list({
         project_id: project_id,
       });
 
-      expect(branches[0].branch_id).to.eq(branch_id);
+      expect(branches.items[0].branch_id).to.eq(branch_id);
+    })
+    .register(this);
+
+  cassette
+    .createTest("list_pagination", async () => {
+      const branches = await lokaliseApi.branches.list({
+        project_id: project_id,
+        page: 3,
+        limit: 1,
+      });
+
+      expect(branches.items[0].name).to.eq("merge-me");
+      expect(branches.totalResults).to.eq(3);
+      expect(branches.totalPages).to.eq(3);
+      expect(branches.resultsPerPage).to.eq(1);
+      expect(branches.currentPage).to.eq(3);
+      expect(branches.hasNextPage()).to.be.false;
+      expect(branches.hasPrevPage()).to.be.true;
+      expect(branches.prevPage()).to.eq(2);
     })
     .register(this);
 
@@ -102,7 +136,7 @@ describe("Branches", function () {
 
       expect(response.project_id).to.eq(project_id);
       expect(response.branch_merged).to.eq(true);
-      expect(response.branch["branch_id"]).to.eq(branch_id_merge);
+      expect(response.branch.branch_id).to.eq(branch_id_merge);
     })
     .register(this);
 

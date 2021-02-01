@@ -18,7 +18,11 @@ describe("Snapshots", function () {
         limit: 1,
       });
 
-      expect(snapshots[0].snapshot_id).to.eq(snapshot_id);
+      expect(snapshots.items[0].snapshot_id).to.eq(snapshot_id);
+      expect(snapshots.totalResults).to.eq(1);
+      expect(snapshots.totalPages).to.eq(1);
+      expect(snapshots.resultsPerPage).to.eq(1);
+      expect(snapshots.currentPage).to.eq(1);
     })
     .register(this);
 

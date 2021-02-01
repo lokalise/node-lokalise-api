@@ -8,7 +8,7 @@ class Languages extends base_collection_1.BaseCollection {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null, "system/languages");
     }
     create(raw_body, params) {
-        const body = { languages: raw_body };
+        const body = { languages: this.objToArray(raw_body) };
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
     }
     update(id, body, params) {

@@ -1,14 +1,15 @@
 import { BaseCollection } from "./base_collection";
 import { Webhook } from "../models/webhook";
 import { StandartParams } from "../interfaces/standart_params";
+import { Keyable } from "../interfaces/keyable";
 
 export class Webhooks extends BaseCollection {
   protected static rootElementName: string = "webhooks";
   protected static rootElementNameSingular: string = "webhook";
   protected static prefixURI: string = "projects/{!:project_id}/webhooks/{:id}";
-  protected static elementClass: Object = Webhook;
+  protected static elementClass: object = Webhook;
 
-  create(body: any, params: StandartParams): Promise<any> {
+  create(body: object, params: StandartParams): Promise<Webhook> {
     return this.createPromise(
       "POST",
       params,
@@ -18,7 +19,11 @@ export class Webhooks extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: object,
+    params: StandartParams
+  ): Promise<Webhook> {
     params["id"] = id;
     return this.createPromise(
       "PUT",
@@ -29,7 +34,10 @@ export class Webhooks extends BaseCollection {
     );
   }
 
-  regenerate_secret(id: any, params: StandartParams): Promise<any> {
+  regenerate_secret(
+    id: string | number,
+    params: StandartParams
+  ): Promise<Keyable> {
     params["id"] = id;
     return this.createPromise(
       "PATCH",
