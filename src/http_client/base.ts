@@ -1,4 +1,6 @@
 import { RequestError, Response, Options } from "got";
+import * as tunnel from "tunnel";
+import { Agent } from "http";
 const got = require("got");
 const pkg = require("../../package.json");
 import { LokaliseApi } from "../lokalise/lokalise";
@@ -16,6 +18,19 @@ export class ApiRequest {
   }
 
   createPromise(uri: any, method: any, body: any): Promise<any> {
+    let agent: Agent | null = null;
+
+    if (process.env.HTTP_PROXY) {
+      const proxyUrl = new URL(process.env.HTTP_PROXY);
+
+      agent = tunnel.httpsOverHttp({
+        proxy: {
+          host: proxyUrl.hostname,
+          port: +proxyUrl.port,
+        },
+      });
+    }
+
     const options: Options = {
       method: method,
       prefixUrl: this.urlRoot,
@@ -23,7 +38,7 @@ export class ApiRequest {
         "X-Api-Token": <string>LokaliseApi.apiKey,
         "User-Agent": `node-lokalise-api/${pkg.version}`,
       },
-      agent: false,
+      agent: agent ? { http: agent } : false,
       throwHttpErrors: false,
       decompress: false,
     };
