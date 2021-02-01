@@ -21,6 +21,7 @@ export interface Task {
     source_language_iso: string;
     auto_close_languages: boolean;
     auto_close_task: boolean;
+    auto_close_items: boolean;
     completed_at: string;
     completed_at_timestamp: number;
     completed_by: number;

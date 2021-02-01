@@ -7,10 +7,13 @@ export class Contributors extends BaseCollection {
   protected static rootElementNameSingular: string = "contributor";
   protected static prefixURI: string =
     "projects/{!:project_id}/contributors/{:id}";
-  protected static elementClass: Object = Contributor;
+  protected static elementClass: object = Contributor;
 
-  create(raw_body: any, params: StandartParams): Promise<any> {
-    const body = { contributors: raw_body };
+  create(
+    raw_body: object | object[],
+    params: StandartParams
+  ): Promise<Contributor[]> {
+    const body: object = { contributors: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -21,7 +24,11 @@ export class Contributors extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: object,
+    params: StandartParams
+  ): Promise<Contributor> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

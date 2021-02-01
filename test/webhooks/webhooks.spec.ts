@@ -16,7 +16,7 @@ describe("Webhooks", function () {
         project_id: project_id,
       });
 
-      expect(webhooks[0].url).to.eq("https://serios.webhook");
+      expect(webhooks.items[0].url).to.eq("https://serios.webhook");
     })
     .register(this);
 
@@ -28,7 +28,11 @@ describe("Webhooks", function () {
         limit: 1,
       });
 
-      expect(webhooks[0].url).to.eq("https://canihaz.hook");
+      expect(webhooks.items[0].url).to.eq("https://canihaz.hook");
+      expect(webhooks.totalResults).to.eq(2);
+      expect(webhooks.totalPages).to.eq(2);
+      expect(webhooks.resultsPerPage).to.eq(1);
+      expect(webhooks.currentPage).to.eq(2);
     })
     .register(this);
 

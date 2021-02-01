@@ -13,7 +13,7 @@ describe("TeamUsers", function () {
     .createTest("list", async () => {
       const team_users = await lokaliseApi.teamUsers.list({ team_id: team_id });
 
-      expect(team_users[0].user_id).to.eq(user_id);
+      expect(team_users.items[0].user_id).to.eq(user_id);
     })
     .register(this);
 
@@ -25,7 +25,11 @@ describe("TeamUsers", function () {
         limit: 1,
       });
 
-      expect(team_users[0].user_id).to.eq(35554);
+      expect(team_users.items[0].user_id).to.eq(35554);
+      expect(team_users.totalResults).to.eq(11);
+      expect(team_users.totalPages).to.eq(11);
+      expect(team_users.resultsPerPage).to.eq(1);
+      expect(team_users.currentPage).to.eq(3);
     })
     .register(this);
 

@@ -5,7 +5,7 @@ const base_collection_1 = require("./base_collection");
 const screenshot_1 = require("../models/screenshot");
 class Screenshots extends base_collection_1.BaseCollection {
     create(raw_body, params) {
-        const body = { screenshots: raw_body };
+        const body = { screenshots: this.objToArray(raw_body) };
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
     }
     update(id, body, params) {

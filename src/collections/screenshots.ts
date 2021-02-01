@@ -1,16 +1,20 @@
 import { BaseCollection } from "./base_collection";
 import { Screenshot } from "../models/screenshot";
 import { StandartParams } from "../interfaces/standart_params";
+import { Keyable } from "../interfaces/keyable";
 
 export class Screenshots extends BaseCollection {
   protected static rootElementName: string = "screenshots";
   protected static rootElementNameSingular: string = "screenshot";
   protected static prefixURI: string =
     "projects/{!:project_id}/screenshots/{:id}";
-  protected static elementClass: Object = Screenshot;
+  protected static elementClass: object = Screenshot;
 
-  create(raw_body: any, params: StandartParams): Promise<any> {
-    const body = { screenshots: raw_body };
+  create(
+    raw_body: object | object[],
+    params: StandartParams
+  ): Promise<Keyable> {
+    const body = { screenshots: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -20,7 +24,11 @@ export class Screenshots extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: object,
+    params: StandartParams
+  ): Promise<Screenshot> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

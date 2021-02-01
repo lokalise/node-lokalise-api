@@ -15,7 +15,7 @@ describe("Translations", function () {
         project_id: project_id,
       });
 
-      expect(translations[0].translation_id).to.eq(translation_id);
+      expect(translations.items[0].translation_id).to.eq(translation_id);
     })
     .register(this);
 
@@ -27,7 +27,11 @@ describe("Translations", function () {
         limit: 1,
       });
 
-      expect(translations[0].translation_id).to.eq(80015148);
+      expect(translations.items[0].translation_id).to.eq(80015148);
+      expect(translations.totalResults).to.eq(240);
+      expect(translations.totalPages).to.eq(240);
+      expect(translations.resultsPerPage).to.eq(1);
+      expect(translations.currentPage).to.eq(2);
     })
     .register(this);
 
@@ -39,8 +43,8 @@ describe("Translations", function () {
         filter_lang_id: 803,
       });
 
-      expect(translations[0].translation_id).to.eq(304581213);
-      expect(translations[0].language_iso).to.eq("sq");
+      expect(translations.items[0].translation_id).to.eq(304581213);
+      expect(translations.items[0].language_iso).to.eq("sq");
     })
     .register(this);
 

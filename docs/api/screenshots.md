@@ -7,7 +7,13 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-screenshots-get)
 
 ```js
-lokaliseApi.screenshots.list({project_id: project_id});
+const screenshots = await lokaliseApi.screenshots.list({
+  project_id: project_id,
+  page: 1,
+  limit: 1,
+});
+
+screenshots.items[0].screenshot_id;
 ```
 
 ## Fetch a single screenshot
@@ -15,7 +21,9 @@ lokaliseApi.screenshots.list({project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-screenshot-get)
 
 ```js
-lokaliseApi.screenshots.get(screenshot_id, {project_id: project_id});
+const screenshot = await lokaliseApi.screenshots.get(screenshot_id, {project_id: project_id});
+
+screenshot.title;
 ```
 
 ## Create screenshots
@@ -23,14 +31,18 @@ lokaliseApi.screenshots.get(screenshot_id, {project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-screenshots-post)
 
 ```js
-lokaliseApi.screenshots.create([
-  {
-    data: data,
+const screenshots = await lokaliseApi.screenshots.create(
+  [{
+    "data": data_base64,
     "ocr": false,
     "key_ids": [key_id],
     "tags": ["onboarding"]
-  }
-],{project_id: project_id});
+  }],
+  {project_id: project_id}
+);
+
+screenshots.items[0].screenshot_id;
+screenshots.errors;
 ```
 
 ## Update screenshot
@@ -38,10 +50,12 @@ lokaliseApi.screenshots.create([
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-screenshot-put)
 
 ```js
-lokaliseApi.screenshots.update(screenshot_id,
+const screenshot = await lokaliseApi.screenshots.update(screenshot_id,
   {title: 'node screen', description: 'node desc'},
   {project_id: project_id}
 );
+
+screenshot.title;
 ```
 
 ## Delete screenshot
@@ -49,5 +63,7 @@ lokaliseApi.screenshots.update(screenshot_id,
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-screenshot-delete)
 
 ```js
-lokaliseApi.screenshots.delete(screenshot_id, {project_id: project_id});
+const response = await lokaliseApi.screenshots.delete(screenshot_id, {project_id: project_id});
+
+response.screenshot_deleted
 ```

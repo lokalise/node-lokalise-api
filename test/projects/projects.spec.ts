@@ -12,18 +12,18 @@ describe("Projects", function () {
   cassette
     .createTest("list", async () => {
       const projects = await lokaliseApi.projects.list();
-      expect(projects[0].name).to.eq("contrib");
+      expect(projects.items[0].name).to.eq("contrib");
     })
     .register(this);
 
   cassette
     .createTest("list_pagination", async () => {
       const projects = await lokaliseApi.projects.list({ page: 3, limit: 2 });
-      expect(projects[0].name).to.eq("demo phoenix copy");
-      expect(lokaliseApi.projects.totalResults).to.eq(13);
-      expect(lokaliseApi.projects.totalPages).to.eq(7);
-      expect(lokaliseApi.projects.resultsPerPage).to.eq(2);
-      expect(lokaliseApi.projects.currentPage).to.eq(3);
+      expect(projects.items[0].name).to.eq("demo phoenix copy");
+      expect(projects.totalResults).to.eq(13);
+      expect(projects.totalPages).to.eq(7);
+      expect(projects.resultsPerPage).to.eq(2);
+      expect(projects.currentPage).to.eq(3);
     })
     .register(this);
 

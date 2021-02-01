@@ -18,7 +18,7 @@ const { LokaliseApi } = require('@lokalise/node-api');
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
 const projects = lokaliseApi.projects.list();
-projects[0].name;
+projects.items[0].name;
 
 process = await lokaliseApi.files.upload(project_id,
   {data: data_base64, filename: 'test1.json', lang_iso: 'en'})

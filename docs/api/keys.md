@@ -7,7 +7,13 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
 
 ```js
-lokaliseApi.keys.list({project_id: project_id});
+const keys = await lokaliseApi.keys.list({
+  project_id: project_id,
+  page: 2,
+  limit: 3,
+});
+
+keys.items[0].key_id;
 ```
 
 ## Fetch a single project key
@@ -15,7 +21,12 @@ lokaliseApi.keys.list({project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
 
 ```js
-lokaliseApi.keys.get(key_id, {project_id: project_id});
+const key = await lokaliseApi.keys.get(key_id, {
+  project_id: project_id,
+  disable_references: 1,
+});
+
+key.key_name.ios;
 ```
 
 ## Create project keys
@@ -23,7 +34,7 @@ lokaliseApi.keys.get(key_id, {project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
 
 ```js
-lokaliseApi.keys.create([
+const keys = await lokaliseApi.keys.create([
   {
     "key_name": "welcome_web",
     "description": "Index app welcome",
@@ -54,6 +65,9 @@ lokaliseApi.keys.create([
     ]
   }
 ], {project_id: project_id});
+
+keys.items[0].platforms;
+keys.errors[0].message; // If some keys were not created, the errors will be listed here
 ```
 
 Creating a key with per-platform names:
@@ -87,10 +101,12 @@ Things to note:
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
 
 ```js
-lokaliseApi.keys.update(key_id, {
+const key = await lokaliseApi.keys.update(key_id, {
   "platforms": ["web", "other"],
   "description": "Node updated"
 }, { project_id: project_id });
+
+key.platforms;
 ```
 
 ## Bulk update project keys
@@ -98,7 +114,7 @@ lokaliseApi.keys.update(key_id, {
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
 
 ```js
-lokaliseApi.keys.bulk_update([
+const keys = await lokaliseApi.keys.bulk_update([
   {
     "key_id": key_id,
     "description": "Bulk node",
@@ -109,6 +125,9 @@ lokaliseApi.keys.bulk_update([
     "description": "Second bulk",
   }
 ], { project_id: project_id});
+
+keys.items[0].key_id;
+keys.errors;
 ```
 
 ## Delete project key
@@ -116,7 +135,9 @@ lokaliseApi.keys.bulk_update([
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
 
 ```js
-lokaliseApi.keys.delete(key_id, { project_id: project_id });
+const response = await lokaliseApi.keys.delete(key_id, { project_id: project_id });
+
+response.key_removed;
 ```
 
 ## Bulk delete project keys
@@ -124,7 +145,9 @@ lokaliseApi.keys.delete(key_id, { project_id: project_id });
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
 
 ```js
-lokaliseApi.keys.bulk_delete([
+const response = await lokaliseApi.keys.bulk_delete([
   key_id, second_key_id
 ], { project_id: project_id });
+
+response.key_removed;
 ```
