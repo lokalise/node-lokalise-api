@@ -12,10 +12,26 @@ describe("Files", function () {
   cassette
     .createTest("list", async () => {
       const files = await lokaliseApi.files.list({ project_id: project_id });
-      const file = files[0];
+      const file = files.items[0];
 
       expect(file.filename).to.eq("%LANG_ISO%.yml");
       expect(file.key_count).to.eq(3);
+    })
+    .register(this);
+
+  cassette
+    .createTest("list_pagination", async () => {
+      const files = await lokaliseApi.files.list({
+        project_id: project_id,
+        page: 2,
+        limit: 1,
+      });
+
+      expect(files.items[0].filename).to.eq("my_filename.json");
+      expect(files.totalResults).to.eq(5);
+      expect(files.totalPages).to.eq(5);
+      expect(files.resultsPerPage).to.eq(1);
+      expect(files.currentPage).to.eq(2);
     })
     .register(this);
 
@@ -28,7 +44,6 @@ describe("Files", function () {
         filename: "test_async.json",
         lang_iso: "en",
       });
-
       expect(process.process_id).to.eq(process_id);
       expect(process.type).to.eq("file-import");
       expect(process.status).to.eq("queued");

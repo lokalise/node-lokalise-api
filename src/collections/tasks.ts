@@ -6,9 +6,9 @@ export class Tasks extends BaseCollection {
   protected static rootElementName: string = "tasks";
   protected static rootElementNameSingular: string = "task";
   protected static prefixURI: string = "projects/{!:project_id}/tasks/{:id}";
-  protected static elementClass: Object = Task;
+  protected static elementClass: object = Task;
 
-  create(body: any, params: StandartParams): Promise<any> {
+  create(body: object, params: StandartParams): Promise<Task> {
     return this.createPromise(
       "POST",
       params,

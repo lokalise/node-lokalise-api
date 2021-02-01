@@ -1,4 +1,4 @@
-import { Order as OrderInterface } from "../interfaces";
+import { Order as OrderInterface } from "../interfaces/order";
 import { BaseModel } from "./base_model";
 export declare class Order extends BaseModel implements OrderInterface {
     order_id: string;

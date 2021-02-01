@@ -1,5 +1,5 @@
 import { BaseModel } from "./base_model";
-import { TeamUser as TeamUserInterface } from "../interfaces";
+import { TeamUser as TeamUserInterface } from "../interfaces/team_user";
 
 export class TeamUser extends BaseModel implements TeamUserInterface {
   public user_id: number;

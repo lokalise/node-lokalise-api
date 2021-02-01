@@ -6,9 +6,13 @@ export class TeamUsers extends BaseCollection {
   protected static rootElementName: string = "team_users";
   protected static rootElementNameSingular: string = "team_user";
   protected static prefixURI: string = "teams/{!:team_id}/users/{:id}";
-  protected static elementClass: Object = TeamUser;
+  protected static elementClass: object = TeamUser;
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: object,
+    params: StandartParams
+  ): Promise<TeamUser> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

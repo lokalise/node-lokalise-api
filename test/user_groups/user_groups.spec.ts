@@ -20,7 +20,11 @@ describe("UserGroups", function () {
         limit: 1,
       });
 
-      expect(user_groups[0].group_id).to.eq(group_id);
+      expect(user_groups.items[0].group_id).to.eq(group_id);
+      expect(user_groups.totalResults).to.eq(1);
+      expect(user_groups.totalPages).to.eq(1);
+      expect(user_groups.resultsPerPage).to.eq(1);
+      expect(user_groups.currentPage).to.eq(1);
     })
     .register(this);
 
@@ -98,7 +102,6 @@ describe("UserGroups", function () {
         new_group_id,
         [project_id]
       );
-
       expect(user_group.group_id).to.eq(new_group_id);
       expect(user_group.projects).not.to.include(project_id);
     })

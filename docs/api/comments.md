@@ -7,7 +7,13 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-comments-get)
 
 ```js
-lokaliseApi.comments.list_project_comments({ project_id: project_id });
+const comments = await lokaliseApi.comments.list_project_comments({
+  project_id: project_id,
+  page: 2,
+  limit: 3
+});
+
+comments.items[0].comment_id;
 ```
 
 ## Fetch key comments
@@ -15,7 +21,14 @@ lokaliseApi.comments.list_project_comments({ project_id: project_id });
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-key-comments-get)
 
 ```js
-lokaliseApi.comments.list({project_id: project_id, key_id: key_id})
+const comments =  lokaliseApi.comments.list({
+  project_id: project_id,
+  key_id: key_id,
+  page: 2,
+  limit: 3
+});
+
+comments.items[0].comment_id;
 ```
 
 ## Create key comments
@@ -23,12 +36,14 @@ lokaliseApi.comments.list({project_id: project_id, key_id: key_id})
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-comments-post)
 
 ```js
-lokaliseApi.comments.create({
-  'comments': [
+const comments = await lokaliseApi.comments.create({
+  [
     { comment: "Project comment 1" },
     { comment: "Project comment 2" }
   ]
 }, { project_id: project_id, key_id: key_id});
+
+comments[0].comment;
 ```
 
 ## Fetch key comment
@@ -36,7 +51,9 @@ lokaliseApi.comments.create({
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-comment-get)
 
 ```js
-lokaliseApi.comments.get(comment_id, {project_id: project_id, key_id: key_id});
+const comment = await lokaliseApi.comments.get(comment_id, {project_id: project_id, key_id: key_id});
+
+comment.comment_id;
 ```
 
 ## Delete key comment
@@ -44,5 +61,7 @@ lokaliseApi.comments.get(comment_id, {project_id: project_id, key_id: key_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-comment-delete)
 
 ```js
-lokaliseApi.comments.delete(comment_id, {project_id: project_id, key_id: key_id});
+const response = await lokaliseApi.comments.delete(comment_id, {project_id: project_id, key_id: key_id});
+
+response.comment_deleted;
 ```

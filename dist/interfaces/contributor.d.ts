@@ -1,3 +1,4 @@
+import { Keyable } from "../interfaces/keyable";
 export interface Contributor {
     user_id: number;
     email: string;
@@ -6,6 +7,6 @@ export interface Contributor {
     created_at_timestamp: number;
     is_admin: boolean;
     is_reviewer: boolean;
-    languages: object;
+    languages: Keyable;
     admin_rights: string[];
 }

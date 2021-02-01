@@ -1,4 +1,4 @@
-import { Branch as BranchInterface } from "../interfaces/index";
+import { Branch as BranchInterface } from "../interfaces/branch";
 import { BaseModel } from "./base_model";
 
 export class Branch extends BaseModel implements BranchInterface {

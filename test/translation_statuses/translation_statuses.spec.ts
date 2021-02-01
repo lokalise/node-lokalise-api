@@ -14,7 +14,7 @@ describe("TranslationStatuses", function () {
       const statuses = await lokaliseApi.translationStatuses.list({
         project_id: project_id,
       });
-      expect(statuses[0].title).to.eq("random");
+      expect(statuses.items[0].title).to.eq("random");
     })
     .register(this);
 
@@ -25,7 +25,11 @@ describe("TranslationStatuses", function () {
         page: 2,
         limit: 1,
       });
-      expect(statuses[0].title).to.eq("tested");
+      expect(statuses.items[0].title).to.eq("tested");
+      expect(statuses.totalResults).to.eq(2);
+      expect(statuses.totalPages).to.eq(2);
+      expect(statuses.resultsPerPage).to.eq(1);
+      expect(statuses.currentPage).to.eq(2);
     })
     .register(this);
 
@@ -80,10 +84,12 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("available_colors", async () => {
-      const colors = await lokaliseApi.translationStatuses.available_colors({
-        project_id: project_id,
-      });
-      expect(colors["colors"]).to.include("#f2d600");
+      const colors_data = await lokaliseApi.translationStatuses.available_colors(
+        {
+          project_id: project_id,
+        }
+      );
+      expect(colors_data.colors).to.include("#f2d600");
     })
     .register(this);
 });

@@ -1,15 +1,17 @@
 import { Language } from "../models/language";
 import { BaseCollection } from "./base_collection";
 import { StandartParams } from "../interfaces/standart_params";
+import { PaginatedResult } from "../models/paginated_result";
+import { Keyable } from "../interfaces/keyable";
 
 export class Languages extends BaseCollection {
   protected static rootElementName: string = "languages";
   protected static rootElementNameSingular: string = "language";
   protected static prefixURI: string =
     "projects/{!:project_id}/languages/{:id}";
-  protected static elementClass: Object = Language;
+  protected static elementClass: object = Language;
 
-  system_languages(params: StandartParams): Promise<any> {
+  system_languages(params: StandartParams): Promise<PaginatedResult> {
     return this.createPromise(
       "GET",
       params,
@@ -20,8 +22,11 @@ export class Languages extends BaseCollection {
     );
   }
 
-  create(raw_body: any, params: StandartParams): Promise<any> {
-    const body = { languages: raw_body };
+  create(
+    raw_body: object | object[],
+    params: StandartParams
+  ): Promise<Keyable> {
+    const body: object = { languages: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -31,7 +36,11 @@ export class Languages extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: object,
+    params: StandartParams
+  ): Promise<Language> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

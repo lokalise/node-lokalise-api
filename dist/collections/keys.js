@@ -5,7 +5,7 @@ const base_collection_1 = require("./base_collection");
 const key_1 = require("../models/key");
 class Keys extends base_collection_1.BaseCollection {
     create(raw_body, params) {
-        const body = { keys: raw_body };
+        const body = { keys: this.objToArray(raw_body) };
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
     }
     update(id, body, params) {
@@ -13,11 +13,11 @@ class Keys extends base_collection_1.BaseCollection {
         return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
     bulk_update(raw_keys, params) {
-        const keys = { keys: raw_keys };
+        const keys = { keys: this.objToArray(raw_keys) };
         return this.createPromise("PUT", params, this.populateArrayFromJson, this.handleReject, keys, "projects/{!:project_id}/keys");
     }
     bulk_delete(raw_keys, params) {
-        const keys = { keys: raw_keys };
+        const keys = { keys: this.objToArray(raw_keys) };
         return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, keys, "projects/{!:project_id}/keys");
     }
 }

@@ -16,7 +16,7 @@ describe("Contributors", function () {
         project_id: project_id,
       });
 
-      expect(contributors[0].user_id).to.eq(user_id);
+      expect(contributors.items[0].user_id).to.eq(user_id);
     })
     .register(this);
 
@@ -28,7 +28,15 @@ describe("Contributors", function () {
         limit: 3,
       });
 
-      expect(contributors[0].user_id).to.eq(33599);
+      expect(contributors.items[0].user_id).to.eq(33599);
+      expect(contributors.totalResults).to.eq(8);
+      expect(contributors.totalPages).to.eq(3);
+      expect(contributors.resultsPerPage).to.eq(3);
+      expect(contributors.currentPage).to.eq(2);
+      expect(contributors.isFirstPage()).to.be.false;
+      expect(contributors.isLastPage()).to.be.false;
+      expect(contributors.nextPage()).to.eq(3);
+      expect(contributors.prevPage()).to.eq(1);
     })
     .register(this);
 
@@ -76,6 +84,28 @@ describe("Contributors", function () {
 
       expect(contributors[0].email).to.eq("translator2@mycompany.com");
       expect(contributors[0].user_id).to.eq(new_user_id);
+    })
+    .register(this);
+
+  cassette
+    .createTest("create_single", async () => {
+      const contributors = await lokaliseApi.contributors.create(
+        {
+          email: "translator3@mycompany.com",
+          fullname: "Mr. Translator Single",
+          is_admin: false,
+          is_reviewer: true,
+          languages: [
+            {
+              lang_iso: "en",
+              is_writable: false,
+            },
+          ],
+        },
+        { project_id: project_id }
+      );
+
+      expect(contributors[0].email).to.eq("translator3@mycompany.com");
     })
     .register(this);
 

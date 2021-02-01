@@ -12,14 +12,18 @@ describe("PaymentCards", function () {
   cassette
     .createTest("list", async () => {
       const cards = await lokaliseApi.paymentCards.list();
-      expect(cards[0].card_id).to.eq(card_id);
+      expect(cards.items[0].card_id).to.eq(card_id);
     })
     .register(this);
 
   cassette
     .createTest("list_pagination", async () => {
       const cards = await lokaliseApi.paymentCards.list({ page: 2, limit: 1 });
-      expect(cards[0].card_id).to.eq(second_card_id);
+      expect(cards.items[0].card_id).to.eq(second_card_id);
+      expect(cards.totalResults).to.eq(2);
+      expect(cards.totalPages).to.eq(2);
+      expect(cards.resultsPerPage).to.eq(1);
+      expect(cards.currentPage).to.eq(2);
     })
     .register(this);
 

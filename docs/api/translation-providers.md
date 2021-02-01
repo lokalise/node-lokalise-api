@@ -7,7 +7,13 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-providers-get)
 
 ```js
-lokaliseApi.translationProviders.list({team_id: team_id})
+const providers = await lokaliseApi.translationProviders.list({
+  team_id: team_id,
+  page: 2,
+  limit: 1,
+});
+
+providers.items[0].name;
 ```
 
 ## Fetch a single translation provider
@@ -15,5 +21,7 @@ lokaliseApi.translationProviders.list({team_id: team_id})
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-provider-get)
 
 ```js
-lokaliseApi.translationProviders.get(translation_provider_id, {team_id: team_id});
+const provider = await lokaliseApi.translationProviders.get(translation_provider_id, {team_id: team_id});
+
+provider.slug;
 ```

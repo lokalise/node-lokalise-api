@@ -1,9 +1,11 @@
+import { Options } from "got";
+import { StandartParams } from "../interfaces/standart_params";
 export declare class ApiRequest {
     private urlRoot;
     promise: Promise<any>;
-    params: any;
-    constructor(uri: any, method: any, body?: any, params?: any);
-    createPromise(uri: any, method: any, body: any): Promise<any>;
-    protected composeURI(uri: any): string;
-    protected mapUriParams(params: any): (_entity: any, isMandaratory: any, paramName: any) => any;
+    params: StandartParams;
+    constructor(uri: string, method: Options["method"], body: object | object[] | null, params: StandartParams);
+    createPromise(uri: string, method: Options["method"], body: object | object[] | null): Promise<any>;
+    protected composeURI(uri: string): string;
+    protected mapUriParams(params: StandartParams): (_entity: any, isMandaratory: any, paramName: string) => string;
 }

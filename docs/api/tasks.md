@@ -7,7 +7,13 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
 
 ```js
-lokaliseApi.tasks.list({project_id: project_id});
+const tasks = await lokaliseApi.tasks.list({
+  project_id: project_id,
+  page: 2,
+  limit: 1,
+});
+
+tasks.items[0].task_id;
 ```
 
 ## Fetch a single task
@@ -15,7 +21,9 @@ lokaliseApi.tasks.list({project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
 
 ```js
-lokaliseApi.tasks.get(task_id, {project_id: project_id});
+const task = await lokaliseApi.tasks.get(task_id, {project_id: project_id});
+
+task.title;
 ```
 
 ## Create task
@@ -23,16 +31,21 @@ lokaliseApi.tasks.get(task_id, {project_id: project_id});
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
 
 ```js
-lokaliseApi.tasks.create({
-  title: 'node task',
-  keys: [key1, key2],
-  languages: [
-    {
-      "language_iso": "en",
-      "users": [user1, user2]
-    }
-  ]
-}, {project_id: project_id});
+const task = await lokaliseApi.tasks.create(
+  {
+    title: 'node task',
+    keys: [key1, key2],
+    languages: [
+      {
+        "language_iso": "en",
+        "users": [user1, user2]
+      }
+    ]
+  }, 
+  {project_id: project_id}
+);
+
+task.task_id;
 ```
 
 ## Update task
@@ -40,11 +53,13 @@ lokaliseApi.tasks.create({
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
 
 ```js
-lokaliseApi.tasks.update(
+const task = await lokaliseApi.tasks.update(
   task_id,
   {title: 'node updated'},
   {project_id: project_id}
 );
+
+task.title;
 ```
 
 ## Delete task
@@ -52,5 +67,7 @@ lokaliseApi.tasks.update(
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
 
 ```js
-lokaliseApi.tasks.delete(task_id, {project_id: project_id});
+const response = await lokaliseApi.tasks.delete(task_id, {project_id: project_id});
+
+response.task_deleted;
 ```

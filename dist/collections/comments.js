@@ -4,7 +4,8 @@ exports.Comments = void 0;
 const base_collection_1 = require("./base_collection");
 const comment_1 = require("../models/comment");
 class Comments extends base_collection_1.BaseCollection {
-    create(body, params) {
+    create(raw_body, params) {
+        const body = { comments: this.objToArray(raw_body) };
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
     }
     list_project_comments(params) {

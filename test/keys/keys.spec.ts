@@ -13,7 +13,7 @@ describe("Keys", function () {
   cassette
     .createTest("list", async () => {
       const keys = await lokaliseApi.keys.list({ project_id: project_id });
-      expect(keys[0].key_id).to.eq(key_id);
+      expect(keys.items[0].key_id).to.eq(key_id);
     })
     .register(this);
 
@@ -24,7 +24,11 @@ describe("Keys", function () {
         page: 2,
         limit: 3,
       });
-      expect(keys[0].key_id).to.eq(15814906);
+      expect(keys.items[0].key_id).to.eq(15814906);
+      expect(keys.totalResults).to.eq(21);
+      expect(keys.totalPages).to.eq(7);
+      expect(keys.resultsPerPage).to.eq(3);
+      expect(keys.currentPage).to.eq(2);
     })
     .register(this);
 
@@ -99,14 +103,50 @@ describe("Keys", function () {
         { project_id: project_id }
       );
 
-      expect(keys[0].key_name["web"]).to.eq("welcome_web");
-      expect(keys[0].platforms).to.include("web");
-      expect(keys[0].filenames["web"]).to.eq("my_filename.json");
-      expect(keys[0].translations[1].translation).to.eq("Welcome");
+      expect(keys.items[0].key_name["web"]).to.eq("welcome_web");
+      expect(keys.items[0].platforms).to.include("web");
+      expect(keys.items[0].filenames["web"]).to.eq("my_filename.json");
+      expect(keys.items[0].translations[1].translation).to.eq("Welcome");
 
-      expect(keys[1].key_name["ios"]).to.eq("welcome_ios");
-      expect(keys[1].platforms).to.include("ios");
-      expect(keys[1].translations[1].language_iso).to.eq("en");
+      expect(keys.items[1].key_name["ios"]).to.eq("welcome_ios");
+      expect(keys.items[1].platforms).to.include("ios");
+      expect(keys.items[1].translations[1].language_iso).to.eq("en");
+    })
+    .register(this);
+
+  cassette
+    .createTest("create_with_error", async () => {
+      const keys = await lokaliseApi.keys.create(
+        [
+          {
+            key_name: "searching:results:nothing_found",
+            description: "this is a duplicate",
+            platforms: ["web"],
+            filenames: {
+              web: "%LANG_ISO%.yml",
+            },
+            translations: [
+              {
+                language_iso: "en",
+                translation: "duplicate",
+              },
+            ],
+          },
+          {
+            key_name: "key_not_dup",
+            platforms: ["web"],
+            translations: [
+              {
+                language_iso: "en",
+                translation: "Not duplicate!",
+              },
+            ],
+          },
+        ],
+        { project_id: project_id }
+      );
+      expect(keys.errors[0].message).to.eq("This key name is already taken");
+      expect(keys.items[0].key_name.ios).to.eq("key_not_dup");
     })
     .register(this);
 
@@ -132,7 +172,7 @@ describe("Keys", function () {
         ],
         { project_id: project_id }
       );
-      const key = keys[0];
+      const key = keys.items[0];
 
       expect(key.key_name["web"]).to.eq("name_for_web");
       expect(key.key_name["ios"]).to.eq("name_for_ios");
@@ -175,13 +215,15 @@ describe("Keys", function () {
         { project_id: project_id }
       );
 
-      expect(keys[0].key_id).to.eq(key_id);
-      expect(keys[0].description).to.eq("Bulk node");
-      expect(keys[0].platforms).to.include("web");
-      expect(keys[0].platforms).not.to.include("other");
+      expect(keys.items[0].key_id).to.eq(key_id);
+      expect(keys.items[0].description).to.eq("Bulk node");
+      expect(keys.items[0].platforms).to.include("web");
+      expect(keys.items[0].platforms).not.to.include("other");
 
-      expect(keys[1].key_id).to.eq(second_key_id);
-      expect(keys[1].description).to.eq("Second bulk");
+      expect(keys.items[1].key_id).to.eq(second_key_id);
+      expect(keys.items[1].description).to.eq("Second bulk");
+
+      expect(keys.errors.length).to.eq(0);
     })
     .register(this);
 
