@@ -28,9 +28,7 @@ export class BaseCollection {
     );
   }
 
-  list(
-    params: StandartParams = {}
-  ): Promise<PaginatedResult | Keyable | this[]> {
+  list(params: StandartParams = {}): Promise<any> {
     return this.createPromise(
       "GET",
       params,

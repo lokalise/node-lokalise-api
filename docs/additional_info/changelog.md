@@ -111,6 +111,8 @@ keys.errors[0].message // => "This key name is already taken" -- this key was no
 keys.items[0].key_name.ios // => "valid.key.name" -- this key was created
 ```
 
+**Update**: added `auto_close_items` boolean attribute for `Task`.
+
 ## 5.3.0 (24-Nov-20)
 
 * Add `use_automations` flag to `UploadFileParams` (default is `true`)

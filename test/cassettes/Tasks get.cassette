@@ -334,6 +334,7 @@
             "completed_by_email": null
           }
         ],
+        "auto_close_items": true,
         "auto_close_languages": true,
         "auto_close_task": true,
         "completed_at": "2019-10-01 11:09:12 (Etc/UTC)",
@@ -358,7 +359,7 @@
       "Cache-Control",
       "max-age=0, must-revalidate, no-cache, no-store, private",
       "Date",
-      "Fri, 02 Oct 2020 13:41:59 GMT",
+      "Mon, 01 Feb 2021 15:10:23 GMT",
       "Pragma",
       "no-cache",
       "X-Content-Type-Options",
@@ -372,7 +373,7 @@
       "Referrer-Policy",
       "origin",
       "Expires",
-      "Fri, 02 Oct 2020 13:41:59 GMT",
+      "Mon, 01 Feb 2021 15:10:23 GMT",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Headers",

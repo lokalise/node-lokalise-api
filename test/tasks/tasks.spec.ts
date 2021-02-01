@@ -61,6 +61,7 @@ describe("Tasks", function () {
       expect(task.languages[0].language_iso).to.eq("sq");
       expect(task.auto_close_languages).to.be.true;
       expect(task.auto_close_task).to.be.true;
+      expect(task.auto_close_items).to.be.true;
       expect(task.completed_at).to.eq("2019-10-01 11:09:12 (Etc/UTC)");
       expect(task.completed_at_timestamp).to.eq(1569928152);
       expect(task.completed_by).to.eq(20181);

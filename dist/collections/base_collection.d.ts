@@ -12,7 +12,7 @@ export declare class BaseCollection {
     protected static secondaryElementNameSingular: string | null;
     protected static secondaryElementClass: any;
     get(id: string | number, params?: StandartParams): Promise<any>;
-    list(params?: StandartParams): Promise<PaginatedResult | Keyable | this[]>;
+    list(params?: StandartParams): Promise<any>;
     create(body: object | object[] | null, params?: StandartParams): Promise<any>;
     update(id: string | number, body: object | object[] | null, params?: StandartParams): Promise<any>;
     delete(id: string | number, params?: StandartParams): Promise<Keyable>;
