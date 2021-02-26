@@ -139,6 +139,7 @@ declare module "@lokalise/node-api" {
     translation_tier_name: string;
     briefing: string;
     total: number;
+    payment_method: string;
   }
 
   export interface PaymentCard {
