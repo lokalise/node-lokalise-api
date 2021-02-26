@@ -348,7 +348,7 @@ declare module "@lokalise/node-api" {
   }
 
   export class ApiRequest {
-    private urlRoot: string | URL;
+    private urlRoot: NonNullable<Options["prefixUrl"]>;
     promise: Promise<any>;
     params: StandartParams;
     constructor(
