@@ -1,5 +1,11 @@
 # Changelog
 
+## 6.1.0 (26-Feb-21)
+
+* Added `payment_method` field (`string`) for the `Order`
+* Fixed typing for the `ApiRequest` (thanks, @Tenga)
+* Updated to ESLintConfigPrettier 8
+
 ## 6.0.0 (02-Feb-21)
 
 This is a major release that contains quite a lot of changes mostly aimed towards pagination and typings system. Also the docs were updated, and various fixes were introduced.

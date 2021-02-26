@@ -20,4 +20,5 @@ export class Order extends BaseModel implements OrderInterface {
   public translation_tier_name: string;
   public briefing: string;
   public total: number;
+  public payment_method: string | null;
 }

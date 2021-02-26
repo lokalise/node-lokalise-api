@@ -40,7 +40,7 @@ describe("Orders", function () {
       });
       expect(order.order_id).to.eq(order_id);
       expect(order.project_id).to.eq("803826145ba90b42d5d860.46800099");
-      expect(order.card_id).to.eq("1774");
+      expect(order.card_id).to.eq(1774);
       expect(order.status).to.eq("completed");
       expect(order.created_at).to.eq("2019-03-19 18:18:21 (Etc/UTC)");
       expect(order.created_at_timestamp).to.eq(1553019501);
@@ -56,6 +56,7 @@ describe("Orders", function () {
       expect(order.translation_tier_name).to.eq("Professional translator");
       expect(order.briefing).to.eq("Some briefing");
       expect(order.total).to.eq(0.07);
+      expect(order.payment_method).to.eq(null);
     })
     .register(this);
 
