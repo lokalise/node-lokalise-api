@@ -139,6 +139,7 @@ declare module "@lokalise/node-api" {
     translation_tier_name: string;
     briefing: string;
     total: number;
+    payment_method: string | null;
   }
 
   export interface PaymentCard {
@@ -348,7 +349,7 @@ declare module "@lokalise/node-api" {
   }
 
   export class ApiRequest {
-    private urlRoot: string | URL;
+    private urlRoot: NonNullable<Options["prefixUrl"]>;
     promise: Promise<any>;
     params: StandartParams;
     constructor(

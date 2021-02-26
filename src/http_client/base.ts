@@ -5,7 +5,8 @@ import { LokaliseApi } from "../lokalise/lokalise";
 import { StandartParams } from "../interfaces/standart_params";
 
 export class ApiRequest {
-  private urlRoot: string | URL = "https://api.lokalise.com/api2/";
+  private urlRoot: NonNullable<Options["prefixUrl"]> =
+    "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
   public params: StandartParams = {};
 

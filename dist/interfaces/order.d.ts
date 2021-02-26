@@ -17,4 +17,5 @@ export interface Order {
     translation_tier_name: string;
     briefing: string;
     total: number;
+    payment_method: string | null;
 }
