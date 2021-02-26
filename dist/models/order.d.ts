@@ -19,5 +19,5 @@ export declare class Order extends BaseModel implements OrderInterface {
     translation_tier_name: string;
     briefing: string;
     total: number;
-    payment_method: string;
+    payment_method: string | null;
 }
