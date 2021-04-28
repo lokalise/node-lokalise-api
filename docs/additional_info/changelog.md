@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+* Test with Node 16
+* Do not test with Node 10 that has reached its EOL 
+
 ## 6.2.0 (28-Apr-21)
 
 * Added `task_id` for `Translation`
