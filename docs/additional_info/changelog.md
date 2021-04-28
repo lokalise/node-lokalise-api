@@ -1,5 +1,10 @@
 # Changelog
 
+## 6.2.0 (28-Apr-21)
+
+* Added `task_id` for `Translation`
+* Dependency updates
+
 ## 6.1.0 (26-Feb-21)
 
 * Added `payment_method` field (`string`) for the `Order`

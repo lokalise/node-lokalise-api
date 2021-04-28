@@ -14,4 +14,5 @@ export declare class Translation extends BaseModel implements TranslationInterfa
     reviewed_by: number;
     words: number;
     custom_translation_statuses: object[];
+    task_id: number;
 }

@@ -50,23 +50,24 @@ describe("Translations", function () {
 
   cassette
     .createTest("get", async () => {
-      const translation = await lokaliseApi.translations.get(translation_id, {
+      const translation = await lokaliseApi.translations.get(304581218, {
         project_id: project_id,
       });
 
-      expect(translation.translation_id).to.eq(translation_id);
-      expect(translation.key_id).to.eq(15519786);
+      expect(translation.translation_id).to.eq(304581218);
+      expect(translation.key_id).to.eq(44596059);
       expect(translation.language_iso).to.eq("ru");
-      expect(translation.translation).to.eq("Ещё один английский ключ");
-      expect(translation.modified_by).to.eq(33599);
-      expect(translation.modified_by_email).to.eq("twilight_church@list.ru");
-      expect(translation.modified_at).to.eq("2019-05-13 16:13:34 (Etc/UTC)");
-      expect(translation.modified_at_timestamp).to.eq(1557764014);
-      expect(translation.is_reviewed).to.be.true;
-      expect(translation.reviewed_by).to.eq(33599);
+      expect(translation.translation).to.eq("Сообщение");
+      expect(translation.modified_by).to.eq(20181);
+      expect(translation.modified_by_email).to.eq("bodrovis@protonmail.com");
+      expect(translation.modified_at).to.eq("2020-05-15 10:44:42 (Etc/UTC)");
+      expect(translation.modified_at_timestamp).to.eq(1589539482);
+      expect(translation.is_reviewed).to.be.false;
+      expect(translation.reviewed_by).to.eq(0);
       expect(translation.is_fuzzy).to.be.false;
-      expect(translation.words).to.eq(4);
+      expect(translation.words).to.eq(1);
       expect(translation.custom_translation_statuses).to.have.lengthOf(0);
+      expect(translation.task_id).to.eq(null);
     })
     .register(this);
 

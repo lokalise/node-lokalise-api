@@ -15,4 +15,5 @@ export class Translation extends BaseModel implements TranslationInterface {
   public reviewed_by: number;
   public words: number;
   public custom_translation_statuses: object[];
+  public task_id: number;
 }
