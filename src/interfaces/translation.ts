@@ -12,4 +12,5 @@ export interface Translation {
   reviewed_by: number;
   words: number;
   custom_translation_statuses: object[];
+  task_id: number;
 }
