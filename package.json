@@ -29,7 +29,7 @@
     "acorn": "^8.0.4",
     "chai": "^4.2.0",
     "codecov": "^3.8.1",
-    "dotenv": "^8.2.0",
+    "dotenv": "^9.0.1",
     "eslint": "^7.16.0",
     "eslint-config-prettier": "^8.0.0",
     "eslint-plugin-node": "^11.1.0",
