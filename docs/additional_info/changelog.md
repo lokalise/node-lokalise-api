@@ -1,9 +1,10 @@
 # Changelog
 
-## Unreleased
+## 6.2.1 (18-May-21)
 
 * Test with Node 16
-* Do not test with Node 10 that has reached its EOL 
+* Do not test with Node 10 that has reached its EOL
+* Move `typescript` to `devDependencies` (thanks, @omonk)
 
 ## 6.2.0 (28-Apr-21)
 
