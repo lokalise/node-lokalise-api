@@ -1,5 +1,9 @@
 # Changelog
 
+## 6.2.2 (13-Jul-21)
+
+* Fix `UploadFileParams` interface to comply with the API params
+
 ## 6.2.1 (18-May-21)
 
 * Test with Node 16
