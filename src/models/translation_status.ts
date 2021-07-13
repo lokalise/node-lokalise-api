@@ -3,7 +3,8 @@ import { TranslationStatus as TranslationStatusInterface } from "../interfaces/t
 
 export class TranslationStatus
   extends BaseModel
-  implements TranslationStatusInterface {
+  implements TranslationStatusInterface
+{
   public status_id: number;
   public title: string;
   public color: string;

@@ -97,11 +97,12 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("remove_project_from_group", async () => {
-      const user_group = await lokaliseApi.userGroups.remove_projects_from_group(
-        team_id,
-        new_group_id,
-        [project_id]
-      );
+      const user_group =
+        await lokaliseApi.userGroups.remove_projects_from_group(
+          team_id,
+          new_group_id,
+          [project_id]
+        );
       expect(user_group.group_id).to.eq(new_group_id);
       expect(user_group.projects).not.to.include(project_id);
     })

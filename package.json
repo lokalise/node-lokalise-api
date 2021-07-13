@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "6.2.1",
+  "version": "6.2.2",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "repository": {
@@ -26,7 +26,7 @@
     "@types/node": "^16.0.0",
     "@typescript-eslint/eslint-plugin": "^4.24.0",
     "@typescript-eslint/parser": "^4.24.0",
-    "acorn": "^8.2.4",
+    "acorn": "^8.4.1",
     "chai": "^4.2.0",
     "codecov": "^3.8.2",
     "dotenv": "^10.0.0",
@@ -38,7 +38,7 @@
     "mocha": "^9.0.0",
     "mocha-cassettes": "1.2.3",
     "nyc": "^15.1",
-    "prettier": "^2.3.0",
+    "prettier": "^2.3.2",
     "source-map-support": "^0.5.19",
     "ts-node": "^10.0.0",
     "typescript": "^4.2.4"
