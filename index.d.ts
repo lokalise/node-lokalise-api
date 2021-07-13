@@ -294,7 +294,7 @@ declare module "@lokalise/node-api" {
     filename: string;
     queue?: boolean;
     lang_iso: string;
-    convert_placeholder?: boolean;
+    convert_placeholders?: boolean;
     detect_icu_plurals?: boolean;
     tags?: any[];
     tag_inserted_keys?: boolean;

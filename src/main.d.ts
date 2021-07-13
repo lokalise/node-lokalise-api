@@ -3,7 +3,7 @@ declare module '@lokalise/node-api' {
     data: string;
     filename: string;
     lang_iso: string;
-    convert_placeholder?: string;
+    convert_placeholders?: string;
     detect_icu_plurals?: boolean;
     tags?: any[];
     replace_modified?: boolean;
