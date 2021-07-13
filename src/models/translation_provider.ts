@@ -3,7 +3,8 @@ import { TranslationProvider as TranslationProviderInterface } from "../interfac
 
 export class TranslationProvider
   extends BaseModel
-  implements TranslationProviderInterface {
+  implements TranslationProviderInterface
+{
   public provider_id: number;
   public name: string;
   public slug: string;
