@@ -2,29 +2,20 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "GET",
-    "path": "/api2/teams?page=2&limit=1",
+    "path": "/api2/system/languages?page=3&limit=1",
     "body": "",
     "status": 200,
     "response": {
-      "teams": [
+      "languages": [
         {
-          "team_id": 186612,
-          "name": "NikaNika",
-          "plan": "Trial",
-          "created_at": "2019-04-11 11:12:49 (Etc/UTC)",
-          "created_at_timestamp": 1554981169,
-          "quota_usage": {
-            "users": 2,
-            "keys": 715,
-            "projects": 4,
-            "mau": 0
-          },
-          "quota_allowed": {
-            "users": 999999999,
-            "keys": 999999999,
-            "projects": 999999999,
-            "mau": 999999999
-          }
+          "lang_id": 790,
+          "lang_iso": "af",
+          "lang_name": "Afrikaans",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
         }
       ]
     },
@@ -32,7 +23,7 @@
       "Server",
       "nginx",
       "Date",
-      "Wed, 14 Jul 2021 11:53:28 GMT",
+      "Wed, 14 Jul 2021 11:43:08 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
@@ -44,13 +35,13 @@
       "Cache-Control",
       "max-age=0, must-revalidate, no-cache, no-store, private",
       "X-Pagination-Total-Count",
-      "4",
+      "672",
       "X-Pagination-Page-Count",
-      "4",
+      "672",
       "X-Pagination-Limit",
       "1",
       "X-Pagination-Page",
-      "2",
+      "3",
       "pragma",
       "no-cache",
       "X-Content-Type-Options",
@@ -64,7 +55,7 @@
       "Referrer-Policy",
       "origin",
       "Expires",
-      "Wed, 14 Jul 2021 11:53:28 GMT",
+      "Wed, 14 Jul 2021 11:43:08 GMT",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Headers",

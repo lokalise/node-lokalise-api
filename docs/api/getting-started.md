@@ -83,3 +83,13 @@ If you are using [project branching feature](https://docs.lokalise.com/en/articl
 ```js
 lokaliseApi.files.list({project_id: '123abcdef.01:new-feature'});
 ```
+
+## Compression
+
+Lokalise API supports gzip compression. By default it's turned off but you can enable it by setting the `enableCompression` option:
+
+```js
+new LokaliseApi({ apiKey: "123abc", enableCompression: true })
+```
+
+ When this option is set to `true`, it will add an `Accept-Encoding=gzip,deflate` header to the request. It can be very useful when requesting a large amount of data.

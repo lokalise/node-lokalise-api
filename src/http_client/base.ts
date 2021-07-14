@@ -38,6 +38,11 @@ export class ApiRequest {
       decompress: false,
     };
 
+    if (LokaliseApi.enableCompression && options["headers"]) {
+      options["headers"]["Accept-Encoding"] = "gzip,deflate";
+      options["decompress"] = true;
+    }
+
     const url: string = this.composeURI(uri);
 
     if (Object.keys(this.params).length > 0) {
