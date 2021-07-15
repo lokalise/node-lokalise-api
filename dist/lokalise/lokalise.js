@@ -14,9 +14,17 @@ class LokaliseApi extends api_methods_1.LocaliseApiMethods {
         if (LokaliseApi.apiKey == null || LokaliseApi.apiKey.length == 0) {
             throw new Error("Error: Instantiation failed: Please pass an API key");
         }
+        const compression = Object(params)["enableCompression"];
+        if (compression == null) {
+            LokaliseApi.enableCompression = false;
+        }
+        else {
+            LokaliseApi.enableCompression = compression;
+        }
         return this;
     }
 }
 exports.LokaliseApi = LokaliseApi;
 LokaliseApi.apiKey = null;
+LokaliseApi.enableCompression = false;
 //# sourceMappingURL=lokalise.js.map

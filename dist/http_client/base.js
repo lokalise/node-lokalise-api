@@ -24,6 +24,10 @@ class ApiRequest {
             throwHttpErrors: false,
             decompress: false,
         };
+        if (lokalise_1.LokaliseApi.enableCompression && options["headers"]) {
+            options["headers"]["Accept-Encoding"] = "gzip,deflate";
+            options["decompress"] = true;
+        }
         const url = this.composeURI(uri);
         if (Object.keys(this.params).length > 0) {
             const formattedParams = new URLSearchParams();

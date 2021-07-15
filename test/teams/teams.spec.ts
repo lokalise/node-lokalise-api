@@ -19,9 +19,25 @@ describe("Teams", function () {
     .createTest("list_pagination", async () => {
       const teams = await lokaliseApi.teams.list({ page: 2, limit: 1 });
 
-      expect(teams.items[0].team_id).to.eq(176692);
-      expect(teams.totalResults).to.eq(3);
-      expect(teams.totalPages).to.eq(3);
+      expect(teams.items[0].team_id).to.eq(186612);
+      expect(teams.totalResults).to.eq(4);
+      expect(teams.totalPages).to.eq(4);
+      expect(teams.resultsPerPage).to.eq(1);
+      expect(teams.currentPage).to.eq(2);
+    })
+    .register(this);
+
+  cassette
+    .createTest("list_pagination_gzip", async () => {
+      const anotherApi = new LokaliseApi({
+        apiKey: process.env.API_KEY,
+        enableCompression: true,
+      });
+      const teams = await anotherApi.teams.list({ page: 2, limit: 1 });
+
+      expect(teams.items[0].team_id).to.eq(186612);
+      expect(teams.totalResults).to.eq(4);
+      expect(teams.totalPages).to.eq(4);
       expect(teams.resultsPerPage).to.eq(1);
       expect(teams.currentPage).to.eq(2);
     })

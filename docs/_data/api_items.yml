@@ -9,6 +9,8 @@
       path: pagination
     - title: Branching
       path: branching
+    - title: Compression
+      path: compression
 - title: Branches
   path: branches
   sub_paths:
