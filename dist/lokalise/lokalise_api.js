@@ -21,6 +21,10 @@ class LokaliseApi extends api_methods_1.LokaliseApiMethods {
         else {
             LokaliseApi.enableCompression = compression;
         }
+        if (Object(params)["fromOAuth"]) {
+            LokaliseApi.tokenHeader = "Authorization";
+            LokaliseApi.apiKey = "Bearer " + LokaliseApi.apiKey;
+        }
         return this;
     }
 }
@@ -28,4 +32,4 @@ exports.LokaliseApi = LokaliseApi;
 LokaliseApi.apiKey = null;
 LokaliseApi.enableCompression = false;
 LokaliseApi.tokenHeader = "x-api-token";
-//# sourceMappingURL=lokalise.js.map
+//# sourceMappingURL=lokalise_api.js.map

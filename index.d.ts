@@ -682,7 +682,7 @@ declare module "@lokalise/node-api" {
     ): Promise<Keyable>;
   }
 
-  export class LocaliseApiMethods {
+  export class LokaliseApiMethods {
     branches: Branches;
     comments: Comments;
     contributors: Contributors;
@@ -705,9 +705,10 @@ declare module "@lokalise/node-api" {
     webhooks: Webhooks;
   }
 
-  export class LokaliseApi extends LocaliseApiMethods {
+  export class LokaliseApi extends LokaliseApiMethods {
     static apiKey: string | null;
-    apiKey: string;
+    static enableCompression: boolean;
+    static tokenHeader: string;
     /**
      * Instantiate LokaliseApi to have access to methods
      * @param params  object, mandatory

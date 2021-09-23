@@ -1,6 +1,6 @@
 import * as Collections from "../collections/index";
 
-export class LocaliseApiMethods {
+export class LokaliseApiMethods {
   // TODO: Lazy loading
   public branches = new Collections.Branches();
   public comments = new Collections.Comments();

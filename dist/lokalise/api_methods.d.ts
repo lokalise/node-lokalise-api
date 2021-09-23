@@ -1,5 +1,5 @@
 import * as Collections from "../collections/index";
-export declare class LocaliseApiMethods {
+export declare class LokaliseApiMethods {
     branches: Collections.Branches;
     comments: Collections.Comments;
     contributors: Collections.Contributors;

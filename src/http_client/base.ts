@@ -1,7 +1,7 @@
 import { RequestError, Response, Options } from "got";
 const got = require("got");
 const pkg = require("../../package.json");
-import { LokaliseApi } from "../lokalise/lokalise";
+import { LokaliseApi } from "../lokalise/lokalise_api";
 import { StandartParams } from "../interfaces/standart_params";
 
 export class ApiRequest {
@@ -30,7 +30,6 @@ export class ApiRequest {
       method: method,
       prefixUrl: this.urlRoot,
       headers: {
-        "X-Api-Token": <string>LokaliseApi.apiKey,
         "User-Agent": `node-lokalise-api/${pkg.version}`,
       },
       agent: false,
@@ -38,7 +37,14 @@ export class ApiRequest {
       decompress: false,
     };
 
-    if (LokaliseApi.enableCompression && options["headers"]) {
+    // Make strictNullChecks happy
+    if (!options["headers"]) {
+      options["headers"] = {};
+    }
+
+    options["headers"][LokaliseApi.tokenHeader] = <string>LokaliseApi.apiKey;
+
+    if (LokaliseApi.enableCompression) {
       options["headers"]["Accept-Encoding"] = "gzip,deflate";
       options["decompress"] = true;
     }

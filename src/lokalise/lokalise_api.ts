@@ -1,8 +1,9 @@
-import { LocaliseApiMethods } from "./api_methods";
+import { LokaliseApiMethods } from "./api_methods";
 
-export class LokaliseApi extends LocaliseApiMethods {
+export class LokaliseApi extends LokaliseApiMethods {
   static apiKey: string | null = null;
   static enableCompression: boolean = false;
+  static tokenHeader: string = "x-api-token";
 
   /**
    * Instantiate LokaliseApi to have access to methods
@@ -20,6 +21,10 @@ export class LokaliseApi extends LocaliseApiMethods {
       LokaliseApi.enableCompression = false;
     } else {
       LokaliseApi.enableCompression = compression;
+    }
+    if (Object(params)["fromOAuth"]) {
+      LokaliseApi.tokenHeader = "Authorization";
+      LokaliseApi.apiKey = "Bearer " + LokaliseApi.apiKey;
     }
     return this;
   }

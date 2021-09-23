@@ -3,7 +3,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiRequest = void 0;
 const got = require("got");
 const pkg = require("../../package.json");
-const lokalise_1 = require("../lokalise/lokalise");
+const lokalise_api_1 = require("../lokalise/lokalise_api");
 class ApiRequest {
     constructor(uri, method, body, params) {
         this.urlRoot = "https://api.lokalise.com/api2/";
@@ -17,14 +17,18 @@ class ApiRequest {
             method: method,
             prefixUrl: this.urlRoot,
             headers: {
-                "X-Api-Token": lokalise_1.LokaliseApi.apiKey,
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
             },
             agent: false,
             throwHttpErrors: false,
             decompress: false,
         };
-        if (lokalise_1.LokaliseApi.enableCompression && options["headers"]) {
+        // Make strictNullChecks happy
+        if (!options["headers"]) {
+            options["headers"] = {};
+        }
+        options["headers"][lokalise_api_1.LokaliseApi.tokenHeader] = lokalise_api_1.LokaliseApi.apiKey;
+        if (lokalise_api_1.LokaliseApi.enableCompression) {
             options["headers"]["Accept-Encoding"] = "gzip,deflate";
             options["decompress"] = true;
         }

@@ -1,8 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.LocaliseApiMethods = void 0;
+exports.LokaliseApiMethods = void 0;
 const Collections = require("../collections/index");
-class LocaliseApiMethods {
+class LokaliseApiMethods {
     constructor() {
         // TODO: Lazy loading
         this.branches = new Collections.Branches();
@@ -27,5 +27,5 @@ class LocaliseApiMethods {
         this.webhooks = new Collections.Webhooks();
     }
 }
-exports.LocaliseApiMethods = LocaliseApiMethods;
+exports.LokaliseApiMethods = LokaliseApiMethods;
 //# sourceMappingURL=api_methods.js.map
