@@ -4,6 +4,9 @@ exports.BaseCollection = void 0;
 const base_1 = require("../http_client/base");
 const paginated_result_1 = require("../models/paginated_result");
 class BaseCollection {
+    constructor(clientData) {
+        this.clientData = clientData;
+    }
     get(id, params = {}) {
         params["id"] = id;
         return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, null);
@@ -85,7 +88,7 @@ class BaseCollection {
             uri = childClass.prefixURI;
         }
         return new Promise((resolve, reject) => {
-            const response = new base_1.ApiRequest(uri, method, body, params);
+            const response = new base_1.ApiRequest(uri, method, body, params, this.clientData);
             response.promise
                 .then((data) => {
                 resolve(resolveFn.call(this, data["json"], data["headers"]));

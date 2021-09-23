@@ -11,14 +11,14 @@ describe("Orders", function () {
 
   cassette
     .createTest("list", async () => {
-      const orders = await lokaliseApi.orders.list({ team_id: team_id });
+      const orders = await lokaliseApi.orders().list({ team_id: team_id });
       expect(orders.items[0].order_id).to.eq(order_id);
     })
     .register(this);
 
   cassette
     .createTest("list_pagination", async () => {
-      const orders = await lokaliseApi.orders.list({
+      const orders = await lokaliseApi.orders().list({
         team_id: team_id,
         page: 2,
         limit: 1,
@@ -35,7 +35,7 @@ describe("Orders", function () {
 
   cassette
     .createTest("get", async () => {
-      const order = await lokaliseApi.orders.get(order_id, {
+      const order = await lokaliseApi.orders().get(order_id, {
         team_id: team_id,
       });
       expect(order.order_id).to.eq(order_id);
@@ -62,7 +62,7 @@ describe("Orders", function () {
 
   cassette
     .createTest("create", async () => {
-      const order = await lokaliseApi.orders.create(
+      const order = await lokaliseApi.orders().create(
         {
           project_id: "803826145ba90b42d5d860.46800099",
           card_id: "1774",

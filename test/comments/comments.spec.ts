@@ -12,7 +12,7 @@ describe("Comments", function () {
 
   cassette
     .createTest("list_project_comments", async () => {
-      const comments = await lokaliseApi.comments.list_project_comments({
+      const comments = await lokaliseApi.comments().list_project_comments({
         project_id: project_id,
       });
 
@@ -23,7 +23,7 @@ describe("Comments", function () {
 
   cassette
     .createTest("list_key_comments", async () => {
-      const comments = await lokaliseApi.comments.list({
+      const comments = await lokaliseApi.comments().list({
         project_id: project_id,
         key_id: key_id,
       });
@@ -36,7 +36,7 @@ describe("Comments", function () {
 
   cassette
     .createTest("get", async () => {
-      const comment = await lokaliseApi.comments.get(comment_id, {
+      const comment = await lokaliseApi.comments().get(comment_id, {
         project_id: project_id,
         key_id: key_id,
       });
@@ -53,10 +53,12 @@ describe("Comments", function () {
 
   cassette
     .createTest("create", async () => {
-      const comments = await lokaliseApi.comments.create(
-        [{ comment: "Project comment 1" }, { comment: "Project comment 2" }],
-        { project_id: project_id, key_id: key_id }
-      );
+      const comments = await lokaliseApi
+        .comments()
+        .create(
+          [{ comment: "Project comment 1" }, { comment: "Project comment 2" }],
+          { project_id: project_id, key_id: key_id }
+        );
 
       expect(comments[0].comment).to.eq("Project comment 1");
     })
@@ -64,10 +66,12 @@ describe("Comments", function () {
 
   cassette
     .createTest("create_single", async () => {
-      const comments = await lokaliseApi.comments.create(
-        { comment: "Single" },
-        { project_id: project_id, key_id: 74189435 }
-      );
+      const comments = await lokaliseApi
+        .comments()
+        .create(
+          { comment: "Single" },
+          { project_id: project_id, key_id: 74189435 }
+        );
 
       expect(comments[0].comment).to.eq("Single");
     })
@@ -75,7 +79,7 @@ describe("Comments", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.comments.delete(1312027, {
+      const response = await lokaliseApi.comments().delete(1312027, {
         project_id: project_id,
         key_id: key_id,
       });

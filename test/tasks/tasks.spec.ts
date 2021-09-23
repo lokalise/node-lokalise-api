@@ -12,7 +12,7 @@ describe("Tasks", function () {
 
   cassette
     .createTest("list", async () => {
-      const tasks = await lokaliseApi.tasks.list({ project_id: project_id });
+      const tasks = await lokaliseApi.tasks().list({ project_id: project_id });
 
       expect(tasks.items[0].task_id).to.eq(task_id);
     })
@@ -20,7 +20,7 @@ describe("Tasks", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const tasks = await lokaliseApi.tasks.list({
+      const tasks = await lokaliseApi.tasks().list({
         project_id: project_id,
         page: 2,
         limit: 1,
@@ -36,7 +36,7 @@ describe("Tasks", function () {
 
   cassette
     .createTest("get", async () => {
-      const task = await lokaliseApi.tasks.get(task_id, {
+      const task = await lokaliseApi.tasks().get(task_id, {
         project_id: project_id,
       });
 
@@ -73,7 +73,7 @@ describe("Tasks", function () {
 
   cassette
     .createTest("create", async () => {
-      const task = await lokaliseApi.tasks.create(
+      const task = await lokaliseApi.tasks().create(
         {
           title: "node task",
           keys: [15519786],
@@ -95,11 +95,9 @@ describe("Tasks", function () {
 
   cassette
     .createTest("update", async () => {
-      const task = await lokaliseApi.tasks.update(
-        task_id,
-        { title: "node updated" },
-        { project_id: project_id }
-      );
+      const task = await lokaliseApi
+        .tasks()
+        .update(task_id, { title: "node updated" }, { project_id: project_id });
 
       expect(task.title).to.eq("node updated");
     })
@@ -107,7 +105,7 @@ describe("Tasks", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.tasks.delete(new_task_id, {
+      const response = await lokaliseApi.tasks().delete(new_task_id, {
         project_id: project_id,
       });
 

@@ -11,7 +11,7 @@ describe("QueuedProcesses", function () {
 
   cassette
     .createTest("list", async () => {
-      const processes = await lokaliseApi.queuedProcesses.list({
+      const processes = await lokaliseApi.queuedProcesses().list({
         project_id: project_id,
       });
 
@@ -23,7 +23,7 @@ describe("QueuedProcesses", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const processes = await lokaliseApi.queuedProcesses.list({
+      const processes = await lokaliseApi.queuedProcesses().list({
         project_id: project_id,
         limit: 1,
         page: 2,
@@ -38,7 +38,7 @@ describe("QueuedProcesses", function () {
 
   cassette
     .createTest("get", async () => {
-      const process = await lokaliseApi.queuedProcesses.get(process_id, {
+      const process = await lokaliseApi.queuedProcesses().get(process_id, {
         project_id: project_id,
       });
 

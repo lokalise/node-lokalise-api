@@ -15,7 +15,8 @@ describe("Screenshots", function () {
 
   cassette
     .createTest("list_with_error", async () => {
-      await lokaliseApi.screenshots
+      await lokaliseApi
+        .screenshots()
         .list({
           project_id: null,
         })
@@ -27,7 +28,7 @@ describe("Screenshots", function () {
 
   cassette
     .createTest("list", async () => {
-      const screenshots = await lokaliseApi.screenshots.list({
+      const screenshots = await lokaliseApi.screenshots().list({
         project_id: project_id,
         page: 1,
         limit: 1,
@@ -46,7 +47,7 @@ describe("Screenshots", function () {
 
   cassette
     .createTest("get", async () => {
-      const screenshot = await lokaliseApi.screenshots.get(screenshot_id, {
+      const screenshot = await lokaliseApi.screenshots().get(screenshot_id, {
         project_id: project_id,
       });
 
@@ -64,7 +65,7 @@ describe("Screenshots", function () {
 
   cassette
     .createTest("create", async () => {
-      const screenshots = await lokaliseApi.screenshots.create(
+      const screenshots = await lokaliseApi.screenshots().create(
         [
           {
             data: data,
@@ -83,11 +84,13 @@ describe("Screenshots", function () {
 
   cassette
     .createTest("update", async () => {
-      const screenshot = await lokaliseApi.screenshots.update(
-        screenshot_id,
-        { title: "node screen", description: "node desc" },
-        { project_id: project_id }
-      );
+      const screenshot = await lokaliseApi
+        .screenshots()
+        .update(
+          screenshot_id,
+          { title: "node screen", description: "node desc" },
+          { project_id: project_id }
+        );
 
       expect(screenshot.screenshot_id).to.eq(screenshot_id);
       expect(screenshot.title).to.eq("node screen");
@@ -97,10 +100,9 @@ describe("Screenshots", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.screenshots.delete(
-        second_screenshot_id,
-        { project_id: project_id }
-      );
+      const response = await lokaliseApi
+        .screenshots()
+        .delete(second_screenshot_id, { project_id: project_id });
 
       expect(response.project_id).to.eq(project_id);
       expect(response.screenshot_deleted).to.be.true;

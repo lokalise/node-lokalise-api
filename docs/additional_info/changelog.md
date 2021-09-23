@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.0.0
+
+* **Breaking change**.
+
 ## 6.3.0 (15-Jul-21)
 
 * Added `enableCompression` option: `new LokaliseApi({ apiKey: "123abc", enableCompression: true })`. The default value for this option is `false`. When set to `true`, it will add an `Accept-Encoding=gzip,deflate` header to the request. It can be very useful when requesting a large amount of data.

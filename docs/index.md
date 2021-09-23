@@ -17,10 +17,10 @@ Obtain [Lokalise API token](https://docs.lokalise.com/en/articles/1929556-api-to
 const { LokaliseApi } = require('@lokalise/node-api');
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
-const projects = lokaliseApi.projects.list();
+const projects = lokaliseApi.projects().list();
 projects.items[0].name;
 
-process = await lokaliseApi.files.upload(project_id,
+process = await lokaliseApi.files().upload(project_id,
   {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
 process.status // => 'queued'
 ```

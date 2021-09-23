@@ -3,7 +3,7 @@
 To handle request errors, you may use the following approach:
 
 ```js
-lokaliseApi.projects.list().catch(
+lokaliseApi.projects().list().catch(
   (e) => {
     console.log(e);
   }

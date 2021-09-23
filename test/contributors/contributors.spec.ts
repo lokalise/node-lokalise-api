@@ -12,7 +12,7 @@ describe("Contributors", function () {
 
   cassette
     .createTest("list", async () => {
-      const contributors = await lokaliseApi.contributors.list({
+      const contributors = await lokaliseApi.contributors().list({
         project_id: project_id,
       });
 
@@ -22,7 +22,7 @@ describe("Contributors", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const contributors = await lokaliseApi.contributors.list({
+      const contributors = await lokaliseApi.contributors().list({
         project_id: project_id,
         page: 2,
         limit: 3,
@@ -42,7 +42,7 @@ describe("Contributors", function () {
 
   cassette
     .createTest("get", async () => {
-      const contributor = await lokaliseApi.contributors.get(user_id, {
+      const contributor = await lokaliseApi.contributors().get(user_id, {
         project_id: project_id,
       });
 
@@ -60,7 +60,7 @@ describe("Contributors", function () {
 
   cassette
     .createTest("create", async () => {
-      const contributors = await lokaliseApi.contributors.create(
+      const contributors = await lokaliseApi.contributors().create(
         [
           {
             email: "translator2@mycompany.com",
@@ -89,7 +89,7 @@ describe("Contributors", function () {
 
   cassette
     .createTest("create_single", async () => {
-      const contributors = await lokaliseApi.contributors.create(
+      const contributors = await lokaliseApi.contributors().create(
         {
           email: "translator3@mycompany.com",
           fullname: "Mr. Translator Single",
@@ -111,11 +111,9 @@ describe("Contributors", function () {
 
   cassette
     .createTest("update", async () => {
-      const contributor = await lokaliseApi.contributors.update(
-        new_user_id,
-        { is_admin: true },
-        { project_id: project_id }
-      );
+      const contributor = await lokaliseApi
+        .contributors()
+        .update(new_user_id, { is_admin: true }, { project_id: project_id });
 
       expect(contributor.user_id).to.eq(new_user_id);
       expect(contributor.is_admin).to.be.true;
@@ -124,7 +122,7 @@ describe("Contributors", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.contributors.delete(new_user_id, {
+      const response = await lokaliseApi.contributors().delete(new_user_id, {
         project_id: project_id,
       });
 

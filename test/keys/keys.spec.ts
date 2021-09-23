@@ -12,14 +12,14 @@ describe("Keys", function () {
 
   cassette
     .createTest("list", async () => {
-      const keys = await lokaliseApi.keys.list({ project_id: project_id });
+      const keys = await lokaliseApi.keys().list({ project_id: project_id });
       expect(keys.items[0].key_id).to.eq(key_id);
     })
     .register(this);
 
   cassette
     .createTest("list_pagination", async () => {
-      const keys = await lokaliseApi.keys.list({
+      const keys = await lokaliseApi.keys().list({
         project_id: project_id,
         page: 2,
         limit: 3,
@@ -34,7 +34,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("get", async () => {
-      const key = await lokaliseApi.keys.get(44596066, {
+      const key = await lokaliseApi.keys().get(44596066, {
         project_id: project_id,
         disable_references: 1,
       });
@@ -68,7 +68,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("create", async () => {
-      const keys = await lokaliseApi.keys.create(
+      const keys = await lokaliseApi.keys().create(
         [
           {
             key_name: "welcome_web",
@@ -116,7 +116,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("create_with_error", async () => {
-      const keys = await lokaliseApi.keys.create(
+      const keys = await lokaliseApi.keys().create(
         [
           {
             key_name: "searching:results:nothing_found",
@@ -152,7 +152,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("create per-platform", async () => {
-      const keys = await lokaliseApi.keys.create(
+      const keys = await lokaliseApi.keys().create(
         [
           {
             key_name: {
@@ -183,7 +183,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("update", async () => {
-      const key = await lokaliseApi.keys.update(
+      const key = await lokaliseApi.keys().update(
         key_id,
         {
           platforms: ["web", "other"],
@@ -200,7 +200,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("bulk_update", async () => {
-      const keys = await lokaliseApi.keys.bulk_update(
+      const keys = await lokaliseApi.keys().bulk_update(
         [
           {
             key_id: key_id,
@@ -229,7 +229,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.keys.delete(23677306, {
+      const response = await lokaliseApi.keys().delete(23677306, {
         project_id: project_id,
       });
 
@@ -241,7 +241,7 @@ describe("Keys", function () {
 
   cassette
     .createTest("bulk_delete", async () => {
-      const response = await lokaliseApi.keys.bulk_delete([23646011], {
+      const response = await lokaliseApi.keys().bulk_delete([23646011], {
         project_id: project_id,
       });
 

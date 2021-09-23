@@ -11,7 +11,7 @@ describe("Files", function () {
 
   cassette
     .createTest("list", async () => {
-      const files = await lokaliseApi.files.list({ project_id: project_id });
+      const files = await lokaliseApi.files().list({ project_id: project_id });
       const file = files.items[0];
 
       expect(file.filename).to.eq("%LANG_ISO%.yml");
@@ -21,7 +21,7 @@ describe("Files", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const files = await lokaliseApi.files.list({
+      const files = await lokaliseApi.files().list({
         project_id: project_id,
         page: 2,
         limit: 1,
@@ -39,7 +39,7 @@ describe("Files", function () {
     .createTest("upload", async () => {
       const data =
         "ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=";
-      const process = await lokaliseApi.files.upload(project_id, {
+      const process = await lokaliseApi.files().upload(project_id, {
         data: data,
         filename: "test_async.json",
         lang_iso: "en",
@@ -59,7 +59,7 @@ describe("Files", function () {
     .createTest("upload without automations", async () => {
       const data =
         "ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=";
-      const process = await lokaliseApi.files.upload(project_id, {
+      const process = await lokaliseApi.files().upload(project_id, {
         data: data,
         filename: "test_async.json",
         lang_iso: "en",
@@ -73,7 +73,7 @@ describe("Files", function () {
 
   cassette
     .createTest("upload asynchronous re-check", async () => {
-      const process = await lokaliseApi.queuedProcesses.get(process_id, {
+      const process = await lokaliseApi.queuedProcesses().get(process_id, {
         project_id: project_id,
       });
 
@@ -89,7 +89,7 @@ describe("Files", function () {
 
   cassette
     .createTest("download", async () => {
-      const response = await lokaliseApi.files.download(project_id, {
+      const response = await lokaliseApi.files().download(project_id, {
         format: "json",
         original_filenames: true,
       });

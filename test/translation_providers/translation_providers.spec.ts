@@ -10,7 +10,7 @@ describe("TranslationProviders", function () {
 
   cassette
     .createTest("list", async () => {
-      const providers = await lokaliseApi.translationProviders.list({
+      const providers = await lokaliseApi.translationProviders().list({
         team_id: team_id,
       });
       expect(providers.items[0].name).to.eq("Gengo");
@@ -19,7 +19,7 @@ describe("TranslationProviders", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const providers = await lokaliseApi.translationProviders.list({
+      const providers = await lokaliseApi.translationProviders().list({
         team_id: team_id,
         page: 2,
         limit: 1,
@@ -34,7 +34,7 @@ describe("TranslationProviders", function () {
 
   cassette
     .createTest("get", async () => {
-      const provider = await lokaliseApi.translationProviders.get(4, {
+      const provider = await lokaliseApi.translationProviders().get(4, {
         team_id: team_id,
       });
       expect(provider.provider_id).to.eq(4);

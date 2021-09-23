@@ -3,16 +3,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.ApiRequest = void 0;
 const got = require("got");
 const pkg = require("../../package.json");
-const lokalise_api_1 = require("../lokalise/lokalise_api");
 class ApiRequest {
-    constructor(uri, method, body, params) {
+    constructor(uri, method, body, params, clientData) {
         this.urlRoot = "https://api.lokalise.com/api2/";
         this.params = {};
         this.params = params;
-        this.promise = this.createPromise(uri, method, body);
+        this.promise = this.createPromise(uri, method, body, clientData);
         return this;
     }
-    createPromise(uri, method, body) {
+    createPromise(uri, method, body, clientData) {
         const options = {
             method: method,
             prefixUrl: this.urlRoot,
@@ -27,8 +26,8 @@ class ApiRequest {
         if (!options["headers"]) {
             options["headers"] = {};
         }
-        options["headers"][lokalise_api_1.LokaliseApi.tokenHeader] = lokalise_api_1.LokaliseApi.apiKey;
-        if (lokalise_api_1.LokaliseApi.enableCompression) {
+        options["headers"][clientData.authHeader] = clientData.token;
+        if (clientData.enableCompression) {
             options["headers"]["Accept-Encoding"] = "gzip,deflate";
             options["decompress"] = true;
         }

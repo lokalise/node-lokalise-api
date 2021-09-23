@@ -9,7 +9,7 @@ describe("Teams", function () {
 
   cassette
     .createTest("list", async () => {
-      const teams = await lokaliseApi.teams.list();
+      const teams = await lokaliseApi.teams().list();
 
       expect(teams.items[0].team_id).to.eq(186612);
     })
@@ -17,7 +17,7 @@ describe("Teams", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const teams = await lokaliseApi.teams.list({ page: 2, limit: 1 });
+      const teams = await lokaliseApi.teams().list({ page: 2, limit: 1 });
 
       expect(teams.items[0].team_id).to.eq(186612);
       expect(teams.totalResults).to.eq(4);
@@ -33,7 +33,7 @@ describe("Teams", function () {
         apiKey: process.env.API_KEY,
         enableCompression: true,
       });
-      const teams = await anotherApi.teams.list({ page: 2, limit: 1 });
+      const teams = await anotherApi.teams().list({ page: 2, limit: 1 });
 
       expect(teams.items[0].team_id).to.eq(186612);
       expect(teams.totalResults).to.eq(4);

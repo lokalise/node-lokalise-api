@@ -14,7 +14,7 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("list", async () => {
-      const user_groups = await lokaliseApi.userGroups.list({
+      const user_groups = await lokaliseApi.userGroups().list({
         team_id: team_id,
         page: 1,
         limit: 1,
@@ -30,7 +30,7 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("get", async () => {
-      const user_group = await lokaliseApi.userGroups.get(group_id, {
+      const user_group = await lokaliseApi.userGroups().get(group_id, {
         team_id: team_id,
       });
 
@@ -47,7 +47,7 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("create", async () => {
-      const user_group = await lokaliseApi.userGroups.create(
+      const user_group = await lokaliseApi.userGroups().create(
         {
           name: "Node",
           is_reviewer: false,
@@ -65,7 +65,7 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("update", async () => {
-      const user_group = await lokaliseApi.userGroups.update(
+      const user_group = await lokaliseApi.userGroups().update(
         new_group_id,
         {
           name: "Node updated",
@@ -84,11 +84,9 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("add_project_to_group", async () => {
-      const user_group = await lokaliseApi.userGroups.add_projects_to_group(
-        team_id,
-        new_group_id,
-        [project_id]
-      );
+      const user_group = await lokaliseApi
+        .userGroups()
+        .add_projects_to_group(team_id, new_group_id, [project_id]);
 
       expect(user_group.group_id).to.eq(new_group_id);
       expect(user_group.projects).to.include(project_id);
@@ -97,12 +95,9 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("remove_project_from_group", async () => {
-      const user_group =
-        await lokaliseApi.userGroups.remove_projects_from_group(
-          team_id,
-          new_group_id,
-          [project_id]
-        );
+      const user_group = await lokaliseApi
+        .userGroups()
+        .remove_projects_from_group(team_id, new_group_id, [project_id]);
       expect(user_group.group_id).to.eq(new_group_id);
       expect(user_group.projects).not.to.include(project_id);
     })
@@ -110,11 +105,9 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("add_members_to_group", async () => {
-      const user_group = await lokaliseApi.userGroups.add_members_to_group(
-        team_id,
-        new_group_id,
-        [user_id]
-      );
+      const user_group = await lokaliseApi
+        .userGroups()
+        .add_members_to_group(team_id, new_group_id, [user_id]);
 
       expect(user_group.group_id).to.eq(new_group_id);
       expect(user_group.members).to.include(user_id);
@@ -123,11 +116,9 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("remove_members_from_group", async () => {
-      const user_group = await lokaliseApi.userGroups.remove_members_from_group(
-        team_id,
-        new_group_id,
-        [user_id]
-      );
+      const user_group = await lokaliseApi
+        .userGroups()
+        .remove_members_from_group(team_id, new_group_id, [user_id]);
 
       expect(user_group.group_id).to.eq(new_group_id);
       expect(user_group.members).not.to.include(user_id);
@@ -136,7 +127,7 @@ describe("UserGroups", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.userGroups.delete(new_group_id, {
+      const response = await lokaliseApi.userGroups().delete(new_group_id, {
         team_id: team_id,
       });
 

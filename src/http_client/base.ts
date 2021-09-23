@@ -1,8 +1,8 @@
 import { RequestError, Response, Options } from "got";
 const got = require("got");
 const pkg = require("../../package.json");
-import { LokaliseApi } from "../lokalise/lokalise_api";
 import { StandartParams } from "../interfaces/standart_params";
+import { ClientData } from "../interfaces/client_data";
 
 export class ApiRequest {
   private urlRoot: NonNullable<Options["prefixUrl"]> =
@@ -14,17 +14,19 @@ export class ApiRequest {
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
-    params: StandartParams
+    params: StandartParams,
+    clientData: ClientData
   ) {
     this.params = params;
-    this.promise = this.createPromise(uri, method, body);
+    this.promise = this.createPromise(uri, method, body, clientData);
     return this;
   }
 
   createPromise(
     uri: string,
     method: Options["method"],
-    body: object | object[] | null
+    body: object | object[] | null,
+    clientData: ClientData
   ): Promise<any> {
     const options: Options = {
       method: method,
@@ -42,9 +44,9 @@ export class ApiRequest {
       options["headers"] = {};
     }
 
-    options["headers"][LokaliseApi.tokenHeader] = <string>LokaliseApi.apiKey;
+    options["headers"][clientData.authHeader] = clientData.token;
 
-    if (LokaliseApi.enableCompression) {
+    if (clientData.enableCompression) {
       options["headers"]["Accept-Encoding"] = "gzip,deflate";
       options["decompress"] = true;
     }

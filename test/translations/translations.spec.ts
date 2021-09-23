@@ -11,7 +11,7 @@ describe("Translations", function () {
 
   cassette
     .createTest("list", async () => {
-      const translations = await lokaliseApi.translations.list({
+      const translations = await lokaliseApi.translations().list({
         project_id: project_id,
       });
 
@@ -21,7 +21,7 @@ describe("Translations", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const translations = await lokaliseApi.translations.list({
+      const translations = await lokaliseApi.translations().list({
         project_id: project_id,
         page: 2,
         limit: 1,
@@ -37,7 +37,7 @@ describe("Translations", function () {
 
   cassette
     .createTest("list with opts", async () => {
-      const translations = await lokaliseApi.translations.list({
+      const translations = await lokaliseApi.translations().list({
         project_id: project_id,
         filter_is_reviewed: 0,
         filter_lang_id: 803,
@@ -50,7 +50,7 @@ describe("Translations", function () {
 
   cassette
     .createTest("get", async () => {
-      const translation = await lokaliseApi.translations.get(304581218, {
+      const translation = await lokaliseApi.translations().get(304581218, {
         project_id: project_id,
       });
 
@@ -73,11 +73,13 @@ describe("Translations", function () {
 
   cassette
     .createTest("update", async () => {
-      const translation = await lokaliseApi.translations.update(
-        translation_id,
-        { translation: "тест" },
-        { project_id: project_id }
-      );
+      const translation = await lokaliseApi
+        .translations()
+        .update(
+          translation_id,
+          { translation: "тест" },
+          { project_id: project_id }
+        );
 
       expect(translation.translation_id).to.eq(translation_id);
       expect(translation.translation).to.eq("тест");

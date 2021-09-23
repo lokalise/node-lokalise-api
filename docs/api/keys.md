@@ -7,7 +7,7 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
 
 ```js
-const keys = await lokaliseApi.keys.list({
+const keys = await lokaliseApi.keys().list({
   project_id: project_id,
   page: 2,
   limit: 3,
@@ -21,7 +21,7 @@ keys.items[0].key_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
 
 ```js
-const key = await lokaliseApi.keys.get(key_id, {
+const key = await lokaliseApi.keys().get(key_id, {
   project_id: project_id,
   disable_references: 1,
 });
@@ -34,7 +34,7 @@ key.key_name.ios;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
 
 ```js
-const keys = await lokaliseApi.keys.create([
+const keys = await lokaliseApi.keys().create([
   {
     "key_name": "welcome_web",
     "description": "Index app welcome",
@@ -73,7 +73,7 @@ keys.errors[0].message; // If some keys were not created, the errors will be lis
 Creating a key with per-platform names:
 
 ```js
-lokaliseApi.keys.create(
+lokaliseApi.keys().create(
   [{
     key_name: {
       ios: "name_for_ios",
@@ -101,7 +101,7 @@ Things to note:
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
 
 ```js
-const key = await lokaliseApi.keys.update(key_id, {
+const key = await lokaliseApi.keys().update(key_id, {
   "platforms": ["web", "other"],
   "description": "Node updated"
 }, { project_id: project_id });
@@ -114,7 +114,7 @@ key.platforms;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
 
 ```js
-const keys = await lokaliseApi.keys.bulk_update([
+const keys = await lokaliseApi.keys().bulk_update([
   {
     "key_id": key_id,
     "description": "Bulk node",
@@ -135,7 +135,7 @@ keys.errors;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
 
 ```js
-const response = await lokaliseApi.keys.delete(key_id, { project_id: project_id });
+const response = await lokaliseApi.keys().delete(key_id, { project_id: project_id });
 
 response.key_removed;
 ```
@@ -145,7 +145,7 @@ response.key_removed;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
 
 ```js
-const response = await lokaliseApi.keys.bulk_delete([
+const response = await lokaliseApi.keys().bulk_delete([
   key_id, second_key_id
 ], { project_id: project_id });
 

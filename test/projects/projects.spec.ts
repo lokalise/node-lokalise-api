@@ -11,14 +11,14 @@ describe("Projects", function () {
 
   cassette
     .createTest("list", async () => {
-      const projects = await lokaliseApi.projects.list();
+      const projects = await lokaliseApi.projects().list();
       expect(projects.items[0].name).to.eq("contrib");
     })
     .register(this);
 
   cassette
     .createTest("list_pagination", async () => {
-      const projects = await lokaliseApi.projects.list({ page: 3, limit: 2 });
+      const projects = await lokaliseApi.projects().list({ page: 3, limit: 2 });
       expect(projects.items[0].name).to.eq("demo phoenix copy");
       expect(projects.totalResults).to.eq(13);
       expect(projects.totalPages).to.eq(7);
@@ -29,7 +29,7 @@ describe("Projects", function () {
 
   cassette
     .createTest("create", async () => {
-      const project = await lokaliseApi.projects.create({
+      const project = await lokaliseApi.projects().create({
         name: "Node.js test",
         description: "Test description",
       });
@@ -42,7 +42,7 @@ describe("Projects", function () {
 
   cassette
     .createTest("get", async () => {
-      const project = await lokaliseApi.projects.get(project_id);
+      const project = await lokaliseApi.projects().get(project_id);
 
       expect(project.project_id).to.equal(project_id);
       expect(project.project_type).to.equal("localization_files");
@@ -62,7 +62,7 @@ describe("Projects", function () {
 
   cassette
     .createTest("update", async () => {
-      const project = await lokaliseApi.projects.update(project_id, {
+      const project = await lokaliseApi.projects().update(project_id, {
         name: "Demo Phoenix",
         description: "Description Phoenix",
       });
@@ -75,7 +75,7 @@ describe("Projects", function () {
 
   cassette
     .createTest("empty", async () => {
-      const response = await lokaliseApi.projects.empty(new_project_id);
+      const response = await lokaliseApi.projects().empty(new_project_id);
 
       expect(response.project_id).to.equal(new_project_id);
       expect(response.keys_deleted).to.be.true;
@@ -84,7 +84,7 @@ describe("Projects", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.projects.delete(new_project_id);
+      const response = await lokaliseApi.projects().delete(new_project_id);
       expect(response.project_id).to.be.equal(new_project_id);
       expect(response.project_deleted).to.be.true;
     })
