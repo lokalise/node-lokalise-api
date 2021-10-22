@@ -23,6 +23,7 @@ import { ClientData as ClientDataInterface } from "../interfaces/client_data";
 export class LokaliseApi {
   clientData: ClientDataInterface = {
     token: "",
+    tokenType: "",
     authHeader: "x-api-token",
     enableCompression: false,
   };

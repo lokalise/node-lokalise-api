@@ -20,7 +20,13 @@ const { LokaliseApi } = require('@lokalise/node-api');
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
 ```
 
-Now you may perform API requests, for example:
+Alternatively, you can use tokens obtained via [OAuth2](https://docs.lokalise.com/en/articles/5574713-oauth-2) (don't forget that these tokens have expiration dates):
+
+```ts
+const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
+```
+
+Now you can perform API requests, for example:
 
 ```js
 const projects = lokaliseApi.projects().list();

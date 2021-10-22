@@ -30,6 +30,7 @@ class LokaliseApi {
     constructor(params) {
         this.clientData = {
             token: "",
+            tokenType: "",
             authHeader: "x-api-token",
             enableCompression: false,
         };

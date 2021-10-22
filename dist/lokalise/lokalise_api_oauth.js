@@ -5,7 +5,13 @@ const lokalise_api_1 = require("./lokalise_api");
 class LokaliseApiOAuth extends lokalise_api_1.LokaliseApi {
     constructor(params) {
         super(params);
-        this.clientData.token = "Bearer " + this.clientData.token;
+        const tokenType = Object(params)["tokenType"];
+        if (tokenType) {
+            this.clientData.tokenType = tokenType;
+        }
+        else {
+            this.clientData.tokenType = "Bearer";
+        }
         this.clientData.authHeader = "Authorization";
     }
 }

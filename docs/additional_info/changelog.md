@@ -1,8 +1,33 @@
 # Changelog
 
-## 7.0.0
+## 7.0.0 (22-Oct-2021)
 
-* **Breaking change**.
+* **Breaking change**. We have refactored the code to make it more robust and have slightly changed the way you access endpoints. Previously you were writing:
+
+```ts
+lokaliseApi.comments.list_project_comments()
+
+lokaliseApi.files.upload()
+```
+
+* Now, however, all the endpoints are methods, therefore you must add round brackets after their names, for example:
+
+```ts
+lokaliseApi.comments().list_project_comments() // .comments(), not .comments
+
+lokaliseApi.files().upload() // .files(), not .files
+```
+
+* You can simply use search-replace functionality to automatically fix all these issues in your code.
+* **New feature**. You can now use [OAuth2](https://docs.lokalise.com/en/articles/5574713-oauth-2) tokens with this client. To achieve that, simply employ the `LokaliseApiOAuth` class:
+
+```ts
+const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
+
+const projects = lokaliseApi.projects().list();
+```
+
+* The endpoints should be called in the same way.
 
 ## 6.3.0 (15-Jul-21)
 

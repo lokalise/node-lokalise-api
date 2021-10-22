@@ -15,8 +15,17 @@ describe("LokaliseApiOAuth", function () {
 
   it("is expected to contain clientData", function () {
     const client = new LokaliseApiOAuth({ apiKey: process.env.API_KEY });
-    expect(client.clientData.token).to.eq("Bearer " + process.env.API_KEY);
+    expect(client.clientData.token).to.eq(process.env.API_KEY);
+    expect(client.clientData.tokenType).to.eq("Bearer");
     expect(client.clientData.authHeader).to.eq("Authorization");
     expect(client.clientData.enableCompression).to.be.false;
+  });
+
+  it("allows to customize tokenType", function () {
+    const client = new LokaliseApiOAuth({
+      apiKey: process.env.API_KEY,
+      tokenType: "Custom",
+    });
+    expect(client.clientData.tokenType).to.eq("Custom");
   });
 });

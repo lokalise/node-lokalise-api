@@ -26,7 +26,7 @@ class ApiRequest {
         if (!options["headers"]) {
             options["headers"] = {};
         }
-        options["headers"][clientData.authHeader] = clientData.token;
+        options["headers"][clientData.authHeader] = `${clientData.tokenType} ${clientData.token}`;
         if (clientData.enableCompression) {
             options["headers"]["Accept-Encoding"] = "gzip,deflate";
             options["decompress"] = true;

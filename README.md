@@ -29,6 +29,14 @@ process = await lokaliseApi.files().upload(project_id,
 process.status // => 'queued'
 ```
 
+Alternatively, you can use tokens obtained via [OAuth2](https://docs.lokalise.com/en/articles/5574713-oauth-2) (don't forget that these tokens have expiration dates):
+
+```ts
+const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
+
+const projects = lokaliseApi.projects().list();
+```
+
 ## Usage
 
 Detailed documentation can be found at [lokalise.github.io/node-lokalise-api](https://lokalise.github.io/node-lokalise-api/).
