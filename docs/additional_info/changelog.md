@@ -1,6 +1,6 @@
 # Changelog
 
-## 7.0.0 (22-Oct-2021)
+## 7.0.0 (25-Oct-2021)
 
 * **Breaking change**. We have refactored the code to make it more robust and have slightly changed the way you access endpoints. Previously you were writing:
 
