@@ -1,7 +1,7 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 describe("Languages", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -12,7 +12,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("list", async () => {
-      const languages = await lokaliseApi.languages.list({
+      const languages = await lokaliseApi.languages().list({
         project_id: project_id,
       });
 
@@ -23,7 +23,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const languages = await lokaliseApi.languages.list({
+      const languages = await lokaliseApi.languages().list({
         project_id: project_id,
         page: 2,
         limit: 4,
@@ -40,7 +40,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("system_languages", async () => {
-      const languages = await lokaliseApi.languages.system_languages({
+      const languages = await lokaliseApi.languages().system_languages({
         page: 3,
         limit: 2,
       });
@@ -56,7 +56,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("get", async () => {
-      const language = await lokaliseApi.languages.get(lang_id, {
+      const language = await lokaliseApi.languages().get(lang_id, {
         project_id: project_id,
       });
 
@@ -70,7 +70,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("create", async () => {
-      const languages = await lokaliseApi.languages.create(
+      const languages = await lokaliseApi.languages().create(
         [
           {
             lang_iso: "ak",
@@ -87,7 +87,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("update", async () => {
-      const language = await lokaliseApi.languages.update(
+      const language = await lokaliseApi.languages().update(
         lang_id,
         {
           lang_name: "Chinese Traditional Custom",
@@ -102,7 +102,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.languages.delete(second_lang_id, {
+      const response = await lokaliseApi.languages().delete(second_lang_id, {
         project_id: project_id,
       });
       expect(response.project_id).to.eq(project_id);

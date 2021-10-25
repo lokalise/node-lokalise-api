@@ -7,7 +7,7 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-branches-get)
 
 ```js
-const branches = await lokaliseApi.branches.list({project_id: project_id, page: 2, limit: 3});
+const branches = await lokaliseApi.branches().list({project_id: project_id, page: 2, limit: 3});
 
 branches.items[0].branch_id;
 ```
@@ -17,7 +17,7 @@ branches.items[0].branch_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-branch-get)
 
 ```js
-const branch = await lokaliseApi.branches.get(branch_id, {project_id: project_id});
+const branch = await lokaliseApi.branches().get(branch_id, {project_id: project_id});
 
 branch.name;
 ```
@@ -27,7 +27,7 @@ branch.name;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-branch-get)
 
 ```js
-const branch = await lokaliseApi.branches.create(
+const branch = await lokaliseApi.branches().create(
   {"name": "hotfix/really-important"},
   { project_id: project_id}
 );
@@ -40,7 +40,7 @@ branch.name;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-branch-put)
 
 ```js
-const branch = await lokaliseApi.branches.update(branch_id,
+const branch = await lokaliseApi.branches().update(branch_id,
   {"name": "hotfix/not-really-important"},
   {project_id: project_id}
 );
@@ -53,7 +53,7 @@ branch.name;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-branch-delete)
 
 ```js
-const response = await lokaliseApi.branches.delete(branch_id, {project_id: project_id});
+const response = await lokaliseApi.branches().delete(branch_id, {project_id: project_id});
 
 response.branch_deleted;
 ```
@@ -63,7 +63,7 @@ response.branch_deleted;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-merge-a-branch-post)
 
 ```js
-const response = await lokaliseApi.branches.merge(branch_id_to_merge,
+const response = await lokaliseApi.branches().merge(branch_id_to_merge,
   {project_id: project_id},
   {"force_conflict_resolve_using": "master"}
 )

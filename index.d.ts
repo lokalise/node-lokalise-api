@@ -6,6 +6,12 @@ declare module "@lokalise/node-api" {
     message: string;
   }
 
+  export interface ClientData {
+    token: string;
+    authHeader: string;
+    enableCompression: boolean;
+  }
+
   export interface Branch {
     branch_id: number;
     name: string;
@@ -355,13 +361,15 @@ declare module "@lokalise/node-api" {
     constructor(
       uri: string,
       method: Options["method"],
-      body?: object | object[] | null,
-      params?: StandartParams
+      body: object | object[] | null,
+      params: StandartParams,
+      clientData: ClientData
     );
     createPromise(
       uri: string,
       method: Options["method"],
-      body: object | object[] | null
+      body: object | object[] | null,
+      clientData: ClientData
     ): Promise<{}>;
     protected composeURI(uri: string): string;
     protected mapUriParams(
@@ -370,6 +378,7 @@ declare module "@lokalise/node-api" {
   }
 
   export class BaseCollection {
+    clientData: ClientData;
     protected static rootElementName: string;
     protected static rootElementNameSingular: string | null;
     protected static endpoint: string | null;
@@ -377,6 +386,7 @@ declare module "@lokalise/node-api" {
     protected static elementClass: any;
     protected static secondaryElementNameSingular: string | null;
     protected static secondaryElementClass: any;
+    constructor(clientData: ClientData);
     get(id: string | number, params?: StandartParams, body?: any): Promise<any>;
     list(params?: StandartParams): Promise<PaginatedResult>;
     create(
@@ -682,37 +692,49 @@ declare module "@lokalise/node-api" {
     ): Promise<Keyable>;
   }
 
-  export class LocaliseApiMethods {
-    branches: Branches;
-    comments: Comments;
-    contributors: Contributors;
-    files: Files;
-    keys: Keys;
-    languages: Languages;
-    orders: Orders;
-    paymentCards: PaymentCards;
-    projects: Projects;
-    queuedProcesses: QueuedProcesses;
-    screenshots: Screenshots;
-    snapshots: Snapshots;
-    tasks: Tasks;
-    teams: Teams;
-    teamUsers: TeamUsers;
-    translationProviders: TranslationProviders;
-    translations: Translations;
-    translationStatuses: TranslationStatuses;
-    userGroups: UserGroups;
-    webhooks: Webhooks;
-  }
+  export class LokaliseApi {
+    clientData: ClientData;
 
-  export class LokaliseApi extends LocaliseApiMethods {
-    static apiKey: string | null;
-    apiKey: string;
-    /**
-     * Instantiate LokaliseApi to have access to methods
-     * @param params  object, mandatory
-     * @returns       LokaliseApi object to work with.
-     */
     constructor(params: Object);
+
+    branches(): Branches;
+
+    comments(): Comments;
+
+    contributors(): Contributors;
+
+    files(): Files;
+
+    keys(): Keys;
+
+    languages(): Languages;
+
+    orders(): Orders;
+
+    paymentCards(): PaymentCards;
+
+    projects(): Projects;
+
+    queuedProcesses(): QueuedProcesses;
+
+    screenshots(): Screenshots;
+
+    snapshots(): Snapshots;
+
+    tasks(): Tasks;
+
+    teams(): Teams;
+
+    teamUsers(): TeamUsers;
+
+    translations(): Translations;
+
+    translationProviders(): TranslationProviders;
+
+    translationStatuses(): TranslationStatuses;
+
+    userGroups(): UserGroups;
+
+    webhooks(): Webhooks;
   }
 }

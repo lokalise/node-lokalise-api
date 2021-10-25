@@ -1,8 +1,8 @@
 import { RequestError, Response, Options } from "got";
 const got = require("got");
 const pkg = require("../../package.json");
-import { LokaliseApi } from "../lokalise/lokalise";
 import { StandartParams } from "../interfaces/standart_params";
+import { ClientData } from "../interfaces/client_data";
 
 export class ApiRequest {
   private urlRoot: NonNullable<Options["prefixUrl"]> =
@@ -14,23 +14,24 @@ export class ApiRequest {
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
-    params: StandartParams
+    params: StandartParams,
+    clientData: ClientData
   ) {
     this.params = params;
-    this.promise = this.createPromise(uri, method, body);
+    this.promise = this.createPromise(uri, method, body, clientData);
     return this;
   }
 
   createPromise(
     uri: string,
     method: Options["method"],
-    body: object | object[] | null
+    body: object | object[] | null,
+    clientData: ClientData
   ): Promise<any> {
     const options: Options = {
       method: method,
       prefixUrl: this.urlRoot,
       headers: {
-        "X-Api-Token": <string>LokaliseApi.apiKey,
         "User-Agent": `node-lokalise-api/${pkg.version}`,
       },
       agent: false,
@@ -38,7 +39,16 @@ export class ApiRequest {
       decompress: false,
     };
 
-    if (LokaliseApi.enableCompression && options["headers"]) {
+    // Make strictNullChecks happy
+    if (!options["headers"]) {
+      options["headers"] = {};
+    }
+
+    options["headers"][
+      clientData.authHeader
+    ] = `${clientData.tokenType} ${clientData.token}`;
+
+    if (clientData.enableCompression) {
       options["headers"]["Accept-Encoding"] = "gzip,deflate";
       options["decompress"] = true;
     }

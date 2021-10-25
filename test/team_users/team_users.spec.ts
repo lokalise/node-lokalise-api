@@ -1,7 +1,7 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 describe("TeamUsers", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -11,7 +11,9 @@ describe("TeamUsers", function () {
 
   cassette
     .createTest("list", async () => {
-      const team_users = await lokaliseApi.teamUsers.list({ team_id: team_id });
+      const team_users = await lokaliseApi
+        .teamUsers()
+        .list({ team_id: team_id });
 
       expect(team_users.items[0].user_id).to.eq(user_id);
     })
@@ -19,7 +21,7 @@ describe("TeamUsers", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const team_users = await lokaliseApi.teamUsers.list({
+      const team_users = await lokaliseApi.teamUsers().list({
         team_id: team_id,
         page: 3,
         limit: 1,
@@ -35,7 +37,7 @@ describe("TeamUsers", function () {
 
   cassette
     .createTest("get", async () => {
-      const team_user = await lokaliseApi.teamUsers.get(user_id, {
+      const team_user = await lokaliseApi.teamUsers().get(user_id, {
         team_id: team_id,
       });
 
@@ -50,11 +52,9 @@ describe("TeamUsers", function () {
 
   cassette
     .createTest("update", async () => {
-      const team_user = await lokaliseApi.teamUsers.update(
-        user_id,
-        { role: "admin" },
-        { team_id: team_id }
-      );
+      const team_user = await lokaliseApi
+        .teamUsers()
+        .update(user_id, { role: "admin" }, { team_id: team_id });
 
       expect(team_user.user_id).to.eq(user_id);
       expect(team_user.role).to.eq("admin");
@@ -63,7 +63,7 @@ describe("TeamUsers", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.teamUsers.delete(user_id, {
+      const response = await lokaliseApi.teamUsers().delete(user_id, {
         team_id: team_id,
       });
 

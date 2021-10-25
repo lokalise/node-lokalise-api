@@ -7,7 +7,7 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-cards-get)
 
 ```js
-const cards = await lokaliseApi.paymentCards.list({ page: 2, limit: 1 });
+const cards = await lokaliseApi.paymentCards().list({ page: 2, limit: 1 });
 
 cards.items[0].card_id;
 ```
@@ -17,7 +17,7 @@ cards.items[0].card_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-card-get)
 
 ```js
-const card = await lokaliseApi.paymentCards.get(card_id);
+const card = await lokaliseApi.paymentCards().get(card_id);
 
 card.last4;
 ```
@@ -27,7 +27,7 @@ card.last4;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-card-post)
 
 ```js
-const card = await lokaliseApi.paymentCards.create({
+const card = await lokaliseApi.paymentCards().create({
   number: '4242424242424242',
   cvc: 123,
   exp_month: 10,
@@ -42,7 +42,7 @@ card.brand;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-card-delete)
 
 ```js
-const result = await lokaliseApi.paymentCards.delete(card_id);
+const result = await lokaliseApi.paymentCards().delete(card_id);
 
 result.card_deleted
 ```

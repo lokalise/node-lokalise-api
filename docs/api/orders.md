@@ -7,7 +7,7 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-orders-get)
 
 ```js
-const orders = await lokaliseApi.orders.list({
+const orders = await lokaliseApi.orders().list({
   team_id: team_id,
   page: 2,
   limit: 1,
@@ -21,7 +21,7 @@ orders.items[0].order_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-an-order-get)
 
 ```js
-const order = await lokaliseApi.orders.get(order_id, {team_id: team_id});
+const order = await lokaliseApi.orders().get(order_id, {team_id: team_id});
 
 order.order_id;
 ```
@@ -31,7 +31,7 @@ order.order_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-an-order-post)
 
 ```js
-const order = await lokaliseApi.orders.create(
+const order = await lokaliseApi.orders().create(
   {
     project_id: '803xyz145ba90b42abc.46800',
     card_id: '1774',

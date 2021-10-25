@@ -1,2 +1,2 @@
-import { LokaliseApi } from "./lokalise/lokalise";
+import { LokaliseApi } from "./lokalise/lokalise_api";
 export { LokaliseApi };

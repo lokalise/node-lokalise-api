@@ -7,7 +7,7 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-team-users-get)
 
 ```js
-const team_users = await lokaliseApi.teamUsers.list({
+const team_users = await lokaliseApi.teamUsers().list({
   team_id: team_id,
   page: 3,
   limit: 1,
@@ -21,7 +21,7 @@ team_users.items[0].user_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-team-user-get)
 
 ```js
-const team_user = await lokaliseApi.teamUsers.get(user_id, {team_id: team_id});
+const team_user = await lokaliseApi.teamUsers().get(user_id, {team_id: team_id});
 
 team_user.email;
 ```
@@ -31,7 +31,7 @@ team_user.email;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-team-user-put)
 
 ```js
-const team_user = await lokaliseApi.teamUsers.update(
+const team_user = await lokaliseApi.teamUsers().update(
   user_id,
   {role: 'admin'},
   {team_id: team_id}
@@ -45,7 +45,7 @@ team_user.user_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-team-user-delete)
 
 ```js
-const response = await lokaliseApi.teamUsers.delete(user_id, {team_id: team_id});
+const response = await lokaliseApi.teamUsers().delete(user_id, {team_id: team_id});
 
 response.team_user_deleted;
 ```

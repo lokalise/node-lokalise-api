@@ -1,10 +1,9 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 const cassette = new Cassettes("./test/cassettes");
-const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
 const project_id = "803826145ba90b42d5d860.46800099";
 
 describe("LokaliseApi", function () {
@@ -12,31 +11,36 @@ describe("LokaliseApi", function () {
     expect(function () {
       new LokaliseApi({ apiKey: "" });
     }).to.throw(Error);
-    new LokaliseApi({ apiKey: process.env.API_KEY });
+  });
+
+  it("is expected to contain clientData", function () {
+    const client = new LokaliseApi({ apiKey: process.env.API_KEY });
+    expect(client.clientData.token).to.eq(process.env.API_KEY);
+    expect(client.clientData.authHeader).to.eq("x-api-token");
+    expect(client.clientData.enableCompression).to.be.false;
   });
 });
 
 describe("LokaliseApi gzip", function () {
   cassette
     .createTest("list_with_gzip", async () => {
-      new LokaliseApi({ apiKey: process.env.API_KEY, enableCompression: true });
-      const keys = await lokaliseApi.keys.list({ project_id: project_id });
-      expect(keys.items[0].key_id).to.eq(44596059);
-      new LokaliseApi({
+      const client = new LokaliseApi({
         apiKey: process.env.API_KEY,
-        enableCompression: false,
+        enableCompression: true,
       });
+      const keys = await client.keys().list({ project_id: project_id });
+      expect(keys.items[0].key_id).to.eq(44596059);
     })
     .register(this);
 
   cassette
     .createTest("system_languages_no_gzip", async () => {
-      new LokaliseApi({
+      const client = new LokaliseApi({
         apiKey: process.env.API_KEY,
         enableCompression: false,
       });
 
-      const languages = await lokaliseApi.languages.system_languages({
+      const languages = await client.languages().system_languages({
         page: 3,
         limit: 1,
       });
@@ -47,9 +51,9 @@ describe("LokaliseApi gzip", function () {
 
   cassette
     .createTest("system_languages_default_gzip", async () => {
-      new LokaliseApi({ apiKey: process.env.API_KEY });
+      const client = new LokaliseApi({ apiKey: process.env.API_KEY });
 
-      const languages = await lokaliseApi.languages.system_languages({
+      const languages = await client.languages().system_languages({
         page: 4,
         limit: 1,
       });
