@@ -33,6 +33,8 @@ const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' }
 const projects = lokaliseApi.projects().list();
 ```
 
+You can also check [this repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples).
+
 ## Usage
 
 <nav class="index">
