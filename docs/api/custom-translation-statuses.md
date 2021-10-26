@@ -9,7 +9,7 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-statuses-get)
 
 ```js
-const statuses = await lokaliseApi.translationStatuses.list({
+const statuses = await lokaliseApi.translationStatuses().list({
   project_id: project_id,
   page: 2,
   limit: 3
@@ -23,7 +23,7 @@ statuses.items[0].title;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-status-get)
 
 ```js
-const status = await lokaliseApi.translationStatuses.get(status_id, {project_id: project_id});
+const status = await lokaliseApi.translationStatuses().get(status_id, {project_id: project_id});
 
 status.title;
 ```
@@ -33,7 +33,7 @@ status.title;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-status-post)
 
 ```js
-const status = await lokaliseApi.translationStatuses.create(
+const status = await lokaliseApi.translationStatuses().create(
   {title: 'my status', color: '#344563'},
   {project_id: project_id}
 );
@@ -46,7 +46,7 @@ status.title;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-status-put)
 
 ```js
-const status = await lokaliseApi.translationStatuses.update(
+const status = await lokaliseApi.translationStatuses().update(
   status_id,
   {title: 'my status updated', color: '#f2d600'},
   {project_id: project_id}
@@ -60,7 +60,7 @@ status.title;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-status-delete)
 
 ```js
-const response = await lokaliseApi.translationStatuses.delete(status_id, {project_id: project_id});
+const response = await lokaliseApi.translationStatuses().delete(status_id, {project_id: project_id});
 
 response.custom_translation_status_deleted;
 ```
@@ -72,7 +72,7 @@ response.custom_translation_status_deleted;
 As long as Lokalise supports only very limited array of color hexadecimal codes for custom translation statuses, this method can be used to fetch all permitted values.
 
 ```js
-const colors_data = await lokaliseApi.translationStatuses.available_colors(
+const colors_data = await lokaliseApi.translationStatuses().available_colors(
   {
     project_id: project_id,
   }

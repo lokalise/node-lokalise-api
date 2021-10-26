@@ -1,7 +1,8 @@
-import { LocaliseApiMethods } from "./api_methods";
-export declare class LokaliseApi extends LocaliseApiMethods {
+import { LokaliseApiMethods } from "./api_methods";
+export declare class LokaliseApi extends LokaliseApiMethods {
     static apiKey: string | null;
     static enableCompression: boolean;
+    static tokenHeader: string;
     /**
      * Instantiate LokaliseApi to have access to methods
      * @param params  object, mandatory

@@ -3,7 +3,9 @@ import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
 import { PaginatedResult } from "../models/paginated_result";
 import { Keyable } from "../interfaces/keyable";
+import { ClientData } from "../interfaces/client_data";
 export declare class BaseCollection {
+    clientData: ClientData;
     protected static rootElementName: string;
     protected static rootElementNameSingular: string | null;
     protected static endpoint: string | null;
@@ -11,6 +13,7 @@ export declare class BaseCollection {
     protected static elementClass: any;
     protected static secondaryElementNameSingular: string | null;
     protected static secondaryElementClass: any;
+    constructor(clientData: ClientData);
     get(id: string | number, params?: StandartParams): Promise<any>;
     list(params?: StandartParams): Promise<any>;
     create(body: object | object[] | null, params?: StandartParams): Promise<any>;

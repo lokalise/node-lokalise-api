@@ -21,20 +21,30 @@ Obtain Lokalise API token in your personal profile, initialize and use the clien
 const { LokaliseApi } = require('@lokalise/node-api');
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
-const projects = lokaliseApi.projects.list();
+const projects = lokaliseApi.projects().list();
 projects.items[0].name;
 
-process = await lokaliseApi.files.upload(project_id,
+process = await lokaliseApi.files().upload(project_id,
   {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
 process.status // => 'queued'
+```
+
+Alternatively, you can use tokens obtained via [OAuth2](https://docs.lokalise.com/en/articles/5574713-oauth-2) (don't forget that these tokens have expiration dates):
+
+```ts
+const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
+
+const projects = lokaliseApi.projects().list();
 ```
 
 ## Usage
 
 Detailed documentation can be found at [lokalise.github.io/node-lokalise-api](https://lokalise.github.io/node-lokalise-api/).
 
+You can also check [this repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples).
+
 ## License
 
 This library is licensed under the [BSD 3 Clause](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE). Prior to version 5.1.0 the license was MIT.
 
-Copyright (c) [Lokalise group](http://lokalise.com), [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) [Lokalise group](http://lokalise.com) and [Ilya Bodrov](http://bodrovis.tech)

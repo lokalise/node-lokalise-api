@@ -7,7 +7,7 @@
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
 
 ```js
-const tasks = await lokaliseApi.tasks.list({
+const tasks = await lokaliseApi.tasks().list({
   project_id: project_id,
   page: 2,
   limit: 1,
@@ -21,7 +21,7 @@ tasks.items[0].task_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
 
 ```js
-const task = await lokaliseApi.tasks.get(task_id, {project_id: project_id});
+const task = await lokaliseApi.tasks().get(task_id, {project_id: project_id});
 
 task.title;
 ```
@@ -31,7 +31,7 @@ task.title;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
 
 ```js
-const task = await lokaliseApi.tasks.create(
+const task = await lokaliseApi.tasks().create(
   {
     title: 'node task',
     keys: [key1, key2],
@@ -53,7 +53,7 @@ task.task_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
 
 ```js
-const task = await lokaliseApi.tasks.update(
+const task = await lokaliseApi.tasks().update(
   task_id,
   {title: 'node updated'},
   {project_id: project_id}
@@ -67,7 +67,7 @@ task.title;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
 
 ```js
-const response = await lokaliseApi.tasks.delete(task_id, {project_id: project_id});
+const response = await lokaliseApi.tasks().delete(task_id, {project_id: project_id});
 
 response.task_deleted;
 ```

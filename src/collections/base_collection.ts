@@ -4,8 +4,10 @@ import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
 import { PaginatedResult } from "../models/paginated_result";
 import { Keyable } from "../interfaces/keyable";
+import { ClientData } from "../interfaces/client_data";
 
 export class BaseCollection {
+  clientData: ClientData;
   protected static rootElementName: string = "";
   protected static rootElementNameSingular: string | null = null;
   protected static endpoint: string | null = null;
@@ -16,6 +18,10 @@ export class BaseCollection {
   // For example, uploading a File may return a QueuedProcess
   protected static secondaryElementNameSingular: string | null = null;
   protected static secondaryElementClass: any = null;
+
+  constructor(clientData: ClientData) {
+    this.clientData = clientData;
+  }
 
   get(id: string | number, params: StandartParams = {}): Promise<any> {
     params["id"] = id;
@@ -170,7 +176,8 @@ export class BaseCollection {
         <string>uri,
         method,
         body,
-        params
+        params,
+        this.clientData
       );
       response.promise
         .then((data) => {

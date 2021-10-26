@@ -1,7 +1,7 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 describe("PaymentCards", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -11,14 +11,16 @@ describe("PaymentCards", function () {
 
   cassette
     .createTest("list", async () => {
-      const cards = await lokaliseApi.paymentCards.list();
+      const cards = await lokaliseApi.paymentCards().list();
       expect(cards.items[0].card_id).to.eq(card_id);
     })
     .register(this);
 
   cassette
     .createTest("list_pagination", async () => {
-      const cards = await lokaliseApi.paymentCards.list({ page: 2, limit: 1 });
+      const cards = await lokaliseApi
+        .paymentCards()
+        .list({ page: 2, limit: 1 });
       expect(cards.items[0].card_id).to.eq(second_card_id);
       expect(cards.totalResults).to.eq(2);
       expect(cards.totalPages).to.eq(2);
@@ -29,7 +31,7 @@ describe("PaymentCards", function () {
 
   cassette
     .createTest("get", async () => {
-      const card = await lokaliseApi.paymentCards.get(card_id);
+      const card = await lokaliseApi.paymentCards().get(card_id);
       expect(card.card_id).to.eq(card_id);
       expect(card.last4).to.eq("0358");
       expect(card.brand).to.eq("Visa");
@@ -40,7 +42,7 @@ describe("PaymentCards", function () {
 
   cassette
     .createTest("delete", async () => {
-      const result = await lokaliseApi.paymentCards.delete(second_card_id);
+      const result = await lokaliseApi.paymentCards().delete(second_card_id);
       expect(result.card_id).to.eq(second_card_id);
       expect(result.card_deleted).to.be.true;
     })
@@ -48,7 +50,7 @@ describe("PaymentCards", function () {
 
   cassette
     .createTest("create", async () => {
-      const card = await lokaliseApi.paymentCards.create({
+      const card = await lokaliseApi.paymentCards().create({
         number: "4242424242424242",
         cvc: 123,
         exp_month: 10,

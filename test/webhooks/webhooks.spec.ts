@@ -1,7 +1,7 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 describe("Webhooks", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -12,7 +12,7 @@ describe("Webhooks", function () {
 
   cassette
     .createTest("list", async () => {
-      const webhooks = await lokaliseApi.webhooks.list({
+      const webhooks = await lokaliseApi.webhooks().list({
         project_id: project_id,
       });
 
@@ -22,7 +22,7 @@ describe("Webhooks", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const webhooks = await lokaliseApi.webhooks.list({
+      const webhooks = await lokaliseApi.webhooks().list({
         project_id: project_id,
         page: 2,
         limit: 1,
@@ -38,7 +38,7 @@ describe("Webhooks", function () {
 
   cassette
     .createTest("get", async () => {
-      const webhook = await lokaliseApi.webhooks.get(webhook_id, {
+      const webhook = await lokaliseApi.webhooks().get(webhook_id, {
         project_id: project_id,
       });
 
@@ -55,10 +55,12 @@ describe("Webhooks", function () {
 
   cassette
     .createTest("create", async () => {
-      const webhook = await lokaliseApi.webhooks.create(
-        { url: "http://node.hook", events: ["project.exported"] },
-        { project_id: project_id }
-      );
+      const webhook = await lokaliseApi
+        .webhooks()
+        .create(
+          { url: "http://node.hook", events: ["project.exported"] },
+          { project_id: project_id }
+        );
 
       expect(webhook.webhook_id).to.eq(new_webhook_id);
       expect(webhook.url).to.eq("http://node.hook");
@@ -68,11 +70,13 @@ describe("Webhooks", function () {
 
   cassette
     .createTest("update", async () => {
-      const webhook = await lokaliseApi.webhooks.update(
-        new_webhook_id,
-        { url: "http://hook.node", events: ["project.snapshot"] },
-        { project_id: project_id }
-      );
+      const webhook = await lokaliseApi
+        .webhooks()
+        .update(
+          new_webhook_id,
+          { url: "http://hook.node", events: ["project.snapshot"] },
+          { project_id: project_id }
+        );
 
       expect(webhook.webhook_id).to.eq(new_webhook_id);
       expect(webhook.url).to.eq("http://hook.node");
@@ -82,7 +86,7 @@ describe("Webhooks", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.webhooks.delete(new_webhook_id, {
+      const response = await lokaliseApi.webhooks().delete(new_webhook_id, {
         project_id: project_id,
       });
 
@@ -93,10 +97,11 @@ describe("Webhooks", function () {
 
   cassette
     .createTest("regenerate_secret", async () => {
-      const response = await lokaliseApi.webhooks.regenerate_secret(
-        "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a",
-        { project_id: project_id }
-      );
+      const response = await lokaliseApi
+        .webhooks()
+        .regenerate_secret("795565582e5ab15a59bb68156c7e2e9eaa1e8d1a", {
+          project_id: project_id,
+        });
 
       expect(response.project_id).to.eq(project_id);
       expect(response.secret).to.eq("8c91d28b46a8874c7ef0064494587b83944675ab");

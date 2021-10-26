@@ -3,7 +3,7 @@
 To handle request errors, you may use the following approach:
 
 ```js
-lokaliseApi.projects.list().catch(
+lokaliseApi.projects().list().catch(
   (e) => {
     console.log(e);
   }
@@ -14,4 +14,6 @@ lokaliseApi.projects.list().catch(
 
 ## API Rate Limits
 
-Lokalise does not [rate-limit API requests](https://app.lokalise.com/api2docs/curl/#resource-rate-limits), however retain a right to decline the service in case of excessive use. Only one concurrent request per token is allowed. To ensure data consistency, it is not recommended to access the same project simultaneously using multiple tokens.
+[Access to all endpoints is limited](https://app.lokalise.com/api2docs/curl/#resource-rate-limits) to 6 requests per second from 14 September, 2021. This limit is applied per API token and per IP address. If you exceed the limit, a 429 HTTP status code will be returned and the corresponding exception will be raised that you should handle properly. To handle such errors, we recommend an exponential backoff mechanism with a limited number of retries.
+
+Only one concurrent request per token is allowed.

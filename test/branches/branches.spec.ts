@@ -3,7 +3,7 @@ import { ApiError } from "../../src/interfaces/api_error";
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 describe("Branches", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -13,7 +13,8 @@ describe("Branches", function () {
 
   cassette
     .createTest("error", async () => {
-      await lokaliseApi.branches
+      await lokaliseApi
+        .branches()
         .create(
           {
             name: "hotfix/really-important",
@@ -28,7 +29,8 @@ describe("Branches", function () {
 
   cassette
     .createTest("error 500", async () => {
-      await lokaliseApi.branches
+      await lokaliseApi
+        .branches()
         .create(
           {
             name: "hotfix/really-important",
@@ -43,7 +45,7 @@ describe("Branches", function () {
 
   cassette
     .createTest("list", async () => {
-      const branches = await lokaliseApi.branches.list({
+      const branches = await lokaliseApi.branches().list({
         project_id: project_id,
       });
 
@@ -53,7 +55,7 @@ describe("Branches", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const branches = await lokaliseApi.branches.list({
+      const branches = await lokaliseApi.branches().list({
         project_id: project_id,
         page: 3,
         limit: 1,
@@ -72,7 +74,7 @@ describe("Branches", function () {
 
   cassette
     .createTest("get", async () => {
-      const branch = await lokaliseApi.branches.get(branch_id, {
+      const branch = await lokaliseApi.branches().get(branch_id, {
         project_id: project_id,
       });
 
@@ -87,7 +89,7 @@ describe("Branches", function () {
 
   cassette
     .createTest("create", async () => {
-      const branch = await lokaliseApi.branches.create(
+      const branch = await lokaliseApi.branches().create(
         {
           name: "hotfix/really-important",
         },
@@ -100,7 +102,7 @@ describe("Branches", function () {
 
   cassette
     .createTest("update", async () => {
-      const branch = await lokaliseApi.branches.update(
+      const branch = await lokaliseApi.branches().update(
         branch_id,
         {
           name: "hotfix/not-really-important",
@@ -114,7 +116,7 @@ describe("Branches", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.branches.delete(branch_id, {
+      const response = await lokaliseApi.branches().delete(branch_id, {
         project_id: project_id,
       });
 
@@ -126,7 +128,7 @@ describe("Branches", function () {
   cassette
     .createTest("merge", async () => {
       const branch_id_merge = 42303;
-      const response = await lokaliseApi.branches.merge(
+      const response = await lokaliseApi.branches().merge(
         branch_id_merge,
         { project_id: project_id },
         {
@@ -143,7 +145,7 @@ describe("Branches", function () {
   cassette
     .createTest("merge with defaults", async () => {
       const branch_id_merge = 68628;
-      const response = await lokaliseApi.branches.merge(branch_id_merge, {
+      const response = await lokaliseApi.branches().merge(branch_id_merge, {
         project_id: project_id,
       });
 

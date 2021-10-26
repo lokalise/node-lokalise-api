@@ -1,7 +1,7 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 describe("TranslationStatuses", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -11,7 +11,7 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("list", async () => {
-      const statuses = await lokaliseApi.translationStatuses.list({
+      const statuses = await lokaliseApi.translationStatuses().list({
         project_id: project_id,
       });
       expect(statuses.items[0].title).to.eq("random");
@@ -20,7 +20,7 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("list_pagination", async () => {
-      const statuses = await lokaliseApi.translationStatuses.list({
+      const statuses = await lokaliseApi.translationStatuses().list({
         project_id: project_id,
         page: 2,
         limit: 1,
@@ -36,7 +36,7 @@ describe("TranslationStatuses", function () {
   cassette
     .createTest("get", async () => {
       const id = 128;
-      const status = await lokaliseApi.translationStatuses.get(id, {
+      const status = await lokaliseApi.translationStatuses().get(id, {
         project_id: project_id,
       });
       expect(status.status_id).to.eq(id);
@@ -47,10 +47,12 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("create", async () => {
-      const status = await lokaliseApi.translationStatuses.create(
-        { title: "node", color: "#344563" },
-        { project_id: project_id }
-      );
+      const status = await lokaliseApi
+        .translationStatuses()
+        .create(
+          { title: "node", color: "#344563" },
+          { project_id: project_id }
+        );
 
       expect(status.status_id).to.eq(new_status_id);
       expect(status.title).to.eq("node");
@@ -60,11 +62,13 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("update", async () => {
-      const status = await lokaliseApi.translationStatuses.update(
-        new_status_id,
-        { title: "node updated" },
-        { project_id: project_id }
-      );
+      const status = await lokaliseApi
+        .translationStatuses()
+        .update(
+          new_status_id,
+          { title: "node updated" },
+          { project_id: project_id }
+        );
 
       expect(status.title).to.eq("node updated");
     })
@@ -72,10 +76,9 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.translationStatuses.delete(
-        new_status_id,
-        { project_id: project_id }
-      );
+      const response = await lokaliseApi
+        .translationStatuses()
+        .delete(new_status_id, { project_id: project_id });
 
       expect(response.project_id).to.eq(project_id);
       expect(response.custom_translation_status_deleted).to.be.true;
@@ -84,8 +87,9 @@ describe("TranslationStatuses", function () {
 
   cassette
     .createTest("available_colors", async () => {
-      const colors_data =
-        await lokaliseApi.translationStatuses.available_colors({
+      const colors_data = await lokaliseApi
+        .translationStatuses()
+        .available_colors({
           project_id: project_id,
         });
       expect(colors_data.colors).to.include("#f2d600");

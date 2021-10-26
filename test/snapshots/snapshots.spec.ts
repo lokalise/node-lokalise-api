@@ -1,7 +1,7 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api";
 
 describe("Snapshots", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -12,7 +12,7 @@ describe("Snapshots", function () {
 
   cassette
     .createTest("list", async () => {
-      const snapshots = await lokaliseApi.snapshots.list({
+      const snapshots = await lokaliseApi.snapshots().list({
         project_id: project_id,
         page: 1,
         limit: 1,
@@ -28,10 +28,9 @@ describe("Snapshots", function () {
 
   cassette
     .createTest("create", async () => {
-      const snapshot = await lokaliseApi.snapshots.create(
-        { title: "API snapshot" },
-        { project_id: project_id }
-      );
+      const snapshot = await lokaliseApi
+        .snapshots()
+        .create({ title: "API snapshot" }, { project_id: project_id });
 
       expect(snapshot.snapshot_id).to.eq(new_snapshot_id);
       expect(snapshot.title).to.eq("API snapshot");
@@ -44,7 +43,7 @@ describe("Snapshots", function () {
 
   cassette
     .createTest("restore", async () => {
-      const response = await lokaliseApi.snapshots.restore(new_snapshot_id, {
+      const response = await lokaliseApi.snapshots().restore(new_snapshot_id, {
         project_id: project_id,
       });
 
@@ -55,7 +54,7 @@ describe("Snapshots", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.snapshots.delete(new_snapshot_id, {
+      const response = await lokaliseApi.snapshots().delete(new_snapshot_id, {
         project_id: project_id,
       });
 
