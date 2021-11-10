@@ -41,6 +41,7 @@ export class ApiRequest {
 
     // Make strictNullChecks happy
     if (!options["headers"]) {
+      /* istanbul ignore next */
       options["headers"] = {};
     }
 

@@ -24,6 +24,7 @@ class ApiRequest {
         };
         // Make strictNullChecks happy
         if (!options["headers"]) {
+            /* istanbul ignore next */
             options["headers"] = {};
         }
         options["headers"][clientData.authHeader] = `${clientData.tokenType} ${clientData.token}`;

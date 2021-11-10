@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.0.1 (10-Nov-2021)
+
+* Fixed `language_mapping ` for `DownloadFileParams` (thanks, @dhensby)
+* Test with Node 17; remove Node 11 from test matrix (EOL)
+
 ## 7.0.0 (25-Oct-2021)
 
 * **Breaking change**. We have refactored the code to make it more robust and have slightly changed the way you access endpoints. Previously you were writing:

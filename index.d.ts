@@ -68,7 +68,7 @@ declare module "@lokalise/node-api" {
     plural_format?: string;
     placeholder_format?: string;
     webhook_url?: string;
-    language_mapping?: object;
+    language_mapping?: LanguageMapping[];
     icu_numeric?: boolean;
     escape_percent?: boolean;
     indentation?: string;
@@ -77,6 +77,11 @@ declare module "@lokalise/node-api" {
     java_properties_encoding?: string;
     java_properties_separator?: string;
     bundle_description?: string;
+  }
+
+  export interface LanguageMapping {
+    original_language_iso: string;
+    custom_language_iso: string;
   }
 
   export interface File {

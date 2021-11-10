@@ -1,4 +1,4 @@
-import { LanguageMapping } from './language_mapping';
+import { LanguageMapping } from "./language_mapping";
 
 export interface DownloadFileParams {
   format: string;
