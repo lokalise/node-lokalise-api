@@ -1,3 +1,4 @@
+import { LanguageMapping } from './language_mapping';
 export interface DownloadFileParams {
     format: string;
     original_filenames?: boolean;
@@ -23,7 +24,7 @@ export interface DownloadFileParams {
     plural_format?: string;
     placeholder_format?: string;
     webhook_url?: string;
-    language_mapping?: object;
+    language_mapping?: LanguageMapping[];
     icu_numeric?: boolean;
     escape_percent?: boolean;
     indentation?: string;
