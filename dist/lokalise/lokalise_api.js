@@ -16,6 +16,7 @@ const snapshots_1 = require("../collections/snapshots");
 const tasks_1 = require("../collections/tasks");
 const teams_1 = require("../collections/teams");
 const team_users_1 = require("../collections/team_users");
+const team_user_billing_details_1 = require("../collections/team_user_billing_details");
 const translations_1 = require("../collections/translations");
 const translation_providers_1 = require("../collections/translation_providers");
 const translation_statuses_1 = require("../collections/translation_statuses");
@@ -88,6 +89,9 @@ class LokaliseApi {
     }
     teamUsers() {
         return new team_users_1.TeamUsers(this.clientData);
+    }
+    teamUserBillingDetails() {
+        return new team_user_billing_details_1.TeamUserBillingDetails(this.clientData);
     }
     translations() {
         return new translations_1.Translations(this.clientData);

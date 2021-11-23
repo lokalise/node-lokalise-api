@@ -209,6 +209,15 @@
       path: remove-users-from-group
     - title: Destroy group
       path: destroy-group
+- title: Team user billing details
+  path: team-user-billing-details
+  sub_paths:
+    - title: Fetch team user billing details
+      path: fetch-team-user-billing-details
+    - title: Create team user billing details
+      path: create-team-user-billing-details
+    - title: Update team user billing details
+      path: update-team-user-billing-details
 - title: Translations
   path: translations
   sub_paths:
