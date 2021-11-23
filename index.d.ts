@@ -267,6 +267,19 @@ declare module "@lokalise/node-api" {
     role: string;
   }
 
+  export interface TeamUserBillingDetails {
+    billing_email: string;
+    country_code: string;
+    zip: string;
+    state_code: string;
+    address1: string;
+    address2: string;
+    city: string;
+    phone: string;
+    company: string;
+    vatnumber: string;
+  }
+
   export interface Translation {
     translation_id: number;
     key_id: number;
@@ -609,6 +622,19 @@ declare module "@lokalise/node-api" {
     ): Promise<TeamUser>;
   }
 
+  export class TeamUserBillingDetails extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: object;
+
+    get(team_id: string | number, params: StandartParams): Promise<any>;
+    update(
+      team_id: string | number,
+      body: object | object[] | null,
+      params: StandartParams
+    ): Promise<any>;
+  }
+
   export class Teams extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
@@ -731,6 +757,8 @@ declare module "@lokalise/node-api" {
     teams(): Teams;
 
     teamUsers(): TeamUsers;
+
+    teamUserBillingDetails(): TeamUserBillingDetails;
 
     translations(): Translations;
 
