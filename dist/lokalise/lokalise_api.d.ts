@@ -13,6 +13,7 @@ import { Snapshots } from "../collections/snapshots";
 import { Tasks } from "../collections/tasks";
 import { Teams } from "../collections/teams";
 import { TeamUsers } from "../collections/team_users";
+import { TeamUserBillingDetails } from "../collections/team_user_billing_details";
 import { Translations } from "../collections/translations";
 import { TranslationProviders } from "../collections/translation_providers";
 import { TranslationStatuses } from "../collections/translation_statuses";
@@ -42,6 +43,7 @@ export declare class LokaliseApi {
     tasks(): Tasks;
     teams(): Teams;
     teamUsers(): TeamUsers;
+    teamUserBillingDetails(): TeamUserBillingDetails;
     translations(): Translations;
     translationProviders(): TranslationProviders;
     translationStatuses(): TranslationStatuses;

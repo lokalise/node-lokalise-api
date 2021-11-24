@@ -13,6 +13,7 @@ import { Snapshots } from "../collections/snapshots";
 import { Tasks } from "../collections/tasks";
 import { Teams } from "../collections/teams";
 import { TeamUsers } from "../collections/team_users";
+import { TeamUserBillingDetails } from "../collections/team_user_billing_details";
 import { Translations } from "../collections/translations";
 import { TranslationProviders } from "../collections/translation_providers";
 import { TranslationStatuses } from "../collections/translation_statuses";
@@ -103,6 +104,10 @@ export class LokaliseApi {
 
   teamUsers(): TeamUsers {
     return new TeamUsers(this.clientData);
+  }
+
+  teamUserBillingDetails(): TeamUserBillingDetails {
+    return new TeamUserBillingDetails(this.clientData);
   }
 
   translations(): Translations {
