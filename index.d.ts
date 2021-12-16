@@ -202,6 +202,21 @@ declare module "@lokalise/node-api" {
     created_at_timestamp: number;
   }
 
+  export interface Segment {
+    segment_number: number;
+    language_iso: string;
+    modified_at: string;
+    modified_at_timestamp: number;
+    modified_by: number;
+    modified_by_email: string;
+    value: string;
+    is_fuzzy: boolean;
+    is_reviewed: boolean;
+    reviewed_by: number;
+    words: number;
+    custom_translation_statuses: object[];
+  }
+
   export interface Snapshot {
     snapshot_id: number;
     title: string;
@@ -592,6 +607,18 @@ declare module "@lokalise/node-api" {
     ): Promise<Screenshot>;
   }
 
+  export class Segments extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: object;
+    update(
+      id: string | number,
+      body: object | object[] | null,
+      params: StandartParams
+    ): Promise<any>;
+  }
+
   export class Snapshots extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
@@ -747,6 +774,8 @@ declare module "@lokalise/node-api" {
     projects(): Projects;
 
     queuedProcesses(): QueuedProcesses;
+
+    segments(): Segments;
 
     screenshots(): Screenshots;
 

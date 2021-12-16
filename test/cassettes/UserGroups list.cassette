@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "GET",
-    "path": "/api2/teams/176692/groups/?page=1&limit=1",
+    "path": "/api2/teams/176692/groups?page=1&limit=1",
     "body": "",
     "status": 200,
     "response": {

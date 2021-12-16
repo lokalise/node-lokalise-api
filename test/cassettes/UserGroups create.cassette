@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "POST",
-    "path": "/api2/teams/176692/groups/",
+    "path": "/api2/teams/176692/groups",
     "body": {
       "name": "Node",
       "is_reviewer": false,

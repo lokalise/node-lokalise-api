@@ -68,9 +68,10 @@ class ApiRequest {
             });
         });
     }
-    composeURI(uri) {
+    composeURI(rawUri) {
         const regexp = /{(!{0,1}):(\w*)}/g;
-        return uri.replace(regexp, this.mapUriParams(this.params));
+        const uri = rawUri.replace(regexp, this.mapUriParams(this.params));
+        return uri.endsWith("/") ? uri.slice(0, -1) : uri;
     }
     mapUriParams(params) {
         return (_entity, isMandaratory, paramName) => {

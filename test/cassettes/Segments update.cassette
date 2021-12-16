@@ -1,0 +1,70 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "PUT",
+    "path": "/api2/projects/39066161618d4ecb9fdc12.00274309/keys/134490810/segments/en/1",
+    "body": {
+      "value": "Hello!",
+      "is_fuzzy": true
+    },
+    "status": 200,
+    "response": {
+      "project_id": "39066161618d4ecb9fdc12.00274309",
+      "key_id": 134490810,
+      "language_iso": "en",
+      "segment": {
+        "segment_number": 1,
+        "language_iso": "en",
+        "value": "Hello!",
+        "modified_by": 20181,
+        "modified_by_email": "bodrovis@protonmail.com",
+        "modified_at": "2021-12-16 17:00:53 (Etc/UTC)",
+        "modified_at_timestamp": 1639674053,
+        "is_reviewed": false,
+        "reviewed_by": 0,
+        "is_fuzzy": true,
+        "words": 1,
+        "custom_translation_statuses": []
+      }
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Thu, 16 Dec 2021 17:00:53 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "pragma",
+      "no-cache",
+      "Allow",
+      "GET",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "82126360-8153-444c-bbbf-87d8f52b04c6",
+      "Expires",
+      "Thu, 16 Dec 2021 17:00:53 GMT",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

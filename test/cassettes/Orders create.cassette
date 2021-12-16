@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "POST",
-    "path": "/api2/teams/176692/orders/",
+    "path": "/api2/teams/176692/orders",
     "body": {
       "project_id": "803826145ba90b42d5d860.46800099",
       "card_id": "1774",

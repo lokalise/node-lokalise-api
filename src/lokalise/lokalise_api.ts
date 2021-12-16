@@ -9,6 +9,7 @@ import { PaymentCards } from "../collections/payment_cards";
 import { Projects } from "../collections/projects";
 import { QueuedProcesses } from "../collections/queued_processes";
 import { Screenshots } from "../collections/screenshots";
+import { Segments } from "../collections/segments";
 import { Snapshots } from "../collections/snapshots";
 import { Tasks } from "../collections/tasks";
 import { Teams } from "../collections/teams";
@@ -88,6 +89,10 @@ export class LokaliseApi {
 
   screenshots(): Screenshots {
     return new Screenshots(this.clientData);
+  }
+
+  segments(): Segments {
+    return new Segments(this.clientData);
   }
 
   snapshots(): Snapshots {

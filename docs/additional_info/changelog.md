@@ -1,5 +1,11 @@
 # Changelog
 
+## 7.1.0
+
+* Added support for the `TeamUserBillingDetails` endpoint
+* Added support for the `Segments` endpoint
+* Minor code updates
+
 ## 7.0.1 (10-Nov-2021)
 
 * Fixed `language_mapping ` for `DownloadFileParams` (thanks, @dhensby)
