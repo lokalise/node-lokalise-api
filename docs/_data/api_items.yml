@@ -149,14 +149,14 @@
     - title: Delete screenshot
       path: delete-screenshot
 - title: Segments
-path: segments
-sub_paths:
-  - title: Fetch segments
-    path: fetch-segments
-  - title: Fetch a single segment
-    path: fetch-a-single-segment
-  - title: Update segment
-    path: update-segment
+  path: segments
+  sub_paths:
+    - title: Fetch segments
+      path: fetch-segments
+    - title: Fetch a single segment
+      path: fetch-a-single-segment
+    - title: Update segment
+      path: update-segment
 - title: Snapshots
   path: snapshots
   sub_paths:

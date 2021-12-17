@@ -1,9 +1,9 @@
 # Changelog
 
-## 7.1.0
+## 7.1.0 (17-Dec-2021)
 
-* Added support for the `TeamUserBillingDetails` endpoint
-* Added support for the `Segments` endpoint
+* Added support for the [`TeamUserBillingDetails` endpoint](https://lokalise.github.io/node-lokalise-api/api/team-user-billing-details)
+* Added support for the [`Segments` endpoint](https://lokalise.github.io/node-lokalise-api/api/segments)
 * Minor code updates
 
 ## 7.0.1 (10-Nov-2021)
