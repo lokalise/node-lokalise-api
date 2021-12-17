@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "GET",
-    "path": "/api2/payment_cards/",
+    "path": "/api2/payment_cards",
     "body": "",
     "status": 200,
     "response": {

@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "GET",
-    "path": "/api2/projects/803826145ba90b42d5d860.46800099/processes/?limit=1&page=2",
+    "path": "/api2/projects/803826145ba90b42d5d860.46800099/processes?limit=1&page=2",
     "body": "",
     "status": 200,
     "response": {

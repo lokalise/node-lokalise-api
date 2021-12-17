@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "GET",
-    "path": "/api2/projects/",
+    "path": "/api2/projects",
     "body": "",
     "status": 200,
     "response": {

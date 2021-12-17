@@ -94,9 +94,10 @@ export class ApiRequest {
     });
   }
 
-  protected composeURI(uri: string): string {
+  protected composeURI(rawUri: string): string {
     const regexp: RegExp = /{(!{0,1}):(\w*)}/g;
-    return uri.replace(regexp, this.mapUriParams(this.params));
+    const uri = rawUri.replace(regexp, this.mapUriParams(this.params));
+    return uri.endsWith("/") ? uri.slice(0, -1) : uri;
   }
 
   protected mapUriParams(params: StandartParams) {

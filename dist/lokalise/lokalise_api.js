@@ -12,6 +12,7 @@ const payment_cards_1 = require("../collections/payment_cards");
 const projects_1 = require("../collections/projects");
 const queued_processes_1 = require("../collections/queued_processes");
 const screenshots_1 = require("../collections/screenshots");
+const segments_1 = require("../collections/segments");
 const snapshots_1 = require("../collections/snapshots");
 const tasks_1 = require("../collections/tasks");
 const teams_1 = require("../collections/teams");
@@ -77,6 +78,9 @@ class LokaliseApi {
     }
     screenshots() {
         return new screenshots_1.Screenshots(this.clientData);
+    }
+    segments() {
+        return new segments_1.Segments(this.clientData);
     }
     snapshots() {
         return new snapshots_1.Snapshots(this.clientData);

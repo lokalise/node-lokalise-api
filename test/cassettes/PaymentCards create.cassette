@@ -2,7 +2,7 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "POST",
-    "path": "/api2/payment_cards/",
+    "path": "/api2/payment_cards",
     "body": {
       "number": "4242424242424242",
       "cvc": 123,
