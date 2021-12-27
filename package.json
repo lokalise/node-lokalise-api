@@ -58,6 +58,6 @@
   },
   "author": "Lokalise group, Ilya Bodrov",
   "engines": {
-    "node": ">=10"
+    "node": ">=12"
   }
 }
