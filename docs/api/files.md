@@ -51,7 +51,7 @@ process = await lokaliseApi.files().upload(project_id,
 );
 
 // You'll obtain `process_id` after calling `files.upload()`
-process = await lokaliseApi.queuedProcesses.get(process.process_id, { project_id: project_id })
+process = await lokaliseApi.queuedProcesses().get(process.process_id, { project_id: project_id })
 
 process.status // => 'finished'
 ```
