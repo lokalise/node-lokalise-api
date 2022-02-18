@@ -574,7 +574,7 @@ declare module "@lokalise/node-api" {
       [key: string]: string;
     };
     tags?: Array<string>;
-    translations: Array<{
+    translations?: Array<{
       language_iso: string;
       translation: string;
       is_reviewed?: boolean;
