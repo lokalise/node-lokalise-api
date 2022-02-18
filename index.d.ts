@@ -587,7 +587,6 @@ declare module "@lokalise/node-api" {
     is_archived?: boolean;
     context?: string;
     char_limit?: number;
-    custom_attributes?: object;
   };
   export class Keys extends BaseCollection {
     protected static rootElementName: string;
