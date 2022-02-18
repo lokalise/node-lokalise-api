@@ -566,13 +566,36 @@ declare module "@lokalise/node-api" {
     ): Promise<Keyable>;
   }
 
+  export type CreateProjectKeyInput = {
+    key_name: string;
+    description?: string;
+    platforms: Array<string>;
+    filenames?: {
+      [key: string]: string;
+    };
+    tags?: Array<string>;
+    translations: Array<{
+      language_iso: string;
+      translation: string;
+      is_reviewed?: boolean;
+      is_unverified?: boolean;
+      custom_translation_status_ids?: Array<string>;
+    }>;
+    is_plural?: boolean;
+    plural_name?: string;
+    is_hidden?: boolean;
+    is_archived?: boolean;
+    context?: string;
+    char_limit?: number;
+    custom_attributes?: object;
+  };
   export class Keys extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
     protected static elementClass: object;
-    create(
-      raw_body: object | object[],
+    create<T = object>(
+      raw_body: T | T[],
       params: StandartParams
     ): Promise<Keyable>;
     update(
