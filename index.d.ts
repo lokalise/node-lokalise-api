@@ -795,7 +795,7 @@ declare module "@lokalise/node-api" {
   export class LokaliseApi {
     clientData: ClientData;
 
-    constructor(params: Object);
+    constructor(params: { apiKey: string });
 
     branches(): Branches;
 
