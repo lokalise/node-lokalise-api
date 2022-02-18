@@ -415,12 +415,12 @@ declare module "@lokalise/node-api" {
     event_lang_map: object;
   }
 
-  export interface PaginatedResult {
+  export interface PaginatedResult<T = any> {
     totalResults: number;
     totalPages: number;
     resultsPerPage: number;
     currentPage: number;
-    items: any[];
+    items: T[];
     hasNextPage(): boolean;
     hasPrevPage(): boolean;
     isLastPage(): boolean;
