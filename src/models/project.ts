@@ -1,4 +1,6 @@
 import { Project as ProjectInterface } from "../interfaces/project";
+import { ProjectSettings } from "../interfaces/project_settings";
+import { ProjectStatistics } from "../interfaces/project_statistics";
 import { BaseModel } from "./base_model";
 
 export class Project extends BaseModel implements ProjectInterface {
@@ -13,6 +15,6 @@ export class Project extends BaseModel implements ProjectInterface {
   public team_id: number;
   public base_language_id: number;
   public base_language_iso: string;
-  public settings: object;
-  public statistics: object;
+  public settings: ProjectSettings;
+  public statistics: ProjectStatistics;
 }
