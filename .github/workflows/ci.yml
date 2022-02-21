@@ -14,6 +14,8 @@ jobs:
           - 14
         os:
           - ubuntu-latest
+    env:
+      API_KEY: 123abc
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
