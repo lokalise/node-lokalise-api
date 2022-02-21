@@ -1,3 +1,5 @@
+import { ProjectSettings } from "./project_settings";
+import { ProjectStatistics } from "./project_statistics";
 export interface Project {
     project_id: string;
     project_type: string;
@@ -10,6 +12,6 @@ export interface Project {
     team_id: number;
     base_language_id: number;
     base_language_iso: string;
-    settings: object;
-    statistics: object;
+    settings: ProjectSettings;
+    statistics: ProjectStatistics;
 }
