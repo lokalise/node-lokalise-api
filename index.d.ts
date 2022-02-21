@@ -161,6 +161,52 @@ declare module "@lokalise/node-api" {
     created_at_timestamp: number;
   }
 
+  export interface ProjectStatistics {
+    progress_total: number;
+    keys_total: number;
+    team: number;
+    base_words: number;
+    qa_issues_total: number;
+    qa_issues: {
+      not_reviewed: number;
+      unverified: number;
+      spelling_grammar: number;
+      inconsistent_placeholders: number;
+      inconsistent_html: number;
+      different_number_of_urls: number;
+      different_urls: number;
+      leading_whitespace: number;
+      trailing_whitespace: number;
+      different_number_of_email_address: number;
+      different_email_address: number;
+      different_brackets: number;
+      different_numbers: number;
+      double_space: number;
+      special_placeholder: number;
+      unbalanced_brackets: number;
+    };
+    languages: Array<{
+      language_id: number;
+      language_iso: string;
+      progress: number;
+      words_to_do: number;
+    }>;
+  }
+
+  export interface ProjectSettings {
+    per_platform_key_names: boolean;
+    reviewing: boolean;
+    upvoting: boolean;
+    auto_toggle_unverified: boolean;
+    offline_translation: boolean;
+    key_editing: boolean;
+    inline_machine_translations: boolean;
+    branching: boolean;
+    segmentation: boolean;
+    custom_translation_statuses: boolean;
+    custom_translation_statuses_allow_multiple: boolean;
+  }
+
   export interface Project {
     project_id: string;
     project_type: string;
@@ -173,8 +219,8 @@ declare module "@lokalise/node-api" {
     team_id: number;
     base_language_id: number;
     base_language_iso: string;
-    settings: object;
-    statistics: object;
+    settings: ProjectSettings;
+    statistics: ProjectStatistics;
   }
 
   export interface QueuedProcess {
@@ -229,6 +275,7 @@ declare module "@lokalise/node-api" {
   export interface StandartParams {
     page?: number;
     limit?: number;
+    project_id?: string;
     [paramName: string]: any;
   }
 
@@ -373,12 +420,12 @@ declare module "@lokalise/node-api" {
     event_lang_map: object;
   }
 
-  export interface PaginatedResult {
+  export interface PaginatedResult<T = any> {
     totalResults: number;
     totalPages: number;
     resultsPerPage: number;
     currentPage: number;
-    items: any[];
+    items: T[];
     hasNextPage(): boolean;
     hasPrevPage(): boolean;
     isLastPage(): boolean;
@@ -753,7 +800,7 @@ declare module "@lokalise/node-api" {
   export class LokaliseApi {
     clientData: ClientData;
 
-    constructor(params: Object);
+    constructor(params: { apiKey: string });
 
     branches(): Branches;
 
