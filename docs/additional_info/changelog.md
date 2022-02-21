@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.1.1 (21-Feb-2022)
+
+* Updated certain types (thanks, @arelstone) 
+
 ## 7.1.0 (17-Dec-2021)
 
 * Added support for the [`TeamUserBillingDetails` endpoint](https://lokalise.github.io/node-lokalise-api/api/team-user-billing-details)
