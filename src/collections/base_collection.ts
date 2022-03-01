@@ -159,7 +159,7 @@ export class BaseCollection {
     return this.populateApiErrorFromJson(data);
   }
 
-  protected createPromise(
+  protected async createPromise(
     method: Options["method"],
     params: StandartParams,
     resolveFn: Function,

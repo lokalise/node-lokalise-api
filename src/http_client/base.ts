@@ -1,4 +1,4 @@
-import { RequestError, Response, Options } from "got";
+import { Response, Options } from "got";
 const got = require("got");
 const pkg = require("../../package.json");
 import { StandartParams } from "../interfaces/standart_params";
@@ -22,7 +22,7 @@ export class ApiRequest {
     return this;
   }
 
-  createPromise(
+  async createPromise(
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
@@ -67,31 +67,16 @@ export class ApiRequest {
     if (method !== "GET" && body) {
       options["body"] = JSON.stringify(body);
     }
-
-    return new Promise((resolve, reject) => {
-      got(url, options)
-        .then((response: Response) => {
-          const responseJSON = JSON.parse(<string>response.body);
-          if (response.statusCode > 299) {
-            /* istanbul ignore next */
-            reject(responseJSON["error"] || responseJSON);
-            return;
-          }
-          resolve({ json: responseJSON, headers: response.headers });
-          return;
-        })
-        .then((error: RequestError) => {
-          reject(error);
-          return error;
-        })
-        /* istanbul ignore next */
-        .catch((error: any) => {
-          /* istanbul ignore next */
-          reject(error);
-          /* istanbul ignore next */
-          return error;
-        });
-    });
+    try {
+      const response: Response = await got(url, options);
+      const responseJSON = JSON.parse(<string>response.body);
+      if (response.statusCode > 299) {
+        return Promise.reject(responseJSON["error"] || responseJSON);
+      }
+      return Promise.resolve({ json: responseJSON, headers: response.headers });
+    } catch (err) {
+      return Promise.reject(err);
+    }
   }
 
   protected composeURI(rawUri: string): string {

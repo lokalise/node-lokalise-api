@@ -82,7 +82,7 @@ class BaseCollection {
     handleReject(data) {
         return this.populateApiErrorFromJson(data);
     }
-    createPromise(method, params, resolveFn, rejectFn, body, uri = null) {
+    async createPromise(method, params, resolveFn, rejectFn, body, uri = null) {
         const childClass = this.constructor;
         if (!uri) {
             uri = childClass.prefixURI;

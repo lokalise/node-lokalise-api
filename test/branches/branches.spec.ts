@@ -28,6 +28,22 @@ describe("Branches", function () {
     .register(this);
 
   cassette
+    .createTest("error plain", async () => {
+      await lokaliseApi
+        .branches()
+        .create(
+          {
+            name: "hotfix/really-important",
+          },
+          { project_id: "803" }
+        )
+        .catch((e: ApiError) => {
+          expect(e.code).to.equal(401);
+        });
+    })
+    .register(this);
+
+  cassette
     .createTest("error 500", async () => {
       await lokaliseApi
         .branches()
