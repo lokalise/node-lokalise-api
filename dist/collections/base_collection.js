@@ -87,16 +87,14 @@ class BaseCollection {
         if (!uri) {
             uri = childClass.prefixURI;
         }
-        return new Promise((resolve, reject) => {
-            const response = new base_1.ApiRequest(uri, method, body, params, this.clientData);
-            response.promise
-                .then((data) => {
-                resolve(resolveFn.call(this, data["json"], data["headers"]));
-            })
-                .catch((data) => {
-                reject(rejectFn.call(this, data));
-            });
-        });
+        const request = new base_1.ApiRequest(uri, method, body, params, this.clientData);
+        try {
+            const data = await request.promise;
+            return Promise.resolve(resolveFn.call(this, data["json"], data["headers"]));
+        }
+        catch (err) {
+            return Promise.reject(rejectFn.call(this, err));
+        }
     }
     objToArray(raw_body) {
         if (!Array.isArray(raw_body)) {

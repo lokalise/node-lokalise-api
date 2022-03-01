@@ -75,6 +75,7 @@ export class ApiRequest {
       }
       return Promise.resolve({ json: responseJSON, headers: response.headers });
     } catch (err) {
+      /* istanbul ignore next */
       return Promise.reject(err);
     }
   }
