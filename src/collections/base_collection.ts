@@ -159,7 +159,7 @@ export class BaseCollection {
     return this.populateApiErrorFromJson(data);
   }
 
-  protected createPromise(
+  protected async createPromise(
     method: Options["method"],
     params: StandartParams,
     resolveFn: Function,
@@ -171,22 +171,21 @@ export class BaseCollection {
     if (!uri) {
       uri = childClass.prefixURI;
     }
-    return new Promise((resolve, reject) => {
-      const response: ApiRequest = new ApiRequest(
-        <string>uri,
-        method,
-        body,
-        params,
-        this.clientData
+    const request: ApiRequest = new ApiRequest(
+      <string>uri,
+      method,
+      body,
+      params,
+      this.clientData
+    );
+    try {
+      const data = await request.promise;
+      return Promise.resolve(
+        resolveFn.call(this, data["json"], data["headers"])
       );
-      response.promise
-        .then((data) => {
-          resolve(resolveFn.call(this, data["json"], data["headers"]));
-        })
-        .catch((data) => {
-          reject(rejectFn.call(this, data));
-        });
-    });
+    } catch (err) {
+      return Promise.reject(rejectFn.call(this, err));
+    }
   }
 
   protected objToArray(raw_body: object | object[]): Array<object> {

@@ -11,7 +11,7 @@ class ApiRequest {
         this.promise = this.createPromise(uri, method, body, clientData);
         return this;
     }
-    createPromise(uri, method, body, clientData) {
+    async createPromise(uri, method, body, clientData) {
         const options = {
             method: method,
             prefixUrl: this.urlRoot,
@@ -43,30 +43,18 @@ class ApiRequest {
         if (method !== "GET" && body) {
             options["body"] = JSON.stringify(body);
         }
-        return new Promise((resolve, reject) => {
-            got(url, options)
-                .then((response) => {
-                const responseJSON = JSON.parse(response.body);
-                if (response.statusCode > 299) {
-                    /* istanbul ignore next */
-                    reject(responseJSON["error"] || responseJSON);
-                    return;
-                }
-                resolve({ json: responseJSON, headers: response.headers });
-                return;
-            })
-                .then((error) => {
-                reject(error);
-                return error;
-            })
-                /* istanbul ignore next */
-                .catch((error) => {
-                /* istanbul ignore next */
-                reject(error);
-                /* istanbul ignore next */
-                return error;
-            });
-        });
+        try {
+            const response = await got(url, options);
+            const responseJSON = JSON.parse(response.body);
+            if (response.statusCode > 299) {
+                return Promise.reject(responseJSON["error"] || responseJSON);
+            }
+            return Promise.resolve({ json: responseJSON, headers: response.headers });
+        }
+        catch (err) {
+            /* istanbul ignore next */
+            return Promise.reject(err);
+        }
     }
     composeURI(rawUri) {
         const regexp = /{(!{0,1}):(\w*)}/g;

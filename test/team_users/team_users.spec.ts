@@ -37,16 +37,16 @@ describe("TeamUsers", function () {
 
   cassette
     .createTest("get", async () => {
-      const team_user = await lokaliseApi.teamUsers().get(user_id, {
+      const team_user = await lokaliseApi.teamUsers().get(20181, {
         team_id: team_id,
       });
 
-      expect(team_user.user_id).to.eq(user_id);
-      expect(team_user.email).to.eq("translator2@mycompany.com");
-      expect(team_user.fullname).to.eq("Mr. Translator");
-      expect(team_user.created_at).to.eq("2019-06-19 20:12:11 (Etc/UTC)");
-      expect(team_user.created_at_timestamp).to.eq(1560975131);
-      expect(team_user.role).to.eq("member");
+      expect(team_user.user_id).to.eq(20181);
+      expect(team_user.email).to.eq("bodrovis@protonmail.com");
+      expect(team_user.fullname).to.eq("Ilya B");
+      expect(team_user.created_at).to.eq("2018-08-21 15:35:25 (Etc/UTC)");
+      expect(team_user.created_at_timestamp).to.eq(1534865725);
+      expect(team_user.role).to.eq("owner");
     })
     .register(this);
 
