@@ -20,9 +20,11 @@ const { LokaliseApi } = require('@lokalise/node-api');
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
 ```
 
-Alternatively, you can use tokens obtained via [OAuth2](https://docs.lokalise.com/en/articles/5574713-oauth-2) (don't forget that these tokens have expiration dates):
+Alternatively, you can use tokens obtained via [OAuth2](https://lokalise.github.io/node-lokalise-api/additional_info/oauth2_flow) (don't forget that these tokens have expiration dates):
 
 ```ts
+const { LokaliseApiOAuth } = require('@lokalise/node-api');
+
 const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
 ```
 

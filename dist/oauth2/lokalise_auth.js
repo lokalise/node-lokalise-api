@@ -33,11 +33,43 @@ class LokaliseAuth {
         }
         return this.buildUrl(params);
     }
+    async token(code) {
+        const params = Object.assign(this.base_params(), {
+            code: code,
+            grant_type: "authorization_code",
+        });
+        return await this.doRequest(params);
+    }
+    async refresh(refresh_token) {
+        const params = Object.assign(this.base_params(), {
+            refresh_token: refresh_token,
+            grant_type: "refresh_token",
+        });
+        return await this.doRequest(params);
+    }
+    async doRequest(params) {
+        try {
+            const data = await auth_request_1.AuthRequest.createPromise("token", "POST", params);
+            return Promise.resolve(data["json"]);
+        }
+        catch (err) {
+            return Promise.reject(this.handleReject(err));
+        }
+    }
     buildUrl(params) {
         const url = new URL("auth", auth_request_1.AuthRequest.urlRoot);
         const sParams = new URLSearchParams(params);
         url.search = sParams.toString();
         return url.toString();
+    }
+    base_params() {
+        return {
+            client_id: this.authData.client_id,
+            client_secret: this.authData.client_secret,
+        };
+    }
+    handleReject(data) {
+        return data;
     }
 }
 exports.LokaliseAuth = LokaliseAuth;

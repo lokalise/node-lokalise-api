@@ -4,16 +4,13 @@ exports.AuthRequest = void 0;
 const got = require("got");
 const pkg = require("../../package.json");
 class AuthRequest {
-    constructor(uri, method, body, params, clientData) {
+    constructor() {
         this.params = {};
-        this.params = params;
-        this.promise = this.createPromise(uri, method, body, clientData);
     }
-    async createPromise(uri, method, body, authData) {
-        console.log(authData);
+    static async createPromise(uri, method, body) {
         const options = {
             method: method,
-            prefixUrl: AuthRequest.urlRoot,
+            prefixUrl: this.urlRoot,
             headers: {
                 Accept: "application/json",
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
@@ -22,21 +19,15 @@ class AuthRequest {
             throwHttpErrors: false,
             decompress: false,
         };
-        if (Object.keys(this.params).length > 0) {
-            const formattedParams = new URLSearchParams();
-            Object.entries(this.params).forEach(([key, value]) => {
-                formattedParams.set(key, value);
-            });
-            options["searchParams"] = formattedParams.toString();
-        }
-        if (method !== "GET" && body) {
-            options["body"] = JSON.stringify(body);
-        }
+        options["body"] = JSON.stringify(body);
         try {
             const response = await got(uri, options);
             const responseJSON = JSON.parse(response.body);
-            if (response.statusCode > 299) {
-                return Promise.reject(responseJSON["error"] || responseJSON);
+            if (response.statusCode > 399) {
+                return Promise.reject({
+                    ...{ code: response.statusCode },
+                    ...responseJSON,
+                });
             }
             return Promise.resolve({ json: responseJSON, headers: response.headers });
         }

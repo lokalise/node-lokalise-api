@@ -17,6 +17,7 @@ jobs:
           - ubuntu-latest
     env:
       API_KEY: 123abc
+      OAUTH2_ACCESS_TOKEN: fake
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
