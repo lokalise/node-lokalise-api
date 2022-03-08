@@ -23,11 +23,6 @@ import { Webhooks } from "../collections/webhooks";
 import { ClientData as ClientDataInterface } from "../interfaces/client_data";
 export declare class LokaliseApi {
     clientData: ClientDataInterface;
-    /**
-     * Instantiate LokaliseApi to have access to methods
-     * @param params  object, mandatory
-     * @returns       LokaliseApi object to work with.
-     */
     constructor(params: Object);
     branches(): Branches;
     comments(): Comments;

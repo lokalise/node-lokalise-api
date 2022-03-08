@@ -5,8 +5,6 @@ const pkg = require("../../package.json");
 export class AuthRequest {
   static urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://app.lokalise.com/oauth2/";
-  promise: Promise<any>;
-  params: { [key: string]: any } = {};
 
   static async createPromise(
     uri: string,

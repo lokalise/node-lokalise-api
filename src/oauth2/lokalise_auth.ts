@@ -8,6 +8,12 @@ export class LokaliseAuth {
     client_secret: "",
   };
 
+  /*
+   * Instantiate LokaliseAuth to work with OAuth 2 tokens
+   * @param clientId      string, mandatory
+   * @param clientSecret  string, mandatory
+   * @returns             LokaliseAuth object to work with.
+   */
   constructor(clientId: string, clientSecret: string) {
     if (
       clientId == null ||
@@ -76,14 +82,14 @@ export class LokaliseAuth {
     }
   }
 
-  private buildUrl(params: { [key: string]: string }) {
+  private buildUrl(params: { [key: string]: string }): string {
     const url = new URL("auth", AuthRequest.urlRoot);
     const sParams = new URLSearchParams(params);
     url.search = sParams.toString();
     return url.toString();
   }
 
-  private base_params() {
+  private base_params(): object {
     return {
       client_id: this.authData.client_id,
       client_secret: this.authData.client_secret,

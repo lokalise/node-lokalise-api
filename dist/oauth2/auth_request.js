@@ -4,9 +4,6 @@ exports.AuthRequest = void 0;
 const got = require("got");
 const pkg = require("../../package.json");
 class AuthRequest {
-    constructor() {
-        this.params = {};
-    }
     static async createPromise(uri, method, body) {
         const options = {
             method: method,

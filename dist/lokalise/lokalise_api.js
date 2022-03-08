@@ -24,8 +24,8 @@ const translation_statuses_1 = require("../collections/translation_statuses");
 const user_groups_1 = require("../collections/user_groups");
 const webhooks_1 = require("../collections/webhooks");
 class LokaliseApi {
-    /**
-     * Instantiate LokaliseApi to have access to methods
+    /*
+     * Instantiate LokaliseApi to call API methods
      * @param params  object, mandatory
      * @returns       LokaliseApi object to work with.
      */

@@ -30,8 +30,8 @@ export class LokaliseApi {
     enableCompression: false,
   };
 
-  /**
-   * Instantiate LokaliseApi to have access to methods
+  /*
+   * Instantiate LokaliseApi to call API methods
    * @param params  object, mandatory
    * @returns       LokaliseApi object to work with.
    */
