@@ -1,5 +1,41 @@
 # Changelog
 
+## 7.2.0
+
+* **New feature**: ability to request and refresh OAuth 2 tokens:
+
+```ts
+const { LokaliseAuth } = require('@lokalise/node-api');
+
+// Provide your client id and client secret
+const lokaliseAuth = new LokaliseAuth("client id", "client secret");
+
+// Generate an authentication url
+const url = lokaliseAuth.auth(
+  ["read_projects", "write_team_groups"],
+  "http://example.com/redirect",
+  "random123"
+);
+
+// Generate an authentication and refresh tokens
+const response = await lokaliseAuth.token("secret code");
+const token = response["access_token"];
+const refresh_token = response["refresh_token"];
+
+// Refresh an access token once it expires
+const new_token = await lokaliseAuth.refresh(refresh_token)["access_token"];
+
+// Perform requests on the user's behalf
+const { LokaliseApiOAuth } = require('@lokalise/node-api');
+
+const lokaliseApi = new LokaliseApiOAuth({ apiKey: new_token });
+
+const projects = lokaliseApi.projects().list();
+```
+
+* Various code fixes and improvements
+* Minor docs update
+
 ## 7.1.1 (21-Feb-2022)
 
 * Updated certain types (thanks, @arelstone) 

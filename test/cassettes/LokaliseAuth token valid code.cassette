@@ -1,0 +1,59 @@
+[
+  {
+    "scope": "https://app.lokalise.com:443",
+    "method": "POST",
+    "path": "/oauth2/token",
+    "body": {
+      "client_id": "123abc",
+      "client_secret": "456zyx",
+      "code": "fdf9876214cffa10c6ebbb01bd2399077ba9c49e",
+      "grant_type": "authorization_code"
+    },
+    "status": 200,
+    "response": {
+      "access_token": "stubbed access",
+      "refresh_token": "stubbed refresh",
+      "expires_in": 3600,
+      "token_type": "Bearer"
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Tue, 08 Mar 2022 13:51:40 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Vary",
+      "Accept-Encoding",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "max-age=0, must-revalidate, private",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "231c4e74-e147-42ab-ba24-3a756645818c",
+      "pragma",
+      "no-cache",
+      "Expires",
+      "Tue, 08 Mar 2022 13:51:40 GMT"
+    ],
+    "responseIsBinary": false
+  }
+]

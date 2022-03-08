@@ -57,10 +57,7 @@ export class ApiRequest {
     const url: string = this.composeURI(uri);
 
     if (Object.keys(this.params).length > 0) {
-      const formattedParams = new URLSearchParams();
-      Object.entries(this.params).forEach(([key, value]) => {
-        formattedParams.set(key, <string>value);
-      });
+      const formattedParams = new URLSearchParams(this.params);
       options["searchParams"] = formattedParams.toString();
     }
 
@@ -70,7 +67,7 @@ export class ApiRequest {
     try {
       const response: Response = await got(url, options);
       const responseJSON = JSON.parse(<string>response.body);
-      if (response.statusCode > 299) {
+      if (response.statusCode > 399) {
         return Promise.reject(responseJSON["error"] || responseJSON);
       }
       return Promise.resolve({ json: responseJSON, headers: response.headers });

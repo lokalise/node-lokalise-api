@@ -1,0 +1,56 @@
+[
+  {
+    "scope": "https://app.lokalise.com:443",
+    "method": "POST",
+    "path": "/oauth2/token",
+    "body": {
+      "client_id": "123abc",
+      "client_secret": "456zyx",
+      "refresh_token": "fake",
+      "grant_type": "refresh_token"
+    },
+    "status": 400,
+    "response": {
+      "error": "invalid_request",
+      "error_description": "client_id: Client id must be 40 characters long",
+      "error_uri": ""
+    },
+    "rawHeaders": [
+      "Server",
+      "nginx",
+      "Date",
+      "Tue, 08 Mar 2022 14:49:09 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Expires",
+      "Thu, 19 Nov 1981 08:52:00 GMT",
+      "Cache-Control",
+      "no-store, no-cache, must-revalidate",
+      "Pragma",
+      "no-cache",
+      "Cache-Control",
+      "max-age=0, must-revalidate, private",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "63bcf4cf-91d6-4673-9681-586f952a0a7c",
+      "pragma",
+      "no-cache",
+      "Expires",
+      "Tue, 08 Mar 2022 14:49:09 GMT"
+    ],
+    "responseIsBinary": false
+  }
+]

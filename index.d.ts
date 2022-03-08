@@ -6,6 +6,18 @@ declare module "@lokalise/node-api" {
     message: string;
   }
 
+  export interface AuthData {
+    client_id: string;
+    client_secret: string;
+  }
+
+  export interface AuthError {
+    code: number;
+    error: string;
+    error_description: string;
+    error_uri?: string;
+  }
+
   export interface ClientData {
     token: string;
     authHeader: string;
@@ -432,6 +444,32 @@ declare module "@lokalise/node-api" {
     isFirstPage(): boolean;
     nextPage(): number;
     prevPage(): number;
+  }
+
+  export class AuthRequest {
+    private urlRoot: NonNullable<Options["prefixUrl"]>;
+
+    static createPromise(
+      uri: string,
+      method: Options["method"],
+      body: object | object[] | null
+    ): Promise<any>;
+  }
+
+  export class LokaliseAuth {
+    authData: AuthData;
+    constructor(clientId: string, clientSecret: string);
+    auth(
+      scope: string | string[],
+      redirect_uri: string | null,
+      state: string | null
+    ): string;
+    token(code: string): Promise<any>;
+    refresh(refresh_token: string): Promise<any>;
+    private doRequest(params: { [key: string]: string }): Promise<any>;
+    private buildUrl(params: { [key: string]: string }): string;
+    private base_params(): object;
+    private handleReject(data: any): AuthError;
   }
 
   export class ApiRequest {
