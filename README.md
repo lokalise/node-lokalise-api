@@ -49,4 +49,4 @@ You can also check [this repo containing some usage examples](https://github.com
 
 This library is licensed under the [BSD 3 Clause](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE). Prior to version 5.1.0 the license was MIT.
 
-Copyright (c) [Lokalise group](http://lokalise.com) and [Ilya Bodrov](http://bodrovis.tech)
+Copyright (c) [Lokalise group](http://lokalise.com) and [Ilya Krukowski](http://bodrovis.tech)
