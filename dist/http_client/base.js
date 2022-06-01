@@ -66,7 +66,7 @@ class ApiRequest {
                 return t_param;
             }
             else {
-                if (isMandaratory == "!") {
+                if (isMandaratory === "!") {
                     throw new Error("Required param " + paramName);
                 }
                 else {

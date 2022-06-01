@@ -23,7 +23,7 @@ class LokaliseAuth {
         this.authData.client_id = clientId;
         this.authData.client_secret = clientSecret;
     }
-    auth(scope, redirect_uri = null, state = null) {
+    auth(scope, redirect_uri, state) {
         if (scope instanceof Array) {
             scope = scope.join(" ");
         }
@@ -31,26 +31,32 @@ class LokaliseAuth {
             client_id: this.authData.client_id,
             scope: scope,
         };
-        if (state != null) {
+        if (state) {
             params["state"] = state;
         }
-        if (redirect_uri != null) {
+        if (redirect_uri) {
             params["redirect_uri"] = redirect_uri;
         }
         return this.buildUrl(params);
     }
     async token(code) {
-        const params = Object.assign(this.base_params(), {
-            code: code,
-            grant_type: "authorization_code",
-        });
+        const params = {
+            ...this.base_params(),
+            ...{
+                code: code,
+                grant_type: "authorization_code",
+            },
+        };
         return await this.doRequest(params);
     }
     async refresh(refresh_token) {
-        const params = Object.assign(this.base_params(), {
-            refresh_token: refresh_token,
-            grant_type: "refresh_token",
-        });
+        const params = {
+            ...this.base_params(),
+            ...{
+                refresh_token: refresh_token,
+                grant_type: "refresh_token",
+            },
+        };
         return await this.doRequest(params);
     }
     async doRequest(params) {

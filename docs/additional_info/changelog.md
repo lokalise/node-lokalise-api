@@ -1,5 +1,10 @@
 # Changelog
 
+## Unreleased
+
+* Various code improvements
+* Updated dependencies
+
 ## 7.2.0 (08-Mar-2022)
 
 * **New feature**: ability to request and refresh OAuth 2 tokens:

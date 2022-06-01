@@ -17,9 +17,7 @@ describe("Screenshots", function () {
     .createTest("list_with_error", async () => {
       await lokaliseApi
         .screenshots()
-        .list({
-          project_id: null,
-        })
+        .list({})
         .catch((e: Error) => {
           expect(e.message).to.include("Required param project_id");
         });

@@ -36,12 +36,12 @@ class LokaliseApi {
             authHeader: "x-api-token",
             enableCompression: false,
         };
-        const apiKey = Object(params)["apiKey"];
+        const apiKey = params["apiKey"];
         if (apiKey == null || apiKey.length == 0) {
             throw new Error("Error: Instantiation failed: Please pass an API key");
         }
         this.clientData.token = apiKey;
-        const compression = Object(params)["enableCompression"];
+        const compression = params["enableCompression"];
         if (compression != null) {
             this.clientData.enableCompression = compression;
         }

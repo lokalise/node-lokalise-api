@@ -35,13 +35,13 @@ export class LokaliseApi {
    * @param params  object, mandatory
    * @returns       LokaliseApi object to work with.
    */
-  constructor(params: Object) {
-    const apiKey = Object(params)["apiKey"];
+  constructor(params: { [key: string]: any }) {
+    const apiKey = params["apiKey"];
     if (apiKey == null || apiKey.length == 0) {
       throw new Error("Error: Instantiation failed: Please pass an API key");
     }
     this.clientData.token = apiKey;
-    const compression = Object(params)["enableCompression"];
+    const compression = params["enableCompression"];
     if (compression != null) {
       this.clientData.enableCompression = compression;
     }

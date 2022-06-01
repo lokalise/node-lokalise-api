@@ -2,10 +2,10 @@ import { Branch as BranchInterface } from "../interfaces/branch";
 import { BaseModel } from "./base_model";
 
 export class Branch extends BaseModel implements BranchInterface {
-  public branch_id: number;
-  public name: string;
-  public created_at: string;
-  public created_at_timestamp: number;
-  public created_by: number;
-  public created_by_email: string;
+  branch_id: number;
+  name: string;
+  created_at: string;
+  created_at_timestamp: number;
+  created_by: number;
+  created_by_email: string;
 }

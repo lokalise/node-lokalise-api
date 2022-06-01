@@ -3,7 +3,7 @@ const got = require("got");
 const pkg = require("../../package.json");
 
 export class AuthRequest {
-  static urlRoot: NonNullable<Options["prefixUrl"]> =
+  static readonly urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://app.lokalise.com/oauth2/";
 
   static async createPromise(

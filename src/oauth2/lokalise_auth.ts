@@ -32,8 +32,8 @@ export class LokaliseAuth {
 
   auth(
     scope: string | string[],
-    redirect_uri: string | null = null,
-    state: string | null = null
+    redirect_uri?: string,
+    state?: string
   ): string {
     if (scope instanceof Array) {
       scope = scope.join(" ");
@@ -44,11 +44,11 @@ export class LokaliseAuth {
       scope: scope,
     };
 
-    if (state != null) {
+    if (state) {
       params["state"] = state;
     }
 
-    if (redirect_uri != null) {
+    if (redirect_uri) {
       params["redirect_uri"] = redirect_uri;
     }
 
@@ -56,19 +56,25 @@ export class LokaliseAuth {
   }
 
   async token(code: string): Promise<any> {
-    const params = Object.assign(this.base_params(), {
-      code: code,
-      grant_type: "authorization_code",
-    });
+    const params = {
+      ...this.base_params(),
+      ...{
+        code: code,
+        grant_type: "authorization_code",
+      },
+    };
 
     return await this.doRequest(params);
   }
 
   async refresh(refresh_token: string): Promise<any> {
-    const params = Object.assign(this.base_params(), {
-      refresh_token: refresh_token,
-      grant_type: "refresh_token",
-    });
+    const params = {
+      ...this.base_params(),
+      ...{
+        refresh_token: refresh_token,
+        grant_type: "refresh_token",
+      },
+    };
 
     return await this.doRequest(params);
   }
@@ -89,14 +95,14 @@ export class LokaliseAuth {
     return url.toString();
   }
 
-  private base_params(): object {
+  private base_params(): { [key: string]: string } {
     return {
       client_id: this.authData.client_id,
       client_secret: this.authData.client_secret,
     };
   }
 
-  private handleReject(data: any): AuthError {
+  private handleReject(data: unknown): AuthError {
     return <AuthError>data;
   }
 }

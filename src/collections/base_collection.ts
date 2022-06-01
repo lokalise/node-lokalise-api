@@ -6,8 +6,8 @@ import { PaginatedResult } from "../models/paginated_result";
 import { Keyable } from "../interfaces/keyable";
 import { ClientData } from "../interfaces/client_data";
 
-export class BaseCollection {
-  clientData: ClientData;
+export abstract class BaseCollection {
+  readonly clientData: ClientData;
   protected static rootElementName: string = "";
   protected static rootElementNameSingular: string | null = null;
   protected static endpoint: string | null = null;
@@ -106,6 +106,7 @@ export class BaseCollection {
     secondary: boolean = false
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
+
     if (secondary) {
       return new childClass.secondaryElementClass(json);
     } else {

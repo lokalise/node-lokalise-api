@@ -310,7 +310,7 @@ declare module "@lokalise/node-api" {
     parent_task_id: number;
     closing_tags: string[];
     do_lock_translations: boolean;
-    languages: object;
+    languages: any[];
     source_language_iso: string;
     auto_close_languages: boolean;
     auto_close_task: boolean;
@@ -461,15 +461,15 @@ declare module "@lokalise/node-api" {
     constructor(clientId: string, clientSecret: string);
     auth(
       scope: string | string[],
-      redirect_uri: string | null,
-      state: string | null
+      redirect_uri?: string,
+      state?: string
     ): string;
     token(code: string): Promise<any>;
     refresh(refresh_token: string): Promise<any>;
     private doRequest(params: { [key: string]: string }): Promise<any>;
     private buildUrl(params: { [key: string]: string }): string;
-    private base_params(): object;
-    private handleReject(data: any): AuthError;
+    private base_params(): { [key: string]: string };
+    private handleReject(data: unknown): AuthError;
   }
 
   export class ApiRequest {
@@ -495,7 +495,7 @@ declare module "@lokalise/node-api" {
     ): (entity: any, isMandaratory: any, paramName: string) => string;
   }
 
-  export class BaseCollection {
+  export abstract class BaseCollection {
     clientData: ClientData;
     protected static rootElementName: string;
     protected static rootElementNameSingular: string | null;
@@ -838,7 +838,7 @@ declare module "@lokalise/node-api" {
   export class LokaliseApi {
     clientData: ClientData;
 
-    constructor(params: { apiKey: string });
+    constructor(params: { [key: string]: any });
 
     branches(): Branches;
 
@@ -883,5 +883,9 @@ declare module "@lokalise/node-api" {
     userGroups(): UserGroups;
 
     webhooks(): Webhooks;
+  }
+
+  export class LokaliseApiOAuth extends LokaliseApi {
+    constructor(params: { [key: string]: any });
   }
 }

@@ -5,7 +5,7 @@ import { StandartParams } from "../interfaces/standart_params";
 import { ClientData } from "../interfaces/client_data";
 
 export class ApiRequest {
-  private urlRoot: NonNullable<Options["prefixUrl"]> =
+  private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
   public params: StandartParams = {};
@@ -54,7 +54,7 @@ export class ApiRequest {
       options["decompress"] = true;
     }
 
-    const url: string = this.composeURI(uri);
+    const url = this.composeURI(uri);
 
     if (Object.keys(this.params).length > 0) {
       const formattedParams = new URLSearchParams(this.params);
@@ -84,13 +84,13 @@ export class ApiRequest {
   }
 
   protected mapUriParams(params: StandartParams) {
-    return (_entity: any, isMandaratory: any, paramName: string): string => {
+    return (_entity: any, isMandaratory: string, paramName: string): string => {
       if (params[paramName] != null) {
         const t_param = params[paramName];
         delete this.params[paramName];
         return t_param;
       } else {
-        if (isMandaratory == "!") {
+        if (isMandaratory === "!") {
           throw new Error("Required param " + paramName);
         } else {
           return "";

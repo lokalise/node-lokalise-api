@@ -20,7 +20,7 @@ export class Task extends BaseModel implements TaskInterface {
   public parent_task_id: number;
   public closing_tags: string[];
   public do_lock_translations: boolean;
-  public languages: object;
+  public languages: any[];
   public source_language_iso: string;
   public auto_close_languages: boolean;
   public auto_close_task: boolean;

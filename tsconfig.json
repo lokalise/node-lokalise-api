@@ -1,12 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es2018",
+    "target": "es2021",
     "module": "commonjs",
     "outDir": "dist",
     "sourceMap": true,
-    "moduleResolution": "Node",
+    "moduleResolution": "node",
     "rootDirs": ["src", "node_modules"],
-    "typeRoots": ["node_modules/@types"],
     "noImplicitAny": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
@@ -23,7 +22,9 @@
   "files": [
     "./node_modules/@types/mocha/index.d.ts"
   ],
-  "include": ["src/**/*"],
+  "include": [
+    "src/**/*"
+  ],
   "exclude": [
     "node_modules"
   ]

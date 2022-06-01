@@ -4,8 +4,8 @@ import { ApiError } from "../models/api_error";
 import { PaginatedResult } from "../models/paginated_result";
 import { Keyable } from "../interfaces/keyable";
 import { ClientData } from "../interfaces/client_data";
-export declare class BaseCollection {
-    clientData: ClientData;
+export declare abstract class BaseCollection {
+    readonly clientData: ClientData;
     protected static rootElementName: string;
     protected static rootElementNameSingular: string | null;
     protected static endpoint: string | null;

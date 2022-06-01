@@ -17,7 +17,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && nyc --reporter=lcov ts-mocha -p tsconfig.json --r source-map-support/register test/**/*.spec.ts --timeout 10000"
+    "test": "tsc && nyc --reporter=lcov ts-mocha -p tsconfig.json --r source-map-support/register --type-check test/**/*.spec.ts --timeout 10000"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
@@ -35,11 +35,11 @@
     "eslint-plugin-prettier": "^4.0.0",
     "lodash": "^4.17.20",
     "mocha": "^10.0.0",
-    "mocha-cassettes": "1.2.5",
+    "mocha-cassettes": "1.2.6",
     "nyc": "^15.1",
     "prettier": "^2.4.1",
     "source-map-support": "^0.5.21",
-    "ts-mocha": "^9.0.1",
+    "ts-mocha": "^10.0.0",
     "typescript": "^4.5.2"
   },
   "dependencies": {
