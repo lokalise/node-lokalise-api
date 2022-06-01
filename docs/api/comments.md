@@ -36,12 +36,11 @@ comments.items[0].comment_id;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-comments-post)
 
 ```js
-const comments = await lokaliseApi.comments().create({
+const comments = await lokaliseApi.comments().create(
   [
     { comment: "Project comment 1" },
     { comment: "Project comment 2" }
-  ]
-}, { project_id: project_id, key_id: key_id});
+  ], { project_id: project_id, key_id: key_id });
 
 comments[0].comment;
 ```
