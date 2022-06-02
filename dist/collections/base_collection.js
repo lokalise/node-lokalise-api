@@ -4,6 +4,16 @@ exports.BaseCollection = void 0;
 const base_1 = require("../http_client/base");
 const paginated_result_1 = require("../models/paginated_result");
 class BaseCollection {
+    clientData;
+    static rootElementName = "";
+    static rootElementNameSingular = null;
+    static endpoint = null;
+    static prefixURI = null;
+    static elementClass = null;
+    // Secondaries are used when an instance of a different class has to be created
+    // For example, uploading a File may return a QueuedProcess
+    static secondaryElementNameSingular = null;
+    static secondaryElementClass = null;
     constructor(clientData) {
         this.clientData = clientData;
     }
@@ -106,13 +116,4 @@ class BaseCollection {
     }
 }
 exports.BaseCollection = BaseCollection;
-BaseCollection.rootElementName = "";
-BaseCollection.rootElementNameSingular = null;
-BaseCollection.endpoint = null;
-BaseCollection.prefixURI = null;
-BaseCollection.elementClass = null;
-// Secondaries are used when an instance of a different class has to be created
-// For example, uploading a File may return a QueuedProcess
-BaseCollection.secondaryElementNameSingular = null;
-BaseCollection.secondaryElementClass = null;
 //# sourceMappingURL=base_collection.js.map

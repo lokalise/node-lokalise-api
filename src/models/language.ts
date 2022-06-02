@@ -2,9 +2,9 @@ import { Language as LanguageInterface } from "../interfaces/language";
 import { BaseModel } from "./base_model";
 
 export class Language extends BaseModel implements LanguageInterface {
-  public lang_id: number;
-  public lang_iso: string;
-  public lang_name: string;
-  public is_rtl: boolean;
-  public plural_forms: string[];
+  declare lang_id: number;
+  declare lang_iso: string;
+  declare lang_name: string;
+  declare is_rtl: boolean;
+  declare plural_forms: string[];
 }

@@ -2,9 +2,9 @@ import { BaseModel } from "./base_model";
 import { Webhook as WebhookInterface } from "../interfaces/webhook";
 
 export class Webhook extends BaseModel implements WebhookInterface {
-  webhook_id: string;
-  url: string;
-  secret: string;
-  events: string[];
-  event_lang_map: object;
+  declare webhook_id: string;
+  declare url: string;
+  declare secret: string;
+  declare events: string[];
+  declare event_lang_map: object;
 }

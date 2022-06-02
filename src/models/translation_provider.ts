@@ -5,12 +5,12 @@ export class TranslationProvider
   extends BaseModel
   implements TranslationProviderInterface
 {
-  public provider_id: number;
-  public name: string;
-  public slug: string;
-  public price_pair_min: number;
-  public website_url: string;
-  public description: string;
-  public tiers: object;
-  public pairs: object;
+  declare provider_id: number;
+  declare name: string;
+  declare slug: string;
+  declare price_pair_min: number;
+  declare website_url: string;
+  declare description: string;
+  declare tiers: object;
+  declare pairs: object;
 }

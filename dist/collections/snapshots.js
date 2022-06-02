@@ -4,6 +4,10 @@ exports.Snapshots = void 0;
 const base_collection_1 = require("./base_collection");
 const snapshot_1 = require("../models/snapshot");
 class Snapshots extends base_collection_1.BaseCollection {
+    static rootElementName = "snapshots";
+    static rootElementNameSingular = "snapshot";
+    static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
+    static elementClass = snapshot_1.Snapshot;
     restore(id, params) {
         params["id"] = id;
         return this.createPromise("POST", params, this.returnBareJSON, this.handleReject, {});
@@ -13,8 +17,4 @@ class Snapshots extends base_collection_1.BaseCollection {
     }
 }
 exports.Snapshots = Snapshots;
-Snapshots.rootElementName = "snapshots";
-Snapshots.rootElementNameSingular = "snapshot";
-Snapshots.prefixURI = "projects/{!:project_id}/snapshots/{:id}";
-Snapshots.elementClass = snapshot_1.Snapshot;
 //# sourceMappingURL=snapshots.js.map

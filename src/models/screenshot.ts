@@ -2,14 +2,14 @@ import { BaseModel } from "./base_model";
 import { Screenshot as ScreenshotInterface } from "../interfaces/screenshot";
 
 export class Screenshot extends BaseModel implements ScreenshotInterface {
-  public screenshot_id: number;
-  public key_ids: number[];
-  public url: string;
-  public title: string;
-  public description: string;
-  public screenshot_tags: string[];
-  public width: number;
-  public height: number;
-  public created_at: string;
-  public created_at_timestamp: number;
+  declare screenshot_id: number;
+  declare key_ids: number[];
+  declare url: string;
+  declare title: string;
+  declare description: string;
+  declare screenshot_tags: string[];
+  declare width: number;
+  declare height: number;
+  declare created_at: string;
+  declare created_at_timestamp: number;
 }

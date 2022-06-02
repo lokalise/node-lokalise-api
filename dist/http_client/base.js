@@ -4,9 +4,10 @@ exports.ApiRequest = void 0;
 const got = require("got");
 const pkg = require("../../package.json");
 class ApiRequest {
+    urlRoot = "https://api.lokalise.com/api2/";
+    promise;
+    params = {};
     constructor(uri, method, body, params, clientData) {
-        this.urlRoot = "https://api.lokalise.com/api2/";
-        this.params = {};
         this.params = params;
         this.promise = this.createPromise(uri, method, body, clientData);
         return this;

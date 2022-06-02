@@ -4,6 +4,10 @@ exports.Keys = void 0;
 const base_collection_1 = require("./base_collection");
 const key_1 = require("../models/key");
 class Keys extends base_collection_1.BaseCollection {
+    static rootElementName = "keys";
+    static rootElementNameSingular = "key";
+    static prefixURI = "projects/{!:project_id}/keys/{:id}";
+    static elementClass = key_1.Key;
     create(raw_body, params) {
         const body = { keys: this.objToArray(raw_body) };
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
@@ -22,8 +26,4 @@ class Keys extends base_collection_1.BaseCollection {
     }
 }
 exports.Keys = Keys;
-Keys.rootElementName = "keys";
-Keys.rootElementNameSingular = "key";
-Keys.prefixURI = "projects/{!:project_id}/keys/{:id}";
-Keys.elementClass = key_1.Key;
 //# sourceMappingURL=keys.js.map

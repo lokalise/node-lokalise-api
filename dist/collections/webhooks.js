@@ -4,6 +4,10 @@ exports.Webhooks = void 0;
 const base_collection_1 = require("./base_collection");
 const webhook_1 = require("../models/webhook");
 class Webhooks extends base_collection_1.BaseCollection {
+    static rootElementName = "webhooks";
+    static rootElementNameSingular = "webhook";
+    static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
+    static elementClass = webhook_1.Webhook;
     create(body, params) {
         return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
@@ -17,8 +21,4 @@ class Webhooks extends base_collection_1.BaseCollection {
     }
 }
 exports.Webhooks = Webhooks;
-Webhooks.rootElementName = "webhooks";
-Webhooks.rootElementNameSingular = "webhook";
-Webhooks.prefixURI = "projects/{!:project_id}/webhooks/{:id}";
-Webhooks.elementClass = webhook_1.Webhook;
 //# sourceMappingURL=webhooks.js.map

@@ -4,6 +4,10 @@ exports.Languages = void 0;
 const language_1 = require("../models/language");
 const base_collection_1 = require("./base_collection");
 class Languages extends base_collection_1.BaseCollection {
+    static rootElementName = "languages";
+    static rootElementNameSingular = "language";
+    static prefixURI = "projects/{!:project_id}/languages/{:id}";
+    static elementClass = language_1.Language;
     system_languages(params) {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null, "system/languages");
     }
@@ -17,8 +21,4 @@ class Languages extends base_collection_1.BaseCollection {
     }
 }
 exports.Languages = Languages;
-Languages.rootElementName = "languages";
-Languages.rootElementNameSingular = "language";
-Languages.prefixURI = "projects/{!:project_id}/languages/{:id}";
-Languages.elementClass = language_1.Language;
 //# sourceMappingURL=languages.js.map

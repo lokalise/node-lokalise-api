@@ -4,6 +4,9 @@ exports.UserGroups = void 0;
 const base_collection_1 = require("./base_collection");
 const user_group_1 = require("../models/user_group");
 class UserGroups extends base_collection_1.BaseCollection {
+    static rootElementName = "user_groups";
+    static prefixURI = "teams/{!:team_id}/groups/{:id}";
+    static elementClass = user_group_1.UserGroup;
     create(body, params) {
         return this.createPromise("POST", params, this.populateGroupFromJsonRoot, this.handleReject, body);
     }
@@ -49,7 +52,4 @@ class UserGroups extends base_collection_1.BaseCollection {
     }
 }
 exports.UserGroups = UserGroups;
-UserGroups.rootElementName = "user_groups";
-UserGroups.prefixURI = "teams/{!:team_id}/groups/{:id}";
-UserGroups.elementClass = user_group_1.UserGroup;
 //# sourceMappingURL=user_groups.js.map

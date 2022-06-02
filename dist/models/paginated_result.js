@@ -2,6 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.PaginatedResult = void 0;
 class PaginatedResult {
+    totalResults;
+    totalPages;
+    resultsPerPage;
+    currentPage;
+    items;
     constructor(items, headers) {
         this.totalResults = parseInt(Object(headers)["x-pagination-total-count"]);
         this.totalPages = parseInt(Object(headers)["x-pagination-page-count"]);

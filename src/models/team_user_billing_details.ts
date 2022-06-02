@@ -5,14 +5,14 @@ export class TeamUserBillingDetails
   extends BaseModel
   implements TeamUserBillingDetailsInterface
 {
-  billing_email: string;
-  country_code: string;
-  zip: string;
-  state_code: string;
-  address1: string;
-  address2: string;
-  city: string;
-  phone: string;
-  company: string;
-  vatnumber: string;
+  declare billing_email: string;
+  declare country_code: string;
+  declare zip: string;
+  declare state_code: string;
+  declare address1: string;
+  declare address2: string;
+  declare city: string;
+  declare phone: string;
+  declare company: string;
+  declare vatnumber: string;
 }

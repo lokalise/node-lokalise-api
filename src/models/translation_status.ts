@@ -5,7 +5,7 @@ export class TranslationStatus
   extends BaseModel
   implements TranslationStatusInterface
 {
-  public status_id: number;
-  public title: string;
-  public color: string;
+  declare status_id: number;
+  declare title: string;
+  declare color: string;
 }

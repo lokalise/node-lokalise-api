@@ -4,6 +4,10 @@ exports.Contributors = void 0;
 const base_collection_1 = require("./base_collection");
 const contributor_1 = require("../models/contributor");
 class Contributors extends base_collection_1.BaseCollection {
+    static rootElementName = "contributors";
+    static rootElementNameSingular = "contributor";
+    static prefixURI = "projects/{!:project_id}/contributors/{:id}";
+    static elementClass = contributor_1.Contributor;
     create(raw_body, params) {
         const body = { contributors: this.objToArray(raw_body) };
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body, "projects/{!:project_id}/contributors");
@@ -14,8 +18,4 @@ class Contributors extends base_collection_1.BaseCollection {
     }
 }
 exports.Contributors = Contributors;
-Contributors.rootElementName = "contributors";
-Contributors.rootElementNameSingular = "contributor";
-Contributors.prefixURI = "projects/{!:project_id}/contributors/{:id}";
-Contributors.elementClass = contributor_1.Contributor;
 //# sourceMappingURL=contributors.js.map

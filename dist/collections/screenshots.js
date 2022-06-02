@@ -4,6 +4,10 @@ exports.Screenshots = void 0;
 const base_collection_1 = require("./base_collection");
 const screenshot_1 = require("../models/screenshot");
 class Screenshots extends base_collection_1.BaseCollection {
+    static rootElementName = "screenshots";
+    static rootElementNameSingular = "screenshot";
+    static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
+    static elementClass = screenshot_1.Screenshot;
     create(raw_body, params) {
         const body = { screenshots: this.objToArray(raw_body) };
         return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
@@ -14,8 +18,4 @@ class Screenshots extends base_collection_1.BaseCollection {
     }
 }
 exports.Screenshots = Screenshots;
-Screenshots.rootElementName = "screenshots";
-Screenshots.rootElementNameSingular = "screenshot";
-Screenshots.prefixURI = "projects/{!:project_id}/screenshots/{:id}";
-Screenshots.elementClass = screenshot_1.Screenshot;
 //# sourceMappingURL=screenshots.js.map

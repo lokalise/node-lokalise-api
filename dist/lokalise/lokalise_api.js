@@ -24,18 +24,18 @@ const translation_statuses_1 = require("../collections/translation_statuses");
 const user_groups_1 = require("../collections/user_groups");
 const webhooks_1 = require("../collections/webhooks");
 class LokaliseApi {
+    clientData = {
+        token: "",
+        tokenType: "",
+        authHeader: "x-api-token",
+        enableCompression: false,
+    };
     /*
      * Instantiate LokaliseApi to call API methods
      * @param params  object, mandatory
      * @returns       LokaliseApi object to work with.
      */
     constructor(params) {
-        this.clientData = {
-            token: "",
-            tokenType: "",
-            authHeader: "x-api-token",
-            enableCompression: false,
-        };
         const apiKey = params["apiKey"];
         if (apiKey == null || apiKey.length == 0) {
             throw new Error("Error: Instantiation failed: Please pass an API key");

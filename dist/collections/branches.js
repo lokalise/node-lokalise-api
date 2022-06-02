@@ -4,6 +4,10 @@ exports.Branches = void 0;
 const base_collection_1 = require("./base_collection");
 const branch_1 = require("../models/branch");
 class Branches extends base_collection_1.BaseCollection {
+    static rootElementName = "branches";
+    static rootElementNameSingular = "branch";
+    static prefixURI = "projects/{!:project_id}/branches/{:id}";
+    static elementClass = branch_1.Branch;
     create(body, params) {
         return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
     }
@@ -17,8 +21,4 @@ class Branches extends base_collection_1.BaseCollection {
     }
 }
 exports.Branches = Branches;
-Branches.rootElementName = "branches";
-Branches.rootElementNameSingular = "branch";
-Branches.prefixURI = "projects/{!:project_id}/branches/{:id}";
-Branches.elementClass = branch_1.Branch;
 //# sourceMappingURL=branches.js.map

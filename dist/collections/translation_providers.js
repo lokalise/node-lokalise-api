@@ -4,9 +4,9 @@ exports.TranslationProviders = void 0;
 const base_collection_1 = require("./base_collection");
 const translation_provider_1 = require("../models/translation_provider");
 class TranslationProviders extends base_collection_1.BaseCollection {
+    static rootElementName = "translation_providers";
+    static prefixURI = "teams/{!:team_id}/translation_providers/{:id}";
+    static elementClass = translation_provider_1.TranslationProvider;
 }
 exports.TranslationProviders = TranslationProviders;
-TranslationProviders.rootElementName = "translation_providers";
-TranslationProviders.prefixURI = "teams/{!:team_id}/translation_providers/{:id}";
-TranslationProviders.elementClass = translation_provider_1.TranslationProvider;
 //# sourceMappingURL=translation_providers.js.map

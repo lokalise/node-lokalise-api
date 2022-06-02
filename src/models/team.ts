@@ -2,11 +2,11 @@ import { BaseModel } from "./base_model";
 import { Team as TeamInterface } from "../interfaces/team";
 
 export class Team extends BaseModel implements TeamInterface {
-  public team_id: number;
-  public name: string;
-  public created_at: string;
-  public created_at_timestamp: number;
-  public plan: string;
-  public quota_usage: object;
-  public quota_allowed: object;
+  declare team_id: number;
+  declare name: string;
+  declare created_at: string;
+  declare created_at_timestamp: number;
+  declare plan: string;
+  declare quota_usage: object;
+  declare quota_allowed: object;
 }

@@ -3,6 +3,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.LokaliseAuth = void 0;
 const auth_request_1 = require("./auth_request");
 class LokaliseAuth {
+    authData = {
+        client_id: "",
+        client_secret: "",
+    };
     /*
      * Instantiate LokaliseAuth to work with OAuth 2 tokens
      * @param clientId      string, mandatory
@@ -10,10 +14,6 @@ class LokaliseAuth {
      * @returns             LokaliseAuth object to work with.
      */
     constructor(clientId, clientSecret) {
-        this.authData = {
-            client_id: "",
-            client_secret: "",
-        };
         if (clientId == null ||
             clientId.length == 0 ||
             clientSecret == null ||

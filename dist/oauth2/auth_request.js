@@ -4,6 +4,7 @@ exports.AuthRequest = void 0;
 const got = require("got");
 const pkg = require("../../package.json");
 class AuthRequest {
+    static urlRoot = "https://app.lokalise.com/oauth2/";
     static async createPromise(uri, method, body) {
         const options = {
             method: method,
@@ -35,5 +36,4 @@ class AuthRequest {
     }
 }
 exports.AuthRequest = AuthRequest;
-AuthRequest.urlRoot = "https://app.lokalise.com/oauth2/";
 //# sourceMappingURL=auth_request.js.map

@@ -4,6 +4,9 @@ exports.TeamUserBillingDetails = void 0;
 const team_user_billing_details_1 = require("../models/team_user_billing_details");
 const base_collection_1 = require("./base_collection");
 class TeamUserBillingDetails extends base_collection_1.BaseCollection {
+    static rootElementName = "";
+    static prefixURI = "teams/{!:team_id}/billing_details";
+    static elementClass = team_user_billing_details_1.TeamUserBillingDetails;
     get(team_id, params = {}) {
         params["team_id"] = team_id;
         return this.createPromise("GET", params, this.populateObjectFromJson, this.handleReject, null);
@@ -14,7 +17,4 @@ class TeamUserBillingDetails extends base_collection_1.BaseCollection {
     }
 }
 exports.TeamUserBillingDetails = TeamUserBillingDetails;
-TeamUserBillingDetails.rootElementName = "";
-TeamUserBillingDetails.prefixURI = "teams/{!:team_id}/billing_details";
-TeamUserBillingDetails.elementClass = team_user_billing_details_1.TeamUserBillingDetails;
 //# sourceMappingURL=team_user_billing_details.js.map

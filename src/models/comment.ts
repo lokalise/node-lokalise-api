@@ -2,11 +2,11 @@ import { Comment as CommentInterface } from "../interfaces/comment";
 import { BaseModel } from "./base_model";
 
 export class Comment extends BaseModel implements CommentInterface {
-  public comment_id: number;
-  public key_id: number;
-  public comment: string;
-  public added_by: number;
-  public added_by_email: string;
-  public added_at: string;
-  public added_at_timestamp: number;
+  declare comment_id: number;
+  declare key_id: number;
+  declare comment: string;
+  declare added_by: number;
+  declare added_by_email: string;
+  declare added_at: string;
+  declare added_at_timestamp: number;
 }

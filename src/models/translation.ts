@@ -2,18 +2,18 @@ import { BaseModel } from "./base_model";
 import { Translation as TranslationInterface } from "../interfaces/translation";
 
 export class Translation extends BaseModel implements TranslationInterface {
-  public translation_id: number;
-  public key_id: number;
-  public language_iso: string;
-  public modified_at: string;
-  public modified_at_timestamp: number;
-  public modified_by: number;
-  public modified_by_email: string;
-  public translation: string;
-  public is_fuzzy: boolean;
-  public is_reviewed: boolean;
-  public reviewed_by: number;
-  public words: number;
-  public custom_translation_statuses: object[];
-  public task_id: number;
+  declare translation_id: number;
+  declare key_id: number;
+  declare language_iso: string;
+  declare modified_at: string;
+  declare modified_at_timestamp: number;
+  declare modified_by: number;
+  declare modified_by_email: string;
+  declare translation: string;
+  declare is_fuzzy: boolean;
+  declare is_reviewed: boolean;
+  declare reviewed_by: number;
+  declare words: number;
+  declare custom_translation_statuses: object[];
+  declare task_id: number;
 }

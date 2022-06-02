@@ -5,6 +5,11 @@ const base_collection_1 = require("./base_collection");
 const file_1 = require("../models/file");
 const queued_process_1 = require("../models/queued_process");
 class Files extends base_collection_1.BaseCollection {
+    static rootElementName = "files";
+    static prefixURI = "projects/{!:project_id}/files/{:id}";
+    static elementClass = file_1.File;
+    static secondaryElementNameSingular = "process";
+    static secondaryElementClass = queued_process_1.QueuedProcess;
     upload(project_id, upload) {
         return this.createPromise("POST", { project_id: project_id }, this.populateSecondaryObjectFromJsonRoot, this.handleReject, upload, "projects/{!:project_id}/files/upload");
     }
@@ -13,9 +18,4 @@ class Files extends base_collection_1.BaseCollection {
     }
 }
 exports.Files = Files;
-Files.rootElementName = "files";
-Files.prefixURI = "projects/{!:project_id}/files/{:id}";
-Files.elementClass = file_1.File;
-Files.secondaryElementNameSingular = "process";
-Files.secondaryElementClass = queued_process_1.QueuedProcess;
 //# sourceMappingURL=files.js.map
