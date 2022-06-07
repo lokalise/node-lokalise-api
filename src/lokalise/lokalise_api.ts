@@ -23,7 +23,7 @@ import { Webhooks } from "../collections/webhooks";
 import { ClientData as ClientDataInterface } from "../interfaces/client_data";
 
 export type ClientParams = {
-  apiKey: string;
+  apiKey?: string;
   enableCompression?: boolean;
   tokenType?: string;
 };

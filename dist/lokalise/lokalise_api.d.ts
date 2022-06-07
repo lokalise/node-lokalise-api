@@ -22,7 +22,7 @@ import { UserGroups } from "../collections/user_groups";
 import { Webhooks } from "../collections/webhooks";
 import { ClientData as ClientDataInterface } from "../interfaces/client_data";
 export declare type ClientParams = {
-    apiKey: string;
+    apiKey?: string;
     enableCompression?: boolean;
     tokenType?: string;
 };

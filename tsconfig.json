@@ -5,7 +5,6 @@
     "outDir": "dist",
     "sourceMap": true,
     "moduleResolution": "node",
-    "rootDirs": ["src", "node_modules"],
     "noImplicitAny": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
