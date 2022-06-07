@@ -37,12 +37,12 @@ class LokaliseApi {
      */
     constructor(params) {
         const apiKey = params["apiKey"];
-        if (apiKey == null || apiKey.length == 0) {
+        if (apiKey === null || apiKey === undefined || apiKey.length === 0) {
             throw new Error("Error: Instantiation failed: Please pass an API key");
         }
         this.clientData.token = apiKey;
         const compression = params["enableCompression"];
-        if (compression != null) {
+        if (compression !== null && compression !== undefined) {
             this.clientData.enableCompression = compression;
         }
     }

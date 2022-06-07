@@ -21,11 +21,14 @@ import { TranslationStatuses } from "../collections/translation_statuses";
 import { UserGroups } from "../collections/user_groups";
 import { Webhooks } from "../collections/webhooks";
 import { ClientData as ClientDataInterface } from "../interfaces/client_data";
+export declare type ClientParams = {
+    apiKey: string;
+    enableCompression?: boolean;
+    tokenType?: string;
+};
 export declare class LokaliseApi {
-    clientData: ClientDataInterface;
-    constructor(params: {
-        [key: string]: any;
-    });
+    readonly clientData: ClientDataInterface;
+    constructor(params: ClientParams);
     branches(): Branches;
     comments(): Comments;
     contributors(): Contributors;

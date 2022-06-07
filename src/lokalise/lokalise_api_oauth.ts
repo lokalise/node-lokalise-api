@@ -1,7 +1,7 @@
-import { LokaliseApi } from "./lokalise_api";
+import { LokaliseApi, ClientParams } from "./lokalise_api";
 
 export class LokaliseApiOAuth extends LokaliseApi {
-  constructor(params: { [key: string]: any }) {
+  constructor(params: ClientParams) {
     super(params);
 
     const tokenType = params["tokenType"];

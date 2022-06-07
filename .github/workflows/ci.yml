@@ -12,7 +12,7 @@ jobs:
         node-version:
           - 14
           - 16
-          - 17
+          - 18
         os:
           - ubuntu-latest
     env:

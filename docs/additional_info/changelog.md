@@ -1,9 +1,10 @@
 # Changelog
 
-## Unreleased
+## 7.3.0 (07-Jun-2022)
 
 * Various code improvements
 * Updated dependencies
+* Test with more recent Node versions
 
 ## 7.2.0 (08-Mar-2022)
 
