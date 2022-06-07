@@ -1,0 +1,1249 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "GET",
+    "path": "/api2/system/languages",
+    "body": "",
+    "status": 200,
+    "response": {
+      "languages": [
+        {
+          "lang_id": 894,
+          "lang_iso": "ab",
+          "lang_name": "Abkhaz",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 891,
+          "lang_iso": "aa",
+          "lang_name": "Afar",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 790,
+          "lang_iso": "af",
+          "lang_name": "Afrikaans",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 791,
+          "lang_iso": "af_NA",
+          "lang_name": "Afrikaans (Namibia)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 792,
+          "lang_iso": "af_ZA",
+          "lang_name": "Afrikaans (South Africa)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 977,
+          "lang_iso": "agq",
+          "lang_name": "Aghem",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 910,
+          "lang_iso": "ak",
+          "lang_name": "Akan",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10210,
+          "lang_iso": "ak_GH",
+          "lang_name": "Akan (Ghana)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 803,
+          "lang_iso": "sq",
+          "lang_name": "Albanian",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10177,
+          "lang_iso": "sq_AL",
+          "lang_name": "Albanian (Albania)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 941,
+          "lang_iso": "am",
+          "lang_name": "Amharic",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 714,
+          "lang_iso": "ar",
+          "lang_name": "Arabic",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 715,
+          "lang_iso": "ar_DZ",
+          "lang_name": "Arabic (Algeria)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 716,
+          "lang_iso": "ar_BH",
+          "lang_name": "Arabic (Bahrain)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 717,
+          "lang_iso": "ar_EG",
+          "lang_name": "Arabic (Egypt)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 718,
+          "lang_iso": "ar_IQ",
+          "lang_name": "Arabic (Iraq)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 719,
+          "lang_iso": "ar_JO",
+          "lang_name": "Arabic (Jordan)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 720,
+          "lang_iso": "ar_KW",
+          "lang_name": "Arabic (Kuwait)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 721,
+          "lang_iso": "ar_LB",
+          "lang_name": "Arabic (Lebanon)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 722,
+          "lang_iso": "ar_LY",
+          "lang_name": "Arabic (Libya)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 723,
+          "lang_iso": "ar_MA",
+          "lang_name": "Arabic (Morocco)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 724,
+          "lang_iso": "ar_OM",
+          "lang_name": "Arabic (Oman)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 725,
+          "lang_iso": "ar_QA",
+          "lang_name": "Arabic (Qatar)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 726,
+          "lang_iso": "ar_SA",
+          "lang_name": "Arabic (Saudi Arabia)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 727,
+          "lang_iso": "ar_SD",
+          "lang_name": "Arabic (Sudan)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 728,
+          "lang_iso": "ar_SY",
+          "lang_name": "Arabic (Syria)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 729,
+          "lang_iso": "ar_TN",
+          "lang_name": "Arabic (Tunisia)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 730,
+          "lang_iso": "ar_AE",
+          "lang_name": "Arabic (United Arab Emirates)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 731,
+          "lang_iso": "ar_001",
+          "lang_name": "Arabic (World)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 732,
+          "lang_iso": "ar_YE",
+          "lang_name": "Arabic (Yemen)",
+          "is_rtl": true,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 831,
+          "lang_iso": "an",
+          "lang_name": "Aragonese",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 810,
+          "lang_iso": "hy",
+          "lang_name": "Armenian",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 846,
+          "lang_iso": "as",
+          "lang_name": "Assamese",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 978,
+          "lang_iso": "asa",
+          "lang_name": "Asu",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 873,
+          "lang_iso": "av",
+          "lang_name": "Avaric",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 833,
+          "lang_iso": "ae",
+          "lang_name": "Avestan",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 877,
+          "lang_iso": "ay",
+          "lang_name": "Aymara",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 795,
+          "lang_iso": "az",
+          "lang_name": "Azerbaijani",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 794,
+          "lang_iso": "az_AZ",
+          "lang_name": "Azerbaijani (Azerbaijan)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 797,
+          "lang_iso": "az_Cyrl_AZ",
+          "lang_name": "Azerbaijani (Cyrillic, Azerbaijan)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 796,
+          "lang_iso": "az_Cyrl",
+          "lang_name": "Azerbaijani (Cyrillic)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10185,
+          "lang_iso": "azb",
+          "lang_name": "Azerbaijani (South)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 979,
+          "lang_iso": "ksf",
+          "lang_name": "Bafia",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 934,
+          "lang_iso": "bm",
+          "lang_name": "Bambara",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 980,
+          "lang_iso": "bas",
+          "lang_name": "Basaa",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 902,
+          "lang_iso": "ba",
+          "lang_name": "Bashkir",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 911,
+          "lang_iso": "eu_ES",
+          "lang_name": "Basque (Spain)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 1069,
+          "lang_iso": "be",
+          "lang_name": "Belarusian",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 906,
+          "lang_iso": "be_BY",
+          "lang_name": "Belarusian (Belarus)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 981,
+          "lang_iso": "bem",
+          "lang_name": "Bemba",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 982,
+          "lang_iso": "bez",
+          "lang_name": "Bena",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 815,
+          "lang_iso": "bn",
+          "lang_name": "Bengali",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 816,
+          "lang_iso": "bn_BD",
+          "lang_name": "Bengali (Bangladesh)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 814,
+          "lang_iso": "bn_IN",
+          "lang_name": "Bengali (India)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 919,
+          "lang_iso": "bh",
+          "lang_name": "Bihari",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 929,
+          "lang_iso": "bi",
+          "lang_name": "Bislama",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 983,
+          "lang_iso": "brx",
+          "lang_name": "Bodo",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 802,
+          "lang_iso": "bs_BA",
+          "lang_name": "Bosnian (Bosnia and Herzegovina)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "few",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 829,
+          "lang_iso": "br",
+          "lang_name": "Breton",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 781,
+          "lang_iso": "bg",
+          "lang_name": "Bulgarian",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 780,
+          "lang_iso": "bg_BG",
+          "lang_name": "Bulgarian (Bulgaria)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 883,
+          "lang_iso": "my",
+          "lang_name": "Burmese",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 764,
+          "lang_iso": "ca",
+          "lang_name": "Catalan",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 1068,
+          "lang_iso": "ceb",
+          "lang_name": "Cebuano",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 984,
+          "lang_iso": "tzm",
+          "lang_name": "Central Morocco Tamazight",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 837,
+          "lang_iso": "ch",
+          "lang_name": "Chamorro",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 834,
+          "lang_iso": "ce",
+          "lang_name": "Chechen",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 985,
+          "lang_iso": "chr",
+          "lang_name": "Cherokee",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 819,
+          "lang_iso": "ny",
+          "lang_name": "Chichewa",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 986,
+          "lang_iso": "cgg",
+          "lang_name": "Chiga",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 602,
+          "lang_iso": "zh_CN",
+          "lang_name": "Chinese Simplified",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 605,
+          "lang_iso": "zh_Hans_CN",
+          "lang_name": "Chinese Simplified (China)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 606,
+          "lang_iso": "zh_Hans_HK",
+          "lang_name": "Chinese Simplified (Hong Kong)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 608,
+          "lang_iso": "zh_Hans_MO",
+          "lang_name": "Chinese Simplified (Macau)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10155,
+          "lang_iso": "zh_MY",
+          "lang_name": "Chinese Simplified (Malay)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 604,
+          "lang_iso": "zh_SG",
+          "lang_name": "Chinese Simplified (Singapore)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10196,
+          "lang_iso": "zh_Hans_SG",
+          "lang_name": "Chinese Simplified (Singapore)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 601,
+          "lang_iso": "zh_TW",
+          "lang_name": "Chinese Traditional",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 603,
+          "lang_iso": "zh_HK",
+          "lang_name": "Chinese Traditional (Hong Kong)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10166,
+          "lang_iso": "zh_Hant_HK",
+          "lang_name": "Chinese Traditional (Hong Kong)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 607,
+          "lang_iso": "zh_Hant_MO",
+          "lang_name": "Chinese Traditional (Macau)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 609,
+          "lang_iso": "zh_Hant_TW",
+          "lang_name": "Chinese Traditional (Taiwan)",
+          "is_rtl": false,
+          "plural_forms": [
+            "other"
+          ]
+        },
+        {
+          "lang_id": 848,
+          "lang_iso": "cu",
+          "lang_name": "Church Slavic",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 856,
+          "lang_iso": "cv_CV",
+          "lang_name": "Chuvash",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 987,
+          "lang_iso": "swc",
+          "lang_name": "Congo Swahili",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 861,
+          "lang_iso": "kw",
+          "lang_name": "Cornish",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "two",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 843,
+          "lang_iso": "co",
+          "lang_name": "Corsican",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 844,
+          "lang_iso": "cr",
+          "lang_name": "Cree",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 793,
+          "lang_iso": "hr",
+          "lang_name": "Croatian",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "few",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10170,
+          "lang_iso": "hr_HR",
+          "lang_name": "Croatian (Croatia)",
+          "is_rtl": false,
+          "plural_forms": [
+            "one",
+            "few",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10001,
+          "lang_iso": "custom_1",
+          "lang_name": "Custom Language 1",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10010,
+          "lang_iso": "custom_10",
+          "lang_name": "Custom Language 10",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10100,
+          "lang_iso": "custom_100",
+          "lang_name": "Custom Language 100",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10101,
+          "lang_iso": "custom_101",
+          "lang_name": "Custom Language 101",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10102,
+          "lang_iso": "custom_102",
+          "lang_name": "Custom Language 102",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10103,
+          "lang_iso": "custom_103",
+          "lang_name": "Custom Language 103",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10104,
+          "lang_iso": "custom_104",
+          "lang_name": "Custom Language 104",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10105,
+          "lang_iso": "custom_105",
+          "lang_name": "Custom Language 105",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10106,
+          "lang_iso": "custom_106",
+          "lang_name": "Custom Language 106",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        },
+        {
+          "lang_id": 10107,
+          "lang_iso": "custom_107",
+          "lang_name": "Custom Language 107",
+          "is_rtl": false,
+          "plural_forms": [
+            "zero",
+            "one",
+            "two",
+            "few",
+            "many",
+            "other"
+          ]
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Date",
+      "Tue, 07 Jun 2022 14:56:16 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Server",
+      "nginx",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "X-Pagination-Total-Count",
+      "676",
+      "X-Pagination-Page-Count",
+      "7",
+      "X-Pagination-Limit",
+      "100",
+      "X-Pagination-Page",
+      "1",
+      "pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "331dc080-06b5-42da-bdb0-d896faf95a67",
+      "Expires",
+      "Tue, 07 Jun 2022 14:56:16 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Mon, 07-Jun-2021 14:56:15 GMT; Max-Age=0; path=/; httponly",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

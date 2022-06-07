@@ -55,6 +55,14 @@ describe("Languages", function () {
     .register(this);
 
   cassette
+    .createTest("system_languages_all", async () => {
+      const languages = await lokaliseApi.languages().system_languages({});
+
+      expect(languages.items[0].lang_id).to.eq(894);
+    })
+    .register(this);
+
+  cassette
     .createTest("get", async () => {
       const language = await lokaliseApi.languages().get(lang_id, {
         project_id: project_id,
