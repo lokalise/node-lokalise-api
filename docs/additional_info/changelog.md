@@ -1,5 +1,9 @@
 # Changelog
 
+## 7.3.1 (07-Jun-2022)
+
+* Minor fixes
+
 ## 7.3.0 (07-Jun-2022)
 
 * Various code improvements

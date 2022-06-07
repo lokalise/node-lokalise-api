@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "7.3.0",
+  "version": "7.3.1",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "repository": {
@@ -43,13 +43,14 @@
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "@lokalise/node-api": "^7.3.1",
     "got": "^11.8.3"
   },
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
   },
   "homepage": "https://lokalise.github.io/node-lokalise-api",
-  "main": "./dist/main.js",
+  "main": "./index.js",
   "typings": "./dist/main.d.ts",
   "directories": {
     "lib": "./src",
