@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { Screenshot as ScreenshotInterface } from "../interfaces/screenshot";
+import { BaseModel } from "./base_model.js";
+import { Screenshot as ScreenshotInterface } from "../interfaces/screenshot.js";
 export declare class Screenshot extends BaseModel implements ScreenshotInterface {
     screenshot_id: number;
     key_ids: number[];

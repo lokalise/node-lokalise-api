@@ -1,8 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Translation = void 0;
-const base_model_1 = require("./base_model");
-class Translation extends base_model_1.BaseModel {
+import { BaseModel } from "./base_model.js";
+export class Translation extends BaseModel {
 }
-exports.Translation = Translation;
 //# sourceMappingURL=translation.js.map

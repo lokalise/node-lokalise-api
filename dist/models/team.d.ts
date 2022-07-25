@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { Team as TeamInterface } from "../interfaces/team";
+import { BaseModel } from "./base_model.js";
+import { Team as TeamInterface } from "../interfaces/team.js";
 export declare class Team extends BaseModel implements TeamInterface {
     team_id: number;
     name: string;

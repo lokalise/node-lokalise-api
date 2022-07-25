@@ -1,7 +1,7 @@
-import { BaseCollection } from "./base_collection";
-import { Comment } from "../models/comment";
-import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
+import { BaseCollection } from "./base_collection.js";
+import { Comment } from "../models/comment.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { PaginatedResult } from "../models/paginated_result.js";
 export declare class Comments extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

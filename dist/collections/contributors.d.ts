@@ -1,6 +1,6 @@
-import { BaseCollection } from "./base_collection";
-import { Contributor } from "../models/contributor";
-import { StandartParams } from "../interfaces/standart_params";
+import { BaseCollection } from "./base_collection.js";
+import { Contributor } from "../models/contributor.js";
+import { StandartParams } from "../interfaces/standart_params.js";
 export declare class Contributors extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

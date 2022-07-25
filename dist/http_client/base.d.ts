@@ -1,6 +1,6 @@
 import { Options } from "got";
-import { StandartParams } from "../interfaces/standart_params";
-import { ClientData } from "../interfaces/client_data";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { ClientData } from "../interfaces/client_data.js";
 export declare class ApiRequest {
     private readonly urlRoot;
     promise: Promise<any>;

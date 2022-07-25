@@ -1,15 +1,15 @@
-import { BaseCollection } from "./base_collection";
-import { Branch } from "../models/branch";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Branch } from "../models/branch.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Branches extends BaseCollection {
-  protected static rootElementName: string = "branches";
-  protected static rootElementNameSingular: string = "branch";
-  protected static prefixURI: string = "projects/{!:project_id}/branches/{:id}";
-  protected static elementClass: object = Branch;
+  protected static rootElementName = "branches";
+  protected static rootElementNameSingular = "branch";
+  protected static prefixURI = "projects/{!:project_id}/branches/{:id}";
+  protected static elementClass = Branch;
 
-  create(body: object, params: StandartParams): Promise<Branch> {
+  create(body: Keyable, params: StandartParams): Promise<Branch> {
     return this.createPromise(
       "POST",
       params,
@@ -21,7 +21,7 @@ export class Branches extends BaseCollection {
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<Branch> {
     params["id"] = id;
@@ -37,7 +37,7 @@ export class Branches extends BaseCollection {
   merge(
     id: string | number,
     params: StandartParams,
-    body: object = {}
+    body: Keyable = {}
   ): Promise<Keyable> {
     params["id"] = id;
     return this.createPromise(

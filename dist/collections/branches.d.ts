@@ -1,7 +1,7 @@
-import { BaseCollection } from "./base_collection";
-import { Branch } from "../models/branch";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Branch } from "../models/branch.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 export declare class Branches extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

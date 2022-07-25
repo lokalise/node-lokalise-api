@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApiRequest = void 0;
-const got = require("got");
-const pkg = require("../../package.json");
-class ApiRequest {
+import got, { Options } from "got";
+import { readFile } from "fs/promises";
+const pkg = JSON.parse((await readFile("../../package.json")).toString());
+export class ApiRequest {
     urlRoot = "https://api.lokalise.com/api2/";
     promise;
     params = {};
@@ -13,16 +11,17 @@ class ApiRequest {
         return this;
     }
     async createPromise(uri, method, body, clientData) {
-        const options = {
+        const options = new Options({
             method: method,
             prefixUrl: this.urlRoot,
             headers: {
+                Accept: "application/json",
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
             },
-            agent: false,
             throwHttpErrors: false,
             decompress: false,
-        };
+            responseType: "text",
+        });
         // Make strictNullChecks happy
         if (!options["headers"]) {
             /* istanbul ignore next */
@@ -77,5 +76,4 @@ class ApiRequest {
         };
     }
 }
-exports.ApiRequest = ApiRequest;
 //# sourceMappingURL=base.js.map

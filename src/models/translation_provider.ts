@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { TranslationProvider as TranslationProviderInterface } from "../interfaces/translation_provider";
+import { BaseModel } from "./base_model.js";
+import { TranslationProvider as TranslationProviderInterface } from "../interfaces/translation_provider.js";
 
 export class TranslationProvider
   extends BaseModel

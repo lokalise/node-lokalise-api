@@ -1,17 +1,17 @@
-import { BaseCollection } from "./base_collection";
-import { Translation } from "../models/translation";
-import { StandartParams } from "../interfaces/standart_params";
+import { BaseCollection } from "./base_collection.js";
+import { Translation } from "../models/translation.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Translations extends BaseCollection {
-  protected static rootElementName: string = "translations";
-  protected static rootElementNameSingular: string = "translation";
-  protected static prefixURI: string =
-    "projects/{!:project_id}/translations/{:id}";
-  protected static elementClass: object = Translation;
+  protected static rootElementName = "translations";
+  protected static rootElementNameSingular = "translation";
+  protected static prefixURI = "projects/{!:project_id}/translations/{:id}";
+  protected static elementClass = Translation;
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<Translation> {
     params["id"] = id;

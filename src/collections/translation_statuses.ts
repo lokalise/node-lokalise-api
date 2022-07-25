@@ -1,17 +1,16 @@
-import { BaseCollection } from "./base_collection";
-import { TranslationStatus } from "../models/translation_status";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { TranslationStatus } from "../models/translation_status.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class TranslationStatuses extends BaseCollection {
-  protected static rootElementName: string = "custom_translation_statuses";
-  protected static prefixURI: string =
+  protected static rootElementName = "custom_translation_statuses";
+  protected static prefixURI =
     "projects/{!:project_id}/custom_translation_statuses/{:id}";
-  protected static elementClass: object = TranslationStatus;
-  protected static rootElementNameSingular: string =
-    "custom_translation_status";
+  protected static elementClass = TranslationStatus;
+  protected static rootElementNameSingular = "custom_translation_status";
 
-  create(body: object, params: StandartParams): Promise<TranslationStatus> {
+  create(body: Keyable, params: StandartParams): Promise<TranslationStatus> {
     return this.createPromise(
       "POST",
       params,
@@ -23,7 +22,7 @@ export class TranslationStatuses extends BaseCollection {
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<TranslationStatus> {
     params["id"] = id;

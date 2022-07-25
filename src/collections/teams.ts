@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { Team } from "../models/team";
+import { BaseCollection } from "./base_collection.js";
+import { Team } from "../models/team.js";
 
 export class Teams extends BaseCollection {
-  protected static rootElementName: string = "teams";
-  protected static prefixURI: string = "teams";
-  protected static elementClass: object = Team;
+  protected static rootElementName = "teams";
+  protected static prefixURI = "teams";
+  protected static elementClass = Team;
 }

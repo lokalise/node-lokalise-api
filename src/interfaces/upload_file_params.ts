@@ -4,7 +4,7 @@ export interface UploadFileParams {
   lang_iso: string;
   convert_placeholders?: boolean;
   detect_icu_plurals?: boolean;
-  tags?: any[];
+  tags?: string[];
   tag_inserted_keys?: boolean;
   tag_updated_keys?: boolean;
   tag_skipped_keys?: boolean;

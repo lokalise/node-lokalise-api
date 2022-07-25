@@ -1,20 +1,21 @@
-import { BaseCollection } from "./base_collection";
-import { Comment } from "../models/comment";
-import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
+import { BaseCollection } from "./base_collection.js";
+import { Comment } from "../models/comment.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Comments extends BaseCollection {
-  protected static rootElementName: string = "comments";
-  protected static rootElementNameSingular: string = "comment";
-  protected static prefixURI: string =
+  protected static rootElementName = "comments";
+  protected static rootElementNameSingular = "comment";
+  protected static prefixURI =
     "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
-  protected static elementClass: object = Comment;
+  protected static elementClass = Comment;
 
   create(
-    raw_body: object | object[],
+    raw_body: Keyable | Keyable[],
     params: StandartParams
   ): Promise<Comment[]> {
-    const body: object = { comments: this.objToArray(raw_body) };
+    const body: Keyable = { comments: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,

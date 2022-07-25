@@ -1,8 +1,9 @@
-import { Response, Options } from "got";
-const got = require("got");
-const pkg = require("../../package.json");
-import { StandartParams } from "../interfaces/standart_params";
-import { ClientData } from "../interfaces/client_data";
+import got, { Options, PlainResponse } from "got";
+import { readFile } from "fs/promises";
+const pkg = JSON.parse((await readFile("../../package.json")).toString());
+import { StandartParams } from "../interfaces/standart_params.js";
+import { ClientData } from "../interfaces/client_data.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class ApiRequest {
   private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
@@ -13,7 +14,7 @@ export class ApiRequest {
   constructor(
     uri: string,
     method: Options["method"],
-    body: object | object[] | null,
+    body: Keyable | Keyable[] | null,
     params: StandartParams,
     clientData: ClientData
   ) {
@@ -25,19 +26,20 @@ export class ApiRequest {
   async createPromise(
     uri: string,
     method: Options["method"],
-    body: object | object[] | null,
+    body: Keyable | Keyable[] | null,
     clientData: ClientData
   ): Promise<any> {
-    const options: Options = {
+    const options = new Options({
       method: method,
       prefixUrl: this.urlRoot,
       headers: {
-        "User-Agent": `node-lokalise-api/${pkg.version}`,
+        Accept: "application/json",
+        "User-Agent": `node-lokalise-api/${<string>pkg.version}`,
       },
-      agent: false,
       throwHttpErrors: false,
       decompress: false,
-    };
+      responseType: "text",
+    });
 
     // Make strictNullChecks happy
     if (!options["headers"]) {
@@ -65,7 +67,7 @@ export class ApiRequest {
       options["body"] = JSON.stringify(body);
     }
     try {
-      const response: Response = await got(url, options);
+      const response = <PlainResponse>await got(url, options);
       const responseJSON = JSON.parse(<string>response.body);
       if (response.statusCode > 399) {
         return Promise.reject(responseJSON["error"] || responseJSON);
@@ -78,7 +80,7 @@ export class ApiRequest {
   }
 
   protected composeURI(rawUri: string): string {
-    const regexp: RegExp = /{(!{0,1}):(\w*)}/g;
+    const regexp = /{(!{0,1}):(\w*)}/g;
     const uri = rawUri.replace(regexp, this.mapUriParams(this.params));
     return uri.endsWith("/") ? uri.slice(0, -1) : uri;
   }

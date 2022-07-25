@@ -1,8 +1,8 @@
-import { Language } from "../models/language";
-import { BaseCollection } from "./base_collection";
-import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
-import { Keyable } from "../interfaces/keyable";
+import { Language } from "../models/language.js";
+import { BaseCollection } from "./base_collection.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
 export declare class Languages extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

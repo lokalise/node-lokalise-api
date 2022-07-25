@@ -1,23 +1,21 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.AuthRequest = void 0;
-const got = require("got");
-const pkg = require("../../package.json");
-class AuthRequest {
+import got, { Options } from "got";
+import { readFile } from "fs/promises";
+const pkg = JSON.parse((await readFile("../../package.json")).toString());
+export class AuthRequest {
     static urlRoot = "https://app.lokalise.com/oauth2/";
     static async createPromise(uri, method, body) {
-        const options = {
+        const options = new Options({
             method: method,
             prefixUrl: this.urlRoot,
             headers: {
                 Accept: "application/json",
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
             },
-            agent: false,
             throwHttpErrors: false,
             decompress: false,
-        };
-        options["body"] = JSON.stringify(body);
+            responseType: "text",
+        });
+        options.body = JSON.stringify(body);
         try {
             const response = await got(uri, options);
             const responseJSON = JSON.parse(response.body);
@@ -35,5 +33,4 @@ class AuthRequest {
         }
     }
 }
-exports.AuthRequest = AuthRequest;
 //# sourceMappingURL=auth_request.js.map

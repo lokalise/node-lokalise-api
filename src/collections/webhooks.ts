@@ -1,15 +1,15 @@
-import { BaseCollection } from "./base_collection";
-import { Webhook } from "../models/webhook";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Webhook } from "../models/webhook.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Webhooks extends BaseCollection {
-  protected static rootElementName: string = "webhooks";
-  protected static rootElementNameSingular: string = "webhook";
-  protected static prefixURI: string = "projects/{!:project_id}/webhooks/{:id}";
-  protected static elementClass: object = Webhook;
+  protected static rootElementName = "webhooks";
+  protected static rootElementNameSingular = "webhook";
+  protected static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
+  protected static elementClass = Webhook;
 
-  create(body: object, params: StandartParams): Promise<Webhook> {
+  create(body: Keyable, params: StandartParams): Promise<Webhook> {
     return this.createPromise(
       "POST",
       params,
@@ -21,7 +21,7 @@ export class Webhooks extends BaseCollection {
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<Webhook> {
     params["id"] = id;

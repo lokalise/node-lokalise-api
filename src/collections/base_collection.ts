@@ -1,14 +1,14 @@
 import { Options } from "got";
-import { ApiRequest } from "../http_client/base";
-import { StandartParams } from "../interfaces/standart_params";
-import { ApiError } from "../models/api_error";
-import { PaginatedResult } from "../models/paginated_result";
-import { Keyable } from "../interfaces/keyable";
-import { ClientData } from "../interfaces/client_data";
+import { ApiRequest } from "../http_client/base.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { ApiError } from "../models/api_error.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
+import { ClientData } from "../interfaces/client_data.js";
 
 export abstract class BaseCollection {
   readonly clientData: ClientData;
-  protected static rootElementName: string = "";
+  protected static rootElementName = "";
   protected static rootElementNameSingular: string | null = null;
   protected static endpoint: string | null = null;
   protected static prefixURI: string | null = null;
@@ -45,7 +45,7 @@ export abstract class BaseCollection {
   }
 
   create(
-    body: object | object[] | null,
+    body: Keyable | Keyable[] | null,
     params: StandartParams = {}
   ): Promise<any> {
     return this.createPromise(
@@ -59,7 +59,7 @@ export abstract class BaseCollection {
 
   update(
     id: string | number,
-    body: object | object[] | null,
+    body: Keyable | Keyable[] | null,
     params: StandartParams = {}
   ): Promise<any> {
     params["id"] = id;
@@ -83,7 +83,7 @@ export abstract class BaseCollection {
     );
   }
 
-  protected populateObjectFromJsonRoot(json: object, headers: object): any {
+  protected populateObjectFromJsonRoot(json: Keyable, headers: Keyable): any {
     const childClass = <typeof BaseCollection>this.constructor;
     if (childClass.rootElementNameSingular) {
       json = Object(json)[childClass.rootElementNameSingular];
@@ -92,8 +92,8 @@ export abstract class BaseCollection {
   }
 
   protected populateSecondaryObjectFromJsonRoot(
-    json: object,
-    headers: object
+    json: Keyable,
+    headers: Keyable
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
     json = Object(json)[<string>childClass.secondaryElementNameSingular];
@@ -101,9 +101,9 @@ export abstract class BaseCollection {
   }
 
   protected populateObjectFromJson(
-    json: object,
-    _headers: object,
-    secondary: boolean = false
+    json: Keyable,
+    _headers: Keyable,
+    secondary = false
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
 
@@ -116,7 +116,7 @@ export abstract class BaseCollection {
 
   protected populateArrayFromJson(
     json: Keyable,
-    headers: object
+    headers: Keyable
   ): PaginatedResult | Keyable | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
@@ -125,10 +125,7 @@ export abstract class BaseCollection {
       arr.push(<this>this.populateObjectFromJson(obj, headers));
     }
 
-    if (
-      Object(headers)["x-pagination-total-count"] &&
-      Object(headers)["x-pagination-page"]
-    ) {
+    if (headers["x-pagination-total-count"] && headers["x-pagination-page"]) {
       const result: PaginatedResult = new PaginatedResult(arr, headers);
       return result;
     } else {
@@ -146,7 +143,7 @@ export abstract class BaseCollection {
     }
   }
 
-  protected populateApiErrorFromJson(json: any): ApiError {
+  protected populateApiErrorFromJson(json: unknown): ApiError {
     return <ApiError>json;
   }
 
@@ -156,18 +153,18 @@ export abstract class BaseCollection {
     return json;
   }
 
-  protected handleReject(data: any): ApiError {
+  protected handleReject(data: unknown): ApiError {
     return this.populateApiErrorFromJson(data);
   }
 
   protected async createPromise(
     method: Options["method"],
     params: StandartParams,
-    resolveFn: Function,
-    rejectFn: Function,
-    body: object | object[] | null,
+    resolveFn: (json: Keyable, headers: Keyable) => any,
+    rejectFn: (data: unknown) => ApiError,
+    body: Keyable | Keyable[] | null,
     uri: string | null = null
-  ): Promise<any> {
+  ): Promise<any | ApiError> {
     const childClass = <typeof BaseCollection>this.constructor;
     if (!uri) {
       uri = childClass.prefixURI;
@@ -189,9 +186,9 @@ export abstract class BaseCollection {
     }
   }
 
-  protected objToArray(raw_body: object | object[]): Array<object> {
+  protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable> {
     if (!Array.isArray(raw_body)) {
-      return Array<Object>(raw_body);
+      return Array<Keyable>(raw_body);
     } else {
       return raw_body;
     }

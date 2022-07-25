@@ -1,11 +1,11 @@
-import { PaginatedResult as PaginatedResultInterface } from "../interfaces/paginated_result";
+import { PaginatedResult as PaginatedResultInterface } from "../interfaces/paginated_result.js";
 export declare class PaginatedResult implements PaginatedResultInterface {
     totalResults: number;
     totalPages: number;
     resultsPerPage: number;
     currentPage: number;
     items: any[];
-    constructor(items: any[], headers: Object);
+    constructor(items: any[], headers: object);
     hasNextPage(): boolean;
     hasPrevPage(): boolean;
     isLastPage(): boolean;

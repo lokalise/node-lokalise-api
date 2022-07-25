@@ -1,7 +1,7 @@
-import { BaseCollection } from "./base_collection";
-import { Webhook } from "../models/webhook";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Webhook } from "../models/webhook.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 export declare class Webhooks extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

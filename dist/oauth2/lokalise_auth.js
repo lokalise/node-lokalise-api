@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.LokaliseAuth = void 0;
-const auth_request_1 = require("./auth_request");
-class LokaliseAuth {
+import { AuthRequest } from "./auth_request.js";
+export class LokaliseAuth {
     authData = {
         client_id: "",
         client_secret: "",
@@ -61,7 +58,7 @@ class LokaliseAuth {
     }
     async doRequest(params) {
         try {
-            const data = await auth_request_1.AuthRequest.createPromise("token", "POST", params);
+            const data = await AuthRequest.createPromise("token", "POST", params);
             return Promise.resolve(data["json"]);
         }
         catch (err) {
@@ -69,7 +66,7 @@ class LokaliseAuth {
         }
     }
     buildUrl(params) {
-        const url = new URL("auth", auth_request_1.AuthRequest.urlRoot);
+        const url = new URL("auth", AuthRequest.urlRoot);
         const sParams = new URLSearchParams(params);
         url.search = sParams.toString();
         return url.toString();
@@ -84,5 +81,4 @@ class LokaliseAuth {
         return data;
     }
 }
-exports.LokaliseAuth = LokaliseAuth;
 //# sourceMappingURL=lokalise_auth.js.map

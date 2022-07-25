@@ -1,17 +1,18 @@
-import { PaginatedResult as PaginatedResultInterface } from "../interfaces/paginated_result";
+import { PaginatedResult as PaginatedResultInterface } from "../interfaces/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class PaginatedResult implements PaginatedResultInterface {
   totalResults: number;
   totalPages: number;
   resultsPerPage: number;
   currentPage: number;
-  items: any[];
+  items: unknown[];
 
-  constructor(items: any[], headers: Object) {
-    this.totalResults = parseInt(Object(headers)["x-pagination-total-count"]);
-    this.totalPages = parseInt(Object(headers)["x-pagination-page-count"]);
-    this.resultsPerPage = parseInt(Object(headers)["x-pagination-limit"]);
-    this.currentPage = parseInt(Object(headers)["x-pagination-page"]);
+  constructor(items: unknown[], headers: Keyable) {
+    this.totalResults = parseInt(headers["x-pagination-total-count"]);
+    this.totalPages = parseInt(headers["x-pagination-page-count"]);
+    this.resultsPerPage = parseInt(headers["x-pagination-limit"]);
+    this.currentPage = parseInt(headers["x-pagination-page"]);
     this.items = items;
     return this;
   }

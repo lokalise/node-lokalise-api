@@ -1,6 +1,7 @@
-import { Response, Options } from "got";
-const got = require("got");
-const pkg = require("../../package.json");
+import got, { Options, PlainResponse } from "got";
+import { readFile } from "fs/promises";
+const pkg = JSON.parse((await readFile("../../package.json")).toString());
+import { Keyable } from "../interfaces/keyable.js";
 
 export class AuthRequest {
   static readonly urlRoot: NonNullable<Options["prefixUrl"]> =
@@ -9,24 +10,24 @@ export class AuthRequest {
   static async createPromise(
     uri: string,
     method: Options["method"],
-    body: object | object[] | null
+    body: Keyable | Keyable[] | null
   ): Promise<any> {
-    const options: Options = {
+    const options = new Options({
       method: method,
       prefixUrl: this.urlRoot,
       headers: {
         Accept: "application/json",
-        "User-Agent": `node-lokalise-api/${pkg.version}`,
+        "User-Agent": `node-lokalise-api/${<string>pkg.version}`,
       },
-      agent: false,
       throwHttpErrors: false,
       decompress: false,
-    };
+      responseType: "text",
+    });
 
-    options["body"] = JSON.stringify(body);
+    options.body = JSON.stringify(body);
 
     try {
-      const response: Response = await got(uri, options);
+      const response = <PlainResponse>await got(uri, options);
       const responseJSON = JSON.parse(<string>response.body);
       if (response.statusCode > 399) {
         return Promise.reject({

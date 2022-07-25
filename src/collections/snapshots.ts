@@ -1,14 +1,13 @@
-import { BaseCollection } from "./base_collection";
-import { Snapshot } from "../models/snapshot";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Snapshot } from "../models/snapshot.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Snapshots extends BaseCollection {
-  protected static rootElementName: string = "snapshots";
-  protected static rootElementNameSingular: string = "snapshot";
-  protected static prefixURI: string =
-    "projects/{!:project_id}/snapshots/{:id}";
-  protected static elementClass: object = Snapshot;
+  protected static rootElementName = "snapshots";
+  protected static rootElementNameSingular = "snapshot";
+  protected static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
+  protected static elementClass = Snapshot;
 
   restore(id: string | number, params: StandartParams): Promise<Keyable> {
     params["id"] = id;
@@ -21,7 +20,7 @@ export class Snapshots extends BaseCollection {
     );
   }
 
-  create(body: object, params: StandartParams): Promise<Snapshot> {
+  create(body: Keyable, params: StandartParams): Promise<Snapshot> {
     return this.createPromise(
       "POST",
       params,

@@ -1,6 +1,6 @@
-import { BaseCollection } from "./base_collection";
-import { TeamUser } from "../models/team_user";
-import { StandartParams } from "../interfaces/standart_params";
+import { BaseCollection } from "./base_collection.js";
+import { TeamUser } from "../models/team_user.js";
+import { StandartParams } from "../interfaces/standart_params.js";
 export declare class TeamUsers extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

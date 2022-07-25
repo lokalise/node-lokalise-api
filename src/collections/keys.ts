@@ -1,19 +1,19 @@
-import { BaseCollection } from "./base_collection";
-import { Key } from "../models/key";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Key } from "../models/key.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Keys extends BaseCollection {
-  protected static rootElementName: string = "keys";
-  protected static rootElementNameSingular: string = "key";
-  protected static prefixURI: string = "projects/{!:project_id}/keys/{:id}";
-  protected static elementClass: object = Key;
+  protected static rootElementName = "keys";
+  protected static rootElementNameSingular = "key";
+  protected static prefixURI = "projects/{!:project_id}/keys/{:id}";
+  protected static elementClass = Key;
 
   create(
-    raw_body: object | object[],
+    raw_body: Keyable | Keyable[],
     params: StandartParams
   ): Promise<Keyable> {
-    const body: object = { keys: this.objToArray(raw_body) };
+    const body: Keyable = { keys: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -25,7 +25,7 @@ export class Keys extends BaseCollection {
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<Key> {
     params["id"] = id;
@@ -39,10 +39,10 @@ export class Keys extends BaseCollection {
   }
 
   bulk_update(
-    raw_keys: object | object[],
+    raw_keys: Keyable | Keyable[],
     params: StandartParams
   ): Promise<Keyable> {
-    const keys: Object = { keys: this.objToArray(raw_keys) };
+    const keys: Keyable = { keys: this.objToArray(raw_keys) };
     return this.createPromise(
       "PUT",
       params,
@@ -57,7 +57,7 @@ export class Keys extends BaseCollection {
     raw_keys: number[] | string[],
     params: StandartParams
   ): Promise<Keyable> {
-    const keys: Object = { keys: this.objToArray(raw_keys) };
+    const keys: Keyable = { keys: this.objToArray(raw_keys) };
     return this.createPromise(
       "DELETE",
       params,

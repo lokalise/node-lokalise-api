@@ -1,9 +1,9 @@
 import { Options } from "got";
-import { StandartParams } from "../interfaces/standart_params";
-import { ApiError } from "../models/api_error";
-import { PaginatedResult } from "../models/paginated_result";
-import { Keyable } from "../interfaces/keyable";
-import { ClientData } from "../interfaces/client_data";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { ApiError } from "../models/api_error.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
+import { ClientData } from "../interfaces/client_data.js";
 export declare abstract class BaseCollection {
     readonly clientData: ClientData;
     protected static rootElementName: string;
@@ -26,6 +26,6 @@ export declare abstract class BaseCollection {
     protected populateApiErrorFromJson(json: any): ApiError;
     protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;
-    protected createPromise(method: Options["method"], params: StandartParams, resolveFn: Function, rejectFn: Function, body: object | object[] | null, uri?: string | null): Promise<any>;
+    protected createPromise(method: Options["method"], params: StandartParams, resolveFn: any, rejectFn: any, body: object | object[] | null, uri?: string | null): Promise<any>;
     protected objToArray(raw_body: object | object[]): Array<object>;
 }

@@ -1,16 +1,17 @@
-import { BaseCollection } from "./base_collection";
-import { TeamUser } from "../models/team_user";
-import { StandartParams } from "../interfaces/standart_params";
+import { BaseCollection } from "./base_collection.js";
+import { TeamUser } from "../models/team_user.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class TeamUsers extends BaseCollection {
-  protected static rootElementName: string = "team_users";
-  protected static rootElementNameSingular: string = "team_user";
-  protected static prefixURI: string = "teams/{!:team_id}/users/{:id}";
-  protected static elementClass: object = TeamUser;
+  protected static rootElementName = "team_users";
+  protected static rootElementNameSingular = "team_user";
+  protected static prefixURI = "teams/{!:team_id}/users/{:id}";
+  protected static elementClass = TeamUser;
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<TeamUser> {
     params["id"] = id;

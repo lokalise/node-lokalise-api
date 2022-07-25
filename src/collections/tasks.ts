@@ -1,14 +1,15 @@
-import { BaseCollection } from "./base_collection";
-import { Task } from "../models/task";
-import { StandartParams } from "../interfaces/standart_params";
+import { BaseCollection } from "./base_collection.js";
+import { Task } from "../models/task.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Tasks extends BaseCollection {
-  protected static rootElementName: string = "tasks";
-  protected static rootElementNameSingular: string = "task";
-  protected static prefixURI: string = "projects/{!:project_id}/tasks/{:id}";
-  protected static elementClass: object = Task;
+  protected static rootElementName = "tasks";
+  protected static rootElementNameSingular = "task";
+  protected static prefixURI = "projects/{!:project_id}/tasks/{:id}";
+  protected static elementClass = Task;
 
-  create(body: object, params: StandartParams): Promise<Task> {
+  create(body: Keyable, params: StandartParams): Promise<Task> {
     return this.createPromise(
       "POST",
       params,
@@ -18,7 +19,11 @@ export class Tasks extends BaseCollection {
     );
   }
 
-  update(id: any, body: any, params: StandartParams): Promise<any> {
+  update(
+    id: string | number,
+    body: Keyable,
+    params: StandartParams
+  ): Promise<Task> {
     params["id"] = id;
     return this.createPromise(
       "PUT",

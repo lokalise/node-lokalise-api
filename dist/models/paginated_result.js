@@ -1,7 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaginatedResult = void 0;
-class PaginatedResult {
+export class PaginatedResult {
     totalResults;
     totalPages;
     resultsPerPage;
@@ -44,5 +41,4 @@ class PaginatedResult {
         }
     }
 }
-exports.PaginatedResult = PaginatedResult;
 //# sourceMappingURL=paginated_result.js.map

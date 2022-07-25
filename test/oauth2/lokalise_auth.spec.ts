@@ -1,4 +1,4 @@
-require("../setup");
+import "../setup";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
 import { LokaliseAuth } from "../../src/oauth2/lokalise_auth";

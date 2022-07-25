@@ -1,5 +1,5 @@
-import { Comment as CommentInterface } from "../interfaces/comment";
-import { BaseModel } from "./base_model";
+import { Comment as CommentInterface } from "../interfaces/comment.js";
+import { BaseModel } from "./base_model.js";
 export declare class Comment extends BaseModel implements CommentInterface {
     comment_id: number;
     key_id: number;

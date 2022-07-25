@@ -1,12 +1,8 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Orders = void 0;
-const order_1 = require("../models/order");
-const base_collection_1 = require("./base_collection");
-class Orders extends base_collection_1.BaseCollection {
+import { Order } from "../models/order.js";
+import { BaseCollection } from "./base_collection.js";
+export class Orders extends BaseCollection {
     static rootElementName = "orders";
     static prefixURI = "teams/{!:team_id}/orders/{:id}";
-    static elementClass = order_1.Order;
+    static elementClass = Order;
 }
-exports.Orders = Orders;
 //# sourceMappingURL=orders.js.map

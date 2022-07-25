@@ -1,5 +1,5 @@
-import { Order as OrderInterface } from "../interfaces/order";
-import { BaseModel } from "./base_model";
+import { Order as OrderInterface } from "../interfaces/order.js";
+import { BaseModel } from "./base_model.js";
 
 export class Order extends BaseModel implements OrderInterface {
   declare order_id: string;

@@ -1,6 +1,6 @@
-import { BaseCollection } from "./base_collection";
-import { Translation } from "../models/translation";
-import { StandartParams } from "../interfaces/standart_params";
+import { BaseCollection } from "./base_collection.js";
+import { Translation } from "../models/translation.js";
+import { StandartParams } from "../interfaces/standart_params.js";
 export declare class Translations extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

@@ -1,3 +1,5 @@
+import { Keyable } from "./keyable.js";
+
 export interface Task {
   task_id: number;
   title: string;
@@ -17,7 +19,7 @@ export interface Task {
   parent_task_id: number;
   closing_tags: string[];
   do_lock_translations: boolean;
-  languages: any[];
+  languages: Keyable[];
   source_language_iso: string;
   auto_close_languages: boolean;
   auto_close_task: boolean;

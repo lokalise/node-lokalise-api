@@ -1,15 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Files = void 0;
-const base_collection_1 = require("./base_collection");
-const file_1 = require("../models/file");
-const queued_process_1 = require("../models/queued_process");
-class Files extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { File } from "../models/file.js";
+import { QueuedProcess } from "../models/queued_process.js";
+export class Files extends BaseCollection {
     static rootElementName = "files";
     static prefixURI = "projects/{!:project_id}/files/{:id}";
-    static elementClass = file_1.File;
+    static elementClass = File;
     static secondaryElementNameSingular = "process";
-    static secondaryElementClass = queued_process_1.QueuedProcess;
+    static secondaryElementClass = QueuedProcess;
     upload(project_id, upload) {
         return this.createPromise("POST", { project_id: project_id }, this.populateSecondaryObjectFromJsonRoot, this.handleReject, upload, "projects/{!:project_id}/files/upload");
     }
@@ -17,5 +14,4 @@ class Files extends base_collection_1.BaseCollection {
         return this.createPromise("POST", { project_id: project_id }, this.returnBareJSON, this.handleReject, download, "projects/{!:project_id}/files/download");
     }
 }
-exports.Files = Files;
 //# sourceMappingURL=files.js.map

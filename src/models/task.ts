@@ -1,5 +1,6 @@
-import { BaseModel } from "./base_model";
-import { Task as TaskInterface } from "../interfaces/task";
+import { BaseModel } from "./base_model.js";
+import { Task as TaskInterface } from "../interfaces/task.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Task extends BaseModel implements TaskInterface {
   declare task_id: number;
@@ -20,7 +21,7 @@ export class Task extends BaseModel implements TaskInterface {
   declare parent_task_id: number;
   declare closing_tags: string[];
   declare do_lock_translations: boolean;
-  declare languages: any[];
+  declare languages: Keyable[];
   declare source_language_iso: string;
   declare auto_close_languages: boolean;
   declare auto_close_task: boolean;

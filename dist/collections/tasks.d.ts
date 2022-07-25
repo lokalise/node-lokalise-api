@@ -1,6 +1,6 @@
-import { BaseCollection } from "./base_collection";
-import { Task } from "../models/task";
-import { StandartParams } from "../interfaces/standart_params";
+import { BaseCollection } from "./base_collection.js";
+import { Task } from "../models/task.js";
+import { StandartParams } from "../interfaces/standart_params.js";
 export declare class Tasks extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

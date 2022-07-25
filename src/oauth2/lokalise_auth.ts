@@ -1,6 +1,6 @@
-import { AuthData as AuthDataInterface } from "../interfaces/auth_data";
-import { AuthRequest } from "./auth_request";
-import { AuthError } from "../models/auth_error";
+import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
+import { AuthRequest } from "./auth_request.js";
+import { AuthError } from "../models/auth_error.js";
 
 export class LokaliseAuth {
   authData: AuthDataInterface = {

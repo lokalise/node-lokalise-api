@@ -1,4 +1,13 @@
-import { LanguageMapping } from "./language_mapping";
+import { LanguageMapping } from "./language_mapping.js";
+
+type FilterData =
+  | "translated"
+  | "untranslated"
+  | "reviewed"
+  | "reviewed_only"
+  | "last_reviewed_only"
+  | "verified"
+  | "nonhidden";
 
 export interface DownloadFileParams {
   format: string;
@@ -6,20 +15,20 @@ export interface DownloadFileParams {
   bundle_structure?: string;
   directory_prefix?: string;
   all_platforms?: boolean;
-  filter_langs?: any[];
-  filter_data?: any[];
-  filter_filenames?: any[];
+  filter_langs?: string[];
+  filter_data?: FilterData[];
+  filter_filenames?: string[];
   add_newline_eof?: boolean;
-  custom_translation_status_ids?: any[];
-  include_tags?: any[];
-  exclude_tags?: any[];
+  custom_translation_status_ids?: string[] | number[];
+  include_tags?: string[];
+  exclude_tags?: string[];
   export_sort?: string;
   export_empty_as?: string;
   include_comments?: boolean;
   include_description?: boolean;
-  include_pids?: any[];
+  include_pids?: string[];
   triggers?: string[];
-  filter_repositories?: any[];
+  filter_repositories?: string[];
   replace_breaks?: boolean;
   disable_references?: boolean;
   plural_format?: string;

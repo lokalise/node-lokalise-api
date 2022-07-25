@@ -1,7 +1,7 @@
-import { BaseCollection } from "./base_collection";
-import { UserGroup } from "../models/user_group";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { UserGroup } from "../models/user_group.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 export declare class UserGroups extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;

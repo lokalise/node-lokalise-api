@@ -1,14 +1,14 @@
-import { BaseCollection } from "./base_collection";
-import { UserGroup } from "../models/user_group";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { UserGroup } from "../models/user_group.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class UserGroups extends BaseCollection {
-  protected static rootElementName: string = "user_groups";
-  protected static prefixURI: string = "teams/{!:team_id}/groups/{:id}";
-  protected static elementClass: object = UserGroup;
+  protected static rootElementName = "user_groups";
+  protected static prefixURI = "teams/{!:team_id}/groups/{:id}";
+  protected static elementClass = UserGroup;
 
-  create(body: object, params: StandartParams): Promise<UserGroup> {
+  create(body: Keyable, params: StandartParams): Promise<UserGroup> {
     return this.createPromise(
       "POST",
       params,
@@ -20,7 +20,7 @@ export class UserGroups extends BaseCollection {
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<UserGroup> {
     params["id"] = id;
@@ -38,7 +38,7 @@ export class UserGroups extends BaseCollection {
     group_id: string | number,
     raw_body: string[] | number[]
   ): Promise<UserGroup> {
-    const params: object = {
+    const params: Keyable = {
       team_id: team_id,
       group_id: group_id,
     };
@@ -58,7 +58,7 @@ export class UserGroups extends BaseCollection {
     group_id: string | number,
     raw_body: string[] | number[]
   ): Promise<UserGroup> {
-    const params: object = {
+    const params: Keyable = {
       team_id: team_id,
       group_id: group_id,
     };
@@ -78,7 +78,7 @@ export class UserGroups extends BaseCollection {
     group_id: string | number,
     raw_body: string[] | number[]
   ): Promise<UserGroup> {
-    const params: object = {
+    const params: Keyable = {
       team_id: team_id,
       group_id: group_id,
     };
@@ -98,7 +98,7 @@ export class UserGroups extends BaseCollection {
     group_id: string | number,
     raw_body: string[] | number[]
   ): Promise<UserGroup> {
-    const params: object = {
+    const params: Keyable = {
       team_id: team_id,
       group_id: group_id,
     };
@@ -113,7 +113,7 @@ export class UserGroups extends BaseCollection {
     );
   }
 
-  protected populateGroupFromJsonRoot(json: Keyable, headers: object): this {
+  protected populateGroupFromJsonRoot(json: Keyable, headers: Keyable): this {
     const formatted_json = json["group"];
     return <this>this.populateObjectFromJson(formatted_json, headers);
   }

@@ -1,4 +1,4 @@
-import { Keyable } from "../interfaces/keyable";
+import { Keyable } from "../interfaces/keyable.js";
 
 export interface Contributor {
   user_id: number;

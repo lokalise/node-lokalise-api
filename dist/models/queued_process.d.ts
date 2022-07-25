@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { QueuedProcess as QueuedProcessInterface } from "../interfaces/queued_process";
+import { BaseModel } from "./base_model.js";
+import { QueuedProcess as QueuedProcessInterface } from "../interfaces/queued_process.js";
 export declare class QueuedProcess extends BaseModel implements QueuedProcessInterface {
     process_id: string;
     type: string;

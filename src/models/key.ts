@@ -1,5 +1,5 @@
-import { Key as KeyInterface } from "../interfaces/key";
-import { BaseModel } from "./base_model";
+import { Key as KeyInterface } from "../interfaces/key.js";
+import { BaseModel } from "./base_model.js";
 
 export class Key extends BaseModel implements KeyInterface {
   declare key_id: number;

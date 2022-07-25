@@ -1,7 +1,7 @@
-import { BaseCollection } from "./base_collection";
-import { Screenshot } from "../models/screenshot";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Screenshot } from "../models/screenshot.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 export declare class Screenshots extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;

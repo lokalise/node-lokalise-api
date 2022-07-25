@@ -1,1 +1,1 @@
-{"version":3,"file":"team_user_billing_details.js","sourceRoot":"","sources":["../../src/models/team_user_billing_details.ts"],"names":[],"mappings":";;;AAAA,6CAAyC;AAGzC,MAAa,sBACX,SAAQ,sBAAS;CAalB;AAdD,wDAcC"}
+{"version":3,"file":"team_user_billing_details.js","sourceRoot":"","sources":["../../src/models/team_user_billing_details.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAG5C,MAAM,OAAO,sBACX,SAAQ,SAAS;CAalB"}

@@ -1,8 +1,8 @@
-import { Order } from "../models/order";
-import { BaseCollection } from "./base_collection";
+import { Order } from "../models/order.js";
+import { BaseCollection } from "./base_collection.js";
 
 export class Orders extends BaseCollection {
-  protected static rootElementName: string = "orders";
-  protected static prefixURI: string = "teams/{!:team_id}/orders/{:id}";
-  protected static elementClass: object = Order;
+  protected static rootElementName = "orders";
+  protected static prefixURI = "teams/{!:team_id}/orders/{:id}";
+  protected static elementClass = Order;
 }

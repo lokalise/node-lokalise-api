@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { QueuedProcess } from "../models/queued_process";
-import { UploadFileParams } from "../interfaces/upload_file_params";
-import { DownloadFileParams } from "../interfaces/download_file_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { QueuedProcess } from "../models/queued_process.js";
+import { UploadFileParams } from "../interfaces/upload_file_params.js";
+import { DownloadFileParams } from "../interfaces/download_file_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 export declare class Files extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;

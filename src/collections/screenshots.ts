@@ -1,17 +1,16 @@
-import { BaseCollection } from "./base_collection";
-import { Screenshot } from "../models/screenshot";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { BaseCollection } from "./base_collection.js";
+import { Screenshot } from "../models/screenshot.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Screenshots extends BaseCollection {
-  protected static rootElementName: string = "screenshots";
-  protected static rootElementNameSingular: string = "screenshot";
-  protected static prefixURI: string =
-    "projects/{!:project_id}/screenshots/{:id}";
-  protected static elementClass: object = Screenshot;
+  protected static rootElementName = "screenshots";
+  protected static rootElementNameSingular = "screenshot";
+  protected static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
+  protected static elementClass = Screenshot;
 
   create(
-    raw_body: object | object[],
+    raw_body: Keyable | Keyable[],
     params: StandartParams
   ): Promise<Keyable> {
     const body = { screenshots: this.objToArray(raw_body) };
@@ -26,7 +25,7 @@ export class Screenshots extends BaseCollection {
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<Screenshot> {
     params["id"] = id;

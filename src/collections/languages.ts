@@ -1,15 +1,14 @@
-import { Language } from "../models/language";
-import { BaseCollection } from "./base_collection";
-import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
-import { Keyable } from "../interfaces/keyable";
+import { Language } from "../models/language.js";
+import { BaseCollection } from "./base_collection.js";
+import { StandartParams } from "../interfaces/standart_params.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class Languages extends BaseCollection {
-  protected static rootElementName: string = "languages";
-  protected static rootElementNameSingular: string = "language";
-  protected static prefixURI: string =
-    "projects/{!:project_id}/languages/{:id}";
-  protected static elementClass: object = Language;
+  protected static rootElementName = "languages";
+  protected static rootElementNameSingular = "language";
+  protected static prefixURI = "projects/{!:project_id}/languages/{:id}";
+  protected static elementClass = Language;
 
   system_languages(params: StandartParams): Promise<PaginatedResult> {
     return this.createPromise(
@@ -23,10 +22,10 @@ export class Languages extends BaseCollection {
   }
 
   create(
-    raw_body: object | object[],
+    raw_body: Keyable | Keyable[],
     params: StandartParams
   ): Promise<Keyable> {
-    const body: object = { languages: this.objToArray(raw_body) };
+    const body: Keyable = { languages: this.objToArray(raw_body) };
     return this.createPromise(
       "POST",
       params,
@@ -38,7 +37,7 @@ export class Languages extends BaseCollection {
 
   update(
     id: string | number,
-    body: object,
+    body: Keyable,
     params: StandartParams
   ): Promise<Language> {
     params["id"] = id;

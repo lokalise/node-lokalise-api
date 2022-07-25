@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { Snapshot as SnapshotInterface } from "../interfaces/snapshot";
+import { BaseModel } from "./base_model.js";
+import { Snapshot as SnapshotInterface } from "../interfaces/snapshot.js";
 
 export class Snapshot extends BaseModel implements SnapshotInterface {
   declare snapshot_id: number;

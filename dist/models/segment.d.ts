@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { Segment as SegmentInterface } from "../interfaces/segment";
+import { BaseModel } from "./base_model.js";
+import { Segment as SegmentInterface } from "../interfaces/segment.js";
 export declare class Segment extends BaseModel implements SegmentInterface {
     segment_number: number;
     language_iso: string;

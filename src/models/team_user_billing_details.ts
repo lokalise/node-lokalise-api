@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { TeamUserBillingDetails as TeamUserBillingDetailsInterface } from "../interfaces/team_user_billing_details";
+import { BaseModel } from "./base_model.js";
+import { TeamUserBillingDetails as TeamUserBillingDetailsInterface } from "../interfaces/team_user_billing_details.js";
 
 export class TeamUserBillingDetails
   extends BaseModel

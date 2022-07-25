@@ -1,4 +1,4 @@
-import { AuthData as AuthDataInterface } from "../interfaces/auth_data";
+import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
 export declare class LokaliseAuth {
     authData: AuthDataInterface;
     constructor(clientId: string, clientSecret: string);

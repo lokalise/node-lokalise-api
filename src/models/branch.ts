@@ -1,5 +1,5 @@
-import { Branch as BranchInterface } from "../interfaces/branch";
-import { BaseModel } from "./base_model";
+import { Branch as BranchInterface } from "../interfaces/branch.js";
+import { BaseModel } from "./base_model.js";
 
 export class Branch extends BaseModel implements BranchInterface {
   declare branch_id: number;
