@@ -1,3 +1,6 @@
-const { LokaliseApi } = require('@lokalise/node-api');
+// import { LokaliseApi } from "@lokalise/node-api";
 
-const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
+// const lokaliseApi: LokaliseApi = new LokaliseApi({ apiKey: "<apiKey>" });
+
+// lokaliseApi.branches().create()
+// //

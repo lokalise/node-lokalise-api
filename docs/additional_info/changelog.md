@@ -1,5 +1,10 @@
 # Changelog
 
+## 7.4.0
+
+* Reworked typings system
+* Minor fixes
+
 ## 7.3.1 (07-Jun-2022)
 
 * Minor fixes

@@ -16,9 +16,9 @@ export declare abstract class BaseCollection {
     constructor(clientData: ClientData);
     get(id: string | number, params?: StandartParams): Promise<any>;
     list(params?: StandartParams): Promise<any>;
-    create(body: object | object[] | null, params?: StandartParams): Promise<any>;
-    update(id: string | number, body: object | object[] | null, params?: StandartParams): Promise<any>;
-    delete(id: string | number, params?: StandartParams): Promise<Keyable>;
+    create(body: Keyable | null, params?: StandartParams): Promise<any>;
+    update(id: string | number, body: Keyable | null, params?: StandartParams): Promise<any>;
+    delete(id: string | number, params?: StandartParams): Promise<any>;
     protected populateObjectFromJsonRoot(json: object, headers: object): any;
     protected populateSecondaryObjectFromJsonRoot(json: object, headers: object): any;
     protected populateObjectFromJson(json: object, _headers: object, secondary?: boolean): any;

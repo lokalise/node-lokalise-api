@@ -44,10 +44,7 @@ export abstract class BaseCollection {
     );
   }
 
-  create(
-    body: object | object[] | null,
-    params: StandartParams = {}
-  ): Promise<any> {
+  create(body: Keyable | null, params: StandartParams = {}): Promise<any> {
     return this.createPromise(
       "POST",
       params,
@@ -59,7 +56,7 @@ export abstract class BaseCollection {
 
   update(
     id: string | number,
-    body: object | object[] | null,
+    body: Keyable | null,
     params: StandartParams = {}
   ): Promise<any> {
     params["id"] = id;
@@ -72,7 +69,7 @@ export abstract class BaseCollection {
     );
   }
 
-  delete(id: string | number, params: StandartParams = {}): Promise<Keyable> {
+  delete(id: string | number, params: StandartParams = {}): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "DELETE",
