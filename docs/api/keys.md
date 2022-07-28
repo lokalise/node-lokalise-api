@@ -34,37 +34,42 @@ key.key_name.ios;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
 
 ```js
-const keys = await lokaliseApi.keys().create([
+const keys = await lokaliseApi.keys().create(
   {
-    "key_name": "welcome_web",
-    "description": "Index app welcome",
-    "platforms": ["web"],
-    "filenames": {
-      "web": "my_filename.json"
-    },
-    "translations": [
+    keys: [
       {
-        "language_iso": "en",
-        "translation": "Welcome"
-      }
-    ]
+        key_name: "welcome_web",
+        description: "Index app welcome",
+        platforms: ["web"],
+        filenames: {
+          web: "my_filename.json",
+        },
+        translations: [
+          {
+            language_iso: "en",
+            translation: "Welcome",
+          },
+        ],
+      },
+      {
+        key_name: "welcome_ios",
+        description: "Welcome apple",
+        platforms: ["ios"],
+        is_plural: true,
+        translations: [
+          {
+            language_iso: "en",
+            translation: {
+              one: "I have one apple",
+              other: "I have a lot of apples",
+            },
+          },
+        ],
+      },
+    ],
   },
-  {
-    "key_name": "welcome_ios",
-    "description": "Welcome apple",
-    "platforms": ["ios"],
-    "is_plural": true,
-    "translations": [
-      {
-        "language_iso": "en",
-        "translation": {
-          "one": "I have one apple",
-          "other": "I have a lot of apples"
-        }
-      }
-    ]
-  }
-], {project_id: project_id});
+  { project_id: project_id }
+);
 
 keys.items[0].platforms;
 keys.errors[0].message; // If some keys were not created, the errors will be listed here
@@ -73,20 +78,26 @@ keys.errors[0].message; // If some keys were not created, the errors will be lis
 Creating a key with per-platform names:
 
 ```js
-lokaliseApi.keys().create(
-  [{
-    key_name: {
-      ios: "name_for_ios",
-      web: "name_for_web",
-      android: "android_name",
-      other: "other_name"
-    },
-    platforms: ["web", "ios"],
-    translations: [{
-      language_iso: "en",
-      translation: "Per-platform key names"
-    }],
-  }],
+const keys = await lokaliseApi.keys().create(
+  {
+    keys: [
+      {
+        key_name: {
+          ios: "name_for_ios",
+          web: "name_for_web",
+          android: "android_name",
+          other: "other_name",
+        },
+        platforms: ["web", "ios"],
+        translations: [
+          {
+            language_iso: "en",
+            translation: "Per-platform key names",
+          },
+        ],
+      },
+    ],
+  },
   { project_id: project_id }
 );
 ```
@@ -114,17 +125,22 @@ key.platforms;
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
 
 ```js
-const keys = await lokaliseApi.keys().bulk_update([
+const keys = await lokaliseApi.keys().bulk_update(
   {
-    "key_id": key_id,
-    "description": "Bulk node",
-    "platforms": ["web"]
+    keys: [
+      {
+        key_id: key_id,
+        description: "Bulk node",
+        platforms: ["web"],
+      },
+      {
+        key_id: second_key_id,
+        description: "Second bulk",
+      },
+    ],
   },
-  {
-    "key_id": second_key_id,
-    "description": "Second bulk",
-  }
-], { project_id: project_id});
+  { project_id: project_id }
+);
 
 keys.items[0].key_id;
 keys.errors;

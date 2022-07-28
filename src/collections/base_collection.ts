@@ -5,6 +5,7 @@ import { ApiError } from "../models/api_error";
 import { PaginatedResult } from "../models/paginated_result";
 import { Keyable } from "../interfaces/keyable";
 import { ClientData } from "../interfaces/client_data";
+import { BulkResult } from "../interfaces/bulk_result";
 
 export abstract class BaseCollection {
   readonly clientData: ClientData;
@@ -21,6 +22,44 @@ export abstract class BaseCollection {
 
   constructor(clientData: ClientData) {
     this.clientData = clientData;
+  }
+
+  protected doList(params: StandartParams = {}): Promise<any> {
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateArrayFromJson,
+      this.handleReject,
+      null
+    );
+  }
+
+  protected doGet(
+    id: string | number,
+    params: StandartParams = {}
+  ): Promise<any> {
+    params["id"] = id;
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateObjectFromJsonRoot,
+      this.handleReject,
+      null
+    );
+  }
+
+  protected doDelete(
+    id: string | number,
+    params: StandartParams = {}
+  ): Promise<any> {
+    params["id"] = id;
+    return this.createPromise(
+      "DELETE",
+      params,
+      this.returnBareJSON,
+      this.handleReject,
+      null
+    );
   }
 
   get(id: string | number, params: StandartParams = {}): Promise<any> {
@@ -111,6 +150,23 @@ export abstract class BaseCollection {
     }
   }
 
+  protected populateArrayFromJsonBulk(
+    json: Keyable,
+    headers: object
+  ): BulkResult | this[] {
+    const childClass = <typeof BaseCollection>this.constructor;
+    const arr: this[] = [];
+    const jsonArray = json[(<any>childClass).rootElementName];
+    for (const obj of jsonArray) {
+      arr.push(<this>this.populateObjectFromJson(obj, headers));
+    }
+    const result: BulkResult = {
+      errors: json["errors"],
+      items: arr,
+    };
+    return result;
+  }
+
   protected populateArrayFromJson(
     json: Keyable,
     headers: object
@@ -129,17 +185,7 @@ export abstract class BaseCollection {
       const result: PaginatedResult = new PaginatedResult(arr, headers);
       return result;
     } else {
-      // Handle rare cases when the response is success but there were errors along with other data
-      // Currently, it can only happen when creating or updating items in bulk
-      if (json["errors"]) {
-        const result: Keyable = {
-          errors: json["errors"],
-          items: arr,
-        };
-        return result;
-      } else {
-        return arr;
-      }
+      return arr;
     }
   }
 

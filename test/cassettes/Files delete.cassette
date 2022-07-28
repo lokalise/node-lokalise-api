@@ -1,0 +1,52 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "DELETE",
+    "path": "/api2/projects/507504186242fccb32f015.15252556/files/1163964",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "507504186242fccb32f015.15252556",
+      "file_deleted": true
+    },
+    "rawHeaders": [
+      "Date",
+      "Thu, 28 Jul 2022 12:53:02 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Server",
+      "nginx",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "d3b23e1a-4c8b-4a8e-bbef-ed857d98d987",
+      "Expires",
+      "Thu, 28 Jul 2022 12:53:02 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Wed, 28-Jul-2021 12:53:01 GMT; Max-Age=0; path=/; httponly",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

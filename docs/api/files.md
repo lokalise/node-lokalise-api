@@ -55,3 +55,18 @@ process = await lokaliseApi.queuedProcesses().get(process.process_id, { project_
 
 process.status // => 'finished'
 ```
+
+## Delete translation file
+
+[API doc](https://developers.lokalise.com/reference/delete-a-file)
+
+Please note that this endpoint does not support "software localization" projects.
+
+```js
+const response = await lokaliseApi.files().delete(file_id,
+  { project_id: project_id }
+);
+
+response.project_id // => "123.abc"
+response.file_deleted // => true
+```

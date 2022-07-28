@@ -18,7 +18,7 @@ export class Screenshots extends BaseCollection {
     return this.createPromise(
       "POST",
       params,
-      this.populateArrayFromJson,
+      this.populateArrayFromJsonBulk,
       this.handleReject,
       body
     );

@@ -98,4 +98,17 @@ describe("Files", function () {
       expect(response.bundle_url).to.include("s3-eu-west-1.amazonaws.com");
     })
     .register(this);
+
+  cassette
+    .createTest("delete", async () => {
+      const file_id = "1163964";
+      const docs_project_id = "507504186242fccb32f015.15252556";
+      const response = await lokaliseApi
+        .files()
+        .delete(file_id, { project_id: docs_project_id });
+
+      expect(response.project_id).to.eq(docs_project_id);
+      expect(response.file_deleted).to.be.true;
+    })
+    .register(this);
 });

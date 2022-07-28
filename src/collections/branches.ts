@@ -5,7 +5,7 @@ import { ProjectOnly } from "../interfaces/project_only";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination";
 
 type BranchParams = {
-  name: string;
+  name?: string;
 };
 
 type MergeBranchParams = {
@@ -34,7 +34,7 @@ export class Branches extends BaseCollection {
   list(
     request_params: ProjectWithPagination
   ): Promise<PaginatedResult<Branch>> {
-    return super.list(request_params);
+    return super.doList(request_params);
   }
 
   create(
@@ -54,7 +54,7 @@ export class Branches extends BaseCollection {
     branch_id: string | number,
     request_params: ProjectOnly
   ): Promise<Branch> {
-    return super.get(branch_id, request_params);
+    return super.doGet(branch_id, request_params);
   }
 
   update(
@@ -79,7 +79,7 @@ export class Branches extends BaseCollection {
     branch_id: string | number,
     request_params: ProjectOnly
   ): Promise<BranchDeleted> {
-    return super.delete(branch_id, request_params);
+    return super.doDelete(branch_id, request_params);
   }
 
   merge(
