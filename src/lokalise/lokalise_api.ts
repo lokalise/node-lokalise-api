@@ -23,6 +23,7 @@ import { Webhooks } from "../collections/webhooks";
 import { ClientData as ClientDataInterface } from "../interfaces/client_data";
 
 export type ClientParams = {
+  host?: string;
   apiKey?: string;
   enableCompression?: boolean;
   tokenType?: string;
@@ -51,6 +52,8 @@ export class LokaliseApi {
     if (compression !== null && compression !== undefined) {
       this.clientData.enableCompression = compression;
     }
+
+    this.clientData.host = params.host;
   }
 
   branches(): Branches {

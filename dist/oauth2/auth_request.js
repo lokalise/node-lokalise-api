@@ -5,10 +5,10 @@ const got = require("got");
 const pkg = require("../../package.json");
 class AuthRequest {
     static urlRoot = "https://app.lokalise.com/oauth2/";
-    static async createPromise(uri, method, body) {
+    static async createPromise(uri, method, body, host) {
         const options = {
             method: method,
-            prefixUrl: this.urlRoot,
+            prefixUrl: host ?? this.urlRoot,
             headers: {
                 Accept: "application/json",
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
