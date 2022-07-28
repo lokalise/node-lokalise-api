@@ -1,1 +1,0 @@
-{"version":3,"file":"orders.js","sourceRoot":"","sources":["../../src/collections/orders.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,KAAK,EAAE,MAAM,oBAAoB,CAAC;AAC3C,OAAO,EAAE,cAAc,EAAE,MAAM,sBAAsB,CAAC;AAEtD,MAAM,OAAO,MAAO,SAAQ,cAAc;IAC9B,MAAM,CAAC,eAAe,GAAG,QAAQ,CAAC;IAClC,MAAM,CAAC,SAAS,GAAG,gCAAgC,CAAC;IACpD,MAAM,CAAC,YAAY,GAAW,KAAK,CAAC"}

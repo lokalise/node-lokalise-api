@@ -1,1 +1,0 @@
-{"version":3,"file":"translation_providers.js","sourceRoot":"","sources":["../../src/collections/translation_providers.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,cAAc,EAAE,MAAM,sBAAsB,CAAC;AACtD,OAAO,EAAE,mBAAmB,EAAE,MAAM,mCAAmC,CAAC;AAExE,MAAM,OAAO,oBAAqB,SAAQ,cAAc;IAC5C,MAAM,CAAC,eAAe,GAAG,uBAAuB,CAAC;IACjD,MAAM,CAAC,SAAS,GAAG,+CAA+C,CAAC;IACnE,MAAM,CAAC,YAAY,GAAW,mBAAmB,CAAC"}

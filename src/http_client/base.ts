@@ -31,7 +31,7 @@ export class ApiRequest {
   ): Promise<any> {
     const options = new Options({
       method: method,
-      prefixUrl: this.urlRoot,
+      prefixUrl: clientData.host ?? this.urlRoot,
       headers: {
         Accept: "application/json",
         "User-Agent": `node-lokalise-api/${<string>pkg.version}`,

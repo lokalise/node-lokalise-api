@@ -10,11 +10,16 @@ export class AuthRequest {
   static async createPromise(
     uri: string,
     method: Options["method"],
+<<<<<<< HEAD
     body: Keyable | Keyable[] | null
+=======
+    body: object | object[] | null,
+    host?: string
+>>>>>>> 98d9dbb0398bbbbd5997e7e054450c7dc6674fc7
   ): Promise<any> {
     const options = new Options({
       method: method,
-      prefixUrl: this.urlRoot,
+      prefixUrl: host ?? this.urlRoot,
       headers: {
         Accept: "application/json",
         "User-Agent": `node-lokalise-api/${<string>pkg.version}`,
