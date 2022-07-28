@@ -1,7 +1,8 @@
 import { BaseCollection } from "./base_collection";
 import { Comment } from "../models/comment";
 import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
+import { PaginatedResult } from "../interfaces/paginated_result";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination";
 
 export class Comments extends BaseCollection {
   protected static rootElementName: string = "comments";
@@ -24,10 +25,12 @@ export class Comments extends BaseCollection {
     );
   }
 
-  list_project_comments(params: StandartParams): Promise<PaginatedResult> {
+  list_project_comments(
+    params: ProjectWithPagination
+  ): Promise<PaginatedResult<Comment>> {
     return this.createPromise(
       "GET",
-      { project_id: params["project_id"] },
+      params,
       this.populateArrayFromJson,
       this.handleReject,
       null,
