@@ -15,7 +15,7 @@ class ApiRequest {
     async createPromise(uri, method, body, clientData) {
         const options = {
             method: method,
-            prefixUrl: this.urlRoot,
+            prefixUrl: clientData.host ?? this.urlRoot,
             headers: {
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
             },

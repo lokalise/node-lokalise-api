@@ -9,11 +9,12 @@ export class AuthRequest {
   static async createPromise(
     uri: string,
     method: Options["method"],
-    body: object | object[] | null
+    body: object | object[] | null,
+    host?: string
   ): Promise<any> {
     const options: Options = {
       method: method,
-      prefixUrl: this.urlRoot,
+      prefixUrl: host ?? this.urlRoot,
       headers: {
         Accept: "application/json",
         "User-Agent": `node-lokalise-api/${pkg.version}`,

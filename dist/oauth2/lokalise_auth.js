@@ -13,7 +13,7 @@ class LokaliseAuth {
      * @param clientSecret  string, mandatory
      * @returns             LokaliseAuth object to work with.
      */
-    constructor(clientId, clientSecret) {
+    constructor(clientId, clientSecret, host) {
         if (clientId == null ||
             clientId.length == 0 ||
             clientSecret == null ||
@@ -22,6 +22,7 @@ class LokaliseAuth {
         }
         this.authData.client_id = clientId;
         this.authData.client_secret = clientSecret;
+        this.authData.host = host;
     }
     auth(scope, redirect_uri, state) {
         if (scope instanceof Array) {
@@ -61,7 +62,7 @@ class LokaliseAuth {
     }
     async doRequest(params) {
         try {
-            const data = await auth_request_1.AuthRequest.createPromise("token", "POST", params);
+            const data = await auth_request_1.AuthRequest.createPromise("token", "POST", params, this.authData.host);
             return Promise.resolve(data["json"]);
         }
         catch (err) {
@@ -69,7 +70,7 @@ class LokaliseAuth {
         }
     }
     buildUrl(params) {
-        const url = new URL("auth", auth_request_1.AuthRequest.urlRoot);
+        const url = new URL("auth", this.authData.host ?? auth_request_1.AuthRequest.urlRoot);
         const sParams = new URLSearchParams(params);
         url.search = sParams.toString();
         return url.toString();
