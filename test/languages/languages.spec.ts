@@ -56,7 +56,7 @@ describe("Languages", function () {
 
   cassette
     .createTest("system_languages_all", async () => {
-      const languages = await lokaliseApi.languages().system_languages({});
+      const languages = await lokaliseApi.languages().system_languages();
 
       expect(languages.items[0].lang_id).to.eq(894);
     })

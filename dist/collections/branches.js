@@ -9,23 +9,19 @@ class Branches extends base_collection_1.BaseCollection {
     static prefixURI = "projects/{!:project_id}/branches/{:id}";
     static elementClass = branch_1.Branch;
     list(request_params) {
-        return super.doList(request_params);
+        return this.doList(request_params);
     }
     create(branch_params, request_params) {
-        return this.createPromise("POST", request_params, this.populateObjectFromJsonRoot, this.handleReject, branch_params);
+        return this.doCreate(branch_params, request_params, this.populateObjectFromJsonRoot);
     }
     get(branch_id, request_params) {
-        return super.doGet(branch_id, request_params);
+        return this.doGet(branch_id, request_params);
     }
     update(branch_id, branch_params, request_params) {
-        const params = {
-            ...request_params,
-            ...{ id: branch_id },
-        };
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, branch_params);
+        return this.doUpdate(branch_id, branch_params, request_params);
     }
     delete(branch_id, request_params) {
-        return super.doDelete(branch_id, request_params);
+        return this.doDelete(branch_id, request_params);
     }
     merge(branch_id, request_params, body = {}) {
         const params = {

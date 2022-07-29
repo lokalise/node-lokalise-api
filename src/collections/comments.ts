@@ -22,44 +22,38 @@ type CommentDeleted = {
 };
 
 export class Comments extends BaseCollection {
-  protected static rootElementName: string = "comments";
-  protected static rootElementNameSingular: string = "comment";
-  protected static prefixURI: string =
+  protected static rootElementName = "comments";
+  protected static rootElementNameSingular = "comment";
+  protected static prefixURI =
     "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
-  protected static elementClass: object = Comment;
+  protected static elementClass = Comment;
 
   list(
     request_params: ParamsWithPagination
   ): Promise<PaginatedResult<Comment>> {
-    return super.doList(request_params);
+    return this.doList(request_params);
   }
 
   create(
     comment_params: CommentData | CommentData[],
     request_params: ProjectAndKey
   ): Promise<Comment[]> {
-    const body: object = { comments: this.objToArray(comment_params) };
-    return this.createPromise(
-      "POST",
-      request_params,
-      this.populateArrayFromJson,
-      this.handleReject,
-      body
-    );
+    const body = { comments: this.objToArray(comment_params) };
+    return this.doCreate(body, request_params, this.populateArrayFromJson);
   }
 
   get(
     comment_id: string | number,
     request_params: ProjectAndKey
   ): Promise<Comment> {
-    return super.doGet(comment_id, request_params);
+    return this.doGet(comment_id, request_params);
   }
 
   delete(
     comment_id: string | number,
     request_params: ProjectAndKey
   ): Promise<CommentDeleted> {
-    return super.doDelete(comment_id, request_params);
+    return this.doDelete(comment_id, request_params);
   }
 
   list_project_comments(

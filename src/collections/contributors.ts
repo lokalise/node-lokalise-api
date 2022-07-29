@@ -45,38 +45,30 @@ type ContributorDeleted = {
 };
 
 export class Contributors extends BaseCollection {
-  protected static rootElementName: string = "contributors";
-  protected static rootElementNameSingular: string = "contributor";
-  protected static prefixURI: string =
-    "projects/{!:project_id}/contributors/{:id}";
-  protected static elementClass: object = Contributor;
+  protected static rootElementName = "contributors";
+  protected static rootElementNameSingular = "contributor";
+  protected static prefixURI = "projects/{!:project_id}/contributors/{:id}";
+  protected static elementClass = Contributor;
 
   list(
     request_params: ProjectWithPagination
   ): Promise<PaginatedResult<Contributor>> {
-    return super.doList(request_params);
+    return this.doList(request_params);
   }
 
   create(
     contributor_params: ContributorCreateData | ContributorCreateData[],
     request_params: ProjectOnly
   ): Promise<Contributor[]> {
-    const body: object = { contributors: this.objToArray(contributor_params) };
-    return this.createPromise(
-      "POST",
-      request_params,
-      this.populateArrayFromJson,
-      this.handleReject,
-      body,
-      "projects/{!:project_id}/contributors"
-    );
+    const body = { contributors: this.objToArray(contributor_params) };
+    return this.doCreate(body, request_params, this.populateArrayFromJson);
   }
 
   get(
     contributor_id: string | number,
     request_params: ProjectOnly
   ): Promise<Contributor> {
-    return super.doGet(contributor_id, request_params);
+    return this.doGet(contributor_id, request_params);
   }
 
   update(
@@ -84,23 +76,13 @@ export class Contributors extends BaseCollection {
     contributor_params: ContributorUpdateData,
     request_params: ProjectOnly
   ): Promise<Contributor> {
-    const params = {
-      ...request_params,
-      ...{ id: contributor_id },
-    };
-    return this.createPromise(
-      "PUT",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      contributor_params
-    );
+    return this.doUpdate(contributor_id, contributor_params, request_params);
   }
 
   delete(
     contributor_id: string | number,
     request_params: ProjectOnly
   ): Promise<ContributorDeleted> {
-    return super.doDelete(contributor_id, request_params);
+    return this.doDelete(contributor_id, request_params);
   }
 }

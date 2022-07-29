@@ -17,9 +17,9 @@ declare type FileDeleted = {
 export declare class Files extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: object;
+    protected static elementClass: typeof File;
     protected static secondaryElementNameSingular: string;
-    protected static secondaryElementClass: object;
+    protected static secondaryElementClass: typeof QueuedProcess;
     list(request_params: ListFileParams): Promise<PaginatedResult<File>>;
     upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess>;
     download(project_id: string, download: DownloadFileParams): Promise<Keyable>;

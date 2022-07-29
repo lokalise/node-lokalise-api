@@ -20,7 +20,7 @@ export declare class Comments extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: object;
+    protected static elementClass: typeof Comment;
     list(request_params: ParamsWithPagination): Promise<PaginatedResult<Comment>>;
     create(comment_params: CommentData | CommentData[], request_params: ProjectAndKey): Promise<Comment[]>;
     get(comment_id: string | number, request_params: ProjectAndKey): Promise<Comment>;

@@ -5,15 +5,15 @@ const base_1 = require("../http_client/base");
 const paginated_result_1 = require("../models/paginated_result");
 class BaseCollection {
     clientData;
-    static rootElementName = "";
-    static rootElementNameSingular = null;
-    static endpoint = null;
-    static prefixURI = null;
-    static elementClass = null;
+    static rootElementName;
+    static rootElementNameSingular;
+    static endpoint;
+    static prefixURI;
+    static elementClass;
     // Secondaries are used when an instance of a different class has to be created
     // For example, uploading a File may return a QueuedProcess
-    static secondaryElementNameSingular = null;
-    static secondaryElementClass = null;
+    static secondaryElementNameSingular;
+    static secondaryElementClass;
     constructor(clientData) {
         this.clientData = clientData;
     }
@@ -27,6 +27,16 @@ class BaseCollection {
     doDelete(id, params = {}) {
         params["id"] = id;
         return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, null);
+    }
+    doCreate(body, params = {}, resolveFn = this.populateObjectFromJson) {
+        return this.createPromise("POST", params, resolveFn, this.handleReject, body);
+    }
+    doUpdate(id, body, req_params = {}, resolveFn = this.populateObjectFromJsonRoot) {
+        const params = {
+            ...req_params,
+            ...{ id: id },
+        };
+        return this.createPromise("PUT", params, resolveFn, this.handleReject, body);
     }
     get(id, params = {}) {
         params["id"] = id;

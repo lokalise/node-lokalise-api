@@ -54,30 +54,28 @@ type KeysBulkDeleted = {
 };
 
 export class Keys extends BaseCollection {
-  protected static rootElementName: string = "keys";
-  protected static rootElementNameSingular: string = "key";
-  protected static prefixURI: string = "projects/{!:project_id}/keys/{:id}";
-  protected static elementClass: object = Key;
+  protected static rootElementName = "keys";
+  protected static rootElementNameSingular = "key";
+  protected static prefixURI = "projects/{!:project_id}/keys/{:id}";
+  protected static elementClass = Key;
 
   list(request_params: ParamsWithPagination): Promise<PaginatedResult<Key>> {
-    return super.doList(request_params);
+    return this.doList(request_params);
   }
 
   create(
     key_params: CreateKeyParams,
-    params: ProjectOnly
+    request_params: ProjectOnly
   ): Promise<BulkResult<Key>> {
-    return this.createPromise(
-      "POST",
-      params,
-      this.populateArrayFromJsonBulk,
-      this.handleReject,
-      key_params
+    return this.doCreate(
+      key_params,
+      request_params,
+      this.populateArrayFromJsonBulk
     );
   }
 
   get(key_id: string | number, request_params: GetKeyParams): Promise<Key> {
-    return super.doGet(key_id, request_params);
+    return this.doGet(key_id, request_params);
   }
 
   update(
@@ -85,24 +83,14 @@ export class Keys extends BaseCollection {
     key_params: UpdateKeyData,
     request_params: ProjectOnly
   ): Promise<Key> {
-    const params = {
-      ...request_params,
-      ...{ id: key_id },
-    };
-    return this.createPromise(
-      "PUT",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      key_params
-    );
+    return this.doUpdate(key_id, key_params, request_params);
   }
 
   delete(
     key_id: string | number,
     request_params: ProjectOnly
   ): Promise<KeyDeleted> {
-    return super.doDelete(key_id, request_params);
+    return this.doDelete(key_id, request_params);
   }
 
   bulk_update(
@@ -123,12 +111,14 @@ export class Keys extends BaseCollection {
     key_ids: number[] | string[],
     request_params: ProjectOnly
   ): Promise<KeysBulkDeleted> {
+    const keys: Object = { keys: this.objToArray(key_ids) };
+
     return this.createPromise(
       "DELETE",
       request_params,
       this.returnBareJSON,
       this.handleReject,
-      key_ids,
+      keys,
       "projects/{!:project_id}/keys"
     );
   }

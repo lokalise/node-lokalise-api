@@ -9,16 +9,16 @@ import { BulkResult } from "../interfaces/bulk_result";
 
 export abstract class BaseCollection {
   readonly clientData: ClientData;
-  protected static rootElementName: string = "";
-  protected static rootElementNameSingular: string | null = null;
-  protected static endpoint: string | null = null;
-  protected static prefixURI: string | null = null;
-  protected static elementClass: any = null;
+  protected static rootElementName: string;
+  protected static rootElementNameSingular: string | null;
+  protected static endpoint: string | null;
+  protected static prefixURI: string | null;
+  protected static elementClass: any;
 
   // Secondaries are used when an instance of a different class has to be created
   // For example, uploading a File may return a QueuedProcess
-  protected static secondaryElementNameSingular: string | null = null;
-  protected static secondaryElementClass: any = null;
+  protected static secondaryElementNameSingular: string | null;
+  protected static secondaryElementClass: any;
 
   constructor(clientData: ClientData) {
     this.clientData = clientData;
@@ -59,6 +59,39 @@ export abstract class BaseCollection {
       this.returnBareJSON,
       this.handleReject,
       null
+    );
+  }
+
+  protected doCreate(
+    body: Keyable | null,
+    params: StandartParams = {},
+    resolveFn = this.populateObjectFromJson
+  ): Promise<any> {
+    return this.createPromise(
+      "POST",
+      params,
+      resolveFn,
+      this.handleReject,
+      body
+    );
+  }
+
+  protected doUpdate(
+    id: string | number,
+    body: Keyable | null,
+    req_params: Keyable = {},
+    resolveFn = this.populateObjectFromJsonRoot
+  ): Promise<any> {
+    const params = {
+      ...req_params,
+      ...{ id: id },
+    };
+    return this.createPromise(
+      "PUT",
+      params,
+      resolveFn,
+      this.handleReject,
+      body
     );
   }
 

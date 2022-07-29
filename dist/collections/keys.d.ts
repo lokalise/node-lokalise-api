@@ -1,7 +1,5 @@
 import { BaseCollection } from "./base_collection";
 import { Key } from "../models/key";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination";
 import { PaginatedResult } from "../interfaces/paginated_result";
 import { ProjectOnly } from "../interfaces/project_only";
@@ -42,17 +40,22 @@ declare type KeyDeleted = {
     key_removed: boolean;
     keys_locked?: number;
 };
+declare type KeysBulkDeleted = {
+    project_id: string;
+    keys_removed: boolean;
+    keys_locked: number;
+};
 export declare class Keys extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: object;
+    protected static elementClass: typeof Key;
     list(request_params: ParamsWithPagination): Promise<PaginatedResult<Key>>;
-    create(key_params: CreateKeyParams, params: ProjectOnly): Promise<BulkResult<Key>>;
+    create(key_params: CreateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key>>;
     get(key_id: string | number, request_params: GetKeyParams): Promise<Key>;
     update(key_id: string | number, key_params: UpdateKeyData, request_params: ProjectOnly): Promise<Key>;
     delete(key_id: string | number, request_params: ProjectOnly): Promise<KeyDeleted>;
     bulk_update(key_params: BulkUpdateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key>>;
-    bulk_delete(raw_keys: number[] | string[], params: StandartParams): Promise<Keyable>;
+    bulk_delete(key_ids: number[] | string[], request_params: ProjectOnly): Promise<KeysBulkDeleted>;
 }
 export {};

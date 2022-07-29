@@ -26,27 +26,25 @@ type BranchMerged = {
 };
 
 export class Branches extends BaseCollection {
-  protected static rootElementName: string = "branches";
-  protected static rootElementNameSingular: string = "branch";
-  protected static prefixURI: string = "projects/{!:project_id}/branches/{:id}";
-  protected static elementClass: object = Branch;
+  protected static rootElementName = "branches";
+  protected static rootElementNameSingular = "branch";
+  protected static prefixURI = "projects/{!:project_id}/branches/{:id}";
+  protected static elementClass = Branch;
 
   list(
     request_params: ProjectWithPagination
   ): Promise<PaginatedResult<Branch>> {
-    return super.doList(request_params);
+    return this.doList(request_params);
   }
 
   create(
     branch_params: BranchParams,
     request_params: ProjectOnly
   ): Promise<Branch> {
-    return this.createPromise(
-      "POST",
+    return this.doCreate(
+      branch_params,
       request_params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      branch_params
+      this.populateObjectFromJsonRoot
     );
   }
 
@@ -54,7 +52,7 @@ export class Branches extends BaseCollection {
     branch_id: string | number,
     request_params: ProjectOnly
   ): Promise<Branch> {
-    return super.doGet(branch_id, request_params);
+    return this.doGet(branch_id, request_params);
   }
 
   update(
@@ -62,24 +60,14 @@ export class Branches extends BaseCollection {
     branch_params: BranchParams,
     request_params: ProjectOnly
   ): Promise<Branch> {
-    const params = {
-      ...request_params,
-      ...{ id: branch_id },
-    };
-    return this.createPromise(
-      "PUT",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      branch_params
-    );
+    return this.doUpdate(branch_id, branch_params, request_params);
   }
 
   delete(
     branch_id: string | number,
     request_params: ProjectOnly
   ): Promise<BranchDeleted> {
-    return super.doDelete(branch_id, request_params);
+    return this.doDelete(branch_id, request_params);
   }
 
   merge(

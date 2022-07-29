@@ -24,7 +24,7 @@ export declare class Branches extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: object;
+    protected static elementClass: typeof Branch;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult<Branch>>;
     create(branch_params: BranchParams, request_params: ProjectOnly): Promise<Branch>;
     get(branch_id: string | number, request_params: ProjectOnly): Promise<Branch>;

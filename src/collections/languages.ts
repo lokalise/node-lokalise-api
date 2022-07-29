@@ -1,17 +1,27 @@
 import { Language } from "../models/language";
 import { BaseCollection } from "./base_collection";
-import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
-import { Keyable } from "../interfaces/keyable";
+import { PaginatedResult } from "../interfaces/paginated_result";
+import { CreateLanguageData } from "../types/create_language_data";
+import { UpdateLanguageData } from "../types/update_language_data";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination";
+import { ProjectOnly } from "../interfaces/project_only";
+import { BulkResult } from "../interfaces/bulk_result";
+import { PaginationParams } from "../interfaces/pagination_params";
+
+type LanguageDeleted = {
+  project_id: string;
+  language_deleted: boolean;
+};
 
 export class Languages extends BaseCollection {
-  protected static rootElementName: string = "languages";
-  protected static rootElementNameSingular: string = "language";
-  protected static prefixURI: string =
-    "projects/{!:project_id}/languages/{:id}";
-  protected static elementClass: object = Language;
+  protected static rootElementName = "languages";
+  protected static rootElementNameSingular = "language";
+  protected static prefixURI = "projects/{!:project_id}/languages/{:id}";
+  protected static elementClass = Language;
 
-  system_languages(params: StandartParams): Promise<PaginatedResult> {
+  system_languages(
+    params: PaginationParams = {}
+  ): Promise<PaginatedResult<Language>> {
     return this.createPromise(
       "GET",
       params,
@@ -22,32 +32,39 @@ export class Languages extends BaseCollection {
     );
   }
 
+  list(
+    request_params: ProjectWithPagination
+  ): Promise<PaginatedResult<Language>> {
+    return this.doList(request_params);
+  }
+
   create(
-    raw_body: object | object[],
-    params: StandartParams
-  ): Promise<Keyable> {
-    const body: object = { languages: this.objToArray(raw_body) };
-    return this.createPromise(
-      "POST",
-      params,
-      this.populateArrayFromJsonBulk,
-      this.handleReject,
-      body
-    );
+    raw_body: CreateLanguageData | CreateLanguageData[],
+    request_params: ProjectOnly
+  ): Promise<BulkResult<Language>> {
+    const body = { languages: this.objToArray(raw_body) };
+    return this.doCreate(body, request_params, this.populateArrayFromJsonBulk);
+  }
+
+  get(
+    lang_id: string | number,
+    request_params: ProjectOnly
+  ): Promise<Language> {
+    return this.doGet(lang_id, request_params);
   }
 
   update(
-    id: string | number,
-    body: object,
-    params: StandartParams
+    lang_id: string | number,
+    lang_params: UpdateLanguageData,
+    request_params: ProjectOnly
   ): Promise<Language> {
-    params["id"] = id;
-    return this.createPromise(
-      "PUT",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      body
-    );
+    return this.doUpdate(lang_id, lang_params, request_params);
+  }
+
+  delete(
+    lang_id: string | number,
+    request_params: ProjectOnly
+  ): Promise<LanguageDeleted> {
+    return super.doDelete(lang_id, request_params);
   }
 }

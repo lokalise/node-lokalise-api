@@ -18,6 +18,8 @@ export declare abstract class BaseCollection {
     protected doList(params?: StandartParams): Promise<any>;
     protected doGet(id: string | number, params?: StandartParams): Promise<any>;
     protected doDelete(id: string | number, params?: StandartParams): Promise<any>;
+    protected doCreate(body: Keyable | null, params?: StandartParams, resolveFn?: (json: object, _headers: object, secondary?: boolean) => any): Promise<any>;
+    protected doUpdate(id: string | number, body: Keyable | null, req_params?: Keyable, resolveFn?: (json: object, headers: object) => any): Promise<any>;
     get(id: string | number, params?: StandartParams): Promise<any>;
     list(params?: StandartParams): Promise<any>;
     create(body: Keyable | null, params?: StandartParams): Promise<any>;

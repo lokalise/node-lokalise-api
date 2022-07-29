@@ -18,15 +18,15 @@ type FileDeleted = {
 };
 
 export class Files extends BaseCollection {
-  protected static rootElementName: string = "files";
-  protected static prefixURI: string = "projects/{!:project_id}/files/{:id}";
-  protected static elementClass: object = File;
+  protected static rootElementName = "files";
+  protected static prefixURI = "projects/{!:project_id}/files/{:id}";
+  protected static elementClass = File;
 
-  protected static secondaryElementNameSingular: string = "process";
-  protected static secondaryElementClass: object = QueuedProcess;
+  protected static secondaryElementNameSingular = "process";
+  protected static secondaryElementClass = QueuedProcess;
 
   list(request_params: ListFileParams): Promise<PaginatedResult<File>> {
-    return super.list(request_params);
+    return this.doList(request_params);
   }
 
   upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess> {
@@ -55,6 +55,6 @@ export class Files extends BaseCollection {
     file_id: string | number,
     request_params: ProjectOnly
   ): Promise<FileDeleted> {
-    return super.doDelete(file_id, request_params);
+    return this.doDelete(file_id, request_params);
   }
 }
