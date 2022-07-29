@@ -87,3 +87,4 @@ typings/
 .nyc_output
 .vscode
 demo.js
+demo.ts
