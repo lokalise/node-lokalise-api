@@ -1,5 +1,6 @@
 import { BaseModel } from "./base_model";
 import { Translation as TranslationInterface } from "../interfaces/translation";
+import { TranslationStatus } from "../interfaces/translation_status";
 export declare class Translation extends BaseModel implements TranslationInterface {
     translation_id: number;
     key_id: number;
@@ -9,10 +10,11 @@ export declare class Translation extends BaseModel implements TranslationInterfa
     modified_by: number;
     modified_by_email: string;
     translation: string;
-    is_fuzzy: boolean;
+    is_unverified: boolean;
     is_reviewed: boolean;
     reviewed_by: number;
     words: number;
-    custom_translation_statuses: object[];
+    custom_translation_statuses: TranslationStatus[];
     task_id: number;
+    segment_number: number;
 }

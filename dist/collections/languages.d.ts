@@ -1,8 +1,6 @@
 import { Language } from "../models/language";
 import { BaseCollection } from "./base_collection";
 import { PaginatedResult } from "../interfaces/paginated_result";
-import { CreateLanguageData } from "../types/create_language_data";
-import { UpdateLanguageData } from "../types/update_language_data";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination";
 import { ProjectOnly } from "../interfaces/project_only";
 import { BulkResult } from "../interfaces/bulk_result";
@@ -10,6 +8,17 @@ import { PaginationParams } from "../interfaces/pagination_params";
 declare type LanguageDeleted = {
     project_id: string;
     language_deleted: boolean;
+};
+declare type CreateLanguageData = {
+    lang_iso: string;
+    custom_iso?: string;
+    custom_name?: string;
+    custom_plural_forms?: string[];
+};
+declare type UpdateLanguageData = {
+    lang_iso?: string;
+    lang_name?: string;
+    plural_forms?: string[];
 };
 export declare class Languages extends BaseCollection {
     protected static rootElementName: string;

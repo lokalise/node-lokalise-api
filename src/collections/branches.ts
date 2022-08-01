@@ -1,8 +1,8 @@
 import { BaseCollection } from "./base_collection";
 import { Branch } from "../models/branch";
 import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectOnly } from "../interfaces/project_only";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination";
+import { ProjectOnly } from "../interfaces/project_only";
 
 type BranchParams = {
   name?: string;

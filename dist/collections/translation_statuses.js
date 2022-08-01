@@ -8,15 +8,23 @@ class TranslationStatuses extends base_collection_1.BaseCollection {
     static prefixURI = "projects/{!:project_id}/custom_translation_statuses/{:id}";
     static elementClass = translation_status_1.TranslationStatus;
     static rootElementNameSingular = "custom_translation_status";
-    create(body, params) {
-        return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
     }
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    create(translation_status_params, request_params) {
+        return this.doCreate(translation_status_params, request_params, this.populateObjectFromJsonRoot);
     }
-    available_colors(params) {
-        return this.createPromise("GET", params, this.returnBareJSON, this.handleReject, {}, "projects/{!:project_id}/custom_translation_statuses/colors");
+    get(translation_status_id, request_params) {
+        return this.doGet(translation_status_id, request_params);
+    }
+    update(translation_status_id, translation_status_params, request_params) {
+        return this.doUpdate(translation_status_id, translation_status_params, request_params);
+    }
+    delete(translation_status_id, request_params) {
+        return this.doDelete(translation_status_id, request_params);
+    }
+    available_colors(request_params) {
+        return this.createPromise("GET", request_params, this.returnBareJSON, this.handleReject, {}, "projects/{!:project_id}/custom_translation_statuses/colors");
     }
 }
 exports.TranslationStatuses = TranslationStatuses;

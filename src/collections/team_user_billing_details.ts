@@ -1,14 +1,27 @@
 import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details";
 import { BaseCollection } from "./base_collection";
-import { StandartParams } from "../interfaces/standart_params";
+import { TeamOnly } from "../interfaces/team_only";
+
+type BillingDetailsParams = {
+  billing_email: string;
+  country_code: string;
+  zip: string | number;
+  state_code?: string;
+  address1?: string;
+  address2?: string;
+  city?: string;
+  phone?: string;
+  company?: string;
+  vatnumber?: string;
+};
 
 export class TeamUserBillingDetails extends BaseCollection {
-  protected static rootElementName: string = "";
-  protected static prefixURI: string = "teams/{!:team_id}/billing_details";
-  protected static elementClass: object = BillingDetailsModel;
+  protected static rootElementName = "";
+  protected static prefixURI = "teams/{!:team_id}/billing_details";
+  protected static elementClass = BillingDetailsModel;
 
-  get(team_id: string | number, params: StandartParams = {}): Promise<any> {
-    params["team_id"] = team_id;
+  get(team_id: string | number): Promise<BillingDetailsModel> {
+    const params = { team_id: team_id };
     return this.createPromise(
       "GET",
       params,
@@ -18,18 +31,24 @@ export class TeamUserBillingDetails extends BaseCollection {
     );
   }
 
+  create(
+    billing_details_params: BillingDetailsParams,
+    request_params: TeamOnly
+  ): Promise<BillingDetailsModel> {
+    return this.doCreate(billing_details_params, request_params);
+  }
+
   update(
     team_id: string | number,
-    body: object | object[] | null,
-    params: StandartParams = {}
+    billing_details_params: BillingDetailsParams
   ): Promise<any> {
-    params["team_id"] = team_id;
+    const params = { team_id: team_id };
     return this.createPromise(
       "PUT",
       params,
       this.populateObjectFromJson,
       this.handleReject,
-      body
+      billing_details_params
     );
   }
 }

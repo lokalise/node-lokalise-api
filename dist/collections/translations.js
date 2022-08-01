@@ -8,9 +8,14 @@ class Translations extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "translation";
     static prefixURI = "projects/{!:project_id}/translations/{:id}";
     static elementClass = translation_1.Translation;
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
+    }
+    get(translation_id, request_params) {
+        return this.doGet(translation_id, request_params);
+    }
+    update(translation_id, translation_params, request_params) {
+        return this.doUpdate(translation_id, translation_params, request_params);
     }
 }
 exports.Translations = Translations;

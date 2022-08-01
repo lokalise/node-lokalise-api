@@ -1,20 +1,20 @@
 import { Response, Options } from "got";
 const got = require("got");
 const pkg = require("../../package.json");
-import { StandartParams } from "../interfaces/standart_params";
+import { Keyable } from "../interfaces/keyable";
 import { ClientData } from "../interfaces/client_data";
 
 export class ApiRequest {
   private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
-  public params: StandartParams = {};
+  public params: Keyable = {};
 
   constructor(
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
-    params: StandartParams,
+    params: Keyable,
     clientData: ClientData
   ) {
     this.params = params;
@@ -83,7 +83,7 @@ export class ApiRequest {
     return uri.endsWith("/") ? uri.slice(0, -1) : uri;
   }
 
-  protected mapUriParams(params: StandartParams) {
+  protected mapUriParams(params: Keyable) {
     return (_entity: any, isMandaratory: string, paramName: string): string => {
       if (params[paramName] != null) {
         const t_param = params[paramName];

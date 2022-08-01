@@ -11,6 +11,16 @@ export class TranslationProvider
   declare price_pair_min: number;
   declare website_url: string;
   declare description: string;
-  declare tiers: object;
-  declare pairs: object;
+  declare tiers: {
+    tier_id: number;
+    name: string;
+  };
+  declare pairs: {
+    tier_id: number;
+    from_lang_iso: string;
+    from_lang_name: string;
+    to_lang_iso: string;
+    to_lang_name: string;
+    price_per_word: number;
+  };
 }

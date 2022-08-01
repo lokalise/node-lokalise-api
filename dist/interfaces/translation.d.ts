@@ -1,3 +1,4 @@
+import { TranslationStatus } from "./translation_status";
 export interface Translation {
     translation_id: number;
     key_id: number;
@@ -7,10 +8,11 @@ export interface Translation {
     modified_by: number;
     modified_by_email: string;
     translation: string;
-    is_fuzzy: boolean;
+    is_unverified: boolean;
     is_reviewed: boolean;
     reviewed_by: number;
     words: number;
-    custom_translation_statuses: object[];
+    custom_translation_statuses: TranslationStatus[];
     task_id: number;
+    segment_number: number;
 }

@@ -38,24 +38,6 @@ class BaseCollection {
         };
         return this.createPromise("PUT", params, resolveFn, this.handleReject, body);
     }
-    get(id, params = {}) {
-        params["id"] = id;
-        return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, null);
-    }
-    list(params = {}) {
-        return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
-    }
-    create(body, params = {}) {
-        return this.createPromise("POST", params, this.populateObjectFromJson, this.handleReject, body);
-    }
-    update(id, body, params = {}) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJson, this.handleReject, body);
-    }
-    delete(id, params = {}) {
-        params["id"] = id;
-        return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, null);
-    }
     populateObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;
         if (childClass.rootElementNameSingular) {
@@ -97,8 +79,7 @@ class BaseCollection {
         for (const obj of jsonArray) {
             arr.push(this.populateObjectFromJson(obj, headers));
         }
-        if (Object(headers)["x-pagination-total-count"] &&
-            Object(headers)["x-pagination-page"]) {
+        if (headers["x-pagination-total-count"] && headers["x-pagination-page"]) {
             const result = new paginated_result_1.PaginatedResult(arr, headers);
             return result;
         }

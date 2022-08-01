@@ -3,7 +3,9 @@ import { Keyable } from "./keyable";
 export interface Order {
   order_id: string;
   project_id: string;
-  card_id: number;
+  branch: string;
+  payment_method: string | null;
+  card_id: number | string;
   status: string;
   created_at: string;
   created_at_timestamp: number;
@@ -11,13 +13,13 @@ export interface Order {
   created_by_email: string;
   source_language_iso: string;
   target_language_isos: string[];
-  keys: number[];
+  keys: number[] | string[];
   source_words: Keyable;
   provider_slug: string;
   translation_style: string;
   translation_tier: number;
   translation_tier_name: string;
   briefing: string;
+  is_saved_to_translation_memory: boolean;
   total: number;
-  payment_method: string | null;
 }

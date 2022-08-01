@@ -7,13 +7,16 @@ class TeamUserBillingDetails extends base_collection_1.BaseCollection {
     static rootElementName = "";
     static prefixURI = "teams/{!:team_id}/billing_details";
     static elementClass = team_user_billing_details_1.TeamUserBillingDetails;
-    get(team_id, params = {}) {
-        params["team_id"] = team_id;
+    get(team_id) {
+        const params = { team_id: team_id };
         return this.createPromise("GET", params, this.populateObjectFromJson, this.handleReject, null);
     }
-    update(team_id, body, params = {}) {
-        params["team_id"] = team_id;
-        return this.createPromise("PUT", params, this.populateObjectFromJson, this.handleReject, body);
+    create(billing_details_params, request_params) {
+        return this.doCreate(billing_details_params, request_params);
+    }
+    update(team_id, billing_details_params) {
+        const params = { team_id: team_id };
+        return this.createPromise("PUT", params, this.populateObjectFromJson, this.handleReject, billing_details_params);
     }
 }
 exports.TeamUserBillingDetails = TeamUserBillingDetails;

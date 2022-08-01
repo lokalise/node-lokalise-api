@@ -17,6 +17,8 @@ describe("Screenshots", function () {
     .createTest("list_with_error", async () => {
       await lokaliseApi
         .screenshots()
+        // We actually WANT this error to happen so ignoring TS warnings
+        // @ts-ignore
         .list({})
         .catch((e: Error) => {
           expect(e.message).to.include("Required param project_id");

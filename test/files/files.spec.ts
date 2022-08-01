@@ -14,8 +14,9 @@ describe("Files", function () {
       const files = await lokaliseApi.files().list({ project_id: project_id });
       const file = files.items[0];
 
+      expect(file.file_id).to.eq(81446);
       expect(file.filename).to.eq("%LANG_ISO%.yml");
-      expect(file.key_count).to.eq(3);
+      expect(file.key_count).to.eq(66);
     })
     .register(this);
 

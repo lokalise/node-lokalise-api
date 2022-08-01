@@ -1,6 +1,5 @@
 import { Options } from "got";
 import { ApiRequest } from "../http_client/base";
-import { StandartParams } from "../interfaces/standart_params";
 import { ApiError } from "../models/api_error";
 import { PaginatedResult } from "../models/paginated_result";
 import { Keyable } from "../interfaces/keyable";
@@ -24,7 +23,7 @@ export abstract class BaseCollection {
     this.clientData = clientData;
   }
 
-  protected doList(params: StandartParams = {}): Promise<any> {
+  protected doList(params: Keyable = {}): Promise<any> {
     return this.createPromise(
       "GET",
       params,
@@ -34,10 +33,7 @@ export abstract class BaseCollection {
     );
   }
 
-  protected doGet(
-    id: string | number,
-    params: StandartParams = {}
-  ): Promise<any> {
+  protected doGet(id: string | number, params: Keyable = {}): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "GET",
@@ -48,10 +44,7 @@ export abstract class BaseCollection {
     );
   }
 
-  protected doDelete(
-    id: string | number,
-    params: StandartParams = {}
-  ): Promise<any> {
+  protected doDelete(id: string | number, params: Keyable = {}): Promise<any> {
     params["id"] = id;
     return this.createPromise(
       "DELETE",
@@ -64,7 +57,7 @@ export abstract class BaseCollection {
 
   protected doCreate(
     body: Keyable | null,
-    params: StandartParams = {},
+    params: Keyable = {},
     resolveFn = this.populateObjectFromJson
   ): Promise<any> {
     return this.createPromise(
@@ -95,64 +88,7 @@ export abstract class BaseCollection {
     );
   }
 
-  get(id: string | number, params: StandartParams = {}): Promise<any> {
-    params["id"] = id;
-    return this.createPromise(
-      "GET",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      null
-    );
-  }
-
-  list(params: StandartParams = {}): Promise<any> {
-    return this.createPromise(
-      "GET",
-      params,
-      this.populateArrayFromJson,
-      this.handleReject,
-      null
-    );
-  }
-
-  create(body: Keyable | null, params: StandartParams = {}): Promise<any> {
-    return this.createPromise(
-      "POST",
-      params,
-      this.populateObjectFromJson,
-      this.handleReject,
-      body
-    );
-  }
-
-  update(
-    id: string | number,
-    body: Keyable | null,
-    params: StandartParams = {}
-  ): Promise<any> {
-    params["id"] = id;
-    return this.createPromise(
-      "PUT",
-      params,
-      this.populateObjectFromJson,
-      this.handleReject,
-      body
-    );
-  }
-
-  delete(id: string | number, params: StandartParams = {}): Promise<any> {
-    params["id"] = id;
-    return this.createPromise(
-      "DELETE",
-      params,
-      this.returnBareJSON,
-      this.handleReject,
-      null
-    );
-  }
-
-  protected populateObjectFromJsonRoot(json: object, headers: object): any {
+  protected populateObjectFromJsonRoot(json: Keyable, headers: Keyable): any {
     const childClass = <typeof BaseCollection>this.constructor;
     if (childClass.rootElementNameSingular) {
       json = Object(json)[childClass.rootElementNameSingular];
@@ -161,8 +97,8 @@ export abstract class BaseCollection {
   }
 
   protected populateSecondaryObjectFromJsonRoot(
-    json: object,
-    headers: object
+    json: Keyable,
+    headers: Keyable
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
     json = Object(json)[<string>childClass.secondaryElementNameSingular];
@@ -170,8 +106,8 @@ export abstract class BaseCollection {
   }
 
   protected populateObjectFromJson(
-    json: object,
-    _headers: object,
+    json: Keyable,
+    _headers: Keyable,
     secondary: boolean = false
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
@@ -185,7 +121,7 @@ export abstract class BaseCollection {
 
   protected populateArrayFromJsonBulk(
     json: Keyable,
-    headers: object
+    headers: Keyable
   ): BulkResult | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
@@ -202,7 +138,7 @@ export abstract class BaseCollection {
 
   protected populateArrayFromJson(
     json: Keyable,
-    headers: object
+    headers: Keyable
   ): PaginatedResult | Keyable | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
@@ -211,10 +147,7 @@ export abstract class BaseCollection {
       arr.push(<this>this.populateObjectFromJson(obj, headers));
     }
 
-    if (
-      Object(headers)["x-pagination-total-count"] &&
-      Object(headers)["x-pagination-page"]
-    ) {
+    if (headers["x-pagination-total-count"] && headers["x-pagination-page"]) {
       const result: PaginatedResult = new PaginatedResult(arr, headers);
       return result;
     } else {
@@ -238,7 +171,7 @@ export abstract class BaseCollection {
 
   protected async createPromise(
     method: Options["method"],
-    params: StandartParams,
+    params: Keyable,
     resolveFn: Function,
     rejectFn: Function,
     body: object | object[] | null,

@@ -8,9 +8,14 @@ class Segments extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "segment";
     static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
     static elementClass = segment_1.Segment;
-    update(id, body, params = {}) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
+    }
+    get(segment_number, request_params) {
+        return this.doGet(segment_number, request_params);
+    }
+    update(segment_number, segment_params, request_params) {
+        return this.doUpdate(segment_number, segment_params, request_params);
     }
 }
 exports.Segments = Segments;
