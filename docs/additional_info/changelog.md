@@ -100,7 +100,7 @@ const client = new LokaliseApi({
 ```
 
 * Reworked typings system
-* Minor fixes
+* Various fixes and enhancements
 
 ## 7.3.1 (07-Jun-2022)
 

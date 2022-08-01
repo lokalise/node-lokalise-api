@@ -55,8 +55,8 @@ describe("Projects", function () {
       expect(project.team_id).to.equal(176692);
       expect(project.base_language_id).to.equal(640);
       expect(project.base_language_iso).to.equal("en");
-      expect(project.settings["per_platform_key_names"]).to.be.false;
-      expect(project.statistics["progress_total"]).to.equal(17);
+      expect(project.settings.per_platform_key_names).to.be.false;
+      expect(project.statistics.progress_total).to.equal(17);
     })
     .register(this);
 

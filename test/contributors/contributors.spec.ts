@@ -53,7 +53,8 @@ describe("Contributors", function () {
       expect(contributor.created_at_timestamp).to.eq(1534865725);
       expect(contributor.is_admin).to.be.true;
       expect(contributor.is_reviewer).to.be.true;
-      expect(contributor.languages[0]["lang_id"]).to.eq(803);
+      expect(contributor.languages[0].lang_id).to.eq(803);
+      expect(contributor.languages[0].lang_iso).to.eq("sq");
       expect(contributor.admin_rights).to.include("upload");
     })
     .register(this);

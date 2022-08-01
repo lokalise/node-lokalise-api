@@ -78,7 +78,7 @@ export class ApiRequest {
   }
 
   protected composeURI(rawUri: string): string {
-    const regexp: RegExp = /{(!{0,1}):(\w*)}/g;
+    const regexp = /{(!{0,1}):(\w*)}/g;
     const uri = rawUri.replace(regexp, this.mapUriParams(this.params));
     return uri.endsWith("/") ? uri.slice(0, -1) : uri;
   }

@@ -22,10 +22,9 @@ type ScreenshotDeleted = {
 };
 
 export class Screenshots extends BaseCollection {
-  protected static rootElementName: string = "screenshots";
-  protected static rootElementNameSingular: string = "screenshot";
-  protected static prefixURI: string =
-    "projects/{!:project_id}/screenshots/{:id}";
+  protected static rootElementName = "screenshots";
+  protected static rootElementNameSingular = "screenshot";
+  protected static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
   protected static elementClass: object = Screenshot;
 
   list(

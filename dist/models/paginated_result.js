@@ -8,10 +8,10 @@ class PaginatedResult {
     currentPage;
     items;
     constructor(items, headers) {
-        this.totalResults = parseInt(Object(headers)["x-pagination-total-count"]);
-        this.totalPages = parseInt(Object(headers)["x-pagination-page-count"]);
-        this.resultsPerPage = parseInt(Object(headers)["x-pagination-limit"]);
-        this.currentPage = parseInt(Object(headers)["x-pagination-page"]);
+        this.totalResults = parseInt(headers["x-pagination-total-count"]);
+        this.totalPages = parseInt(headers["x-pagination-page-count"]);
+        this.resultsPerPage = parseInt(headers["x-pagination-limit"]);
+        this.currentPage = parseInt(headers["x-pagination-page"]);
         this.items = items;
         return this;
     }

@@ -111,7 +111,7 @@ export class Keys extends BaseCollection {
     key_ids: number[] | string[],
     request_params: ProjectOnly
   ): Promise<KeysBulkDeleted> {
-    const keys: Object = { keys: this.objToArray(key_ids) };
+    const keys = { keys: this.objToArray(key_ids) };
 
     return this.createPromise(
       "DELETE",

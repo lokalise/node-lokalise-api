@@ -6,6 +6,9 @@ import { Keyable } from "../interfaces/keyable";
 import { ClientData } from "../interfaces/client_data";
 import { BulkResult } from "../interfaces/bulk_result";
 
+type RejectHandler = (data: any) => ApiError;
+type ResolveHandler = (json: Keyable, headers: Keyable, ...args: any[]) => any;
+
 export abstract class BaseCollection {
   readonly clientData: ClientData;
   protected static rootElementName: string;
@@ -108,7 +111,7 @@ export abstract class BaseCollection {
   protected populateObjectFromJson(
     json: Keyable,
     _headers: Keyable,
-    secondary: boolean = false
+    secondary = false
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
 
@@ -172,8 +175,8 @@ export abstract class BaseCollection {
   protected async createPromise(
     method: Options["method"],
     params: Keyable,
-    resolveFn: Function,
-    rejectFn: Function,
+    resolveFn: ResolveHandler,
+    rejectFn: RejectHandler,
     body: object | object[] | null,
     uri: string | null = null
   ): Promise<any> {
@@ -198,9 +201,9 @@ export abstract class BaseCollection {
     }
   }
 
-  protected objToArray(raw_body: object | object[]): Array<object> {
+  protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable> {
     if (!Array.isArray(raw_body)) {
-      return Array<Object>(raw_body);
+      return Array(raw_body);
     } else {
       return raw_body;
     }
