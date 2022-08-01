@@ -1,5 +1,6 @@
 import { BaseModel } from "./base_model";
 import { Segment as SegmentInterface } from "../interfaces/segment";
+import { TranslationStatus } from "./translation_status";
 
 export class Segment extends BaseModel implements SegmentInterface {
   declare segment_number: number;
@@ -13,5 +14,5 @@ export class Segment extends BaseModel implements SegmentInterface {
   declare is_reviewed: boolean;
   declare reviewed_by: number;
   declare words: number;
-  declare custom_translation_statuses: object[];
+  declare custom_translation_statuses: TranslationStatus[];
 }

@@ -10,8 +10,15 @@ describe("Teams", function () {
   cassette
     .createTest("list", async () => {
       const teams = await lokaliseApi.teams().list();
+      const team = teams.items[0];
 
-      expect(teams.items[0].team_id).to.eq(186612);
+      expect(team.team_id).to.eq(186612);
+      expect(team.name).to.eq("NikaNika");
+      expect(team.plan).to.eq("Trial");
+      expect(team.created_at).to.eq("2019-04-11 11:12:49 (Etc/UTC)");
+      expect(team.created_at_timestamp).to.eq(1554981169);
+      expect(team.quota_usage.users).to.eq(2);
+      expect(team.quota_allowed.keys).to.eq(999999999);
     })
     .register(this);
 

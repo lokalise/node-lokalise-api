@@ -7,58 +7,81 @@
     "status": 200,
     "response": {
       "project_id": "803826145ba90b42d5d860.46800099",
+      "branch": "master",
       "files": [
         {
+          "file_id": 81446,
           "filename": "%LANG_ISO%.yml",
-          "key_count": 3
+          "key_count": 66
         },
         {
-          "filename": "ios_%LANG_ISO%.strings",
+          "file_id": 325512,
+          "filename": "my_filename.json",
           "key_count": 1
         },
         {
+          "file_id": 259910,
+          "filename": "rspec_async.yml",
+          "key_count": 1
+        },
+        {
+          "file_id": 259909,
+          "filename": "test_async.json",
+          "key_count": 3
+        },
+        {
+          "file_id": -1,
           "filename": "__unassigned__",
-          "key_count": 15
+          "key_count": 4
         }
       ]
     },
     "rawHeaders": [
-      "Server",
-      "nginx",
       "Date",
-      "Wed, 19 Jun 2019 18:00:32 GMT",
+      "Mon, 01 Aug 2022 13:46:03 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
       "chunked",
       "Connection",
       "close",
+      "Server",
+      "nginx",
       "Vary",
       "Accept-Encoding",
-      "Set-Cookie",
-      "PHPSESSID=d7050ed617bba149f6123ad2fb034fcf; expires=Sun, 18-Aug-2019 18:00:32 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
-      "Expires",
-      "Thu, 19 Nov 1981 08:52:00 GMT",
       "Cache-Control",
-      "no-store, no-cache, must-revalidate",
-      "Pragma",
-      "no-cache",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
       "X-Pagination-Total-Count",
-      "3",
+      "5",
       "X-Pagination-Page-Count",
       "1",
       "X-Pagination-Limit",
       "100",
       "X-Pagination-Page",
       "1",
-      "Pragma",
+      "pragma",
       "no-cache",
-      "Cache-Control",
-      "no-store, no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "e75ac71a-03d3-412c-b534-4986bb2e82a9",
+      "Expires",
+      "Mon, 01 Aug 2022 13:46:03 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Sun, 01-Aug-2021 13:46:02 GMT; Max-Age=0; path=/; httponly",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Headers",
       "Content-Type"
-    ]
+    ],
+    "responseIsBinary": false
   }
 ]

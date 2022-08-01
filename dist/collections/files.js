@@ -10,11 +10,17 @@ class Files extends base_collection_1.BaseCollection {
     static elementClass = file_1.File;
     static secondaryElementNameSingular = "process";
     static secondaryElementClass = queued_process_1.QueuedProcess;
+    list(request_params) {
+        return this.doList(request_params);
+    }
     upload(project_id, upload) {
         return this.createPromise("POST", { project_id: project_id }, this.populateSecondaryObjectFromJsonRoot, this.handleReject, upload, "projects/{!:project_id}/files/upload");
     }
     download(project_id, download) {
         return this.createPromise("POST", { project_id: project_id }, this.returnBareJSON, this.handleReject, download, "projects/{!:project_id}/files/download");
+    }
+    delete(file_id, request_params) {
+        return this.doDelete(file_id, request_params);
     }
 }
 exports.Files = Files;

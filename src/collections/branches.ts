@@ -1,45 +1,85 @@
 import { BaseCollection } from "./base_collection";
 import { Branch } from "../models/branch";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { PaginatedResult } from "../interfaces/paginated_result";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination";
+import { ProjectOnly } from "../interfaces/project_only";
+
+type BranchParams = {
+  name?: string;
+};
+
+type MergeBranchParams = {
+  force_conflict_resolve_using?: string;
+  target_branch_id?: number | string;
+};
+
+type BranchDeleted = {
+  project_id: string;
+  branch_deleted: boolean;
+};
+
+type BranchMerged = {
+  project_id: string;
+  branch_merged: boolean;
+  branch: Branch;
+  target_branch: Branch;
+};
 
 export class Branches extends BaseCollection {
-  protected static rootElementName: string = "branches";
-  protected static rootElementNameSingular: string = "branch";
-  protected static prefixURI: string = "projects/{!:project_id}/branches/{:id}";
-  protected static elementClass: object = Branch;
+  protected static rootElementName = "branches";
+  protected static rootElementNameSingular = "branch";
+  protected static prefixURI = "projects/{!:project_id}/branches/{:id}";
+  protected static elementClass = Branch;
 
-  create(body: object, params: StandartParams): Promise<Branch> {
-    return this.createPromise(
-      "POST",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      body
+  list(
+    request_params: ProjectWithPagination
+  ): Promise<PaginatedResult<Branch>> {
+    return this.doList(request_params);
+  }
+
+  create(
+    branch_params: BranchParams,
+    request_params: ProjectOnly
+  ): Promise<Branch> {
+    return this.doCreate(
+      branch_params,
+      request_params,
+      this.populateObjectFromJsonRoot
     );
+  }
+
+  get(
+    branch_id: string | number,
+    request_params: ProjectOnly
+  ): Promise<Branch> {
+    return this.doGet(branch_id, request_params);
   }
 
   update(
-    id: string | number,
-    body: object,
-    params: StandartParams
+    branch_id: string | number,
+    branch_params: BranchParams,
+    request_params: ProjectOnly
   ): Promise<Branch> {
-    params["id"] = id;
-    return this.createPromise(
-      "PUT",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      body
-    );
+    return this.doUpdate(branch_id, branch_params, request_params);
+  }
+
+  delete(
+    branch_id: string | number,
+    request_params: ProjectOnly
+  ): Promise<BranchDeleted> {
+    return this.doDelete(branch_id, request_params);
   }
 
   merge(
-    id: string | number,
-    params: StandartParams,
-    body: object = {}
-  ): Promise<Keyable> {
-    params["id"] = id;
+    branch_id: string | number,
+    request_params: ProjectOnly,
+    body: MergeBranchParams = {}
+  ): Promise<BranchMerged> {
+    const params = {
+      ...request_params,
+      ...{ id: branch_id },
+    };
+
     return this.createPromise(
       "POST",
       params,

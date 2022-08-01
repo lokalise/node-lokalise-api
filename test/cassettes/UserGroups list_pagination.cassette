@@ -1,0 +1,106 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "GET",
+    "path": "/api2/teams/176692/groups?page=1&limit=1",
+    "body": "",
+    "status": 200,
+    "response": {
+      "team_id": 176692,
+      "user_groups": [
+        {
+          "group_id": 2639,
+          "name": "Demo",
+          "permissions": {
+            "is_admin": false,
+            "is_reviewer": false,
+            "admin_rights": [],
+            "languages": [
+              {
+                "lang_id": 602,
+                "lang_iso": "zh_CN",
+                "lang_name": "Chinese Simplified",
+                "is_writable": true
+              },
+              {
+                "lang_id": 640,
+                "lang_iso": "en",
+                "lang_name": "English",
+                "is_writable": false
+              },
+              {
+                "lang_id": 748,
+                "lang_iso": "pl",
+                "lang_name": "Polish",
+                "is_writable": true
+              },
+              {
+                "lang_id": 1055,
+                "lang_iso": "en_US",
+                "lang_name": "English (United States)",
+                "is_writable": true
+              }
+            ]
+          },
+          "created_at": "2020-07-23 11:21:04 (Etc/UTC)",
+          "created_at_timestamp": 1595503264,
+          "team_id": 176692,
+          "projects": [
+            "2273827860c1e2473eb195.11207948"
+          ],
+          "members": [
+            49436,
+            72007
+          ]
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Date",
+      "Mon, 01 Aug 2022 14:18:47 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Server",
+      "nginx",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "X-Pagination-Total-Count",
+      "4",
+      "X-Pagination-Page-Count",
+      "4",
+      "X-Pagination-Limit",
+      "1",
+      "X-Pagination-Page",
+      "1",
+      "pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "3fd6ca4f-4ea9-4d4a-926a-65005df3e98f",
+      "Expires",
+      "Mon, 01 Aug 2022 14:18:47 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Sun, 01-Aug-2021 14:18:46 GMT; Max-Age=0; path=/; httponly",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

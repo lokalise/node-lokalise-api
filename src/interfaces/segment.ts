@@ -1,3 +1,5 @@
+import { TranslationStatus } from "./translation_status";
+
 export interface Segment {
   segment_number: number;
   language_iso: string;
@@ -10,5 +12,5 @@ export interface Segment {
   is_reviewed: boolean;
   reviewed_by: number;
   words: number;
-  custom_translation_statuses: object[];
+  custom_translation_statuses: TranslationStatus[];
 }

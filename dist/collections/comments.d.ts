@@ -1,12 +1,30 @@
 import { BaseCollection } from "./base_collection";
 import { Comment } from "../models/comment";
-import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
+import { PaginatedResult } from "../interfaces/paginated_result";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination";
+import { ProjectOnly } from "../interfaces/project_only";
+interface ParamsWithPagination extends ProjectWithPagination {
+    key_id: number | string;
+}
+interface ProjectAndKey extends ProjectOnly {
+    key_id: number | string;
+}
+declare type CommentData = {
+    comment: string;
+};
+declare type CommentDeleted = {
+    project_id: string;
+    comment_deleted: boolean;
+};
 export declare class Comments extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: object;
-    create(raw_body: object | object[], params: StandartParams): Promise<Comment[]>;
-    list_project_comments(params: StandartParams): Promise<PaginatedResult>;
+    protected static elementClass: typeof Comment;
+    list(request_params: ParamsWithPagination): Promise<PaginatedResult<Comment>>;
+    create(comment_params: CommentData | CommentData[], request_params: ProjectAndKey): Promise<Comment[]>;
+    get(comment_id: string | number, request_params: ProjectAndKey): Promise<Comment>;
+    delete(comment_id: string | number, request_params: ProjectAndKey): Promise<CommentDeleted>;
+    list_project_comments(params: ProjectWithPagination): Promise<PaginatedResult<Comment>>;
 }
+export {};

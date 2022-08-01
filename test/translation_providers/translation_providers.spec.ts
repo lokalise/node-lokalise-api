@@ -41,12 +41,20 @@ describe("TranslationProviders", function () {
       expect(provider.name).to.eq("Lokalise");
       expect(provider.slug).to.eq("lokalise");
       expect(provider.price_pair_min).to.eq("10.00");
-      expect(provider.website_url).to.eq("https://lokalise.co");
-      expect(provider.description).to.include(
-        "Our native professional translations"
-      );
+      expect(provider.website_url).to.eq("https://lokalise.com");
+      expect(provider.description).to.include("Our native professional");
       expect(provider.tiers).to.have.lengthOf(4);
-      expect(provider.tiers[1]["tier_id"]).to.eq(2);
+      expect(provider.tiers[1].tier_id).to.eq(2);
+      expect(provider.tiers[0].title).to.eq(
+        "Translation only by a native professional linguist"
+      );
+
+      const pair = provider.pairs[0];
+      expect(pair.tier_id).to.eq(1);
+      expect(pair.price_per_word).to.eq(0.1);
+      expect(pair.from_lang_name).to.eq("Russian");
+      expect(pair.to_lang_iso).to.eq("en");
+      expect(pair.to_lang_name).to.eq("English");
     })
     .register(this);
 });

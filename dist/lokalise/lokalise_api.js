@@ -45,6 +45,7 @@ class LokaliseApi {
         if (compression !== null && compression !== undefined) {
             this.clientData.enableCompression = compression;
         }
+        this.clientData.host = params.host;
     }
     branches() {
         return new branches_1.Branches(this.clientData);

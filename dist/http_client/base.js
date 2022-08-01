@@ -15,7 +15,7 @@ class ApiRequest {
     async createPromise(uri, method, body, clientData) {
         const options = {
             method: method,
-            prefixUrl: this.urlRoot,
+            prefixUrl: clientData.host ?? this.urlRoot,
             headers: {
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
             },
@@ -23,7 +23,7 @@ class ApiRequest {
             throwHttpErrors: false,
             decompress: false,
         };
-        // Make strictNullChecks happy
+        /* istanbul ignore next */
         if (!options["headers"]) {
             /* istanbul ignore next */
             options["headers"] = {};

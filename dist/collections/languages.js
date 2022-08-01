@@ -8,16 +8,24 @@ class Languages extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "language";
     static prefixURI = "projects/{!:project_id}/languages/{:id}";
     static elementClass = language_1.Language;
-    system_languages(params) {
+    system_languages(params = {}) {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null, "system/languages");
     }
-    create(raw_body, params) {
-        const body = { languages: this.objToArray(raw_body) };
-        return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
     }
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    create(raw_body, request_params) {
+        const body = { languages: this.objToArray(raw_body) };
+        return this.doCreate(body, request_params, this.populateArrayFromJsonBulk);
+    }
+    get(lang_id, request_params) {
+        return this.doGet(lang_id, request_params);
+    }
+    update(lang_id, lang_params, request_params) {
+        return this.doUpdate(lang_id, lang_params, request_params);
+    }
+    delete(lang_id, request_params) {
+        return super.doDelete(lang_id, request_params);
     }
 }
 exports.Languages = Languages;

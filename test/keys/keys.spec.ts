@@ -69,37 +69,39 @@ describe("Keys", function () {
   cassette
     .createTest("create", async () => {
       const keys = await lokaliseApi.keys().create(
-        [
-          {
-            key_name: "welcome_web",
-            description: "Index app welcome",
-            platforms: ["web"],
-            filenames: {
-              web: "my_filename.json",
-            },
-            translations: [
-              {
-                language_iso: "en",
-                translation: "Welcome",
+        {
+          keys: [
+            {
+              key_name: "welcome_web",
+              description: "Index app welcome",
+              platforms: ["web"],
+              filenames: {
+                web: "my_filename.json",
               },
-            ],
-          },
-          {
-            key_name: "welcome_ios",
-            description: "Welcome apple",
-            platforms: ["ios"],
-            is_plural: true,
-            translations: [
-              {
-                language_iso: "en",
-                translation: {
-                  one: "I have one apple",
-                  other: "I have a lot of apples",
+              translations: [
+                {
+                  language_iso: "en",
+                  translation: "Welcome",
                 },
-              },
-            ],
-          },
-        ],
+              ],
+            },
+            {
+              key_name: "welcome_ios",
+              description: "Welcome apple",
+              platforms: ["ios"],
+              is_plural: true,
+              translations: [
+                {
+                  language_iso: "en",
+                  translation: {
+                    one: "I have one apple",
+                    other: "I have a lot of apples",
+                  },
+                },
+              ],
+            },
+          ],
+        },
         { project_id: project_id }
       );
 
@@ -117,32 +119,34 @@ describe("Keys", function () {
   cassette
     .createTest("create_with_error", async () => {
       const keys = await lokaliseApi.keys().create(
-        [
-          {
-            key_name: "searching:results:nothing_found",
-            description: "this is a duplicate",
-            platforms: ["web"],
-            filenames: {
-              web: "%LANG_ISO%.yml",
+        {
+          keys: [
+            {
+              key_name: "searching:results:nothing_found",
+              description: "this is a duplicate",
+              platforms: ["web"],
+              filenames: {
+                web: "%LANG_ISO%.yml",
+              },
+              translations: [
+                {
+                  language_iso: "en",
+                  translation: "duplicate",
+                },
+              ],
             },
-            translations: [
-              {
-                language_iso: "en",
-                translation: "duplicate",
-              },
-            ],
-          },
-          {
-            key_name: "key_not_dup",
-            platforms: ["web"],
-            translations: [
-              {
-                language_iso: "en",
-                translation: "Not duplicate!",
-              },
-            ],
-          },
-        ],
+            {
+              key_name: "key_not_dup",
+              platforms: ["web"],
+              translations: [
+                {
+                  language_iso: "en",
+                  translation: "Not duplicate!",
+                },
+              ],
+            },
+          ],
+        },
         { project_id: project_id }
       );
       expect(keys.errors[0].message).to.eq("This key name is already taken");
@@ -153,23 +157,25 @@ describe("Keys", function () {
   cassette
     .createTest("create per-platform", async () => {
       const keys = await lokaliseApi.keys().create(
-        [
-          {
-            key_name: {
-              ios: "name_for_ios",
-              web: "name_for_web",
-              android: "android_name",
-              other: "other_name",
-            },
-            platforms: ["web", "ios"],
-            translations: [
-              {
-                language_iso: "en",
-                translation: "Per-platform key names",
+        {
+          keys: [
+            {
+              key_name: {
+                ios: "name_for_ios",
+                web: "name_for_web",
+                android: "android_name",
+                other: "other_name",
               },
-            ],
-          },
-        ],
+              platforms: ["web", "ios"],
+              translations: [
+                {
+                  language_iso: "en",
+                  translation: "Per-platform key names",
+                },
+              ],
+            },
+          ],
+        },
         { project_id: project_id }
       );
       const key = keys.items[0];
@@ -201,17 +207,19 @@ describe("Keys", function () {
   cassette
     .createTest("bulk_update", async () => {
       const keys = await lokaliseApi.keys().bulk_update(
-        [
-          {
-            key_id: key_id,
-            description: "Bulk node",
-            platforms: ["web"],
-          },
-          {
-            key_id: second_key_id,
-            description: "Second bulk",
-          },
-        ],
+        {
+          keys: [
+            {
+              key_id: key_id,
+              description: "Bulk node",
+              platforms: ["web"],
+            },
+            {
+              key_id: second_key_id,
+              description: "Second bulk",
+            },
+          ],
+        },
         { project_id: project_id }
       );
 

@@ -1,25 +1,47 @@
 import { BaseCollection } from "./base_collection";
 import { TeamUser } from "../models/team_user";
-import { StandartParams } from "../interfaces/standart_params";
+import { TeamWithPagination } from "../interfaces/team_with_pagination";
+import { PaginatedResult } from "../interfaces/paginated_result";
+import { TeamOnly } from "../interfaces/team_only";
+
+type TeamUserParams = {
+  role?: "owner" | "admin" | "member" | "biller";
+};
+
+type TeamUserDeleted = {
+  team_id: string;
+  team_user_deleted: boolean;
+};
 
 export class TeamUsers extends BaseCollection {
-  protected static rootElementName: string = "team_users";
-  protected static rootElementNameSingular: string = "team_user";
-  protected static prefixURI: string = "teams/{!:team_id}/users/{:id}";
-  protected static elementClass: object = TeamUser;
+  protected static rootElementName = "team_users";
+  protected static rootElementNameSingular = "team_user";
+  protected static prefixURI = "teams/{!:team_id}/users/{:id}";
+  protected static elementClass = TeamUser;
+
+  list(request_params: TeamWithPagination): Promise<PaginatedResult<TeamUser>> {
+    return this.doList(request_params);
+  }
+
+  get(
+    team_user_id: string | number,
+    request_params: TeamOnly
+  ): Promise<TeamUser> {
+    return this.doGet(team_user_id, request_params);
+  }
 
   update(
-    id: string | number,
-    body: object,
-    params: StandartParams
+    team_user_id: string | number,
+    team_user_params: TeamUserParams,
+    request_params: TeamOnly
   ): Promise<TeamUser> {
-    params["id"] = id;
-    return this.createPromise(
-      "PUT",
-      params,
-      this.populateObjectFromJsonRoot,
-      this.handleReject,
-      body
-    );
+    return this.doUpdate(team_user_id, team_user_params, request_params);
+  }
+
+  delete(
+    team_user_id: string | number,
+    request_params: TeamOnly
+  ): Promise<TeamUserDeleted> {
+    return this.doDelete(team_user_id, request_params);
   }
 }

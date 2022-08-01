@@ -8,9 +8,17 @@ class TeamUsers extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "team_user";
     static prefixURI = "teams/{!:team_id}/users/{:id}";
     static elementClass = team_user_1.TeamUser;
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
+    }
+    get(team_user_id, request_params) {
+        return this.doGet(team_user_id, request_params);
+    }
+    update(team_user_id, team_user_params, request_params) {
+        return this.doUpdate(team_user_id, team_user_params, request_params);
+    }
+    delete(team_user_id, request_params) {
+        return this.doDelete(team_user_id, request_params);
     }
 }
 exports.TeamUsers = TeamUsers;

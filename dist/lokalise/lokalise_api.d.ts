@@ -25,6 +25,7 @@ export declare type ClientParams = {
     apiKey?: string;
     enableCompression?: boolean;
     tokenType?: string;
+    host?: string;
 };
 export declare class LokaliseApi {
     readonly clientData: ClientDataInterface;

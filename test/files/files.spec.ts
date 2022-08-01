@@ -14,8 +14,9 @@ describe("Files", function () {
       const files = await lokaliseApi.files().list({ project_id: project_id });
       const file = files.items[0];
 
+      expect(file.file_id).to.eq(81446);
       expect(file.filename).to.eq("%LANG_ISO%.yml");
-      expect(file.key_count).to.eq(3);
+      expect(file.key_count).to.eq(66);
     })
     .register(this);
 
@@ -96,6 +97,19 @@ describe("Files", function () {
 
       expect(response.project_id).to.eq(project_id);
       expect(response.bundle_url).to.include("s3-eu-west-1.amazonaws.com");
+    })
+    .register(this);
+
+  cassette
+    .createTest("delete", async () => {
+      const file_id = "1163964";
+      const docs_project_id = "507504186242fccb32f015.15252556";
+      const response = await lokaliseApi
+        .files()
+        .delete(file_id, { project_id: docs_project_id });
+
+      expect(response.project_id).to.eq(docs_project_id);
+      expect(response.file_deleted).to.be.true;
     })
     .register(this);
 });

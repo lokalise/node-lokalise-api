@@ -1,5 +1,111 @@
 # Changelog
 
+## 8.0.0 (01-Aug-2022)
+
+* **Breaking change!** Fixed a bug for `keys().create()` when `use_automations` param was ignored. **Please note** that now keys have to be created in a slightly different way:
+
+```js
+const keys = await lokaliseApi.keys().create(
+  {
+    keys: [
+      {
+        key_name: "welcome_web",
+        description: "Index app welcome",
+        platforms: ["web"],
+        filenames: {
+          web: "my_filename.json",
+        },
+        translations: [
+          {
+            language_iso: "en",
+            translation: "Welcome",
+          },
+        ],
+      },
+      {
+        key_name: "welcome_ios",
+        description: "Welcome apple",
+        platforms: ["ios"],
+        is_plural: true,
+        translations: [
+          {
+            language_iso: "en",
+            translation: {
+              one: "I have one apple",
+              other: "I have a lot of apples",
+            },
+          },
+        ],
+      },
+    ],
+  },
+  { project_id: project_id }
+);
+
+
+// Per-platform key names:
+
+const keys = await lokaliseApi.keys().create(
+  {
+    keys: [
+      {
+        key_name: {
+          ios: "name_for_ios",
+          web: "name_for_web",
+          android: "android_name",
+          other: "other_name",
+        },
+        platforms: ["web", "ios"],
+        translations: [
+          {
+            language_iso: "en",
+            translation: "Per-platform key names",
+          },
+        ],
+      },
+    ],
+  },
+  { project_id: project_id }
+);
+```
+
+* Same applies to bulk update:
+
+```js
+const keys = await lokaliseApi.keys().bulk_update(
+  {
+    keys: [
+      {
+        key_id: key_id,
+        description: "Bulk node",
+        platforms: ["web"],
+      },
+      {
+        key_id: second_key_id,
+        description: "Second bulk",
+      },
+    ],
+  },
+  { project_id: project_id }
+);
+```
+
+* **New feature**: ability to provide API host when instantiating a client. Default hosts are `"https://api.lokalise.com/api2/"` (for API endpoints) and `"https://app.lokalise.com/oauth2/"` (for OAauth 2 flow) but you can override these by providing an optional `host` param:
+
+```ts
+const client = new LokaliseApi({
+  apiKey: "123abc",
+  host: "https://custom.example.com/api2/",
+});
+```
+
+* Reworked typings system
+* Various fixes and enhancements
+
+## 7.3.1 (07-Jun-2022)
+
+* Minor fixes
+
 ## 7.3.0 (07-Jun-2022)
 
 * Various code improvements

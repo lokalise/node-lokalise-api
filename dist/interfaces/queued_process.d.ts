@@ -1,3 +1,8 @@
+import { Keyable } from "./keyable";
+declare type ProcessDetails = {
+    files: Keyable[];
+    [key: string]: any;
+};
 export interface QueuedProcess {
     process_id: string;
     type: string;
@@ -7,5 +12,6 @@ export interface QueuedProcess {
     created_by_email: string;
     created_at: string;
     created_at_timestamp: number;
-    details?: object[];
+    details: ProcessDetails;
 }
+export {};

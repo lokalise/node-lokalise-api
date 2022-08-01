@@ -26,6 +26,7 @@ export type ClientParams = {
   apiKey?: string;
   enableCompression?: boolean;
   tokenType?: string;
+  host?: string;
 };
 
 export class LokaliseApi {
@@ -51,6 +52,7 @@ export class LokaliseApi {
     if (compression !== null && compression !== undefined) {
       this.clientData.enableCompression = compression;
     }
+    this.clientData.host = params.host;
   }
 
   branches(): Branches {

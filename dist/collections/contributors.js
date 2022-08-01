@@ -8,13 +8,21 @@ class Contributors extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "contributor";
     static prefixURI = "projects/{!:project_id}/contributors/{:id}";
     static elementClass = contributor_1.Contributor;
-    create(raw_body, params) {
-        const body = { contributors: this.objToArray(raw_body) };
-        return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body, "projects/{!:project_id}/contributors");
+    list(request_params) {
+        return this.doList(request_params);
     }
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    create(contributor_params, request_params) {
+        const body = { contributors: this.objToArray(contributor_params) };
+        return this.doCreate(body, request_params, this.populateArrayFromJson);
+    }
+    get(contributor_id, request_params) {
+        return this.doGet(contributor_id, request_params);
+    }
+    update(contributor_id, contributor_params, request_params) {
+        return this.doUpdate(contributor_id, contributor_params, request_params);
+    }
+    delete(contributor_id, request_params) {
+        return this.doDelete(contributor_id, request_params);
     }
 }
 exports.Contributors = Contributors;

@@ -4,6 +4,15 @@ import { Screenshot as ScreenshotInterface } from "../interfaces/screenshot";
 export class Screenshot extends BaseModel implements ScreenshotInterface {
   declare screenshot_id: number;
   declare key_ids: number[];
+  declare keys: Array<{
+    key_id: number;
+    coordinates: {
+      left: number;
+      top: number;
+      width: number;
+      height: number;
+    };
+  }>;
   declare url: string;
   declare title: string;
   declare description: string;

@@ -1,20 +1,20 @@
 import { Response, Options } from "got";
 const got = require("got");
 const pkg = require("../../package.json");
-import { StandartParams } from "../interfaces/standart_params";
+import { Keyable } from "../interfaces/keyable";
 import { ClientData } from "../interfaces/client_data";
 
 export class ApiRequest {
   private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
-  public params: StandartParams = {};
+  public params: Keyable = {};
 
   constructor(
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
-    params: StandartParams,
+    params: Keyable,
     clientData: ClientData
   ) {
     this.params = params;
@@ -30,7 +30,7 @@ export class ApiRequest {
   ): Promise<any> {
     const options: Options = {
       method: method,
-      prefixUrl: this.urlRoot,
+      prefixUrl: clientData.host ?? this.urlRoot,
       headers: {
         "User-Agent": `node-lokalise-api/${pkg.version}`,
       },
@@ -39,7 +39,7 @@ export class ApiRequest {
       decompress: false,
     };
 
-    // Make strictNullChecks happy
+    /* istanbul ignore next */
     if (!options["headers"]) {
       /* istanbul ignore next */
       options["headers"] = {};
@@ -78,12 +78,12 @@ export class ApiRequest {
   }
 
   protected composeURI(rawUri: string): string {
-    const regexp: RegExp = /{(!{0,1}):(\w*)}/g;
+    const regexp = /{(!{0,1}):(\w*)}/g;
     const uri = rawUri.replace(regexp, this.mapUriParams(this.params));
     return uri.endsWith("/") ? uri.slice(0, -1) : uri;
   }
 
-  protected mapUriParams(params: StandartParams) {
+  protected mapUriParams(params: Keyable) {
     return (_entity: any, isMandaratory: string, paramName: string): string => {
       if (params[paramName] != null) {
         const t_param = params[paramName];

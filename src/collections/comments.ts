@@ -1,33 +1,67 @@
 import { BaseCollection } from "./base_collection";
 import { Comment } from "../models/comment";
-import { StandartParams } from "../interfaces/standart_params";
-import { PaginatedResult } from "../models/paginated_result";
+import { PaginatedResult } from "../interfaces/paginated_result";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination";
+import { ProjectOnly } from "../interfaces/project_only";
+
+interface ParamsWithPagination extends ProjectWithPagination {
+  key_id: number | string;
+}
+
+interface ProjectAndKey extends ProjectOnly {
+  key_id: number | string;
+}
+
+type CommentData = {
+  comment: string;
+};
+
+type CommentDeleted = {
+  project_id: string;
+  comment_deleted: boolean;
+};
 
 export class Comments extends BaseCollection {
-  protected static rootElementName: string = "comments";
-  protected static rootElementNameSingular: string = "comment";
-  protected static prefixURI: string =
+  protected static rootElementName = "comments";
+  protected static rootElementNameSingular = "comment";
+  protected static prefixURI =
     "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
-  protected static elementClass: object = Comment;
+  protected static elementClass = Comment;
 
-  create(
-    raw_body: object | object[],
-    params: StandartParams
-  ): Promise<Comment[]> {
-    const body: object = { comments: this.objToArray(raw_body) };
-    return this.createPromise(
-      "POST",
-      params,
-      this.populateArrayFromJson,
-      this.handleReject,
-      body
-    );
+  list(
+    request_params: ParamsWithPagination
+  ): Promise<PaginatedResult<Comment>> {
+    return this.doList(request_params);
   }
 
-  list_project_comments(params: StandartParams): Promise<PaginatedResult> {
+  create(
+    comment_params: CommentData | CommentData[],
+    request_params: ProjectAndKey
+  ): Promise<Comment[]> {
+    const body = { comments: this.objToArray(comment_params) };
+    return this.doCreate(body, request_params, this.populateArrayFromJson);
+  }
+
+  get(
+    comment_id: string | number,
+    request_params: ProjectAndKey
+  ): Promise<Comment> {
+    return this.doGet(comment_id, request_params);
+  }
+
+  delete(
+    comment_id: string | number,
+    request_params: ProjectAndKey
+  ): Promise<CommentDeleted> {
+    return this.doDelete(comment_id, request_params);
+  }
+
+  list_project_comments(
+    params: ProjectWithPagination
+  ): Promise<PaginatedResult<Comment>> {
     return this.createPromise(
       "GET",
-      { project_id: params["project_id"] },
+      params,
       this.populateArrayFromJson,
       this.handleReject,
       null,

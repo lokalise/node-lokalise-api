@@ -47,7 +47,7 @@ describe("Webhooks", function () {
       expect(webhook.secret).to.eq("5efb67362d6408c43e2cc541729e07925cf636d1");
       expect(webhook.webhook_id).to.eq(webhook_id);
       expect(webhook.events[0]).to.eq("project.imported");
-      expect(webhook.event_lang_map[0]["event"]).to.eq(
+      expect(webhook.event_lang_map[0].event).to.eq(
         "project.translation.updated"
       );
     })

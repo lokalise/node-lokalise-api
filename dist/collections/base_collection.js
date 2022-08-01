@@ -5,35 +5,38 @@ const base_1 = require("../http_client/base");
 const paginated_result_1 = require("../models/paginated_result");
 class BaseCollection {
     clientData;
-    static rootElementName = "";
-    static rootElementNameSingular = null;
-    static endpoint = null;
-    static prefixURI = null;
-    static elementClass = null;
+    static rootElementName;
+    static rootElementNameSingular;
+    static endpoint;
+    static prefixURI;
+    static elementClass;
     // Secondaries are used when an instance of a different class has to be created
     // For example, uploading a File may return a QueuedProcess
-    static secondaryElementNameSingular = null;
-    static secondaryElementClass = null;
+    static secondaryElementNameSingular;
+    static secondaryElementClass;
     constructor(clientData) {
         this.clientData = clientData;
     }
-    get(id, params = {}) {
+    doList(params) {
+        return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
+    }
+    doGet(id, params = {}) {
         params["id"] = id;
         return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, null);
     }
-    list(params = {}) {
-        return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
-    }
-    create(body, params = {}) {
-        return this.createPromise("POST", params, this.populateObjectFromJson, this.handleReject, body);
-    }
-    update(id, body, params = {}) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJson, this.handleReject, body);
-    }
-    delete(id, params = {}) {
+    doDelete(id, params = {}) {
         params["id"] = id;
         return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, null);
+    }
+    doCreate(body, params = {}, resolveFn = this.populateObjectFromJson) {
+        return this.createPromise("POST", params, resolveFn, this.handleReject, body);
+    }
+    doUpdate(id, body, req_params, resolveFn = this.populateObjectFromJsonRoot) {
+        const params = {
+            ...req_params,
+            ...{ id: id },
+        };
+        return this.createPromise("PUT", params, resolveFn, this.handleReject, body);
     }
     populateObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;
@@ -56,6 +59,19 @@ class BaseCollection {
             return new childClass.elementClass(json);
         }
     }
+    populateArrayFromJsonBulk(json, headers) {
+        const childClass = this.constructor;
+        const arr = [];
+        const jsonArray = json[childClass.rootElementName];
+        for (const obj of jsonArray) {
+            arr.push(this.populateObjectFromJson(obj, headers));
+        }
+        const result = {
+            errors: json["errors"],
+            items: arr,
+        };
+        return result;
+    }
     populateArrayFromJson(json, headers) {
         const childClass = this.constructor;
         const arr = [];
@@ -63,24 +79,12 @@ class BaseCollection {
         for (const obj of jsonArray) {
             arr.push(this.populateObjectFromJson(obj, headers));
         }
-        if (Object(headers)["x-pagination-total-count"] &&
-            Object(headers)["x-pagination-page"]) {
+        if (headers["x-pagination-total-count"] && headers["x-pagination-page"]) {
             const result = new paginated_result_1.PaginatedResult(arr, headers);
             return result;
         }
         else {
-            // Handle rare cases when the response is success but there were errors along with other data
-            // Currently, it can only happen when creating or updating items in bulk
-            if (json["errors"]) {
-                const result = {
-                    errors: json["errors"],
-                    items: arr,
-                };
-                return result;
-            }
-            else {
-                return arr;
-            }
+            return arr;
         }
     }
     populateApiErrorFromJson(json) {

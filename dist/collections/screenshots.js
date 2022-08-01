@@ -8,13 +8,21 @@ class Screenshots extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "screenshot";
     static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
     static elementClass = screenshot_1.Screenshot;
-    create(raw_body, params) {
-        const body = { screenshots: this.objToArray(raw_body) };
-        return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
     }
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    create(raw_body, request_params) {
+        const body = { screenshots: this.objToArray(raw_body) };
+        return this.doCreate(body, request_params, this.populateArrayFromJsonBulk);
+    }
+    get(screnshot_id, request_params) {
+        return this.doGet(screnshot_id, request_params);
+    }
+    update(screenshot_id, screenshot_params, request_params) {
+        return this.doUpdate(screenshot_id, screenshot_params, request_params);
+    }
+    delete(screenshot_id, request_params) {
+        return this.doDelete(screenshot_id, request_params);
     }
 }
 exports.Screenshots = Screenshots;

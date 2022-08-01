@@ -22,6 +22,22 @@ describe("Comments", function () {
     .register(this);
 
   cassette
+    .createTest("list_project_comments_pagination", async () => {
+      const comments = await lokaliseApi.comments().list_project_comments({
+        project_id: "2273827860c1e2473eb195.11207948",
+        page: 2,
+        limit: 1,
+      });
+
+      expect(comments.items[0].comment_id).to.eq(11438930);
+      expect(comments.resultsPerPage).to.eq(1);
+      expect(comments.currentPage).to.eq(2);
+      expect(comments.hasNextPage()).to.eq(true);
+      expect(comments.nextPage()).to.eq(3);
+    })
+    .register(this);
+
+  cassette
     .createTest("list_key_comments", async () => {
       const comments = await lokaliseApi.comments().list({
         project_id: project_id,

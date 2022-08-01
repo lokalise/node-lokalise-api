@@ -64,7 +64,7 @@ describe("Translations", function () {
       expect(translation.modified_at_timestamp).to.eq(1589539482);
       expect(translation.is_reviewed).to.be.false;
       expect(translation.reviewed_by).to.eq(0);
-      expect(translation.is_fuzzy).to.be.false;
+      expect(translation.is_unverified).to.be.false;
       expect(translation.words).to.eq(1);
       expect(translation.custom_translation_statuses).to.have.lengthOf(0);
       expect(translation.task_id).to.eq(null);

@@ -7,6 +7,16 @@ export class Team extends BaseModel implements TeamInterface {
   declare created_at: string;
   declare created_at_timestamp: number;
   declare plan: string;
-  declare quota_usage: object;
-  declare quota_allowed: object;
+  declare quota_usage: {
+    users: number;
+    keys: number;
+    projects: number;
+    mau: number;
+  };
+  declare quota_allowed: {
+    users: number;
+    keys: number;
+    projects: number;
+    mau: number;
+  };
 }

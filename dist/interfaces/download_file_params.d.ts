@@ -5,20 +5,21 @@ export interface DownloadFileParams {
     bundle_structure?: string;
     directory_prefix?: string;
     all_platforms?: boolean;
-    filter_langs?: any[];
-    filter_data?: any[];
-    filter_filenames?: any[];
+    filter_langs?: string[];
+    filter_data?: string[];
+    filter_filenames?: string[];
     add_newline_eof?: boolean;
-    custom_translation_status_ids?: any[];
-    include_tags?: any[];
-    exclude_tags?: any[];
+    custom_translation_status_ids?: string[] | number[];
+    include_tags?: string[];
+    exclude_tags?: string[];
     export_sort?: string;
     export_empty_as?: string;
+    export_null_as?: string;
     include_comments?: boolean;
     include_description?: boolean;
-    include_pids?: any[];
+    include_pids?: string[];
     triggers?: string[];
-    filter_repositories?: any[];
+    filter_repositories?: string[];
     replace_breaks?: boolean;
     disable_references?: boolean;
     plural_format?: string;
@@ -33,4 +34,5 @@ export interface DownloadFileParams {
     java_properties_encoding?: string;
     java_properties_separator?: string;
     bundle_description?: string;
+    filter_task_id?: number;
 }

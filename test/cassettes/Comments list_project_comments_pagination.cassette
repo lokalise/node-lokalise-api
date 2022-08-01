@@ -1,0 +1,71 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "GET",
+    "path": "/api2/projects/2273827860c1e2473eb195.11207948/comments?page=2&limit=1",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "2273827860c1e2473eb195.11207948",
+      "branch": "master",
+      "comments": [
+        {
+          "comment_id": 11438930,
+          "key_id": 194257660,
+          "comment": "test 1",
+          "added_by": 20181,
+          "added_by_email": "bodrovis@protonmail.com",
+          "added_at": "2022-07-25 17:51:30 (Etc/UTC)",
+          "added_at_timestamp": 1658771490
+        }
+      ]
+    },
+    "rawHeaders": [
+      "Date",
+      "Mon, 25 Jul 2022 17:52:01 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Server",
+      "nginx",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "X-Pagination-Total-Count",
+      "4",
+      "X-Pagination-Page-Count",
+      "4",
+      "X-Pagination-Limit",
+      "1",
+      "X-Pagination-Page",
+      "2",
+      "pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "c841c423-de96-4fb7-a7a7-4b77fa7b1892",
+      "Expires",
+      "Mon, 25 Jul 2022 17:52:01 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Sun, 25-Jul-2021 17:52:00 GMT; Max-Age=0; path=/; httponly",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

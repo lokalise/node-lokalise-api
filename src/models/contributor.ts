@@ -1,6 +1,5 @@
 import { BaseModel } from "./base_model";
 import { Contributor as ContributorInterface } from "../interfaces/contributor";
-import { Keyable } from "../interfaces/keyable";
 
 export class Contributor extends BaseModel implements ContributorInterface {
   declare user_id: number;
@@ -10,6 +9,11 @@ export class Contributor extends BaseModel implements ContributorInterface {
   declare created_at_timestamp: number;
   declare is_admin: boolean;
   declare is_reviewer: boolean;
-  declare languages: Keyable;
+  declare languages: Array<{
+    lang_id: number;
+    lang_iso: string;
+    lang_name: string;
+    is_writable: boolean;
+  }>;
   declare admin_rights: string[];
 }

@@ -21,6 +21,32 @@ describe("LokaliseApi", function () {
   });
 });
 
+describe("LokaliseApi host", function () {
+  it("is expected to have empty host by default", function () {
+    const client = new LokaliseApi({ apiKey: process.env.API_KEY });
+    expect(client.clientData.host).to.be.undefined;
+  });
+
+  it("is expected to assign host", function () {
+    const client = new LokaliseApi({
+      apiKey: process.env.API_KEY,
+      host: "http://example.com",
+    });
+    expect(client.clientData.host).to.eq("http://example.com");
+  });
+
+  cassette
+    .createTest("list_with_gzip", async () => {
+      const client = new LokaliseApi({
+        apiKey: process.env.API_KEY,
+        host: "https://api.lokalise.com/api2/",
+      });
+      const keys = await client.keys().list({ project_id: project_id });
+      expect(keys.items[0].key_id).to.eq(44596059);
+    })
+    .register(this);
+});
+
 describe("LokaliseApi gzip", function () {
   cassette
     .createTest("list_with_gzip", async () => {

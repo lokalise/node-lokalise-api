@@ -14,7 +14,7 @@ export class LokaliseAuth {
    * @param clientSecret  string, mandatory
    * @returns             LokaliseAuth object to work with.
    */
-  constructor(clientId: string, clientSecret: string) {
+  constructor(clientId: string, clientSecret: string, host?: string) {
     if (
       clientId == null ||
       clientId.length == 0 ||
@@ -28,6 +28,7 @@ export class LokaliseAuth {
 
     this.authData.client_id = clientId;
     this.authData.client_secret = clientSecret;
+    this.authData.host = host;
   }
 
   auth(
@@ -81,7 +82,12 @@ export class LokaliseAuth {
 
   private async doRequest(params: { [key: string]: string }): Promise<any> {
     try {
-      const data = await AuthRequest.createPromise("token", "POST", params);
+      const data = await AuthRequest.createPromise(
+        "token",
+        "POST",
+        params,
+        this.authData.host
+      );
       return Promise.resolve(data["json"]);
     } catch (err) {
       return Promise.reject(this.handleReject(err));
@@ -89,7 +95,7 @@ export class LokaliseAuth {
   }
 
   private buildUrl(params: { [key: string]: string }): string {
-    const url = new URL("auth", AuthRequest.urlRoot);
+    const url = new URL("auth", this.authData.host ?? AuthRequest.urlRoot);
     const sParams = new URLSearchParams(params);
     url.search = sParams.toString();
     return url.toString();

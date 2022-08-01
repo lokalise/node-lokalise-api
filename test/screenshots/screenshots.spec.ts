@@ -17,6 +17,8 @@ describe("Screenshots", function () {
     .createTest("list_with_error", async () => {
       await lokaliseApi
         .screenshots()
+        // We actually WANT this error to happen so ignoring TS warnings
+        // @ts-ignore
         .list({})
         .catch((e: Error) => {
           expect(e.message).to.include("Required param project_id");
@@ -45,19 +47,22 @@ describe("Screenshots", function () {
 
   cassette
     .createTest("get", async () => {
-      const screenshot = await lokaliseApi.screenshots().get(screenshot_id, {
+      const screenshot = await lokaliseApi.screenshots().get("757673", {
         project_id: project_id,
       });
 
-      expect(screenshot.screenshot_id).to.eq(screenshot_id);
-      expect(screenshot.key_ids).to.include(key_id);
-      expect(screenshot.title).to.eq("node screen");
-      expect(screenshot.description).to.eq("node desc");
-      expect(screenshot.url).to.include("s3-eu-west-1.amazonaws.com");
-      expect(screenshot.width).to.eq(125);
-      expect(screenshot.height).to.eq(32);
-      expect(screenshot.created_at).to.eq("2019-06-20 14:38:03 (Etc/UTC)");
-      expect(screenshot.created_at_timestamp).to.eq(1561041483);
+      expect(screenshot.screenshot_id).to.eq(757673);
+      expect(screenshot.key_ids).to.include(74166107);
+      expect(screenshot.title).to.eq("123");
+      expect(screenshot.description).to.eq("");
+      expect(screenshot.screenshot_tags.length).to.eq(0);
+      expect(screenshot.keys[0].key_id).to.eq(74166107);
+      expect(screenshot.keys[0].coordinates.height).to.eq(12);
+      expect(screenshot.url).to.include("s3.eu-central-1");
+      expect(screenshot.width).to.eq(1506);
+      expect(screenshot.height).to.eq(411);
+      expect(screenshot.created_at).to.eq("2021-03-16 17:55:01 (Etc/UTC)");
+      expect(screenshot.created_at_timestamp).to.eq(1615917301);
     })
     .register(this);
 

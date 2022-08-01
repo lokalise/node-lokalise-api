@@ -8,21 +8,27 @@ class Keys extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "key";
     static prefixURI = "projects/{!:project_id}/keys/{:id}";
     static elementClass = key_1.Key;
-    create(raw_body, params) {
-        const body = { keys: this.objToArray(raw_body) };
-        return this.createPromise("POST", params, this.populateArrayFromJson, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
     }
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    create(key_params, request_params) {
+        return this.doCreate(key_params, request_params, this.populateArrayFromJsonBulk);
     }
-    bulk_update(raw_keys, params) {
-        const keys = { keys: this.objToArray(raw_keys) };
-        return this.createPromise("PUT", params, this.populateArrayFromJson, this.handleReject, keys, "projects/{!:project_id}/keys");
+    get(key_id, request_params) {
+        return this.doGet(key_id, request_params);
     }
-    bulk_delete(raw_keys, params) {
-        const keys = { keys: this.objToArray(raw_keys) };
-        return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, keys, "projects/{!:project_id}/keys");
+    update(key_id, key_params, request_params) {
+        return this.doUpdate(key_id, key_params, request_params);
+    }
+    delete(key_id, request_params) {
+        return this.doDelete(key_id, request_params);
+    }
+    bulk_update(key_params, request_params) {
+        return this.createPromise("PUT", request_params, this.populateArrayFromJsonBulk, this.handleReject, key_params, "projects/{!:project_id}/keys");
+    }
+    bulk_delete(key_ids, request_params) {
+        const keys = { keys: this.objToArray(key_ids) };
+        return this.createPromise("DELETE", request_params, this.returnBareJSON, this.handleReject, keys, "projects/{!:project_id}/keys");
     }
 }
 exports.Keys = Keys;

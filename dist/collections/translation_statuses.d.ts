@@ -1,13 +1,33 @@
 import { BaseCollection } from "./base_collection";
 import { TranslationStatus } from "../models/translation_status";
-import { StandartParams } from "../interfaces/standart_params";
-import { Keyable } from "../interfaces/keyable";
+import { PaginatedResult } from "../interfaces/paginated_result";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination";
+import { ProjectOnly } from "../interfaces/project_only";
+declare type CreateTranslationStatusParams = {
+    title: string;
+    color: string;
+};
+declare type UpdateTranslationStatusParams = {
+    title?: string;
+    color?: string;
+};
+declare type TranslationStatusDeleted = {
+    project_id: string;
+    custom_translation_status_deleted: boolean;
+};
+declare type TranslationStatusColors = {
+    colors: string[];
+};
 export declare class TranslationStatuses extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
-    protected static elementClass: object;
+    protected static elementClass: typeof TranslationStatus;
     protected static rootElementNameSingular: string;
-    create(body: object, params: StandartParams): Promise<TranslationStatus>;
-    update(id: string | number, body: object, params: StandartParams): Promise<TranslationStatus>;
-    available_colors(params: StandartParams): Promise<Keyable>;
+    list(request_params: ProjectWithPagination): Promise<PaginatedResult<TranslationStatus>>;
+    create(translation_status_params: CreateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus>;
+    get(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatus>;
+    update(translation_status_id: string | number, translation_status_params: UpdateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus>;
+    delete(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatusDeleted>;
+    available_colors(request_params: ProjectOnly): Promise<TranslationStatusColors>;
 }
+export {};

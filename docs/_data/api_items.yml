@@ -61,6 +61,8 @@
       path: download-translation-files
     - title: Upload translation file
       path: upload-translation-file
+    - title: Delete translation file
+      path: delete-translation-file
 - title: Translation keys
   path: keys
   sub_paths:

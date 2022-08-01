@@ -8,12 +8,21 @@ class Snapshots extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "snapshot";
     static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
     static elementClass = snapshot_1.Snapshot;
-    restore(id, params) {
-        params["id"] = id;
+    list(request_params) {
+        return this.doList(request_params);
+    }
+    create(snapshot_params, request_params) {
+        return this.doCreate(snapshot_params, request_params, this.populateObjectFromJsonRoot);
+    }
+    restore(snapshot_id, request_params) {
+        const params = {
+            ...request_params,
+            ...{ id: snapshot_id },
+        };
         return this.createPromise("POST", params, this.returnBareJSON, this.handleReject, {});
     }
-    create(body, params) {
-        return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    delete(snapshot_id, request_params) {
+        return this.doDelete(snapshot_id, request_params);
     }
 }
 exports.Snapshots = Snapshots;

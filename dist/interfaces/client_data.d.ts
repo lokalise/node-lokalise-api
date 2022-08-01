@@ -3,4 +3,5 @@ export interface ClientData {
     tokenType: string;
     authHeader: string;
     enableCompression: boolean;
+    host?: string;
 }

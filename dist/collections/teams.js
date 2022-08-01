@@ -7,6 +7,9 @@ class Teams extends base_collection_1.BaseCollection {
     static rootElementName = "teams";
     static prefixURI = "teams";
     static elementClass = team_1.Team;
+    list(request_params = {}) {
+        return this.doList(request_params);
+    }
 }
 exports.Teams = Teams;
 //# sourceMappingURL=teams.js.map

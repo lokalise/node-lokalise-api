@@ -20,7 +20,34 @@ export class Task extends BaseModel implements TaskInterface {
   declare parent_task_id: number;
   declare closing_tags: string[];
   declare do_lock_translations: boolean;
-  declare languages: any[];
+  declare languages: Array<{
+    language_iso: string;
+    users: Array<{
+      user_id: string | number;
+      email: string;
+      fullname: string;
+    }>;
+    groups: Array<{
+      id: string | number;
+      name: string;
+    }>;
+    keys: string[] | number[];
+    status: string;
+    progress: number;
+    initial_tm_leverage: {
+      "0%+": number;
+      "60%+": number;
+      "75%+": number;
+      "95%+": number;
+      "100%": number;
+    };
+    keys_count: number;
+    words_count: number;
+    completed_at: string;
+    completed_at_timestamp: number;
+    completed_by: number;
+    completed_by_email: string;
+  }>;
   declare source_language_iso: string;
   declare auto_close_languages: boolean;
   declare auto_close_task: boolean;

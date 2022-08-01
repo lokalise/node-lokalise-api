@@ -8,15 +8,26 @@ class Webhooks extends base_collection_1.BaseCollection {
     static rootElementNameSingular = "webhook";
     static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
     static elementClass = webhook_1.Webhook;
-    create(body, params) {
-        return this.createPromise("POST", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    list(request_params) {
+        return this.doList(request_params);
     }
-    update(id, body, params) {
-        params["id"] = id;
-        return this.createPromise("PUT", params, this.populateObjectFromJsonRoot, this.handleReject, body);
+    create(webhook_params, request_params) {
+        return this.doCreate(webhook_params, request_params, this.populateObjectFromJsonRoot);
     }
-    regenerate_secret(id, params) {
-        params["id"] = id;
+    get(webhook_id, request_params) {
+        return this.doGet(webhook_id, request_params);
+    }
+    update(webhook_id, webhook_params, request_params) {
+        return this.doUpdate(webhook_id, webhook_params, request_params);
+    }
+    delete(webhook_id, request_params) {
+        return this.doDelete(webhook_id, request_params);
+    }
+    regenerate_secret(webhook_id, request_params) {
+        const params = {
+            ...request_params,
+            ...{ id: webhook_id },
+        };
         return this.createPromise("PATCH", params, this.returnBareJSON, this.handleReject, null, "projects/{!:project_id}/webhooks/{:id}/secret/regenerate");
     }
 }
