@@ -23,7 +23,7 @@ export abstract class BaseCollection {
     this.clientData = clientData;
   }
 
-  protected doList(params: Keyable = {}): Promise<any> {
+  protected doList(params: Keyable): Promise<any> {
     return this.createPromise(
       "GET",
       params,
@@ -72,7 +72,7 @@ export abstract class BaseCollection {
   protected doUpdate(
     id: string | number,
     body: Keyable | null,
-    req_params: Keyable = {},
+    req_params: Keyable,
     resolveFn = this.populateObjectFromJsonRoot
   ): Promise<any> {
     const params = {

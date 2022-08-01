@@ -17,7 +17,7 @@ class BaseCollection {
     constructor(clientData) {
         this.clientData = clientData;
     }
-    doList(params = {}) {
+    doList(params) {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
     }
     doGet(id, params = {}) {
@@ -31,7 +31,7 @@ class BaseCollection {
     doCreate(body, params = {}, resolveFn = this.populateObjectFromJson) {
         return this.createPromise("POST", params, resolveFn, this.handleReject, body);
     }
-    doUpdate(id, body, req_params = {}, resolveFn = this.populateObjectFromJsonRoot) {
+    doUpdate(id, body, req_params, resolveFn = this.populateObjectFromJsonRoot) {
         const params = {
             ...req_params,
             ...{ id: id },

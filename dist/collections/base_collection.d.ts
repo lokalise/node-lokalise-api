@@ -14,11 +14,11 @@ export declare abstract class BaseCollection {
     protected static secondaryElementNameSingular: string | null;
     protected static secondaryElementClass: any;
     constructor(clientData: ClientData);
-    protected doList(params?: Keyable): Promise<any>;
+    protected doList(params: Keyable): Promise<any>;
     protected doGet(id: string | number, params?: Keyable): Promise<any>;
     protected doDelete(id: string | number, params?: Keyable): Promise<any>;
     protected doCreate(body: Keyable | null, params?: Keyable, resolveFn?: (json: Keyable, _headers: Keyable, secondary?: boolean) => any): Promise<any>;
-    protected doUpdate(id: string | number, body: Keyable | null, req_params?: Keyable, resolveFn?: (json: Keyable, headers: Keyable) => any): Promise<any>;
+    protected doUpdate(id: string | number, body: Keyable | null, req_params: Keyable, resolveFn?: (json: Keyable, headers: Keyable) => any): Promise<any>;
     protected populateObjectFromJsonRoot(json: Keyable, headers: Keyable): any;
     protected populateSecondaryObjectFromJsonRoot(json: Keyable, headers: Keyable): any;
     protected populateObjectFromJson(json: Keyable, _headers: Keyable, secondary?: boolean): any;
