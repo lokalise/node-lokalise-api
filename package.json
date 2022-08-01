@@ -44,7 +44,7 @@
   },
   "dependencies": {
     "@lokalise/node-api": "^7.3.1",
-    "got": "^11.8.3"
+    "got": "^12.3.0"
   },
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
