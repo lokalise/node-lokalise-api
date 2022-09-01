@@ -1,5 +1,9 @@
 # Changelog
 
+## 8.0.1 (01-Sep-2022)
+
+* Fix dependencies issues
+
 ## 8.0.0 (01-Aug-2022)
 
 * **Breaking change!** Fixed a bug for `keys().create()` when `use_automations` param was ignored. **Please note** that now keys have to be created in a slightly different way:
