@@ -1,6 +1,7 @@
 import { AuthData as AuthDataInterface } from "../interfaces/auth_data";
 import { AuthRequest } from "./auth_request";
 import { AuthError } from "../models/auth_error";
+import { RequestTokenResponse } from "../models/request_token_response";
 
 export class LokaliseAuth {
   authData: AuthDataInterface = {
@@ -56,7 +57,7 @@ export class LokaliseAuth {
     return this.buildUrl(params);
   }
 
-  async token(code: string): Promise<any> {
+  async token(code: string): Promise<RequestTokenResponse> {
     const params = {
       ...this.base_params(),
       ...{

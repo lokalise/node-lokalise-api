@@ -1,8 +1,12 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseAuth } from "../../src/oauth2/lokalise_auth";
-import { AuthError } from "../../src/interfaces/auth_error";
+import {
+  RequestTokenResponse,
+  RefreshTokenResponse,
+  AuthError,
+  LokaliseAuth,
+} from "../../src/main";
 
 describe("LokaliseAuth", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -54,14 +58,14 @@ describe("LokaliseAuth", function () {
   describe("token", function () {
     cassette
       .createTest("valid code", async () => {
-        const resp = await lokaliseAuth.token(
+        const resp: RequestTokenResponse = await lokaliseAuth.token(
           "fdf9876214cffa10c6ebbb01bd2399077ba9c49e"
         );
 
-        expect(resp["access_token"]).to.eq("stubbed access");
-        expect(resp["refresh_token"]).to.eq("stubbed refresh");
-        expect(resp["expires_in"]).to.eq(3600);
-        expect(resp["token_type"]).to.eq("Bearer");
+        expect(resp.access_token).to.eq("stubbed access");
+        expect(resp.refresh_token).to.eq("stubbed refresh");
+        expect(resp.expires_in).to.eq(3600);
+        expect(resp.token_type).to.eq("Bearer");
       })
       .register(this);
 
@@ -82,12 +86,14 @@ describe("LokaliseAuth", function () {
   describe("refresh", function () {
     cassette
       .createTest("valid token", async () => {
-        const resp = await lokaliseAuth.refresh("stubbed refresh");
+        const resp: RefreshTokenResponse = await lokaliseAuth.refresh(
+          "stubbed refresh"
+        );
 
-        expect(resp["access_token"]).to.eq("stubbed access");
-        expect(resp["scope"]).to.eq("write_team_groups read_projects");
-        expect(resp["expires_in"]).to.eq(3600);
-        expect(resp["token_type"]).to.eq("Bearer");
+        expect(resp.access_token).to.eq("stubbed access");
+        expect(resp.scope).to.eq("write_team_groups read_projects");
+        expect(resp.expires_in).to.eq(3600);
+        expect(resp.token_type).to.eq("Bearer");
       })
       .register(this);
 

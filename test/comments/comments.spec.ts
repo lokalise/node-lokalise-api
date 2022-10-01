@@ -2,6 +2,7 @@ require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
 import { LokaliseApi } from "../../src/lokalise/lokalise_api";
+import { PaginatedResult, Comment } from "../../src/main";
 
 describe("Comments", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -12,9 +13,11 @@ describe("Comments", function () {
 
   cassette
     .createTest("list_project_comments", async () => {
-      const comments = await lokaliseApi.comments().list_project_comments({
-        project_id: project_id,
-      });
+      const comments: PaginatedResult<Comment> = await lokaliseApi
+        .comments()
+        .list_project_comments({
+          project_id: project_id,
+        });
 
       expect(comments.items[0].comment_id).to.eq(comment_id);
       expect(comments.totalResults).to.eq(4);
