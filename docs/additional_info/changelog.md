@@ -2,7 +2,40 @@
 
 ## 8.0.2 (03-Oct-2022)
 
-* Properly export common interfaces like `ApiError`, `Comment`, `File`, and so on.
+* Properly export common interfaces like `ApiError`, `Comment`, `File`, and so on. For example, now you can say:
+
+```js
+// We can import the Contributor interface easily:
+import { LokaliseApi, Contributor } from '@lokalise/node-api';
+
+const lokaliseApi = new LokaliseApi({ apiKey: '123xyz' });
+
+const contributors = await lokaliseApi.contributors().create([
+  {
+    // ...
+  }
+], { project_id: '123.abc' });
+
+const contributor: Contributor = contributors[0];
+console.log(contributor.email, contributor.user_id);
+```
+
+* Added `RequestTokenResponse` and `RefreshTokenResponse` interfaces:
+
+```js
+import {
+  RequestTokenResponse,
+  RefreshTokenResponse,
+  LokaliseAuth
+} from '@lokalise/node-api';
+
+const lokaliseAuth = new LokaliseAuth("123abc", "456zyx");
+
+const token_resp: RequestTokenResponse = await lokaliseAuth.token("secret_code");
+
+const refresh_resp: RefreshTokenResponse = await lokaliseAuth.refresh("refresh_token");
+```
+
 * Update dependencies.
 
 ## 8.0.1 (01-Sep-2022)
