@@ -1,4 +1,4 @@
-import { ApiError } from "../../src/interfaces/api_error";
+import { ApiError } from "../../src/main";
 
 require("../setup");
 import { expect } from "chai";

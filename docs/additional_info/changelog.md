@@ -1,5 +1,10 @@
 # Changelog
 
+## 8.0.2 (03-Oct-2022)
+
+* Properly export common interfaces like `ApiError`, `Comment`, `File`, and so on.
+* Update dependencies.
+
 ## 8.0.1 (01-Sep-2022)
 
 * Fix dependencies issues
