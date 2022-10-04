@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Snapshots = void 0;
-const base_collection_1 = require("./base_collection");
-const snapshot_1 = require("../models/snapshot");
-class Snapshots extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { Snapshot } from "../models/snapshot.js";
+export class Snapshots extends BaseCollection {
     static rootElementName = "snapshots";
     static rootElementNameSingular = "snapshot";
     static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
-    static elementClass = snapshot_1.Snapshot;
+    static elementClass = Snapshot;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -25,5 +22,4 @@ class Snapshots extends base_collection_1.BaseCollection {
         return this.doDelete(snapshot_id, request_params);
     }
 }
-exports.Snapshots = Snapshots;
 //# sourceMappingURL=snapshots.js.map

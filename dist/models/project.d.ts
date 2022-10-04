@@ -1,7 +1,7 @@
-import { Project as ProjectInterface } from "../interfaces/project";
-import { ProjectSettings } from "../interfaces/project_settings";
-import { ProjectStatistics } from "../interfaces/project_statistics";
-import { BaseModel } from "./base_model";
+import { Project as ProjectInterface } from "../interfaces/project.js";
+import { ProjectSettings } from "../interfaces/project_settings.js";
+import { ProjectStatistics } from "../interfaces/project_statistics.js";
+import { BaseModel } from "./base_model.js";
 export declare class Project extends BaseModel implements ProjectInterface {
     project_id: string;
     project_type: string;

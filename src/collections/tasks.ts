@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { Task } from "../models/task";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { ProjectOnly } from "../interfaces/project_only";
+import { BaseCollection } from "./base_collection.js";
+import { Task } from "../models/task.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
 
 interface ListTaskParams extends ProjectWithPagination {
   filter_title?: string;

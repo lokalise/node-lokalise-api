@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Languages = void 0;
-const language_1 = require("../models/language");
-const base_collection_1 = require("./base_collection");
-class Languages extends base_collection_1.BaseCollection {
+import { Language } from "../models/language.js";
+import { BaseCollection } from "./base_collection.js";
+export class Languages extends BaseCollection {
     static rootElementName = "languages";
     static rootElementNameSingular = "language";
     static prefixURI = "projects/{!:project_id}/languages/{:id}";
-    static elementClass = language_1.Language;
+    static elementClass = Language;
     system_languages(params = {}) {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null, "system/languages");
     }
@@ -28,5 +25,4 @@ class Languages extends base_collection_1.BaseCollection {
         return super.doDelete(lang_id, request_params);
     }
 }
-exports.Languages = Languages;
 //# sourceMappingURL=languages.js.map

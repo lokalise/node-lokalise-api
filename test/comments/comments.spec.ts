@@ -1,8 +1,8 @@
-require("../setup");
+import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api";
-import { PaginatedResult, Comment } from "../../src/main";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import { PaginatedResult, Comment } from "../../src/main.js";
 
 describe("Comments", function () {
   const cassette = new Cassettes("./test/cassettes");

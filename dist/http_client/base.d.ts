@@ -1,6 +1,6 @@
 import { Options } from "got";
-import { Keyable } from "../interfaces/keyable";
-import { ClientData } from "../interfaces/client_data";
+import { Keyable } from "../interfaces/keyable.js";
+import { ClientData } from "../interfaces/client_data.js";
 export declare class ApiRequest {
     private readonly urlRoot;
     promise: Promise<any>;

@@ -1,7 +1,7 @@
-require("../setup");
+import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApiOAuth } from "../../src/lokalise/lokalise_api_oauth";
+import { LokaliseApiOAuth } from "../../src/lokalise/lokalise_api_oauth.js";
 
 const token = process.env.OAUTH2_ACCESS_TOKEN;
 const cassette = new Cassettes("./test/cassettes");

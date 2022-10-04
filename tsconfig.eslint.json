@@ -2,12 +2,12 @@
   "compilerOptions": {
     "target": "es2022",
     "module": "node16",
-    "moduleResolution": "node16",
+    "rootDir": "src",
     "outDir": "dist",
     "sourceMap": true,
+    "moduleResolution": "node16",
     "noImplicitAny": true,
     "strictNullChecks": true,
-    "resolveJsonModule": true,
     "noImplicitReturns": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -19,11 +19,12 @@
     "strictFunctionTypes": true
   },
   "include": [
-    "src/**/*"
+    "src/**/*",
+    "test/**/*",
+    ".eslintrc.cjs"
   ],
   "exclude": [
     "node_modules",
-    "tests",
     "dist"
   ]
 }

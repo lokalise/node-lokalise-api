@@ -1,9 +1,8 @@
-import { Filenames } from "../types/filenames";
-import { SupportedPlatforms } from "../types/supported_platforms";
-import { Filenames as Keynames } from "../types/filenames";
-import { Comment } from "../interfaces/comment";
-import { Screenshot } from "../interfaces/screenshot";
-import { Translation } from "../interfaces/translation";
+import { Filenames, Filenames as Keynames } from "../types/filenames.js";
+import { SupportedPlatforms } from "../types/supported_platforms.js";
+import { Comment } from "../interfaces/comment.js";
+import { Screenshot } from "../interfaces/screenshot.js";
+import { Translation } from "../interfaces/translation.js";
 declare type KeyComment = Omit<Comment, "key_id">;
 export interface Key {
     key_id: number;

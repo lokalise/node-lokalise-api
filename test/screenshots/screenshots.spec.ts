@@ -1,7 +1,7 @@
-require("../setup");
+import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
 
 describe("Screenshots", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -17,11 +17,9 @@ describe("Screenshots", function () {
     .createTest("list_with_error", async () => {
       await lokaliseApi
         .screenshots()
-        // We actually WANT this error to happen so ignoring TS warnings
-        // @ts-ignore
-        .list({})
+        .list({ project_id: "" })
         .catch((e: Error) => {
-          expect(e.message).to.include("Required param project_id");
+          expect(e.message).to.include("Not Found");
         });
     })
     .register(this);

@@ -1,7 +1,7 @@
-import { PaymentCard } from "../models/payment_card";
-import { BaseCollection } from "./base_collection";
-import { PaginationParams } from "../interfaces/pagination_params";
-import { PaginatedResult } from "../interfaces/paginated_result";
+import { PaymentCard } from "../models/payment_card.js";
+import { BaseCollection } from "./base_collection.js";
+import { PaginationParams } from "../interfaces/pagination_params.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
 declare type CardParams = {
     number: string;
     cvc: string | number;

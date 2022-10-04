@@ -1,9 +1,7 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.ApiRequest = void 0;
-const got = require("got");
-const pkg = require("../../package.json");
-class ApiRequest {
+import got, { Options } from "got";
+import { readFile } from "fs/promises";
+const pkg = JSON.parse((await readFile("./package.json")).toString());
+export class ApiRequest {
     urlRoot = "https://api.lokalise.com/api2/";
     promise;
     params = {};
@@ -13,36 +11,30 @@ class ApiRequest {
         return this;
     }
     async createPromise(uri, method, body, clientData) {
-        const options = {
+        const url = this.composeURI(uri);
+        const options = new Options({
             method: method,
             prefixUrl: clientData.host ?? this.urlRoot,
             headers: {
+                Accept: "application/json",
                 "User-Agent": `node-lokalise-api/${pkg.version}`,
             },
-            agent: false,
             throwHttpErrors: false,
             decompress: false,
-        };
-        /* istanbul ignore next */
-        if (!options["headers"]) {
-            /* istanbul ignore next */
-            options["headers"] = {};
-        }
-        options["headers"][clientData.authHeader] = `${clientData.tokenType} ${clientData.token}`;
+            responseType: "text",
+            searchParams: new URLSearchParams(this.params),
+            url: url,
+        });
+        options.headers[clientData.authHeader] = `${clientData.tokenType} ${clientData.token}`;
         if (clientData.enableCompression) {
-            options["headers"]["Accept-Encoding"] = "gzip,deflate";
-            options["decompress"] = true;
-        }
-        const url = this.composeURI(uri);
-        if (Object.keys(this.params).length > 0) {
-            const formattedParams = new URLSearchParams(this.params);
-            options["searchParams"] = formattedParams.toString();
+            options.headers["Accept-Encoding"] = "gzip,deflate";
+            options.decompress = true;
         }
         if (method !== "GET" && body) {
-            options["body"] = JSON.stringify(body);
+            options.body = JSON.stringify(body);
         }
         try {
-            const response = await got(url, options);
+            const response = await got(undefined, undefined, options);
             const responseJSON = JSON.parse(response.body);
             if (response.statusCode > 399) {
                 return Promise.reject(responseJSON["error"] || responseJSON);
@@ -77,5 +69,4 @@ class ApiRequest {
         };
     }
 }
-exports.ApiRequest = ApiRequest;
 //# sourceMappingURL=base.js.map

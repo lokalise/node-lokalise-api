@@ -1,4 +1,4 @@
-import { Keyable } from "./keyable";
+import { Keyable } from "./keyable.js";
 
 export interface Order {
   order_id: string;

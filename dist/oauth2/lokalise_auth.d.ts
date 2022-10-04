@@ -1,5 +1,5 @@
-import { AuthData as AuthDataInterface } from "../interfaces/auth_data";
-import { RequestTokenResponse } from "../models/request_token_response";
+import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
+import { RequestTokenResponse } from "../models/request_token_response.js";
 export declare class LokaliseAuth {
     authData: AuthDataInterface;
     constructor(clientId: string, clientSecret: string, host?: string);
