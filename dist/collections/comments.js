@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Comments = void 0;
-const base_collection_1 = require("./base_collection");
-const comment_1 = require("../models/comment");
-class Comments extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { Comment } from "../models/comment.js";
+export class Comments extends BaseCollection {
     static rootElementName = "comments";
     static rootElementNameSingular = "comment";
     static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
-    static elementClass = comment_1.Comment;
+    static elementClass = Comment;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -25,5 +22,4 @@ class Comments extends base_collection_1.BaseCollection {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null, "projects/{!:project_id}/comments");
     }
 }
-exports.Comments = Comments;
 //# sourceMappingURL=comments.js.map

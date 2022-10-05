@@ -1,7 +1,7 @@
-import { AuthData as AuthDataInterface } from "../interfaces/auth_data";
-import { AuthRequest } from "./auth_request";
-import { AuthError } from "../models/auth_error";
-import { RequestTokenResponse } from "../models/request_token_response";
+import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
+import { AuthRequest } from "./auth_request.js";
+import { AuthError } from "../models/auth_error.js";
+import { RequestTokenResponse } from "../models/request_token_response.js";
 
 export class LokaliseAuth {
   authData: AuthDataInterface = {

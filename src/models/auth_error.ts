@@ -1,5 +1,5 @@
-import { AuthError as ErrorInterface } from "../interfaces/auth_error";
-import { BaseModel } from "./base_model";
+import { AuthError as ErrorInterface } from "../interfaces/auth_error.js";
+import { BaseModel } from "./base_model.js";
 
 export class AuthError extends BaseModel implements ErrorInterface {
   declare code: number;

@@ -1,9 +1,9 @@
-import { BaseCollection } from "./base_collection";
-import { Screenshot } from "../models/screenshot";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { ProjectOnly } from "../interfaces/project_only";
-import { BulkResult } from "../interfaces/bulk_result";
+import { BaseCollection } from "./base_collection.js";
+import { Screenshot } from "../models/screenshot.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
+import { BulkResult } from "../interfaces/bulk_result.js";
 declare type CreateScreenshotParams = {
     data: string;
     title?: string;

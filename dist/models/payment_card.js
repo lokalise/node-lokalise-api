@@ -1,8 +1,4 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.PaymentCard = void 0;
-const base_model_1 = require("./base_model");
-class PaymentCard extends base_model_1.BaseModel {
+import { BaseModel } from "./base_model.js";
+export class PaymentCard extends BaseModel {
 }
-exports.PaymentCard = PaymentCard;
 //# sourceMappingURL=payment_card.js.map

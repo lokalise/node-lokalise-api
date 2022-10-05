@@ -3,7 +3,7 @@
 You can request and refresh OAuth 2 tokens using this client. First of all, import the necessary module and instantiate the class with your client id and client secret:
 
 ```ts
-const { LokaliseAuth } = require('@lokalise/node-api');
+import { LokaliseAuth } from "@lokalise/node-api";
 
 const lokaliseAuth = new LokaliseAuth("client id", "client secret");
 ```
@@ -65,9 +65,9 @@ The `response` is an object with the following keys:
 After you've obtained an OAuth 2 token, you can use it to perform requests on the user's behalf:
 
 ```ts
-const { LokaliseApiOAuth } = require('@lokalise/node-api');
+import { LokaliseApiOAuth } from "@lokalise/node-api";
 
 const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
 
-const projects = lokaliseApi.projects().list();
+const projects = await lokaliseApi.projects().list();
 ```

@@ -1,1 +1,1 @@
-{"version":3,"file":"snapshot.js","sourceRoot":"","sources":["../../src/models/snapshot.ts"],"names":[],"mappings":";;;AAAA,6CAAyC;AAGzC,MAAa,QAAS,SAAQ,sBAAS;CAOtC;AAPD,4BAOC"}
+{"version":3,"file":"snapshot.js","sourceRoot":"","sources":["../../src/models/snapshot.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAG5C,MAAM,OAAO,QAAS,SAAQ,SAAS;CAOtC"}

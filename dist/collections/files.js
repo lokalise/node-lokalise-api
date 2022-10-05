@@ -1,15 +1,12 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Files = void 0;
-const base_collection_1 = require("./base_collection");
-const file_1 = require("../models/file");
-const queued_process_1 = require("../models/queued_process");
-class Files extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { File } from "../models/file.js";
+import { QueuedProcess } from "../models/queued_process.js";
+export class Files extends BaseCollection {
     static rootElementName = "files";
     static prefixURI = "projects/{!:project_id}/files/{:id}";
-    static elementClass = file_1.File;
+    static elementClass = File;
     static secondaryElementNameSingular = "process";
-    static secondaryElementClass = queued_process_1.QueuedProcess;
+    static secondaryElementClass = QueuedProcess;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -23,5 +20,4 @@ class Files extends base_collection_1.BaseCollection {
         return this.doDelete(file_id, request_params);
     }
 }
-exports.Files = Files;
 //# sourceMappingURL=files.js.map

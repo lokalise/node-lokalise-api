@@ -1,4 +1,4 @@
-import { TranslationStatus } from "./translation_status";
+import { TranslationStatus } from "./translation_status.js";
 
 export interface Translation {
   translation_id: number;

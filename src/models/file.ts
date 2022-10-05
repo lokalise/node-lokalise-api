@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { File as FileInterface } from "../interfaces/file";
+import { BaseModel } from "./base_model.js";
+import { File as FileInterface } from "../interfaces/file.js";
 
 export class File extends BaseModel implements FileInterface {
   declare file_id: number;

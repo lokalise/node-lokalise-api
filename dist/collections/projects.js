@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Projects = void 0;
-const project_1 = require("../models/project");
-const base_collection_1 = require("./base_collection");
-class Projects extends base_collection_1.BaseCollection {
+import { Project } from "../models/project.js";
+import { BaseCollection } from "./base_collection.js";
+export class Projects extends BaseCollection {
     static rootElementName = "projects";
     static prefixURI = "projects/{:id}";
-    static elementClass = project_1.Project;
+    static elementClass = Project;
     list(request_params = {}) {
         return this.doList(request_params);
     }
@@ -26,5 +23,4 @@ class Projects extends base_collection_1.BaseCollection {
         return this.createPromise("PUT", { project_id: project_id }, this.returnBareJSON, this.handleReject, null, "projects/{!:project_id}/empty");
     }
 }
-exports.Projects = Projects;
 //# sourceMappingURL=projects.js.map

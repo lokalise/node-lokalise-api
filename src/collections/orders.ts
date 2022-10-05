@@ -1,8 +1,8 @@
-import { Order } from "../models/order";
-import { BaseCollection } from "./base_collection";
-import { TeamWithPagination } from "../interfaces/team_with_pagination";
-import { TeamOnly } from "../interfaces/team_only";
-import { PaginatedResult } from "../interfaces/paginated_result";
+import { Order } from "../models/order.js";
+import { BaseCollection } from "./base_collection.js";
+import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
+import { TeamOnly } from "../interfaces/team_only.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
 
 type OrderParams = {
   project_id: string;

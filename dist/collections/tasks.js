@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Tasks = void 0;
-const base_collection_1 = require("./base_collection");
-const task_1 = require("../models/task");
-class Tasks extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { Task } from "../models/task.js";
+export class Tasks extends BaseCollection {
     static rootElementName = "tasks";
     static rootElementNameSingular = "task";
     static prefixURI = "projects/{!:project_id}/tasks/{:id}";
-    static elementClass = task_1.Task;
+    static elementClass = Task;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -24,5 +21,4 @@ class Tasks extends base_collection_1.BaseCollection {
         return this.doDelete(task_id, request_params);
     }
 }
-exports.Tasks = Tasks;
 //# sourceMappingURL=tasks.js.map

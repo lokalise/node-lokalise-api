@@ -1,6 +1,6 @@
-import { BaseModel } from "./base_model";
-import { QueuedProcess as QueuedProcessInterface } from "../interfaces/queued_process";
-import { Keyable } from "../interfaces/keyable";
+import { BaseModel } from "./base_model.js";
+import { QueuedProcess as QueuedProcessInterface } from "../interfaces/queued_process.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 type ProcessDetails = {
   files: Keyable[];

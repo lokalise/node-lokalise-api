@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { Webhook as WebhookInterface } from "../interfaces/webhook";
+import { BaseModel } from "./base_model.js";
+import { Webhook as WebhookInterface } from "../interfaces/webhook.js";
 
 export class Webhook extends BaseModel implements WebhookInterface {
   declare webhook_id: string;

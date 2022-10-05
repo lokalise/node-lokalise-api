@@ -1,9 +1,9 @@
 import { Options } from "got";
-import { ApiError } from "../models/api_error";
-import { PaginatedResult } from "../models/paginated_result";
-import { Keyable } from "../interfaces/keyable";
-import { ClientData } from "../interfaces/client_data";
-import { BulkResult } from "../interfaces/bulk_result";
+import { ApiError } from "../models/api_error.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
+import { ClientData } from "../interfaces/client_data.js";
+import { BulkResult } from "../interfaces/bulk_result.js";
 declare type RejectHandler = (data: any) => ApiError;
 declare type ResolveHandler = (json: Keyable, headers: Keyable, ...args: any[]) => any;
 export declare abstract class BaseCollection {

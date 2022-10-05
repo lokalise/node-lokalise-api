@@ -1,6 +1,6 @@
-import { Segment } from "../models/segment";
-import { BaseCollection } from "./base_collection";
-import { ProjectOnly } from "../interfaces/project_only";
+import { Segment } from "../models/segment.js";
+import { BaseCollection } from "./base_collection.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
 
 interface GetSegmentParams extends ProjectOnly {
   key_id: number | string;

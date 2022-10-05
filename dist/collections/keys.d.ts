@@ -1,11 +1,11 @@
-import { BaseCollection } from "./base_collection";
-import { Key } from "../models/key";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectOnly } from "../interfaces/project_only";
-import { CreateKeyData } from "../types/create_key_data";
-import { UpdateKeyData } from "../types/update_key_data";
-import { BulkResult } from "../interfaces/bulk_result";
+import { BaseCollection } from "./base_collection.js";
+import { Key } from "../models/key.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
+import { CreateKeyData } from "../types/create_key_data.js";
+import { UpdateKeyData } from "../types/update_key_data.js";
+import { BulkResult } from "../interfaces/bulk_result.js";
 interface ParamsWithPagination extends ProjectWithPagination {
     disable_references?: number;
     include_comments?: number;

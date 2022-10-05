@@ -1,4 +1,4 @@
-import { Keyable } from "./keyable";
+import { Keyable } from "./keyable.js";
 declare type ProcessDetails = {
     files: Keyable[];
     [key: string]: any;

@@ -1,10 +1,10 @@
 import { Options } from "got";
-import { ApiRequest } from "../http_client/base";
-import { ApiError } from "../models/api_error";
-import { PaginatedResult } from "../models/paginated_result";
-import { Keyable } from "../interfaces/keyable";
-import { ClientData } from "../interfaces/client_data";
-import { BulkResult } from "../interfaces/bulk_result";
+import { ApiRequest } from "../http_client/base.js";
+import { ApiError } from "../models/api_error.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
+import { ClientData } from "../interfaces/client_data.js";
+import { BulkResult } from "../interfaces/bulk_result.js";
 
 type RejectHandler = (data: any) => ApiError;
 type ResolveHandler = (json: Keyable, headers: Keyable, ...args: any[]) => any;

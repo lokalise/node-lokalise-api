@@ -1,6 +1,6 @@
-import { CreateKeyData } from "./create_key_data";
-import { Filenames as Keynames } from "../types/filenames";
-import { SupportedPlatforms } from "../types/supported_platforms";
+import { CreateKeyData } from "./create_key_data.js";
+import { Filenames as Keynames } from "../types/filenames.js";
+import { SupportedPlatforms } from "../types/supported_platforms.js";
 export declare type UpdateKeyData = Omit<CreateKeyData, "key_name" | "translations" | "platforms"> & {
     key_name?: string | Keynames;
     merge_tags?: boolean;

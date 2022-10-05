@@ -1,9 +1,9 @@
-import { BaseCollection } from "./base_collection";
-import { UserGroup } from "../models/user_group";
-import { Keyable } from "../interfaces/keyable";
-import { TeamWithPagination } from "../interfaces/team_with_pagination";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { TeamOnly } from "../interfaces/team_only";
+import { BaseCollection } from "./base_collection.js";
+import { UserGroup } from "../models/user_group.js";
+import { Keyable } from "../interfaces/keyable.js";
+import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { TeamOnly } from "../interfaces/team_only.js";
 declare type GroupLanguages = {
     reference: string[];
     contributable: string[];

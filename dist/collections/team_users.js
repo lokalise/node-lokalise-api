@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TeamUsers = void 0;
-const base_collection_1 = require("./base_collection");
-const team_user_1 = require("../models/team_user");
-class TeamUsers extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { TeamUser } from "../models/team_user.js";
+export class TeamUsers extends BaseCollection {
     static rootElementName = "team_users";
     static rootElementNameSingular = "team_user";
     static prefixURI = "teams/{!:team_id}/users/{:id}";
-    static elementClass = team_user_1.TeamUser;
+    static elementClass = TeamUser;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -21,5 +18,4 @@ class TeamUsers extends base_collection_1.BaseCollection {
         return this.doDelete(team_user_id, request_params);
     }
 }
-exports.TeamUsers = TeamUsers;
 //# sourceMappingURL=team_users.js.map

@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Keys = void 0;
-const base_collection_1 = require("./base_collection");
-const key_1 = require("../models/key");
-class Keys extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { Key } from "../models/key.js";
+export class Keys extends BaseCollection {
     static rootElementName = "keys";
     static rootElementNameSingular = "key";
     static prefixURI = "projects/{!:project_id}/keys/{:id}";
-    static elementClass = key_1.Key;
+    static elementClass = Key;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -31,5 +28,4 @@ class Keys extends base_collection_1.BaseCollection {
         return this.createPromise("DELETE", request_params, this.returnBareJSON, this.handleReject, keys, "projects/{!:project_id}/keys");
     }
 }
-exports.Keys = Keys;
 //# sourceMappingURL=keys.js.map
