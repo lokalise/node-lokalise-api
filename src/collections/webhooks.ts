@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { Webhook } from "../models/webhook";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { ProjectOnly } from "../interfaces/project_only";
+import { BaseCollection } from "./base_collection.js";
+import { Webhook } from "../models/webhook.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
 
 type EventLangMap = {
   event?: string;

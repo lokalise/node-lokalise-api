@@ -1,10 +1,10 @@
-import { Language } from "../models/language";
-import { BaseCollection } from "./base_collection";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { ProjectOnly } from "../interfaces/project_only";
-import { BulkResult } from "../interfaces/bulk_result";
-import { PaginationParams } from "../interfaces/pagination_params";
+import { Language } from "../models/language.js";
+import { BaseCollection } from "./base_collection.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
+import { BulkResult } from "../interfaces/bulk_result.js";
+import { PaginationParams } from "../interfaces/pagination_params.js";
 declare type LanguageDeleted = {
     project_id: string;
     language_deleted: boolean;

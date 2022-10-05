@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { TranslationStatus as TranslationStatusInterface } from "../interfaces/translation_status";
+import { BaseModel } from "./base_model.js";
+import { TranslationStatus as TranslationStatusInterface } from "../interfaces/translation_status.js";
 
 export class TranslationStatus
   extends BaseModel

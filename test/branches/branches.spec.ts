@@ -1,9 +1,9 @@
-import { ApiError } from "../../src/main";
+import { ApiError } from "../../src/main.js";
 
-require("../setup");
+import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
 
 describe("Branches", function () {
   const cassette = new Cassettes("./test/cassettes");

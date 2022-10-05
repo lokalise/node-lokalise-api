@@ -1,6 +1,6 @@
-import { Order as OrderInterface } from "../interfaces/order";
-import { BaseModel } from "./base_model";
-import { Keyable } from "../interfaces/keyable";
+import { Order as OrderInterface } from "../interfaces/order.js";
+import { BaseModel } from "./base_model.js";
+import { Keyable } from "../interfaces/keyable.js";
 export declare class Order extends BaseModel implements OrderInterface {
     order_id: string;
     project_id: string;

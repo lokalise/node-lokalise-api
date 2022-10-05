@@ -1,5 +1,5 @@
-import { PaginatedResult as PaginatedResultInterface } from "../interfaces/paginated_result";
-import { Keyable } from "../interfaces/keyable";
+import { PaginatedResult as PaginatedResultInterface } from "../interfaces/paginated_result.js";
+import { Keyable } from "../interfaces/keyable.js";
 
 export class PaginatedResult implements PaginatedResultInterface {
   totalResults: number;

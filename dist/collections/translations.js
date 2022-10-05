@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Translations = void 0;
-const base_collection_1 = require("./base_collection");
-const translation_1 = require("../models/translation");
-class Translations extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { Translation } from "../models/translation.js";
+export class Translations extends BaseCollection {
     static rootElementName = "translations";
     static rootElementNameSingular = "translation";
     static prefixURI = "projects/{!:project_id}/translations/{:id}";
-    static elementClass = translation_1.Translation;
+    static elementClass = Translation;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -18,5 +15,4 @@ class Translations extends base_collection_1.BaseCollection {
         return this.doUpdate(translation_id, translation_params, request_params);
     }
 }
-exports.Translations = Translations;
 //# sourceMappingURL=translations.js.map

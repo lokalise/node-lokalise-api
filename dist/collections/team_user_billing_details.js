@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.TeamUserBillingDetails = void 0;
-const team_user_billing_details_1 = require("../models/team_user_billing_details");
-const base_collection_1 = require("./base_collection");
-class TeamUserBillingDetails extends base_collection_1.BaseCollection {
+import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details.js";
+import { BaseCollection } from "./base_collection.js";
+export class TeamUserBillingDetails extends BaseCollection {
     static rootElementName = "";
     static prefixURI = "teams/{!:team_id}/billing_details";
-    static elementClass = team_user_billing_details_1.TeamUserBillingDetails;
+    static elementClass = BillingDetailsModel;
     get(team_id) {
         const params = { team_id: team_id };
         return this.createPromise("GET", params, this.populateObjectFromJson, this.handleReject, null);
@@ -19,5 +16,4 @@ class TeamUserBillingDetails extends base_collection_1.BaseCollection {
         return this.createPromise("PUT", params, this.populateObjectFromJson, this.handleReject, billing_details_params);
     }
 }
-exports.TeamUserBillingDetails = TeamUserBillingDetails;
 //# sourceMappingURL=team_user_billing_details.js.map

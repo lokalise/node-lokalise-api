@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Branches = void 0;
-const base_collection_1 = require("./base_collection");
-const branch_1 = require("../models/branch");
-class Branches extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { Branch } from "../models/branch.js";
+export class Branches extends BaseCollection {
     static rootElementName = "branches";
     static rootElementNameSingular = "branch";
     static prefixURI = "projects/{!:project_id}/branches/{:id}";
-    static elementClass = branch_1.Branch;
+    static elementClass = Branch;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -31,5 +28,4 @@ class Branches extends base_collection_1.BaseCollection {
         return this.createPromise("POST", params, this.returnBareJSON, this.handleReject, body, "projects/{!:project_id}/branches/{:id}/merge");
     }
 }
-exports.Branches = Branches;
 //# sourceMappingURL=branches.js.map

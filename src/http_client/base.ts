@@ -1,8 +1,8 @@
-import { Response, Options } from "got";
-const got = require("got");
-const pkg = require("../../package.json");
-import { Keyable } from "../interfaces/keyable";
-import { ClientData } from "../interfaces/client_data";
+import got, { PlainResponse, Options } from "got";
+import { readFile } from "fs/promises";
+const pkg = JSON.parse((await readFile("./package.json")).toString());
+import { Keyable } from "../interfaces/keyable.js";
+import { ClientData } from "../interfaces/client_data.js";
 
 export class ApiRequest {
   private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
@@ -28,44 +28,37 @@ export class ApiRequest {
     body: object | object[] | null,
     clientData: ClientData
   ): Promise<any> {
-    const options: Options = {
+    const url = this.composeURI(uri);
+
+    const options = new Options({
       method: method,
       prefixUrl: clientData.host ?? this.urlRoot,
       headers: {
-        "User-Agent": `node-lokalise-api/${pkg.version}`,
+        Accept: "application/json",
+        "User-Agent": `node-lokalise-api/${<string>pkg.version}`,
       },
-      agent: false,
       throwHttpErrors: false,
       decompress: false,
-    };
+      responseType: "text",
+      searchParams: new URLSearchParams(this.params),
+      url: url,
+    });
 
-    /* istanbul ignore next */
-    if (!options["headers"]) {
-      /* istanbul ignore next */
-      options["headers"] = {};
-    }
-
-    options["headers"][
+    options.headers[
       clientData.authHeader
     ] = `${clientData.tokenType} ${clientData.token}`;
 
     if (clientData.enableCompression) {
-      options["headers"]["Accept-Encoding"] = "gzip,deflate";
-      options["decompress"] = true;
-    }
-
-    const url = this.composeURI(uri);
-
-    if (Object.keys(this.params).length > 0) {
-      const formattedParams = new URLSearchParams(this.params);
-      options["searchParams"] = formattedParams.toString();
+      options.headers["Accept-Encoding"] = "gzip,deflate";
+      options.decompress = true;
     }
 
     if (method !== "GET" && body) {
-      options["body"] = JSON.stringify(body);
+      options.body = JSON.stringify(body);
     }
+
     try {
-      const response: Response = await got(url, options);
+      const response = <PlainResponse>await got(undefined, undefined, options);
       const responseJSON = JSON.parse(<string>response.body);
       if (response.statusCode > 399) {
         return Promise.reject(responseJSON["error"] || responseJSON);

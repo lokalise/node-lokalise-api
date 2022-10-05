@@ -1,6 +1,6 @@
-import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details";
-import { BaseCollection } from "./base_collection";
-import { TeamOnly } from "../interfaces/team_only";
+import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details.js";
+import { BaseCollection } from "./base_collection.js";
+import { TeamOnly } from "../interfaces/team_only.js";
 declare type BillingDetailsParams = {
     billing_email: string;
     country_code: string;

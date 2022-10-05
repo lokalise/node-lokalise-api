@@ -1,29 +1,26 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.LokaliseApi = void 0;
-const branches_1 = require("../collections/branches");
-const comments_1 = require("../collections/comments");
-const contributors_1 = require("../collections/contributors");
-const files_1 = require("../collections/files");
-const keys_1 = require("../collections/keys");
-const languages_1 = require("../collections/languages");
-const orders_1 = require("../collections/orders");
-const payment_cards_1 = require("../collections/payment_cards");
-const projects_1 = require("../collections/projects");
-const queued_processes_1 = require("../collections/queued_processes");
-const screenshots_1 = require("../collections/screenshots");
-const segments_1 = require("../collections/segments");
-const snapshots_1 = require("../collections/snapshots");
-const tasks_1 = require("../collections/tasks");
-const teams_1 = require("../collections/teams");
-const team_users_1 = require("../collections/team_users");
-const team_user_billing_details_1 = require("../collections/team_user_billing_details");
-const translations_1 = require("../collections/translations");
-const translation_providers_1 = require("../collections/translation_providers");
-const translation_statuses_1 = require("../collections/translation_statuses");
-const user_groups_1 = require("../collections/user_groups");
-const webhooks_1 = require("../collections/webhooks");
-class LokaliseApi {
+import { Branches } from "../collections/branches.js";
+import { Comments } from "../collections/comments.js";
+import { Contributors } from "../collections/contributors.js";
+import { Files } from "../collections/files.js";
+import { Keys } from "../collections/keys.js";
+import { Languages } from "../collections/languages.js";
+import { Orders } from "../collections/orders.js";
+import { PaymentCards } from "../collections/payment_cards.js";
+import { Projects } from "../collections/projects.js";
+import { QueuedProcesses } from "../collections/queued_processes.js";
+import { Screenshots } from "../collections/screenshots.js";
+import { Segments } from "../collections/segments.js";
+import { Snapshots } from "../collections/snapshots.js";
+import { Tasks } from "../collections/tasks.js";
+import { Teams } from "../collections/teams.js";
+import { TeamUsers } from "../collections/team_users.js";
+import { TeamUserBillingDetails } from "../collections/team_user_billing_details.js";
+import { Translations } from "../collections/translations.js";
+import { TranslationProviders } from "../collections/translation_providers.js";
+import { TranslationStatuses } from "../collections/translation_statuses.js";
+import { UserGroups } from "../collections/user_groups.js";
+import { Webhooks } from "../collections/webhooks.js";
+export class LokaliseApi {
     clientData = {
         token: "",
         tokenType: "",
@@ -48,71 +45,70 @@ class LokaliseApi {
         this.clientData.host = params.host;
     }
     branches() {
-        return new branches_1.Branches(this.clientData);
+        return new Branches(this.clientData);
     }
     comments() {
-        return new comments_1.Comments(this.clientData);
+        return new Comments(this.clientData);
     }
     contributors() {
-        return new contributors_1.Contributors(this.clientData);
+        return new Contributors(this.clientData);
     }
     files() {
-        return new files_1.Files(this.clientData);
+        return new Files(this.clientData);
     }
     keys() {
-        return new keys_1.Keys(this.clientData);
+        return new Keys(this.clientData);
     }
     languages() {
-        return new languages_1.Languages(this.clientData);
+        return new Languages(this.clientData);
     }
     orders() {
-        return new orders_1.Orders(this.clientData);
+        return new Orders(this.clientData);
     }
     paymentCards() {
-        return new payment_cards_1.PaymentCards(this.clientData);
+        return new PaymentCards(this.clientData);
     }
     projects() {
-        return new projects_1.Projects(this.clientData);
+        return new Projects(this.clientData);
     }
     queuedProcesses() {
-        return new queued_processes_1.QueuedProcesses(this.clientData);
+        return new QueuedProcesses(this.clientData);
     }
     screenshots() {
-        return new screenshots_1.Screenshots(this.clientData);
+        return new Screenshots(this.clientData);
     }
     segments() {
-        return new segments_1.Segments(this.clientData);
+        return new Segments(this.clientData);
     }
     snapshots() {
-        return new snapshots_1.Snapshots(this.clientData);
+        return new Snapshots(this.clientData);
     }
     tasks() {
-        return new tasks_1.Tasks(this.clientData);
+        return new Tasks(this.clientData);
     }
     teams() {
-        return new teams_1.Teams(this.clientData);
+        return new Teams(this.clientData);
     }
     teamUsers() {
-        return new team_users_1.TeamUsers(this.clientData);
+        return new TeamUsers(this.clientData);
     }
     teamUserBillingDetails() {
-        return new team_user_billing_details_1.TeamUserBillingDetails(this.clientData);
+        return new TeamUserBillingDetails(this.clientData);
     }
     translations() {
-        return new translations_1.Translations(this.clientData);
+        return new Translations(this.clientData);
     }
     translationProviders() {
-        return new translation_providers_1.TranslationProviders(this.clientData);
+        return new TranslationProviders(this.clientData);
     }
     translationStatuses() {
-        return new translation_statuses_1.TranslationStatuses(this.clientData);
+        return new TranslationStatuses(this.clientData);
     }
     userGroups() {
-        return new user_groups_1.UserGroups(this.clientData);
+        return new UserGroups(this.clientData);
     }
     webhooks() {
-        return new webhooks_1.Webhooks(this.clientData);
+        return new Webhooks(this.clientData);
     }
 }
-exports.LokaliseApi = LokaliseApi;
 //# sourceMappingURL=lokalise_api.js.map

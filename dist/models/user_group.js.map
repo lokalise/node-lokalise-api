@@ -1,1 +1,1 @@
-{"version":3,"file":"user_group.js","sourceRoot":"","sources":["../../src/models/user_group.ts"],"names":[],"mappings":";;;AAAA,6CAAyC;AAGzC,MAAa,SAAU,SAAQ,sBAAS;CAmBvC;AAnBD,8BAmBC"}
+{"version":3,"file":"user_group.js","sourceRoot":"","sources":["../../src/models/user_group.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAG5C,MAAM,OAAO,SAAU,SAAQ,SAAS;CAmBvC"}

@@ -1,9 +1,9 @@
-import { BaseCollection } from "./base_collection";
-import { Snapshot } from "../models/snapshot";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { ProjectOnly } from "../interfaces/project_only";
-import { Project } from "../models/project";
+import { BaseCollection } from "./base_collection.js";
+import { Snapshot } from "../models/snapshot.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
+import { Project } from "../models/project.js";
 declare type CreateSnapshotParams = {
     title: string;
 };

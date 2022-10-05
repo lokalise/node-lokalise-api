@@ -1,9 +1,6 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.BaseCollection = void 0;
-const base_1 = require("../http_client/base");
-const paginated_result_1 = require("../models/paginated_result");
-class BaseCollection {
+import { ApiRequest } from "../http_client/base.js";
+import { PaginatedResult } from "../models/paginated_result.js";
+export class BaseCollection {
     clientData;
     static rootElementName;
     static rootElementNameSingular;
@@ -80,7 +77,7 @@ class BaseCollection {
             arr.push(this.populateObjectFromJson(obj, headers));
         }
         if (headers["x-pagination-total-count"] && headers["x-pagination-page"]) {
-            const result = new paginated_result_1.PaginatedResult(arr, headers);
+            const result = new PaginatedResult(arr, headers);
             return result;
         }
         else {
@@ -101,7 +98,7 @@ class BaseCollection {
         if (!uri) {
             uri = childClass.prefixURI;
         }
-        const request = new base_1.ApiRequest(uri, method, body, params, this.clientData);
+        const request = new ApiRequest(uri, method, body, params, this.clientData);
         try {
             const data = await request.promise;
             return Promise.resolve(resolveFn.call(this, data["json"], data["headers"]));
@@ -119,5 +116,4 @@ class BaseCollection {
         }
     }
 }
-exports.BaseCollection = BaseCollection;
 //# sourceMappingURL=base_collection.js.map

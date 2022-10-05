@@ -1,8 +1,49 @@
 # Changelog
 
+## 9.0.0
+
+* **Breaking change**: this SDK is now a pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) module. What does it mean? It no longer provides a CommonJS export (in other words, no `require` anymore). What can you do about it?
+  + [Convert your project to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) — this is actually the preferred way
+  + [Use dynamic import](https://v8.dev/features/dynamic-import)
+  + Do nothing and stay on [version 8](https://github.com/lokalise/node-lokalise-api/tree/v8). We're planning to continue supporting it in the future.
+* **Breaking change**: the minimum required Node version is 14.
+
 ## 8.0.2 (03-Oct-2022)
 
-* Properly export common interfaces like `ApiError`, `Comment`, `File`, and so on.
+* Properly export common interfaces like `ApiError`, `Comment`, `File`, and so on. For example, now you can say:
+
+```js
+// We can import the Contributor interface easily:
+import { LokaliseApi, Contributor } from '@lokalise/node-api';
+
+const lokaliseApi = new LokaliseApi({ apiKey: '123xyz' });
+
+const contributors = await lokaliseApi.contributors().create([
+  {
+    // ...
+  }
+], { project_id: '123.abc' });
+
+const contributor: Contributor = contributors[0];
+console.log(contributor.email, contributor.user_id);
+```
+
+* Added `RequestTokenResponse` and `RefreshTokenResponse` interfaces:
+
+```js
+import {
+  RequestTokenResponse,
+  RefreshTokenResponse,
+  LokaliseAuth
+} from '@lokalise/node-api';
+
+const lokaliseAuth = new LokaliseAuth("123abc", "456zyx");
+
+const token_resp: RequestTokenResponse = await lokaliseAuth.token("secret_code");
+
+const refresh_resp: RefreshTokenResponse = await lokaliseAuth.refresh("refresh_token");
+```
+
 * Update dependencies.
 
 ## 8.0.1 (01-Sep-2022)

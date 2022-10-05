@@ -1,12 +1,9 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.UserGroups = void 0;
-const base_collection_1 = require("./base_collection");
-const user_group_1 = require("../models/user_group");
-class UserGroups extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { UserGroup } from "../models/user_group.js";
+export class UserGroups extends BaseCollection {
     static rootElementName = "user_groups";
     static prefixURI = "teams/{!:team_id}/groups/{:id}";
-    static elementClass = user_group_1.UserGroup;
+    static elementClass = UserGroup;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -59,5 +56,4 @@ class UserGroups extends base_collection_1.BaseCollection {
         return this.populateObjectFromJson(formatted_json, headers);
     }
 }
-exports.UserGroups = UserGroups;
 //# sourceMappingURL=user_groups.js.map

@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Webhooks = void 0;
-const base_collection_1 = require("./base_collection");
-const webhook_1 = require("../models/webhook");
-class Webhooks extends base_collection_1.BaseCollection {
+import { BaseCollection } from "./base_collection.js";
+import { Webhook } from "../models/webhook.js";
+export class Webhooks extends BaseCollection {
     static rootElementName = "webhooks";
     static rootElementNameSingular = "webhook";
     static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
-    static elementClass = webhook_1.Webhook;
+    static elementClass = Webhook;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -31,5 +28,4 @@ class Webhooks extends base_collection_1.BaseCollection {
         return this.createPromise("PATCH", params, this.returnBareJSON, this.handleReject, null, "projects/{!:project_id}/webhooks/{:id}/secret/regenerate");
     }
 }
-exports.Webhooks = Webhooks;
 //# sourceMappingURL=webhooks.js.map

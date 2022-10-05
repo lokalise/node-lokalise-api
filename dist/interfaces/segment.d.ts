@@ -1,4 +1,4 @@
-import { TranslationStatus } from "./translation_status";
+import { TranslationStatus } from "./translation_status.js";
 export interface Segment {
     segment_number: number;
     language_iso: string;

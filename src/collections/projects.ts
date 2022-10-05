@@ -1,7 +1,7 @@
-import { Project } from "../models/project";
-import { BaseCollection } from "./base_collection";
-import { PaginationParams } from "../interfaces/pagination_params";
-import { PaginatedResult } from "../interfaces/paginated_result";
+import { Project } from "../models/project.js";
+import { BaseCollection } from "./base_collection.js";
+import { PaginationParams } from "../interfaces/pagination_params.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
 
 interface ProjectListParams extends PaginationParams {
   filter_team_id?: number | string;

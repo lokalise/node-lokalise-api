@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { Comment } from "../models/comment";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { ProjectOnly } from "../interfaces/project_only";
+import { BaseCollection } from "./base_collection.js";
+import { Comment } from "../models/comment.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
 
 interface ParamsWithPagination extends ProjectWithPagination {
   key_id: number | string;

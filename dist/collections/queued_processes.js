@@ -1,13 +1,10 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.QueuedProcesses = void 0;
-const queued_process_1 = require("../models/queued_process");
-const base_collection_1 = require("./base_collection");
-class QueuedProcesses extends base_collection_1.BaseCollection {
+import { QueuedProcess } from "../models/queued_process.js";
+import { BaseCollection } from "./base_collection.js";
+export class QueuedProcesses extends BaseCollection {
     static rootElementName = "processes";
     static rootElementNameSingular = "process";
     static prefixURI = "projects/{!:project_id}/processes/{:id}";
-    static elementClass = queued_process_1.QueuedProcess;
+    static elementClass = QueuedProcess;
     list(request_params) {
         return this.doList(request_params);
     }
@@ -15,5 +12,4 @@ class QueuedProcesses extends base_collection_1.BaseCollection {
         return this.doGet(process_id, request_params);
     }
 }
-exports.QueuedProcesses = QueuedProcesses;
 //# sourceMappingURL=queued_processes.js.map

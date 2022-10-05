@@ -1,4 +1,4 @@
-require("../setup");
+import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
 import {
@@ -6,7 +6,7 @@ import {
   RefreshTokenResponse,
   AuthError,
   LokaliseAuth,
-} from "../../src/main";
+} from "../../src/main.js";
 
 describe("LokaliseAuth", function () {
   const cassette = new Cassettes("./test/cassettes");

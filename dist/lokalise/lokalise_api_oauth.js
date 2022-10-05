@@ -1,8 +1,5 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.LokaliseApiOAuth = void 0;
-const lokalise_api_1 = require("./lokalise_api");
-class LokaliseApiOAuth extends lokalise_api_1.LokaliseApi {
+import { LokaliseApi } from "./lokalise_api.js";
+export class LokaliseApiOAuth extends LokaliseApi {
     constructor(params) {
         super(params);
         const tokenType = params["tokenType"];
@@ -10,5 +7,4 @@ class LokaliseApiOAuth extends lokalise_api_1.LokaliseApi {
         this.clientData.authHeader = "Authorization";
     }
 }
-exports.LokaliseApiOAuth = LokaliseApiOAuth;
 //# sourceMappingURL=lokalise_api_oauth.js.map

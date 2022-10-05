@@ -1,7 +1,7 @@
-require("../setup");
+import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api";
+import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
 
 const cassette = new Cassettes("./test/cassettes");
 const project_id = "803826145ba90b42d5d860.46800099";

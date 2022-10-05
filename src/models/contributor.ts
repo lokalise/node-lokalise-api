@@ -1,5 +1,5 @@
-import { BaseModel } from "./base_model";
-import { Contributor as ContributorInterface } from "../interfaces/contributor";
+import { BaseModel } from "./base_model.js";
+import { Contributor as ContributorInterface } from "../interfaces/contributor.js";
 
 export class Contributor extends BaseModel implements ContributorInterface {
   declare user_id: number;

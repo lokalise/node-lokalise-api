@@ -1,12 +1,12 @@
-import { BaseCollection } from "./base_collection";
-import { File } from "../models/file";
-import { QueuedProcess } from "../models/queued_process";
-import { UploadFileParams } from "../interfaces/upload_file_params";
-import { DownloadFileParams } from "../interfaces/download_file_params";
-import { Keyable } from "../interfaces/keyable";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectOnly } from "../interfaces/project_only";
+import { BaseCollection } from "./base_collection.js";
+import { File } from "../models/file.js";
+import { QueuedProcess } from "../models/queued_process.js";
+import { UploadFileParams } from "../interfaces/upload_file_params.js";
+import { DownloadFileParams } from "../interfaces/download_file_params.js";
+import { Keyable } from "../interfaces/keyable.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
 interface ListFileParams extends ProjectWithPagination {
     filter_filename?: string;
 }

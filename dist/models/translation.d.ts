@@ -1,6 +1,6 @@
-import { BaseModel } from "./base_model";
-import { Translation as TranslationInterface } from "../interfaces/translation";
-import { TranslationStatus } from "../interfaces/translation_status";
+import { BaseModel } from "./base_model.js";
+import { Translation as TranslationInterface } from "../interfaces/translation.js";
+import { TranslationStatus } from "../interfaces/translation_status.js";
 export declare class Translation extends BaseModel implements TranslationInterface {
     translation_id: number;
     key_id: number;

@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { Contributor } from "../models/contributor";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectOnly } from "../interfaces/project_only";
+import { BaseCollection } from "./base_collection.js";
+import { Contributor } from "../models/contributor.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
 
 type ContributorLanguages = {
   lang_iso: string;

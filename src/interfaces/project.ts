@@ -1,5 +1,5 @@
-import { ProjectSettings } from "./project_settings";
-import { ProjectStatistics } from "./project_statistics";
+import { ProjectSettings } from "./project_settings.js";
+import { ProjectStatistics } from "./project_statistics.js";
 
 export interface Project {
   project_id: string;

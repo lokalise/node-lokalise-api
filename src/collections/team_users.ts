@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { TeamUser } from "../models/team_user";
-import { TeamWithPagination } from "../interfaces/team_with_pagination";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { TeamOnly } from "../interfaces/team_only";
+import { BaseCollection } from "./base_collection.js";
+import { TeamUser } from "../models/team_user.js";
+import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { TeamOnly } from "../interfaces/team_only.js";
 
 type TeamUserParams = {
   role?: "owner" | "admin" | "member" | "biller";

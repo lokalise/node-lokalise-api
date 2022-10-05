@@ -1,8 +1,8 @@
-import { BaseCollection } from "./base_collection";
-import { Translation } from "../models/translation";
-import { PaginatedResult } from "../interfaces/paginated_result";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination";
-import { ProjectOnly } from "../interfaces/project_only";
+import { BaseCollection } from "./base_collection.js";
+import { Translation } from "../models/translation.js";
+import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { ProjectOnly } from "../interfaces/project_only.js";
 
 interface ListTranslationParams extends ProjectWithPagination {
   disable_references?: number | string;
