@@ -2,7 +2,9 @@
 
 ## Installation and Requirements
 
-This library requires [Node 10](https://nodejs.org) and above. Install it with [NPM](https://www.npmjs.com/):
+**Please note that starting from version 9 this SDK is a pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) module. It does not provide a CommonJS export (`require`) anymore.** Therefore you should either [convert your project to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c), use [dynamic import](https://v8.dev/features/dynamic-import), or stay on version 8 which we are fully supporting.
+
+This library requires [Node 14](https://nodejs.org) and above. Install it with [NPM](https://www.npmjs.com/):
 
 ```bash
 npm install @lokalise/node-api
@@ -15,7 +17,7 @@ In order to perform API requests, you require a special token that can be obtain
 After you've obtained the token, initialize the client:
 
 ```js
-const { LokaliseApi } = require('@lokalise/node-api');
+import { LokaliseApi } from "@lokalise/node-api";
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
 ```
@@ -23,7 +25,7 @@ const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
 Alternatively, you can use tokens obtained via [OAuth2](https://lokalise.github.io/node-lokalise-api/additional_info/oauth2_flow) (don't forget that these tokens have expiration dates):
 
 ```ts
-const { LokaliseApiOAuth } = require('@lokalise/node-api');
+import { LokaliseApiOAuth } from "@lokalise/node-api";
 
 const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
 ```
@@ -31,7 +33,7 @@ const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' }
 Now you can perform API requests, for example:
 
 ```js
-const projects = lokaliseApi.projects().list();
+const projects = await lokaliseApi.projects().list();
 projects.items[0].name;
 ```
 

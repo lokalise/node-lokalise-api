@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "9.0.0-beta.1",
+  "version": "9.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "type": "module",
@@ -53,7 +53,7 @@
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
   },
   "homepage": "https://lokalise.github.io/node-lokalise-api",
-  "exports": "./index.js",
+  "exports": "./dist/main.js",
   "typings": "./dist/main.d.ts",
   "directories": {
     "lib": "./src",
