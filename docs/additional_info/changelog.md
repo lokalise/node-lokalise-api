@@ -1,6 +1,6 @@
 # Changelog
 
-## 9.0.0
+## 9.0.0 (05-Oct-2022)
 
 * **Breaking change**: this SDK is now a pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) module. What does it mean? It no longer provides a CommonJS export (in other words, no `require` anymore). What can you do about it?
   + [Convert your project to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c) — this is actually the preferred way
