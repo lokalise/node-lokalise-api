@@ -17,7 +17,7 @@ Obtain [Lokalise API token](https://docs.lokalise.com/en/articles/1929556-api-to
 const { LokaliseApi } = require('@lokalise/node-api');
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
-const projects = lokaliseApi.projects().list();
+const projects = await lokaliseApi.projects().list();
 projects.items[0].name;
 
 process = await lokaliseApi.files().upload(project_id,

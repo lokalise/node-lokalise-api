@@ -12,7 +12,7 @@ Official Node interface for the [Lokalise API](https://app.lokalise.com/api2docs
 Install the library:
 
 ```bash
-npm install @lokalise/node-api
+npm install @lokalise/node-api@~8.0.2
 ```
 
 Obtain Lokalise API token in your personal profile, initialize and use the client:
@@ -21,7 +21,7 @@ Obtain Lokalise API token in your personal profile, initialize and use the clien
 const { LokaliseApi } = require('@lokalise/node-api');
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
-const projects = lokaliseApi.projects().list();
+const projects = await lokaliseApi.projects().list();
 projects.items[0].name;
 
 process = await lokaliseApi.files().upload(project_id,
