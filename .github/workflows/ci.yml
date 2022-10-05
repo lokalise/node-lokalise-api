@@ -15,17 +15,18 @@ jobs:
           - 18
         os:
           - ubuntu-latest
+          - windows-latest
     env:
       API_KEY: 123abc
       OAUTH2_ACCESS_TOKEN: fake
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-node@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test
-      - uses: codecov/codecov-action@v2
+      - uses: codecov/codecov-action@v3
         with:
           fail_ci_if_error: true
           verbose: true

@@ -1,7 +1,7 @@
 import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import { LokaliseApi, QueuedProcess } from "../../src/main.js";
 
 describe("Files", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -40,11 +40,13 @@ describe("Files", function () {
     .createTest("upload", async () => {
       const data =
         "ewogICAgImZydWl0IjogIkFwcGxlIiwKICAgICJzaXplIjogIkxhcmdlIiwKICAgICJjb2xvciI6ICJSZWQiCn0=";
-      const process = await lokaliseApi.files().upload(project_id, {
-        data: data,
-        filename: "test_async.json",
-        lang_iso: "en",
-      });
+      const process: QueuedProcess = await lokaliseApi
+        .files()
+        .upload(project_id, {
+          data: data,
+          filename: "test_async.json",
+          lang_iso: "en",
+        });
       expect(process.process_id).to.eq(process_id);
       expect(process.type).to.eq("file-import");
       expect(process.status).to.eq("queued");
