@@ -1,7 +1,11 @@
 import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import {
+  LokaliseApi,
+  KeyParamsWithPagination,
+  GetKeyParams,
+} from "../../src/main.js";
 
 describe("Keys", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -12,7 +16,8 @@ describe("Keys", function () {
 
   cassette
     .createTest("list", async () => {
-      const keys = await lokaliseApi.keys().list({ project_id: project_id });
+      const params: KeyParamsWithPagination = { project_id: project_id };
+      const keys = await lokaliseApi.keys().list(params);
       expect(keys.items[0].key_id).to.eq(key_id);
     })
     .register(this);
@@ -34,10 +39,11 @@ describe("Keys", function () {
 
   cassette
     .createTest("get", async () => {
-      const key = await lokaliseApi.keys().get(44596066, {
+      const params: GetKeyParams = {
         project_id: project_id,
         disable_references: 1,
-      });
+      };
+      const key = await lokaliseApi.keys().get(44596066, params);
       expect(key.key_id).to.eq(44596066);
       expect(key.created_at).to.eq("2020-05-11 11:20:33 (Etc/UTC)");
       expect(key.created_at_timestamp).to.eq(1589196033);
