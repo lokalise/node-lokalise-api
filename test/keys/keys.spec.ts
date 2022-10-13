@@ -1,7 +1,7 @@
 require("../setup");
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api";
+import { LokaliseApi, KeyParamsWithPagination } from "../../src/main";
 
 describe("Keys", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -12,7 +12,8 @@ describe("Keys", function () {
 
   cassette
     .createTest("list", async () => {
-      const keys = await lokaliseApi.keys().list({ project_id: project_id });
+      const params: KeyParamsWithPagination = { project_id: project_id };
+      const keys = await lokaliseApi.keys().list(params);
       expect(keys.items[0].key_id).to.eq(key_id);
     })
     .register(this);

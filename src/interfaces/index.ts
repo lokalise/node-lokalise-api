@@ -9,6 +9,7 @@ export { Contributor } from "../interfaces/contributor";
 export { CreateProjectKeyInput } from "../interfaces/create_project_key_input";
 export { DownloadFileParams } from "../interfaces/download_file_params";
 export { File } from "../interfaces/file";
+export { KeyParamsWithPagination } from "../interfaces/key_params_with_pagination";
 export { Key } from "../interfaces/key";
 export { LanguageMapping } from "../interfaces/language_mapping";
 export { Language } from "../interfaces/language";
