@@ -12,6 +12,10 @@
   + Do nothing and stay on [version 8](https://github.com/lokalise/node-lokalise-api/tree/v8). We're planning to continue supporting it in the future.
 * **Breaking change**: the minimum required Node version is 14.
 
+## 8.1.0 (13-Oct-2022)
+
+* Export `KeyParamsWithPagination` interfaces
+
 ## 8.0.2 (03-Oct-2022)
 
 * Properly export common interfaces like `ApiError`, `Comment`, `File`, and so on. For example, now you can say:
