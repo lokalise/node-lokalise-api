@@ -30,7 +30,7 @@ process.status // => 'queued'
 Alternatively, you can use tokens obtained via [OAuth2](https://lokalise.github.io/node-lokalise-api/additional_info/oauth2_flow) (don't forget that these tokens have expiration dates):
 
 ```ts
-const { LokaliseApiOAuth } = require('@lokalise/node-api');
+import { LokaliseApiOAuth } from '@lokalise/node-api';
 
 const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
 

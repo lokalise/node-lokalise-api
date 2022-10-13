@@ -1,4 +1,4 @@
-const { LokaliseApi } = require('../dist/lokalise/lokalise_api');
+import { LokaliseApi } from '../dist/lokalise/lokalise_api';
 
 const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>' });
 const projects = lokaliseApi.projects().list().catch(

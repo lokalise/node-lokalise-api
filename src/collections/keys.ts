@@ -1,45 +1,13 @@
 import { BaseCollection } from "./base_collection.js";
 import { Key } from "../models/key.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
+import { KeyParamsWithPagination } from "../interfaces/key_params_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
-import { CreateKeyData } from "../types/create_key_data.js";
+import { CreateKeyParams } from "../types/create_key_params.js";
 import { UpdateKeyData } from "../types/update_key_data.js";
+import { BulkUpdateKeyParams } from "../types/bulk_update_key_params.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
-
-interface ParamsWithPagination extends ProjectWithPagination {
-  disable_references?: number;
-  include_comments?: number;
-  include_screenshots?: number;
-  include_translations?: number;
-  filter_translation_lang_ids?: string;
-  filter_tags?: string;
-  filter_filenames?: string;
-  filter_keys?: string;
-  filter_key_ids?: string;
-  filter_platforms?: string;
-  filter_untranslated?: number;
-  filter_qa_issues?: string;
-  filter_archived?: string;
-}
-
-interface GetKeyParams extends ProjectOnly {
-  disable_references?: number;
-}
-
-type CreateKeyParams = {
-  keys?: CreateKeyData[];
-  use_automations?: boolean;
-};
-
-export type UpdateKeyDataWithId = UpdateKeyData & {
-  key_id: string | number;
-};
-
-export type BulkUpdateKeyParams = {
-  keys?: UpdateKeyDataWithId[];
-  use_automations?: boolean;
-};
+import { GetKeyParams } from "../interfaces/get_key_params.js";
 
 type KeyDeleted = {
   project_id: string;
@@ -59,7 +27,7 @@ export class Keys extends BaseCollection {
   protected static prefixURI = "projects/{!:project_id}/keys/{:id}";
   protected static elementClass = Key;
 
-  list(request_params: ParamsWithPagination): Promise<PaginatedResult<Key>> {
+  list(request_params: KeyParamsWithPagination): Promise<PaginatedResult<Key>> {
     return this.doList(request_params);
   }
 

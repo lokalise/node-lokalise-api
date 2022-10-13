@@ -1,5 +1,9 @@
 # Changelog
 
+## 9.1.0 (13-Oct-2022)
+
+* Export new interfaces and types, specifically `KeyParamsWithPagination`, `CreateKeyData`, and others.
+
 ## 9.0.0 (05-Oct-2022)
 
 * **Breaking change**: this SDK is now a pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) module. What does it mean? It no longer provides a CommonJS export (in other words, no `require` anymore). What can you do about it?
