@@ -43,12 +43,12 @@ describe("Snapshots", function () {
 
   cassette
     .createTest("restore", async () => {
-      const response = await lokaliseApi.snapshots().restore(new_snapshot_id, {
-        project_id: project_id,
+      const response = await lokaliseApi.snapshots().restore(1570516, {
+        project_id: "26981059635185cc13e557.06057938",
       });
 
-      expect(response.project_id).to.eq("531138705d0ba0c18f5b43.63503311");
-      expect(response.name).to.eq("Demo Phoenix copy");
+      expect(response.project_id).not.to.eq("531138705d0ba0c18f5b43.63503311");
+      expect(response.name).to.eq("Node updated copy");
     })
     .register(this);
 

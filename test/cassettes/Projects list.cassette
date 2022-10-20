@@ -8,6 +8,572 @@
     "response": {
       "projects": [
         {
+          "project_id": "2273827860c1e2473eb195.11207948",
+          "project_type": "localization_files",
+          "name": "Angular",
+          "description": "",
+          "created_at": "2021-06-10 09:58:31 (Etc/UTC)",
+          "created_at_timestamp": 1623319111,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 1055,
+          "base_language_iso": "en_US",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 0,
+            "keys_total": 3,
+            "team": 10,
+            "base_words": 0,
+            "qa_issues_total": 27,
+            "qa_issues": {
+              "not_reviewed": 15,
+              "unverified": 12,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 0,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 1055,
+                "language_iso": "en_US",
+                "progress": 0,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 748,
+                "language_iso": "pl",
+                "progress": 0,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 0,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "1948732260e2ed89f095e1.10167001",
+          "project_type": "localization_files",
+          "name": "App development",
+          "description": "",
+          "created_at": "2021-07-05 11:31:22 (Etc/UTC)",
+          "created_at_timestamp": 1625484682,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 66,
+            "keys_total": 6,
+            "team": 5,
+            "base_words": 17,
+            "qa_issues_total": 24,
+            "qa_issues": {
+              "not_reviewed": 18,
+              "unverified": 6,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 1056,
+                "language_iso": "es",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 17
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "676957136126645e89dd35.02846826",
+          "project_type": "localization_files",
+          "name": "AskIt",
+          "description": "",
+          "created_at": "2021-08-25 15:40:14 (Etc/UTC)",
+          "created_at_timestamp": 1629906014,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 50,
+            "keys_total": 1,
+            "team": 2,
+            "base_words": 2,
+            "qa_issues_total": 3,
+            "qa_issues": {
+              "not_reviewed": 2,
+              "unverified": 1,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 0,
+                "words_to_do": 2
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "45139909626018623d1243.15903952",
+          "project_type": "localization_files",
+          "name": "Automations",
+          "description": "",
+          "created_at": "2022-04-20 14:27:46 (Etc/UTC)",
+          "created_at_timestamp": 1650464866,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 100,
+            "keys_total": 5,
+            "team": 2,
+            "base_words": 13,
+            "qa_issues_total": 15,
+            "qa_issues": {
+              "not_reviewed": 15,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 674,
+                "language_iso": "fr_CA",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "71749499610303a83ad8a2.67103833",
+          "project_type": "localization_files",
+          "name": "Blog",
+          "description": "",
+          "created_at": "2021-07-29 19:38:16 (Etc/UTC)",
+          "created_at_timestamp": 1627587496,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": true,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 72,
+            "keys_total": 59,
+            "team": 3,
+            "base_words": 290,
+            "qa_issues_total": 288,
+            "qa_issues": {
+              "not_reviewed": 177,
+              "unverified": 102,
+              "spelling_grammar": 9,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 18,
+                "words_to_do": 235
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "3654472361c09157b764b2.10370990",
+          "project_type": "localization_files",
+          "name": "Blog",
+          "description": "",
+          "created_at": "2021-12-20 14:21:11 (Etc/UTC)",
+          "created_at_timestamp": 1640010071,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 66,
+            "keys_total": 58,
+            "team": 2,
+            "base_words": 289,
+            "qa_issues_total": 240,
+            "qa_issues": {
+              "not_reviewed": 174,
+              "unverified": 59,
+              "spelling_grammar": 7,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 287
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "725996906256b8adc51d57.76836620",
+          "project_type": "localization_files",
+          "name": "Braze",
+          "description": "",
+          "created_at": "2022-04-13 11:49:01 (Etc/UTC)",
+          "created_at_timestamp": 1649850541,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 33,
+            "keys_total": 1,
+            "team": 2,
+            "base_words": 2,
+            "qa_issues_total": 5,
+            "qa_issues": {
+              "not_reviewed": 3,
+              "unverified": 2,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 0,
+                "words_to_do": 2
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 2
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "95155398624afd21556c01.64393510",
+          "project_type": "localization_files",
+          "name": "Contentstack",
+          "description": "",
+          "created_at": "2022-04-04 14:13:53 (Etc/UTC)",
+          "created_at_timestamp": 1649081633,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 33,
+            "keys_total": 2,
+            "team": 2,
+            "base_words": 15,
+            "qa_issues_total": 10,
+            "qa_issues": {
+              "not_reviewed": 6,
+              "unverified": 4,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 891,
+                "language_iso": "aa",
+                "progress": 0,
+                "words_to_do": 15
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 15
+              }
+            ]
+          }
+        },
+        {
           "project_id": "638597985c913f818559f3.17106287",
           "project_type": "localization_files",
           "name": "contrib",
@@ -22,11 +588,692 @@
           "settings": {
             "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": false,
             "auto_toggle_unverified": true,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 50,
+            "keys_total": 1,
+            "team": 2,
+            "base_words": 2,
+            "qa_issues_total": 2,
+            "qa_issues": {
+              "not_reviewed": 2,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 0,
+                "words_to_do": 2
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "542886116159f798720dc4.94769464",
+          "project_type": "localization_files",
+          "name": "Custom rails proj",
+          "description": "",
+          "created_at": "2021-10-03 18:34:00 (Etc/UTC)",
+          "created_at_timestamp": 1633286040,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 100,
+            "keys_total": 2,
+            "team": 3,
+            "base_words": 4,
+            "qa_issues_total": 4,
+            "qa_issues": {
+              "not_reviewed": 4,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "5403957862e90981d0b0c8.60288957",
+          "project_type": "localization_files",
+          "name": "Demo",
+          "description": "",
+          "created_at": "2022-08-02 11:24:49 (Etc/UTC)",
+          "created_at_timestamp": 1659439489,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 100,
+            "keys_total": 2,
+            "team": 2,
+            "base_words": 8,
+            "qa_issues_total": 8,
+            "qa_issues": {
+              "not_reviewed": 4,
+              "unverified": 2,
+              "spelling_grammar": 2,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "803826145ba90b42d5d860.46800099",
+          "project_type": "localization_files",
+          "name": "Demo Phoenix",
+          "description": "Description Phoenix",
+          "created_at": "2018-09-24 16:05:22 (Etc/UTC)",
+          "created_at_timestamp": 1537805122,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": true,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 23,
+            "keys_total": 75,
+            "team": 8,
+            "base_words": 340,
+            "qa_issues_total": 147,
+            "qa_issues": {
+              "not_reviewed": 99,
+              "unverified": 48,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 731,
+                "language_iso": "ar_001",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 934,
+                "language_iso": "bm",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 764,
+                "language_iso": "ca",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 10001,
+                "language_iso": "custom_1",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 1055,
+                "language_iso": "en-us",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 1056,
+                "language_iso": "es",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 673,
+                "language_iso": "f_over",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 737,
+                "language_iso": "nl",
+                "progress": 7,
+                "words_to_do": 315
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 96,
+                "words_to_do": 13
+              },
+              {
+                "language_id": 803,
+                "language_iso": "sq",
+                "progress": 7,
+                "words_to_do": 315
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "672198945b7d72fc048021.15940510",
+          "project_type": "localization_files",
+          "name": "Demo Rails Proj",
+          "description": "",
+          "created_at": "2018-08-22 14:28:12 (Etc/UTC)",
+          "created_at_timestamp": 1534948092,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 60,
+            "keys_total": 2,
+            "team": 2,
+            "base_words": 9,
+            "qa_issues_total": 22,
+            "qa_issues": {
+              "not_reviewed": 10,
+              "unverified": 8,
+              "spelling_grammar": 2,
+              "inconsistent_placeholders": 2,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 600,
+                "language_iso": "ru_RU",
+                "progress": 0,
+                "words_to_do": 9
+              },
+              {
+                "language_id": 972,
+                "language_iso": "yo",
+                "progress": 0,
+                "words_to_do": 9
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "4055093961e6c52c4afde3.98395869",
+          "project_type": "localization_files",
+          "name": "Figma Demo",
+          "description": "",
+          "created_at": "2022-01-18 13:48:28 (Etc/UTC)",
+          "created_at_timestamp": 1642513708,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 83,
+            "keys_total": 7,
+            "team": 2,
+            "base_words": 16,
+            "qa_issues_total": 36,
+            "qa_issues": {
+              "not_reviewed": 21,
+              "unverified": 11,
+              "spelling_grammar": 4,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 68,
+                "words_to_do": 5
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 81,
+                "words_to_do": 3
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "616536145f32a044df3811.69614689",
+          "project_type": "localization_files",
+          "name": "Figma Existing",
+          "description": "",
+          "created_at": "2020-08-11 13:42:28 (Etc/UTC)",
+          "created_at_timestamp": 1597153348,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 66,
+            "keys_total": 2,
+            "team": 2,
+            "base_words": 5,
+            "qa_issues_total": 8,
+            "qa_issues": {
+              "not_reviewed": 6,
+              "unverified": 0,
+              "spelling_grammar": 2,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 0,
+                "words_to_do": 5
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "2542869362bc33a5c5d0a1.57130180",
+          "project_type": "localization_files",
+          "name": "GitHub demo",
+          "description": "",
+          "created_at": "2022-06-29 11:12:37 (Etc/UTC)",
+          "created_at_timestamp": 1656501157,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 65,
+            "keys_total": 60,
+            "team": 2,
+            "base_words": 295,
+            "qa_issues_total": 248,
+            "qa_issues": {
+              "not_reviewed": 180,
+              "unverified": 65,
+              "spelling_grammar": 3,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 295
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 97,
+                "words_to_do": 7
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "2121916061b384ad5545f7.50098783",
+          "project_type": "localization_files",
+          "name": "Grocery store",
+          "description": "",
+          "created_at": "2021-12-10 16:47:41 (Etc/UTC)",
+          "created_at_timestamp": 1639154861,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 0,
+            "keys_total": 2,
+            "team": 3,
+            "base_words": 0,
+            "qa_issues_total": 14,
+            "qa_issues": {
+              "not_reviewed": 8,
+              "unverified": 6,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 0,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 0,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 883,
+                "language_iso": "my",
+                "progress": 0,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "507504186242fccb32f015.15252556",
+          "project_type": "paged_documents",
+          "name": "IDML",
+          "description": "",
+          "created_at": "2022-03-29 12:34:19 (Etc/UTC)",
+          "created_at_timestamp": 1648557259,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
             "progress_total": 0,
@@ -49,145 +1296,38 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 0,
+                "words_to_do": 0
+              },
               {
                 "language_id": 640,
                 "language_iso": "en",
                 "progress": 0,
                 "words_to_do": 0
-              }
-            ]
-          }
-        },
-        {
-          "project_id": "803826145ba90b42d5d860.46800099",
-          "project_type": "localization_files",
-          "name": "demo phoenix",
-          "description": "",
-          "created_at": "2018-09-24 16:05:22 (Etc/UTC)",
-          "created_at_timestamp": 1537805122,
-          "created_by": 20181,
-          "created_by_email": "bodrovis@protonmail.com",
-          "team_id": 176692,
-          "base_language_id": 640,
-          "base_language_iso": "en",
-          "settings": {
-            "per_platform_key_names": false,
-            "reviewing": true,
-            "upvoting": false,
-            "auto_toggle_unverified": true,
-            "offline_translation": true,
-            "key_editing": true,
-            "inline_machine_translations": true
-          },
-          "statistics": {
-            "progress_total": 17,
-            "keys_total": 18,
-            "team": 8,
-            "base_words": 39,
-            "qa_issues_total": 256,
-            "qa_issues": {
-              "not_reviewed": 185,
-              "unverified": 66,
-              "spelling_grammar": 4,
-              "inconsistent_placeholders": 1,
-              "inconsistent_html": 0,
-              "different_number_of_urls": 0,
-              "different_urls": 0,
-              "leading_whitespace": 0,
-              "trailing_whitespace": 0,
-              "different_number_of_email_address": 0,
-              "different_email_address": 0,
-              "different_brackets": 0,
-              "different_numbers": 0,
-              "double_space": 0,
-              "special_placeholder": 0
-            },
-            "languages": [
-              {
-                "language_id": 640,
-                "language_iso": "en",
-                "progress": 100,
-                "words_to_do": 0
-              },
-              {
-                "language_id": 597,
-                "language_iso": "ru",
-                "progress": 66,
-                "words_to_do": 13
               },
               {
                 "language_id": 673,
-                "language_iso": "f_over",
-                "progress": 25,
-                "words_to_do": 29
-              },
-              {
-                "language_id": 1055,
-                "language_iso": "en-us",
+                "language_iso": "fr",
                 "progress": 0,
-                "words_to_do": 39
-              },
-              {
-                "language_id": 10111,
-                "language_iso": "custom_111",
-                "progress": 0,
-                "words_to_do": 39
-              },
-              {
-                "language_id": 764,
-                "language_iso": "ca",
-                "progress": 2,
-                "words_to_do": 38
-              },
-              {
-                "language_id": 934,
-                "language_iso": "bm",
-                "progress": 0,
-                "words_to_do": 39
-              },
-              {
-                "language_id": 803,
-                "language_iso": "sq",
-                "progress": 0,
-                "words_to_do": 39
-              },
-              {
-                "language_id": 731,
-                "language_iso": "ar_001",
-                "progress": 2,
-                "words_to_do": 38
-              },
-              {
-                "language_id": 601,
-                "language_iso": "zh_TW",
-                "progress": 0,
-                "words_to_do": 39
-              },
-              {
-                "language_id": 1056,
-                "language_iso": "es",
-                "progress": 10,
-                "words_to_do": 35
-              },
-              {
-                "language_id": 737,
-                "language_iso": "nl",
-                "progress": 0,
-                "words_to_do": 39
+                "words_to_do": 0
               }
             ]
           }
         },
         {
-          "project_id": "547879415c01a0e6e0b855.29978928",
+          "project_id": "4590943161e7fce057bd74.15625845",
           "project_type": "localization_files",
-          "name": "demo phoenix copy",
+          "name": "Ilya’s First Project",
           "description": "",
-          "created_at": "2018-11-30 19:43:18 (Etc/UTC)",
-          "created_at_timestamp": 1543606998,
+          "created_at": "2022-01-19 11:58:24 (Etc/UTC)",
+          "created_at_timestamp": 1642593504,
           "created_by": 20181,
           "created_by_email": "bodrovis@protonmail.com",
           "team_id": 176692,
@@ -196,154 +1336,25 @@
           "settings": {
             "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": false,
             "auto_toggle_unverified": true,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
-            "progress_total": 0,
-            "keys_total": 1,
+            "progress_total": 100,
+            "keys_total": 3,
             "team": 2,
-            "base_words": 0,
-            "qa_issues_total": 4,
+            "base_words": 20,
+            "qa_issues_total": 12,
             "qa_issues": {
-              "not_reviewed": 3,
+              "not_reviewed": 9,
               "unverified": 0,
-              "spelling_grammar": 0,
-              "inconsistent_placeholders": 1,
-              "inconsistent_html": 0,
-              "different_number_of_urls": 0,
-              "different_urls": 0,
-              "leading_whitespace": 0,
-              "trailing_whitespace": 0,
-              "different_number_of_email_address": 0,
-              "different_email_address": 0,
-              "different_brackets": 0,
-              "different_numbers": 0,
-              "double_space": 0,
-              "special_placeholder": 0
-            },
-            "languages": [
-              {
-                "language_id": 640,
-                "language_iso": "en",
-                "progress": 0,
-                "words_to_do": 0
-              },
-              {
-                "language_id": 597,
-                "language_iso": "ru",
-                "progress": 0,
-                "words_to_do": 0
-              },
-              {
-                "language_id": 673,
-                "language_iso": "f_over",
-                "progress": 0,
-                "words_to_do": 0
-              }
-            ]
-          }
-        },
-        {
-          "project_id": "446952185c01a12b4d0b45.76217122",
-          "project_type": "localization_files",
-          "name": "demo phoenix copy",
-          "description": "",
-          "created_at": "2018-11-30 19:44:27 (Etc/UTC)",
-          "created_at_timestamp": 1543607067,
-          "created_by": 20181,
-          "created_by_email": "bodrovis@protonmail.com",
-          "team_id": 176692,
-          "base_language_id": 640,
-          "base_language_iso": "en",
-          "settings": {
-            "per_platform_key_names": false,
-            "reviewing": true,
-            "upvoting": false,
-            "auto_toggle_unverified": true,
-            "offline_translation": false,
-            "key_editing": true,
-            "inline_machine_translations": true
-          },
-          "statistics": {
-            "progress_total": 0,
-            "keys_total": 1,
-            "team": 2,
-            "base_words": 0,
-            "qa_issues_total": 4,
-            "qa_issues": {
-              "not_reviewed": 3,
-              "unverified": 0,
-              "spelling_grammar": 0,
-              "inconsistent_placeholders": 1,
-              "inconsistent_html": 0,
-              "different_number_of_urls": 0,
-              "different_urls": 0,
-              "leading_whitespace": 0,
-              "trailing_whitespace": 0,
-              "different_number_of_email_address": 0,
-              "different_email_address": 0,
-              "different_brackets": 0,
-              "different_numbers": 0,
-              "double_space": 0,
-              "special_placeholder": 0
-            },
-            "languages": [
-              {
-                "language_id": 640,
-                "language_iso": "en",
-                "progress": 0,
-                "words_to_do": 0
-              },
-              {
-                "language_id": 597,
-                "language_iso": "ru",
-                "progress": 0,
-                "words_to_do": 0
-              },
-              {
-                "language_id": 673,
-                "language_iso": "f_over",
-                "progress": 0,
-                "words_to_do": 0
-              }
-            ]
-          }
-        },
-        {
-          "project_id": "399244385c0e9d07374685.57781732",
-          "project_type": "localization_files",
-          "name": "demo phoenix copy",
-          "description": "",
-          "created_at": "2018-12-10 16:06:15 (Etc/UTC)",
-          "created_at_timestamp": 1544457975,
-          "created_by": 20181,
-          "created_by_email": "bodrovis@protonmail.com",
-          "team_id": 176692,
-          "base_language_id": 640,
-          "base_language_iso": "en",
-          "settings": {
-            "per_platform_key_names": false,
-            "reviewing": true,
-            "upvoting": false,
-            "auto_toggle_unverified": true,
-            "offline_translation": false,
-            "key_editing": true,
-            "inline_machine_translations": true
-          },
-          "statistics": {
-            "progress_total": 0,
-            "keys_total": 1,
-            "team": 3,
-            "base_words": 0,
-            "qa_issues_total": 3,
-            "qa_issues": {
-              "not_reviewed": 3,
-              "unverified": 0,
-              "spelling_grammar": 0,
+              "spelling_grammar": 3,
               "inconsistent_placeholders": 0,
               "inconsistent_html": 0,
               "different_number_of_urls": 0,
@@ -355,37 +1366,38 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
               {
-                "language_id": 640,
-                "language_iso": "en",
-                "progress": 0,
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 100,
                 "words_to_do": 0
               },
               {
-                "language_id": 597,
-                "language_iso": "ru",
-                "progress": 0,
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
                 "words_to_do": 0
               },
               {
                 "language_id": 673,
-                "language_iso": "f_over",
-                "progress": 0,
+                "language_iso": "fr",
+                "progress": 100,
                 "words_to_do": 0
               }
             ]
           }
         },
         {
-          "project_id": "605317925c13e4ecb36a79.94825279",
+          "project_id": "4399863460c8bc61d283d5.41326551",
           "project_type": "localization_files",
-          "name": "demo phoenix copy",
+          "name": "Intercom Articles",
           "description": "",
-          "created_at": "2018-12-14 17:14:20 (Etc/UTC)",
-          "created_at_timestamp": 1544807660,
+          "created_at": "2021-06-15 14:42:41 (Etc/UTC)",
+          "created_at_timestamp": 1623768161,
           "created_by": 20181,
           "created_by_email": "bodrovis@protonmail.com",
           "team_id": 176692,
@@ -394,20 +1406,247 @@
           "settings": {
             "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": false,
             "auto_toggle_unverified": true,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
-            "progress_total": 33,
-            "keys_total": 4,
-            "team": 3,
-            "base_words": 2,
-            "qa_issues_total": 12,
+            "progress_total": 9,
+            "keys_total": 230,
+            "team": 2,
+            "base_words": 13296,
+            "qa_issues_total": 7222,
             "qa_issues": {
-              "not_reviewed": 11,
+              "not_reviewed": 3680,
+              "unverified": 3360,
+              "spelling_grammar": 149,
+              "inconsistent_placeholders": 2,
+              "inconsistent_html": 31,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 714,
+                "language_iso": "ar",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 802,
+                "language_iso": "bs",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 764,
+                "language_iso": "ca",
+                "progress": 27,
+                "words_to_do": 9578
+              },
+              {
+                "language_id": 765,
+                "language_iso": "cs",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 767,
+                "language_iso": "da",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 1056,
+                "language_iso": "es",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 10154,
+                "language_iso": "et",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 643,
+                "language_iso": "ja",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 10153,
+                "language_iso": "lv",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 748,
+                "language_iso": "pl",
+                "progress": 28,
+                "words_to_do": 9454
+              },
+              {
+                "language_id": 708,
+                "language_iso": "pt-BR",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 754,
+                "language_iso": "sv",
+                "progress": 0,
+                "words_to_do": 13296
+              },
+              {
+                "language_id": 601,
+                "language_iso": "zh-TW",
+                "progress": 0,
+                "words_to_do": 13296
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "7078965360db431d026791.96621226",
+          "project_type": "localization_files",
+          "name": "iOS Project",
+          "description": "",
+          "created_at": "2021-06-29 15:58:21 (Etc/UTC)",
+          "created_at_timestamp": 1624982301,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 80,
+            "keys_total": 3,
+            "team": 3,
+            "base_words": 5,
+            "qa_issues_total": 15,
+            "qa_issues": {
+              "not_reviewed": 12,
+              "unverified": 2,
+              "spelling_grammar": 1,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 60,
+                "words_to_do": 2
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 748,
+                "language_iso": "pl",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 60,
+                "words_to_do": 2
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "58206055634400eee49c87.98395068",
+          "project_type": "localization_files",
+          "name": "Iteratable",
+          "description": "",
+          "created_at": "2022-10-10 11:24:30 (Etc/UTC)",
+          "created_at_timestamp": 1665401070,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 58,
+            "keys_total": 6,
+            "team": 2,
+            "base_words": 29,
+            "qa_issues_total": 1,
+            "qa_issues": {
+              "not_reviewed": 0,
               "unverified": 0,
               "spelling_grammar": 1,
               "inconsistent_placeholders": 0,
@@ -421,92 +1660,27 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 37,
+                "words_to_do": 18
+              },
               {
                 "language_id": 640,
                 "language_iso": "en",
                 "progress": 100,
                 "words_to_do": 0
-              },
-              {
-                "language_id": 597,
-                "language_iso": "ru",
-                "progress": 0,
-                "words_to_do": 2
               },
               {
                 "language_id": 673,
-                "language_iso": "f_over",
-                "progress": 0,
-                "words_to_do": 2
-              }
-            ]
-          }
-        },
-        {
-          "project_id": "672198945b7d72fc048021.15940510",
-          "project_type": "localization_files",
-          "name": "Demo Rails Proj",
-          "description": "",
-          "created_at": "2018-08-22 14:28:12 (Etc/UTC)",
-          "created_at_timestamp": 1534948092,
-          "created_by": 20181,
-          "created_by_email": "bodrovis@protonmail.com",
-          "team_id": 176692,
-          "base_language_id": 640,
-          "base_language_iso": "en",
-          "settings": {
-            "per_platform_key_names": false,
-            "reviewing": true,
-            "upvoting": false,
-            "auto_toggle_unverified": true,
-            "offline_translation": false,
-            "key_editing": true,
-            "inline_machine_translations": true
-          },
-          "statistics": {
-            "progress_total": 33,
-            "keys_total": 1,
-            "team": 2,
-            "base_words": 1,
-            "qa_issues_total": 3,
-            "qa_issues": {
-              "not_reviewed": 3,
-              "unverified": 0,
-              "spelling_grammar": 0,
-              "inconsistent_placeholders": 0,
-              "inconsistent_html": 0,
-              "different_number_of_urls": 0,
-              "different_urls": 0,
-              "leading_whitespace": 0,
-              "trailing_whitespace": 0,
-              "different_number_of_email_address": 0,
-              "different_email_address": 0,
-              "different_brackets": 0,
-              "different_numbers": 0,
-              "double_space": 0,
-              "special_placeholder": 0
-            },
-            "languages": [
-              {
-                "language_id": 640,
-                "language_iso": "en",
-                "progress": 100,
-                "words_to_do": 0
-              },
-              {
-                "language_id": 597,
-                "language_iso": "ru",
-                "progress": 0,
-                "words_to_do": 1
-              },
-              {
-                "language_id": 972,
-                "language_iso": "yo",
-                "progress": 0,
-                "words_to_do": 1
+                "language_iso": "fr",
+                "progress": 37,
+                "words_to_do": 18
               }
             ]
           }
@@ -526,22 +1700,25 @@
           "settings": {
             "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": false,
             "auto_toggle_unverified": true,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
-            "progress_total": 68,
-            "keys_total": 8,
+            "progress_total": 65,
+            "keys_total": 9,
             "team": 2,
-            "base_words": 32,
-            "qa_issues_total": 27,
+            "base_words": 33,
+            "qa_issues_total": 33,
             "qa_issues": {
-              "not_reviewed": 24,
-              "unverified": 0,
-              "spelling_grammar": 1,
+              "not_reviewed": 27,
+              "unverified": 2,
+              "spelling_grammar": 2,
               "inconsistent_placeholders": 2,
               "inconsistent_html": 0,
               "different_number_of_urls": 0,
@@ -553,7 +1730,8 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
               {
@@ -563,16 +1741,80 @@
                 "words_to_do": 0
               },
               {
+                "language_id": 894,
+                "language_iso": "qqq",
+                "progress": 6,
+                "words_to_do": 31
+              },
+              {
                 "language_id": 597,
                 "language_iso": "ru",
+                "progress": 90,
+                "words_to_do": 3
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "73243152634fe9052153a1.96685924",
+          "project_type": "localization_files",
+          "name": "Marketo",
+          "description": "",
+          "created_at": "2022-10-19 12:09:41 (Etc/UTC)",
+          "created_at_timestamp": 1666181381,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 50,
+            "keys_total": 11,
+            "team": 2,
+            "base_words": 111,
+            "qa_issues_total": 34,
+            "qa_issues": {
+              "not_reviewed": 22,
+              "unverified": 12,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
                 "progress": 100,
                 "words_to_do": 0
               },
               {
-                "language_id": 894,
-                "language_iso": "qqq",
-                "progress": 6,
-                "words_to_do": 30
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 111
               }
             ]
           }
@@ -590,23 +1832,26 @@
           "base_language_id": 640,
           "base_language_iso": "en",
           "settings": {
-            "per_platform_key_names": true,
+            "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": false,
             "auto_toggle_unverified": true,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
-            "progress_total": 70,
-            "keys_total": 2,
-            "team": 2,
-            "base_words": 2,
-            "qa_issues_total": 15,
+            "progress_total": 40,
+            "keys_total": 1,
+            "team": 3,
+            "base_words": 1,
+            "qa_issues_total": 5,
             "qa_issues": {
-              "not_reviewed": 10,
-              "unverified": 5,
+              "not_reviewed": 5,
+              "unverified": 0,
               "spelling_grammar": 0,
               "inconsistent_placeholders": 0,
               "inconsistent_html": 0,
@@ -619,7 +1864,8 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
               {
@@ -629,28 +1875,682 @@
                 "words_to_do": 0
               },
               {
-                "language_id": 597,
-                "language_iso": "ru",
-                "progress": 50,
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 1
+              },
+              {
+                "language_id": 737,
+                "language_iso": "nl",
+                "progress": 0,
                 "words_to_do": 1
               },
               {
                 "language_id": 748,
                 "language_iso": "pl",
-                "progress": 50,
+                "progress": 0,
                 "words_to_do": 1
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "41927157619e6abd190863.11993227",
+          "project_type": "localization_files",
+          "name": "My Web App",
+          "description": "",
+          "created_at": "2021-11-24 16:39:25 (Etc/UTC)",
+          "created_at_timestamp": 1637771965,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": true,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 34,
+            "keys_total": 6,
+            "team": 7,
+            "base_words": 14,
+            "qa_issues_total": 75,
+            "qa_issues": {
+              "not_reviewed": 42,
+              "unverified": 30,
+              "spelling_grammar": 1,
+              "inconsistent_placeholders": 2,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 21,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 1056,
+                "language_iso": "es",
+                "progress": 21,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 64,
+                "words_to_do": 5
+              },
+              {
+                "language_id": 676,
+                "language_iso": "fr_BE",
+                "progress": 64,
+                "words_to_do": 5
+              },
+              {
+                "language_id": 643,
+                "language_iso": "ja",
+                "progress": 21,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 10152,
+                "language_iso": "lt",
+                "progress": 21,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 10153,
+                "language_iso": "lv",
+                "progress": 21,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 708,
+                "language_iso": "pt-BR",
+                "progress": 21,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 10001,
+                "language_iso": "que",
+                "progress": 0,
+                "words_to_do": 14
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 21,
+                "words_to_do": 11
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "2785355061e177722a5d27.81837240",
+          "project_type": "localization_files",
+          "name": "My Web App copy",
+          "description": "",
+          "created_at": "2022-01-14 13:15:30 (Etc/UTC)",
+          "created_at_timestamp": 1642166130,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 65,
+            "keys_total": 12,
+            "team": 6,
+            "base_words": 44,
+            "qa_issues_total": 146,
+            "qa_issues": {
+              "not_reviewed": 80,
+              "unverified": 44,
+              "spelling_grammar": 10,
+              "inconsistent_placeholders": 3,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 3,
+              "different_urls": 0,
+              "leading_whitespace": 1,
+              "trailing_whitespace": 2,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 2,
+              "special_placeholder": 1,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 38,
+                "words_to_do": 27
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 75,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 676,
+                "language_iso": "fr_BE",
+                "progress": 68,
+                "words_to_do": 14
+              },
+              {
+                "language_id": 10153,
+                "language_iso": "lv",
+                "progress": 45,
+                "words_to_do": 24
+              },
+              {
+                "language_id": 10001,
+                "language_iso": "que",
+                "progress": 36,
+                "words_to_do": 28
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 95,
+                "words_to_do": 2
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "1378497161f993455568a5.67518839",
+          "project_type": "localization_files",
+          "name": "OAuth 2 project",
+          "description": "Via OAuth 2",
+          "created_at": "2022-02-01 20:08:37 (Etc/UTC)",
+          "created_at_timestamp": 1643746117,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 0,
+            "keys_total": 0,
+            "team": 2,
+            "base_words": 0,
+            "qa_issues_total": 0,
+            "qa_issues": {
+              "not_reviewed": 0,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 0,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "6754735761fc15994bda76.34073611",
+          "project_type": "localization_files",
+          "name": "OAuth 2 project",
+          "description": "Via OAuth 2",
+          "created_at": "2022-02-03 17:49:13 (Etc/UTC)",
+          "created_at_timestamp": 1643910553,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 0,
+            "keys_total": 0,
+            "team": 2,
+            "base_words": 0,
+            "qa_issues_total": 0,
+            "qa_issues": {
+              "not_reviewed": 0,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 0,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "832394156234c5569bc210.13080063",
+          "project_type": "localization_files",
+          "name": "OAuth 2 project",
+          "description": "Via OAuth 2",
+          "created_at": "2022-03-18 17:45:58 (Etc/UTC)",
+          "created_at_timestamp": 1647625558,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 0,
+            "keys_total": 0,
+            "team": 2,
+            "base_words": 0,
+            "qa_issues_total": 0,
+            "qa_issues": {
+              "not_reviewed": 0,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 0,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "722371955ed5069412b715.94240678",
+          "project_type": "paged_documents",
+          "name": "Personal Site",
+          "description": "",
+          "created_at": "2020-06-01 13:45:56 (Etc/UTC)",
+          "created_at_timestamp": 1591019156,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 71,
+            "keys_total": 7,
+            "team": 2,
+            "base_words": 37,
+            "qa_issues_total": 33,
+            "qa_issues": {
+              "not_reviewed": 28,
+              "unverified": 2,
+              "spelling_grammar": 3,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 97,
+                "words_to_do": 1
+              },
+              {
+                "language_id": 748,
+                "language_iso": "pl",
+                "progress": 0,
+                "words_to_do": 37
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 89,
+                "words_to_do": 4
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "463409096231e2f4a2c681.21365907",
+          "project_type": "paged_documents",
+          "name": "PPTX",
+          "description": "",
+          "created_at": "2022-03-16 13:15:32 (Etc/UTC)",
+          "created_at_timestamp": 1647436532,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 50,
+            "keys_total": 22,
+            "team": 2,
+            "base_words": 67,
+            "qa_issues_total": 68,
+            "qa_issues": {
+              "not_reviewed": 44,
+              "unverified": 22,
+              "spelling_grammar": 2,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 67
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "713866666296111643bf04.00148268",
+          "project_type": "localization_files",
+          "name": "Python Sample Project",
+          "description": "Here's my Python project",
+          "created_at": "2022-05-31 12:59:02 (Etc/UTC)",
+          "created_at_timestamp": 1654001942,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 100,
+            "keys_total": 2,
+            "team": 3,
+            "base_words": 9,
+            "qa_issues_total": 4,
+            "qa_issues": {
+              "not_reviewed": 4,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
               },
               {
                 "language_id": 673,
                 "language_iso": "fr",
                 "progress": 100,
                 "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "913601666308c64dc13bb9.52811572",
+          "project_type": "localization_files",
+          "name": "Rails",
+          "description": "",
+          "created_at": "2022-08-26 13:10:37 (Etc/UTC)",
+          "created_at_timestamp": 1661519437,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 50,
+            "keys_total": 60,
+            "team": 2,
+            "base_words": 292,
+            "qa_issues_total": 183,
+            "qa_issues": {
+              "not_reviewed": 120,
+              "unverified": 62,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 1,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
               },
               {
-                "language_id": 737,
-                "language_iso": "nl",
-                "progress": 50,
-                "words_to_do": 1
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 292
               }
             ]
           }
@@ -659,7 +2559,7 @@
           "project_id": "5377208358d3c7c974c4a2.80360833",
           "project_type": "localization_files",
           "name": "Roamer App (Android SDK test)",
-          "description": "",
+          "description": "Description. Description. Description. Description. Description. Description. Description. Description. Description. Description. Description. Description.Description. Description. Description. Description. Description. Description.Description. Description. Description. Description. Description. Description.Description. Description. Description. Description. Description. Description.Description. Description. Description. Description. Description. Description.Description. Description. Description. Description. Description. Description.Description. Description. Description. Description. Description. Description.Description. Description. Description. Description. Description. Description.",
           "created_at": "2017-03-23 12:04:09 (Etc/UTC)",
           "created_at_timestamp": 1490270649,
           "created_by": 57,
@@ -670,36 +2570,112 @@
           "settings": {
             "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": true,
             "auto_toggle_unverified": true,
             "offline_translation": true,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": true,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
-            "progress_total": 60,
-            "keys_total": 1825,
-            "team": 16,
-            "base_words": 17044,
-            "qa_issues_total": 33123,
+            "progress_total": 35,
+            "keys_total": 1901,
+            "team": 39,
+            "base_words": 17280,
+            "qa_issues_total": 132181,
             "qa_issues": {
-              "not_reviewed": 27366,
-              "unverified": 2126,
-              "spelling_grammar": 2415,
-              "inconsistent_placeholders": 16,
-              "inconsistent_html": 138,
+              "not_reviewed": 63780,
+              "unverified": 63958,
+              "spelling_grammar": 2657,
+              "inconsistent_placeholders": 139,
+              "inconsistent_html": 242,
               "different_number_of_urls": 0,
               "different_urls": 0,
-              "leading_whitespace": 52,
-              "trailing_whitespace": 695,
+              "leading_whitespace": 64,
+              "trailing_whitespace": 745,
               "different_number_of_email_address": 0,
               "different_email_address": 0,
-              "different_brackets": 315,
+              "different_brackets": 596,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
+              {
+                "language_id": 891,
+                "language_iso": "aa",
+                "progress": 3,
+                "words_to_do": 16692
+              },
+              {
+                "language_id": 791,
+                "language_iso": "af_NA",
+                "progress": 1,
+                "words_to_do": 17069
+              },
+              {
+                "language_id": 714,
+                "language_iso": "ar",
+                "progress": 82,
+                "words_to_do": 2952
+              },
+              {
+                "language_id": 906,
+                "language_iso": "be_BY",
+                "progress": 0,
+                "words_to_do": 17169
+              },
+              {
+                "language_id": 802,
+                "language_iso": "bs",
+                "progress": 0,
+                "words_to_do": 17181
+              },
+              {
+                "language_id": 764,
+                "language_iso": "ca",
+                "progress": 0,
+                "words_to_do": 17180
+              },
+              {
+                "language_id": 765,
+                "language_iso": "cs",
+                "progress": 0,
+                "words_to_do": 17172
+              },
+              {
+                "language_id": 10113,
+                "language_iso": "custom_113",
+                "progress": 0,
+                "words_to_do": 17187
+              },
+              {
+                "language_id": 871,
+                "language_iso": "cy_GB",
+                "progress": 0,
+                "words_to_do": 17190
+              },
+              {
+                "language_id": 767,
+                "language_iso": "da",
+                "progress": 0,
+                "words_to_do": 17187
+              },
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 89,
+                "words_to_do": 1831
+              },
+              {
+                "language_id": 672,
+                "language_iso": "de-DE",
+                "progress": 0,
+                "words_to_do": 17148
+              },
               {
                 "language_id": 640,
                 "language_iso": "en",
@@ -707,100 +2683,154 @@
                 "words_to_do": 0
               },
               {
-                "language_id": 597,
-                "language_iso": "ru",
+                "language_id": 610,
+                "language_iso": "en_GB",
+                "progress": 99,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 634,
+                "language_iso": "en_SG",
+                "progress": 99,
+                "words_to_do": 11
+              },
+              {
+                "language_id": 1055,
+                "language_iso": "en-US",
+                "progress": 0,
+                "words_to_do": 17132
+              },
+              {
+                "language_id": 665,
+                "language_iso": "es",
+                "progress": 85,
+                "words_to_do": 2526
+              },
+              {
+                "language_id": 10154,
+                "language_iso": "et",
+                "progress": 0,
+                "words_to_do": 17185
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
                 "progress": 93,
-                "words_to_do": 1074
+                "words_to_do": 1179
+              },
+              {
+                "language_id": 766,
+                "language_iso": "he",
+                "progress": 81,
+                "words_to_do": 3172
+              },
+              {
+                "language_id": 757,
+                "language_iso": "id",
+                "progress": 0,
+                "words_to_do": 17159
+              },
+              {
+                "language_id": 734,
+                "language_iso": "it",
+                "progress": 0,
+                "words_to_do": 17158
+              },
+              {
+                "language_id": 643,
+                "language_iso": "ja",
+                "progress": 0,
+                "words_to_do": 17184
+              },
+              {
+                "language_id": 853,
+                "language_iso": "kl",
+                "progress": 0,
+                "words_to_do": 17197
+              },
+              {
+                "language_id": 10153,
+                "language_iso": "lv",
+                "progress": 1,
+                "words_to_do": 16940
+              },
+              {
+                "language_id": 800,
+                "language_iso": "lv_LV",
+                "progress": 0,
+                "words_to_do": 17165
               },
               {
                 "language_id": 804,
                 "language_iso": "mk",
                 "progress": 81,
-                "words_to_do": 3189
-              },
-              {
-                "language_id": 666,
-                "language_iso": "de",
-                "progress": 88,
-                "words_to_do": 2009
-              },
-              {
-                "language_id": 707,
-                "language_iso": "pt",
-                "progress": 87,
-                "words_to_do": 2108
-              },
-              {
-                "language_id": 665,
-                "language_iso": "es",
-                "progress": 86,
-                "words_to_do": 2374
-              },
-              {
-                "language_id": 766,
-                "language_iso": "he",
-                "progress": 82,
-                "words_to_do": 3028
-              },
-              {
-                "language_id": 769,
-                "language_iso": "uk",
-                "progress": 81,
-                "words_to_do": 3160
-              },
-              {
-                "language_id": 673,
-                "language_iso": "fr",
-                "progress": 87,
-                "words_to_do": 2193
-              },
-              {
-                "language_id": 602,
-                "language_iso": "zh_CN",
-                "progress": 59,
-                "words_to_do": 6985
-              },
-              {
-                "language_id": 714,
-                "language_iso": "ar",
-                "progress": 81,
-                "words_to_do": 3128
-              },
-              {
-                "language_id": 744,
-                "language_iso": "tr",
-                "progress": 84,
-                "words_to_do": 2601
-              },
-              {
-                "language_id": 601,
-                "language_iso": "zh_TW",
-                "progress": 3,
-                "words_to_do": 16396
-              },
-              {
-                "language_id": 610,
-                "language_iso": "en_GB",
-                "progress": 3,
-                "words_to_do": 16499
-              },
-              {
-                "language_id": 634,
-                "language_iso": "en_SG",
-                "progress": 3,
-                "words_to_do": 16437
-              },
-              {
-                "language_id": 10153,
-                "language_iso": "lv",
-                "progress": 0,
-                "words_to_do": 16922
+                "words_to_do": 3234
               },
               {
                 "language_id": 759,
                 "language_iso": "nb",
                 "progress": 0,
-                "words_to_do": 17013
+                "words_to_do": 17135
+              },
+              {
+                "language_id": 748,
+                "language_iso": "pl",
+                "progress": 0,
+                "words_to_do": 17184
+              },
+              {
+                "language_id": 707,
+                "language_iso": "pt",
+                "progress": 86,
+                "words_to_do": 2259
+              },
+              {
+                "language_id": 708,
+                "language_iso": "pt-BR",
+                "progress": 0,
+                "words_to_do": 17144
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 95,
+                "words_to_do": 855
+              },
+              {
+                "language_id": 754,
+                "language_iso": "sv",
+                "progress": 0,
+                "words_to_do": 17185
+              },
+              {
+                "language_id": 744,
+                "language_iso": "tr",
+                "progress": 83,
+                "words_to_do": 2866
+              },
+              {
+                "language_id": 769,
+                "language_iso": "uk",
+                "progress": 81,
+                "words_to_do": 3275
+              },
+              {
+                "language_id": 774,
+                "language_iso": "vi",
+                "progress": 98,
+                "words_to_do": 250
+              },
+              {
+                "language_id": 602,
+                "language_iso": "zh_CN",
+                "progress": 58,
+                "words_to_do": 7198
+              },
+              {
+                "language_id": 601,
+                "language_iso": "zh_TW",
+                "progress": 4,
+                "words_to_do": 16440
               }
             ]
           }
@@ -820,22 +2850,25 @@
           "settings": {
             "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": false,
             "auto_toggle_unverified": true,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
             "progress_total": 100,
             "keys_total": 29,
             "team": 2,
-            "base_words": 117,
-            "qa_issues_total": 44,
+            "base_words": 102,
+            "qa_issues_total": 41,
             "qa_issues": {
               "not_reviewed": 27,
               "unverified": 0,
-              "spelling_grammar": 8,
+              "spelling_grammar": 5,
               "inconsistent_placeholders": 0,
               "inconsistent_html": 0,
               "different_number_of_urls": 0,
@@ -847,7 +2880,66 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "2587433160ed8b0b13c487.96168031",
+          "project_type": "paged_documents",
+          "name": "Sample",
+          "description": "",
+          "created_at": "2021-07-13 12:46:03 (Etc/UTC)",
+          "created_at_timestamp": 1626180363,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 100,
+            "keys_total": 4,
+            "team": 2,
+            "base_words": 6,
+            "qa_issues_total": 7,
+            "qa_issues": {
+              "not_reviewed": 4,
+              "unverified": 0,
+              "spelling_grammar": 1,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 2,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
               {
@@ -874,23 +2966,26 @@
           "settings": {
             "per_platform_key_names": false,
             "reviewing": false,
-            "upvoting": false,
             "auto_toggle_unverified": false,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
-            "progress_total": 26,
-            "keys_total": 9,
-            "team": 2,
-            "base_words": 106,
-            "qa_issues_total": 7,
+            "progress_total": 33,
+            "keys_total": 2,
+            "team": 4,
+            "base_words": 6,
+            "qa_issues_total": 2,
             "qa_issues": {
               "not_reviewed": 0,
-              "unverified": 3,
-              "spelling_grammar": 3,
-              "inconsistent_placeholders": 1,
+              "unverified": 2,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
               "inconsistent_html": 0,
               "different_number_of_urls": 0,
               "different_urls": 0,
@@ -901,7 +2996,282 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 0,
+                "words_to_do": 6
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 6
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "39066161618d4ecb9fdc12.00274309",
+          "project_type": "localization_files",
+          "name": "Segmentation demo",
+          "description": "",
+          "created_at": "2021-11-11 17:11:39 (Etc/UTC)",
+          "created_at_timestamp": 1636650699,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 76,
+            "keys_total": 3,
+            "team": 2,
+            "base_words": 34,
+            "qa_issues_total": 24,
+            "qa_issues": {
+              "not_reviewed": 21,
+              "unverified": 3,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 52,
+                "words_to_do": 16
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "2068771261e17a9f530af9.20327959",
+          "project_type": "localization_files",
+          "name": "Segmentation demo",
+          "description": "",
+          "created_at": "2022-01-14 13:29:03 (Etc/UTC)",
+          "created_at_timestamp": 1642166943,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 33,
+            "keys_total": 3,
+            "team": 3,
+            "base_words": 52,
+            "qa_issues_total": 62,
+            "qa_issues": {
+              "not_reviewed": 45,
+              "unverified": 16,
+              "spelling_grammar": 1,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 52
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
+                "progress": 0,
+                "words_to_do": 52
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "9057786263341934612df8.15162504",
+          "project_type": "localization_files",
+          "name": "Typeform",
+          "description": "",
+          "created_at": "2022-09-28 09:51:48 (Etc/UTC)",
+          "created_at_timestamp": 1664358708,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 66,
+            "keys_total": 7,
+            "team": 2,
+            "base_words": 21,
+            "qa_issues_total": 16,
+            "qa_issues": {
+              "not_reviewed": 7,
+              "unverified": 7,
+              "spelling_grammar": 2,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 0,
+                "words_to_do": 21
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 100,
+                "words_to_do": 0
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "698385105e8dcd21e5f8e7.76495057",
+          "project_type": "localization_files",
+          "name": "VueJS",
+          "description": "",
+          "created_at": "2020-04-08 13:09:53 (Etc/UTC)",
+          "created_at_timestamp": 1586351393,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 100,
+            "keys_total": 2,
+            "team": 2,
+            "base_words": 7,
+            "qa_issues_total": 4,
+            "qa_issues": {
+              "not_reviewed": 4,
+              "unverified": 0,
+              "spelling_grammar": 0,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
               {
@@ -913,71 +3283,44 @@
               {
                 "language_id": 597,
                 "language_iso": "ru",
-                "progress": 54,
-                "words_to_do": 48
-              },
-              {
-                "language_id": 673,
-                "language_iso": "fr",
-                "progress": 23,
-                "words_to_do": 81
-              },
-              {
-                "language_id": 666,
-                "language_iso": "de",
-                "progress": 3,
-                "words_to_do": 102
-              },
-              {
-                "language_id": 643,
-                "language_iso": "ja",
-                "progress": 2,
-                "words_to_do": 103
-              },
-              {
-                "language_id": 766,
-                "language_iso": "he",
-                "progress": 2,
-                "words_to_do": 103
-              },
-              {
-                "language_id": 602,
-                "language_iso": "zh_CN",
-                "progress": 0,
-                "words_to_do": 106
+                "progress": 100,
+                "words_to_do": 0
               }
             ]
           }
         },
         {
           "project_id": "326728535cb88c7e8306a9.93914990",
-          "project_type": "localization_files",
+          "project_type": "paged_documents",
           "name": "WordDoc",
           "description": "",
           "created_at": "2019-04-18 14:41:02 (Etc/UTC)",
           "created_at_timestamp": 1555598462,
           "created_by": 31666,
-          "created_by_email": "nika@lokalise.co",
+          "created_by_email": "deleted-user+31666@lokalise.com",
           "team_id": 186612,
           "base_language_id": 640,
           "base_language_iso": "en",
           "settings": {
             "per_platform_key_names": false,
             "reviewing": true,
-            "upvoting": false,
             "auto_toggle_unverified": true,
             "offline_translation": false,
             "key_editing": true,
-            "inline_machine_translations": true
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
           },
           "statistics": {
-            "progress_total": 100,
+            "progress_total": 20,
             "keys_total": 352,
             "team": 2,
-            "base_words": 3774,
-            "qa_issues_total": 539,
+            "base_words": 3730,
+            "qa_issues_total": 1947,
             "qa_issues": {
-              "not_reviewed": 352,
+              "not_reviewed": 1760,
               "unverified": 0,
               "spelling_grammar": 187,
               "inconsistent_placeholders": 0,
@@ -991,12 +3334,107 @@
               "different_brackets": 0,
               "different_numbers": 0,
               "double_space": 0,
-              "special_placeholder": 0
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
+            },
+            "languages": [
+              {
+                "language_id": 790,
+                "language_iso": "af",
+                "progress": 0,
+                "words_to_do": 3718
+              },
+              {
+                "language_id": 666,
+                "language_iso": "de",
+                "progress": 0,
+                "words_to_do": 3730
+              },
+              {
+                "language_id": 640,
+                "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 0,
+                "words_to_do": 3730
+              },
+              {
+                "language_id": 733,
+                "language_iso": "ko",
+                "progress": 0,
+                "words_to_do": 3730
+              }
+            ]
+          }
+        },
+        {
+          "project_id": "6327791561e6f52d7cdad9.27635693",
+          "project_type": "localization_files",
+          "name": "Wordpress",
+          "description": "",
+          "created_at": "2022-01-18 17:13:17 (Etc/UTC)",
+          "created_at_timestamp": 1642525997,
+          "created_by": 20181,
+          "created_by_email": "bodrovis@protonmail.com",
+          "team_id": 176692,
+          "base_language_id": 640,
+          "base_language_iso": "en",
+          "settings": {
+            "per_platform_key_names": false,
+            "reviewing": true,
+            "auto_toggle_unverified": true,
+            "offline_translation": false,
+            "key_editing": true,
+            "inline_machine_translations": true,
+            "branching": false,
+            "segmentation": false,
+            "custom_translation_statuses": false,
+            "custom_translation_statuses_allow_multiple": false
+          },
+          "statistics": {
+            "progress_total": 100,
+            "keys_total": 3,
+            "team": 2,
+            "base_words": 16,
+            "qa_issues_total": 12,
+            "qa_issues": {
+              "not_reviewed": 9,
+              "unverified": 2,
+              "spelling_grammar": 1,
+              "inconsistent_placeholders": 0,
+              "inconsistent_html": 0,
+              "different_number_of_urls": 0,
+              "different_urls": 0,
+              "leading_whitespace": 0,
+              "trailing_whitespace": 0,
+              "different_number_of_email_address": 0,
+              "different_email_address": 0,
+              "different_brackets": 0,
+              "different_numbers": 0,
+              "double_space": 0,
+              "special_placeholder": 0,
+              "unbalanced_brackets": 0
             },
             "languages": [
               {
                 "language_id": 640,
                 "language_iso": "en",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 673,
+                "language_iso": "fr",
+                "progress": 100,
+                "words_to_do": 0
+              },
+              {
+                "language_id": 597,
+                "language_iso": "ru",
                 "progress": 100,
                 "words_to_do": 0
               }
@@ -1006,42 +3444,51 @@
       ]
     },
     "rawHeaders": [
-      "Server",
-      "nginx",
       "Date",
-      "Wed, 19 Jun 2019 17:32:27 GMT",
+      "Thu, 20 Oct 2022 17:29:42 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
       "chunked",
       "Connection",
       "close",
+      "Server",
+      "nginx",
       "Vary",
       "Accept-Encoding",
-      "Set-Cookie",
-      "PHPSESSID=07233b75a361dd9737250cb2b7f6afd3; expires=Sun, 18-Aug-2019 17:32:27 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
-      "Expires",
-      "Thu, 19 Nov 1981 08:52:00 GMT",
       "Cache-Control",
-      "no-store, no-cache, must-revalidate",
-      "Pragma",
-      "no-cache",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
       "X-Pagination-Total-Count",
-      "13",
+      "44",
       "X-Pagination-Page-Count",
       "1",
       "X-Pagination-Limit",
       "100",
       "X-Pagination-Page",
       "1",
-      "Pragma",
+      "pragma",
       "no-cache",
-      "Cache-Control",
-      "no-store, no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "d3d01cf6-ae81-460d-b57e-89024160f671",
+      "Expires",
+      "Thu, 20 Oct 2022 17:29:42 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Wed, 20-Oct-2021 17:29:41 GMT; Max-Age=0; path=/; httponly",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Headers",
       "Content-Type"
-    ]
+    ],
+    "responseIsBinary": false
   }
 ]
