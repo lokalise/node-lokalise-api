@@ -1,7 +1,6 @@
 export interface ProjectSettings {
   per_platform_key_names: boolean;
   reviewing: boolean;
-  upvoting: boolean;
   auto_toggle_unverified: boolean;
   offline_translation: boolean;
   key_editing: boolean;

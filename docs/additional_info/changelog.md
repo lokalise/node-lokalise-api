@@ -1,5 +1,14 @@
 # Changelog
 
+## 9.2.0 (20-Oct-2022)
+
+* We are sunsetting the Upvoting feature and thus the `upvoting` attribute from the `settings` object was removed from the response body of the following endpoints:
+  + List all projects
+  + Create a project
+  + Retrieve a project
+  + Update a project
+  + Restore a snapshot
+
 ## 9.1.0 (13-Oct-2022)
 
 * Export new interfaces and types, specifically `KeyParamsWithPagination`, `CreateKeyData`, and others.
@@ -11,6 +20,19 @@
   + [Use dynamic import](https://v8.dev/features/dynamic-import)
   + Do nothing and stay on [version 8](https://github.com/lokalise/node-lokalise-api/tree/v8). We're planning to continue supporting it in the future.
 * **Breaking change**: the minimum required Node version is 14.
+
+## 8.2.0 (20-Oct-2022)
+
+* We are sunsetting the Upvoting feature and thus the `upvoting` attribute from the `settings` object was removed from the response body of the following endpoints:
+  + List all projects
+  + Create a project
+  + Retrieve a project
+  + Update a project
+  + Restore a snapshot
+
+## 8.1.0 (13-Oct-2022)
+
+* Export `KeyParamsWithPagination` interfaces
 
 ## 8.0.2 (03-Oct-2022)
 
