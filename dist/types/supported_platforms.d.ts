@@ -1,1 +1,1 @@
-export declare type SupportedPlatforms = "ios" | "android" | "web" | "other";
+export type SupportedPlatforms = "ios" | "android" | "web" | "other";

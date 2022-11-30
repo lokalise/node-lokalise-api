@@ -1,7 +1,9 @@
+import { BaseClient } from "./base_client.js";
 import { Branches } from "../collections/branches.js";
 import { Comments } from "../collections/comments.js";
 import { Contributors } from "../collections/contributors.js";
 import { Files } from "../collections/files.js";
+import { Jwt } from "../collections/jwt.js";
 import { Keys } from "../collections/keys.js";
 import { Languages } from "../collections/languages.js";
 import { Orders } from "../collections/orders.js";
@@ -20,29 +22,9 @@ import { TranslationProviders } from "../collections/translation_providers.js";
 import { TranslationStatuses } from "../collections/translation_statuses.js";
 import { UserGroups } from "../collections/user_groups.js";
 import { Webhooks } from "../collections/webhooks.js";
-export class LokaliseApi {
-    clientData = {
-        token: "",
-        tokenType: "",
-        authHeader: "x-api-token",
-        enableCompression: false,
-    };
-    /*
-     * Instantiate LokaliseApi to call API methods
-     * @param params  object, mandatory
-     * @returns       LokaliseApi object to work with.
-     */
+export class LokaliseApi extends BaseClient {
     constructor(params) {
-        const apiKey = params["apiKey"];
-        if (apiKey === null || apiKey === undefined || apiKey.length === 0) {
-            throw new Error("Error: Instantiation failed: Please pass an API key");
-        }
-        this.clientData.token = apiKey;
-        const compression = params["enableCompression"];
-        if (compression !== null && compression !== undefined) {
-            this.clientData.enableCompression = compression;
-        }
-        this.clientData.host = params.host;
+        super(params);
     }
     branches() {
         return new Branches(this.clientData);
@@ -55,6 +37,9 @@ export class LokaliseApi {
     }
     files() {
         return new Files(this.clientData);
+    }
+    jwt() {
+        return new Jwt(this.clientData);
     }
     keys() {
         return new Keys(this.clientData);

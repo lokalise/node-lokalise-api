@@ -1,4 +1,4 @@
-export declare type CreateProjectKeyInput = {
+export type CreateProjectKeyInput = {
     key_name: string;
     description?: string;
     platforms: Array<string>;

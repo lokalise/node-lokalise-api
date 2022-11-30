@@ -1,5 +1,17 @@
 # Changelog
 
+## 9.3.0 (30-Nov-2022)
+
+* Added support for the [JWT endpoint](https://developers.lokalise.com/reference/get-ota-jwt). You can now request tokens to work with OTA:
+
+```js
+const response = await lokaliseApi.jwt().get();
+
+response.jwt // => "eyJ0eXAiOiJKV1QiLCJhbG"
+```
+
+* Tested with Node 19
+
 ## 9.2.0 (20-Oct-2022)
 
 * We are sunsetting the Upvoting feature and thus the `upvoting` attribute from the `settings` object was removed from the response body of the following endpoints:

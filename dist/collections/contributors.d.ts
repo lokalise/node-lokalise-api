@@ -3,12 +3,12 @@ import { Contributor } from "../models/contributor.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
-declare type ContributorLanguages = {
+type ContributorLanguages = {
     lang_iso: string;
     is_writable?: boolean;
 };
-declare type ContributorRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
-declare type ContributorCreateData = {
+type ContributorRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
+type ContributorCreateData = {
     email: string;
     fullname?: string;
     is_admin?: boolean;
@@ -16,13 +16,13 @@ declare type ContributorCreateData = {
     languages: ContributorLanguages[];
     admin_rights?: ContributorRights[];
 };
-declare type ContributorUpdateData = {
+type ContributorUpdateData = {
     is_admin?: boolean;
     is_reviewer?: boolean;
     languages?: ContributorLanguages[];
     admin_rights?: ContributorRights[];
 };
-declare type ContributorDeleted = {
+type ContributorDeleted = {
     project_id: string;
     contributor_deleted: boolean;
 };

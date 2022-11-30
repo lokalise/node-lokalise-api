@@ -9,6 +9,7 @@ export { Contributor } from "./contributor.js";
 export { CreateProjectKeyInput } from "./create_project_key_input.js";
 export { DownloadFileParams } from "./download_file_params.js";
 export { File } from "./file.js";
+export { Jwt } from "./jwt.js";
 export { GetKeyParams } from "./get_key_params.js";
 export { KeyParamsWithPagination } from "./key_params_with_pagination.js";
 export { Key } from "./key.js";

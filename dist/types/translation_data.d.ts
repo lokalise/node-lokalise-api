@@ -1,5 +1,5 @@
 import { Keyable } from "../interfaces/keyable.js";
-export declare type TranslationData = {
+export type TranslationData = {
     language_iso?: string;
     translation?: string | Keyable;
     is_reviewed?: boolean;

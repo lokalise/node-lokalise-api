@@ -1,4 +1,4 @@
-export declare type Filenames = {
+export type Filenames = {
     ios?: string;
     android?: string;
     web?: string;
