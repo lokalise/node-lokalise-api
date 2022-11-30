@@ -3,7 +3,7 @@ import { BaseCollection } from "./base_collection.js";
 import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
 import { TeamOnly } from "../interfaces/team_only.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-declare type OrderParams = {
+type OrderParams = {
     project_id: string;
     branch?: string;
     payment_method?: "credit_card" | "team_credit";

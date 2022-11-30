@@ -3,25 +3,25 @@ import { Webhook } from "../models/webhook.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
-declare type EventLangMap = {
+type EventLangMap = {
     event?: string;
     lang_iso_codes?: string[];
 };
-declare type CreateWebhookParams = {
+type CreateWebhookParams = {
     url: string;
     branch?: string;
     events: string[];
     event_lang_map?: EventLangMap[];
 };
-declare type UpdateWebhookParams = Omit<CreateWebhookParams, "url" | "events"> & {
+type UpdateWebhookParams = Omit<CreateWebhookParams, "url" | "events"> & {
     url?: string;
     events?: string[];
 };
-declare type WebhookDeleted = {
+type WebhookDeleted = {
     project_id: string;
     webhook_deleted: boolean;
 };
-declare type WebhookRegenerated = {
+type WebhookRegenerated = {
     project_id: string;
     secret: string;
 };

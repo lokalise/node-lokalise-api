@@ -63,6 +63,11 @@
       path: upload-translation-file
     - title: Delete translation file
       path: delete-translation-file
+- title: JWT
+  path: jwt
+  sub_paths:
+    - title: Get OTA JWT
+      path: get-ota-jwt
 - title: Translation keys
   path: keys
   sub_paths:

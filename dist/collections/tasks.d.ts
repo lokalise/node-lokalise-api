@@ -7,7 +7,7 @@ interface ListTaskParams extends ProjectWithPagination {
     filter_title?: string;
     filter_statuses?: string;
 }
-declare type CreateTaskParams = {
+type CreateTaskParams = {
     title: string;
     description?: string;
     due_date?: string;
@@ -27,11 +27,11 @@ declare type CreateTaskParams = {
     do_lock_translations?: boolean;
     custom_translation_status_ids?: string[] | number[];
 };
-declare type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_language_iso" | "task_type" | "parent_task_id" | "custom_translation_status_ids"> & {
+type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_language_iso" | "task_type" | "parent_task_id" | "custom_translation_status_ids"> & {
     title?: string;
     close_task?: boolean;
 };
-declare type TaskDeleted = {
+type TaskDeleted = {
     project_id: string;
     task_deleted: boolean;
 };

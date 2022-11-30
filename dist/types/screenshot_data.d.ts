@@ -1,4 +1,4 @@
-export declare type ScreenshotData = {
+export type ScreenshotData = {
     title?: string;
     description?: string;
     screenshot_tags?: string[];

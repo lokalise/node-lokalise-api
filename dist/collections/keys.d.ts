@@ -8,12 +8,12 @@ import { UpdateKeyData } from "../types/update_key_data.js";
 import { BulkUpdateKeyParams } from "../types/bulk_update_key_params.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
 import { GetKeyParams } from "../interfaces/get_key_params.js";
-declare type KeyDeleted = {
+type KeyDeleted = {
     project_id: string;
     key_removed: boolean;
     keys_locked?: number;
 };
-declare type KeysBulkDeleted = {
+type KeysBulkDeleted = {
     project_id: string;
     keys_removed: boolean;
     keys_locked: number;

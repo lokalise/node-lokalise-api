@@ -2,6 +2,7 @@ import { Branches } from "./branches.js";
 import { Comments } from "./comments.js";
 import { Contributors } from "./contributors.js";
 import { Files } from "./files.js";
+import { Jwt } from "./jwt.js";
 import { Keys } from "./keys.js";
 import { Languages } from "./languages.js";
 import { Orders } from "./orders.js";
@@ -24,6 +25,7 @@ export {
   Comments,
   Contributors,
   Files,
+  Jwt,
   Keys,
   Languages,
   Orders,

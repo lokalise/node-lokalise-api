@@ -4,7 +4,7 @@ import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
-declare type CreateScreenshotParams = {
+type CreateScreenshotParams = {
     data: string;
     title?: string;
     description?: string;
@@ -12,8 +12,8 @@ declare type CreateScreenshotParams = {
     key_ids?: string[] | number[];
     tags?: string[];
 };
-declare type UpdateScreenshotParams = Omit<CreateScreenshotParams, "data" | "ocr">;
-declare type ScreenshotDeleted = {
+type UpdateScreenshotParams = Omit<CreateScreenshotParams, "data" | "ocr">;
+type ScreenshotDeleted = {
     project_id: string;
     screenshot_deleted: boolean;
 };

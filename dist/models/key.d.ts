@@ -5,7 +5,7 @@ import { SupportedPlatforms } from "../types/supported_platforms.js";
 import { Comment } from "../interfaces/comment.js";
 import { Screenshot } from "../interfaces/screenshot.js";
 import { Translation } from "../interfaces/translation.js";
-declare type KeyComment = Omit<Comment, "key_id">;
+type KeyComment = Omit<Comment, "key_id">;
 export declare class Key extends BaseModel implements KeyInterface {
     key_id: number;
     created_at: string;

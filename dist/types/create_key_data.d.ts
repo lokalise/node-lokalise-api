@@ -3,7 +3,7 @@ import { Filenames, Filenames as Keynames } from "../types/filenames.js";
 import { CommentData } from "../types/comment_data.js";
 import { ScreenshotData } from "../types/screenshot_data.js";
 import { TranslationData } from "../types/translation_data.js";
-export declare type CreateKeyData = {
+export type CreateKeyData = {
     key_name: string | Keynames;
     description?: string;
     platforms: SupportedPlatforms[];

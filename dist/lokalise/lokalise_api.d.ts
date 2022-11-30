@@ -1,7 +1,9 @@
+import { BaseClient, ClientParams } from "./base_client.js";
 import { Branches } from "../collections/branches.js";
 import { Comments } from "../collections/comments.js";
 import { Contributors } from "../collections/contributors.js";
 import { Files } from "../collections/files.js";
+import { Jwt } from "../collections/jwt.js";
 import { Keys } from "../collections/keys.js";
 import { Languages } from "../collections/languages.js";
 import { Orders } from "../collections/orders.js";
@@ -20,20 +22,14 @@ import { TranslationProviders } from "../collections/translation_providers.js";
 import { TranslationStatuses } from "../collections/translation_statuses.js";
 import { UserGroups } from "../collections/user_groups.js";
 import { Webhooks } from "../collections/webhooks.js";
-import { ClientData as ClientDataInterface } from "../interfaces/client_data.js";
-export declare type ClientParams = {
-    apiKey?: string;
-    enableCompression?: boolean;
-    tokenType?: string;
-    host?: string;
-};
-export declare class LokaliseApi {
-    readonly clientData: ClientDataInterface;
+export { ClientParams };
+export declare class LokaliseApi extends BaseClient {
     constructor(params: ClientParams);
     branches(): Branches;
     comments(): Comments;
     contributors(): Contributors;
     files(): Files;
+    jwt(): Jwt;
     keys(): Keys;
     languages(): Languages;
     orders(): Orders;

@@ -1,3 +1,3 @@
-export declare type CommentData = {
+export type CommentData = {
     comment?: string;
 };
