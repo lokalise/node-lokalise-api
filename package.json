@@ -18,16 +18,18 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && nyc --reporter=lcov ts-mocha -n loader=ts-node/esm -p tsconfig.json --type-check test/**/*.spec.ts --timeout 10000"
+    "test": "tsc && c8 --reporter=lcov ts-mocha -n loader=ts-node/esm -p tsconfig.json --type-check test/**/*.spec.ts --timeout 10000"
   },
   "devDependencies": {
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
     "@types/chai": "^4.2.22",
+    "@types/http-cache-semantics": "^4.0.1",
     "@types/mocha": "^10.0.0",
     "@types/node": "^18.6.1",
+    "@types/sinon": "^10.0.13",
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "acorn": "^8.6.0",
+    "c8": "^7.12",
     "chai": "^4.2.0",
     "dotenv": "^16.0.0",
     "eslint": "^8.3.0",
@@ -39,8 +41,8 @@
     "lodash": "^4.17.20",
     "mocha": "^10.0.0",
     "mocha-cassettes": "1.2.6",
-    "nyc": "^15.1",
     "prettier": "^2.4.1",
+    "sinon": "^15.0.1",
     "source-map-support": "^0.5.21",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
