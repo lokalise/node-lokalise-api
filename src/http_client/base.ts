@@ -1,14 +1,13 @@
 import got, { PlainResponse, Options } from "got";
-import { readFile } from "fs/promises";
-const pkg = JSON.parse((await readFile("./package.json")).toString());
 import { Keyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
+import { LokalisePkg } from "../lokalise/pkg.js";
 
 export class ApiRequest {
-  private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
-    "https://api.lokalise.com/api2/";
   public promise: Promise<any>;
   public params: Keyable = {};
+  private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
+    "https://api.lokalise.com/api2/";
 
   constructor(
     uri: string,
@@ -35,7 +34,7 @@ export class ApiRequest {
       prefixUrl: clientData.host ?? this.urlRoot,
       headers: {
         Accept: "application/json",
-        "User-Agent": `node-lokalise-api/${<string>pkg.version}`,
+        "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
       },
       throwHttpErrors: false,
       decompress: false,
@@ -65,7 +64,7 @@ export class ApiRequest {
       }
       return Promise.resolve({ json: responseJSON, headers: response.headers });
     } catch (err) {
-      /* istanbul ignore next */
+      /* c8 ignore next 2 */
       return Promise.reject(err);
     }
   }
@@ -84,6 +83,7 @@ export class ApiRequest {
         return t_param;
       } else {
         if (isMandaratory === "!") {
+          /* c8 ignore next */
           throw new Error("Required param " + paramName);
         } else {
           return "";

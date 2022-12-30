@@ -1,0 +1,130 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "GET",
+    "path": "/api2/projects/2273827860c1e2473eb195.11207948",
+    "body": "",
+    "status": 200,
+    "response": {
+      "project_id": "2273827860c1e2473eb195.11207948",
+      "project_type": "localization_files",
+      "name": "Angular",
+      "description": "",
+      "created_at": "2021-06-10 09:58:31 (Etc/UTC)",
+      "created_at_timestamp": 1623319111,
+      "created_by": 20181,
+      "created_by_email": "bodrovis@protonmail.com",
+      "team_id": 176692,
+      "base_language_id": 1055,
+      "base_language_iso": "en",
+      "settings": {
+        "per_platform_key_names": false,
+        "reviewing": true,
+        "auto_toggle_unverified": true,
+        "offline_translation": false,
+        "key_editing": true,
+        "inline_machine_translations": true,
+        "branching": true,
+        "segmentation": false,
+        "custom_translation_statuses": true,
+        "custom_translation_statuses_allow_multiple": true
+      },
+      "statistics": {
+        "progress_total": 22,
+        "keys_total": 3,
+        "team": 10,
+        "base_words": 8,
+        "qa_issues_total": 25,
+        "qa_issues": {
+          "not_reviewed": 14,
+          "unverified": 11,
+          "spelling_grammar": 0,
+          "inconsistent_placeholders": 0,
+          "inconsistent_html": 0,
+          "different_number_of_urls": 0,
+          "different_urls": 0,
+          "leading_whitespace": 0,
+          "trailing_whitespace": 0,
+          "different_number_of_email_address": 0,
+          "different_email_address": 0,
+          "different_brackets": 0,
+          "different_numbers": 0,
+          "double_space": 0,
+          "special_placeholder": 0,
+          "unbalanced_brackets": 0
+        },
+        "languages": [
+          {
+            "language_id": 1055,
+            "language_iso": "en",
+            "progress": 100,
+            "words_to_do": 0
+          },
+          {
+            "language_id": 673,
+            "language_iso": "fr",
+            "progress": 12,
+            "words_to_do": 7
+          },
+          {
+            "language_id": 10153,
+            "language_iso": "lv",
+            "progress": 0,
+            "words_to_do": 8
+          },
+          {
+            "language_id": 748,
+            "language_iso": "pl",
+            "progress": 0,
+            "words_to_do": 8
+          },
+          {
+            "language_id": 597,
+            "language_iso": "ru",
+            "progress": 0,
+            "words_to_do": 8
+          }
+        ]
+      }
+    },
+    "rawHeaders": [
+      "Date",
+      "Thu, 29 Dec 2022 19:02:43 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Server",
+      "nginx",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "7cb757be-fd08-4462-bc28-f476b4e3ceb8",
+      "Expires",
+      "Thu, 29 Dec 2022 19:02:43 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Wed, 29-Dec-2021 19:02:42 GMT; Max-Age=0; path=/; httponly",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]

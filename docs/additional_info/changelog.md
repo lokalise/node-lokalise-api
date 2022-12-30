@@ -1,5 +1,11 @@
 # Changelog
 
+## 9.4.0 (30-Dec-2022)
+
+* Various refactorings to add support for Deno (check the issue [#350](https://github.com/lokalise/node-lokalise-api/issues/350))
+* Use c8 for test coverage
+* Other minor updates
+
 ## 9.3.0 (30-Nov-2022)
 
 * Added support for the [JWT endpoint](https://developers.lokalise.com/reference/get-ota-jwt). You can now request tokens to work with OTA:

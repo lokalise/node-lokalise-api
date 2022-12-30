@@ -1,7 +1,9 @@
 import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
+import { LokalisePkg } from "../../src/lokalise/pkg.js";
 import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import sinon from "sinon";
 
 describe("Projects", function () {
   const cassette = new Cassettes("./test/cassettes");
@@ -13,6 +15,21 @@ describe("Projects", function () {
     .createTest("list", async () => {
       const projects = await lokaliseApi.projects().list();
       expect(projects.items[0].name).to.eq("Angular");
+    })
+    .register(this);
+
+  cassette
+    .createTest("get no version", async () => {
+      sinon.replace(LokalisePkg, "pkgPath", function () {
+        return "fake_file_here";
+      });
+
+      const project = await lokaliseApi
+        .projects()
+        .get("2273827860c1e2473eb195.11207948");
+      expect(project.name).to.eq("Angular");
+
+      sinon.restore();
     })
     .register(this);
 

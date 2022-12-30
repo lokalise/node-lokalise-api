@@ -1,6 +1,5 @@
 import got, { Options } from "got";
-import { readFile } from "fs/promises";
-const pkg = JSON.parse((await readFile("./package.json")).toString());
+import { LokalisePkg } from "../lokalise/pkg.js";
 export class AuthRequest {
     static urlRoot = "https://app.lokalise.com/oauth2/";
     static async createPromise(uri, method, body, host) {
@@ -9,7 +8,7 @@ export class AuthRequest {
             prefixUrl: host ?? this.urlRoot,
             headers: {
                 Accept: "application/json",
-                "User-Agent": `node-lokalise-api/${pkg.version}`,
+                "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
             },
             throwHttpErrors: false,
             decompress: false,
@@ -29,7 +28,7 @@ export class AuthRequest {
             return Promise.resolve({ json: responseJSON, headers: response.headers });
         }
         catch (err) {
-            /* istanbul ignore next */
+            /* c8 ignore next 2 */
             return Promise.reject(err);
         }
     }

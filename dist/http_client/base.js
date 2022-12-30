@@ -1,10 +1,9 @@
 import got, { Options } from "got";
-import { readFile } from "fs/promises";
-const pkg = JSON.parse((await readFile("./package.json")).toString());
+import { LokalisePkg } from "../lokalise/pkg.js";
 export class ApiRequest {
-    urlRoot = "https://api.lokalise.com/api2/";
     promise;
     params = {};
+    urlRoot = "https://api.lokalise.com/api2/";
     constructor(uri, method, body, params, clientData) {
         this.params = params;
         this.promise = this.createPromise(uri, method, body, clientData);
@@ -17,7 +16,7 @@ export class ApiRequest {
             prefixUrl: clientData.host ?? this.urlRoot,
             headers: {
                 Accept: "application/json",
-                "User-Agent": `node-lokalise-api/${pkg.version}`,
+                "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
             },
             throwHttpErrors: false,
             decompress: false,
@@ -42,7 +41,7 @@ export class ApiRequest {
             return Promise.resolve({ json: responseJSON, headers: response.headers });
         }
         catch (err) {
-            /* istanbul ignore next */
+            /* c8 ignore next 2 */
             return Promise.reject(err);
         }
     }
@@ -60,6 +59,7 @@ export class ApiRequest {
             }
             else {
                 if (isMandaratory === "!") {
+                    /* c8 ignore next */
                     throw new Error("Required param " + paramName);
                 }
                 else {
