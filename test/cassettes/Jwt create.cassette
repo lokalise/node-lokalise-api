@@ -1,0 +1,53 @@
+[
+  {
+    "scope": "https://api.lokalise.com:443",
+    "method": "POST",
+    "path": "/api2/projects/2273827860c1e2473eb195.11207948/tokens",
+    "body": {
+      "service": "ota"
+    },
+    "status": 200,
+    "response": {
+      "jwt": "eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiJ9.eyJ1c2VySWQiOjIwMTgxLCJwcm9qZWN0cyI6W3sidGVhbUlkIjoxNzY2OTIsInByb2plY3RJZCI6IjIyNzM4Mjc4NjBjMWUyNDczZWIxOTUuMTEyMDc5NDgifV0sImV4cCI6MTY3MzQ1NjEwMH0.c1a7FS_QP8HoPCgNZbISnAdTO43LeBuK5lsUYDg3pf6fqzC-BNXixR07uiNrpLTtSucVodbAsRveIt9UDs_ypRKGZpBgUl5jp5h_Fxwz_DkN3s3s1d_2qt6UuBAZChiTfw8w_wg_bLsAuWhTpPlyP_ZhCiW_FDbroWOzOsitsuZz-nZYa4C50cv7jgMo5GNdLL3a7W2Gv46W_EoNstvH8j-yI0JVDXAFbxQxwcoCdRLMUUwOuc9a0nSOSauh1D97Szu-_I_QKAn-8uKSSofNBnGWom8EBq9U7Yk2bJ3bJe12qGAT3UDk8_DgTFKcpCkxU7chbeWJ_lt3n7GQE3-KqZTbjvlT9ILEqhnHLrmXjjRJcv1MzqYzElV4F7Lu1H_NkX_58DPe-r4-pUr5CkO-lwltZc1HmjQJXcEd1DpY1x_240Wdn8olFhTkhhxxCKBXilFZyiQdUNyj1DBhWSQP0a1TLbxuE6MqNvVKmmx4iiSyl2e63gwXH10-bCF-NaQzE0TwH3qTTJznYJhq-eAW-ZiAWzs1Wbky_YgRrY6dO7Zm_I7XVUmoiksycxnwd8GCYypfXScIlD_F1bYYFcHVed2Xya72pdJXGNezW_5StU_ATNz3LYN15qgZsfgtXmnpLFcer3DMc_jZMNGUhpz2iIZE2u7P-3-552WooOxCpUc"
+    },
+    "rawHeaders": [
+      "Date",
+      "Wed, 11 Jan 2023 16:25:00 GMT",
+      "Content-Type",
+      "application/json",
+      "Transfer-Encoding",
+      "chunked",
+      "Connection",
+      "close",
+      "Server",
+      "nginx",
+      "Vary",
+      "Accept-Encoding",
+      "Cache-Control",
+      "max-age=0, must-revalidate, no-cache, no-store, private",
+      "pragma",
+      "no-cache",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "1d46988d-f786-4402-a880-8737606c25e2",
+      "Expires",
+      "Wed, 11 Jan 2023 16:25:00 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Tue, 11-Jan-2022 16:24:59 GMT; Max-Age=0; path=/; httponly",
+      "Access-Control-Allow-Origin",
+      "*",
+      "Access-Control-Allow-Headers",
+      "Content-Type"
+    ],
+    "responseIsBinary": false
+  }
+]
