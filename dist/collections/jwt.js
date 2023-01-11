@@ -1,10 +1,19 @@
 import { BaseCollection } from "./base_collection.js";
 import { Jwt as JwtModel } from "../models/jwt.js";
 export class Jwt extends BaseCollection {
-    static prefixURI = "jwt-tokens/ota";
+    static prefixURI = "projects/{!:project_id}/tokens";
     static elementClass = JwtModel;
-    get() {
-        return this.createPromise("GET", {}, this.populateObjectFromJson, this.handleReject, null, Jwt.prefixURI);
+    create(project_id, body = { service: "ota" }) {
+        // return this.createPromise(
+        //   "POST",
+        //   {},
+        //   this.populateObjectFromJson,
+        //   this.handleReject,
+        //   null,
+        //   Jwt.prefixURI
+        // );
+        const request_params = { project_id: project_id };
+        return this.doCreate(body, request_params, this.populateObjectFromJson);
     }
 }
 //# sourceMappingURL=jwt.js.map

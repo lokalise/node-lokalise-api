@@ -1,5 +1,15 @@
 # Changelog
 
+## 9.5.0 (11-Jan-2023)
+
+* Replaced `jwt().get()` with `jwt().create()`. The `create()` method accepts a mandatory `project_id` parameter:
+
+```js
+const response = await lokaliseApi.jwt().create("1234.abcd");
+
+response.jwt // => "eyJ0eXAiOiJKV1QiLCJhbG..."
+```
+
 ## 9.4.0 (30-Dec-2022)
 
 * Various refactorings to add support for Deno (check the issue [#350](https://github.com/lokalise/node-lokalise-api/issues/350))
