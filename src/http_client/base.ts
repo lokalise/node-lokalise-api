@@ -63,8 +63,8 @@ export class ApiRequest {
         return Promise.reject(responseJSON["error"] || responseJSON);
       }
       return Promise.resolve({ json: responseJSON, headers: response.headers });
+      /* c8 ignore next 4 */
     } catch (err) {
-      /* c8 ignore next 2 */
       return Promise.reject(err);
     }
   }
