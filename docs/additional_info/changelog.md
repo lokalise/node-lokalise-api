@@ -1,5 +1,13 @@
 # Changelog
 
+## 9.6.0 (28-Jan-2023)
+
+* Download and upload params (`DownloadFileParams` and `UploadFileParams`) are stricter now and accept only the values that are actually supported by the API.
+
+## 8.3.0 (28-Jan-2023)
+
+* Download and upload params (`DownloadFileParams` and `UploadFileParams`) are stricter now and accept only the values that are actually supported by the API.
+
 ## 9.5.0 (11-Jan-2023)
 
 * Replaced `jwt().get()` with `jwt().create()`. The `create()` method accepts a mandatory `project_id` parameter:
