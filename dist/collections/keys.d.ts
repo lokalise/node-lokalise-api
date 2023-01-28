@@ -9,23 +9,23 @@ import { BulkResult } from "../interfaces/bulk_result";
 interface GetKeyParams extends ProjectOnly {
     disable_references?: number;
 }
-declare type CreateKeyParams = {
+type CreateKeyParams = {
     keys?: CreateKeyData[];
     use_automations?: boolean;
 };
-export declare type UpdateKeyDataWithId = UpdateKeyData & {
+export type UpdateKeyDataWithId = UpdateKeyData & {
     key_id: string | number;
 };
-export declare type BulkUpdateKeyParams = {
+export type BulkUpdateKeyParams = {
     keys?: UpdateKeyDataWithId[];
     use_automations?: boolean;
 };
-declare type KeyDeleted = {
+type KeyDeleted = {
     project_id: string;
     key_removed: boolean;
     keys_locked?: number;
 };
-declare type KeysBulkDeleted = {
+type KeysBulkDeleted = {
     project_id: string;
     keys_removed: boolean;
     keys_locked: number;

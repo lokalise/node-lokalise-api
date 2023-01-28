@@ -6,8 +6,8 @@ interface GetSegmentParams extends ProjectOnly {
     language_iso: string;
     disable_references?: number | string;
 }
-declare type UpdateSegmentReqParams = Omit<GetSegmentParams, "disable_references">;
-declare type UpdateSegmentBodyParams = {
+type UpdateSegmentReqParams = Omit<GetSegmentParams, "disable_references">;
+type UpdateSegmentBodyParams = {
     value: string;
     is_fuzzy?: boolean;
     is_reviewed?: boolean;

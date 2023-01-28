@@ -4,7 +4,7 @@ import { Filenames as Keynames } from "../types/filenames";
 import { Comment } from "../interfaces/comment";
 import { Screenshot } from "../interfaces/screenshot";
 import { Translation } from "../interfaces/translation";
-declare type KeyComment = Omit<Comment, "key_id">;
+type KeyComment = Omit<Comment, "key_id">;
 export interface Key {
     key_id: number;
     created_at: string;

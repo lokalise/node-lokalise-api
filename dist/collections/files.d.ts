@@ -10,7 +10,7 @@ import { ProjectOnly } from "../interfaces/project_only";
 interface ListFileParams extends ProjectWithPagination {
     filter_filename?: string;
 }
-declare type FileDeleted = {
+type FileDeleted = {
     project_id: string;
     file_deleted: boolean;
 };

@@ -4,8 +4,8 @@ import { PaginatedResult } from "../models/paginated_result";
 import { Keyable } from "../interfaces/keyable";
 import { ClientData } from "../interfaces/client_data";
 import { BulkResult } from "../interfaces/bulk_result";
-declare type RejectHandler = (data: any) => ApiError;
-declare type ResolveHandler = (json: Keyable, headers: Keyable, ...args: any[]) => any;
+type RejectHandler = (data: any) => ApiError;
+type ResolveHandler = (json: Keyable, headers: Keyable, ...args: any[]) => any;
 export declare abstract class BaseCollection {
     readonly clientData: ClientData;
     protected static rootElementName: string;

@@ -4,7 +4,7 @@ import { CommentData } from "../types/comment_data";
 import { ScreenshotData } from "../types/screenshot_data";
 import { TranslationData } from "../types/translation_data";
 import { Filenames as Keynames } from "../types/filenames";
-export declare type CreateKeyData = {
+export type CreateKeyData = {
     key_name: string | Keynames;
     description?: string;
     platforms: SupportedPlatforms[];

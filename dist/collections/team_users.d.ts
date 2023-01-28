@@ -3,10 +3,10 @@ import { TeamUser } from "../models/team_user";
 import { TeamWithPagination } from "../interfaces/team_with_pagination";
 import { PaginatedResult } from "../interfaces/paginated_result";
 import { TeamOnly } from "../interfaces/team_only";
-declare type TeamUserParams = {
+type TeamUserParams = {
     role?: "owner" | "admin" | "member" | "biller";
 };
-declare type TeamUserDeleted = {
+type TeamUserDeleted = {
     team_id: string;
     team_user_deleted: boolean;
 };

@@ -4,19 +4,19 @@ import { Keyable } from "../interfaces/keyable";
 import { TeamWithPagination } from "../interfaces/team_with_pagination";
 import { PaginatedResult } from "../interfaces/paginated_result";
 import { TeamOnly } from "../interfaces/team_only";
-declare type GroupLanguages = {
+type GroupLanguages = {
     reference: string[];
     contributable: string[];
 };
-declare type AdminRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
-declare type UserGroupParams = {
+type AdminRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
+type UserGroupParams = {
     name: string;
     is_reviewer: boolean;
     is_admin: boolean;
     admin_rights?: AdminRights[];
     languages?: GroupLanguages;
 };
-declare type UserGroupDeleted = {
+type UserGroupDeleted = {
     team_id: string;
     group_deleted: boolean;
 };

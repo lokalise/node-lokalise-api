@@ -1,5 +1,5 @@
 import { Keyable } from "./keyable";
-declare type ProcessDetails = {
+type ProcessDetails = {
     files: Keyable[];
     [key: string]: any;
 };

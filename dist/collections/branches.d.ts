@@ -3,18 +3,18 @@ import { Branch } from "../models/branch";
 import { PaginatedResult } from "../interfaces/paginated_result";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination";
 import { ProjectOnly } from "../interfaces/project_only";
-declare type BranchParams = {
+type BranchParams = {
     name?: string;
 };
-declare type MergeBranchParams = {
+type MergeBranchParams = {
     force_conflict_resolve_using?: string;
     target_branch_id?: number | string;
 };
-declare type BranchDeleted = {
+type BranchDeleted = {
     project_id: string;
     branch_deleted: boolean;
 };
-declare type BranchMerged = {
+type BranchMerged = {
     project_id: string;
     branch_merged: boolean;
     branch: Branch;

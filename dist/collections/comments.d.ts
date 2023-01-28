@@ -9,10 +9,10 @@ interface ParamsWithPagination extends ProjectWithPagination {
 interface ProjectAndKey extends ProjectOnly {
     key_id: number | string;
 }
-declare type CommentData = {
+type CommentData = {
     comment: string;
 };
-declare type CommentDeleted = {
+type CommentDeleted = {
     project_id: string;
     comment_deleted: boolean;
 };

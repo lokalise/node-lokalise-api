@@ -15,7 +15,7 @@ interface ListTranslationParams extends ProjectWithPagination {
 interface GetTranslationParams extends ProjectOnly {
     disable_references?: number | string;
 }
-declare type TranslationParams = {
+type TranslationParams = {
     translation: string;
     is_unverified?: boolean;
     is_reviewed?: boolean;

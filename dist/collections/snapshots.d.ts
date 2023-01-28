@@ -4,10 +4,10 @@ import { PaginatedResult } from "../interfaces/paginated_result";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination";
 import { ProjectOnly } from "../interfaces/project_only";
 import { Project } from "../models/project";
-declare type CreateSnapshotParams = {
+type CreateSnapshotParams = {
     title: string;
 };
-declare type SnapshotDeleted = {
+type SnapshotDeleted = {
     project_id: string;
     snapshot_deleted: boolean;
 };

@@ -8,7 +8,7 @@ interface ProjectListParams extends PaginationParams {
     include_statistics?: string | number;
     include_settings?: string | number;
 }
-declare type ProjectParams = {
+type ProjectParams = {
     name: string;
     team_id?: number | string;
     description?: string;
@@ -20,15 +20,15 @@ declare type ProjectParams = {
     project_type?: "localization_files" | "paged_documents";
     is_segmentation_enabled?: boolean;
 };
-declare type ProjectUpdateParams = {
+type ProjectUpdateParams = {
     name: string;
     description?: string;
 };
-declare type ProjectDeleted = {
+type ProjectDeleted = {
     project_id: string;
     project_deleted: boolean;
 };
-declare type ProjectEmptied = {
+type ProjectEmptied = {
     project_id: string;
     keys_deleted: boolean;
 };

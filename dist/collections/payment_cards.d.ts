@@ -2,13 +2,13 @@ import { PaymentCard } from "../models/payment_card";
 import { BaseCollection } from "./base_collection";
 import { PaginationParams } from "../interfaces/pagination_params";
 import { PaginatedResult } from "../interfaces/paginated_result";
-declare type CardParams = {
+type CardParams = {
     number: string;
     cvc: string | number;
     exp_month: string | number;
     exp_year: string | number;
 };
-declare type CardDeleted = {
+type CardDeleted = {
     card_id: string;
     card_deleted: boolean;
 };

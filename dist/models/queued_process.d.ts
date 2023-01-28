@@ -1,7 +1,7 @@
 import { BaseModel } from "./base_model";
 import { QueuedProcess as QueuedProcessInterface } from "../interfaces/queued_process";
 import { Keyable } from "../interfaces/keyable";
-declare type ProcessDetails = {
+type ProcessDetails = {
     files: Keyable[];
     [key: string]: any;
 };

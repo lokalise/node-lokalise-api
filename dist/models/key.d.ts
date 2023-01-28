@@ -6,7 +6,7 @@ import { Filenames as Keynames } from "../types/filenames";
 import { Comment } from "../interfaces/comment";
 import { Screenshot } from "../interfaces/screenshot";
 import { Translation } from "../interfaces/translation";
-declare type KeyComment = Omit<Comment, "key_id">;
+type KeyComment = Omit<Comment, "key_id">;
 export declare class Key extends BaseModel implements KeyInterface {
     key_id: number;
     created_at: string;

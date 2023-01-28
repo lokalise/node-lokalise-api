@@ -1,7 +1,7 @@
 import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details";
 import { BaseCollection } from "./base_collection";
 import { TeamOnly } from "../interfaces/team_only";
-declare type BillingDetailsParams = {
+type BillingDetailsParams = {
     billing_email: string;
     country_code: string;
     zip: string | number;

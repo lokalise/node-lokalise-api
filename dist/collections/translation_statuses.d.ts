@@ -3,19 +3,19 @@ import { TranslationStatus } from "../models/translation_status";
 import { PaginatedResult } from "../interfaces/paginated_result";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination";
 import { ProjectOnly } from "../interfaces/project_only";
-declare type CreateTranslationStatusParams = {
+type CreateTranslationStatusParams = {
     title: string;
     color: string;
 };
-declare type UpdateTranslationStatusParams = {
+type UpdateTranslationStatusParams = {
     title?: string;
     color?: string;
 };
-declare type TranslationStatusDeleted = {
+type TranslationStatusDeleted = {
     project_id: string;
     custom_translation_status_deleted: boolean;
 };
-declare type TranslationStatusColors = {
+type TranslationStatusColors = {
     colors: string[];
 };
 export declare class TranslationStatuses extends BaseCollection {
