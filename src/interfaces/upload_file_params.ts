@@ -1,3 +1,5 @@
+import type { FileFormat } from "../types/file_format.js";
+
 export interface UploadFileParams {
   data: string;
   filename: string;
@@ -21,6 +23,6 @@ export interface UploadFileParams {
   custom_translation_status_updated_keys?: boolean;
   custom_translation_status_skipped_keys?: boolean;
   skip_detect_lang_iso?: boolean;
-  format?: string;
+  format?: FileFormat;
   filter_task_id?: number;
 }
