@@ -15,7 +15,7 @@ GEM
     coffee-script-source (1.11.1)
     colorator (1.1.0)
     commonmarker (0.23.7)
-    concurrent-ruby (1.1.10)
+    concurrent-ruby (1.2.0)
     dnsruby (1.61.9)
       simpleidn (~> 0.1)
     em-websocket (0.5.3)
@@ -30,7 +30,6 @@ GEM
       ruby2_keywords (>= 0.0.4)
     faraday-net_http (3.0.2)
     ffi (1.15.5)
-    ffi (1.15.5-x64-mingw-ucrt)
     forwardable-extended (2.6.0)
     gemoji (3.0.1)
     github-pages (227)
@@ -253,7 +252,6 @@ GEM
     unf (0.1.4)
       unf_ext
     unf_ext (0.0.8.2)
-    unf_ext (0.0.8.2-x64-mingw-ucrt)
     unicode-display_width (1.8.0)
     wdm (0.1.1)
     zeitwerk (2.6.6)
@@ -273,4 +271,4 @@ DEPENDENCIES
   wdm (~> 0.1.0)
 
 BUNDLED WITH
-   2.4.3
+   2.4.5
