@@ -1,7 +1,9 @@
+import type { SupportedPlatforms } from "../types/supported_platforms.js";
+
 export type CreateProjectKeyInput = {
   key_name: string;
   description?: string;
-  platforms: Array<string>;
+  platforms: Array<SupportedPlatforms>;
   filenames?: {
     [key: string]: string;
   };

@@ -5,6 +5,7 @@ export { CreateKeyParams } from "./create_key_params.js";
 export { Filenames } from "./filenames.js";
 export { ScreenshotData } from "./screenshot_data.js";
 export { SupportedPlatforms } from "./supported_platforms.js";
+export { NumericBool } from "./numeric_bool.js";
 export { TranslationData } from "./translation_data.js";
 export { UpdateKeyDataWithId } from "./update_key_data_with_id.js";
 export { UpdateKeyData } from "./update_key_data.js";
