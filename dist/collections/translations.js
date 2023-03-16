@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Translation } from "../models/translation.js";
-export class Translations extends BaseCollection {
+class Translations extends BaseCollection {
     static rootElementName = "translations";
     static rootElementNameSingular = "translation";
     static prefixURI = "projects/{!:project_id}/translations/{:id}";
@@ -15,4 +15,5 @@ export class Translations extends BaseCollection {
         return this.doUpdate(translation_id, translation_params, request_params);
     }
 }
+export { Translations };
 //# sourceMappingURL=translations.js.map

@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { TranslationStatus } from "../models/translation_status.js";
-export class TranslationStatuses extends BaseCollection {
+class TranslationStatuses extends BaseCollection {
     static rootElementName = "custom_translation_statuses";
     static prefixURI = "projects/{!:project_id}/custom_translation_statuses/{:id}";
     static elementClass = TranslationStatus;
@@ -24,4 +24,5 @@ export class TranslationStatuses extends BaseCollection {
         return this.createPromise("GET", request_params, this.returnBareJSON, this.handleReject, {}, "projects/{!:project_id}/custom_translation_statuses/colors");
     }
 }
+export { TranslationStatuses };
 //# sourceMappingURL=translation_statuses.js.map

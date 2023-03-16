@@ -1,6 +1,6 @@
 import { QueuedProcess } from "../models/queued_process.js";
 import { BaseCollection } from "./base_collection.js";
-export class QueuedProcesses extends BaseCollection {
+class QueuedProcesses extends BaseCollection {
     static rootElementName = "processes";
     static rootElementNameSingular = "process";
     static prefixURI = "projects/{!:project_id}/processes/{:id}";
@@ -12,4 +12,5 @@ export class QueuedProcesses extends BaseCollection {
         return this.doGet(process_id, request_params);
     }
 }
+export { QueuedProcesses };
 //# sourceMappingURL=queued_processes.js.map

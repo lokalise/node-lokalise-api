@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { UserGroup } from "../models/user_group.js";
-export class UserGroups extends BaseCollection {
+class UserGroups extends BaseCollection {
     static rootElementName = "user_groups";
     static prefixURI = "teams/{!:team_id}/groups/{:id}";
     static elementClass = UserGroup;
@@ -56,4 +56,5 @@ export class UserGroups extends BaseCollection {
         return this.populateObjectFromJson(formatted_json, headers);
     }
 }
+export { UserGroups };
 //# sourceMappingURL=user_groups.js.map

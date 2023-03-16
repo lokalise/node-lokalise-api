@@ -1,6 +1,6 @@
 import got, { Options } from "got";
 import { LokalisePkg } from "../lokalise/pkg.js";
-export class AuthRequest {
+class AuthRequest {
     static urlRoot = "https://app.lokalise.com/oauth2/";
     static async createPromise(uri, method, body, host) {
         const options = new Options({
@@ -33,4 +33,5 @@ export class AuthRequest {
         }
     }
 }
+export { AuthRequest };
 //# sourceMappingURL=auth_request.js.map

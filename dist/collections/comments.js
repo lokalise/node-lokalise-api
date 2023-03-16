@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Comment } from "../models/comment.js";
-export class Comments extends BaseCollection {
+class Comments extends BaseCollection {
     static rootElementName = "comments";
     static rootElementNameSingular = "comment";
     static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
@@ -22,4 +22,5 @@ export class Comments extends BaseCollection {
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null, "projects/{!:project_id}/comments");
     }
 }
+export { Comments };
 //# sourceMappingURL=comments.js.map

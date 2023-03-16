@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { TeamUser } from "../models/team_user.js";
-export class TeamUsers extends BaseCollection {
+class TeamUsers extends BaseCollection {
     static rootElementName = "team_users";
     static rootElementNameSingular = "team_user";
     static prefixURI = "teams/{!:team_id}/users/{:id}";
@@ -18,4 +18,5 @@ export class TeamUsers extends BaseCollection {
         return this.doDelete(team_user_id, request_params);
     }
 }
+export { TeamUsers };
 //# sourceMappingURL=team_users.js.map

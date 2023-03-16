@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Key } from "../models/key.js";
-export class Keys extends BaseCollection {
+class Keys extends BaseCollection {
     static rootElementName = "keys";
     static rootElementNameSingular = "key";
     static prefixURI = "projects/{!:project_id}/keys/{:id}";
@@ -28,4 +28,5 @@ export class Keys extends BaseCollection {
         return this.createPromise("DELETE", request_params, this.returnBareJSON, this.handleReject, keys, "projects/{!:project_id}/keys");
     }
 }
+export { Keys };
 //# sourceMappingURL=keys.js.map

@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Contributor } from "../models/contributor.js";
-export class Contributors extends BaseCollection {
+class Contributors extends BaseCollection {
     static rootElementName = "contributors";
     static rootElementNameSingular = "contributor";
     static prefixURI = "projects/{!:project_id}/contributors/{:id}";
@@ -22,4 +22,5 @@ export class Contributors extends BaseCollection {
         return this.doDelete(contributor_id, request_params);
     }
 }
+export { Contributors };
 //# sourceMappingURL=contributors.js.map

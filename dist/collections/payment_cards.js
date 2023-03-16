@@ -1,6 +1,6 @@
 import { PaymentCard } from "../models/payment_card.js";
 import { BaseCollection } from "./base_collection.js";
-export class PaymentCards extends BaseCollection {
+class PaymentCards extends BaseCollection {
     static rootElementName = "payment_cards";
     static rootElementNameSingular = "payment_card";
     static prefixURI = "payment_cards/{:id}";
@@ -18,4 +18,5 @@ export class PaymentCards extends BaseCollection {
         return this.doDelete(card_id);
     }
 }
+export { PaymentCards };
 //# sourceMappingURL=payment_cards.js.map

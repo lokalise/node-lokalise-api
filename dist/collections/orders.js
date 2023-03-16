@@ -1,6 +1,6 @@
 import { Order } from "../models/order.js";
 import { BaseCollection } from "./base_collection.js";
-export class Orders extends BaseCollection {
+class Orders extends BaseCollection {
     static rootElementName = "orders";
     static prefixURI = "teams/{!:team_id}/orders/{:id}";
     static elementClass = Order;
@@ -14,4 +14,5 @@ export class Orders extends BaseCollection {
         return this.doGet(order_id, request_params);
     }
 }
+export { Orders };
 //# sourceMappingURL=orders.js.map

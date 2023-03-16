@@ -1,6 +1,6 @@
 import { Segment } from "../models/segment.js";
 import { BaseCollection } from "./base_collection.js";
-export class Segments extends BaseCollection {
+class Segments extends BaseCollection {
     static rootElementName = "segments";
     static rootElementNameSingular = "segment";
     static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
@@ -15,4 +15,5 @@ export class Segments extends BaseCollection {
         return this.doUpdate(segment_number, segment_params, request_params);
     }
 }
+export { Segments };
 //# sourceMappingURL=segments.js.map

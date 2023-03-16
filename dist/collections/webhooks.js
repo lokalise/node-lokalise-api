@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Webhook } from "../models/webhook.js";
-export class Webhooks extends BaseCollection {
+class Webhooks extends BaseCollection {
     static rootElementName = "webhooks";
     static rootElementNameSingular = "webhook";
     static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
@@ -28,4 +28,5 @@ export class Webhooks extends BaseCollection {
         return this.createPromise("PATCH", params, this.returnBareJSON, this.handleReject, null, "projects/{!:project_id}/webhooks/{:id}/secret/regenerate");
     }
 }
+export { Webhooks };
 //# sourceMappingURL=webhooks.js.map
