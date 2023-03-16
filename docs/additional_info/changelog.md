@@ -5,6 +5,11 @@
 * Use TypeScript 5
 * Fix incorrect types for bulk key update (thanks, @ZoidC)
 
+## 8.4.0 (16-Mar-2023)
+
+* Use TypeScript 5
+* Fix incorrect types for bulk key update (thanks, @ZoidC)
+
 ## 9.6.1 (02-Mar-2023)
 
 * Stricter types
