@@ -26,7 +26,10 @@ export abstract class BaseCollection {
     this.clientData = clientData;
   }
 
-  protected doList(params: Keyable): Promise<any> {
+  protected doList(req_params: Keyable): Promise<any> {
+    const params = {
+      ...req_params,
+    };
     return this.createPromise(
       "GET",
       params,
@@ -36,8 +39,11 @@ export abstract class BaseCollection {
     );
   }
 
-  protected doGet(id: string | number, params: Keyable = {}): Promise<any> {
-    params["id"] = id;
+  protected doGet(id: string | number, req_params: Keyable = {}): Promise<any> {
+    const params = {
+      ...req_params,
+      id,
+    };
     return this.createPromise(
       "GET",
       params,
@@ -47,8 +53,14 @@ export abstract class BaseCollection {
     );
   }
 
-  protected doDelete(id: string | number, params: Keyable = {}): Promise<any> {
-    params["id"] = id;
+  protected doDelete(
+    id: string | number,
+    req_params: Keyable = {}
+  ): Promise<any> {
+    const params = {
+      ...req_params,
+      id,
+    };
     return this.createPromise(
       "DELETE",
       params,
@@ -60,9 +72,12 @@ export abstract class BaseCollection {
 
   protected doCreate(
     body: Keyable | null,
-    params: Keyable = {},
+    req_params: Keyable = {},
     resolveFn = this.populateObjectFromJson
   ): Promise<any> {
+    const params = {
+      ...req_params,
+    };
     return this.createPromise(
       "POST",
       params,
@@ -80,7 +95,7 @@ export abstract class BaseCollection {
   ): Promise<any> {
     const params = {
       ...req_params,
-      ...{ id: id },
+      id,
     };
     return this.createPromise(
       "PUT",

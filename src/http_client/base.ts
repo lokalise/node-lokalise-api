@@ -1,11 +1,11 @@
 import got, { PlainResponse, Options } from "got";
-import { Keyable } from "../interfaces/keyable.js";
+import { Keyable, WritableKeyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
 import { LokalisePkg } from "../lokalise/pkg.js";
 
 export class ApiRequest {
   public promise: Promise<any>;
-  public params: Keyable = {};
+  public params: WritableKeyable = {};
   private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://api.lokalise.com/api2/";
 
@@ -16,12 +16,13 @@ export class ApiRequest {
     params: Keyable,
     clientData: ClientData
   ) {
-    this.params = params;
+    // Since we modify params, we need to make a copy of it so we don't modify the original
+    this.params = { ...params };
     this.promise = this.createPromise(uri, method, body, clientData);
     return this;
   }
 
-  async createPromise(
+  protected async createPromise(
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
@@ -71,14 +72,15 @@ export class ApiRequest {
 
   protected composeURI(rawUri: string): string {
     const regexp = /{(!{0,1}):(\w*)}/g;
-    const uri = rawUri.replace(regexp, this.mapUriParams(this.params));
+    const uri = rawUri.replace(regexp, this.mapUriParams());
     return uri.endsWith("/") ? uri.slice(0, -1) : uri;
   }
 
-  protected mapUriParams(params: Keyable) {
+  protected mapUriParams() {
     return (_entity: any, isMandaratory: string, paramName: string): string => {
-      if (params[paramName] != null) {
-        const t_param = params[paramName];
+      if (this.params[paramName] != null) {
+        const t_param = this.params[paramName];
+        // We delete the param so we don't send it as a query param as well.
         delete this.params[paramName];
         return t_param;
       } else {
