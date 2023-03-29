@@ -1,5 +1,14 @@
 # Changelog
 
+## 9.8.0 (29-Mar-2023)
+
+* Added `compact` attribute to `FileDownloadParams` interface
+* Do not mutate params (thanks, @vlinder)
+
+## 8.5.0 (29-Mar-2023)
+
+* Added `compact` attribute to `FileDownloadParams` interface
+
 ## 9.7.0 (16-Mar-2023)
 
 * Use TypeScript 5

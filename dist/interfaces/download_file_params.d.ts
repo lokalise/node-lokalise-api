@@ -45,5 +45,6 @@ export interface DownloadFileParams {
     java_properties_separator?: string;
     bundle_description?: string;
     filter_task_id?: number;
+    compact?: boolean;
 }
 export {};
