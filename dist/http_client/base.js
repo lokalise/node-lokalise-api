@@ -5,7 +5,8 @@ export class ApiRequest {
     params = {};
     urlRoot = "https://api.lokalise.com/api2/";
     constructor(uri, method, body, params, clientData) {
-        this.params = params;
+        // Since we modify params, we need to make a copy of it so we don't modify the original
+        this.params = { ...params };
         this.promise = this.createPromise(uri, method, body, clientData);
         return this;
     }
@@ -47,13 +48,14 @@ export class ApiRequest {
     }
     composeURI(rawUri) {
         const regexp = /{(!{0,1}):(\w*)}/g;
-        const uri = rawUri.replace(regexp, this.mapUriParams(this.params));
+        const uri = rawUri.replace(regexp, this.mapUriParams());
         return uri.endsWith("/") ? uri.slice(0, -1) : uri;
     }
-    mapUriParams(params) {
+    mapUriParams() {
         return (_entity, isMandaratory, paramName) => {
-            if (params[paramName] != null) {
-                const t_param = params[paramName];
+            if (this.params[paramName] != null) {
+                const t_param = this.params[paramName];
+                // We delete the param so we don't send it as a query param as well.
                 delete this.params[paramName];
                 return t_param;
             }

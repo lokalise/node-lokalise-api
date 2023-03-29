@@ -14,24 +14,36 @@ export class BaseCollection {
     constructor(clientData) {
         this.clientData = clientData;
     }
-    doList(params) {
+    doList(req_params) {
+        const params = {
+            ...req_params,
+        };
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
     }
-    doGet(id, params = {}) {
-        params["id"] = id;
+    doGet(id, req_params = {}) {
+        const params = {
+            ...req_params,
+            id,
+        };
         return this.createPromise("GET", params, this.populateObjectFromJsonRoot, this.handleReject, null);
     }
-    doDelete(id, params = {}) {
-        params["id"] = id;
+    doDelete(id, req_params = {}) {
+        const params = {
+            ...req_params,
+            id,
+        };
         return this.createPromise("DELETE", params, this.returnBareJSON, this.handleReject, null);
     }
-    doCreate(body, params = {}, resolveFn = this.populateObjectFromJson) {
+    doCreate(body, req_params = {}, resolveFn = this.populateObjectFromJson) {
+        const params = {
+            ...req_params,
+        };
         return this.createPromise("POST", params, resolveFn, this.handleReject, body);
     }
     doUpdate(id, body, req_params, resolveFn = this.populateObjectFromJsonRoot) {
         const params = {
             ...req_params,
-            ...{ id: id },
+            id,
         };
         return this.createPromise("PUT", params, resolveFn, this.handleReject, body);
     }
