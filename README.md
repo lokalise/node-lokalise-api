@@ -2,6 +2,7 @@
 
 ![npm](https://img.shields.io/npm/v/@lokalise/node-api)
 ![CI](https://github.com/lokalise/node-lokalise-api/actions/workflows/ci.yml/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/lokalise/node-lokalise-api/badge.svg?branch=master)](https://coveralls.io/github/lokalise/node-lokalise-api?branch=master)
 ![Downloads total](https://img.shields.io/npm/dt/@lokalise/node-api)
 
 Official Node interface for the [Lokalise API](https://app.lokalise.com/api2docs/curl/#resource-getting-started).
