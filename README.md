@@ -40,6 +40,17 @@ const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' }
 const projects = lokaliseApi.projects().list();
 ```
 
+Here's an example using dynamic import:
+
+```ts
+(async function () {
+  const LokaliseApi = await (import('@lokalise/node-api').then(m => m.LokaliseApi));
+  const lokaliseApi = new LokaliseApi({ apiKey: LOKALISE_API_TOKEN});
+
+  // use lokaliseApi here as usual...
+})();
+```
+
 ## Usage
 
 Detailed documentation can be found at [lokalise.github.io/node-lokalise-api](https://lokalise.github.io/node-lokalise-api/).
