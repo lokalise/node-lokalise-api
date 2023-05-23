@@ -1,5 +1,14 @@
 # Changelog
 
+## 9.8.1 (23-May-2023)
+
+* Added a missing `close_language` attribute to `languages` of `UpdateTaskParams` (thanks, @FelixGraf)
+
+## 8.5.1 (23-May-2023)
+
+* Added a missing `close_language` attribute to `languages` of `UpdateTaskParams` (thanks, @FelixGraf)
+* Test with Node 20
+
 ## 9.8.0 (29-Mar-2023)
 
 * Added `compact` attribute to `FileDownloadParams` interface
