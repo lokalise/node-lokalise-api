@@ -9,16 +9,18 @@ interface ListTaskParams extends ProjectWithPagination {
   filter_statuses?: string;
 }
 
+type TaskLanguage = {
+  language_iso: string;
+  users?: string[] | number[];
+  groups?: string[] | number[];
+}
+
 type CreateTaskParams = {
   title: string;
   description?: string;
   due_date?: string;
   keys?: string[] | number[];
-  languages?: Array<{
-    language_iso: string;
-    users?: string[] | number[];
-    groups?: string[] | number[];
-  }>;
+  languages?: Array<TaskLanguage>;
   source_language_iso?: string;
   auto_close_languages?: boolean;
   auto_close_task?: boolean;
@@ -41,6 +43,9 @@ type UpdateTaskParams = Omit<
 > & {
   title?: string;
   close_task?: boolean;
+  languages?: Array<TaskLanguage & {
+    close_language?: boolean;
+  }>
 };
 
 type TaskDeleted = {
