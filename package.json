@@ -47,7 +47,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "got": "^12.5.1"
+    "got": "^13.0.0"
   },
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
