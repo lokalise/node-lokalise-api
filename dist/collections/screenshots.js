@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Screenshot } from "../models/screenshot.js";
-class Screenshots extends BaseCollection {
+export class Screenshots extends BaseCollection {
     static rootElementName = "screenshots";
     static rootElementNameSingular = "screenshot";
     static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
@@ -22,5 +22,4 @@ class Screenshots extends BaseCollection {
         return this.doDelete(screenshot_id, request_params);
     }
 }
-export { Screenshots };
 //# sourceMappingURL=screenshots.js.map

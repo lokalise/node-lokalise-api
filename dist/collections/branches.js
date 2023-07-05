@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Branch } from "../models/branch.js";
-class Branches extends BaseCollection {
+export class Branches extends BaseCollection {
     static rootElementName = "branches";
     static rootElementNameSingular = "branch";
     static prefixURI = "projects/{!:project_id}/branches/{:id}";
@@ -28,5 +28,4 @@ class Branches extends BaseCollection {
         return this.createPromise("POST", params, this.returnBareJSON, this.handleReject, body, "projects/{!:project_id}/branches/{:id}/merge");
     }
 }
-export { Branches };
 //# sourceMappingURL=branches.js.map

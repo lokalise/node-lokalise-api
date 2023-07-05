@@ -1,7 +1,7 @@
 import { BaseCollection } from "./base_collection.js";
 import { File } from "../models/file.js";
 import { QueuedProcess } from "../models/queued_process.js";
-class Files extends BaseCollection {
+export class Files extends BaseCollection {
     static rootElementName = "files";
     static prefixURI = "projects/{!:project_id}/files/{:id}";
     static elementClass = File;
@@ -20,5 +20,4 @@ class Files extends BaseCollection {
         return this.doDelete(file_id, request_params);
     }
 }
-export { Files };
 //# sourceMappingURL=files.js.map
