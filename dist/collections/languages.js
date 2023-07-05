@@ -1,6 +1,6 @@
 import { Language } from "../models/language.js";
 import { BaseCollection } from "./base_collection.js";
-class Languages extends BaseCollection {
+export class Languages extends BaseCollection {
     static rootElementName = "languages";
     static rootElementNameSingular = "language";
     static prefixURI = "projects/{!:project_id}/languages/{:id}";
@@ -25,5 +25,4 @@ class Languages extends BaseCollection {
         return super.doDelete(lang_id, request_params);
     }
 }
-export { Languages };
 //# sourceMappingURL=languages.js.map

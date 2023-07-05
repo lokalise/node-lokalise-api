@@ -13,7 +13,7 @@ type TaskLanguage = {
   language_iso: string;
   users?: string[] | number[];
   groups?: string[] | number[];
-}
+};
 
 type CreateTaskParams = {
   title: string;
@@ -43,9 +43,11 @@ type UpdateTaskParams = Omit<
 > & {
   title?: string;
   close_task?: boolean;
-  languages?: Array<TaskLanguage & {
-    close_language?: boolean;
-  }>
+  languages?: Array<
+    TaskLanguage & {
+      close_language?: boolean;
+    }
+  >;
 };
 
 type TaskDeleted = {

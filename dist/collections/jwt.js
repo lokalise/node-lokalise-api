@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Jwt as JwtModel } from "../models/jwt.js";
-class Jwt extends BaseCollection {
+export class Jwt extends BaseCollection {
     static prefixURI = "projects/{!:project_id}/tokens";
     static elementClass = JwtModel;
     create(project_id, body = { service: "ota" }) {
@@ -16,5 +16,4 @@ class Jwt extends BaseCollection {
         return this.doCreate(body, request_params, this.populateObjectFromJson);
     }
 }
-export { Jwt };
 //# sourceMappingURL=jwt.js.map

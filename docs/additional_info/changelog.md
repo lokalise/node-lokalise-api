@@ -1,5 +1,10 @@
 # Changelog
 
+## 10.0.0
+
+* Require Node 16+ (version 14 has reached EOL)
+* Update to Got 13
+
 ## 9.8.1 (23-May-2023)
 
 * Added a missing `close_language` attribute to `languages` of `UpdateTaskParams` (thanks, @FelixGraf)
