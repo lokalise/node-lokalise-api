@@ -16,7 +16,7 @@ describe("QueuedProcesses", function () {
       });
 
       expect(processes.items[0].process_id).to.eq(
-        "8a635e096e652c26c4ce6ef5f5e389e007ce31f0"
+        "8a635e096e652c26c4ce6ef5f5e389e007ce31f0",
       );
     })
     .register(this);

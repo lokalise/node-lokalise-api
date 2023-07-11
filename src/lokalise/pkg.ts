@@ -13,7 +13,7 @@ export class LokalisePkg {
       pkg = JSON.parse(
         (
           await readFile(new URL(LokalisePkg.pkgPath(), import.meta.url))
-        ).toString()
+        ).toString(),
       );
     } catch (_e) {
       pkg = null;

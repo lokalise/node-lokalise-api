@@ -32,14 +32,14 @@ export class Translations extends BaseCollection {
   protected static elementClass = Translation;
 
   list(
-    request_params: ListTranslationParams
+    request_params: ListTranslationParams,
   ): Promise<PaginatedResult<Translation>> {
     return this.doList(request_params);
   }
 
   get(
     translation_id: string | number,
-    request_params: GetTranslationParams
+    request_params: GetTranslationParams,
   ): Promise<Translation> {
     return this.doGet(translation_id, request_params);
   }
@@ -47,7 +47,7 @@ export class Translations extends BaseCollection {
   update(
     translation_id: string | number,
     translation_params: TranslationParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Translation> {
     return this.doUpdate(translation_id, translation_params, request_params);
   }

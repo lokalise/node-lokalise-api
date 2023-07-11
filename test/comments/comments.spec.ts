@@ -76,7 +76,7 @@ describe("Comments", function () {
         .comments()
         .create(
           [{ comment: "Project comment 1" }, { comment: "Project comment 2" }],
-          { project_id: project_id, key_id: key_id }
+          { project_id: project_id, key_id: key_id },
         );
 
       expect(comments[0].comment).to.eq("Project comment 1");
@@ -89,7 +89,7 @@ describe("Comments", function () {
         .comments()
         .create(
           { comment: "Single" },
-          { project_id: project_id, key_id: 74189435 }
+          { project_id: project_id, key_id: 74189435 },
         );
 
       expect(comments[0].comment).to.eq("Single");

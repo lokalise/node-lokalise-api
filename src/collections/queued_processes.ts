@@ -11,14 +11,14 @@ export class QueuedProcesses extends BaseCollection {
   protected static elementClass = QueuedProcess;
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<QueuedProcess>> {
     return this.doList(request_params);
   }
 
   get(
     process_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<QueuedProcess> {
     return this.doGet(process_id, request_params);
   }

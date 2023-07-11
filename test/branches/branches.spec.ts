@@ -19,7 +19,7 @@ describe("Branches", function () {
           {
             name: "hotfix/really-important",
           },
-          { project_id: "803" }
+          { project_id: "803" },
         )
         .catch((e: ApiError) => {
           expect(e.code).to.equal(401);
@@ -35,7 +35,7 @@ describe("Branches", function () {
           {
             name: "hotfix/really-important",
           },
-          { project_id: "803" }
+          { project_id: "803" },
         )
         .catch((e: ApiError) => {
           expect(e.code).to.equal(401);
@@ -51,7 +51,7 @@ describe("Branches", function () {
           {
             name: "hotfix/really-important",
           },
-          { project_id: "803" }
+          { project_id: "803" },
         )
         .catch((e: ApiError) => {
           expect(e.message).to.include("Something very bad has happened");
@@ -109,7 +109,7 @@ describe("Branches", function () {
         {
           name: "hotfix/really-important",
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(branch.name).to.eq("hotfix/really-important");
@@ -123,7 +123,7 @@ describe("Branches", function () {
         {
           name: "hotfix/not-really-important",
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(branch.name).to.eq("hotfix/not-really-important");
@@ -149,7 +149,7 @@ describe("Branches", function () {
         { project_id: project_id },
         {
           force_conflict_resolve_using: "master",
-        }
+        },
       );
 
       expect(response.project_id).to.eq(project_id);

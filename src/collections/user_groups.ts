@@ -43,25 +43,25 @@ export class UserGroups extends BaseCollection {
   protected static elementClass = UserGroup;
 
   list(
-    request_params: TeamWithPagination
+    request_params: TeamWithPagination,
   ): Promise<PaginatedResult<UserGroup>> {
     return this.doList(request_params);
   }
 
   create(
     user_group_params: UserGroupParams,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<UserGroup> {
     return this.doCreate(
       user_group_params,
       request_params,
-      this.populateGroupFromJsonRoot
+      this.populateGroupFromJsonRoot,
     );
   }
 
   get(
     user_group_id: string | number,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<UserGroup> {
     return this.doGet(user_group_id, request_params);
   }
@@ -69,19 +69,19 @@ export class UserGroups extends BaseCollection {
   update(
     user_group_id: string | number,
     user_group_params: UserGroupParams,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<UserGroup> {
     return this.doUpdate(
       user_group_id,
       user_group_params,
       request_params,
-      this.populateGroupFromJsonRoot
+      this.populateGroupFromJsonRoot,
     );
   }
 
   delete(
     user_group_id: string | number,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<UserGroupDeleted> {
     return this.doDelete(user_group_id, request_params);
   }
@@ -89,7 +89,7 @@ export class UserGroups extends BaseCollection {
   add_members_to_group(
     team_id: string | number,
     group_id: string | number,
-    user_ids: string[] | number[]
+    user_ids: string[] | number[],
   ): Promise<UserGroup> {
     const params = {
       team_id: team_id,
@@ -102,14 +102,14 @@ export class UserGroups extends BaseCollection {
       this.populateGroupFromJsonRoot,
       this.handleReject,
       body,
-      "teams/{!:team_id}/groups/{!:group_id}/members/add"
+      "teams/{!:team_id}/groups/{!:group_id}/members/add",
     );
   }
 
   remove_members_from_group(
     team_id: string | number,
     group_id: string | number,
-    user_ids: string[] | number[]
+    user_ids: string[] | number[],
   ): Promise<UserGroup> {
     const params = {
       team_id: team_id,
@@ -122,14 +122,14 @@ export class UserGroups extends BaseCollection {
       this.populateGroupFromJsonRoot,
       this.handleReject,
       body,
-      "teams/{!:team_id}/groups/{!:group_id}/members/remove"
+      "teams/{!:team_id}/groups/{!:group_id}/members/remove",
     );
   }
 
   add_projects_to_group(
     team_id: string | number,
     group_id: string | number,
-    project_ids: string[] | number[]
+    project_ids: string[] | number[],
   ): Promise<UserGroup> {
     const params = {
       team_id: team_id,
@@ -142,14 +142,14 @@ export class UserGroups extends BaseCollection {
       this.populateGroupFromJsonRoot,
       this.handleReject,
       body,
-      "teams/{!:team_id}/groups/{!:group_id}/projects/add"
+      "teams/{!:team_id}/groups/{!:group_id}/projects/add",
     );
   }
 
   remove_projects_from_group(
     team_id: string | number,
     group_id: string | number,
-    project_ids: string[] | number[]
+    project_ids: string[] | number[],
   ): Promise<UserGroup> {
     const params = {
       team_id: team_id,
@@ -162,7 +162,7 @@ export class UserGroups extends BaseCollection {
       this.populateGroupFromJsonRoot,
       this.handleReject,
       body,
-      "teams/{!:team_id}/groups/{!:group_id}/projects/remove"
+      "teams/{!:team_id}/groups/{!:group_id}/projects/remove",
     );
   }
 

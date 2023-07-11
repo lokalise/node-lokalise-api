@@ -25,7 +25,7 @@ export class TeamUsers extends BaseCollection {
 
   get(
     team_user_id: string | number,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<TeamUser> {
     return this.doGet(team_user_id, request_params);
   }
@@ -33,14 +33,14 @@ export class TeamUsers extends BaseCollection {
   update(
     team_user_id: string | number,
     team_user_params: TeamUserParams,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<TeamUser> {
     return this.doUpdate(team_user_id, team_user_params, request_params);
   }
 
   delete(
     team_user_id: string | number,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<TeamUserDeleted> {
     return this.doDelete(team_user_id, request_params);
   }

@@ -67,12 +67,12 @@ export class Tasks extends BaseCollection {
 
   create(
     task_params: CreateTaskParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Task> {
     return this.doCreate(
       task_params,
       request_params,
-      this.populateObjectFromJsonRoot
+      this.populateObjectFromJsonRoot,
     );
   }
 
@@ -83,14 +83,14 @@ export class Tasks extends BaseCollection {
   update(
     task_id: string | number,
     task_params: UpdateTaskParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Task> {
     return this.doUpdate(task_id, task_params, request_params);
   }
 
   delete(
     task_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<TaskDeleted> {
     return this.doDelete(task_id, request_params);
   }

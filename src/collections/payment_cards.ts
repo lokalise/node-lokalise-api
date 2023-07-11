@@ -22,7 +22,7 @@ export class PaymentCards extends BaseCollection {
   protected static elementClass = PaymentCard;
 
   list(
-    request_params: PaginationParams = {}
+    request_params: PaginationParams = {},
   ): Promise<PaginatedResult<PaymentCard>> {
     return this.doList(request_params);
   }

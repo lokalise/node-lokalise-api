@@ -35,7 +35,7 @@ export abstract class BaseCollection {
       params,
       this.populateArrayFromJson,
       this.handleReject,
-      null
+      null,
     );
   }
 
@@ -49,13 +49,13 @@ export abstract class BaseCollection {
       params,
       this.populateObjectFromJsonRoot,
       this.handleReject,
-      null
+      null,
     );
   }
 
   protected doDelete(
     id: string | number,
-    req_params: Keyable = {}
+    req_params: Keyable = {},
   ): Promise<any> {
     const params = {
       ...req_params,
@@ -66,14 +66,14 @@ export abstract class BaseCollection {
       params,
       this.returnBareJSON,
       this.handleReject,
-      null
+      null,
     );
   }
 
   protected doCreate(
     body: Keyable | null,
     req_params: Keyable = {},
-    resolveFn = this.populateObjectFromJson
+    resolveFn = this.populateObjectFromJson,
   ): Promise<any> {
     const params = {
       ...req_params,
@@ -83,7 +83,7 @@ export abstract class BaseCollection {
       params,
       resolveFn,
       this.handleReject,
-      body
+      body,
     );
   }
 
@@ -91,7 +91,7 @@ export abstract class BaseCollection {
     id: string | number,
     body: Keyable | null,
     req_params: Keyable,
-    resolveFn = this.populateObjectFromJsonRoot
+    resolveFn = this.populateObjectFromJsonRoot,
   ): Promise<any> {
     const params = {
       ...req_params,
@@ -102,7 +102,7 @@ export abstract class BaseCollection {
       params,
       resolveFn,
       this.handleReject,
-      body
+      body,
     );
   }
 
@@ -116,7 +116,7 @@ export abstract class BaseCollection {
 
   protected populateSecondaryObjectFromJsonRoot(
     json: Keyable,
-    headers: Keyable
+    headers: Keyable,
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
     json = Object(json)[<string>childClass.secondaryElementNameSingular];
@@ -126,7 +126,7 @@ export abstract class BaseCollection {
   protected populateObjectFromJson(
     json: Keyable,
     _headers: Keyable,
-    secondary = false
+    secondary = false,
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
 
@@ -139,7 +139,7 @@ export abstract class BaseCollection {
 
   protected populateArrayFromJsonBulk(
     json: Keyable,
-    headers: Keyable
+    headers: Keyable,
   ): BulkResult | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
@@ -156,7 +156,7 @@ export abstract class BaseCollection {
 
   protected populateArrayFromJson(
     json: Keyable,
-    headers: Keyable
+    headers: Keyable,
   ): PaginatedResult | Keyable | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
@@ -178,7 +178,7 @@ export abstract class BaseCollection {
   }
 
   protected returnBareJSON(
-    json: Keyable | Array<Keyable>
+    json: Keyable | Array<Keyable>,
   ): Keyable | Array<Keyable> {
     return json;
   }
@@ -193,7 +193,7 @@ export abstract class BaseCollection {
     resolveFn: ResolveHandler,
     rejectFn: RejectHandler,
     body: object | object[] | null,
-    uri: string | null = null
+    uri: string | null = null,
   ): Promise<any> {
     const childClass = <typeof BaseCollection>this.constructor;
     if (!uri) {
@@ -204,12 +204,12 @@ export abstract class BaseCollection {
       method,
       body,
       params,
-      this.clientData
+      this.clientData,
     );
     try {
       const data = await request.promise;
       return Promise.resolve(
-        resolveFn.call(this, data["json"], data["headers"])
+        resolveFn.call(this, data["json"], data["headers"]),
       );
     } catch (err) {
       return Promise.reject(rejectFn.call(this, err));

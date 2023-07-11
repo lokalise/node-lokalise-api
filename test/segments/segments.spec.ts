@@ -73,7 +73,7 @@ describe("Segments", function () {
           value: "Hello!",
           is_fuzzy: true,
         },
-        { project_id: project_id, key_id: key_id, language_iso: "en" }
+        { project_id: project_id, key_id: key_id, language_iso: "en" },
       );
 
       expect(segment.segment_number).to.eq(segment_number);

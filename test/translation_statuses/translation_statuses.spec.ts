@@ -51,7 +51,7 @@ describe("TranslationStatuses", function () {
         .translationStatuses()
         .create(
           { title: "node", color: "#344563" },
-          { project_id: project_id }
+          { project_id: project_id },
         );
 
       expect(status.status_id).to.eq(new_status_id);
@@ -67,7 +67,7 @@ describe("TranslationStatuses", function () {
         .update(
           new_status_id,
           { title: "node updated" },
-          { project_id: project_id }
+          { project_id: project_id },
         );
 
       expect(status.title).to.eq("node updated");

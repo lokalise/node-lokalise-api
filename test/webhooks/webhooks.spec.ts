@@ -48,7 +48,7 @@ describe("Webhooks", function () {
       expect(webhook.webhook_id).to.eq(webhook_id);
       expect(webhook.events[0]).to.eq("project.imported");
       expect(webhook.event_lang_map[0].event).to.eq(
-        "project.translation.updated"
+        "project.translation.updated",
       );
     })
     .register(this);
@@ -59,7 +59,7 @@ describe("Webhooks", function () {
         .webhooks()
         .create(
           { url: "http://node.hook", events: ["project.exported"] },
-          { project_id: project_id }
+          { project_id: project_id },
         );
 
       expect(webhook.webhook_id).to.eq(new_webhook_id);
@@ -75,7 +75,7 @@ describe("Webhooks", function () {
         .update(
           new_webhook_id,
           { url: "http://hook.node", events: ["project.snapshot"] },
-          { project_id: project_id }
+          { project_id: project_id },
         );
 
       expect(webhook.webhook_id).to.eq(new_webhook_id);

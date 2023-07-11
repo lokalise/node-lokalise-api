@@ -38,25 +38,25 @@ export class Webhooks extends BaseCollection {
   protected static elementClass = Webhook;
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<Webhook>> {
     return this.doList(request_params);
   }
 
   create(
     webhook_params: CreateWebhookParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Webhook> {
     return this.doCreate(
       webhook_params,
       request_params,
-      this.populateObjectFromJsonRoot
+      this.populateObjectFromJsonRoot,
     );
   }
 
   get(
     webhook_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Webhook> {
     return this.doGet(webhook_id, request_params);
   }
@@ -64,21 +64,21 @@ export class Webhooks extends BaseCollection {
   update(
     webhook_id: string | number,
     webhook_params: UpdateWebhookParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Webhook> {
     return this.doUpdate(webhook_id, webhook_params, request_params);
   }
 
   delete(
     webhook_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<WebhookDeleted> {
     return this.doDelete(webhook_id, request_params);
   }
 
   regenerate_secret(
     webhook_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<WebhookRegenerated> {
     const params = {
       ...request_params,
@@ -90,7 +90,7 @@ export class Webhooks extends BaseCollection {
       this.returnBareJSON,
       this.handleReject,
       null,
-      "projects/{!:project_id}/webhooks/{:id}/secret/regenerate"
+      "projects/{!:project_id}/webhooks/{:id}/secret/regenerate",
     );
   }
 }

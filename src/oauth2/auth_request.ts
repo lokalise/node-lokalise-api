@@ -9,7 +9,7 @@ export class AuthRequest {
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
-    host?: string
+    host?: string,
   ): Promise<any> {
     const options = new Options({
       method: method,

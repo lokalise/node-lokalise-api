@@ -33,7 +33,7 @@ export class Orders extends BaseCollection {
     return this.doCreate(
       order_params,
       request_params,
-      this.populateObjectFromJsonRoot
+      this.populateObjectFromJsonRoot,
     );
   }
 

@@ -32,25 +32,25 @@ export class Branches extends BaseCollection {
   protected static elementClass = Branch;
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<Branch>> {
     return this.doList(request_params);
   }
 
   create(
     branch_params: BranchParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Branch> {
     return this.doCreate(
       branch_params,
       request_params,
-      this.populateObjectFromJsonRoot
+      this.populateObjectFromJsonRoot,
     );
   }
 
   get(
     branch_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Branch> {
     return this.doGet(branch_id, request_params);
   }
@@ -58,14 +58,14 @@ export class Branches extends BaseCollection {
   update(
     branch_id: string | number,
     branch_params: BranchParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Branch> {
     return this.doUpdate(branch_id, branch_params, request_params);
   }
 
   delete(
     branch_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<BranchDeleted> {
     return this.doDelete(branch_id, request_params);
   }
@@ -73,7 +73,7 @@ export class Branches extends BaseCollection {
   merge(
     branch_id: string | number,
     request_params: ProjectOnly,
-    body: MergeBranchParams = {}
+    body: MergeBranchParams = {},
   ): Promise<BranchMerged> {
     const params = {
       ...request_params,
@@ -86,7 +86,7 @@ export class Branches extends BaseCollection {
       this.returnBareJSON,
       this.handleReject,
       body,
-      "projects/{!:project_id}/branches/{:id}/merge"
+      "projects/{!:project_id}/branches/{:id}/merge",
     );
   }
 }

@@ -73,7 +73,7 @@ describe("Orders", function () {
           provider_slug: "gengo",
           translation_tier: "1",
         },
-        { team_id: team_id }
+        { team_id: team_id },
       );
 
       expect(order.status).to.eq("in progress");

@@ -31,25 +31,25 @@ export class TranslationStatuses extends BaseCollection {
   protected static rootElementNameSingular = "custom_translation_status";
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<TranslationStatus>> {
     return this.doList(request_params);
   }
 
   create(
     translation_status_params: CreateTranslationStatusParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<TranslationStatus> {
     return this.doCreate(
       translation_status_params,
       request_params,
-      this.populateObjectFromJsonRoot
+      this.populateObjectFromJsonRoot,
     );
   }
 
   get(
     translation_status_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<TranslationStatus> {
     return this.doGet(translation_status_id, request_params);
   }
@@ -57,24 +57,24 @@ export class TranslationStatuses extends BaseCollection {
   update(
     translation_status_id: string | number,
     translation_status_params: UpdateTranslationStatusParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<TranslationStatus> {
     return this.doUpdate(
       translation_status_id,
       translation_status_params,
-      request_params
+      request_params,
     );
   }
 
   delete(
     translation_status_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<TranslationStatusDeleted> {
     return this.doDelete(translation_status_id, request_params);
   }
 
   available_colors(
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<TranslationStatusColors> {
     return this.createPromise(
       "GET",
@@ -82,7 +82,7 @@ export class TranslationStatuses extends BaseCollection {
       this.returnBareJSON,
       this.handleReject,
       {},
-      "projects/{!:project_id}/custom_translation_statuses/colors"
+      "projects/{!:project_id}/custom_translation_statuses/colors",
     );
   }
 }

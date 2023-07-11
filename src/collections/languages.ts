@@ -31,7 +31,7 @@ export class Languages extends BaseCollection {
   protected static elementClass = Language;
 
   system_languages(
-    params: PaginationParams = {}
+    params: PaginationParams = {},
   ): Promise<PaginatedResult<Language>> {
     return this.createPromise(
       "GET",
@@ -39,19 +39,19 @@ export class Languages extends BaseCollection {
       this.populateArrayFromJson,
       this.handleReject,
       null,
-      "system/languages"
+      "system/languages",
     );
   }
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<Language>> {
     return this.doList(request_params);
   }
 
   create(
     raw_body: CreateLanguageData | CreateLanguageData[],
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<BulkResult<Language>> {
     const body = { languages: this.objToArray(raw_body) };
     return this.doCreate(body, request_params, this.populateArrayFromJsonBulk);
@@ -59,7 +59,7 @@ export class Languages extends BaseCollection {
 
   get(
     lang_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Language> {
     return this.doGet(lang_id, request_params);
   }
@@ -67,14 +67,14 @@ export class Languages extends BaseCollection {
   update(
     lang_id: string | number,
     lang_params: UpdateLanguageData,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Language> {
     return this.doUpdate(lang_id, lang_params, request_params);
   }
 
   delete(
     lang_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<LanguageDeleted> {
     return super.doDelete(lang_id, request_params);
   }
