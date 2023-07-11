@@ -46,7 +46,7 @@ describe("TranslationProviders", function () {
       expect(provider.tiers).to.have.lengthOf(4);
       expect(provider.tiers[1].tier_id).to.eq(2);
       expect(provider.tiers[0].title).to.eq(
-        "Translation only by a native professional linguist"
+        "Translation only by a native professional linguist",
       );
 
       const pair = provider.pairs[0];

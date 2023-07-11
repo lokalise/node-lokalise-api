@@ -33,12 +33,12 @@ export class Keys extends BaseCollection {
 
   create(
     key_params: CreateKeyParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<BulkResult<Key>> {
     return this.doCreate(
       key_params,
       request_params,
-      this.populateArrayFromJsonBulk
+      this.populateArrayFromJsonBulk,
     );
   }
 
@@ -49,21 +49,21 @@ export class Keys extends BaseCollection {
   update(
     key_id: string | number,
     key_params: UpdateKeyData,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Key> {
     return this.doUpdate(key_id, key_params, request_params);
   }
 
   delete(
     key_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<KeyDeleted> {
     return this.doDelete(key_id, request_params);
   }
 
   bulk_update(
     key_params: BulkUpdateKeyParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<BulkResult<Key>> {
     return this.createPromise(
       "PUT",
@@ -71,13 +71,13 @@ export class Keys extends BaseCollection {
       this.populateArrayFromJsonBulk,
       this.handleReject,
       key_params,
-      "projects/{!:project_id}/keys"
+      "projects/{!:project_id}/keys",
     );
   }
 
   bulk_delete(
     key_ids: number[] | string[],
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<KeysBulkDeleted> {
     const keys = { keys: this.objToArray(key_ids) };
 
@@ -87,7 +87,7 @@ export class Keys extends BaseCollection {
       this.returnBareJSON,
       this.handleReject,
       keys,
-      "projects/{!:project_id}/keys"
+      "projects/{!:project_id}/keys",
     );
   }
 }

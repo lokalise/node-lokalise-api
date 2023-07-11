@@ -21,25 +21,25 @@ export class Snapshots extends BaseCollection {
   protected static elementClass = Snapshot;
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<Snapshot>> {
     return this.doList(request_params);
   }
 
   create(
     snapshot_params: CreateSnapshotParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Snapshot> {
     return this.doCreate(
       snapshot_params,
       request_params,
-      this.populateObjectFromJsonRoot
+      this.populateObjectFromJsonRoot,
     );
   }
 
   restore(
     snapshot_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Project> {
     const params = {
       ...request_params,
@@ -51,13 +51,13 @@ export class Snapshots extends BaseCollection {
       params,
       this.returnBareJSON,
       this.handleReject,
-      {}
+      {},
     );
   }
 
   delete(
     snapshot_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<SnapshotDeleted> {
     return this.doDelete(snapshot_id, request_params);
   }

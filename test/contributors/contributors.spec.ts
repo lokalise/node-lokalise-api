@@ -80,7 +80,7 @@ describe("Contributors", function () {
             ],
           },
         ],
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(contributors[0].email).to.eq("translator2@mycompany.com");
@@ -103,7 +103,7 @@ describe("Contributors", function () {
             },
           ],
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(contributors[0].email).to.eq("translator3@mycompany.com");

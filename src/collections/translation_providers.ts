@@ -10,14 +10,14 @@ export class TranslationProviders extends BaseCollection {
   protected static elementClass = TranslationProvider;
 
   list(
-    request_params: TeamWithPagination
+    request_params: TeamWithPagination,
   ): Promise<PaginatedResult<TranslationProvider>> {
     return this.doList(request_params);
   }
 
   get(
     provider_id: string | number,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<TranslationProvider> {
     return this.doGet(provider_id, request_params);
   }

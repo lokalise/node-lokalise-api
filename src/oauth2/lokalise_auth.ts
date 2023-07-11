@@ -23,7 +23,7 @@ export class LokaliseAuth {
       clientSecret.length == 0
     ) {
       throw new Error(
-        "Error: Instantiation failed: Please pass client id and client secret"
+        "Error: Instantiation failed: Please pass client id and client secret",
       );
     }
 
@@ -35,7 +35,7 @@ export class LokaliseAuth {
   auth(
     scope: string | string[],
     redirect_uri?: string,
-    state?: string
+    state?: string,
   ): string {
     if (scope instanceof Array) {
       scope = scope.join(" ");
@@ -87,7 +87,7 @@ export class LokaliseAuth {
         "token",
         "POST",
         params,
-        this.authData.host
+        this.authData.host,
       );
       return Promise.resolve(data["json"]);
     } catch (err) {

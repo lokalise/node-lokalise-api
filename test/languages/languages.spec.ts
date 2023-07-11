@@ -84,7 +84,7 @@ describe("Languages", function () {
             lang_iso: "ak",
           },
         ],
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(languages.items[0].lang_id).to.eq(second_lang_id);
@@ -100,7 +100,7 @@ describe("Languages", function () {
         {
           lang_name: "Chinese Traditional Custom",
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(language.lang_id).to.eq(lang_id);

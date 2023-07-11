@@ -38,13 +38,13 @@ describe("LokaliseAuth", function () {
       const url = lokaliseAuth.auth(
         ["read_projects", "write_team_groups"],
         "http://example.com/redirect",
-        "random123"
+        "random123",
       );
       expect(url).to.include("?client_id=123abc");
       expect(url).to.include("&scope=read_projects+write_team_groups");
       expect(url).to.include("&state=random123");
       expect(url).to.include(
-        "&redirect_uri=http%3A%2F%2Fexample.com%2Fredirect"
+        "&redirect_uri=http%3A%2F%2Fexample.com%2Fredirect",
       );
     });
 
@@ -59,7 +59,7 @@ describe("LokaliseAuth", function () {
     cassette
       .createTest("valid code", async () => {
         const resp: RequestTokenResponse = await lokaliseAuth.token(
-          "fdf9876214cffa10c6ebbb01bd2399077ba9c49e"
+          "fdf9876214cffa10c6ebbb01bd2399077ba9c49e",
         );
 
         expect(resp.access_token).to.eq("stubbed access");
@@ -75,7 +75,7 @@ describe("LokaliseAuth", function () {
           expect(e.code).to.equal(400);
           expect(e.error).to.equal("invalid_request");
           expect(e.error_description).to.equal(
-            "client_id: Client id must be 40 characters long"
+            "client_id: Client id must be 40 characters long",
           );
           expect(e.error_uri).to.equal("");
         });
@@ -87,7 +87,7 @@ describe("LokaliseAuth", function () {
     cassette
       .createTest("valid token", async () => {
         const resp: RefreshTokenResponse = await lokaliseAuth.refresh(
-          "stubbed refresh"
+          "stubbed refresh",
         );
 
         expect(resp.access_token).to.eq("stubbed access");
@@ -103,7 +103,7 @@ describe("LokaliseAuth", function () {
           expect(e.code).to.equal(400);
           expect(e.error).to.equal("invalid_request");
           expect(e.error_description).to.equal(
-            "client_id: Client id must be 40 characters long"
+            "client_id: Client id must be 40 characters long",
           );
           expect(e.error_uri).to.equal("");
         });

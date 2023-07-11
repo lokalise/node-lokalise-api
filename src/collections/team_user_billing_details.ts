@@ -27,20 +27,20 @@ export class TeamUserBillingDetails extends BaseCollection {
       params,
       this.populateObjectFromJson,
       this.handleReject,
-      null
+      null,
     );
   }
 
   create(
     billing_details_params: BillingDetailsParams,
-    request_params: TeamOnly
+    request_params: TeamOnly,
   ): Promise<BillingDetailsModel> {
     return this.doCreate(billing_details_params, request_params);
   }
 
   update(
     team_id: string | number,
-    billing_details_params: BillingDetailsParams
+    billing_details_params: BillingDetailsParams,
   ): Promise<any> {
     const params = { team_id: team_id };
     return this.createPromise(
@@ -48,7 +48,7 @@ export class TeamUserBillingDetails extends BaseCollection {
       params,
       this.populateObjectFromJson,
       this.handleReject,
-      billing_details_params
+      billing_details_params,
     );
   }
 }

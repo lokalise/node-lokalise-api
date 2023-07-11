@@ -51,14 +51,14 @@ export class Contributors extends BaseCollection {
   protected static elementClass = Contributor;
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<Contributor>> {
     return this.doList(request_params);
   }
 
   create(
     contributor_params: ContributorCreateData | ContributorCreateData[],
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Contributor[]> {
     const body = { contributors: this.objToArray(contributor_params) };
     return this.doCreate(body, request_params, this.populateArrayFromJson);
@@ -66,7 +66,7 @@ export class Contributors extends BaseCollection {
 
   get(
     contributor_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Contributor> {
     return this.doGet(contributor_id, request_params);
   }
@@ -74,14 +74,14 @@ export class Contributors extends BaseCollection {
   update(
     contributor_id: string | number,
     contributor_params: ContributorUpdateData,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Contributor> {
     return this.doUpdate(contributor_id, contributor_params, request_params);
   }
 
   delete(
     contributor_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<ContributorDeleted> {
     return this.doDelete(contributor_id, request_params);
   }

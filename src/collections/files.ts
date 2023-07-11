@@ -36,7 +36,7 @@ export class Files extends BaseCollection {
       this.populateSecondaryObjectFromJsonRoot,
       this.handleReject,
       upload,
-      "projects/{!:project_id}/files/upload"
+      "projects/{!:project_id}/files/upload",
     );
   }
 
@@ -47,13 +47,13 @@ export class Files extends BaseCollection {
       this.returnBareJSON,
       this.handleReject,
       download,
-      "projects/{!:project_id}/files/download"
+      "projects/{!:project_id}/files/download",
     );
   }
 
   delete(
     file_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<FileDeleted> {
     return this.doDelete(file_id, request_params);
   }

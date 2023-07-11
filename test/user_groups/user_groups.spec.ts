@@ -72,7 +72,7 @@ describe("UserGroups", function () {
           is_admin: true,
           admin_rights: ["upload"],
         },
-        { team_id: team_id }
+        { team_id: team_id },
       );
 
       expect(user_group.group_id).to.eq(new_group_id);
@@ -91,7 +91,7 @@ describe("UserGroups", function () {
           is_admin: true,
           admin_rights: ["upload"],
         },
-        { team_id: team_id }
+        { team_id: team_id },
       );
       expect(user_group.group_id).to.eq(new_group_id);
       expect(user_group.name).to.eq("Node updated");

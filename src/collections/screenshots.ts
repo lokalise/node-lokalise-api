@@ -28,14 +28,14 @@ export class Screenshots extends BaseCollection {
   protected static elementClass: object = Screenshot;
 
   list(
-    request_params: ProjectWithPagination
+    request_params: ProjectWithPagination,
   ): Promise<PaginatedResult<Screenshot>> {
     return this.doList(request_params);
   }
 
   create(
     raw_body: CreateScreenshotParams | CreateScreenshotParams[],
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<BulkResult<Screenshot>> {
     const body = { screenshots: this.objToArray(raw_body) };
     return this.doCreate(body, request_params, this.populateArrayFromJsonBulk);
@@ -43,7 +43,7 @@ export class Screenshots extends BaseCollection {
 
   get(
     screnshot_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Screenshot> {
     return this.doGet(screnshot_id, request_params);
   }
@@ -51,14 +51,14 @@ export class Screenshots extends BaseCollection {
   update(
     screenshot_id: string | number,
     screenshot_params: UpdateScreenshotParams,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<Screenshot> {
     return this.doUpdate(screenshot_id, screenshot_params, request_params);
   }
 
   delete(
     screenshot_id: string | number,
-    request_params: ProjectOnly
+    request_params: ProjectOnly,
   ): Promise<ScreenshotDeleted> {
     return this.doDelete(screenshot_id, request_params);
   }

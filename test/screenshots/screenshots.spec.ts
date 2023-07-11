@@ -75,7 +75,7 @@ describe("Screenshots", function () {
             tags: ["onboarding"],
           },
         ],
-        { project_id: project_id }
+        { project_id: project_id },
       );
       expect(screenshots.items[0].screenshot_id).to.eq(second_screenshot_id);
       expect(screenshots.items[0].key_ids).to.include(key_id);
@@ -90,7 +90,7 @@ describe("Screenshots", function () {
         .update(
           screenshot_id,
           { title: "node screen", description: "node desc" },
-          { project_id: project_id }
+          { project_id: project_id },
         );
 
       expect(screenshot.screenshot_id).to.eq(screenshot_id);

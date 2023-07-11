@@ -37,7 +37,7 @@ export class Segments extends BaseCollection {
 
   get(
     segment_number: string | number,
-    request_params: GetSegmentParams
+    request_params: GetSegmentParams,
   ): Promise<Segment> {
     return this.doGet(segment_number, request_params);
   }
@@ -45,7 +45,7 @@ export class Segments extends BaseCollection {
   update(
     segment_number: string | number,
     segment_params: UpdateSegmentBodyParams,
-    request_params: UpdateSegmentReqParams
+    request_params: UpdateSegmentReqParams,
   ): Promise<any> {
     return this.doUpdate(segment_number, segment_params, request_params);
   }

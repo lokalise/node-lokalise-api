@@ -32,7 +32,7 @@ describe("Team user billing details", function () {
           country_code: "LV",
           zip: "LV-1234",
         },
-        { team_id: 199048 }
+        { team_id: 199048 },
       );
 
       expect(details.billing_email).to.eq("hello@example.com");

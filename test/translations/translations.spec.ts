@@ -78,7 +78,7 @@ describe("Translations", function () {
         .update(
           translation_id,
           { translation: "тест" },
-          { project_id: project_id }
+          { project_id: project_id },
         );
 
       expect(translation.translation_id).to.eq(translation_id);

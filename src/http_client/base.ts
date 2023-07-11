@@ -14,7 +14,7 @@ export class ApiRequest {
     method: Options["method"],
     body: object | object[] | null,
     params: Keyable,
-    clientData: ClientData
+    clientData: ClientData,
   ) {
     // Since we modify params, we need to make a copy of it so we don't modify the original
     this.params = { ...params };
@@ -26,7 +26,7 @@ export class ApiRequest {
     uri: string,
     method: Options["method"],
     body: object | object[] | null,
-    clientData: ClientData
+    clientData: ClientData,
   ): Promise<any> {
     const url = this.composeURI(uri);
 

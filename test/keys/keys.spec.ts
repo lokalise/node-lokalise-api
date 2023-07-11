@@ -66,7 +66,7 @@ describe("Keys", function () {
       expect(key.modified_at).to.eq("2020-05-11 11:20:33 (Etc/UTC)");
       expect(key.modified_at_timestamp).to.eq(1589196033);
       expect(key.translations_modified_at).to.eq(
-        "2020-05-15 10:44:42 (Etc/UTC)"
+        "2020-05-15 10:44:42 (Etc/UTC)",
       );
       expect(key.translations_modified_at_timestamp).to.eq(1589539482);
     })
@@ -108,7 +108,7 @@ describe("Keys", function () {
             },
           ],
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(keys.items[0].key_name["web"]).to.eq("welcome_web");
@@ -153,7 +153,7 @@ describe("Keys", function () {
             },
           ],
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
       expect(keys.errors[0].message).to.eq("This key name is already taken");
       expect(keys.items[0].key_name.ios).to.eq("key_not_dup");
@@ -182,7 +182,7 @@ describe("Keys", function () {
             },
           ],
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
       const key = keys.items[0];
 
@@ -201,7 +201,7 @@ describe("Keys", function () {
           platforms: ["web", "other"],
           description: "Node updated",
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(key.key_id).to.eq(key_id);
@@ -226,7 +226,7 @@ describe("Keys", function () {
             },
           ],
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(keys.items[0].key_id).to.eq(key_id);

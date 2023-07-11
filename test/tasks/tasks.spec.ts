@@ -84,7 +84,7 @@ describe("Tasks", function () {
             },
           ],
         },
-        { project_id: project_id }
+        { project_id: project_id },
       );
 
       expect(task.task_id).to.eq(new_task_id);

@@ -44,7 +44,7 @@ export class Projects extends BaseCollection {
   protected static elementClass = Project;
 
   list(
-    request_params: ProjectListParams = {}
+    request_params: ProjectListParams = {},
   ): Promise<PaginatedResult<Project>> {
     return this.doList(request_params);
   }
@@ -59,13 +59,13 @@ export class Projects extends BaseCollection {
 
   update(
     project_id: string | number,
-    project_params: ProjectUpdateParams
+    project_params: ProjectUpdateParams,
   ): Promise<Project> {
     return this.doUpdate(
       project_id,
       project_params,
       {},
-      this.populateObjectFromJson
+      this.populateObjectFromJson,
     );
   }
 
@@ -80,7 +80,7 @@ export class Projects extends BaseCollection {
       this.returnBareJSON,
       this.handleReject,
       null,
-      "projects/{!:project_id}/empty"
+      "projects/{!:project_id}/empty",
     );
   }
 }
