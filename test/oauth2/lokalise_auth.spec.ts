@@ -86,9 +86,8 @@ describe("LokaliseAuth", function () {
   describe("refresh", function () {
     cassette
       .createTest("valid token", async () => {
-        const resp: RefreshTokenResponse = await lokaliseAuth.refresh(
-          "stubbed refresh",
-        );
+        const resp: RefreshTokenResponse =
+          await lokaliseAuth.refresh("stubbed refresh");
 
         expect(resp.access_token).to.eq("stubbed access");
         expect(resp.scope).to.eq("write_team_groups read_projects");
