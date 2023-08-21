@@ -1,6 +1,6 @@
 # Changelog
 
-## 10.0.0
+## 10.0.0 (5-Jul-2023)
 
 * Require Node 16+ (version 14 has reached EOL)
 * Update to Got 13
