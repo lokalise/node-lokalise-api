@@ -1,7 +1,7 @@
 import "../setup.js";
 import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
-import { LokaliseApiOta } from "../../src/lokalise/lokalise_api_ota.js";
+import { LokaliseApiOta } from "../../src/main.js";
 import { OtaApiError } from "../../src/models/ota_api_error.js";
 
 describe("SdkTokens", function () {
