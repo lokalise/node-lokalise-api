@@ -12,6 +12,8 @@ npm install @lokalise/node-api
 
 ## Initializing the Client
 
+**[If you'd like to work with the OTA (over-the-air) endpoints, please refer to the OTA introduction article.](https://lokalise.github.io/node-lokalise-api/ota/introduction)**
+
 In order to perform API requests, you require a special token that can be obtained in your [personal profile](https://lokalise.com/profile#apitokens) (*API tokens* section).
 
 After you've obtained the token, initialize the client:
