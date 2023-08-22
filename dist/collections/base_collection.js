@@ -106,11 +106,7 @@ export class BaseCollection {
         return this.populateApiErrorFromJson(data);
     }
     async createPromise(method, params, resolveFn, rejectFn, body, uri = null) {
-        const childClass = this.constructor;
-        if (!uri) {
-            uri = childClass.prefixURI;
-        }
-        const request = new ApiRequest(uri, method, body, params, this.clientData);
+        const request = this.prepareRequest(method, body, params, uri);
         try {
             const data = await request.promise;
             return Promise.resolve(resolveFn.call(this, data["json"], data["headers"]));
@@ -118,6 +114,16 @@ export class BaseCollection {
         catch (err) {
             return Promise.reject(rejectFn.call(this, err));
         }
+    }
+    prepareRequest(method, body, params, uri = null) {
+        return new ApiRequest(this.getUri(uri), method, body, params, this.clientData);
+    }
+    getUri(uri) {
+        const childClass = this.constructor;
+        if (!uri) {
+            uri = childClass.prefixURI;
+        }
+        return uri;
     }
     objToArray(raw_body) {
         if (!Array.isArray(raw_body)) {

@@ -24,6 +24,7 @@ export { ProjectSettings } from "./project_settings.js";
 export { ProjectStatistics } from "./project_statistics.js";
 export { ProjectWithPagination } from "./project_with_pagination.js";
 export { Project } from "./project.js";
+export { SdkToken } from "./sdk_token.js";
 export { QueuedProcess } from "./queued_process.js";
 export { RefreshTokenResponse } from "./refresh_token_response.js";
 export { RequestTokenResponse } from "./request_token_response.js";

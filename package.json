@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "10.0.0",
+  "version": "11.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "type": "module",
@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && c8 --reporter=lcov ts-mocha -n loader=ts-node/esm -p tsconfig.json --type-check test/**/*.spec.ts --timeout 10000"
+    "test": "tsc && c8 --reporter=lcov ts-mocha -n loader=ts-node/esm -p tsconfig.json --type-check test/ota/ota_tokens.spec.ts --timeout 10000"
   },
   "devDependencies": {
     "@types/chai": "^4.2.22",

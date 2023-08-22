@@ -195,17 +195,8 @@ export abstract class BaseCollection {
     body: object | object[] | null,
     uri: string | null = null,
   ): Promise<any> {
-    const childClass = <typeof BaseCollection>this.constructor;
-    if (!uri) {
-      uri = childClass.prefixURI;
-    }
-    const request: ApiRequest = new ApiRequest(
-      <string>uri,
-      method,
-      body,
-      params,
-      this.clientData,
-    );
+    const request = this.prepareRequest(method, body, params, uri);
+
     try {
       const data = await request.promise;
       return Promise.resolve(
@@ -214,6 +205,30 @@ export abstract class BaseCollection {
     } catch (err) {
       return Promise.reject(rejectFn.call(this, err));
     }
+  }
+
+  protected prepareRequest(
+    method: Options["method"],
+    body: object | object[] | null,
+    params: Keyable,
+    uri: string | null = null,
+  ): ApiRequest {
+    return new ApiRequest(
+      this.getUri(uri),
+      method,
+      body,
+      params,
+      this.clientData,
+    );
+  }
+
+  protected getUri(uri: string | null): string {
+    const childClass = <typeof BaseCollection>this.constructor;
+    if (!uri) {
+      uri = childClass.prefixURI;
+    }
+
+    return <string>uri;
   }
 
   protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable> {

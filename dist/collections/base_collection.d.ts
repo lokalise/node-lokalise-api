@@ -1,4 +1,5 @@
 import { Options } from "got";
+import { ApiRequest } from "../http_client/base.js";
 import { ApiError } from "../models/api_error.js";
 import { PaginatedResult } from "../models/paginated_result.js";
 import { Keyable } from "../interfaces/keyable.js";
@@ -30,6 +31,8 @@ export declare abstract class BaseCollection {
     protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;
     protected createPromise(method: Options["method"], params: Keyable, resolveFn: ResolveHandler, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
+    protected prepareRequest(method: Options["method"], body: object | object[] | null, params: Keyable, uri?: string | null): ApiRequest;
+    protected getUri(uri: string | null): string;
     protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable>;
 }
 export {};

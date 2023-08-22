@@ -6,7 +6,7 @@ import { LokalisePkg } from "../lokalise/pkg.js";
 export class ApiRequest {
   public promise: Promise<any>;
   public params: WritableKeyable = {};
-  private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
+  protected readonly urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://api.lokalise.com/api2/";
 
   constructor(
@@ -60,13 +60,22 @@ export class ApiRequest {
     try {
       const response = <PlainResponse>await got(undefined, undefined, options);
       const responseJSON = JSON.parse(<string>response.body);
+
       if (response.statusCode > 399) {
-        return Promise.reject(responseJSON["error"] || responseJSON);
+        return Promise.reject(this.getErrorFromResp(responseJSON));
       }
       return Promise.resolve({ json: responseJSON, headers: response.headers });
       /* c8 ignore next 4 */
     } catch (err) {
       return Promise.reject(err);
+    }
+  }
+
+  protected getErrorFromResp(respJson: any): any {
+    if (typeof respJson["error"] === "object") {
+      return respJson["error"];
+    } else {
+      return respJson;
     }
   }
 

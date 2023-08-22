@@ -37,13 +37,21 @@ export class ApiRequest {
             const response = await got(undefined, undefined, options);
             const responseJSON = JSON.parse(response.body);
             if (response.statusCode > 399) {
-                return Promise.reject(responseJSON["error"] || responseJSON);
+                return Promise.reject(this.getErrorFromResp(responseJSON));
             }
             return Promise.resolve({ json: responseJSON, headers: response.headers });
             /* c8 ignore next 4 */
         }
         catch (err) {
             return Promise.reject(err);
+        }
+    }
+    getErrorFromResp(respJson) {
+        if (typeof respJson["error"] === "object") {
+            return respJson["error"];
+        }
+        else {
+            return respJson;
         }
     }
     composeURI(rawUri) {
