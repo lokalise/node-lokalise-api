@@ -1,21 +1,21 @@
 # Introduction
 
-While OTA (over-the-air) endpoints are part of the main Lokalise API, it has certain specifics.
+While OTA (over-the-air) endpoints are part of the main Lokalise API, they have certain specifics.
 
-In order to address those, the SDK introduces two additional clients:
+In order to address those specifics, the SDK introduces two additional clients:
 
 * `LokaliseApiOta` — you'll use this client to create OTA SDK tokens, create bundle freezes, publish bundles, and so on. This client requires a specially generated JWT (see below).
 * `LokaliseOtaBundles` — this client is utilized only to request OTA bundles and it requires an OTA SDK token.
 
-**[Please refer to the following guide to learn about the OTA API in general.](https://developers.lokalise.com/reference/working-with-the-ota-api)**
+[Please refer to the following guide to learn about the OTA API in general.](https://developers.lokalise.com/reference/working-with-the-ota-api)
 
-**[To learn about the library requirements and the installations process, please refer to the Getting started article.](https://lokalise.github.io/node-lokalise-api/api/getting-started)**
+[To learn about the Node SDK requirements and the installation process, please refer to the Getting started article.](https://lokalise.github.io/node-lokalise-api/api/getting-started)
 
 ## Managing bundles and tokens
 
 So, basically you'll use the `LokaliseApiOta` for all the OTA endpoints except for the [Get OTA bundle](https://developers.lokalise.com/reference/get-ota-bundle).
 
-All endpoints supported by the `LokaliseApiOta` client require the usage of a JWT. Therefore, to get started you'll need to generate your JWT using the regular Lokalise Node SDK:
+All endpoints supported by the `LokaliseApiOta` client require the usage of a JWT (in other words, you **cannot use the regular Lokalise API token**). Therefore, to get started you'll need to generate your JWT:
 
 ```ts
 import { LokaliseApi } from "@lokalise/node-api";
