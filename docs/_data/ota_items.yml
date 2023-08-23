@@ -1,0 +1,62 @@
+- title: Introduction
+  path: introduction
+  sub_paths:
+  - title: Managing bundles and tokens
+    path: managing-bundles-and-tokens
+  - title: Requesting OTA bundles
+    path: requesting-ota-bundles
+- title: Bundle management
+  path: bundle-management
+  sub_paths:
+  - title: List bundles
+    path: list-bundles
+  sub_paths:
+  - title: Get bundle
+    path: get-bundle
+  sub_paths:
+  - title: Update bundle
+    path: update-bundle
+  sub_paths:
+  - title: Delete bundle
+    path: delete-bundle
+- title: Bundle publishing
+  path: bundle-publishing
+  sub_paths:
+  - title: Publish bundle
+    path: publish-bundle
+  sub_paths:
+  - title: Stage bundle
+    path: stage-bundle
+- title: Freeze periods
+  path: freeze-periods
+  sub_paths:
+  - title: List freeze periods
+    path: list-freeze-periods
+  sub_paths:
+  - title: Create freeze period
+    path: create-freeze-period
+  sub_paths:
+  - title: Update freeze period
+    path: update-freeze-period
+  sub_paths:
+  - title: Delete freeze period
+    path: delete-freeze-period
+- title: OTA bundles
+  path: ota-bundles
+  sub_paths:
+  - title: Get OTA bundle
+    path: get-ota-bundle
+- title: SDK tokens
+  path: sdk-tokens
+  sub_paths:
+  - title: List tokens
+    path: list-tokens
+  - title: Create token
+    path: create-token
+  - title: Delete token
+    path: delete-token
+- title: Statistics
+  path: statistics
+  sub_paths:
+  - title: View usage
+    path: view-usage

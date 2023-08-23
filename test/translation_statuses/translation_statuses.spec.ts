@@ -51,10 +51,10 @@ describe("TranslationStatuses", function () {
         .translationStatuses()
         .create(
           { title: "node", color: "#344563" },
-          { project_id: project_id },
+          { project_id: "963054665b7c313dd9b323.35886655" },
         );
 
-      expect(status.status_id).to.eq(new_status_id);
+      expect(status.status_id).to.eq(15694);
       expect(status.title).to.eq("node");
       expect(status.color).to.eq("#344563");
     })

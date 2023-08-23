@@ -92,13 +92,14 @@ export abstract class BaseCollection {
     body: Keyable | null,
     req_params: Keyable,
     resolveFn = this.populateObjectFromJsonRoot,
+    method: Options["method"] = "PUT",
   ): Promise<any> {
     const params = {
       ...req_params,
       id,
     };
     return this.createPromise(
-      "PUT",
+      method,
       params,
       resolveFn,
       this.handleReject,
@@ -190,30 +191,49 @@ export abstract class BaseCollection {
   protected async createPromise(
     method: Options["method"],
     params: Keyable,
-    resolveFn: ResolveHandler,
+    resolveFn: ResolveHandler | null,
     rejectFn: RejectHandler,
     body: object | object[] | null,
     uri: string | null = null,
   ): Promise<any> {
-    const childClass = <typeof BaseCollection>this.constructor;
-    if (!uri) {
-      uri = childClass.prefixURI;
+    const request = this.prepareRequest(method, body, params, uri);
+
+    try {
+      const data = await request.promise;
+      let result = null;
+
+      if (resolveFn !== null) {
+        result = resolveFn.call(this, data["json"], data["headers"]);
+      }
+
+      return Promise.resolve(result);
+    } catch (err) {
+      return Promise.reject(rejectFn.call(this, err));
     }
-    const request: ApiRequest = new ApiRequest(
-      <string>uri,
+  }
+
+  protected prepareRequest(
+    method: Options["method"],
+    body: object | object[] | null,
+    params: Keyable,
+    uri: string | null = null,
+  ): ApiRequest {
+    return new ApiRequest(
+      this.getUri(uri),
       method,
       body,
       params,
       this.clientData,
     );
-    try {
-      const data = await request.promise;
-      return Promise.resolve(
-        resolveFn.call(this, data["json"], data["headers"]),
-      );
-    } catch (err) {
-      return Promise.reject(rejectFn.call(this, err));
+  }
+
+  protected getUri(uri: string | null): string {
+    const childClass = <typeof BaseCollection>this.constructor;
+    if (!uri) {
+      uri = childClass.prefixURI;
     }
+
+    return <string>uri;
   }
 
   protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable> {

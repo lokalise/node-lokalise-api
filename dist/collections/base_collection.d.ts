@@ -1,4 +1,5 @@
 import { Options } from "got";
+import { ApiRequest } from "../http_client/base.js";
 import { ApiError } from "../models/api_error.js";
 import { PaginatedResult } from "../models/paginated_result.js";
 import { Keyable } from "../interfaces/keyable.js";
@@ -20,7 +21,7 @@ export declare abstract class BaseCollection {
     protected doGet(id: string | number, req_params?: Keyable): Promise<any>;
     protected doDelete(id: string | number, req_params?: Keyable): Promise<any>;
     protected doCreate(body: Keyable | null, req_params?: Keyable, resolveFn?: (json: Keyable, _headers: Keyable, secondary?: boolean) => any): Promise<any>;
-    protected doUpdate(id: string | number, body: Keyable | null, req_params: Keyable, resolveFn?: (json: Keyable, headers: Keyable) => any): Promise<any>;
+    protected doUpdate(id: string | number, body: Keyable | null, req_params: Keyable, resolveFn?: (json: Keyable, headers: Keyable) => any, method?: Options["method"]): Promise<any>;
     protected populateObjectFromJsonRoot(json: Keyable, headers: Keyable): any;
     protected populateSecondaryObjectFromJsonRoot(json: Keyable, headers: Keyable): any;
     protected populateObjectFromJson(json: Keyable, _headers: Keyable, secondary?: boolean): any;
@@ -29,7 +30,9 @@ export declare abstract class BaseCollection {
     protected populateApiErrorFromJson(json: any): ApiError;
     protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;
-    protected createPromise(method: Options["method"], params: Keyable, resolveFn: ResolveHandler, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
+    protected createPromise(method: Options["method"], params: Keyable, resolveFn: ResolveHandler | null, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
+    protected prepareRequest(method: Options["method"], body: object | object[] | null, params: Keyable, uri?: string | null): ApiRequest;
+    protected getUri(uri: string | null): string;
     protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable>;
 }
 export {};

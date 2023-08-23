@@ -56,6 +56,12 @@ You can also check [this repo containing some usage examples](https://github.com
   {% include nav_full.html %}
 </nav>
 
+## OTA
+
+<nav class="index">
+  {% include nav_ota_full.html %}
+</nav>
+
 ## Additional info
 
 <nav class="index">
