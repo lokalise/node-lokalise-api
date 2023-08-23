@@ -40,12 +40,12 @@ export class BaseCollection {
         };
         return this.createPromise("POST", params, resolveFn, this.handleReject, body);
     }
-    doUpdate(id, body, req_params, resolveFn = this.populateObjectFromJsonRoot) {
+    doUpdate(id, body, req_params, resolveFn = this.populateObjectFromJsonRoot, method = "PUT") {
         const params = {
             ...req_params,
             id,
         };
-        return this.createPromise("PUT", params, resolveFn, this.handleReject, body);
+        return this.createPromise(method, params, resolveFn, this.handleReject, body);
     }
     populateObjectFromJsonRoot(json, headers) {
         const childClass = this.constructor;

@@ -21,7 +21,7 @@ export declare abstract class BaseCollection {
     protected doGet(id: string | number, req_params?: Keyable): Promise<any>;
     protected doDelete(id: string | number, req_params?: Keyable): Promise<any>;
     protected doCreate(body: Keyable | null, req_params?: Keyable, resolveFn?: (json: Keyable, _headers: Keyable, secondary?: boolean) => any): Promise<any>;
-    protected doUpdate(id: string | number, body: Keyable | null, req_params: Keyable, resolveFn?: (json: Keyable, headers: Keyable) => any): Promise<any>;
+    protected doUpdate(id: string | number, body: Keyable | null, req_params: Keyable, resolveFn?: (json: Keyable, headers: Keyable) => any, method?: Options["method"]): Promise<any>;
     protected populateObjectFromJsonRoot(json: Keyable, headers: Keyable): any;
     protected populateSecondaryObjectFromJsonRoot(json: Keyable, headers: Keyable): any;
     protected populateObjectFromJson(json: Keyable, _headers: Keyable, secondary?: boolean): any;

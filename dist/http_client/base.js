@@ -17,6 +17,7 @@ export class ApiRequest {
             prefixUrl: clientData.host ?? this.urlRoot,
             headers: {
                 Accept: "application/json",
+                "Content-type": "application/json",
                 "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
             },
             throwHttpErrors: false,

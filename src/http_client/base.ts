@@ -35,6 +35,7 @@ export class ApiRequest {
       prefixUrl: clientData.host ?? this.urlRoot,
       headers: {
         Accept: "application/json",
+        "Content-type": "application/json",
         "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
       },
       throwHttpErrors: false,
@@ -59,6 +60,7 @@ export class ApiRequest {
 
     try {
       const response = <PlainResponse>await got(undefined, undefined, options);
+
       const responseJSON = JSON.parse(<string>response.body);
 
       if (response.statusCode > 399) {

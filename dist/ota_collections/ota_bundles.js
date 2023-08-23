@@ -1,9 +1,9 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaBundle } from "../models/ota_bundle.js";
+import { OtaBundleArchive } from "../models/ota_bundle_archive.js";
 export class OtaBundles extends OtaCollection {
     static rootElementNameSingular = "data";
     static prefixURI = "lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";
-    static elementClass = OtaBundle;
+    static elementClass = OtaBundleArchive;
     get(bundle_params, request_params) {
         const params = {
             ...request_params,

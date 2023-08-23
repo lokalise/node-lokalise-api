@@ -92,13 +92,14 @@ export abstract class BaseCollection {
     body: Keyable | null,
     req_params: Keyable,
     resolveFn = this.populateObjectFromJsonRoot,
+    method: Options["method"] = "PUT",
   ): Promise<any> {
     const params = {
       ...req_params,
       id,
     };
     return this.createPromise(
-      "PUT",
+      method,
       params,
       resolveFn,
       this.handleReject,

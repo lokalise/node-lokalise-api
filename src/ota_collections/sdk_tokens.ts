@@ -1,11 +1,7 @@
 import { OtaCollection } from "./ota_collection.js";
 import { SdkToken } from "../models/sdk_token.js";
 import { OtaTeamProject } from "../interfaces/ota_team_project.js";
-
-type SdkTokenDeleted = {
-  id: number;
-  deleted: boolean;
-};
+import { OtaResourceDeleted } from "../types/ota_resource_deleted.js";
 
 export class SdkTokens extends OtaCollection {
   protected static rootElementName = "data";
@@ -25,7 +21,7 @@ export class SdkTokens extends OtaCollection {
   delete(
     tokenId: string | number,
     request_params: OtaTeamProject,
-  ): Promise<SdkTokenDeleted> {
+  ): Promise<OtaResourceDeleted> {
     return this.doDelete(tokenId, request_params);
   }
 }

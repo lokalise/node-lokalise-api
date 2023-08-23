@@ -5,6 +5,20 @@
     path: managing-bundles-and-tokens
   - title: Requesting OTA bundles
     path: requesting-ota-bundles
+- title: Bundle management
+  path: bundle-management
+  sub_paths:
+  - title: List bundles
+    path: list-bundles
+  sub_paths:
+  - title: Get bundle
+    path: get-bundle
+  sub_paths:
+  - title: Update bundle
+    path: update-bundle
+  sub_paths:
+  - title: Delete bundle
+    path: delete-bundle
 - title: OTA bundles
   path: ota-bundles
   sub_paths:
@@ -19,3 +33,8 @@
     path: create-token
   - title: Delete token
     path: delete-token
+- title: Statistics
+  path: statistics
+  sub_paths:
+  - title: View usage
+    path: view-usage

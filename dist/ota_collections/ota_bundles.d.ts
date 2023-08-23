@@ -1,5 +1,5 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaBundle } from "../models/ota_bundle.js";
+import { OtaBundleArchive } from "../models/ota_bundle_archive.js";
 type RequestBundleParams = {
     appVersion: string;
     transVersion: number;
@@ -12,7 +12,7 @@ type OtaProjectFramework = {
 export declare class OtaBundles extends OtaCollection {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;
-    protected static elementClass: typeof OtaBundle;
-    get(bundle_params: RequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundle>;
+    protected static elementClass: typeof OtaBundleArchive;
+    get(bundle_params: RequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundleArchive>;
 }
 export {};
