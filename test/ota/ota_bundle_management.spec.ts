@@ -17,10 +17,10 @@ describe("OtaBundleManagement", function () {
         lokaliseProjectId: projectId,
       });
 
-      expect(bundles.length).to.eq(3);
+      expect(bundles.length).to.eq(2);
 
       const bundle = bundles[0];
-      expect(bundle.id).to.eq(bundleId);
+      expect(bundle.id).to.eq(664864);
     })
     .register(this);
 

@@ -7,16 +7,16 @@
     "status": 200,
     "response": {
       "data": {
-        "id": 9433,
-        "token": "c72f9bf9f88e0779275d4832ca0e56933a89",
+        "id": 9451,
+        "token": "a3511c8e335ac3c770ea96ede1a28f3ce263",
         "projectId": 20984,
         "lokaliseId": null,
-        "createdAt": "2023-08-22T15:05:51.227Z"
+        "createdAt": "2023-08-23T15:23:39.843Z"
       }
     },
     "rawHeaders": [
       "Date",
-      "Tue, 22 Aug 2023 15:05:51 GMT",
+      "Wed, 23 Aug 2023 15:23:39 GMT",
       "Content-Type",
       "application/json; charset=utf-8",
       "Content-Length",
@@ -50,7 +50,7 @@
       "X-XSS-Protection",
       "0",
       "x-request-id",
-      "e08cd5502e3a6234267608c8d3db4d00",
+      "547cd6a2289cbdf2f5be93617ef56f1f",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Credentials",

@@ -8,35 +8,21 @@
     "response": {
       "data": [
         {
-          "id": 9428,
-          "token": "a952aac5c1a5811618253acd7c935582596e",
+          "id": 9434,
+          "token": "752171461d3c37dcd0c9899b796b00aa27e0",
           "projectId": 20984,
           "lokaliseId": null,
-          "createdAt": "2023-08-22T14:21:25.643Z"
-        },
-        {
-          "id": 9429,
-          "token": "8531fd155d5ac3c76564f4a22dbada4f0a6f",
-          "projectId": 20984,
-          "lokaliseId": null,
-          "createdAt": "2023-08-22T14:21:26.883Z"
-        },
-        {
-          "id": 9430,
-          "token": "f9de1558a5b41416e6f96b40dc1c2e348cd5",
-          "projectId": 20984,
-          "lokaliseId": null,
-          "createdAt": "2023-08-22T14:21:28.473Z"
+          "createdAt": "2023-08-22T18:14:25.162Z"
         }
       ]
     },
     "rawHeaders": [
       "Date",
-      "Tue, 22 Aug 2023 14:39:07 GMT",
+      "Wed, 23 Aug 2023 15:20:45 GMT",
       "Content-Type",
       "application/json; charset=utf-8",
       "Content-Length",
-      "412",
+      "144",
       "Connection",
       "close",
       "Content-Security-Policy",
@@ -66,7 +52,7 @@
       "X-XSS-Protection",
       "0",
       "x-request-id",
-      "4bbfefec7c0b88ca28b4f1c3d3d0ccd6",
+      "79055338e84b44ed1ecab3874c78ce69",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Credentials",

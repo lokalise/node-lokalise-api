@@ -6,14 +6,14 @@
     "body": {
       "from": "5.0",
       "to": "6.0",
-      "bundleId": 664798
+      "bundleId": 664864
     },
     "status": 200,
     "response": {
       "data": {
-        "id": 34301,
+        "id": 34303,
         "projectId": 20984,
-        "bundleId": 664798,
+        "bundleId": 664864,
         "framework": "ios_sdk",
         "from": "5.0",
         "to": "6.0"
@@ -21,7 +21,7 @@
     },
     "rawHeaders": [
       "Date",
-      "Wed, 23 Aug 2023 14:24:56 GMT",
+      "Wed, 23 Aug 2023 15:28:04 GMT",
       "Content-Type",
       "application/json; charset=utf-8",
       "Content-Length",
@@ -55,7 +55,7 @@
       "X-XSS-Protection",
       "0",
       "x-request-id",
-      "6d480522546337a0eb48500eb9f0e7b1",
+      "94b8de18cdfccdb1f10c5c667652b04b",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Credentials",

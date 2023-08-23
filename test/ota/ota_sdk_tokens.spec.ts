@@ -34,8 +34,8 @@ describe("OtaSdkTokens", function () {
         lokaliseProjectId: projectId,
       });
 
-      expect(tokens[0].id).to.eq(tokenId);
-      expect(tokens.length).to.eq(3);
+      expect(tokens[0].id).to.eq(9434);
+      expect(tokens.length).to.eq(1);
     })
     .register(this);
 
@@ -46,11 +46,11 @@ describe("OtaSdkTokens", function () {
         lokaliseProjectId: projectId,
       });
 
-      expect(token.id).to.eq(9433);
-      expect(token.token).to.eq("c72f9bf9f88e0779275d4832ca0e56933a89");
+      expect(token.id).to.eq(9451);
+      expect(token.token).to.eq("a3511c8e335ac3c770ea96ede1a28f3ce263");
       expect(token.projectId).to.eq(20984);
       expect(token.lokaliseId).to.eq(null);
-      expect(token.createdAt).to.eq("2023-08-22T15:05:51.227Z");
+      expect(token.createdAt).to.eq("2023-08-23T15:23:39.843Z");
     })
     .register(this);
 

@@ -27,12 +27,12 @@ describe("OtaFreezePeriods", function () {
 
   cassette
     .createTest("create", async () => {
-      const bundleId = 664798;
+      const bundleId = 664864;
       const freeze = await lokaliseApiOta.otaFreezePeriods().create(
         {
           from: "5.0",
           to: "6.0",
-          bundleId: 664798,
+          bundleId: bundleId,
         },
         {
           teamId: teamId,
@@ -40,7 +40,7 @@ describe("OtaFreezePeriods", function () {
         },
       );
 
-      expect(freeze.id).to.eq(freezeId);
+      expect(freeze.id).to.eq(34303);
       expect(freeze.projectId).to.eq(20984);
       expect(freeze.bundleId).to.eq(bundleId);
       expect(freeze.framework).to.eq("ios_sdk");

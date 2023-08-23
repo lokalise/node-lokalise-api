@@ -1,5 +1,9 @@
 # Changelog
 
+## 11.0.1 (23-Aug-2023)
+
+* Fix certain edge cases for OTA endpoints when the body is not present
+
 ## 11.0.0 (23-Aug-2023)
 
 * Added support for the OTA endpoints. Please refer to the [OTA introduction article](https://lokalise.github.io/node-lokalise-api/ota/introduction) to learn more.
