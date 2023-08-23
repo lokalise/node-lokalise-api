@@ -19,6 +19,8 @@ jobs:
     env:
       API_KEY: 123abc
       OAUTH2_ACCESS_TOKEN: fake
+      API_JWT: fake
+      SDK_TOKEN: fake
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3

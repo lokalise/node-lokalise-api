@@ -17,6 +17,7 @@ export class ApiRequest {
             prefixUrl: clientData.host ?? this.urlRoot,
             headers: {
                 Accept: "application/json",
+                "Content-type": "application/json",
                 "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
             },
             throwHttpErrors: false,
@@ -35,15 +36,25 @@ export class ApiRequest {
         }
         try {
             const response = await got(undefined, undefined, options);
-            const responseJSON = JSON.parse(response.body);
+            const responseJSON = response.body
+                ? JSON.parse(response.body)
+                : null;
             if (response.statusCode > 399) {
-                return Promise.reject(responseJSON["error"] || responseJSON);
+                return Promise.reject(this.getErrorFromResp(responseJSON));
             }
             return Promise.resolve({ json: responseJSON, headers: response.headers });
             /* c8 ignore next 4 */
         }
         catch (err) {
             return Promise.reject(err);
+        }
+    }
+    getErrorFromResp(respJson) {
+        if (typeof respJson["error"] === "object") {
+            return respJson["error"];
+        }
+        else {
+            return respJson;
         }
     }
     composeURI(rawUri) {

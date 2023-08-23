@@ -1,0 +1,1 @@
+{"version":3,"file":"ota_request.js","sourceRoot":"","sources":["../../src/http_client/ota_request.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,UAAU,EAAE,MAAM,WAAW,CAAC;AAEvC,MAAM,OAAO,UAAW,SAAQ,UAAU;IACrB,OAAO,GACxB,6BAA6B,CAAC;CACjC"}

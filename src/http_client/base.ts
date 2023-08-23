@@ -6,7 +6,7 @@ import { LokalisePkg } from "../lokalise/pkg.js";
 export class ApiRequest {
   public promise: Promise<any>;
   public params: WritableKeyable = {};
-  private readonly urlRoot: NonNullable<Options["prefixUrl"]> =
+  protected readonly urlRoot: NonNullable<Options["prefixUrl"]> =
     "https://api.lokalise.com/api2/";
 
   constructor(
@@ -35,6 +35,7 @@ export class ApiRequest {
       prefixUrl: clientData.host ?? this.urlRoot,
       headers: {
         Accept: "application/json",
+        "Content-type": "application/json",
         "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
       },
       throwHttpErrors: false,
@@ -59,14 +60,26 @@ export class ApiRequest {
 
     try {
       const response = <PlainResponse>await got(undefined, undefined, options);
-      const responseJSON = JSON.parse(<string>response.body);
+
+      const responseJSON = response.body
+        ? JSON.parse(<string>response.body)
+        : null;
+
       if (response.statusCode > 399) {
-        return Promise.reject(responseJSON["error"] || responseJSON);
+        return Promise.reject(this.getErrorFromResp(responseJSON));
       }
       return Promise.resolve({ json: responseJSON, headers: response.headers });
       /* c8 ignore next 4 */
     } catch (err) {
       return Promise.reject(err);
+    }
+  }
+
+  protected getErrorFromResp(respJson: any): any {
+    if (typeof respJson["error"] === "object") {
+      return respJson["error"];
+    } else {
+      return respJson;
     }
   }
 
