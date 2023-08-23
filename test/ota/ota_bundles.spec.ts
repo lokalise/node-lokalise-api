@@ -3,7 +3,7 @@ import { expect } from "chai";
 import { Cassettes } from "mocha-cassettes";
 import { LokaliseOtaBundles } from "../../src/main.js";
 
-describe("SdkTokens", function () {
+describe("OtaBundles", function () {
   const cassette = new Cassettes("./test/cassettes");
   const lokaliseOtaBundles = new LokaliseOtaBundles({
     apiKey: process.env.SDK_TOKEN,

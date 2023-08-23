@@ -19,6 +19,28 @@
   sub_paths:
   - title: Delete bundle
     path: delete-bundle
+- title: Bundle publishing
+  path: bundle-publishing
+  sub_paths:
+  - title: Publish bundle
+    path: publish-bundle
+  sub_paths:
+  - title: Stage bundle
+    path: stage-bundle
+- title: Freeze periods
+  path: freeze-periods
+  sub_paths:
+  - title: List freeze periods
+    path: list-freeze-periods
+  sub_paths:
+  - title: Create freeze period
+    path: create-freeze-period
+  sub_paths:
+  - title: Update freeze period
+    path: update-freeze-period
+  sub_paths:
+  - title: Delete freeze period
+    path: delete-freeze-period
 - title: OTA bundles
   path: ota-bundles
   sub_paths:

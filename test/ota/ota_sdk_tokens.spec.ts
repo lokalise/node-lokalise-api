@@ -4,7 +4,7 @@ import { Cassettes } from "mocha-cassettes";
 import { LokaliseApiOta } from "../../src/main.js";
 import { OtaApiError } from "../../src/models/ota_api_error.js";
 
-describe("SdkTokens", function () {
+describe("OtaSdkTokens", function () {
   const cassette = new Cassettes("./test/cassettes");
   const lokaliseApiOta = new LokaliseApiOta({ apiKey: process.env.API_JWT });
   const teamId = 176692;
@@ -14,7 +14,7 @@ describe("SdkTokens", function () {
   cassette
     .createTest("error", async () => {
       await lokaliseApiOta
-        .sdkTokens()
+        .otaSdkTokens()
         .list({
           teamId: teamId,
           lokaliseProjectId: "fake",
@@ -29,7 +29,7 @@ describe("SdkTokens", function () {
 
   cassette
     .createTest("list", async () => {
-      const tokens = await lokaliseApiOta.sdkTokens().list({
+      const tokens = await lokaliseApiOta.otaSdkTokens().list({
         teamId: teamId,
         lokaliseProjectId: projectId,
       });
@@ -41,7 +41,7 @@ describe("SdkTokens", function () {
 
   cassette
     .createTest("create", async () => {
-      const token = await lokaliseApiOta.sdkTokens().create({
+      const token = await lokaliseApiOta.otaSdkTokens().create({
         teamId: teamId,
         lokaliseProjectId: projectId,
       });
@@ -56,7 +56,7 @@ describe("SdkTokens", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApiOta.sdkTokens().delete(tokenId, {
+      const response = await lokaliseApiOta.otaSdkTokens().delete(tokenId, {
         teamId: teamId,
         lokaliseProjectId: projectId,
       });

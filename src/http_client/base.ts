@@ -61,7 +61,9 @@ export class ApiRequest {
     try {
       const response = <PlainResponse>await got(undefined, undefined, options);
 
-      const responseJSON = JSON.parse(<string>response.body);
+      const responseJSON = response.body
+        ? JSON.parse(<string>response.body)
+        : null;
 
       if (response.statusCode > 399) {
         return Promise.reject(this.getErrorFromResp(responseJSON));

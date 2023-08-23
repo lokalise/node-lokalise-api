@@ -9,3 +9,4 @@ export { NumericBool } from "./numeric_bool.js";
 export { TranslationData } from "./translation_data.js";
 export { UpdateKeyDataWithId } from "./update_key_data_with_id.js";
 export { UpdateKeyData } from "./update_key_data.js";
+export { OtaResourceDeleted } from "./ota_resource_deleted.js";

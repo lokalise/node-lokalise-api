@@ -7,7 +7,7 @@
 [API doc](https://developers.lokalise.com/reference/list-tokens)
 
 ```ts
-const tokens = await lokaliseApiOta.sdkTokens().list({
+const tokens = await lokaliseApiOta.otaSdkTokens().list({
   teamId: 1234,
   lokaliseProjectId: "123.abc",
 });
@@ -23,7 +23,7 @@ token.projectId; // "123.abc"
 [API doc](https://developers.lokalise.com/reference/create-token)
 
 ```ts
-const sdkToken = await lokaliseApiOta.sdkTokens().create({
+const sdkToken = await lokaliseApiOta.otaSdkTokens().create({
   teamId: 1234,
   lokaliseProjectId: "123.abc",
 });
@@ -42,7 +42,7 @@ sdkToken.createdAt; // "2023-08-22T15:05:51.227Z"
 ```ts
 const tokenId = 12345;
 
-const response = await lokaliseApiOta.sdkTokens().delete(tokenId, {
+const response = await lokaliseApiOta.otaSdkTokens().delete(tokenId, {
   teamId: 789,
   lokaliseProjectId: "123.abc",
 });

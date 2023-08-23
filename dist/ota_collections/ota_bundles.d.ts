@@ -1,14 +1,14 @@
 import { OtaCollection } from "./ota_collection.js";
 import { OtaBundleArchive } from "../models/ota_bundle_archive.js";
+import { OtaFramework } from "../interfaces/ota_framework.js";
 type RequestBundleParams = {
     appVersion: string;
     transVersion: number;
     prerelease?: boolean;
 };
-type OtaProjectFramework = {
+interface OtaProjectFramework extends OtaFramework {
     lokaliseProjectId: string;
-    framework: "ios_sdk" | "android_sdk" | "flutter_sdk";
-};
+}
 export declare class OtaBundles extends OtaCollection {
     protected static rootElementNameSingular: string;
     protected static prefixURI: string;

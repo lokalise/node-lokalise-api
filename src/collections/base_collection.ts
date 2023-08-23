@@ -191,7 +191,7 @@ export abstract class BaseCollection {
   protected async createPromise(
     method: Options["method"],
     params: Keyable,
-    resolveFn: ResolveHandler,
+    resolveFn: ResolveHandler | null,
     rejectFn: RejectHandler,
     body: object | object[] | null,
     uri: string | null = null,
@@ -200,9 +200,13 @@ export abstract class BaseCollection {
 
     try {
       const data = await request.promise;
-      return Promise.resolve(
-        resolveFn.call(this, data["json"], data["headers"]),
-      );
+      let result = null;
+
+      if (resolveFn !== null) {
+        result = resolveFn.call(this, data["json"], data["headers"]);
+      }
+
+      return Promise.resolve(result);
     } catch (err) {
       return Promise.reject(rejectFn.call(this, err));
     }

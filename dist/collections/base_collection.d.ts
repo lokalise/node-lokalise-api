@@ -30,7 +30,7 @@ export declare abstract class BaseCollection {
     protected populateApiErrorFromJson(json: any): ApiError;
     protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;
-    protected createPromise(method: Options["method"], params: Keyable, resolveFn: ResolveHandler, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
+    protected createPromise(method: Options["method"], params: Keyable, resolveFn: ResolveHandler | null, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
     protected prepareRequest(method: Options["method"], body: object | object[] | null, params: Keyable, uri?: string | null): ApiRequest;
     protected getUri(uri: string | null): string;
     protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable>;

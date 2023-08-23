@@ -44,7 +44,7 @@ const lokaliseApiOta = new LokaliseApiOta({ apiKey: jwt });
 At this point you can send OTA API requests, for example:
 
 ```ts
-const tokens = await lokaliseApiOta.sdkTokens().list({
+const tokens = await lokaliseApiOta.otaSdkTokens().list({
   teamId: 1234,
   lokaliseProjectId: "123.abc",
 });
@@ -65,7 +65,7 @@ So, the process is the following:
 * Use the instantiated `LokaliseApiOta` to request an OTA SDK in the following way:
 
 ```ts
-const result = await lokaliseApiOta.sdkTokens().create({
+const result = await lokaliseApiOta.otaSdkTokens().create({
   teamId: 1234,
   lokaliseProjectId: "123.abc",
 });

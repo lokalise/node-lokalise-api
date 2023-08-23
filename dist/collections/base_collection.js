@@ -109,7 +109,11 @@ export class BaseCollection {
         const request = this.prepareRequest(method, body, params, uri);
         try {
             const data = await request.promise;
-            return Promise.resolve(resolveFn.call(this, data["json"], data["headers"]));
+            let result = null;
+            if (resolveFn !== null) {
+                result = resolveFn.call(this, data["json"], data["headers"]);
+            }
+            return Promise.resolve(result);
         }
         catch (err) {
             return Promise.reject(rejectFn.call(this, err));

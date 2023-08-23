@@ -59,21 +59,22 @@ describe("Projects", function () {
 
   cassette
     .createTest("get", async () => {
-      const project = await lokaliseApi.projects().get(project_id);
+      const anotherId = "963054665b7c313dd9b323.35886655";
+      const project = await lokaliseApi.projects().get(anotherId);
 
-      expect(project.project_id).to.equal(project_id);
+      expect(project.project_id).to.equal(anotherId);
       expect(project.project_type).to.equal("localization_files");
-      expect(project.name).to.equal("Node.js test");
-      expect(project.description).to.equal("Test description");
-      expect(project.created_at).to.equal("2022-10-20 17:30:52 (Etc/UTC)");
-      expect(project.created_at_timestamp).to.equal(1666287052);
+      expect(project.name).to.equal("Sample Project");
+      expect(project.description).to.include("Lokalise sample project");
+      expect(project.created_at).to.equal("2018-08-21 13:35:25 (Etc/UTC)");
+      expect(project.created_at_timestamp).to.equal(1534858525);
       expect(project.created_by).to.equal(20181);
       expect(project.created_by_email).to.equal("bodrovis@protonmail.com");
       expect(project.team_id).to.equal(176692);
       expect(project.base_language_id).to.equal(640);
       expect(project.base_language_iso).to.equal("en");
       expect(project.settings.per_platform_key_names).to.be.false;
-      expect(project.statistics.team).to.equal(2);
+      expect(project.statistics.team).to.equal(5);
     })
     .register(this);
 

@@ -1,7 +1,9 @@
 import { BaseClient, ClientParams } from "./base_client.js";
-import { SdkTokens } from "../ota_collections/sdk_tokens.js";
+import { OtaSdkTokens } from "../ota_collections/ota_sdk_tokens.js";
 import { OtaBundleManagement } from "../ota_collections/ota_bundle_management.js";
+import { OtaBundlePublishing } from "../ota_collections/ota_bundle_publishing.js";
 import { OtaUsageStatistics } from "../ota_collections/ota_usage_statistics.js";
+import { OtaFreezePeriods } from "../ota_collections/ota_freeze_periods.js";
 
 export class LokaliseApiOta extends BaseClient {
   constructor(params: ClientParams) {
@@ -19,11 +21,19 @@ export class LokaliseApiOta extends BaseClient {
     return new OtaBundleManagement(this.clientData);
   }
 
+  otaBundlePublishing(): OtaBundlePublishing {
+    return new OtaBundlePublishing(this.clientData);
+  }
+
   otaUsageStatistics(): OtaUsageStatistics {
     return new OtaUsageStatistics(this.clientData);
   }
 
-  sdkTokens(): SdkTokens {
-    return new SdkTokens(this.clientData);
+  otaFreezePeriods(): OtaFreezePeriods {
+    return new OtaFreezePeriods(this.clientData);
+  }
+
+  otaSdkTokens(): OtaSdkTokens {
+    return new OtaSdkTokens(this.clientData);
   }
 }

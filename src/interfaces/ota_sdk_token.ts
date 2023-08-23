@@ -1,4 +1,4 @@
-export interface SdkToken {
+export interface OtaSdkToken {
   id: number;
   token: string;
   projectId: number;
