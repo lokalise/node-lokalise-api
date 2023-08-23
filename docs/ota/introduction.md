@@ -96,6 +96,6 @@ const bundle = await lokaliseOtaBundles.otaBundles().get(
 const url = bundle.url; // "https://ota-bundles.lokalise.com/..."
 ```
 
-That's it.
+That's it. Please note that it might take a while for the SDK token to actually become "active". In other words, right after the token creation you might see 401 errors but these are usually resolved by themselves in 30-60 seconds.
 
 Alternatively, you can generate an OTA SDK token using the Lokalise UI. To achieve that, open your Lokalise project, proceed to **Settings**, find the **Lokalise OTA Tokens** section and click **Generate new token**.
