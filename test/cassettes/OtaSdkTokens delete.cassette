@@ -2,18 +2,18 @@
   {
     "scope": "https://ota.lokalise.com:443",
     "method": "DELETE",
-    "path": "/v3/teams/176692/projects/963054665b7c313dd9b323.35886655/tokens/9428",
+    "path": "/v3/teams/176692/projects/2273827860c1e2473eb195.11207948/tokens/9473",
     "body": "",
     "status": 200,
     "response": {
       "data": {
-        "id": 9428,
+        "id": 9473,
         "deleted": true
       }
     },
     "rawHeaders": [
       "Date",
-      "Tue, 22 Aug 2023 17:56:01 GMT",
+      "Thu, 24 Aug 2023 13:05:20 GMT",
       "Content-Type",
       "application/json; charset=utf-8",
       "Content-Length",
@@ -47,7 +47,7 @@
       "X-XSS-Protection",
       "0",
       "x-request-id",
-      "4013fa21b01681ac67ada1ca03333c88",
+      "4e760912a385f718206c803f2f88e385",
       "Access-Control-Allow-Origin",
       "*",
       "Access-Control-Allow-Credentials",

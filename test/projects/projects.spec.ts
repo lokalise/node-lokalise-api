@@ -102,8 +102,10 @@ describe("Projects", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApi.projects().delete(new_project_id);
-      expect(response.project_id).to.be.equal(new_project_id);
+      const project_to_delete = "8804705664e7542ba911b6.70249100";
+
+      const response = await lokaliseApi.projects().delete(project_to_delete);
+      expect(response.project_id).to.be.equal(project_to_delete);
       expect(response.project_deleted).to.be.true;
     })
     .register(this);

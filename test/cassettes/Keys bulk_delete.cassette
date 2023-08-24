@@ -2,47 +2,56 @@
   {
     "scope": "https://api.lokalise.com:443",
     "method": "DELETE",
-    "path": "/api2/projects/803826145ba90b42d5d860.46800099/keys",
+    "path": "/api2/projects/2273827860c1e2473eb195.11207948/keys",
     "body": {
       "keys": [
-        23646011
+        367899184,
+        367899181
       ]
     },
     "status": 200,
     "response": {
-      "project_id": "803826145ba90b42d5d860.46800099",
+      "project_id": "2273827860c1e2473eb195.11207948",
+      "branch": "master",
       "keys_removed": true,
       "keys_locked": 0
     },
     "rawHeaders": [
-      "Server",
-      "nginx",
       "Date",
-      "Thu, 20 Jun 2019 13:59:56 GMT",
+      "Thu, 24 Aug 2023 13:07:58 GMT",
       "Content-Type",
       "application/json",
       "Transfer-Encoding",
       "chunked",
       "Connection",
       "close",
+      "Server",
+      "nginx",
       "Vary",
       "Accept-Encoding",
-      "Set-Cookie",
-      "PHPSESSID=69318be2c5770f72f1d069993f39c2da; expires=Mon, 19-Aug-2019 13:59:55 GMT; Max-Age=5184000; path=/; secure; HttpOnly",
+      "Cache-Control",
+      "max-age=-172800, must-revalidate, no-cache, no-store, private",
+      "pragma",
+      "no-cache",
+      "Allow",
+      "GET, POST, PUT",
+      "X-Content-Type-Options",
+      "nosniff",
+      "X-Frame-Options",
+      "deny",
+      "X-XSS-Protection",
+      "1; mode=block",
+      "Strict-Transport-Security",
+      "max-age=31536000",
+      "Referrer-Policy",
+      "origin",
+      "X-Lokalise-Process-Id",
+      "4de5bbea-e205-4925-97e9-a090aebfc1ba",
       "Expires",
-      "Thu, 19 Nov 1981 08:52:00 GMT",
-      "Cache-Control",
-      "no-store, no-cache, must-revalidate",
-      "Pragma",
-      "no-cache",
-      "Pragma",
-      "no-cache",
-      "Cache-Control",
-      "no-store, no-cache",
-      "Access-Control-Allow-Origin",
-      "*",
-      "Access-Control-Allow-Headers",
-      "Content-Type"
-    ]
+      "Tue, 22 Aug 2023 13:07:58 GMT",
+      "Set-Cookie",
+      "PHPSESSID=deleted; expires=Wed, 24-Aug-2022 13:07:57 GMT; Max-Age=0; path=/; httponly"
+    ],
+    "responseIsBinary": false
   }
 ]

@@ -9,7 +9,6 @@ describe("OtaSdkTokens", function () {
   const lokaliseApiOta = new LokaliseApiOta({ apiKey: process.env.API_JWT });
   const teamId = 176692;
   const projectId = "963054665b7c313dd9b323.35886655";
-  const tokenId = 9428;
 
   cassette
     .createTest("error", async () => {
@@ -56,12 +55,15 @@ describe("OtaSdkTokens", function () {
 
   cassette
     .createTest("delete", async () => {
-      const response = await lokaliseApiOta.otaSdkTokens().delete(tokenId, {
-        teamId: teamId,
-        lokaliseProjectId: projectId,
-      });
+      const tokenToDelete = 9473;
+      const response = await lokaliseApiOta
+        .otaSdkTokens()
+        .delete(tokenToDelete, {
+          teamId: teamId,
+          lokaliseProjectId: "2273827860c1e2473eb195.11207948",
+        });
 
-      expect(response.id).to.eq(tokenId);
+      expect(response.id).to.eq(tokenToDelete);
       expect(response.deleted).to.be.true;
     })
     .register(this);

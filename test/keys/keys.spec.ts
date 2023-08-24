@@ -255,11 +255,14 @@ describe("Keys", function () {
 
   cassette
     .createTest("bulk_delete", async () => {
-      const response = await lokaliseApi.keys().bulk_delete([23646011], {
-        project_id: project_id,
+      const targetProject = "2273827860c1e2473eb195.11207948";
+      const keyIds = [367899184, 367899181];
+
+      const response = await lokaliseApi.keys().bulk_delete(keyIds, {
+        project_id: targetProject,
       });
 
-      expect(response.project_id).to.eq(project_id);
+      expect(response.project_id).to.eq(targetProject);
       expect(response.keys_removed).to.be.true;
       expect(response.keys_locked).to.eq(0);
     })
