@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "11.0.1",
+  "version": "11.1.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "type": "module",
@@ -47,7 +47,7 @@
     "typescript": "^5.0.0"
   },
   "dependencies": {
-    "got": "^13.0.0"
+    "got": "^12.6.1"
   },
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
