@@ -1,4 +1,4 @@
-import got, { PlainResponse, Options } from "got";
+import { HttpMethod } from "../types/http_method.js";
 import { Keyable, WritableKeyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
 import { LokalisePkg } from "../lokalise/pkg.js";
@@ -6,12 +6,11 @@ import { LokalisePkg } from "../lokalise/pkg.js";
 export class ApiRequest {
   public promise: Promise<any>;
   public params: WritableKeyable = {};
-  protected readonly urlRoot: NonNullable<Options["prefixUrl"]> =
-    "https://api.lokalise.com/api2/";
+  protected readonly urlRoot = "https://api.lokalise.com/api2/";
 
   constructor(
     uri: string,
-    method: Options["method"],
+    method: HttpMethod,
     body: object | object[] | null,
     params: Keyable,
     clientData: ClientData,
@@ -24,55 +23,102 @@ export class ApiRequest {
 
   protected async createPromise(
     uri: string,
-    method: Options["method"],
+    method: HttpMethod,
     body: object | object[] | null,
     clientData: ClientData,
   ): Promise<any> {
     const url = this.composeURI(uri);
 
-    const options = new Options({
+    const prefixUrl = clientData.host ?? this.urlRoot;
+
+    const options: RequestInit = {
       method: method,
-      prefixUrl: clientData.host ?? this.urlRoot,
-      headers: {
-        Accept: "application/json",
-        "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
-      },
-      throwHttpErrors: false,
-      decompress: false,
-      responseType: "text",
-      searchParams: new URLSearchParams(this.params),
-      url: url,
+    };
+
+    const headers = new Headers({
+      Accept: "application/json",
+      "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
     });
 
-    options.headers[
-      clientData.authHeader
-    ] = `${clientData.tokenType} ${clientData.token}`;
+    headers.append(
+      clientData.authHeader,
+      `${clientData.tokenType} ${clientData.token}`,
+    );
 
     if (clientData.enableCompression) {
-      options.headers["Accept-Encoding"] = "gzip,deflate";
-      options.decompress = true;
+      headers.append("Accept-Encoding", "gzip,deflate");
     }
 
     if (method !== "GET" && body) {
       options.body = JSON.stringify(body);
-      options.headers["Content-type"] = "application/json";
+      headers.append("Content-type", "application/json");
     }
 
+    options.headers = headers;
+
+    const target = new URL(url, prefixUrl);
+    target.search = new URLSearchParams(this.params).toString();
+
     try {
-      const response = <PlainResponse>await got(undefined, undefined, options);
+      const response = await fetch(target, options);
 
-      const responseJSON = response.body
-        ? JSON.parse(<string>response.body)
-        : null;
+      const responseJSON = response.body ? await response.json() : null;
 
-      if (response.statusCode > 399) {
-        return Promise.reject(this.getErrorFromResp(responseJSON));
+      if (response.ok) {
+        return Promise.resolve({
+          json: responseJSON,
+          headers: response.headers,
+        });
       }
-      return Promise.resolve({ json: responseJSON, headers: response.headers });
+      return Promise.reject(this.getErrorFromResp(responseJSON));
       /* c8 ignore next 4 */
     } catch (err) {
       return Promise.reject(err);
     }
+
+    // const options = new Options({
+    //   method: method,
+    //   prefixUrl: clientData.host ?? this.urlRoot,
+    //   headers: {
+    //     Accept: "application/json",
+    //     "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
+    //   },
+    //   throwHttpErrors: false,
+    //   decompress: false,
+    //   responseType: "text",
+    //   searchParams: new URLSearchParams(this.params),
+    //   url: url,
+    // });
+
+    // options.headers[
+    //   clientData.authHeader
+    // ] = `${clientData.tokenType} ${clientData.token}`;
+
+    // if (clientData.enableCompression) {
+    //   options.headers["Accept-Encoding"] = "gzip,deflate";
+    //   options.decompress = true;
+    // }
+
+    // if (method !== "GET" && body) {
+    //   options.body = JSON.stringify(body);
+    //   options.headers["Content-type"] = "application/json";
+    // }
+
+    // try {
+    //   const response = <PlainResponse>await got(undefined, undefined, options);
+
+    //   const responseJSON = response.body
+    //     ? JSON.parse(<string>response.body)
+    //     : null;
+
+    //   if (response.statusCode > 399) {
+    //     return Promise.reject(this.getErrorFromResp(responseJSON));
+    //   }
+    //   return Promise.resolve({ json: responseJSON, headers: response.headers });
+    //   /* c8 ignore next 4 */
+    // } catch (err) {
+    //   return Promise.reject(err);
+    // }
   }
 
   protected getErrorFromResp(respJson: any): any {

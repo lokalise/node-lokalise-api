@@ -33,6 +33,6 @@ export declare class UserGroups extends BaseCollection {
     remove_members_from_group(team_id: string | number, group_id: string | number, user_ids: string[] | number[]): Promise<UserGroup>;
     add_projects_to_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
     remove_projects_from_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
-    protected populateGroupFromJsonRoot(json: Keyable, headers: Keyable): this;
+    protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this;
 }
 export {};
