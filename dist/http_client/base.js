@@ -40,48 +40,11 @@ export class ApiRequest {
                 });
             }
             return Promise.reject(this.getErrorFromResp(responseJSON));
-            /* c8 ignore next 4 */
         }
         catch (err) {
-            return Promise.reject(err);
+            console.error(err);
+            return Promise.reject({ message: err.message });
         }
-        // const options = new Options({
-        //   method: method,
-        //   prefixUrl: clientData.host ?? this.urlRoot,
-        //   headers: {
-        //     Accept: "application/json",
-        //     "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
-        //   },
-        //   throwHttpErrors: false,
-        //   decompress: false,
-        //   responseType: "text",
-        //   searchParams: new URLSearchParams(this.params),
-        //   url: url,
-        // });
-        // options.headers[
-        //   clientData.authHeader
-        // ] = `${clientData.tokenType} ${clientData.token}`;
-        // if (clientData.enableCompression) {
-        //   options.headers["Accept-Encoding"] = "gzip,deflate";
-        //   options.decompress = true;
-        // }
-        // if (method !== "GET" && body) {
-        //   options.body = JSON.stringify(body);
-        //   options.headers["Content-type"] = "application/json";
-        // }
-        // try {
-        //   const response = <PlainResponse>await got(undefined, undefined, options);
-        //   const responseJSON = response.body
-        //     ? JSON.parse(<string>response.body)
-        //     : null;
-        //   if (response.statusCode > 399) {
-        //     return Promise.reject(this.getErrorFromResp(responseJSON));
-        //   }
-        //   return Promise.resolve({ json: responseJSON, headers: response.headers });
-        //   /* c8 ignore next 4 */
-        // } catch (err) {
-        //   return Promise.reject(err);
-        // }
     }
     getErrorFromResp(respJson) {
         if (typeof respJson["error"] === "object") {

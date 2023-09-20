@@ -1,10 +1,6 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApiOAuth } from "../../src/lokalise/lokalise_api_oauth.js";
+import { expect, LokaliseApiOAuth, Stub } from "../setup.js";
 
 const token = process.env.OAUTH2_ACCESS_TOKEN;
-const cassette = new Cassettes("./test/cassettes");
 const project_id = "803826145ba90b42d5d860.46800099";
 
 describe("LokaliseApiOAuth", function () {
@@ -30,13 +26,22 @@ describe("LokaliseApiOAuth", function () {
     expect(client.clientData.tokenType).to.eq("Custom");
   });
 
-  cassette
-    .createTest("get project", async () => {
-      const client = new LokaliseApiOAuth({ apiKey: token });
-      const project = await client.projects().get(project_id);
+  it("allows to fetch data with OAuth 2 token", async function () {
+    const stub = new Stub({
+      fixture: "lokalise/project_oauth2.json",
+      uri: `api2/projects/${project_id}`,
+      skipApiToken: true,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      expect(project.project_id).to.equal(project_id);
-      expect(project.project_type).to.equal("localization_files");
-    })
-    .register(this);
+    await stub.setStub();
+
+    const client = new LokaliseApiOAuth({ apiKey: token });
+    const project = await client.projects().get(project_id);
+
+    expect(project.project_id).to.equal(project_id);
+    expect(project.project_type).to.equal("localization_files");
+  });
 });

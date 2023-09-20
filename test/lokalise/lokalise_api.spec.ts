@@ -1,9 +1,5 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import { LokaliseApi, expect, Stub } from "../setup.js";
 
-const cassette = new Cassettes("./test/cassettes");
 const project_id = "803826145ba90b42d5d860.46800099";
 
 describe("LokaliseApi", function () {
@@ -34,57 +30,36 @@ describe("LokaliseApi host", function () {
     });
     expect(client.clientData.host).to.eq("http://example.com");
   });
-
-  cassette
-    .createTest("list_with_gzip", async () => {
-      const client = new LokaliseApi({
-        apiKey: process.env.API_KEY,
-        host: "https://api.lokalise.com/api2/",
-      });
-      const keys = await client.keys().list({ project_id: project_id });
-      expect(keys.items[0].key_id).to.eq(44596059);
-    })
-    .register(this);
 });
 
 describe("LokaliseApi gzip", function () {
-  cassette
-    .createTest("list_with_gzip", async () => {
-      const client = new LokaliseApi({
-        apiKey: process.env.API_KEY,
-        enableCompression: true,
-      });
-      const keys = await client.keys().list({ project_id: project_id });
-      expect(keys.items[0].key_id).to.eq(44596059);
-    })
-    .register(this);
+  it("decompresses", async function () {
+    const stub = new Stub({
+      fixture: "lokalise/contributors.json",
+      query: { limit: 2 },
+      uri: `/api2/projects/${project_id}/contributors`,
+      reqHeaders: {
+        "Accept-Encoding": "gzip,deflate",
+      },
+      respHeaders: {
+        "x-pagination-total-count": "1",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "2",
+        "x-pagination-page-count": "1",
+      },
+    });
 
-  cassette
-    .createTest("system_languages_no_gzip", async () => {
-      const client = new LokaliseApi({
-        apiKey: process.env.API_KEY,
-        enableCompression: false,
-      });
+    await stub.setStub();
 
-      const languages = await client.languages().system_languages({
-        page: 3,
-        limit: 1,
-      });
+    const client = new LokaliseApi({
+      apiKey: process.env.API_KEY,
+      enableCompression: true,
+    });
 
-      expect(languages.items[0].lang_id).to.eq(790);
-    })
-    .register(this);
+    const contributors = await client
+      .contributors()
+      .list({ project_id: project_id, limit: 2 });
 
-  cassette
-    .createTest("system_languages_default_gzip", async () => {
-      const client = new LokaliseApi({ apiKey: process.env.API_KEY });
-
-      const languages = await client.languages().system_languages({
-        page: 4,
-        limit: 1,
-      });
-
-      expect(languages.items[0].lang_id).to.eq(791);
-    })
-    .register(this);
+    expect(contributors.items[0].fullname).to.eq("Ilya B");
+  });
 });

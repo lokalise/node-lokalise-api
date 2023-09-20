@@ -1,70 +1,14 @@
-//import { ApiError } from "../../src/main.js";
-
 import { LokaliseApi, Stub, expect } from "../setup.js";
-import { LokalisePkg } from "../../src/lokalise/pkg.js";
 
 describe("Branches", function () {
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
   const project_id = "803826145ba90b42d5d860.46800099";
   //const branch_id = 41284;
 
-  // cassette
-  //   .createTest("error", async () => {
-  //     await lokaliseApi
-  //       .branches()
-  //       .create(
-  //         {
-  //           name: "hotfix/really-important",
-  //         },
-  //         { project_id: "803" },
-  //       )
-  //       .catch((e: ApiError) => {
-  //         expect(e.code).to.equal(401);
-  //       });
-  //   })
-  //   .register(this);
-
-  // cassette
-  //   .createTest("error plain", async () => {
-  //     await lokaliseApi
-  //       .branches()
-  //       .create(
-  //         {
-  //           name: "hotfix/really-important",
-  //         },
-  //         { project_id: "803" },
-  //       )
-  //       .catch((e: ApiError) => {
-  //         expect(e.code).to.equal(401);
-  //       });
-  //   })
-  //   .register(this);
-
-  // cassette
-  //   .createTest("error 500", async () => {
-  //     await lokaliseApi
-  //       .branches()
-  //       .create(
-  //         {
-  //           name: "hotfix/really-important",
-  //         },
-  //         { project_id: "803" },
-  //       )
-  //       .catch((e: ApiError) => {
-  //         expect(e.message).to.include("Something very bad has happened");
-  //       });
-  //   })
-  //   .register(this);
-
   it("lists", async function () {
     const stub = new Stub({
       fixture: "branches/list.json",
       uri: `/api2/projects/${project_id}/branches`,
-      reqHeaders: {
-        Accept: "application/json",
-        "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
-        "x-api-token": <string>process.env.API_KEY,
-      },
       respHeaders: {
         "x-pagination-total-count": "1",
         "x-pagination-page": "1",
@@ -83,32 +27,40 @@ describe("Branches", function () {
   });
 
   it("lists and paginates", async function () {
-    const branches = await lokaliseApi.branches().list({
-      project_id: project_id,
+    const params = {
       page: 3,
       limit: 1,
+    };
+
+    const stub = new Stub({
+      fixture: "branches/list_pagination.json",
+      query: params,
+      uri: `/api2/projects/${project_id}/branches`,
+      respHeaders: {
+        "x-pagination-total-count": "5",
+        "x-pagination-page": "3",
+        "x-pagination-limit": "1",
+        "x-pagination-page-count": "5",
+      },
     });
-    console.log(branches.totalPages);
+
+    await stub.setStub();
+
+    const branches = await lokaliseApi.branches().list({
+      project_id: project_id,
+      ...params,
+    });
+
+    expect(branches.items[0].name).to.eq("merge-it");
+    expect(branches.totalResults).to.eq(5);
+    expect(branches.totalPages).to.eq(5);
+    expect(branches.resultsPerPage).to.eq(1);
+    expect(branches.currentPage).to.eq(3);
+    expect(branches.hasNextPage()).to.be.true;
+    expect(branches.hasPrevPage()).to.be.true;
+    expect(branches.prevPage()).to.eq(2);
+    expect(branches.nextPage()).to.eq(4);
   });
-
-  // cassette
-  //   .createTest("list_pagination", async () => {
-  //     const branches = await lokaliseApi.branches().list({
-  //       project_id: project_id,
-  //       page: 3,
-  //       limit: 1,
-  //     });
-
-  //     expect(branches.items[0].name).to.eq("merge-me");
-  //     expect(branches.totalResults).to.eq(3);
-  //     expect(branches.totalPages).to.eq(3);
-  //     expect(branches.resultsPerPage).to.eq(1);
-  //     expect(branches.currentPage).to.eq(3);
-  //     expect(branches.hasNextPage()).to.be.false;
-  //     expect(branches.hasPrevPage()).to.be.true;
-  //     expect(branches.prevPage()).to.eq(2);
-  //   })
-  //   .register(this);
 
   // cassette
   //   .createTest("get", async () => {

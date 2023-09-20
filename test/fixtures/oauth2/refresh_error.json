@@ -1,0 +1,6 @@
+{
+  "code": 400,
+  "error": "invalid_request",
+  "error_description": "refresh_token: Refresh token too short",
+  "error_uri": ""
+}
