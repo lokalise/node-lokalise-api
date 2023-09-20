@@ -32,6 +32,7 @@ type StubParams = {
   doFail?: boolean;
   rootUrl?: string;
   skipApiToken?: boolean;
+  version?: string;
 };
 
 class Stub {
@@ -45,6 +46,7 @@ class Stub {
   readonly doFail: boolean;
   readonly rootUrl: string;
   readonly skipApiToken: boolean;
+  readonly version: string;
 
   constructor(params: StubParams) {
     if (params.fixture) {
@@ -63,6 +65,7 @@ class Stub {
     this.doFail = params.doFail ?? false;
     this.rootUrl = params.rootUrl ?? "https://api.lokalise.com";
     this.skipApiToken = params.skipApiToken ?? false;
+    this.version = params.version ?? "api2";
   }
 
   async setStub() {
@@ -70,7 +73,7 @@ class Stub {
 
     const mockOpts: MockInterceptor.Options = {
       method: this.httpMethod,
-      path: this.uriPath,
+      path: `/${this.version}/${this.uriPath}`,
     };
 
     let requestHeaders = {

@@ -1,8 +1,10 @@
 import { LokalisePkg } from "../lokalise/pkg.js";
 export class AuthRequest {
     static urlRoot = "https://app.lokalise.com/oauth2/";
-    static async createPromise(uri, method, body, host) {
-        const prefixUrl = host ?? this.urlRoot;
+    static async createPromise(uri, method, body, clientData) {
+        const prefixUrl = clientData.host ?? this.urlRoot;
+        if (clientData.version)
+            uri = `/${clientData.version}/${uri}`;
         const options = {
             method: method,
             headers: {

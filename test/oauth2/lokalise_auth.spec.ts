@@ -9,8 +9,8 @@ describe("LokaliseAuth", function () {
   const client_id = <string>process.env.OAUTH2_CLIENT_ID;
   const client_secret = <string>process.env.OAUTH2_CLIENT_SECRET;
   const refresh_token = <string>process.env.OAUTH2_REFRESH_TOKEN;
-  const rootUrl = "https://app.lokalise.com";
   const lokaliseAuth = new LokaliseAuth(client_id, client_secret);
+  const rootUrl = lokaliseAuth.authData.host;
 
   describe("constructor", function () {
     it("is expected to throw an error if the client secret is not provided", function () {

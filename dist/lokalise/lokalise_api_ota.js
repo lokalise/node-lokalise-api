@@ -9,8 +9,8 @@ export class LokaliseApiOta extends BaseClient {
         super(params);
         this.clientData.tokenType = params["tokenType"] ?? "Bearer";
         this.clientData.authHeader = "Authorization";
-        this.clientData.host =
-            this.clientData.host ?? "https://ota.lokalise.com/v3";
+        this.clientData.host = this.clientData.host ?? "https://ota.lokalise.com";
+        this.clientData.version = params.version ?? "v3";
     }
     otaBundleManagement() {
         return new OtaBundleManagement(this.clientData);

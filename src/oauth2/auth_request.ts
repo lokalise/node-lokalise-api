@@ -1,5 +1,6 @@
 import { LokalisePkg } from "../lokalise/pkg.js";
 import { HttpMethod } from "../types/http_method.js";
+import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
 
 export class AuthRequest {
   static readonly urlRoot = "https://app.lokalise.com/oauth2/";
@@ -8,9 +9,11 @@ export class AuthRequest {
     uri: string,
     method: HttpMethod,
     body: object | object[] | null,
-    host?: string,
+    clientData: AuthDataInterface,
   ): Promise<any> {
-    const prefixUrl = host ?? this.urlRoot;
+    const prefixUrl = clientData.host ?? this.urlRoot;
+
+    if (clientData.version) uri = `/${clientData.version}/${uri}`;
 
     const options: RequestInit = {
       method: method,

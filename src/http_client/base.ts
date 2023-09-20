@@ -27,6 +27,8 @@ export class ApiRequest {
     body: object | object[] | null,
     clientData: ClientData,
   ): Promise<any> {
+    if (clientData.version) uri = `/${clientData.version}/${uri}`;
+
     const url = this.composeURI(uri);
 
     const prefixUrl = clientData.host ?? this.urlRoot;
@@ -57,6 +59,7 @@ export class ApiRequest {
     options.headers = headers;
 
     const target = new URL(url, prefixUrl);
+
     target.search = new URLSearchParams(this.params).toString();
 
     try {
@@ -94,12 +97,13 @@ export class ApiRequest {
     return (_entity: any, isMandaratory: string, paramName: string): string => {
       if (this.params[paramName] != null) {
         const t_param = this.params[paramName];
+
         // We delete the param so we don't send it as a query param as well.
         delete this.params[paramName];
+
         return t_param;
       } else {
         if (isMandaratory === "!") {
-          /* c8 ignore next */
           throw new Error("Required param " + paramName);
         } else {
           return "";

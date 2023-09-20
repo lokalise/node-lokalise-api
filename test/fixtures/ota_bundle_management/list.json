@@ -1,0 +1,32 @@
+{
+  "data": [
+    {
+      "id": 664864,
+      "projectId": "963054665b7c313dd9b323.35886655",
+      "isPrerelease": true,
+      "isProduction": false,
+      "createdAt": "2023-08-23T15:25:21.521Z",
+      "createdBy": "20181",
+      "framework": "ios_sdk",
+      "description": "",
+      "isFrozen": false,
+      "lokaliseId": 847259,
+      "fileId": "f32370bb-a826-4565-a06a-40155c6b0569",
+      "modifiedAt": "2023-08-23T15:25:21.521Z"
+    },
+    {
+      "id": 664863,
+      "projectId": "963054665b7c313dd9b323.35886655",
+      "isPrerelease": false,
+      "isProduction": true,
+      "createdAt": "2023-08-23T15:25:15.849Z",
+      "createdBy": "20181",
+      "framework": "ios_sdk",
+      "description": "",
+      "isFrozen": false,
+      "lokaliseId": 847258,
+      "fileId": "7a27461c-0887-4da9-8276-fa9bf084669f",
+      "modifiedAt": "2023-08-23T15:25:21.521Z"
+    }
+  ]
+}

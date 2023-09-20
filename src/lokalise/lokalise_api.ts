@@ -28,6 +28,7 @@ export { ClientParams };
 export class LokaliseApi extends BaseClient {
   constructor(params: ClientParams) {
     super(params);
+    this.clientData.version = params.version ?? "api2";
   }
 
   branches(): Branches {

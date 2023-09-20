@@ -15,7 +15,12 @@ export class LokaliseAuth {
    * @param clientSecret  string, mandatory
    * @returns             LokaliseAuth object to work with.
    */
-  constructor(clientId: string, clientSecret: string, host?: string) {
+  constructor(
+    clientId: string,
+    clientSecret: string,
+    host?: string,
+    version?: string,
+  ) {
     if (
       clientId == null ||
       clientId.length == 0 ||
@@ -29,7 +34,8 @@ export class LokaliseAuth {
 
     this.authData.client_id = clientId;
     this.authData.client_secret = clientSecret;
-    this.authData.host = host;
+    this.authData.host = host ?? "https://app.lokalise.com";
+    this.authData.version = version ?? "oauth2";
   }
 
   auth(
@@ -87,7 +93,7 @@ export class LokaliseAuth {
         "token",
         "POST",
         params,
-        this.authData.host,
+        this.authData,
       );
       return Promise.resolve(data["json"]);
     } catch (err) {
