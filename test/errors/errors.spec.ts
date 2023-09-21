@@ -4,7 +4,7 @@ import { LokaliseApi, Stub, expect } from "../setup.js";
 
 describe("Branches", function () {
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-
+  
   it("handles exceptions", async function () {
     const fakeProjectId = "803";
 
