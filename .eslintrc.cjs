@@ -17,7 +17,7 @@ module.exports = {
     "prettier",
   ],
   rules: {
-    "prettier/prettier": "error",
+    "prettier/prettier": "warn",
     "@typescript-eslint/consistent-type-assertions": [
       "warn",
       {
@@ -30,6 +30,7 @@ module.exports = {
       "always",
       { tryExtensions: [".js", ".json", ".node"] },
     ],
+    "@typescript-eslint/no-unused-vars": "off",
     "node/no-missing-import": "off",
     "node/no-unpublished-import": ["off"],
     "import/no-unresolved": "error",

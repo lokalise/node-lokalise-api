@@ -78,6 +78,7 @@ export abstract class BaseCollection {
     const params = {
       ...req_params,
     };
+
     return this.createPromise(
       "POST",
       params,

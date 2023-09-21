@@ -18,7 +18,7 @@
   ],
   "scripts": {
     "build": "tsc",
-    "test": "tsc && c8 --reporter=lcov ts-mocha -n loader=ts-node/esm -p tsconfig.json --type-check test/branches/branches.spec.ts --timeout 10000"
+    "test": "tsc && c8 --reporter=lcov ts-mocha -n loader=ts-node/esm -p tsconfig.json --type-check test/contributors/contributors.spec.ts --timeout 10000"
   },
   "devDependencies": {
     "@types/chai": "^4.2.22",

@@ -65,6 +65,7 @@ export class ApiRequest {
     try {
       const response = await fetch(target, options);
       const responseJSON = response.body ? await response.json() : null;
+      //console.log(responseJSON);
 
       if (response.ok) {
         return Promise.resolve({

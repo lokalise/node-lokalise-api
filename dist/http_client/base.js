@@ -35,6 +35,7 @@ export class ApiRequest {
         try {
             const response = await fetch(target, options);
             const responseJSON = response.body ? await response.json() : null;
+            //console.log(responseJSON);
             if (response.ok) {
                 return Promise.resolve({
                     json: responseJSON,
@@ -71,7 +72,6 @@ export class ApiRequest {
             }
             else {
                 if (isMandaratory === "!") {
-                    /* c8 ignore next */
                     throw new Error("Required param " + paramName);
                 }
                 else {
