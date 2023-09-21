@@ -1,4 +1,5 @@
 import { LokalisePkg } from "../lokalise/pkg.js";
+import util from "util";
 export class ApiRequest {
     promise;
     params = {};
@@ -35,7 +36,7 @@ export class ApiRequest {
         try {
             const response = await fetch(target, options);
             const responseJSON = response.body ? await response.json() : null;
-            //console.log(responseJSON);
+            console.log(util.inspect(responseJSON, false, null, true));
             if (response.ok) {
                 return Promise.resolve({
                     json: responseJSON,

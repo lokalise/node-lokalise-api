@@ -1,0 +1,65 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "keys": [
+    {
+      "key_id": 15519786,
+      "created_at": "2018-12-09 18:39:20 (Etc/UTC)",
+      "created_at_timestamp": 1544380760,
+      "key_name": {
+        "ios": "another_k",
+        "android": "another_k",
+        "web": "another_k",
+        "other": "another_k"
+      },
+      "filenames": {
+        "ios": "",
+        "android": "",
+        "web": "",
+        "other": ""
+      },
+      "description": "",
+      "platforms": [
+        "ios"
+      ],
+      "tags": [],
+      "is_plural": false,
+      "plural_name": "",
+      "is_hidden": false,
+      "is_archived": false,
+      "context": "",
+      "base_words": 3,
+      "char_limit": 0,
+      "custom_attributes": ""
+    },
+    {
+      "key_id": 15571975,
+      "created_at": "2018-12-10 17:35:34 (Etc/UTC)",
+      "created_at_timestamp": 1544463334,
+      "key_name": {
+        "ios": "rspec k",
+        "android": "rspec k",
+        "web": "rspec k",
+        "other": "rspec k"
+      },
+      "filenames": {
+        "ios": "",
+        "android": "",
+        "web": "",
+        "other": ""
+      },
+      "description": "My description",
+      "platforms": [
+        "web"
+      ],
+      "tags": [],
+      "is_plural": false,
+      "plural_name": "",
+      "is_hidden": false,
+      "is_archived": false,
+      "context": "",
+      "base_words": 5,
+      "char_limit": 0,
+      "custom_attributes": ""
+    }
+  ]
+}

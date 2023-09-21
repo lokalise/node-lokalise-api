@@ -2,7 +2,7 @@ import { HttpMethod } from "../types/http_method.js";
 import { Keyable, WritableKeyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
 import { LokalisePkg } from "../lokalise/pkg.js";
-
+import util from "util";
 export class ApiRequest {
   public promise: Promise<any>;
   public params: WritableKeyable = {};
@@ -65,7 +65,7 @@ export class ApiRequest {
     try {
       const response = await fetch(target, options);
       const responseJSON = response.body ? await response.json() : null;
-      //console.log(responseJSON);
+      console.log(util.inspect(responseJSON, false, null, true));
 
       if (response.ok) {
         return Promise.resolve({
