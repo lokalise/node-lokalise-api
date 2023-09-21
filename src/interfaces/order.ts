@@ -22,4 +22,5 @@ export interface Order {
   briefing: string;
   is_saved_to_translation_memory: boolean;
   total: number;
+  dry_run: boolean;
 }
