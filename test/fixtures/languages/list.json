@@ -1,0 +1,40 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "languages": [
+    {
+      "lang_id": 803,
+      "lang_iso": "sq",
+      "lang_name": "Albanian",
+      "is_rtl": false,
+      "plural_forms": [
+        "one",
+        "other"
+      ]
+    },
+    {
+      "lang_id": 731,
+      "lang_iso": "ar_001",
+      "lang_name": "Arabic (World)",
+      "is_rtl": true,
+      "plural_forms": [
+        "zero",
+        "one",
+        "two",
+        "few",
+        "many",
+        "other"
+      ]
+    },
+    {
+      "lang_id": 640,
+      "lang_iso": "en",
+      "lang_name": "English",
+      "is_rtl": false,
+      "plural_forms": [
+        "one",
+        "other"
+      ]
+    }
+  ]
+}

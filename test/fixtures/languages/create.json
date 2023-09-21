@@ -1,0 +1,17 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "languages": [
+    {
+      "lang_id": 910,
+      "lang_iso": "ak",
+      "lang_name": "Akan",
+      "is_rtl": false,
+      "plural_forms": [
+        "one",
+        "other"
+      ]
+    }
+  ],
+  "errors": []
+}
