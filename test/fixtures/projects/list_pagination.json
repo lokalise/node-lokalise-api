@@ -1,0 +1,75 @@
+{
+  "projects": [
+    {
+      "project_id": "71749499610303a83ad8a2.67103833",
+      "project_type": "localization_files",
+      "name": "Blog",
+      "description": "",
+      "created_at": "2021-07-29 19:38:16 (Etc/UTC)",
+      "created_at_timestamp": 1627587496,
+      "created_by": 20181,
+      "created_by_email": "bodrovis@protonmail.com",
+      "team_id": 176692,
+      "base_language_id": 640,
+      "base_language_iso": "en",
+      "settings": {
+        "per_platform_key_names": false,
+        "reviewing": true,
+        "auto_toggle_unverified": true,
+        "offline_translation": true,
+        "key_editing": true,
+        "inline_machine_translations": true,
+        "branching": true,
+        "segmentation": false,
+        "contributor_preview_download_enabled": false,
+        "custom_translation_statuses": false,
+        "custom_translation_statuses_allow_multiple": false
+      },
+      "statistics": {
+        "progress_total": 65,
+        "keys_total": 60,
+        "team": 3,
+        "base_words": 293,
+        "qa_issues_total": 307,
+        "qa_issues": {
+          "not_reviewed": 180,
+          "unverified": 120,
+          "spelling_grammar": 7,
+          "inconsistent_placeholders": 0,
+          "inconsistent_html": 0,
+          "different_number_of_urls": 0,
+          "different_urls": 0,
+          "leading_whitespace": 0,
+          "trailing_whitespace": 0,
+          "different_number_of_email_address": 0,
+          "different_email_address": 0,
+          "different_brackets": 0,
+          "different_numbers": 0,
+          "double_space": 0,
+          "special_placeholder": 0,
+          "unbalanced_brackets": 0
+        },
+        "languages": [
+          {
+            "language_id": 640,
+            "language_iso": "en",
+            "progress": 96,
+            "words_to_do": 0
+          },
+          {
+            "language_id": 673,
+            "language_iso": "fr",
+            "progress": 0,
+            "words_to_do": 293
+          },
+          {
+            "language_id": 597,
+            "language_iso": "ru",
+            "progress": 99,
+            "words_to_do": 1
+          }
+        ]
+      }
+    }
+  ]
+}
