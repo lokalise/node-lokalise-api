@@ -1,0 +1,12 @@
+{
+  "user_id": 20181,
+  "payment_cards": [
+    {
+      "card_id": 2185,
+      "last4": "8148",
+      "brand": "MasterCard",
+      "created_at": "2019-06-19 15:51:54 (Etc/UTC)",
+      "created_at_timestamp": 1560959514
+    }
+  ]
+}

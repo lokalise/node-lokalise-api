@@ -18,7 +18,7 @@ import { HttpMethod } from "../src/types/http_method.js";
 
 const mockAgent = new MockAgent();
 setGlobalDispatcher(mockAgent);
-mockAgent.disableNetConnect();
+// mockAgent.disableNetConnect();
 
 type StubParams = {
   uri: string;
