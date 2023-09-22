@@ -1,65 +1,124 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import { LokaliseApi, Stub, expect } from "../setup.js";
+import { Project } from "../../src/main.js";
 
 describe("Snapshots", function () {
-  const cassette = new Cassettes("./test/cassettes");
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-  const project_id = "803826145ba90b42d5d860.46800099";
-  const snapshot_id = 27882;
-  const new_snapshot_id = 89351;
+  const projectId = "803826145ba90b42d5d860.46800099";
+  const snapshotId = 516514;
+  const newSnapshotId = 2533466;
 
-  cassette
-    .createTest("list", async () => {
-      const snapshots = await lokaliseApi.snapshots().list({
-        project_id: project_id,
-        page: 1,
-        limit: 1,
+  it("lists", async function () {
+    const stub = new Stub({
+      fixture: "snapshots/list.json",
+      uri: `projects/${projectId}/snapshots`,
+      respHeaders: {
+        "x-pagination-total-count": "1",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "500",
+        "x-pagination-page-count": "1",
+      },
+    });
+
+    await stub.setStub();
+
+    const snapshots = await lokaliseApi.snapshots().list({
+      project_id: projectId,
+    });
+
+    expect(snapshots.items[0].snapshot_id).to.eq(27882);
+    expect(snapshots.items[1].snapshot_id).to.eq(243330);
+  });
+
+  it("lists and paginates", async function () {
+    const params = {
+      page: 2,
+      limit: 2,
+    };
+
+    const stub = new Stub({
+      fixture: "snapshots/list_pagination.json",
+      uri: `projects/${projectId}/snapshots`,
+      query: params,
+      respHeaders: {
+        "x-pagination-total-count": "5",
+        "x-pagination-page": "2",
+        "x-pagination-limit": "2",
+        "x-pagination-page-count": "3",
+      },
+    });
+
+    await stub.setStub();
+
+    const snapshots = await lokaliseApi.snapshots().list({
+      project_id: projectId,
+      ...params,
+    });
+
+    expect(snapshots.items[0].snapshot_id).to.eq(snapshotId);
+    expect(snapshots.totalResults).to.eq(5);
+    expect(snapshots.totalPages).to.eq(3);
+    expect(snapshots.resultsPerPage).to.eq(2);
+    expect(snapshots.currentPage).to.eq(2);
+  });
+
+  it("creates", async function () {
+    const params = { title: "API snapshot" };
+
+    const stub = new Stub({
+      fixture: "snapshots/create.json",
+      uri: `projects/${projectId}/snapshots`,
+      body: params,
+      method: "POST",
+    });
+
+    await stub.setStub();
+
+    const snapshot = await lokaliseApi.snapshots().create(params, {
+      project_id: projectId,
+    });
+
+    expect(snapshot.snapshot_id).to.eq(newSnapshotId);
+    expect(snapshot.title).to.eq("API snapshot");
+    expect(snapshot.created_by).to.eq(20181);
+    expect(snapshot.created_by_email).to.eq("bodrovis@protonmail.com");
+    expect(snapshot.created_at).to.eq("2023-09-22 10:44:14 (Etc/UTC)");
+    expect(snapshot.created_at_timestamp).to.eq(1695379454);
+  });
+
+  it("restores", async function () {
+    const stub = new Stub({
+      fixture: "snapshots/restore.json",
+      uri: `projects/${projectId}/snapshots/${newSnapshotId}`,
+      method: "POST",
+    });
+
+    await stub.setStub();
+
+    const project: Project = await lokaliseApi
+      .snapshots()
+      .restore(newSnapshotId, {
+        project_id: projectId,
       });
 
-      expect(snapshots.items[0].snapshot_id).to.eq(snapshot_id);
-      expect(snapshots.totalResults).to.eq(1);
-      expect(snapshots.totalPages).to.eq(1);
-      expect(snapshots.resultsPerPage).to.eq(1);
-      expect(snapshots.currentPage).to.eq(1);
-    })
-    .register(this);
+    expect(project.project_id).not.to.eq(projectId);
+    expect(project.name).to.eq("Demo Phoenix copy");
+  });
 
-  cassette
-    .createTest("create", async () => {
-      const snapshot = await lokaliseApi
-        .snapshots()
-        .create({ title: "API snapshot" }, { project_id: project_id });
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "snapshots/delete.json",
+      uri: `projects/${projectId}/snapshots/${newSnapshotId}`,
+      method: "DELETE",
+    });
 
-      expect(snapshot.snapshot_id).to.eq(new_snapshot_id);
-      expect(snapshot.title).to.eq("API snapshot");
-      expect(snapshot.created_by).to.eq(20181);
-      expect(snapshot.created_by_email).to.eq("bodrovis@protonmail.com");
-      expect(snapshot.created_at).to.eq("2019-06-20 15:01:49 (Etc/UTC)");
-      expect(snapshot.created_at_timestamp).to.eq(1561042909);
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("restore", async () => {
-      const response = await lokaliseApi.snapshots().restore(1570516, {
-        project_id: "26981059635185cc13e557.06057938",
-      });
+    const response = await lokaliseApi.snapshots().delete(newSnapshotId, {
+      project_id: projectId,
+    });
 
-      expect(response.project_id).not.to.eq("531138705d0ba0c18f5b43.63503311");
-      expect(response.name).to.eq("Node updated copy");
-    })
-    .register(this);
-
-  cassette
-    .createTest("delete", async () => {
-      const response = await lokaliseApi.snapshots().delete(new_snapshot_id, {
-        project_id: project_id,
-      });
-
-      expect(response.project_id).to.eq(project_id);
-      expect(response.snapshot_deleted).to.be.true;
-    })
-    .register(this);
+    expect(response.project_id).to.eq(projectId);
+    expect(response.snapshot_deleted).to.be.true;
+    expect(response.branch).to.eq("master");
+  });
 });

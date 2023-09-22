@@ -1,0 +1,42 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "translations": [
+    {
+      "translation_id": 304581213,
+      "segment_number": 1,
+      "key_id": 44596059,
+      "language_iso": "sq",
+      "translation": "",
+      "modified_by": 20181,
+      "modified_by_email": "bodrovis@protonmail.com",
+      "modified_at": "2020-05-11 11:20:33 (Etc/UTC)",
+      "modified_at_timestamp": 1589196033,
+      "is_reviewed": false,
+      "reviewed_by": 0,
+      "is_unverified": false,
+      "is_fuzzy": false,
+      "words": 0,
+      "custom_translation_statuses": [],
+      "task_id": null
+    },
+    {
+      "translation_id": 304581219,
+      "segment_number": 1,
+      "key_id": 44596060,
+      "language_iso": "en",
+      "translation": "{\"one\":\"One error prohibited this feedback from being saved\",\"other\":\"%{count} errors prohibited this feedback from being saved\"}",
+      "modified_by": 20181,
+      "modified_by_email": "bodrovis@protonmail.com",
+      "modified_at": "2021-08-31 11:21:17 (Etc/UTC)",
+      "modified_at_timestamp": 1630408877,
+      "is_reviewed": false,
+      "reviewed_by": 0,
+      "is_unverified": false,
+      "is_fuzzy": false,
+      "words": 15,
+      "custom_translation_statuses": [],
+      "task_id": null
+    }
+  ]
+}

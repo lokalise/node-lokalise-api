@@ -1,110 +1,167 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import { LokaliseApi, Stub, expect } from "../setup.js";
 
 describe("Webhooks", function () {
-  const cassette = new Cassettes("./test/cassettes");
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-  const project_id = "803826145ba90b42d5d860.46800099";
-  const webhook_id = "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a";
-  const new_webhook_id = "fb60b95ff86631c9f4df2fb8f5e77ba879cf9156";
+  const projectId = "803826145ba90b42d5d860.46800099";
+  const webhookId = "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a";
+  const newWebhookId = "85b5793926ba936d1a5ca100ec96c0884b9b7f64";
 
-  cassette
-    .createTest("list", async () => {
-      const webhooks = await lokaliseApi.webhooks().list({
-        project_id: project_id,
+  it("lists", async function () {
+    const stub = new Stub({
+      fixture: "webhooks/list.json",
+      uri: `projects/${projectId}/webhooks`,
+      respHeaders: {
+        "x-pagination-total-count": "2",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "500",
+        "x-pagination-page-count": "1",
+      },
+    });
+
+    await stub.setStub();
+
+    const webhooks = await lokaliseApi.webhooks().list({
+      project_id: projectId,
+    });
+
+    expect(webhooks.items[0].url).to.eq("https://serios.webhook");
+  });
+
+  it("lists and pagination", async function () {
+    const params = {
+      page: 2,
+      limit: 2,
+    };
+
+    const stub = new Stub({
+      fixture: "webhooks/list_pagination.json",
+      uri: `projects/${projectId}/webhooks`,
+      query: params,
+      respHeaders: {
+        "x-pagination-total-count": "2",
+        "x-pagination-page": "2",
+        "x-pagination-limit": "2",
+        "x-pagination-page-count": "2",
+      },
+    });
+
+    await stub.setStub();
+
+    const webhooks = await lokaliseApi.webhooks().list({
+      project_id: projectId,
+      ...params,
+    });
+
+    expect(webhooks.items[0].url).to.eq("http://node.hook");
+    expect(webhooks.totalResults).to.eq(2);
+    expect(webhooks.totalPages).to.eq(2);
+    expect(webhooks.resultsPerPage).to.eq(2);
+    expect(webhooks.currentPage).to.eq(2);
+  });
+
+  it("retrieves", async function () {
+    const stub = new Stub({
+      fixture: "webhooks/retrieve.json",
+      uri: `projects/${projectId}/webhooks/${webhookId}`,
+    });
+
+    await stub.setStub();
+
+    const webhook = await lokaliseApi.webhooks().get(webhookId, {
+      project_id: projectId,
+    });
+
+    expect(webhook.webhook_id).to.eq(webhookId);
+    expect(webhook.url).to.eq("https://serios.webhook");
+    expect(webhook.branch).to.eq(null);
+    expect(webhook.secret).to.eq("42fd07785e2e281602d75c9044add68a15f454dc");
+    expect(webhook.events[0]).to.eq("project.imported");
+    expect(webhook.event_lang_map[0].event).to.eq(
+      "project.translation.updated",
+    );
+  });
+
+  it("creates", async function () {
+    const params = {
+      url: "https://bodrovis.tech/lokalise",
+      events: ["project.exported"],
+    };
+
+    const stub = new Stub({
+      fixture: "webhooks/create.json",
+      uri: `projects/${projectId}/webhooks`,
+      body: params,
+      method: "POST",
+    });
+
+    await stub.setStub();
+
+    const webhook = await lokaliseApi
+      .webhooks()
+      .create(params, { project_id: projectId });
+
+    expect(webhook.webhook_id).to.eq(newWebhookId);
+    expect(webhook.url).to.eq(params.url);
+    expect(webhook.events[0]).to.eq("project.exported");
+  });
+
+  it("updates", async function () {
+    const params = {
+      url: "https://bodrovis.tech/lokalise",
+      events: ["project.snapshot"],
+    };
+
+    const stub = new Stub({
+      fixture: "webhooks/update.json",
+      uri: `projects/${projectId}/webhooks/${newWebhookId}`,
+      body: params,
+      method: "PUT",
+    });
+
+    await stub.setStub();
+
+    const webhook = await lokaliseApi
+      .webhooks()
+      .update(newWebhookId, params, { project_id: projectId });
+
+    expect(webhook.webhook_id).to.eq(newWebhookId);
+    expect(webhook.url).to.eq(params.url);
+    expect(webhook.events[0]).to.eq("project.snapshot");
+  });
+
+  it("regenerates secrets", async function () {
+    const stub = new Stub({
+      fixture: "webhooks/regenerate_secret.json",
+      uri: `projects/${projectId}/webhooks/${newWebhookId}/secret/regenerate`,
+      method: "PATCH",
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApi
+      .webhooks()
+      .regenerate_secret(newWebhookId, {
+        project_id: projectId,
       });
 
-      expect(webhooks.items[0].url).to.eq("https://serios.webhook");
-    })
-    .register(this);
+    expect(response.project_id).to.eq(projectId);
+    expect(response.secret).to.eq("18f078b45fbaba782f768324c031080eee0040c7");
+  });
 
-  cassette
-    .createTest("list_pagination", async () => {
-      const webhooks = await lokaliseApi.webhooks().list({
-        project_id: project_id,
-        page: 2,
-        limit: 1,
-      });
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "webhooks/delete.json",
+      uri: `projects/${projectId}/webhooks/${newWebhookId}`,
+      method: "DELETE",
+    });
 
-      expect(webhooks.items[0].url).to.eq("https://canihaz.hook");
-      expect(webhooks.totalResults).to.eq(2);
-      expect(webhooks.totalPages).to.eq(2);
-      expect(webhooks.resultsPerPage).to.eq(1);
-      expect(webhooks.currentPage).to.eq(2);
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("get", async () => {
-      const webhook = await lokaliseApi.webhooks().get(webhook_id, {
-        project_id: project_id,
-      });
+    const response = await lokaliseApi.webhooks().delete(newWebhookId, {
+      project_id: projectId,
+    });
 
-      expect(webhook.webhook_id).to.eq(webhook_id);
-      expect(webhook.url).to.eq("https://serios.webhook");
-      expect(webhook.secret).to.eq("5efb67362d6408c43e2cc541729e07925cf636d1");
-      expect(webhook.webhook_id).to.eq(webhook_id);
-      expect(webhook.events[0]).to.eq("project.imported");
-      expect(webhook.event_lang_map[0].event).to.eq(
-        "project.translation.updated",
-      );
-    })
-    .register(this);
-
-  cassette
-    .createTest("create", async () => {
-      const webhook = await lokaliseApi
-        .webhooks()
-        .create(
-          { url: "http://node.hook", events: ["project.exported"] },
-          { project_id: project_id },
-        );
-
-      expect(webhook.webhook_id).to.eq(new_webhook_id);
-      expect(webhook.url).to.eq("http://node.hook");
-      expect(webhook.events[0]).to.eq("project.exported");
-    })
-    .register(this);
-
-  cassette
-    .createTest("update", async () => {
-      const webhook = await lokaliseApi
-        .webhooks()
-        .update(
-          new_webhook_id,
-          { url: "http://hook.node", events: ["project.snapshot"] },
-          { project_id: project_id },
-        );
-
-      expect(webhook.webhook_id).to.eq(new_webhook_id);
-      expect(webhook.url).to.eq("http://hook.node");
-      expect(webhook.events[0]).to.eq("project.snapshot");
-    })
-    .register(this);
-
-  cassette
-    .createTest("delete", async () => {
-      const response = await lokaliseApi.webhooks().delete(new_webhook_id, {
-        project_id: project_id,
-      });
-
-      expect(response.project_id).to.eq(project_id);
-      expect(response.webhook_deleted).to.eq(true);
-    })
-    .register(this);
-
-  cassette
-    .createTest("regenerate_secret", async () => {
-      const response = await lokaliseApi
-        .webhooks()
-        .regenerate_secret("795565582e5ab15a59bb68156c7e2e9eaa1e8d1a", {
-          project_id: project_id,
-        });
-
-      expect(response.project_id).to.eq(project_id);
-      expect(response.secret).to.eq("8c91d28b46a8874c7ef0064494587b83944675ab");
-    })
-    .register(this);
+    expect(response.project_id).to.eq(projectId);
+    expect(response.webhook_deleted).to.eq(true);
+  });
 });

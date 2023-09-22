@@ -6,12 +6,13 @@ describe("OtaBundleManagement", function () {
   const rootUrl = lokaliseApiOta.clientData.host;
   const teamId = 176692;
   const projectId = "88628569645b945648b474.25982965";
-  // const bundleId = 664595;
+  const bundleId = 680066;
 
   it("lists", async function () {
     const stub = new Stub({
       fixture: "ota_bundle_management/list.json",
-      uri: `/v3/teams/${teamId}/projects/${projectId}/bundles`,
+      uri: `teams/${teamId}/projects/${projectId}/bundles`,
+      version: "v3",
       skipApiToken: true,
       rootUrl,
       reqHeaders: {
@@ -26,79 +27,99 @@ describe("OtaBundleManagement", function () {
       lokaliseProjectId: projectId,
     });
 
-    expect(bundles.length).to.eq(2);
+    expect(bundles.length).to.eq(1);
 
     const bundle = bundles[0];
-    expect(bundle.id).to.eq(664864);
+    expect(bundle.id).to.eq(bundleId);
   });
-  // cassette
-  //   .createTest("list", async () => {
-  //     const bundles = await lokaliseApiOta.otaBundleManagement().list({
-  //       teamId: teamId,
-  //       lokaliseProjectId: projectId,
-  //     });
 
-  //     expect(bundles.length).to.eq(2);
+  it("retrieves", async function () {
+    const stub = new Stub({
+      fixture: "ota_bundle_management/retrieve.json",
+      uri: `teams/${teamId}/projects/${projectId}/bundles/${bundleId}`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  //     const bundle = bundles[0];
-  //     expect(bundle.id).to.eq(664864);
-  //   })
-  //   .register(this);
+    await stub.setStub();
 
-  // cassette
-  //   .createTest("get", async () => {
-  //     const bundle = await lokaliseApiOta.otaBundleManagement().get(bundleId, {
-  //       teamId: teamId,
-  //       lokaliseProjectId: projectId,
-  //     });
+    const bundle = await lokaliseApiOta.otaBundleManagement().get(bundleId, {
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+    });
 
-  //     expect(bundle.id).to.eq(bundleId);
-  //     expect(bundle.projectId).to.eq(projectId);
-  //     expect(bundle.isPrerelease).to.eq(true);
-  //     expect(bundle.isProduction).to.eq(true);
-  //     expect(bundle.createdAt).to.eq("2023-08-23T11:21:29.827Z");
-  //     expect(bundle.createdBy).to.eq("20181");
-  //     expect(bundle.framework).to.eq("android_sdk");
-  //     expect(bundle.description).to.eq("android_demo");
-  //     expect(bundle.isFrozen).to.eq(false);
-  //     expect(bundle.lokaliseId).to.eq(null);
-  //     expect(bundle.fileId).to.eq("843d1a17-306e-426e-b709-13fce39a8549");
-  //     expect(bundle.modifiedAt).to.eq("2023-08-23T11:21:29.827Z");
-  //     expect(bundle.fileUrl).to.include("ota-bundles.lokalise.com");
-  //   })
-  //   .register(this);
+    expect(bundle.id).to.eq(bundleId);
+    expect(bundle.projectId).to.eq(projectId);
+    expect(bundle.isPrerelease).to.eq(true);
+    expect(bundle.isProduction).to.eq(true);
+    expect(bundle.createdAt).to.eq("2023-09-20T13:39:20.469Z");
+    expect(bundle.createdBy).to.eq("20181");
+    expect(bundle.framework).to.eq("ios_sdk");
+    expect(bundle.description).to.eq("");
+    expect(bundle.isFrozen).to.eq(false);
+    expect(bundle.lokaliseId).to.eq(859006);
+    expect(bundle.fileId).to.eq("9b946841-a83c-4353-be2c-13f387406e6d");
+    expect(bundle.modifiedAt).to.eq("2023-09-20T13:39:20.469Z");
+    expect(bundle.fileUrl).to.include("ota-bundles.lokalise.com");
+  });
 
-  // cassette
-  //   .createTest("delete", async () => {
-  //     const tokenIdDelete = 664594;
-  //     const response = await lokaliseApiOta
-  //       .otaBundleManagement()
-  //       .delete(tokenIdDelete, {
-  //         teamId: teamId,
-  //         lokaliseProjectId: projectId,
-  //       });
+  it("updates", async function () {
+    const params = {
+      description: "updated!",
+    };
 
-  //     expect(response.id).to.eq(tokenIdDelete);
-  //     expect(response.deleted).to.be.true;
-  //   })
-  //   .register(this);
+    const stub = new Stub({
+      fixture: "ota_bundle_management/update.json",
+      uri: `teams/${teamId}/projects/${projectId}/bundles/${bundleId}`,
+      version: "v3",
+      skipApiToken: true,
+      body: params,
+      method: "PATCH",
+      rootUrl,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  // cassette
-  //   .createTest("update", async () => {
-  //     const desc = "Node_updated";
+    await stub.setStub();
 
-  //     const bundle = await lokaliseApiOta.otaBundleManagement().update(
-  //       bundleId,
-  //       {
-  //         description: desc,
-  //       },
-  //       {
-  //         teamId: teamId,
-  //         lokaliseProjectId: projectId,
-  //       },
-  //     );
+    const bundle = await lokaliseApiOta
+      .otaBundleManagement()
+      .update(bundleId, params, {
+        teamId: teamId,
+        lokaliseProjectId: projectId,
+      });
 
-  //     expect(bundle.description).to.eq(desc);
-  //   })
-  //   .register(this);
+    expect(bundle.description).to.eq(params.description);
+  });
+
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "ota_bundle_management/delete.json",
+      uri: `teams/${teamId}/projects/${projectId}/bundles/${bundleId}`,
+      version: "v3",
+      skipApiToken: true,
+      method: "DELETE",
+      rootUrl,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApiOta
+      .otaBundleManagement()
+      .delete(bundleId, {
+        teamId: teamId,
+        lokaliseProjectId: projectId,
+      });
+
+    expect(response.id).to.eq(bundleId);
+    expect(response.deleted).to.be.true;
+  });
 });

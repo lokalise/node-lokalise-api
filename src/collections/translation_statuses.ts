@@ -17,6 +17,7 @@ type UpdateTranslationStatusParams = {
 type TranslationStatusDeleted = {
   project_id: string;
   custom_translation_status_deleted: boolean;
+  branch?: string;
 };
 
 type TranslationStatusColors = {

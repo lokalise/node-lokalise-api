@@ -12,7 +12,7 @@ describe("Branches", function () {
       respHeaders: {
         "x-pagination-total-count": "1",
         "x-pagination-page": "1",
-        "x-pagination-limit": "100",
+        "x-pagination-limit": "500",
         "x-pagination-page-count": "1",
       },
     });

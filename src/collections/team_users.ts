@@ -3,10 +3,7 @@ import { TeamUser } from "../models/team_user.js";
 import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { TeamOnly } from "../interfaces/team_only.js";
-
-type TeamUserParams = {
-  role?: "owner" | "admin" | "member" | "biller";
-};
+import { TeamUserParams } from "../types/team_user_params.js";
 
 type TeamUserDeleted = {
   team_id: string;
