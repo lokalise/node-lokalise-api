@@ -7,6 +7,10 @@
 * Fully rewrite tests, use stubs instead of cassettes.
 * Test only with Node 18+.
 
+## 11.1.0 (19-Sep-2023)
+
+* Revert to Got 12 as the newer version causes issues with types. We will probably switch to the Fetch API in one on the next major releases.
+
 ## 11.0.1 (23-Aug-2023)
 
 * Fix certain edge cases for OTA endpoints when the body is not present
