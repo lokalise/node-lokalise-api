@@ -1,5 +1,5 @@
-import { Options } from "got";
+import { HttpMethod } from "../types/http_method.js";
+import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
 export declare class AuthRequest {
-    static readonly urlRoot: NonNullable<Options["prefixUrl"]>;
-    static createPromise(uri: string, method: Options["method"], body: object | object[] | null, host?: string): Promise<any>;
+    static createPromise(uri: string, method: HttpMethod, body: object | object[] | null, clientData: AuthDataInterface): Promise<any>;
 }

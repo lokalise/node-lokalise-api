@@ -1,0 +1,31 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "files": [
+    {
+      "file_id": 81446,
+      "filename": "%LANG_ISO%.yml",
+      "key_count": 66
+    },
+    {
+      "file_id": 325512,
+      "filename": "my_filename.json",
+      "key_count": 1
+    },
+    {
+      "file_id": 259910,
+      "filename": "rspec_async.yml",
+      "key_count": 1
+    },
+    {
+      "file_id": 259909,
+      "filename": "test_async.json",
+      "key_count": 3
+    },
+    {
+      "file_id": -1,
+      "filename": "__unassigned__",
+      "key_count": 5
+    }
+  ]
+}

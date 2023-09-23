@@ -1,110 +1,169 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
-import { PaginatedResult, Comment } from "../../src/main.js";
+import { LokaliseApi, Stub, expect } from "../setup.js";
 
 describe("Comments", function () {
-  const cassette = new Cassettes("./test/cassettes");
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-  const project_id = "803826145ba90b42d5d860.46800099";
-  const key_id = 15519786;
-  const comment_id = 800745;
+  const projectId = "803826145ba90b42d5d860.46800099";
+  const keyId = 375778480;
+  const commentId = 20456339;
 
-  cassette
-    .createTest("list_project_comments", async () => {
-      const comments: PaginatedResult<Comment> = await lokaliseApi
-        .comments()
-        .list_project_comments({
-          project_id: project_id,
-        });
+  it("lists project comments", async function () {
+    const stub = new Stub({
+      fixture: "comments/project_comments.json",
+      uri: `projects/${projectId}/comments`,
+      respHeaders: {
+        "x-pagination-total-count": "1",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "100",
+        "x-pagination-page-count": "1",
+      },
+    });
 
-      expect(comments.items[0].comment_id).to.eq(comment_id);
-      expect(comments.totalResults).to.eq(4);
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("list_project_comments_pagination", async () => {
-      const comments = await lokaliseApi.comments().list_project_comments({
-        project_id: "2273827860c1e2473eb195.11207948",
-        page: 2,
-        limit: 1,
-      });
+    const comments = await lokaliseApi.comments().list_project_comments({
+      project_id: projectId,
+    });
 
-      expect(comments.items[0].comment_id).to.eq(11438930);
-      expect(comments.resultsPerPage).to.eq(1);
-      expect(comments.currentPage).to.eq(2);
-      expect(comments.hasNextPage()).to.eq(true);
-      expect(comments.nextPage()).to.eq(3);
-    })
-    .register(this);
+    expect(comments.items[0].comment_id).to.eq(20421626);
+    expect(comments.totalResults).to.eq(1);
+  });
 
-  cassette
-    .createTest("list_key_comments", async () => {
-      const comments = await lokaliseApi.comments().list({
-        project_id: project_id,
-        key_id: key_id,
-      });
+  it("lists project comments", async function () {
+    const params = {
+      page: 2,
+      limit: 2,
+    };
 
-      expect(comments.items[0].comment_id).to.eq(comment_id);
-      expect(comments.items[0].key_id).to.eq(key_id);
-      expect(comments.resultsPerPage).to.eq(100);
-    })
-    .register(this);
+    const stub = new Stub({
+      fixture: "comments/project_comments_paginated.json",
+      query: params,
+      uri: `projects/${projectId}/comments`,
+      respHeaders: {
+        "x-pagination-total-count": "3",
+        "x-pagination-page": "2",
+        "x-pagination-limit": "2",
+        "x-pagination-page-count": "2",
+      },
+    });
 
-  cassette
-    .createTest("get", async () => {
-      const comment = await lokaliseApi.comments().get(comment_id, {
-        project_id: project_id,
-        key_id: key_id,
-      });
+    await stub.setStub();
 
-      expect(comment.comment_id).to.eq(comment_id);
-      expect(comment.key_id).to.eq(key_id);
-      expect(comment.comment).to.eq("rspec comment");
-      expect(comment.added_by).to.eq(20181);
-      expect(comment.added_by_email).to.eq("bodrovis@protonmail.com");
-      expect(comment.added_at).to.eq("2018-12-09 18:41:31 (Etc/UTC)");
-      expect(comment.added_at_timestamp).to.eq(1544380891);
-    })
-    .register(this);
+    const comments = await lokaliseApi.comments().list_project_comments({
+      project_id: projectId,
+      ...params,
+    });
 
-  cassette
-    .createTest("create", async () => {
-      const comments = await lokaliseApi
-        .comments()
-        .create(
-          [{ comment: "Project comment 1" }, { comment: "Project comment 2" }],
-          { project_id: project_id, key_id: key_id },
-        );
+    expect(comments.items[0].comment_id).to.eq(20456340);
+    expect(comments.resultsPerPage).to.eq(2);
+    expect(comments.currentPage).to.eq(2);
+    expect(comments.hasNextPage()).to.eq(false);
+    expect(comments.prevPage()).to.eq(1);
+  });
 
-      expect(comments[0].comment).to.eq("Project comment 1");
-    })
-    .register(this);
+  it("lists key comments", async function () {
+    const stub = new Stub({
+      fixture: "comments/key_comments.json",
+      uri: `projects/${projectId}/keys/${keyId}/comments`,
+      respHeaders: {
+        "x-pagination-total-count": "2",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "100",
+        "x-pagination-page-count": "1",
+      },
+    });
 
-  cassette
-    .createTest("create_single", async () => {
-      const comments = await lokaliseApi
-        .comments()
-        .create(
-          { comment: "Single" },
-          { project_id: project_id, key_id: 74189435 },
-        );
+    await stub.setStub();
 
-      expect(comments[0].comment).to.eq("Single");
-    })
-    .register(this);
+    const comments = await lokaliseApi.comments().list({
+      project_id: projectId,
+      key_id: keyId,
+    });
 
-  cassette
-    .createTest("delete", async () => {
-      const response = await lokaliseApi.comments().delete(1312027, {
-        project_id: project_id,
-        key_id: key_id,
-      });
+    expect(comments.items[0].comment_id).to.eq(commentId);
+    expect(comments.items[0].key_id).to.eq(keyId);
+    expect(comments.resultsPerPage).to.eq(100);
+  });
 
-      expect(response.project_id).to.eq(project_id);
-      expect(response.comment_deleted).to.be.true;
-    })
-    .register(this);
+  it("retrieves", async function () {
+    const stub = new Stub({
+      fixture: "comments/key_comment.json",
+      uri: `projects/${projectId}/keys/${keyId}/comments/${commentId}`,
+    });
+
+    await stub.setStub();
+
+    const comment = await lokaliseApi.comments().get(commentId, {
+      project_id: projectId,
+      key_id: keyId,
+    });
+
+    expect(comment.comment_id).to.eq(commentId);
+    expect(comment.key_id).to.eq(keyId);
+    expect(comment.comment).to.eq("<p>Demo 1</p>");
+    expect(comment.added_by).to.eq(20181);
+    expect(comment.added_by_email).to.eq("bodrovis@protonmail.com");
+    expect(comment.added_at).to.eq("2023-09-21 10:08:08 (Etc/UTC)");
+    expect(comment.added_at_timestamp).to.eq(1695290888);
+  });
+
+  it("creates", async function () {
+    const params = [
+      { comment: "Project comment 1" },
+      { comment: "Project comment 2" },
+    ];
+
+    const stub = new Stub({
+      fixture: "comments/create_key_comments.json",
+      uri: `projects/${projectId}/keys/${keyId}/comments`,
+      method: "POST",
+      body: { comments: params },
+    });
+
+    await stub.setStub();
+
+    const comments = await lokaliseApi
+      .comments()
+      .create(params, { project_id: projectId, key_id: keyId });
+
+    expect(comments[0].comment).to.eq(params[0].comment);
+    expect(comments[1].comment).to.eq(params[1].comment);
+  });
+
+  it("creates single comment", async function () {
+    const params = { comment: "Project comment single" };
+
+    const stub = new Stub({
+      fixture: "comments/create_key_comment.json",
+      uri: `projects/${projectId}/keys/${keyId}/comments`,
+      method: "POST",
+      body: { comments: [params] },
+    });
+
+    await stub.setStub();
+
+    const comments = await lokaliseApi
+      .comments()
+      .create(params, { project_id: projectId, key_id: keyId });
+
+    expect(comments[0].comment).to.eq(params.comment);
+  });
+
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "comments/delete_key_comment.json",
+      uri: `projects/${projectId}/keys/${keyId}/comments/${commentId}`,
+      method: "DELETE",
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApi.comments().delete(commentId, {
+      project_id: projectId,
+      key_id: keyId,
+    });
+
+    expect(response.project_id).to.eq(projectId);
+    expect(response.comment_deleted).to.be.true;
+    expect(response.branch).to.be.eq("master");
+  });
 });

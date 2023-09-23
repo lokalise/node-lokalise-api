@@ -42,6 +42,7 @@ type ContributorUpdateData = {
 type ContributorDeleted = {
   project_id: string;
   contributor_deleted: boolean;
+  branch?: string;
 };
 
 export class Contributors extends BaseCollection {
@@ -61,6 +62,7 @@ export class Contributors extends BaseCollection {
     request_params: ProjectOnly,
   ): Promise<Contributor[]> {
     const body = { contributors: this.objToArray(contributor_params) };
+
     return this.doCreate(body, request_params, this.populateArrayFromJson);
   }
 

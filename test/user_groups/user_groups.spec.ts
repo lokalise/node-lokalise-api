@@ -1,155 +1,247 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
+import { LokaliseApi, Stub, expect } from "../setup.js";
+import { UserGroupParams } from "../../src/main.js";
 
 describe("UserGroups", function () {
-  const cassette = new Cassettes("./test/cassettes");
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-  const team_id = 176692;
-  const group_id = 7561;
-  const new_group_id = 762;
-  const user_id = 20181;
-  const project_id = "531138705d0ba0c18f5b43.63503311";
+  const teamId = 176692;
+  const groupId = 7561;
+  const newGroupId = 10150;
+  const userId = 20181;
+  const projectId = "803826145ba90b42d5d860.46800099";
 
-  cassette
-    .createTest("list", async () => {
-      const user_groups = await lokaliseApi.userGroups().list({
-        team_id: team_id,
-      });
-      expect(user_groups.items[1].group_id).to.eq(group_id);
-      expect(user_groups.totalResults).to.eq(4);
-      expect(user_groups.currentPage).to.eq(1);
-    })
-    .register(this);
+  it("lists", async function () {
+    const stub = new Stub({
+      fixture: "user_groups/list.json",
+      uri: `teams/${teamId}/groups`,
+      respHeaders: {
+        "x-pagination-total-count": "2",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "500",
+        "x-pagination-page-count": "1",
+      },
+    });
 
-  cassette
-    .createTest("list_pagination", async () => {
-      const user_groups = await lokaliseApi.userGroups().list({
-        team_id: team_id,
-        page: 1,
-        limit: 1,
-      });
-      expect(user_groups.items[0].group_id).to.eq(2639);
-      expect(user_groups.totalResults).to.eq(4);
-      expect(user_groups.totalPages).to.eq(4);
-      expect(user_groups.resultsPerPage).to.eq(1);
-      expect(user_groups.currentPage).to.eq(1);
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("get", async () => {
-      const user_group = await lokaliseApi.userGroups().get(group_id, {
-        team_id: team_id,
-      });
+    const user_groups = await lokaliseApi.userGroups().list({
+      team_id: teamId,
+    });
 
-      expect(user_group.group_id).to.eq(group_id);
-      expect(user_group.name).to.eq("Restricted");
-      expect(user_group.permissions.is_admin).to.be.false;
-      expect(user_group.permissions.is_reviewer).to.be.true;
+    expect(user_groups.items[1].group_id).to.eq(groupId);
+    expect(user_groups.totalResults).to.eq(2);
+    expect(user_groups.currentPage).to.eq(1);
+  });
 
-      const languages = user_group.permissions.languages[1];
-      expect(languages.is_writable).to.be.true;
-      expect(languages.lang_id).to.eq(910);
-      expect(languages.lang_iso).to.eq("ak");
-      expect(languages.lang_name).to.eq("Akan");
+  it("lists and paginates", async function () {
+    const params = {
+      page: 2,
+      limit: 2,
+    };
 
-      expect(user_group.created_at).to.eq("2022-08-01 14:16:44 (Etc/UTC)");
-      expect(user_group.created_at_timestamp).to.eq(1659363404);
-      expect(user_group.team_id).to.eq(team_id);
-      expect(user_group.projects).to.include("2273827860c1e2473eb195.11207948");
-      expect(user_group.members).to.include(34051);
-    })
-    .register(this);
+    const stub = new Stub({
+      fixture: "user_groups/list_pagination.json",
+      uri: `teams/${teamId}/groups`,
+      query: params,
+      respHeaders: {
+        "x-pagination-total-count": "4",
+        "x-pagination-page": "2",
+        "x-pagination-limit": "2",
+        "x-pagination-page-count": "2",
+      },
+    });
 
-  cassette
-    .createTest("create", async () => {
-      const user_group = await lokaliseApi.userGroups().create(
-        {
-          name: "Node",
-          is_reviewer: false,
-          is_admin: true,
-          admin_rights: ["upload"],
-        },
-        { team_id: team_id },
-      );
+    await stub.setStub();
 
-      expect(user_group.group_id).to.eq(new_group_id);
-      expect(user_group.name).to.eq("Node");
-      expect(user_group.permissions.is_admin).to.be.true;
-    })
-    .register(this);
+    const user_groups = await lokaliseApi.userGroups().list({
+      team_id: teamId,
+      ...params,
+    });
 
-  cassette
-    .createTest("update", async () => {
-      const user_group = await lokaliseApi.userGroups().update(
-        new_group_id,
-        {
-          name: "Node updated",
-          is_reviewer: false,
-          is_admin: true,
-          admin_rights: ["upload"],
-        },
-        { team_id: team_id },
-      );
-      expect(user_group.group_id).to.eq(new_group_id);
-      expect(user_group.name).to.eq("Node updated");
-      expect(user_group.permissions.is_admin).to.be.true;
-    })
-    .register(this);
+    expect(user_groups.items[0].group_id).to.eq(2500);
+    expect(user_groups.totalResults).to.eq(4);
+    expect(user_groups.totalPages).to.eq(2);
+    expect(user_groups.resultsPerPage).to.eq(2);
+    expect(user_groups.currentPage).to.eq(2);
+  });
 
-  cassette
-    .createTest("add_project_to_group", async () => {
-      const user_group = await lokaliseApi
-        .userGroups()
-        .add_projects_to_group(team_id, new_group_id, [project_id]);
+  it("retrieves", async function () {
+    const stub = new Stub({
+      fixture: "user_groups/retrieve.json",
+      uri: `teams/${teamId}/groups/${groupId}`,
+    });
 
-      expect(user_group.group_id).to.eq(new_group_id);
-      expect(user_group.projects).to.include(project_id);
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("remove_project_from_group", async () => {
-      const user_group = await lokaliseApi
-        .userGroups()
-        .remove_projects_from_group(team_id, new_group_id, [project_id]);
-      expect(user_group.group_id).to.eq(new_group_id);
-      expect(user_group.projects).not.to.include(project_id);
-    })
-    .register(this);
+    const user_group = await lokaliseApi.userGroups().get(groupId, {
+      team_id: teamId,
+    });
 
-  cassette
-    .createTest("add_members_to_group", async () => {
-      const user_group = await lokaliseApi
-        .userGroups()
-        .add_members_to_group(team_id, new_group_id, [user_id]);
+    expect(user_group.group_id).to.eq(groupId);
+    expect(user_group.name).to.eq("Restricted");
+    expect(user_group.permissions.is_admin).to.be.false;
+    expect(user_group.permissions.is_reviewer).to.be.true;
 
-      expect(user_group.group_id).to.eq(new_group_id);
-      expect(user_group.members).to.include(user_id);
-    })
-    .register(this);
+    const languages = user_group.permissions.languages[1];
+    expect(languages.is_writable).to.be.true;
+    expect(languages.lang_id).to.eq(910);
+    expect(languages.lang_iso).to.eq("ak");
+    expect(languages.lang_name).to.eq("Akan");
 
-  cassette
-    .createTest("remove_members_from_group", async () => {
-      const user_group = await lokaliseApi
-        .userGroups()
-        .remove_members_from_group(team_id, new_group_id, [user_id]);
+    expect(user_group.created_at).to.eq("2022-08-01 14:16:44 (Etc/UTC)");
+    expect(user_group.created_at_timestamp).to.eq(1659363404);
+    expect(user_group.team_id).to.eq(teamId);
+    expect(user_group.projects).to.have.lengthOf(0);
+    expect(user_group.members).to.include(34051);
+  });
 
-      expect(user_group.group_id).to.eq(new_group_id);
-      expect(user_group.members).not.to.include(user_id);
-    })
-    .register(this);
+  it("creates", async function () {
+    const params: UserGroupParams = {
+      name: "Node2",
+      is_reviewer: false,
+      is_admin: true,
+      admin_rights: ["upload"],
+    };
 
-  cassette
-    .createTest("delete", async () => {
-      const response = await lokaliseApi.userGroups().delete(new_group_id, {
-        team_id: team_id,
+    const stub = new Stub({
+      fixture: "user_groups/create.json",
+      uri: `teams/${teamId}/groups`,
+      body: params,
+      method: "POST",
+    });
+
+    await stub.setStub();
+
+    const user_group = await lokaliseApi.userGroups().create(params, {
+      team_id: teamId,
+    });
+
+    expect(user_group.group_id).to.eq(newGroupId);
+    expect(user_group.name).to.eq("Node2");
+    expect(user_group.permissions.is_admin).to.be.true;
+  });
+
+  it("updates", async function () {
+    const params: UserGroupParams = {
+      name: "Node updated2",
+      is_reviewer: false,
+      is_admin: true,
+      admin_rights: ["upload"],
+    };
+
+    const stub = new Stub({
+      fixture: "user_groups/update.json",
+      uri: `teams/${teamId}/groups/${newGroupId}`,
+      body: params,
+      method: "PUT",
+    });
+
+    await stub.setStub();
+
+    const user_group = await lokaliseApi
+      .userGroups()
+      .update(newGroupId, params, {
+        team_id: teamId,
       });
 
-      expect(response.team_id).to.eq(team_id);
-      expect(response.group_deleted).to.be.true;
-    })
-    .register(this);
+    expect(user_group.group_id).to.eq(newGroupId);
+    expect(user_group.name).to.eq("Node updated2");
+    expect(user_group.permissions.is_admin).to.be.true;
+  });
+
+  it("adds projects to groups", async function () {
+    const params = [projectId];
+
+    const stub = new Stub({
+      fixture: "user_groups/add_project.json",
+      uri: `teams/${teamId}/groups/${newGroupId}/projects/add`,
+      body: { projects: params },
+      method: "PUT",
+    });
+
+    await stub.setStub();
+
+    const user_group = await lokaliseApi
+      .userGroups()
+      .add_projects_to_group(teamId, newGroupId, params);
+
+    expect(user_group.group_id).to.eq(newGroupId);
+    expect(user_group.projects).to.include(projectId);
+  });
+
+  it("removes projects from groups", async function () {
+    const params = [projectId];
+
+    const stub = new Stub({
+      fixture: "user_groups/remove_project.json",
+      uri: `teams/${teamId}/groups/${newGroupId}/projects/remove`,
+      body: { projects: params },
+      method: "PUT",
+    });
+
+    await stub.setStub();
+
+    const user_group = await lokaliseApi
+      .userGroups()
+      .remove_projects_from_group(teamId, newGroupId, params);
+
+    expect(user_group.group_id).to.eq(newGroupId);
+    expect(user_group.projects).not.to.include(projectId);
+  });
+
+  it("adds members to groups", async function () {
+    const params = [userId];
+
+    const stub = new Stub({
+      fixture: "user_groups/add_member.json",
+      uri: `teams/${teamId}/groups/${newGroupId}/members/add`,
+      body: { users: params },
+      method: "PUT",
+    });
+
+    await stub.setStub();
+
+    const user_group = await lokaliseApi
+      .userGroups()
+      .add_members_to_group(teamId, newGroupId, params);
+
+    expect(user_group.group_id).to.eq(newGroupId);
+    expect(user_group.members).to.include(userId);
+  });
+
+  it("remove members from groups", async function () {
+    const params = [userId];
+
+    const stub = new Stub({
+      fixture: "user_groups/remove_member.json",
+      uri: `teams/${teamId}/groups/${newGroupId}/members/remove`,
+      body: { users: params },
+      method: "PUT",
+    });
+
+    await stub.setStub();
+
+    const user_group = await lokaliseApi
+      .userGroups()
+      .remove_members_from_group(teamId, newGroupId, params);
+
+    expect(user_group.group_id).to.eq(newGroupId);
+    expect(user_group.members).not.to.include(userId);
+  });
+
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "user_groups/delete.json",
+      uri: `teams/${teamId}/groups/${newGroupId}`,
+      method: "DELETE",
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApi
+      .userGroups()
+      .delete(newGroupId, { team_id: teamId });
+
+    expect(response.team_id).to.eq(teamId);
+    expect(response.group_deleted).to.be.true;
+  });
 });

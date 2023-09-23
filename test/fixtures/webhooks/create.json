@@ -1,0 +1,13 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "webhook": {
+    "webhook_id": "85b5793926ba936d1a5ca100ec96c0884b9b7f64",
+    "url": "https://bodrovis.tech/lokalise",
+    "branch": null,
+    "secret": "5cbaced2ead73958c4eb54ab86ae1b289e6a7c13",
+    "events": [
+      "project.exported"
+    ],
+    "event_lang_map": []
+  }
+}

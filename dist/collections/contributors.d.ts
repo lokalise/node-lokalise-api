@@ -25,6 +25,7 @@ type ContributorUpdateData = {
 type ContributorDeleted = {
     project_id: string;
     contributor_deleted: boolean;
+    branch?: string;
 };
 export declare class Contributors extends BaseCollection {
     protected static rootElementName: string;

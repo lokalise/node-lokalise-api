@@ -1,0 +1,20 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch_merged": true,
+  "branch": {
+    "branch_id": 344847,
+    "name": "hotfix/really-important",
+    "created_at": "2023-09-19 13:26:13 (Etc/UTC)",
+    "created_at_timestamp": 1695129973,
+    "created_by": 20181,
+    "created_by_email": "bodrovis@protonmail.com"
+  },
+  "target_branch": {
+    "branch_id": 14699,
+    "name": "master",
+    "created_at": "2018-09-24 16:05:22 (Etc/UTC)",
+    "created_at_timestamp": 1537805122,
+    "created_by": 20181,
+    "created_by_email": "bodrovis@protonmail.com"
+  }
+}

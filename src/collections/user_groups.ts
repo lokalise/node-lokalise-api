@@ -4,33 +4,7 @@ import { Keyable } from "../interfaces/keyable.js";
 import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { TeamOnly } from "../interfaces/team_only.js";
-
-type GroupLanguages = {
-  reference: string[];
-  contributable: string[];
-};
-
-type AdminRights =
-  | "upload"
-  | "activity"
-  | "download"
-  | "settings"
-  | "create_branches"
-  | "statistics"
-  | "keys"
-  | "screenshots"
-  | "glossary"
-  | "contributors"
-  | "languages"
-  | "tasks";
-
-type UserGroupParams = {
-  name: string;
-  is_reviewer: boolean;
-  is_admin: boolean;
-  admin_rights?: AdminRights[];
-  languages?: GroupLanguages;
-};
+import { UserGroupParams } from "../types/user_group_params.js";
 
 type UserGroupDeleted = {
   team_id: string;
@@ -166,7 +140,7 @@ export class UserGroups extends BaseCollection {
     );
   }
 
-  protected populateGroupFromJsonRoot(json: Keyable, headers: Keyable): this {
+  protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this {
     const formatted_json = json["group"];
     return <this>this.populateObjectFromJson(formatted_json, headers);
   }

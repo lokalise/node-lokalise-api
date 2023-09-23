@@ -1,6 +1,4 @@
-import "../setup.js";
-import { expect } from "chai";
-import { LokaliseApiOta } from "../../src/main.js";
+import { expect, LokaliseApiOta } from "../setup.js";
 
 describe("LokaliseApiOta", function () {
   const token = "fake";
@@ -17,7 +15,8 @@ describe("LokaliseApiOta", function () {
     expect(client.clientData.tokenType).to.eq("Bearer");
     expect(client.clientData.authHeader).to.eq("Authorization");
     expect(client.clientData.enableCompression).to.be.false;
-    expect(client.clientData.host).to.eq("https://ota.lokalise.com/v3");
+    expect(client.clientData.host).to.eq("https://ota.lokalise.com");
+    expect(client.clientData.version).to.eq("v3");
   });
 
   it("allows to customize tokenType", function () {

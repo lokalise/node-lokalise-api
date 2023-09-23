@@ -1,17 +1,37 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApi, Jwt } from "../../src/main.js";
+import { LokaliseApi, Stub, expect } from "../setup.js";
 
 describe("Jwt", function () {
-  const cassette = new Cassettes("./test/cassettes");
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-  const project_id = "2273827860c1e2473eb195.11207948";
+  const projectId = "803826145ba90b42d5d860.46800099";
 
-  cassette
-    .createTest("create", async () => {
-      const response: Jwt = await lokaliseApi.jwt().create(project_id);
-      expect(response.jwt).to.include("eyJ0eXAiOiJK");
-    })
-    .register(this);
+  it("creates", async function () {
+    const stub = new Stub({
+      fixture: "jwt/create.json",
+      uri: `projects/${projectId}/tokens`,
+      method: "POST",
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApi.jwt().create(projectId);
+
+    expect(response.jwt).to.eq("eyJ0eXfake");
+  });
+
+  it("creates with service", async function () {
+    const params = { service: "ota" };
+
+    const stub = new Stub({
+      fixture: "jwt/create.json",
+      uri: `projects/${projectId}/tokens`,
+      method: "POST",
+      body: params,
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApi.jwt().create(projectId, params);
+
+    expect(response.jwt).to.eq("eyJ0eXfake");
+  });
 });

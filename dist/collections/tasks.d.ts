@@ -38,6 +38,7 @@ type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_langua
 type TaskDeleted = {
     project_id: string;
     task_deleted: boolean;
+    branch?: string;
 };
 export declare class Tasks extends BaseCollection {
     protected static rootElementName: string;

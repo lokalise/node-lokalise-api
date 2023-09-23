@@ -5,10 +5,10 @@ export class PaginatedResult {
     currentPage;
     items;
     constructor(items, headers) {
-        this.totalResults = parseInt(headers["x-pagination-total-count"]);
-        this.totalPages = parseInt(headers["x-pagination-page-count"]);
-        this.resultsPerPage = parseInt(headers["x-pagination-limit"]);
-        this.currentPage = parseInt(headers["x-pagination-page"]);
+        this.totalResults = this.safeParseInt(headers.get("x-pagination-total-count"));
+        this.totalPages = this.safeParseInt(headers.get("x-pagination-page-count"));
+        this.resultsPerPage = this.safeParseInt(headers.get("x-pagination-limit"));
+        this.currentPage = this.safeParseInt(headers.get("x-pagination-page"));
         this.items = items;
         return this;
     }
@@ -39,6 +39,11 @@ export class PaginatedResult {
         else {
             return this.currentPage - 1;
         }
+    }
+    safeParseInt(str) {
+        if (!str)
+            return 0;
+        return parseInt(str, 10);
     }
 }
 //# sourceMappingURL=paginated_result.js.map

@@ -1,35 +1,35 @@
-import got, { Options } from "got";
 import { LokalisePkg } from "../lokalise/pkg.js";
 export class AuthRequest {
-    static urlRoot = "https://app.lokalise.com/oauth2/";
-    static async createPromise(uri, method, body, host) {
-        const options = new Options({
+    static async createPromise(uri, method, body, clientData) {
+        const prefixUrl = clientData.host;
+        if (clientData.version)
+            uri = `/${clientData.version}/${uri}`;
+        const options = {
             method: method,
-            prefixUrl: host ?? this.urlRoot,
             headers: {
                 Accept: "application/json",
                 "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
+                "Content-type": "application/json",
             },
-            throwHttpErrors: false,
-            decompress: false,
-            responseType: "text",
             body: JSON.stringify(body),
-            url: uri,
-        });
+        };
+        const target = new URL(uri, prefixUrl);
         try {
-            const response = await got(undefined, undefined, options);
-            const responseJSON = JSON.parse(response.body);
-            if (response.statusCode > 399) {
-                return Promise.reject({
-                    ...{ code: response.statusCode },
-                    ...responseJSON,
+            const response = await fetch(target, options);
+            const responseJSON = await response.json();
+            if (response.ok) {
+                return Promise.resolve({
+                    json: responseJSON,
+                    headers: response.headers,
                 });
             }
-            return Promise.resolve({ json: responseJSON, headers: response.headers });
+            return Promise.reject({
+                ...{ code: response.status },
+                ...responseJSON,
+            });
         }
         catch (err) {
-            /* c8 ignore next 2 */
-            return Promise.reject(err);
+            return Promise.reject({ message: err.message });
         }
     }
 }

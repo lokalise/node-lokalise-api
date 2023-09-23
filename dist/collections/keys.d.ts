@@ -12,11 +12,13 @@ type KeyDeleted = {
     project_id: string;
     key_removed: boolean;
     keys_locked?: number;
+    branch?: string;
 };
 type KeysBulkDeleted = {
     project_id: string;
     keys_removed: boolean;
     keys_locked: number;
+    branch?: string;
 };
 export declare class Keys extends BaseCollection {
     protected static rootElementName: string;

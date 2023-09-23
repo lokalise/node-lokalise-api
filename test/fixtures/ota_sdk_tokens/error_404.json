@@ -1,0 +1,5 @@
+{
+  "message": "Project not found",
+  "statusCode": 404,
+  "error": "ENTITY_NOT_FOUND"
+}

@@ -4,18 +4,7 @@ import { Keyable } from "../interfaces/keyable.js";
 import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { TeamOnly } from "../interfaces/team_only.js";
-type GroupLanguages = {
-    reference: string[];
-    contributable: string[];
-};
-type AdminRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
-type UserGroupParams = {
-    name: string;
-    is_reviewer: boolean;
-    is_admin: boolean;
-    admin_rights?: AdminRights[];
-    languages?: GroupLanguages;
-};
+import { UserGroupParams } from "../types/user_group_params.js";
 type UserGroupDeleted = {
     team_id: string;
     group_deleted: boolean;
@@ -33,6 +22,6 @@ export declare class UserGroups extends BaseCollection {
     remove_members_from_group(team_id: string | number, group_id: string | number, user_ids: string[] | number[]): Promise<UserGroup>;
     add_projects_to_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
     remove_projects_from_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
-    protected populateGroupFromJsonRoot(json: Keyable, headers: Keyable): this;
+    protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this;
 }
 export {};
