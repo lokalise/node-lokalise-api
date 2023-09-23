@@ -24,6 +24,7 @@ describe("Branches", function () {
     });
 
     expect(branches.items[0].branch_id).to.eq(14699);
+    expect(branches.prevPage()).to.eq(1);
   });
 
   it("lists and paginates", async function () {
@@ -60,6 +61,33 @@ describe("Branches", function () {
     expect(branches.hasPrevPage()).to.be.true;
     expect(branches.prevPage()).to.eq(2);
     expect(branches.nextPage()).to.eq(4);
+  });
+
+  it("handles wrong pagination", async function () {
+    const params = {
+      page: 3,
+      limit: 1,
+    };
+
+    const stub = new Stub({
+      fixture: "branches/list_pagination.json",
+      query: params,
+      uri: `projects/${projectId}/branches`,
+      respHeaders: {
+        "x-pagination-total-count": "5",
+        "x-pagination-page": "3",
+        "x-pagination-page-count": "5",
+      },
+    });
+
+    await stub.setStub();
+
+    const branches = await lokaliseApi.branches().list({
+      project_id: projectId,
+      ...params,
+    });
+
+    expect(branches.resultsPerPage).to.eq(0);
   });
 
   it("retrieves", async function () {

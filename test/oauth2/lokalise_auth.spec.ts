@@ -3,6 +3,7 @@ import {
   RequestTokenResponse,
   RefreshTokenResponse,
   AuthError,
+  ApiError,
 } from "../../src/main.js";
 
 describe("LokaliseAuth", function () {
@@ -29,6 +30,7 @@ describe("LokaliseAuth", function () {
       const dummy = new LokaliseAuth("id", "secret");
       expect(dummy.authData.client_id).to.eq("id");
       expect(dummy.authData.client_secret).to.eq("secret");
+      expect(dummy.authData.version).to.eq("oauth2");
     });
   });
 
@@ -57,10 +59,34 @@ describe("LokaliseAuth", function () {
   describe("token", function () {
     const code = "12988e3ec899e0c73a1fc4909063d81ca5ab0dd1";
 
+    it("handles exceptions", async function () {
+      const stub = new Stub({
+        uri: "token",
+        version: "oauth2",
+        method: "POST",
+        rootUrl: rootUrl,
+        skipApiToken: true,
+        doFail: true,
+        body: {
+          client_id,
+          client_secret,
+          code,
+          grant_type: "authorization_code",
+        },
+      });
+
+      await stub.setStub();
+
+      await lokaliseAuth.token(code).catch((e: ApiError) => {
+        expect(e.message).to.eq("fetch failed");
+      });
+    });
+
     it("can be requested", async function () {
       const stub = new Stub({
         fixture: "oauth2/token.json",
-        uri: "/oauth2/token",
+        uri: "token",
+        version: "oauth2",
         method: "POST",
         rootUrl: rootUrl,
         skipApiToken: true,
@@ -85,7 +111,8 @@ describe("LokaliseAuth", function () {
     it("handles errors", async function () {
       const stub = new Stub({
         fixture: "oauth2/token_error.json",
-        uri: "/oauth2/token",
+        uri: "token",
+        version: "oauth2",
         status: 400,
         method: "POST",
         rootUrl: rootUrl,
@@ -115,7 +142,8 @@ describe("LokaliseAuth", function () {
     it("can be requested", async function () {
       const stub = new Stub({
         fixture: "oauth2/refresh.json",
-        uri: "/oauth2/token",
+        uri: "token",
+        version: "oauth2",
         method: "POST",
         rootUrl: rootUrl,
         skipApiToken: true,
@@ -141,8 +169,9 @@ describe("LokaliseAuth", function () {
     it("handles errors", async function () {
       const stub = new Stub({
         fixture: "oauth2/refresh_error.json",
-        uri: "/oauth2/token",
+        uri: "token",
         status: 400,
+        version: "oauth2",
         method: "POST",
         rootUrl: rootUrl,
         skipApiToken: true,

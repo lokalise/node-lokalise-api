@@ -2,7 +2,7 @@ import { HttpMethod } from "../types/http_method.js";
 import { Keyable, WritableKeyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
 import { LokalisePkg } from "../lokalise/pkg.js";
-import util from "util";
+
 export class ApiRequest {
   public promise: Promise<any>;
   public params: WritableKeyable = {};
@@ -64,8 +64,12 @@ export class ApiRequest {
 
     try {
       const response = await fetch(target, options);
-      const responseJSON = response.body ? await response.json() : null;
-      console.log(util.inspect(responseJSON, false, null, true));
+      let responseJSON;
+      if (response.status === 204) {
+        responseJSON = null;
+      } else {
+        responseJSON = await response.json();
+      }
 
       if (response.ok) {
         return Promise.resolve({
@@ -75,7 +79,6 @@ export class ApiRequest {
       }
       return Promise.reject(this.getErrorFromResp(responseJSON));
     } catch (err) {
-      console.error(err);
       return Promise.reject({ message: err.message });
     }
   }
@@ -105,7 +108,7 @@ export class ApiRequest {
         return t_param;
       } else {
         if (isMandaratory === "!") {
-          throw new Error("Required param " + paramName);
+          throw new Error("Missing required param: " + paramName);
         } else {
           return "";
         }

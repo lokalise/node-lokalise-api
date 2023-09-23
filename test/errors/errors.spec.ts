@@ -1,5 +1,4 @@
-import { ApiError } from "../../src/main.js";
-
+import { ApiError, ProjectWithPagination } from "../../src/main.js";
 import { LokaliseApi, Stub, expect } from "../setup.js";
 
 describe("Branches", function () {
@@ -9,7 +8,7 @@ describe("Branches", function () {
     const fakeProjectId = "803";
 
     const stub = new Stub({
-      uri: `/api2/projects/${fakeProjectId}/branches`,
+      uri: `projects/${fakeProjectId}/branches`,
       doFail: true,
     });
 
@@ -30,7 +29,7 @@ describe("Branches", function () {
 
     const stub = new Stub({
       fixture: "errors/error_plain.json",
-      uri: `/api2/projects/${fakeProjectId}/branches`,
+      uri: `projects/${fakeProjectId}/branches`,
       status: 401,
     });
 
@@ -45,6 +44,17 @@ describe("Branches", function () {
       });
   });
 
+  it("handles params-related errors", async function () {
+    const params = <ProjectWithPagination>{};
+
+    await lokaliseApi
+      .branches()
+      .list(params)
+      .catch((e: Error) => {
+        expect(e.message).to.eq("Missing required param: project_id");
+      });
+  });
+
   it("handles error 500", async function () {
     const fakeProjectId = "803";
     const params = {
@@ -53,7 +63,7 @@ describe("Branches", function () {
 
     const stub = new Stub({
       fixture: "errors/error_500.json",
-      uri: `/api2/projects/${fakeProjectId}/branches`,
+      uri: `projects/${fakeProjectId}/branches`,
       status: 500,
       body: params,
       method: "POST",

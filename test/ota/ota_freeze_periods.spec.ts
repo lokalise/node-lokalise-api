@@ -1,81 +1,130 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApiOta } from "../../src/main.js";
+import { expect, LokaliseApiOta, Stub } from "../setup.js";
 
 describe("OtaFreezePeriods", function () {
-  const cassette = new Cassettes("./test/cassettes");
-  const lokaliseApiOta = new LokaliseApiOta({ apiKey: process.env.API_JWT });
+  const token = process.env.API_JWT;
+  const lokaliseApiOta = new LokaliseApiOta({ apiKey: token });
+  const rootUrl = lokaliseApiOta.clientData.host;
   const teamId = 176692;
-  const projectId = "963054665b7c313dd9b323.35886655";
-  const freezeId = 34301;
+  const projectId = "88628569645b945648b474.25982965";
+  const freezeId = 38301;
+  const framework = "ios_sdk";
+  const bundleId = 682463;
 
-  cassette
-    .createTest("list", async () => {
-      const freezes = await lokaliseApiOta.otaFreezePeriods().list({
+  it("lists", async function () {
+    const stub = new Stub({
+      fixture: "ota_freeze_periods/list.json",
+      uri: `teams/${teamId}/projects/${projectId}/bundle-freezes`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      query: { framework },
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await stub.setStub();
+
+    const freezes = await lokaliseApiOta.otaFreezePeriods().list({
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+      framework,
+    });
+
+    expect(freezes.length).to.eq(2);
+
+    const freeze = freezes[0];
+    expect(freeze.id).to.eq(38299);
+  });
+
+  it("creates", async function () {
+    const params = {
+      from: "5.0",
+      to: "6.0",
+      bundleId: bundleId,
+    };
+
+    const stub = new Stub({
+      fixture: "ota_freeze_periods/create.json",
+      uri: `teams/${teamId}/projects/${projectId}/bundle-freezes`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      method: "POST",
+      body: params,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await stub.setStub();
+
+    const freeze = await lokaliseApiOta.otaFreezePeriods().create(params, {
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+    });
+
+    expect(freeze.id).to.eq(freezeId);
+    expect(freeze.projectId).to.eq(188763);
+    expect(freeze.bundleId).to.eq(bundleId);
+    expect(freeze.framework).to.eq("ios_sdk");
+    expect(freeze.from).to.eq("5.0");
+    expect(freeze.to).to.eq("6.0");
+  });
+
+  it("updates", async function () {
+    const params = {
+      from: "5.0",
+      to: "7.0",
+      bundleId: bundleId,
+    };
+
+    const stub = new Stub({
+      fixture: "ota_freeze_periods/update.json",
+      uri: `teams/${teamId}/projects/${projectId}/bundle-freezes/${freezeId}`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      method: "PUT",
+      body: params,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await stub.setStub();
+
+    const freeze = await lokaliseApiOta
+      .otaFreezePeriods()
+      .update(freezeId, params, {
         teamId: teamId,
         lokaliseProjectId: projectId,
-        framework: "ios_sdk",
       });
 
-      expect(freezes.length).to.eq(2);
+    expect(freeze.to).to.eq("7.0");
+  });
 
-      const freeze = freezes[0];
-      expect(freeze.id).to.eq(34299);
-    })
-    .register(this);
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "ota_freeze_periods/delete.json",
+      uri: `teams/${teamId}/projects/${projectId}/bundle-freezes/${freezeId}`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      method: "DELETE",
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  cassette
-    .createTest("create", async () => {
-      const bundleId = 664864;
-      const freeze = await lokaliseApiOta.otaFreezePeriods().create(
-        {
-          from: "5.0",
-          to: "6.0",
-          bundleId: bundleId,
-        },
-        {
-          teamId: teamId,
-          lokaliseProjectId: projectId,
-        },
-      );
+    await stub.setStub();
 
-      expect(freeze.id).to.eq(34303);
-      expect(freeze.projectId).to.eq(20984);
-      expect(freeze.bundleId).to.eq(bundleId);
-      expect(freeze.framework).to.eq("ios_sdk");
-      expect(freeze.from).to.eq("5.0");
-      expect(freeze.to).to.eq("6.0");
-    })
-    .register(this);
+    const resp = await lokaliseApiOta.otaFreezePeriods().delete(freezeId, {
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+    });
 
-  cassette
-    .createTest("update", async () => {
-      const freeze = await lokaliseApiOta.otaFreezePeriods().update(
-        freezeId,
-        {
-          from: "5.0",
-          to: "7.0",
-          bundleId: 664798,
-        },
-        {
-          teamId: teamId,
-          lokaliseProjectId: projectId,
-        },
-      );
-
-      expect(freeze.to).to.eq("7.0");
-    })
-    .register(this);
-
-  cassette
-    .createTest("delete", async () => {
-      const resp = await lokaliseApiOta.otaFreezePeriods().delete(freezeId, {
-        teamId: teamId,
-        lokaliseProjectId: projectId,
-      });
-
-      expect(resp.deleted).to.be.true;
-    })
-    .register(this);
+    expect(resp.deleted).to.be.true;
+    expect(resp.id).to.eq(freezeId);
+  });
 });

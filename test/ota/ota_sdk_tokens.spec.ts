@@ -1,70 +1,113 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApiOta } from "../../src/main.js";
+import { expect, LokaliseApiOta, Stub } from "../setup.js";
 import { OtaApiError } from "../../src/models/ota_api_error.js";
 
 describe("OtaSdkTokens", function () {
-  const cassette = new Cassettes("./test/cassettes");
+  const token = process.env.API_JWT;
   const lokaliseApiOta = new LokaliseApiOta({ apiKey: process.env.API_JWT });
+  const rootUrl = lokaliseApiOta.clientData.host;
   const teamId = 176692;
-  const projectId = "963054665b7c313dd9b323.35886655";
+  const projectId = "88628569645b945648b474.25982965";
+  const tokenId = 9709;
 
-  cassette
-    .createTest("error", async () => {
-      await lokaliseApiOta
-        .otaSdkTokens()
-        .list({
-          teamId: teamId,
-          lokaliseProjectId: "fake",
-        })
-        .catch((e: OtaApiError) => {
-          expect(e.message).to.eq("Project not found");
-          expect(e.statusCode).to.eq(404);
-          expect(e.error).to.eq("ENTITY_NOT_FOUND");
-        });
-    })
-    .register(this);
+  it("handles errors", async function () {
+    const stub = new Stub({
+      fixture: "ota_sdk_tokens/error_404.json",
+      uri: `teams/${teamId}/projects/fake/tokens`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      status: 404,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  cassette
-    .createTest("list", async () => {
-      const tokens = await lokaliseApiOta.otaSdkTokens().list({
+    await stub.setStub();
+
+    await lokaliseApiOta
+      .otaSdkTokens()
+      .list({
         teamId: teamId,
-        lokaliseProjectId: projectId,
+        lokaliseProjectId: "fake",
+      })
+      .catch((e: OtaApiError) => {
+        expect(e.message).to.eq("Project not found");
+        expect(e.statusCode).to.eq(404);
+        expect(e.error).to.eq("ENTITY_NOT_FOUND");
       });
+  });
 
-      expect(tokens[0].id).to.eq(9434);
-      expect(tokens.length).to.eq(1);
-    })
-    .register(this);
+  it("lists", async function () {
+    const stub = new Stub({
+      fixture: "ota_sdk_tokens/list.json",
+      uri: `teams/${teamId}/projects/${projectId}/tokens`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-  cassette
-    .createTest("create", async () => {
-      const token = await lokaliseApiOta.otaSdkTokens().create({
-        teamId: teamId,
-        lokaliseProjectId: projectId,
-      });
+    await stub.setStub();
 
-      expect(token.id).to.eq(9451);
-      expect(token.token).to.eq("a3511c8e335ac3c770ea96ede1a28f3ce263");
-      expect(token.projectId).to.eq(20984);
-      expect(token.lokaliseId).to.eq(null);
-      expect(token.createdAt).to.eq("2023-08-23T15:23:39.843Z");
-    })
-    .register(this);
+    const tokens = await lokaliseApiOta.otaSdkTokens().list({
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+    });
 
-  cassette
-    .createTest("delete", async () => {
-      const tokenToDelete = 9473;
-      const response = await lokaliseApiOta
-        .otaSdkTokens()
-        .delete(tokenToDelete, {
-          teamId: teamId,
-          lokaliseProjectId: "2273827860c1e2473eb195.11207948",
-        });
+    expect(tokens[0].id).to.eq(9690);
+    expect(tokens.length).to.eq(3);
+  });
 
-      expect(response.id).to.eq(tokenToDelete);
-      expect(response.deleted).to.be.true;
-    })
-    .register(this);
+  it("creates", async function () {
+    const stub = new Stub({
+      fixture: "ota_sdk_tokens/create.json",
+      uri: `teams/${teamId}/projects/${projectId}/tokens`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      method: "POST",
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await stub.setStub();
+
+    const createdToken = await lokaliseApiOta.otaSdkTokens().create({
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+    });
+
+    expect(createdToken.id).to.eq(tokenId);
+    expect(createdToken.token).to.eq("67aa2c0bd222669e192904edbb8081c3bf67");
+    expect(createdToken.projectId).to.eq(188763);
+    expect(createdToken.lokaliseId).to.eq(null);
+    expect(createdToken.createdAt).to.eq("2023-09-23T11:57:09.486Z");
+  });
+
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "ota_sdk_tokens/delete.json",
+      uri: `teams/${teamId}/projects/${projectId}/tokens/${tokenId}`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      method: "DELETE",
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApiOta.otaSdkTokens().delete(tokenId, {
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+    });
+
+    expect(response.id).to.eq(tokenId);
+    expect(response.deleted).to.be.true;
+  });
 });

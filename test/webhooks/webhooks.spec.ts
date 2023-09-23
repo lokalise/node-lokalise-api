@@ -57,6 +57,7 @@ describe("Webhooks", function () {
     expect(webhooks.totalPages).to.eq(2);
     expect(webhooks.resultsPerPage).to.eq(2);
     expect(webhooks.currentPage).to.eq(2);
+    expect(webhooks.nextPage()).to.eq(2);
   });
 
   it("retrieves", async function () {

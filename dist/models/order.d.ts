@@ -23,4 +23,5 @@ export declare class Order extends BaseModel implements OrderInterface {
     total: number;
     payment_method: string | null;
     is_saved_to_translation_memory: boolean;
+    dry_run: boolean;
 }

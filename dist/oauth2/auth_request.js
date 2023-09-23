@@ -1,8 +1,7 @@
 import { LokalisePkg } from "../lokalise/pkg.js";
 export class AuthRequest {
-    static urlRoot = "https://app.lokalise.com/oauth2/";
     static async createPromise(uri, method, body, clientData) {
-        const prefixUrl = clientData.host ?? this.urlRoot;
+        const prefixUrl = clientData.host;
         if (clientData.version)
             uri = `/${clientData.version}/${uri}`;
         const options = {
@@ -17,7 +16,7 @@ export class AuthRequest {
         const target = new URL(uri, prefixUrl);
         try {
             const response = await fetch(target, options);
-            const responseJSON = response.body ? await response.json() : null;
+            const responseJSON = await response.json();
             if (response.ok) {
                 return Promise.resolve({
                     json: responseJSON,

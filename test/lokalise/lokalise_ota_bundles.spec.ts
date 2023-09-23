@@ -16,6 +16,7 @@ describe("LokaliseOtaBundles", function () {
     expect(client.clientData.tokenType).to.eq("");
     expect(client.clientData.authHeader).to.eq("x-ota-api-token");
     expect(client.clientData.enableCompression).to.be.false;
-    expect(client.clientData.host).to.eq("https://ota.lokalise.com/v3");
+    expect(client.clientData.host).to.eq("https://ota.lokalise.com");
+    expect(client.clientData.version).to.eq("v3");
   });
 });

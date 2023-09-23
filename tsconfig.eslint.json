@@ -9,13 +9,13 @@
     "noImplicitAny": true,
     "strictNullChecks": true,
     "noImplicitReturns": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "declaration": false,
-    "pretty": false,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "declaration": true,
+    "pretty": true,
     "forceConsistentCasingInFileNames": true,
     "noFallthroughCasesInSwitch": true,
-    "noImplicitThis": false,
+    "noImplicitThis": true,
     "strictFunctionTypes": true
   },
   "include": [

@@ -3,15 +3,13 @@ import { HttpMethod } from "../types/http_method.js";
 import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
 
 export class AuthRequest {
-  static readonly urlRoot = "https://app.lokalise.com/oauth2/";
-
   static async createPromise(
     uri: string,
     method: HttpMethod,
     body: object | object[] | null,
     clientData: AuthDataInterface,
   ): Promise<any> {
-    const prefixUrl = clientData.host ?? this.urlRoot;
+    const prefixUrl = clientData.host;
 
     if (clientData.version) uri = `/${clientData.version}/${uri}`;
 
@@ -29,7 +27,7 @@ export class AuthRequest {
 
     try {
       const response = await fetch(target, options);
-      const responseJSON = response.body ? await response.json() : null;
+      const responseJSON = await response.json();
 
       if (response.ok) {
         return Promise.resolve({

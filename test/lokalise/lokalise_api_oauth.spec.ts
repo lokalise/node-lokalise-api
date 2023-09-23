@@ -16,6 +16,7 @@ describe("LokaliseApiOAuth", function () {
     expect(client.clientData.tokenType).to.eq("Bearer");
     expect(client.clientData.authHeader).to.eq("Authorization");
     expect(client.clientData.enableCompression).to.be.false;
+    expect(client.clientData.version).to.eq("api2");
   });
 
   it("allows to customize tokenType", function () {
@@ -29,7 +30,7 @@ describe("LokaliseApiOAuth", function () {
   it("allows to fetch data with OAuth 2 token", async function () {
     const stub = new Stub({
       fixture: "lokalise/project_oauth2.json",
-      uri: `api2/projects/${project_id}`,
+      uri: `projects/${project_id}`,
       skipApiToken: true,
       reqHeaders: {
         Authorization: `Bearer ${token}`,

@@ -1,5 +1,4 @@
 import { LokalisePkg } from "../lokalise/pkg.js";
-import util from "util";
 export class ApiRequest {
     promise;
     params = {};
@@ -35,8 +34,13 @@ export class ApiRequest {
         target.search = new URLSearchParams(this.params).toString();
         try {
             const response = await fetch(target, options);
-            const responseJSON = response.body ? await response.json() : null;
-            console.log(util.inspect(responseJSON, false, null, true));
+            let responseJSON;
+            if (response.status === 204) {
+                responseJSON = null;
+            }
+            else {
+                responseJSON = await response.json();
+            }
             if (response.ok) {
                 return Promise.resolve({
                     json: responseJSON,
@@ -46,7 +50,6 @@ export class ApiRequest {
             return Promise.reject(this.getErrorFromResp(responseJSON));
         }
         catch (err) {
-            console.error(err);
             return Promise.reject({ message: err.message });
         }
     }
@@ -73,7 +76,7 @@ export class ApiRequest {
             }
             else {
                 if (isMandaratory === "!") {
-                    throw new Error("Required param " + paramName);
+                    throw new Error("Missing required param: " + paramName);
                 }
                 else {
                     return "";

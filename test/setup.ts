@@ -18,7 +18,7 @@ import { HttpMethod } from "../src/types/http_method.js";
 
 const mockAgent = new MockAgent();
 setGlobalDispatcher(mockAgent);
-// mockAgent.disableNetConnect();
+mockAgent.disableNetConnect();
 
 type StubParams = {
   uri: string;
@@ -120,6 +120,8 @@ class Stub {
   }
 
   private async readFixture(): Promise<string> {
+    if (this.fixturePath === "") return "";
+
     return JSON.parse(
       (await readFile(new URL(this.fixturePath, import.meta.url))).toString(),
     );

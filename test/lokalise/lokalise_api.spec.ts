@@ -14,6 +14,7 @@ describe("LokaliseApi", function () {
     expect(client.clientData.token).to.eq(process.env.API_KEY);
     expect(client.clientData.authHeader).to.eq("x-api-token");
     expect(client.clientData.enableCompression).to.be.false;
+    expect(client.clientData.version).to.eq("api2");
   });
 });
 
@@ -37,7 +38,7 @@ describe("LokaliseApi gzip", function () {
     const stub = new Stub({
       fixture: "lokalise/contributors.json",
       query: { limit: 2 },
-      uri: `/api2/projects/${project_id}/contributors`,
+      uri: `projects/${project_id}/contributors`,
       reqHeaders: {
         "Accept-Encoding": "gzip,deflate",
       },

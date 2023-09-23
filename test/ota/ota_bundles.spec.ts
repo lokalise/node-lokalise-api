@@ -1,30 +1,40 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseOtaBundles } from "../../src/main.js";
+import { expect, LokaliseOtaBundles, Stub } from "../setup.js";
 
 describe("OtaBundles", function () {
-  const cassette = new Cassettes("./test/cassettes");
+  const token = process.env.SDK_TOKEN;
   const lokaliseOtaBundles = new LokaliseOtaBundles({
-    apiKey: process.env.SDK_TOKEN,
+    apiKey: token,
   });
-  const projectId = "963054665b7c313dd9b323.35886655";
+  const rootUrl = lokaliseOtaBundles.clientData.host;
+  const projectId = "88628569645b945648b474.25982965";
+  const framework = "ios_sdk";
 
-  cassette
-    .createTest("get", async () => {
-      const bundle = await lokaliseOtaBundles.otaBundles().get(
-        {
-          appVersion: "1.2.3",
-          transVersion: 1,
-        },
-        {
-          framework: "ios_sdk",
-          lokaliseProjectId: projectId,
-        },
-      );
+  it("retrieves", async function () {
+    const params = {
+      appVersion: "1.2.3",
+      transVersion: 1,
+    };
 
-      expect(bundle.url).to.include("ota-bundles.lokalise.com");
-      expect(bundle.version).to.eq(664155);
-    })
-    .register(this);
+    const stub = new Stub({
+      fixture: "ota_bundles/retrieve.json",
+      uri: `lokalise/projects/${projectId}/frameworks/${framework}`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      query: params,
+      reqHeaders: {
+        "x-ota-api-token": token,
+      },
+    });
+
+    await stub.setStub();
+
+    const bundle = await lokaliseOtaBundles.otaBundles().get(params, {
+      framework,
+      lokaliseProjectId: projectId,
+    });
+
+    expect(bundle.url).to.include("ota-bundles.lokalise.com");
+    expect(bundle.version).to.eq(682463);
+  });
 });

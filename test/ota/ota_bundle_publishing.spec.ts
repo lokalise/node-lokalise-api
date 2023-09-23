@@ -1,36 +1,63 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
-import { LokaliseApiOta } from "../../src/main.js";
+import { expect, LokaliseApiOta, Stub } from "../setup.js";
 
 describe("OtaBundlePublishing", function () {
-  const cassette = new Cassettes("./test/cassettes");
-  const lokaliseApiOta = new LokaliseApiOta({ apiKey: process.env.API_JWT });
+  const token = process.env.API_JWT;
+  const lokaliseApiOta = new LokaliseApiOta({ apiKey: token });
   const teamId = 176692;
-  const projectId = "963054665b7c313dd9b323.35886655";
-  const bundleId = 664595;
+  const projectId = "88628569645b945648b474.25982965";
+  const bundleId = 682463;
+  const framework = "ios_sdk";
+  const rootUrl = lokaliseApiOta.clientData.host;
 
-  cassette
-    .createTest("publish", async () => {
-      const res = await lokaliseApiOta.otaBundlePublishing().publish(bundleId, {
-        teamId: teamId,
-        lokaliseProjectId: projectId,
-        framework: "android_sdk",
-      });
+  it("publishes", async function () {
+    const stub = new Stub({
+      fixture: "",
+      uri: `teams/${teamId}/projects/${projectId}/frameworks/${framework}/publish`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      method: "POST",
+      status: 204,
+      body: { bundleId },
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
-      expect(res).to.be.null;
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("stage", async () => {
-      const res = await lokaliseApiOta.otaBundlePublishing().stage(bundleId, {
-        teamId: teamId,
-        lokaliseProjectId: projectId,
-        framework: "android_sdk",
-      });
+    const res = await lokaliseApiOta.otaBundlePublishing().publish(bundleId, {
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+      framework,
+    });
 
-      expect(res).to.be.null;
-    })
-    .register(this);
+    expect(res).to.be.null;
+  });
+
+  it("stages", async function () {
+    const stub = new Stub({
+      fixture: "",
+      uri: `teams/${teamId}/projects/${projectId}/frameworks/${framework}/stage`,
+      version: "v3",
+      skipApiToken: true,
+      rootUrl,
+      method: "POST",
+      status: 204,
+      body: { bundleId },
+      reqHeaders: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+
+    await stub.setStub();
+
+    const res = await lokaliseApiOta.otaBundlePublishing().stage(bundleId, {
+      teamId: teamId,
+      lokaliseProjectId: projectId,
+      framework,
+    });
+
+    expect(res).to.be.null;
+  });
 });

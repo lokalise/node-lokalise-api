@@ -68,7 +68,7 @@ export class LokaliseAuth {
         }
     }
     buildUrl(params) {
-        const url = new URL("auth", this.authData.host ?? AuthRequest.urlRoot);
+        const url = new URL("auth", this.authData.host);
         const sParams = new URLSearchParams(params);
         url.search = sParams.toString();
         return url.toString();

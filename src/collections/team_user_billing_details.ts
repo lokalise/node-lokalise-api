@@ -41,7 +41,7 @@ export class TeamUserBillingDetails extends BaseCollection {
   update(
     team_id: string | number,
     billing_details_params: BillingDetailsParams,
-  ): Promise<any> {
+  ): Promise<BillingDetailsModel> {
     const params = { team_id: team_id };
     return this.createPromise(
       "PUT",
