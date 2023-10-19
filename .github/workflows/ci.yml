@@ -13,6 +13,7 @@ jobs:
           - 18
           - 19
           - 20
+          - 21
         os:
           - ubuntu-latest
     env:
