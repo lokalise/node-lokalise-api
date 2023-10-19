@@ -1,0 +1,110 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "keys": [
+    {
+      "key_id": 378219195,
+      "created_at": "2023-09-21 12:21:40 (Etc/UTC)",
+      "created_at_timestamp": 1695298900,
+      "key_name": {
+        "ios": "welcome_ios_supernew",
+        "android": "welcome_ios_supernew",
+        "web": "welcome_ios_supernew",
+        "other": "welcome_ios_supernew"
+      },
+      "filenames": {
+        "ios": "",
+        "android": "",
+        "web": "",
+        "other": ""
+      },
+      "description": "Welcome apple",
+      "platforms": [
+        "ios"
+      ],
+      "tags": [],
+      "comments": [],
+      "screenshots": [],
+      "translations": [
+        {
+          "translation_id": 3047655613,
+          "segment_number": 1,
+          "key_id": 378219195,
+          "language_iso": "en",
+          "translation": "{\"one\":\"I have one apple\",\"other\":\"I have a lot of apples\"}",
+          "modified_by": 20181,
+          "modified_by_email": "bodrovis@protonmail.com",
+          "modified_at": "2023-09-21 12:21:40 (Etc/UTC)",
+          "modified_at_timestamp": 1695298900,
+          "is_reviewed": false,
+          "reviewed_by": 0,
+          "is_unverified": false,
+          "is_fuzzy": false,
+          "words": 10,
+          "custom_translation_statuses": [],
+          "task_id": null
+        },
+        {
+          "translation_id": 3047655611,
+          "segment_number": 1,
+          "key_id": 378219195,
+          "language_iso": "ar_001",
+          "translation": "{\"zero\":\"\",\"one\":\"\",\"two\":\"\",\"few\":\"\",\"many\":\"\",\"other\":\"\"}",
+          "modified_by": 20181,
+          "modified_by_email": "bodrovis@protonmail.com",
+          "modified_at": "2023-09-21 12:21:40 (Etc/UTC)",
+          "modified_at_timestamp": 1695298900,
+          "is_reviewed": false,
+          "reviewed_by": 0,
+          "is_unverified": true,
+          "is_fuzzy": true,
+          "words": 0,
+          "custom_translation_statuses": [],
+          "task_id": null
+        },
+        {
+          "translation_id": 3047655612,
+          "segment_number": 1,
+          "key_id": 378219195,
+          "language_iso": "sq",
+          "translation": "{\"one\":\"\",\"other\":\"\"}",
+          "modified_by": 20181,
+          "modified_by_email": "bodrovis@protonmail.com",
+          "modified_at": "2023-09-21 12:21:40 (Etc/UTC)",
+          "modified_at_timestamp": 1695298900,
+          "is_reviewed": false,
+          "reviewed_by": 0,
+          "is_unverified": true,
+          "is_fuzzy": true,
+          "words": 0,
+          "custom_translation_statuses": [],
+          "task_id": null
+        }
+      ],
+      "is_plural": true,
+      "plural_name": "",
+      "is_hidden": false,
+      "is_archived": false,
+      "context": "",
+      "base_words": 10,
+      "char_limit": 0,
+      "custom_attributes": "",
+      "modified_at": "2023-09-21 12:21:40 (Etc/UTC)",
+      "modified_at_timestamp": 1695298900,
+      "translations_modified_at": "2023-09-21 12:21:40 (Etc/UTC)",
+      "translations_modified_at_timestamp": 1695298900
+    }
+  ],
+  "errors": [
+    {
+      "message": "This key name is already taken",
+      "code": 400,
+      "key_name": {
+        "ios": "welcome_web",
+        "android": "welcome_web",
+        "web": "welcome_web",
+        "other": "welcome_web"
+      }
+    }
+  ]
+}

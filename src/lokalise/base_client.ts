@@ -5,6 +5,7 @@ export type ClientParams = {
   enableCompression?: boolean;
   tokenType?: string;
   host?: string;
+  version?: string;
 };
 
 export class BaseClient {

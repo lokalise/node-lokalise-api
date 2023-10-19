@@ -1,0 +1,10 @@
+{
+  "user_id": 20181,
+  "payment_card": {
+    "card_id": 1774,
+    "last4": "0359",
+    "brand": "Visa",
+    "created_at": "2019-03-19 17:49:07 (Etc/UTC)",
+    "created_at_timestamp": 1553017747
+  }
+}

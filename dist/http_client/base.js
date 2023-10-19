@@ -1,4 +1,3 @@
-import got, { Options } from "got";
 import { LokalisePkg } from "../lokalise/pkg.js";
 export class ApiRequest {
     promise;
@@ -11,42 +10,47 @@ export class ApiRequest {
         return this;
     }
     async createPromise(uri, method, body, clientData) {
+        if (clientData.version)
+            uri = `/${clientData.version}/${uri}`;
         const url = this.composeURI(uri);
-        const options = new Options({
+        const prefixUrl = clientData.host ?? this.urlRoot;
+        const options = {
             method: method,
-            prefixUrl: clientData.host ?? this.urlRoot,
-            headers: {
-                Accept: "application/json",
-                "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
-            },
-            throwHttpErrors: false,
-            decompress: false,
-            responseType: "text",
-            searchParams: new URLSearchParams(this.params),
-            url: url,
+        };
+        const headers = new Headers({
+            Accept: "application/json",
+            "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
         });
-        options.headers[clientData.authHeader] = `${clientData.tokenType} ${clientData.token}`;
+        headers.append(clientData.authHeader, `${clientData.tokenType} ${clientData.token}`);
         if (clientData.enableCompression) {
-            options.headers["Accept-Encoding"] = "gzip,deflate";
-            options.decompress = true;
+            headers.append("Accept-Encoding", "gzip,deflate");
         }
         if (method !== "GET" && body) {
             options.body = JSON.stringify(body);
-            options.headers["Content-type"] = "application/json";
+            headers.append("Content-type", "application/json");
         }
+        options.headers = headers;
+        const target = new URL(url, prefixUrl);
+        target.search = new URLSearchParams(this.params).toString();
         try {
-            const response = await got(undefined, undefined, options);
-            const responseJSON = response.body
-                ? JSON.parse(response.body)
-                : null;
-            if (response.statusCode > 399) {
-                return Promise.reject(this.getErrorFromResp(responseJSON));
+            const response = await fetch(target, options);
+            let responseJSON;
+            if (response.status === 204) {
+                responseJSON = null;
             }
-            return Promise.resolve({ json: responseJSON, headers: response.headers });
-            /* c8 ignore next 4 */
+            else {
+                responseJSON = await response.json();
+            }
+            if (response.ok) {
+                return Promise.resolve({
+                    json: responseJSON,
+                    headers: response.headers,
+                });
+            }
+            return Promise.reject(this.getErrorFromResp(responseJSON));
         }
         catch (err) {
-            return Promise.reject(err);
+            return Promise.reject({ message: err.message });
         }
     }
     getErrorFromResp(respJson) {
@@ -72,8 +76,7 @@ export class ApiRequest {
             }
             else {
                 if (isMandaratory === "!") {
-                    /* c8 ignore next */
-                    throw new Error("Required param " + paramName);
+                    throw new Error("Missing required param: " + paramName);
                 }
                 else {
                     return "";

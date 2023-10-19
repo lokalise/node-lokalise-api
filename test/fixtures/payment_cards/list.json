@@ -1,0 +1,33 @@
+{
+  "user_id":20181,
+  "payment_cards":[
+    {
+      "card_id":1774,
+      "last4":"0351",
+      "brand":"Visa",
+      "created_at":"2019-03-19 17:49:07 (Etc/UTC)",
+      "created_at_timestamp":1553017747
+    },
+    {
+      "card_id":2185,
+      "last4":"8142",
+      "brand":"MasterCard",
+      "created_at":"2019-06-19 15:51:54 (Etc/UTC)",
+      "created_at_timestamp":1560959514
+    },
+    {
+      "card_id":3574,
+      "last4":"0863",
+      "brand":"visa",
+      "created_at":"2020-07-21 14:02:11 (Etc/UTC)",
+      "created_at_timestamp":1595340131
+    },
+    {
+      "card_id":3579,
+      "last4":"5477",
+      "brand":"Visa",
+      "created_at":"2020-07-23 11:31:16 (Etc/UTC)",
+      "created_at_timestamp":1595503876
+    }
+  ]
+}

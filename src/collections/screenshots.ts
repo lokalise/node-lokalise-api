@@ -19,6 +19,7 @@ type UpdateScreenshotParams = Omit<CreateScreenshotParams, "data" | "ocr">;
 type ScreenshotDeleted = {
   project_id: string;
   screenshot_deleted: boolean;
+  branch?: string;
 };
 
 export class Screenshots extends BaseCollection {

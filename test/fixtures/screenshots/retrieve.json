@@ -1,0 +1,40 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "screenshot": {
+    "screenshot_id": 757673,
+    "title": "123",
+    "description": "",
+    "screenshot_tags": [],
+    "url": "https://s3.eu-central-1.amazonaws.com/lokalise-live-lok-app-main-assets/files/screenshots/803826145ba90b42d5d860.46800099/d9fe24ed878d7d9cbfef048ba75703f2e95d66ae.jpg",
+    "key_ids": [
+      74166107,
+      74166110,
+      74166113
+    ],
+    "keys": [
+      {
+        "key_id": 74166107,
+        "coordinates": {
+          "left": 58,
+          "top": 75,
+          "width": 53,
+          "height": 12
+        }
+      },
+      {
+        "key_id": 74166110,
+        "coordinates": {
+          "left": 58,
+          "top": 75,
+          "width": 53,
+          "height": 12
+        }
+      }
+    ],
+    "width": 1506,
+    "height": 411,
+    "created_at": "2021-03-16 17:55:01 (Etc/UTC)",
+    "created_at_timestamp": 1615917301
+  }
+}

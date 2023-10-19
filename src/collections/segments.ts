@@ -46,7 +46,7 @@ export class Segments extends BaseCollection {
     segment_number: string | number,
     segment_params: UpdateSegmentBodyParams,
     request_params: UpdateSegmentReqParams,
-  ): Promise<any> {
+  ): Promise<Segment> {
     return this.doUpdate(segment_number, segment_params, request_params);
   }
 }

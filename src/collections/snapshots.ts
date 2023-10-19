@@ -12,6 +12,7 @@ type CreateSnapshotParams = {
 type SnapshotDeleted = {
   project_id: string;
   snapshot_deleted: boolean;
+  branch?: string;
 };
 
 export class Snapshots extends BaseCollection {

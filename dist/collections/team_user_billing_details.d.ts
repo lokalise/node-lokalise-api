@@ -19,6 +19,6 @@ export declare class TeamUserBillingDetails extends BaseCollection {
     protected static elementClass: typeof BillingDetailsModel;
     get(team_id: string | number): Promise<BillingDetailsModel>;
     create(billing_details_params: BillingDetailsParams, request_params: TeamOnly): Promise<BillingDetailsModel>;
-    update(team_id: string | number, billing_details_params: BillingDetailsParams): Promise<any>;
+    update(team_id: string | number, billing_details_params: BillingDetailsParams): Promise<BillingDetailsModel>;
 }
 export {};

@@ -25,6 +25,7 @@ import { Webhooks } from "../collections/webhooks.js";
 export class LokaliseApi extends BaseClient {
     constructor(params) {
         super(params);
+        this.clientData.version = params.version ?? "api2";
     }
     branches() {
         return new Branches(this.clientData);

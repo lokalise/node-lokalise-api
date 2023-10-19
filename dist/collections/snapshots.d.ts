@@ -10,6 +10,7 @@ type CreateSnapshotParams = {
 type SnapshotDeleted = {
     project_id: string;
     snapshot_deleted: boolean;
+    branch?: string;
 };
 export declare class Snapshots extends BaseCollection {
     protected static rootElementName: string;

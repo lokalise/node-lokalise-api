@@ -15,6 +15,7 @@ type CommentData = {
 type CommentDeleted = {
     project_id: string;
     comment_deleted: boolean;
+    branch?: string;
 };
 export declare class Comments extends BaseCollection {
     protected static rootElementName: string;

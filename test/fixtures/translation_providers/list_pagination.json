@@ -1,0 +1,20 @@
+{
+  "translation_providers": [
+    {
+      "provider_id": 4,
+      "name": "Lokalise",
+      "slug": "lokalise",
+      "price_pair_min": "10.00",
+      "website_url": "https://lokalise.com",
+      "description": "Our native professional translators are experts in mobile app, software, e-learning, website, multimedia and game localization. Translations in over 90 languages are available.<br><br>Reach out for our translation managers in our in-web support chat. They will guide you through.<br><br><strong>Lifetime quality guarantee</strong> applies.<br><br>Lokalise will not translate unlawful, abusive, pornographic, discriminatory or gambling-related content.<br>As soon as such content is found in the order for translation placed with Lokalise, the order is stopped, and the untranslated part is refunded. Please see more details in Section 7 \"Prohibited Content\" of <a href=\"https://lokalise.com/terms\" target=\"_blank\">Lokalise Terms</a>."
+    },
+    {
+      "provider_id": 5,
+      "name": "DeepL",
+      "slug": "deepl",
+      "price_pair_min": "0.00",
+      "website_url": "https://deepl.com",
+      "description": "DeepL Pro neural machine translation."
+    }
+  ]
+}

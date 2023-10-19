@@ -1,0 +1,64 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "task": {
+    "task_id": 1927993,
+    "title": "node task",
+    "can_be_parent": true,
+    "task_type": "translation",
+    "parent_task_id": null,
+    "closing_tags": [],
+    "description": "",
+    "status": "created",
+    "progress": 0,
+    "due_date": null,
+    "due_date_timestamp": null,
+    "keys_count": 1,
+    "words_count": 1,
+    "created_at": "2023-09-22 11:01:40 (Etc/UTC)",
+    "created_at_timestamp": 1695380500,
+    "created_by": 20181,
+    "created_by_email": "bodrovis@protonmail.com",
+    "source_language_iso": "en",
+    "languages": [
+      {
+        "language_iso": "en",
+        "users": [
+          {
+            "user_id": 20181,
+            "email": "bodrovis@protonmail.com",
+            "fullname": "Ilya B"
+          }
+        ],
+        "groups": [],
+        "keys": [
+          378217831
+        ],
+        "status": "created",
+        "progress": 0,
+        "initial_tm_leverage": {
+          "0%+": 1,
+          "60%+": 0,
+          "75%+": 0,
+          "95%+": 0,
+          "100%": 0
+        },
+        "keys_count": 1,
+        "words_count": 1,
+        "completed_at": null,
+        "completed_at_timestamp": null,
+        "completed_by": null,
+        "completed_by_email": null
+      }
+    ],
+    "auto_close_items": true,
+    "auto_close_languages": true,
+    "auto_close_task": true,
+    "completed_at": null,
+    "completed_at_timestamp": null,
+    "completed_by": null,
+    "completed_by_email": null,
+    "do_lock_translations": false,
+    "custom_translation_status_ids": []
+  }
+}

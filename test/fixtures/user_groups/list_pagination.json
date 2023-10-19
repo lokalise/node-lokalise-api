@@ -1,0 +1,49 @@
+{
+  "team_id": 176692,
+  "user_groups": [
+    {
+      "group_id": 2500,
+      "name": "RSpec group",
+      "permissions": {
+        "is_admin": false,
+        "is_reviewer": false,
+        "admin_rights": [],
+        "languages": [
+          {
+            "lang_id": 640,
+            "lang_iso": "en",
+            "lang_name": "English",
+            "is_writable": true
+          }
+        ]
+      },
+      "created_at": "2020-06-26 13:08:21 (Etc/UTC)",
+      "created_at_timestamp": 1593176901,
+      "team_id": 176692,
+      "projects": [],
+      "members": []
+    },
+    {
+      "group_id": 9769,
+      "name": "SDK",
+      "permissions": {
+        "is_admin": false,
+        "is_reviewer": true,
+        "admin_rights": [],
+        "languages": [
+          {
+            "lang_id": 640,
+            "lang_iso": "en",
+            "lang_name": "English",
+            "is_writable": true
+          }
+        ]
+      },
+      "created_at": "2023-07-18 17:35:55 (Etc/UTC)",
+      "created_at_timestamp": 1689701755,
+      "team_id": 176692,
+      "projects": [],
+      "members": []
+    }
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "lokaliseProjectId": "88628569645b945648b474.25982965",
+  "from": "2023-06-01",
+  "to": "2023-08-23",
+  "sdk": "",
+  "daily": [
+    {
+      "date": "2023-08-22",
+      "downloads": 2,
+      "trafficMb": 0,
+      "trafficBytes": "3588",
+      "framework": "ios_sdk"
+    }
+  ],
+  "monthly": [
+    {
+      "date": "2023-08-31",
+      "downloads": 2,
+      "trafficMb": 0,
+      "trafficBytes": "3588",
+      "framework": "ios_sdk"
+    }
+  ],
+  "totals": {
+    "trafficMb": 0,
+    "trafficBytes": "3588",
+    "downloads": 2
+  }
+}

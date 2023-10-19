@@ -1,0 +1,72 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "task": {
+    "task_id": 21659,
+    "title": "demo task",
+    "can_be_parent": false,
+    "task_type": "translation",
+    "parent_task_id": null,
+    "closing_tags": [],
+    "description": "",
+    "status": "completed",
+    "progress": 0,
+    "due_date": null,
+    "due_date_timestamp": null,
+    "keys_count": 1,
+    "words_count": 2,
+    "created_at": "2019-07-31 16:16:00 (Etc/UTC)",
+    "created_at_timestamp": 1564589760,
+    "created_by": 20181,
+    "created_by_email": "bodrovis@protonmail.com",
+    "source_language_iso": "en",
+    "languages": [
+      {
+        "language_iso": "fr",
+        "users": [
+          {
+            "user_id": 20181,
+            "email": "bodrovis@protonmail.com",
+            "fullname": "Ilya B"
+          },
+          {
+            "user_id": 35554,
+            "email": "golosizpru@ya.ru",
+            "fullname": "Joanne"
+          },
+          {
+            "user_id": 31113,
+            "email": "translator@mycompany.com",
+            "fullname": "Mr. Translator"
+          }
+        ],
+        "groups": [],
+        "keys": [],
+        "status": "created",
+        "progress": 0,
+        "initial_tm_leverage": {
+          "0%+": 0,
+          "60%+": 0,
+          "75%+": 0,
+          "95%+": 0,
+          "100%": 2
+        },
+        "keys_count": 1,
+        "words_count": 2,
+        "completed_at": null,
+        "completed_at_timestamp": null,
+        "completed_by": null,
+        "completed_by_email": null
+      }
+    ],
+    "auto_close_items": true,
+    "auto_close_languages": true,
+    "auto_close_task": true,
+    "completed_at": "2019-10-01 11:09:04 (Etc/UTC)",
+    "completed_at_timestamp": 1569928144,
+    "completed_by": 20181,
+    "completed_by_email": "bodrovis@protonmail.com",
+    "do_lock_translations": false,
+    "custom_translation_status_ids": []
+  }
+}

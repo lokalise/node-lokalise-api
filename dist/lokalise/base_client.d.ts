@@ -4,6 +4,7 @@ export type ClientParams = {
     enableCompression?: boolean;
     tokenType?: string;
     host?: string;
+    version?: string;
 };
 export declare class BaseClient {
     readonly clientData: ClientDataInterface;

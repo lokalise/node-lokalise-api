@@ -53,6 +53,7 @@ type UpdateTaskParams = Omit<
 type TaskDeleted = {
   project_id: string;
   task_deleted: boolean;
+  branch?: string;
 };
 
 export class Tasks extends BaseCollection {

@@ -1,6 +1,6 @@
 {
   "name": "@lokalise/node-api",
-  "version": "11.0.1",
+  "version": "12.0.0",
   "description": "Official Lokalise API 2.0 Node.js client",
   "license": "BSD-3-Clause",
   "type": "module",
@@ -38,16 +38,13 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^5.0.0",
     "mocha": "^10.0.0",
-    "mocha-cassettes": "1.3.0",
     "prettier": "^3.0.0",
-    "sinon": "^15.0.1",
+    "sinon": "^16.0.0",
     "source-map-support": "^0.5.21",
     "ts-mocha": "^10.0.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.0"
-  },
-  "dependencies": {
-    "got": "^13.0.0"
+    "typescript": "^5.0.0",
+    "undici": "^5.24.0"
   },
   "bugs": {
     "url": "https://github.com/lokalise/node-lokalise-api/issues"
@@ -61,6 +58,6 @@
   },
   "author": "Lokalise group, Ilya Krukowski",
   "engines": {
-    "node": ">=16"
+    "node": ">=18"
   }
 }

@@ -1,4 +1,4 @@
-import { Options } from "got";
+import { HttpMethod } from "../types/http_method.js";
 import { ApiRequest } from "../http_client/base.js";
 import { ApiError } from "../models/api_error.js";
 import { PaginatedResult } from "../models/paginated_result.js";
@@ -7,7 +7,7 @@ import { ClientData } from "../interfaces/client_data.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
 
 type RejectHandler = (data: any) => ApiError;
-type ResolveHandler = (json: Keyable, headers: Keyable, ...args: any[]) => any;
+type ResolveHandler = (json: Keyable, headers: Headers, ...args: any[]) => any;
 
 export abstract class BaseCollection {
   readonly clientData: ClientData;
@@ -78,6 +78,7 @@ export abstract class BaseCollection {
     const params = {
       ...req_params,
     };
+
     return this.createPromise(
       "POST",
       params,
@@ -92,7 +93,7 @@ export abstract class BaseCollection {
     body: Keyable | null,
     req_params: Keyable,
     resolveFn = this.populateObjectFromJsonRoot,
-    method: Options["method"] = "PUT",
+    method: HttpMethod = "PUT",
   ): Promise<any> {
     const params = {
       ...req_params,
@@ -107,7 +108,7 @@ export abstract class BaseCollection {
     );
   }
 
-  protected populateObjectFromJsonRoot(json: Keyable, headers: Keyable): any {
+  protected populateObjectFromJsonRoot(json: Keyable, headers: Headers): any {
     const childClass = <typeof BaseCollection>this.constructor;
     if (childClass.rootElementNameSingular) {
       json = Object(json)[childClass.rootElementNameSingular];
@@ -117,7 +118,7 @@ export abstract class BaseCollection {
 
   protected populateSecondaryObjectFromJsonRoot(
     json: Keyable,
-    headers: Keyable,
+    headers: Headers,
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
     json = Object(json)[<string>childClass.secondaryElementNameSingular];
@@ -126,7 +127,7 @@ export abstract class BaseCollection {
 
   protected populateObjectFromJson(
     json: Keyable,
-    _headers: Keyable,
+    _headers: Headers,
     secondary = false,
   ): any {
     const childClass = <typeof BaseCollection>this.constructor;
@@ -140,7 +141,7 @@ export abstract class BaseCollection {
 
   protected populateArrayFromJsonBulk(
     json: Keyable,
-    headers: Keyable,
+    headers: Headers,
   ): BulkResult | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
@@ -157,16 +158,20 @@ export abstract class BaseCollection {
 
   protected populateArrayFromJson(
     json: Keyable,
-    headers: Keyable,
+    headers: Headers,
   ): PaginatedResult | Keyable | this[] {
     const childClass = <typeof BaseCollection>this.constructor;
     const arr: this[] = [];
     const jsonArray = json[(<any>childClass).rootElementName];
+
     for (const obj of jsonArray) {
       arr.push(<this>this.populateObjectFromJson(obj, headers));
     }
 
-    if (headers["x-pagination-total-count"] && headers["x-pagination-page"]) {
+    if (
+      headers.get("x-pagination-total-count") &&
+      headers.get("x-pagination-page")
+    ) {
       const result: PaginatedResult = new PaginatedResult(arr, headers);
       return result;
     } else {
@@ -189,7 +194,7 @@ export abstract class BaseCollection {
   }
 
   protected async createPromise(
-    method: Options["method"],
+    method: HttpMethod,
     params: Keyable,
     resolveFn: ResolveHandler | null,
     rejectFn: RejectHandler,
@@ -213,7 +218,7 @@ export abstract class BaseCollection {
   }
 
   protected prepareRequest(
-    method: Options["method"],
+    method: HttpMethod,
     body: object | object[] | null,
     params: Keyable,
     uri: string | null = null,

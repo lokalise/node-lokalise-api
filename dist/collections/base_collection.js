@@ -88,7 +88,8 @@ export class BaseCollection {
         for (const obj of jsonArray) {
             arr.push(this.populateObjectFromJson(obj, headers));
         }
-        if (headers["x-pagination-total-count"] && headers["x-pagination-page"]) {
+        if (headers.get("x-pagination-total-count") &&
+            headers.get("x-pagination-page")) {
             const result = new PaginatedResult(arr, headers);
             return result;
         }

@@ -13,6 +13,7 @@ export declare class Translation extends BaseModel implements TranslationInterfa
     is_unverified: boolean;
     is_reviewed: boolean;
     reviewed_by: number;
+    is_fuzzy: boolean;
     words: number;
     custom_translation_statuses: TranslationStatus[];
     task_id: number;

@@ -10,15 +10,18 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 16
           - 18
           - 19
           - 20
+          - 21
         os:
           - ubuntu-latest
     env:
       API_KEY: 123abc
+      OAUTH2_CLIENT_ID: fake
+      OAUTH2_CLIENT_SECRET: fake
       OAUTH2_ACCESS_TOKEN: fake
+      OAUTH2_REFRESH_TOKEN: fake
       API_JWT: fake
       SDK_TOKEN: fake
     steps:

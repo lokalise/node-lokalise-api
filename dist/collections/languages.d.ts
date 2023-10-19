@@ -8,6 +8,7 @@ import { PaginationParams } from "../interfaces/pagination_params.js";
 type LanguageDeleted = {
     project_id: string;
     language_deleted: boolean;
+    branch?: string;
 };
 type CreateLanguageData = {
     lang_iso: string;

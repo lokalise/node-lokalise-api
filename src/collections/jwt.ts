@@ -6,14 +6,6 @@ export class Jwt extends BaseCollection {
   protected static elementClass = JwtModel;
 
   create(project_id: string, body = { service: "ota" }): Promise<JwtModel> {
-    // return this.createPromise(
-    //   "POST",
-    //   {},
-    //   this.populateObjectFromJson,
-    //   this.handleReject,
-    //   null,
-    //   Jwt.prefixURI
-    // );
     const request_params = { project_id: project_id };
     return this.doCreate(body, request_params, this.populateObjectFromJson);
   }

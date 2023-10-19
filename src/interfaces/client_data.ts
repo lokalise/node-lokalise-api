@@ -4,4 +4,5 @@ export interface ClientData {
   authHeader: string;
   enableCompression: boolean;
   host?: string;
+  version?: string;
 }

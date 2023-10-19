@@ -3,7 +3,6 @@ import { File } from "../models/file.js";
 import { QueuedProcess } from "../models/queued_process.js";
 import { UploadFileParams } from "../interfaces/upload_file_params.js";
 import { DownloadFileParams } from "../interfaces/download_file_params.js";
-import { Keyable } from "../interfaces/keyable.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
@@ -15,6 +14,12 @@ interface ListFileParams extends ProjectWithPagination {
 type FileDeleted = {
   project_id: string;
   file_deleted: boolean;
+};
+
+type DownloadBundle = {
+  project_id: string;
+  bundle_url: string;
+  branch?: string;
 };
 
 export class Files extends BaseCollection {
@@ -40,7 +45,10 @@ export class Files extends BaseCollection {
     );
   }
 
-  download(project_id: string, download: DownloadFileParams): Promise<Keyable> {
+  download(
+    project_id: string,
+    download: DownloadFileParams,
+  ): Promise<DownloadBundle> {
     return this.createPromise(
       "POST",
       { project_id: project_id },

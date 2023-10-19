@@ -1,110 +1,178 @@
-import "../setup.js";
-import { expect } from "chai";
-import { Cassettes } from "mocha-cassettes";
+import { LokaliseApi, Stub, expect } from "../setup.js";
 import { LokalisePkg } from "../../src/lokalise/pkg.js";
-import { LokaliseApi } from "../../src/lokalise/lokalise_api.js";
 import sinon from "sinon";
 
 describe("Projects", function () {
-  const cassette = new Cassettes("./test/cassettes");
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-  const project_id = "26981059635185cc13e557.06057938";
-  const new_project_id = "580641925d0a726ead2fd7.11048498";
+  const projectId = "803826145ba90b42d5d860.46800099";
+  const newProjectId = "43820238650c56462a27f0.61419394";
 
-  cassette
-    .createTest("list", async () => {
-      const projects = await lokaliseApi.projects().list();
-      expect(projects.items[0].name).to.eq("Angular");
-    })
-    .register(this);
+  it("lists", async function () {
+    const stub = new Stub({
+      fixture: "projects/list.json",
+      uri: `projects`,
+      respHeaders: {
+        "x-pagination-total-count": "2",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "500",
+        "x-pagination-page-count": "1",
+      },
+    });
 
-  cassette
-    .createTest("get no version", async () => {
-      sinon.replace(LokalisePkg, "pkgPath", function () {
-        return "fake_file_here";
-      });
+    await stub.setStub();
 
-      const project = await lokaliseApi
-        .projects()
-        .get("2273827860c1e2473eb195.11207948");
-      expect(project.name).to.eq("Angular");
+    const projects = await lokaliseApi.projects().list();
 
-      sinon.restore();
-    })
-    .register(this);
+    expect(projects.items[0].name).to.eq("Angular");
+  });
 
-  cassette
-    .createTest("list_pagination", async () => {
-      const projects = await lokaliseApi.projects().list({ page: 3, limit: 2 });
-      expect(projects.items[0].name).to.eq("Blog");
-      expect(projects.totalResults).to.eq(44);
-      expect(projects.totalPages).to.eq(22);
-      expect(projects.resultsPerPage).to.eq(2);
-      expect(projects.currentPage).to.eq(3);
-    })
-    .register(this);
+  it("lists and paginates", async function () {
+    const params = {
+      page: 2,
+      limit: 1,
+    };
 
-  cassette
-    .createTest("create", async () => {
-      const project = await lokaliseApi.projects().create({
-        name: "Node.js test",
-        description: "Test description",
-      });
+    const stub = new Stub({
+      fixture: "projects/list_pagination.json",
+      uri: `projects`,
+      query: params,
+      respHeaders: {
+        "x-pagination-total-count": "2",
+        "x-pagination-page": "2",
+        "x-pagination-limit": "1",
+        "x-pagination-page-count": "2",
+      },
+    });
 
-      expect(project.project_id).to.equal(project_id);
-      expect(project.name).to.equal("Node.js test");
-      expect(project.description).to.equal("Test description");
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("get", async () => {
-      const anotherId = "963054665b7c313dd9b323.35886655";
-      const project = await lokaliseApi.projects().get(anotherId);
+    const projects = await lokaliseApi.projects().list(params);
 
-      expect(project.project_id).to.equal(anotherId);
-      expect(project.project_type).to.equal("localization_files");
-      expect(project.name).to.equal("Sample Project");
-      expect(project.description).to.include("Lokalise sample project");
-      expect(project.created_at).to.equal("2018-08-21 13:35:25 (Etc/UTC)");
-      expect(project.created_at_timestamp).to.equal(1534858525);
-      expect(project.created_by).to.equal(20181);
-      expect(project.created_by_email).to.equal("bodrovis@protonmail.com");
-      expect(project.team_id).to.equal(176692);
-      expect(project.base_language_id).to.equal(640);
-      expect(project.base_language_iso).to.equal("en");
-      expect(project.settings.per_platform_key_names).to.be.false;
-      expect(project.statistics.team).to.equal(5);
-    })
-    .register(this);
+    expect(projects.items[0].name).to.eq("Blog");
+    expect(projects.totalResults).to.eq(2);
+    expect(projects.totalPages).to.eq(2);
+    expect(projects.resultsPerPage).to.eq(1);
+    expect(projects.currentPage).to.eq(2);
+  });
 
-  cassette
-    .createTest("update", async () => {
-      const project = await lokaliseApi.projects().update(project_id, {
-        name: "Node updated",
-        description: "Description updated",
-      });
+  it("retrieves", async function () {
+    const stub = new Stub({
+      fixture: "projects/retrieve.json",
+      uri: `projects/${projectId}`,
+    });
 
-      expect(project.project_id).to.equal(project_id);
-      expect(project.name).to.equal("Node updated");
-      expect(project.description).to.equal("Description updated");
-    })
-    .register(this);
+    await stub.setStub();
 
-  cassette
-    .createTest("empty", async () => {
-      const response = await lokaliseApi.projects().empty(new_project_id);
+    const project = await lokaliseApi.projects().get(projectId);
 
-      expect(response.project_id).to.equal(new_project_id);
-      expect(response.keys_deleted).to.be.true;
-    })
-    .register(this);
+    expect(project.name).to.eq("Demo Phoenix");
+    expect(project.project_id).to.equal(projectId);
+    expect(project.project_type).to.equal("localization_files");
+    expect(project.description).to.include("Description Phoenix");
+    expect(project.created_at).to.equal("2018-09-24 16:05:22 (Etc/UTC)");
+    expect(project.created_at_timestamp).to.equal(1537805122);
+    expect(project.created_by).to.equal(20181);
+    expect(project.created_by_email).to.equal("bodrovis@protonmail.com");
+    expect(project.team_id).to.equal(176692);
+    expect(project.base_language_id).to.equal(640);
+    expect(project.base_language_iso).to.equal("en");
+    expect(project.settings.per_platform_key_names).to.be.true;
+    expect(project.statistics.progress_total).to.equal(32);
+  });
 
-  cassette
-    .createTest("delete", async () => {
-      const response = await lokaliseApi.projects().delete(new_project_id);
-      expect(response.project_id).to.be.equal(new_project_id);
-      expect(response.project_deleted).to.be.true;
-    })
-    .register(this);
+  it("retrieves with no version", async function () {
+    sinon.replace(LokalisePkg, "pkgPath", function () {
+      return "fake_file_here";
+    });
+
+    const stub = new Stub({
+      fixture: "projects/retrieve_no_version.json",
+      uri: `projects/${projectId}`,
+      reqHeaders: {
+        "User-Agent": `node-lokalise-api/unknown`,
+      },
+    });
+
+    await stub.setStub();
+
+    const project = await lokaliseApi.projects().get(projectId);
+
+    expect(project.name).to.eq("Demo Phoenix");
+
+    sinon.restore();
+  });
+
+  it("creates", async function () {
+    const params = {
+      name: "Node.js test",
+      description: "Test description",
+    };
+
+    const stub = new Stub({
+      fixture: "projects/create.json",
+      uri: `projects`,
+      method: "POST",
+      body: params,
+    });
+
+    await stub.setStub();
+
+    const project = await lokaliseApi.projects().create(params);
+
+    expect(project.project_id).to.equal(newProjectId);
+    expect(project.name).to.equal("Node.js test");
+    expect(project.description).to.equal("Test description");
+  });
+
+  it("updates", async function () {
+    const params = {
+      name: "Node.js updated",
+      description: "Test description updated",
+    };
+
+    const stub = new Stub({
+      fixture: "projects/update.json",
+      uri: `projects/${newProjectId}`,
+      method: "PUT",
+      body: params,
+    });
+
+    await stub.setStub();
+
+    const project = await lokaliseApi.projects().update(newProjectId, params);
+
+    expect(project.project_id).to.equal(newProjectId);
+    expect(project.name).to.equal(params.name);
+    expect(project.description).to.equal(params.description);
+  });
+
+  it("empties", async function () {
+    const stub = new Stub({
+      fixture: "projects/empty.json",
+      uri: `projects/${newProjectId}/empty`,
+      method: "PUT",
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApi.projects().empty(newProjectId);
+
+    expect(response.project_id).to.equal(newProjectId);
+    expect(response.keys_deleted).to.be.true;
+  });
+
+  it("deletes", async function () {
+    const stub = new Stub({
+      fixture: "projects/delete.json",
+      uri: `projects/${newProjectId}`,
+      method: "DELETE",
+    });
+
+    await stub.setStub();
+
+    const response = await lokaliseApi.projects().delete(newProjectId);
+
+    expect(response.project_id).to.be.equal(newProjectId);
+    expect(response.project_deleted).to.be.true;
+  });
 });

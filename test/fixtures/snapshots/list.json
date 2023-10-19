@@ -1,0 +1,22 @@
+{
+  "project_id": "803826145ba90b42d5d860.46800099",
+  "branch": "master",
+  "snapshots": [
+    {
+      "snapshot_id": 27882,
+      "title": "test rspec",
+      "created_by": 20181,
+      "created_by_email": "bodrovis@protonmail.com",
+      "created_at": "2018-12-10 17:02:04 (Etc/UTC)",
+      "created_at_timestamp": 1544461324
+    },
+    {
+      "snapshot_id": 243330,
+      "title": "chained rspec snap",
+      "created_by": 20181,
+      "created_by_email": "bodrovis@protonmail.com",
+      "created_at": "2020-05-11 13:29:12 (Etc/UTC)",
+      "created_at_timestamp": 1589203752
+    }
+  ]
+}

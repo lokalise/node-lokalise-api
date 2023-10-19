@@ -10,6 +10,7 @@ export interface Translation {
     translation: string;
     is_unverified: boolean;
     is_reviewed: boolean;
+    is_fuzzy: boolean;
     reviewed_by: number;
     words: number;
     custom_translation_statuses: TranslationStatus[];

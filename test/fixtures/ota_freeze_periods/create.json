@@ -1,0 +1,10 @@
+{
+  "data": {
+    "id": 38301,
+    "projectId": 188763,
+    "bundleId": 682463,
+    "framework": "ios_sdk",
+    "from": "5.0",
+    "to": "6.0"
+  }
+}
