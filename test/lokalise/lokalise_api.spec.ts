@@ -1,4 +1,4 @@
-import { LokaliseApi, expect, Stub } from "../setup.js";
+import { LokaliseApi, expect, it, describe, Stub } from "../setup.js";
 
 const project_id = "803826145ba90b42d5d860.46800099";
 

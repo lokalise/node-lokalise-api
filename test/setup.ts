@@ -12,7 +12,7 @@ import {
 } from "../src/main.js";
 import { readFile } from "fs/promises";
 import { Keyable } from "../src/interfaces/keyable.js";
-import { expect } from "chai";
+import { expect, it, describe } from "vitest";
 import { LokalisePkg } from "../src/lokalise/pkg.js";
 import { HttpMethod } from "../src/types/http_method.js";
 
@@ -132,6 +132,8 @@ export {
   LokaliseApi,
   Stub,
   expect,
+  it,
+  describe,
   LokaliseAuth,
   LokaliseApiOAuth,
   LokaliseApiOta,

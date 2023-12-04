@@ -12,3 +12,6 @@ samples
 main.d.ts
 
 docs
+
+vite.config.ts
+vitest.config.ts

@@ -1,4 +1,4 @@
-import { LokaliseApi, Stub, expect } from "../setup.js";
+import { LokaliseApi, Stub, expect, it, describe } from "../setup.js";
 import { Project } from "../../src/main.js";
 
 describe("Snapshots", function () {
