@@ -19,6 +19,7 @@
   "scripts": {
     "build": "tsc",
     "test": "vitest run --coverage",
+    "test:watch": "vitest watch",
     "lint": "eslint . --ext .js,.ts",
     "lint:fix": "npm run lint -- --fix"
   },
@@ -43,7 +44,6 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.0",
     "undici": "^5.24.0",
-    "vite-plugin-dts": "^3.6.4",
     "vitest": "^1.0.0"
   },
   "bugs": {

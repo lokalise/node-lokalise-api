@@ -7,10 +7,7 @@ export abstract class OtaCollection extends BaseCollection {
     return <ApiError>json;
   }
 
-  protected doDelete(
-    id: string | number,
-    req_params: Keyable = {},
-  ): Promise<any> {
+  protected doDelete(id: string | number, req_params: Keyable): Promise<any> {
     const params = {
       ...req_params,
       id,
