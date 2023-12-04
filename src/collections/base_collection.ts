@@ -221,7 +221,7 @@ export abstract class BaseCollection {
     method: HttpMethod,
     body: object | object[] | null,
     params: Keyable,
-    uri: string | null = null,
+    uri: string | null,
   ): ApiRequest {
     return new ApiRequest(
       this.getUri(uri),

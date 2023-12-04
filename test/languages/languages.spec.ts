@@ -61,14 +61,14 @@ describe("Languages", function () {
     expect(languages.currentPage).to.eq(3);
   });
 
-  it("lists system langs", async function () {
+  it("lists system languages with pagination", async function () {
     const params = {
       page: 3,
       limit: 2,
     };
 
     const stub = new Stub({
-      fixture: "languages/list_system.json",
+      fixture: "languages/list_system_pagination.json",
       uri: `system/languages`,
       query: params,
       respHeaders: {
@@ -91,6 +91,26 @@ describe("Languages", function () {
     expect(languages.totalPages).to.eq(310);
     expect(languages.resultsPerPage).to.eq(2);
     expect(languages.currentPage).to.eq(3);
+  });
+
+  it("lists system languages", async function () {
+    const stub = new Stub({
+      fixture: "languages/list_system.json",
+      uri: "system/languages",
+      respHeaders: {
+        "x-pagination-total-count": "619",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "5000",
+        "x-pagination-page-count": "1",
+      },
+    });
+
+    await stub.setStub();
+
+    const languages = await lokaliseApi.languages().system_languages();
+
+    expect(languages.items[0].lang_id).to.eq(792);
+    expect(languages.items[0].lang_name).to.eq("Afrikaans (South Africa)");
   });
 
   it("retrieves", async function () {

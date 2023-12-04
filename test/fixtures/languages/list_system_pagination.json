@@ -1,0 +1,28 @@
+{
+  "languages": [
+    {
+      "lang_id": 792,
+      "lang_iso": "af_ZA",
+      "lang_name": "Afrikaans (South Africa)",
+      "is_rtl": false,
+      "plural_forms": [
+        "one",
+        "other"
+      ]
+    },
+    {
+      "lang_id": 977,
+      "lang_iso": "agq",
+      "lang_name": "Aghem",
+      "is_rtl": false,
+      "plural_forms": [
+        "zero",
+        "one",
+        "two",
+        "few",
+        "many",
+        "other"
+      ]
+    }
+  ]
+}

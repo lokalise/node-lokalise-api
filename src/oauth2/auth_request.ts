@@ -11,7 +11,7 @@ export class AuthRequest {
   ): Promise<any> {
     const prefixUrl = clientData.host;
 
-    if (clientData.version) uri = `/${clientData.version}/${uri}`;
+    uri = `/${clientData.version}/${uri}`;
 
     const options: RequestInit = {
       method: method,

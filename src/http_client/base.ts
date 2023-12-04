@@ -27,7 +27,7 @@ export class ApiRequest {
     body: object | object[] | null,
     clientData: ClientData,
   ): Promise<any> {
-    if (clientData.version) uri = `/${clientData.version}/${uri}`;
+    uri = `/${clientData.version}/${uri}`;
 
     const url = this.composeURI(uri);
 
