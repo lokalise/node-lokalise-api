@@ -1,4 +1,4 @@
-import { expect, LokaliseApiOta } from "../setup.js";
+import { expect, it, describe, LokaliseApiOta } from "../setup.js";
 
 describe("LokaliseApiOta", function () {
   const token = "fake";

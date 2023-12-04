@@ -1,4 +1,4 @@
-import { expect, LokaliseApiOta, Stub } from "../setup.js";
+import { expect, it, describe, LokaliseApiOta, Stub } from "../setup.js";
 import { OtaApiError } from "../../src/models/ota_api_error.js";
 
 describe("OtaSdkTokens", function () {

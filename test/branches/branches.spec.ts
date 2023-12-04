@@ -1,11 +1,11 @@
-import { LokaliseApi, Stub, expect } from "../setup.js";
+import { LokaliseApi, Stub, expect, it, describe } from "../setup.js";
 
-describe("Branches", function () {
+describe("Branches", () => {
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
   const projectId = "803826145ba90b42d5d860.46800099";
   const branchId = 41284;
 
-  it("lists", async function () {
+  it("lists", async () => {
     const stub = new Stub({
       fixture: "branches/list.json",
       uri: `projects/${projectId}/branches`,

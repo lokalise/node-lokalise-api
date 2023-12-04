@@ -1,4 +1,4 @@
-import { LokaliseApi, Stub, expect } from "../setup.js";
+import { LokaliseApi, Stub, expect, it, describe } from "../setup.js";
 import { UserGroupParams } from "../../src/main.js";
 
 describe("UserGroups", function () {

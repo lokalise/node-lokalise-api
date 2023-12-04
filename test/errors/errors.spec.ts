@@ -1,5 +1,5 @@
 import { ApiError, ProjectWithPagination } from "../../src/main.js";
-import { LokaliseApi, Stub, expect } from "../setup.js";
+import { LokaliseApi, Stub, expect, it, describe } from "../setup.js";
 
 describe("Branches", function () {
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });

@@ -18,6 +18,7 @@
     "noImplicitThis": true,
     "strictFunctionTypes": true
   },
+  "types": ["vitest/globals"],
   "include": [
     "src/**/*"
   ],

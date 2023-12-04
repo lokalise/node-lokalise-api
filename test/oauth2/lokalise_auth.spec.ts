@@ -1,4 +1,4 @@
-import { LokaliseAuth, Stub, expect } from "../setup.js";
+import { LokaliseAuth, Stub, expect, it, describe } from "../setup.js";
 import {
   RequestTokenResponse,
   RefreshTokenResponse,

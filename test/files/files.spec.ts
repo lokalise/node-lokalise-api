@@ -1,5 +1,6 @@
-import { LokaliseApi, Stub, expect } from "../setup.js";
+import { LokaliseApi, Stub, expect, it, describe } from "../setup.js";
 import { QueuedProcess, DownloadFileParams } from "../../src/main.js";
+import type { FileFormat } from "../../src/types/file_format.js";
 
 describe("Files", function () {
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
@@ -65,6 +66,7 @@ describe("Files", function () {
       data: data,
       filename: "test_node.json",
       lang_iso: "en",
+      format: <FileFormat>"json",
     };
 
     const stub = new Stub({
@@ -138,7 +140,7 @@ describe("Files", function () {
 
   it("downloads", async function () {
     const params: DownloadFileParams = {
-      format: "json",
+      format: <FileFormat>"json",
       original_filenames: true,
     };
 
