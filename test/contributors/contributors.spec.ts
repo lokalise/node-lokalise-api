@@ -6,60 +6,58 @@ describe("Contributors", function () {
   const userId = 20181;
   const newUserId = 308781;
 
-  // it("lists", async function () {
-  //   const stub = new Stub({
-  //     fixture: "contributors/list.json",
-  //     uri: `projects/${projectId}/contributors`,
-  //     respHeaders: {
-  //       "x-pagination-total-count": "3",
-  //       "x-pagination-page": "1",
-  //       "x-pagination-limit": "100",
-  //       "x-pagination-page-count": "1",
-  //     },
-  //   });
+  it("lists", async function () {
+    const stub = new Stub({
+      fixture: "contributors/list.json",
+      uri: `projects/${projectId}/contributors`,
+      respHeaders: {
+        "x-pagination-total-count": "3",
+        "x-pagination-page": "1",
+        "x-pagination-limit": "100",
+        "x-pagination-page-count": "1",
+      },
+    });
 
-  //   await stub.setStub();
+    await stub.setStub();
 
-  //     const contributors = await lokaliseApi.contributors().list({
-  //       project_id: projectId,
-  //     });
+    const contributors = await lokaliseApi.contributors().list({
+      project_id: projectId,
+    });
 
-  //      expect(contributors.items[0].user_id).to.eq(25753);
-  // });
+    expect(contributors.items[0].user_id).to.eq(25753);
+  });
 
-  // it("lists and paginates", async function () {
-  //           const params = {page: 2,
-  //       limit: 3,
-  //           }
-  //   const stub = new Stub({
-  //     fixture: "contributors/list_pagination.json",
-  //     uri: `projects/${projectId}/contributors`,
-  //     query: params,
-  //     respHeaders: {
-  //       "x-pagination-total-count": "6",
-  //       "x-pagination-page": "2",
-  //       "x-pagination-limit": "3",
-  //       "x-pagination-page-count": "2",
-  //     },
-  //   });
+  it("lists and paginates", async function () {
+    const params = { page: 2, limit: 3 };
+    const stub = new Stub({
+      fixture: "contributors/list_pagination.json",
+      uri: `projects/${projectId}/contributors`,
+      query: params,
+      respHeaders: {
+        "x-pagination-total-count": "6",
+        "x-pagination-page": "2",
+        "x-pagination-limit": "3",
+        "x-pagination-page-count": "2",
+      },
+    });
 
-  //   await stub.setStub();
+    await stub.setStub();
 
-  //     const contributors = await lokaliseApi.contributors().list({
-  //       project_id: projectId,
-  //       ...params
-  //     });
+    const contributors = await lokaliseApi.contributors().list({
+      project_id: projectId,
+      ...params,
+    });
 
-  //     expect(contributors.items[0].user_id).to.eq(31113);
-  //     expect(contributors.totalResults).to.eq(6);
-  //     expect(contributors.totalPages).to.eq(2);
-  //     expect(contributors.resultsPerPage).to.eq(3);
-  //     expect(contributors.currentPage).to.eq(2);
-  //     expect(contributors.isFirstPage()).to.be.false;
-  //     expect(contributors.isLastPage()).to.be.true;
-  //     expect(contributors.nextPage()).to.eq(2);
-  //     expect(contributors.prevPage()).to.eq(1);
-  // });
+    expect(contributors.items[0].user_id).to.eq(31113);
+    expect(contributors.totalResults).to.eq(6);
+    expect(contributors.totalPages).to.eq(2);
+    expect(contributors.resultsPerPage).to.eq(3);
+    expect(contributors.currentPage).to.eq(2);
+    expect(contributors.isFirstPage()).to.be.false;
+    expect(contributors.isLastPage()).to.be.true;
+    expect(contributors.nextPage()).to.eq(2);
+    expect(contributors.prevPage()).to.eq(1);
+  });
 
   it("retrieves", async function () {
     const stub = new Stub({

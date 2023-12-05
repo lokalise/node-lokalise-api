@@ -1,5 +1,10 @@
 # Changelog
 
+## 12.1.0 (05-Dec-2023)
+
+* Minor code updates
+* Use Vitest for testing
+
 ## 12.0.0 (23-Sep-2023)
 
 * This SDK now does not have any third-party runtime dependencies. Previously we used Got to send HTTP requests but this solution caused issues with typings for some customers therefore we decided to utilize the native Fetch API instead. The only issue is that Fetch API is a relatively new feature therefore Node 18+ is required.
