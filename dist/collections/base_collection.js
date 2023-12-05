@@ -120,7 +120,7 @@ export class BaseCollection {
             return Promise.reject(rejectFn.call(this, err));
         }
     }
-    prepareRequest(method, body, params, uri = null) {
+    prepareRequest(method, body, params, uri) {
         return new ApiRequest(this.getUri(uri), method, body, params, this.clientData);
     }
     getUri(uri) {

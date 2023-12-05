@@ -10,8 +10,7 @@ export class ApiRequest {
         return this;
     }
     async createPromise(uri, method, body, clientData) {
-        if (clientData.version)
-            uri = `/${clientData.version}/${uri}`;
+        uri = `/${clientData.version}/${uri}`;
         const url = this.composeURI(uri);
         const prefixUrl = clientData.host ?? this.urlRoot;
         const options = {

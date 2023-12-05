@@ -31,7 +31,7 @@ export declare abstract class BaseCollection {
     protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;
     protected createPromise(method: HttpMethod, params: Keyable, resolveFn: ResolveHandler | null, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
-    protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Keyable, uri?: string | null): ApiRequest;
+    protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Keyable, uri: string | null): ApiRequest;
     protected getUri(uri: string | null): string;
     protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable>;
 }

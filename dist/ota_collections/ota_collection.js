@@ -3,7 +3,7 @@ export class OtaCollection extends BaseCollection {
     populateApiErrorFromJson(json) {
         return json;
     }
-    doDelete(id, req_params = {}) {
+    doDelete(id, req_params) {
         const params = {
             ...req_params,
             id,
