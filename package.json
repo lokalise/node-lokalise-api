@@ -29,8 +29,8 @@
   "devDependencies": {
     "@types/node": "^20.1.2",
     "@types/sinon": "^17.0.1",
-    "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0",
+    "@typescript-eslint/eslint-plugin": "^7.0.0",
+    "@typescript-eslint/parser": "^7.0.0",
     "@vitest/coverage-istanbul": "^1.0.1",
     "dotenv": "^16.0.0",
     "eslint": "^8.33.0",
