@@ -7,6 +7,8 @@
       path: api-rate-limits
 - title: Proxy support
   path: proxy_support
+- title: Webhook events
+  path: webhook_events
 - title: Contributing
   path: contribution_guide
   sub_paths:

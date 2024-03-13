@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.0.0
+
+* Our SDK now exports types for [webhook events](https://lokalise.github.io/node-lokalise-api/additional_info/webhook_events).
+
 ## 12.2.1 (13-Mar-2024)
 
 * Expose more types
