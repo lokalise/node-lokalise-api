@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.2.0 (13-Mar-2024)
+
+* Properly handle cases when the server response cannot be parsed (which usually happens when the error 429 is encountered)
+
 ## 12.1.0 (05-Dec-2023)
 
 * Minor code updates

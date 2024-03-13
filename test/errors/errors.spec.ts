@@ -1,8 +1,25 @@
 import { ApiError, ProjectWithPagination } from "../../src/main.js";
 import { LokaliseApi, Stub, expect, it, describe } from "../setup.js";
 
-describe("Branches", function () {
+describe("Errors", function () {
   const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+  const project_id = "803826145ba90b42d5d860.46800099";
+
+  it("is expected to reject with proper http message and status code if json is not parsable", async function () {
+    const stub = new Stub({
+      data: "Too many requests",
+      uri: `projects/${project_id}`,
+      status: 429,
+    });
+
+    await stub.setStub();
+
+    try {
+      expect(await lokaliseApi.projects().get(project_id)).to.throw();
+    } catch (error) {
+      expect(error).to.deep.equal({ message: "Too Many Requests", code: 429 });
+    }
+  });
 
   it("handles exceptions", async function () {
     const fakeProjectId = "803";

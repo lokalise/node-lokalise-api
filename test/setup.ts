@@ -33,6 +33,7 @@ type StubParams = {
   rootUrl?: string;
   skipApiToken?: boolean;
   version?: string;
+  data?: string;
 };
 
 class Stub {
@@ -47,6 +48,7 @@ class Stub {
   readonly rootUrl: string;
   readonly skipApiToken: boolean;
   readonly version: string;
+  readonly data: string | undefined = undefined;
 
   constructor(params: StubParams) {
     if (params.fixture) {
@@ -66,6 +68,7 @@ class Stub {
     this.rootUrl = params.rootUrl ?? "https://api.lokalise.com";
     this.skipApiToken = params.skipApiToken ?? false;
     this.version = params.version ?? "api2";
+    this.data = params.data;
   }
 
   async setStub() {
@@ -114,7 +117,7 @@ class Stub {
     if (this.doFail) {
       mockPool.intercept(mockOpts).replyWithError(new Error("Fail"));
     } else {
-      const data = await this.readFixture();
+      const data = this.data ?? (await this.readFixture());
       mockPool.intercept(mockOpts).reply(this.statusCode, data, respOpts);
     }
   }
