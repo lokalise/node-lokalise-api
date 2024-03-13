@@ -18,7 +18,7 @@ describe("LokaliseApi", function () {
     expect(client.clientData.version).to.eq("api2");
   });
 
-  it.only("is expected to reject with proper http message and status code if json is not parsable", async function () {
+  it("is expected to reject with proper http message and status code if json is not parsable", async function () {
     const mockAgent = new MockAgent();
     setGlobalDispatcher(mockAgent);
     const mockPool = mockAgent.get("https://api.lokalise.com");
