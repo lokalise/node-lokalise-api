@@ -1,19 +1,7 @@
 import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details.js";
 import { BaseCollection } from "./base_collection.js";
 import { TeamOnly } from "../interfaces/team_only.js";
-
-type BillingDetailsParams = {
-  billing_email: string;
-  country_code: string;
-  zip: string | number;
-  state_code?: string;
-  address1?: string;
-  address2?: string;
-  city?: string;
-  phone?: string;
-  company?: string;
-  vatnumber?: string;
-};
+import { BillingDetailsParams } from "../types/billing_details_params.js";
 
 export class TeamUserBillingDetails extends BaseCollection {
   protected static rootElementName = "";

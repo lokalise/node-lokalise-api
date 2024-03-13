@@ -3,6 +3,7 @@ import { Translation } from "../models/translation.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
+import { UpdateTranslationParams } from "../types/update_translation_params.js";
 
 interface ListTranslationParams extends ProjectWithPagination {
   disable_references?: number | string;
@@ -17,13 +18,6 @@ interface ListTranslationParams extends ProjectWithPagination {
 interface GetTranslationParams extends ProjectOnly {
   disable_references?: number | string;
 }
-
-type TranslationParams = {
-  translation: string;
-  is_unverified?: boolean;
-  is_reviewed?: boolean;
-  custom_translation_status_ids?: string[] | number[];
-};
 
 export class Translations extends BaseCollection {
   protected static rootElementName = "translations";
@@ -46,7 +40,7 @@ export class Translations extends BaseCollection {
 
   update(
     translation_id: string | number,
-    translation_params: TranslationParams,
+    translation_params: UpdateTranslationParams,
     request_params: ProjectOnly,
   ): Promise<Translation> {
     return this.doUpdate(translation_id, translation_params, request_params);

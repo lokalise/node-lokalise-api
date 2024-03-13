@@ -3,41 +3,8 @@ import { Contributor } from "../models/contributor.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
-
-type ContributorLanguages = {
-  lang_iso: string;
-  is_writable?: boolean;
-};
-
-type ContributorRights =
-  | "upload"
-  | "activity"
-  | "download"
-  | "settings"
-  | "create_branches"
-  | "statistics"
-  | "keys"
-  | "screenshots"
-  | "glossary"
-  | "contributors"
-  | "languages"
-  | "tasks";
-
-type ContributorCreateData = {
-  email: string;
-  fullname?: string;
-  is_admin?: boolean;
-  is_reviewer?: boolean;
-  languages: ContributorLanguages[];
-  admin_rights?: ContributorRights[];
-};
-
-type ContributorUpdateData = {
-  is_admin?: boolean;
-  is_reviewer?: boolean;
-  languages?: ContributorLanguages[];
-  admin_rights?: ContributorRights[];
-};
+import { ContributorCreateData } from "../types/contributor_create_data.js";
+import { ContributorUpdateData } from "../types/contributor_update_data.js";
 
 type ContributorDeleted = {
   project_id: string;

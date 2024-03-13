@@ -4,10 +4,7 @@ import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
 import { Project } from "../models/project.js";
-
-type CreateSnapshotParams = {
-  title: string;
-};
+import { CreateSnapshotParams } from "../types/create_snapshot_params.js";
 
 type SnapshotDeleted = {
   project_id: string;

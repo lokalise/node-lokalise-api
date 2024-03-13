@@ -2,6 +2,8 @@ import { Project } from "../models/project.js";
 import { BaseCollection } from "./base_collection.js";
 import { PaginationParams } from "../interfaces/pagination_params.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { CreateProjectParams } from "../types/create_project_params.js";
+import { UpdateProjectParams } from "../types/update_project_params.js";
 
 interface ProjectListParams extends PaginationParams {
   filter_team_id?: number | string;
@@ -9,24 +11,6 @@ interface ProjectListParams extends PaginationParams {
   include_statistics?: string | number;
   include_settings?: string | number;
 }
-
-type ProjectParams = {
-  name: string;
-  team_id?: number | string;
-  description?: string;
-  languages?: Array<{
-    lang_iso: string;
-    custom_iso?: string;
-  }>;
-  base_lang_iso?: string;
-  project_type?: "localization_files" | "paged_documents";
-  is_segmentation_enabled?: boolean;
-};
-
-type ProjectUpdateParams = {
-  name: string;
-  description?: string;
-};
 
 type ProjectDeleted = {
   project_id: string;
@@ -49,7 +33,7 @@ export class Projects extends BaseCollection {
     return this.doList(request_params);
   }
 
-  create(project_params: ProjectParams): Promise<Project> {
+  create(project_params: CreateProjectParams): Promise<Project> {
     return this.doCreate(project_params);
   }
 
@@ -59,7 +43,7 @@ export class Projects extends BaseCollection {
 
   update(
     project_id: string | number,
-    project_params: ProjectUpdateParams,
+    project_params: UpdateProjectParams,
   ): Promise<Project> {
     return this.doUpdate(
       project_id,

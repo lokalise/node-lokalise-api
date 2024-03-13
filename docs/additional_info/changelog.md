@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.2.1 (13-Mar-2024)
+
+* Expose more types
+
 ## 12.2.0 (13-Mar-2024)
 
 * Properly handle cases when the server response cannot be parsed (which usually happens when the error 429 is encountered)

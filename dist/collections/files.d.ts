@@ -6,17 +6,13 @@ import { DownloadFileParams } from "../interfaces/download_file_params.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
+import { DownloadBundle } from "../types/download_bundle.js";
 interface ListFileParams extends ProjectWithPagination {
     filter_filename?: string;
 }
 type FileDeleted = {
     project_id: string;
     file_deleted: boolean;
-};
-type DownloadBundle = {
-    project_id: string;
-    bundle_url: string;
-    branch?: string;
 };
 export declare class Files extends BaseCollection {
     protected static rootElementName: string;

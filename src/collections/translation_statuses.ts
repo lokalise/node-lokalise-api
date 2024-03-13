@@ -3,16 +3,8 @@ import { TranslationStatus } from "../models/translation_status.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
-
-type CreateTranslationStatusParams = {
-  title: string;
-  color: string;
-};
-
-type UpdateTranslationStatusParams = {
-  title?: string;
-  color?: string;
-};
+import { CreateTranslationStatusParams } from "../types/create_translation_status_params.js";
+import { UpdateTranslationStatusParams } from "../types/update_translation_status_params.js";
 
 type TranslationStatusDeleted = {
   project_id: string;

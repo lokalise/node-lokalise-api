@@ -3,15 +3,8 @@ import { Branch } from "../models/branch.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
 import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { ProjectOnly } from "../interfaces/project_only.js";
-
-type BranchParams = {
-  name?: string;
-};
-
-type MergeBranchParams = {
-  force_conflict_resolve_using?: string;
-  target_branch_id?: number | string;
-};
+import { BranchParams } from "../types/branch_params.js";
+import { MergeBranchParams } from "../types/merge_branch_params.js";
 
 type BranchDeleted = {
   project_id: string;
