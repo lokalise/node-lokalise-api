@@ -65,10 +65,18 @@ export class ApiRequest {
     try {
       const response = await fetch(target, options);
       let responseJSON;
-      if (response.status === 204) {
-        responseJSON = null;
-      } else {
-        responseJSON = await response.json();
+
+      try {
+        if (response.status === 204) {
+          responseJSON = null;
+        } else {
+          responseJSON = await response.json();
+        }
+      } catch (error) {
+        return Promise.reject({
+          message: response.statusText,
+          code: response.status,
+        });
       }
 
       if (response.ok) {
