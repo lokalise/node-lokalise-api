@@ -5,6 +5,7 @@ export type WebhookProjectBranchAdded = {
     name: string;
   };
   branch: {
+    id: number | string;
     name: string;
   };
   user: {

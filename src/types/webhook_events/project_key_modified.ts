@@ -1,19 +1,20 @@
+import { Filenames } from "../filenames.js";
+
 export type WebhookProjectKeyModified = {
   event: "project.key.modified";
   key: {
     id: number;
     name: string;
-    previous_name: string;
-    filenames: {
-      ios: string | null;
-      android: string | null;
-      web: string | null;
-      other: string | null;
-    };
+    previous_name?: string | null;
+    tags: string[];
+    filenames: Filenames;
+    hidden: boolean;
+    screenshots: string[] | number[];
   };
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

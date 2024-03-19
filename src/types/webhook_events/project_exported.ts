@@ -1,13 +1,16 @@
+import { SupportedPlatforms } from "../supported_platforms.js";
+
 export type WebhookProjectExported = {
   event: "project.exported";
   export: {
     type: string;
     filename: string;
-    platform: string;
+    platform: SupportedPlatforms;
   };
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

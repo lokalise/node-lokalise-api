@@ -5,6 +5,7 @@ export type WebhookProjectBranchDeleted = {
     name: string;
   };
   branch: {
+    id: number | string;
     name: string;
   };
   user: {

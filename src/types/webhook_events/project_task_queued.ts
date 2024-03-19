@@ -1,14 +1,15 @@
-export type WebhookProjectLanguageSettingsChanged = {
-  event: "project.language.settings_changed";
-  language: {
+export type WebhookProjectTaskQueued = {
+  event: "project.task.queued";
+  task: {
     id: number;
-    iso: string;
-    name: string;
+    type: string;
+    title: string;
+    due_date: string;
+    description: string;
   };
   project: {
     id: string;
     name: string;
-    branch?: string;
   };
   user: {
     email: string;

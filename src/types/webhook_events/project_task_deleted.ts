@@ -2,6 +2,7 @@ export type WebhookProjectTaskDeleted = {
   event: "project.task.deleted";
   task: {
     id: number;
+    type: string;
     title: string;
     due_date: string;
     description: string;
@@ -9,6 +10,7 @@ export type WebhookProjectTaskDeleted = {
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

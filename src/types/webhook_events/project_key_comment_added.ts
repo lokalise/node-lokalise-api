@@ -1,3 +1,5 @@
+import { Filenames } from "../filenames.js";
+
 export type WebhookProjectKeyCommentAdded = {
   event: "project.key.comment.added";
   comment: {
@@ -6,16 +8,12 @@ export type WebhookProjectKeyCommentAdded = {
   key: {
     id: number;
     name: string;
-    filenames: {
-      android: string | null;
-      ios: string | null;
-      other: string | null;
-      web: string | null;
-    };
+    filenames: Filenames;
   };
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

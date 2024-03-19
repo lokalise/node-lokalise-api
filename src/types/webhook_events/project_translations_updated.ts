@@ -18,6 +18,7 @@ export type WebhookProjectTranslationsUpdated = {
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     full_name: string;

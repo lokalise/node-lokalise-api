@@ -10,6 +10,7 @@ export type WebhookProjectTaskClosed = {
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

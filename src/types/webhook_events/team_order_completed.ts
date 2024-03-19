@@ -3,6 +3,7 @@ export type WebhookTeamOrderCompleted = {
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   order: {
     id: string;

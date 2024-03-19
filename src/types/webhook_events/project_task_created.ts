@@ -10,6 +10,7 @@ export type WebhookProjectTaskCreated = {
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

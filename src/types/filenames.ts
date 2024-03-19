@@ -1,6 +1,6 @@
 export type Filenames = {
-  ios?: string;
-  android?: string;
-  web?: string;
-  other?: string;
+  ios?: string | null;
+  android?: string | null;
+  web?: string | null;
+  other?: string | null;
 };

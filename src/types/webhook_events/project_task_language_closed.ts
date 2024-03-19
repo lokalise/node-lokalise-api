@@ -15,6 +15,7 @@ export type WebhookProjectTaskLanguageClosed = {
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

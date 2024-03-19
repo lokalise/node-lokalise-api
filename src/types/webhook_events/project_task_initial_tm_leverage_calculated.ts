@@ -1,12 +1,10 @@
 type TmLeverage = {
-  "600": {
-    "0": 154;
-    "50": 5;
-    "75": 4;
-    "85": 11;
-    "95": 0;
-    "100%": 6;
-  };
+  "0": number;
+  "50": number;
+  "75": number;
+  "85": number;
+  "95": number;
+  "100%": number;
 };
 
 export type WebhookProjectTaskInitialTmLeverageCalculated = {
@@ -16,13 +14,13 @@ export type WebhookProjectTaskInitialTmLeverageCalculated = {
     title: string;
     description: string;
     initial_tm_leverage: {
-      [key: string]: TmLeverage;
+      [key: string | number]: TmLeverage;
     };
   };
   project: {
     id: string;
     name: string;
-    branch: string;
+    branch?: string;
   };
   created_at: string;
   created_at_timestamp: number;

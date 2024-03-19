@@ -1,18 +1,18 @@
+import { Filenames } from "../filenames.js";
+
 export type WebhookProjectKeysDeleted = {
   event: "project.keys.deleted";
+  action?: string;
   keys: Array<{
     id: number;
     name: string;
-    filenames: {
-      ios: string | null;
-      android: string | null;
-      web: string | null;
-      other: string | null;
-    };
+    base_value: string;
+    filenames: Filenames;
   }>;
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

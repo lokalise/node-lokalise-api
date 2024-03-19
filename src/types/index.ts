@@ -61,7 +61,9 @@ export { WebhookProjectTranslationUpdated } from "./webhook_events/project_trans
 export { WebhookProjectTranslationsUpdated } from "./webhook_events/project_translations_updated.js";
 export { WebhookProjectTranslationProofread } from "./webhook_events/project_translation_proofread.js";
 export { WebhookProjectContributorAdded } from "./webhook_events/project_contributor_added.js";
+export { WebhookProjectContributorAddedPublic } from "./webhook_events/project_contributor_added_public.js";
 export { WebhookProjectContributorDeleted } from "./webhook_events/project_contributor_deleted.js";
+export { WebhookProjectTaskQueued } from "./webhook_events/project_task_queued.js";
 export { WebhookProjectTaskCreated } from "./webhook_events/project_task_created.js";
 export { WebhookProjectTaskClosed } from "./webhook_events/project_task_closed.js";
 export { WebhookProjectTaskDeleted } from "./webhook_events/project_task_deleted.js";

@@ -1,15 +1,14 @@
-type AddedLanguage = {
-  id: number;
-  iso: string;
-  name: string;
-};
-
 export type WebhookProjectLanguagesAdded = {
   event: "project.languages.added";
-  languages: Array<AddedLanguage>;
+  languages: Array<{
+    id: number;
+    iso: string;
+    name: string;
+  }>;
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

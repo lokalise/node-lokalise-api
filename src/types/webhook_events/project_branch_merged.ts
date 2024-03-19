@@ -5,9 +5,11 @@ export type WebhookProjectBranchMerged = {
     name: string;
   };
   branch: {
+    id: number | string;
     name: string;
   };
   target_branch: {
+    id: number | string;
     name: string;
   };
   affected_keys: {

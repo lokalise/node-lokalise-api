@@ -1,3 +1,5 @@
+import { Filenames } from "../filenames.js";
+
 export type WebhookProjectKeyAdded = {
   event: "project.key.added";
   key: {
@@ -5,10 +7,12 @@ export type WebhookProjectKeyAdded = {
     name: string;
     base_value: string;
     tags: string[];
+    filenames: Filenames;
   };
   project: {
     id: string;
     name: string;
+    branch?: string;
   };
   user: {
     email: string;

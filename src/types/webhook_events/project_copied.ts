@@ -1,6 +1,6 @@
 export type WebhookProjectCopied = {
   event: "project.copied";
-  action: string;
+  action?: string;
   project: {
     id: string;
     name: string;
