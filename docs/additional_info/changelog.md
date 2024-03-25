@@ -1,6 +1,6 @@
 # Changelog
 
-## 12.4.0
+## 12.4.0 (25-Mar-2024)
 
 * Enhance typings, export more types, various fixes
 
