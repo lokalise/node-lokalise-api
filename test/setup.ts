@@ -14,7 +14,7 @@ import { readFile } from "fs/promises";
 import { Keyable } from "../src/interfaces/keyable.js";
 import { expect, it, describe } from "vitest";
 import { LokalisePkg } from "../src/lokalise/pkg.js";
-import { HttpMethod } from "../src/types/http_method.js";
+import type { HttpMethod } from "../src/types/http_method.js";
 
 const mockAgent = new MockAgent();
 setGlobalDispatcher(mockAgent);
