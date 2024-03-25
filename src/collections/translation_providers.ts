@@ -1,8 +1,8 @@
 import { BaseCollection } from "./base_collection.js";
 import { TranslationProvider } from "../models/translation_provider.js";
-import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { TeamOnly } from "../interfaces/team_only.js";
+import type { TeamOnly } from "../types/common_get_params.js";
+import type { TeamWithPagination } from "../types/teams.js";
 
 export class TranslationProviders extends BaseCollection {
   protected static rootElementName = "translation_providers";

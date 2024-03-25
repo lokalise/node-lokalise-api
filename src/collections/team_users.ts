@@ -1,14 +1,9 @@
 import { BaseCollection } from "./base_collection.js";
 import { TeamUser } from "../models/team_user.js";
-import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { TeamOnly } from "../interfaces/team_only.js";
-import { TeamUserParams } from "../types/team_user_params.js";
-
-type TeamUserDeleted = {
-  team_id: string;
-  team_user_deleted: boolean;
-};
+import type { TeamWithPagination } from "../types/teams.js";
+import type { TeamOnly } from "../types/common_get_params.js";
+import type { TeamUserParams, TeamUserDeleted } from "../types/team_users.js";
 
 export class TeamUsers extends BaseCollection {
   protected static rootElementName = "team_users";

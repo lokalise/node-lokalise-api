@@ -1,28 +1,11 @@
 import { Segment } from "../models/segment.js";
 import { BaseCollection } from "./base_collection.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-
-interface GetSegmentParams extends ProjectOnly {
-  key_id: number | string;
-  language_iso: string;
-  disable_references?: number | string;
-}
-
-type UpdateSegmentReqParams = Omit<GetSegmentParams, "disable_references">;
-
-type UpdateSegmentBodyParams = {
-  value: string;
-  is_fuzzy?: boolean;
-  is_reviewed?: boolean;
-  custom_translation_status_ids?: string[] | number[];
-};
-
-interface ListSegmentParams extends GetSegmentParams {
-  filter_is_reviewed?: number | string;
-  filter_unverified?: number | string;
-  filter_untranslated?: number | string;
-  filter_qa_issues?: string;
-}
+import type {
+  GetSegmentParams,
+  UpdateSegmentReqParams,
+  UpdateSegmentBodyParams,
+  ListSegmentParams,
+} from "../types/segments.js";
 
 export class Segments extends BaseCollection {
   protected static rootElementName = "segments";

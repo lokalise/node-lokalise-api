@@ -1,5 +1,5 @@
 import { expect, it, describe, LokaliseApiOta, Stub } from "../setup.js";
-import { OtaApiError } from "../../src/models/ota_api_error.js";
+import { OtaApiError } from "../../src/models/ota/ota_api_error.js";
 
 describe("OtaSdkTokens", function () {
   const token = process.env.API_JWT;

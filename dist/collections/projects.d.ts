@@ -1,23 +1,7 @@
 import { Project } from "../models/project.js";
 import { BaseCollection } from "./base_collection.js";
-import { PaginationParams } from "../interfaces/pagination_params.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { CreateProjectParams } from "../types/create_project_params.js";
-import { UpdateProjectParams } from "../types/update_project_params.js";
-interface ProjectListParams extends PaginationParams {
-    filter_team_id?: number | string;
-    filter_names?: string;
-    include_statistics?: string | number;
-    include_settings?: string | number;
-}
-type ProjectDeleted = {
-    project_id: string;
-    project_deleted: boolean;
-};
-type ProjectEmptied = {
-    project_id: string;
-    keys_deleted: boolean;
-};
+import type { CreateProjectParams, UpdateProjectParams, ProjectDeleted, ProjectEmptied, ProjectListParams } from "../types/projects.js";
 export declare class Projects extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
@@ -29,4 +13,3 @@ export declare class Projects extends BaseCollection {
     delete(project_id: string | number): Promise<ProjectDeleted>;
     empty(project_id: any): Promise<ProjectEmptied>;
 }
-export {};

@@ -1,4 +1,4 @@
-import { HttpMethod } from "../types/http_method.js";
+import type { HttpMethod } from "../types/http_method.js";
 import { Keyable, WritableKeyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
 import { LokalisePkg } from "../lokalise/pkg.js";

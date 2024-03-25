@@ -1,20 +1,16 @@
 import { BaseCollection } from "./base_collection.js";
 import { TranslationStatus } from "../models/translation_status.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-import { CreateTranslationStatusParams } from "../types/create_translation_status_params.js";
-import { UpdateTranslationStatusParams } from "../types/update_translation_status_params.js";
-
-type TranslationStatusDeleted = {
-  project_id: string;
-  custom_translation_status_deleted: boolean;
-  branch?: string;
-};
-
-type TranslationStatusColors = {
-  colors: string[];
-};
+import type {
+  ProjectOnly,
+  ProjectWithPagination,
+} from "../types/common_get_params.js";
+import type {
+  CreateTranslationStatusParams,
+  UpdateTranslationStatusParams,
+  TranslationStatusDeleted,
+  TranslationStatusColors,
+} from "../types/translation_statuses.js";
 
 export class TranslationStatuses extends BaseCollection {
   protected static rootElementName = "custom_translation_statuses";

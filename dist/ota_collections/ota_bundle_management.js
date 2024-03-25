@@ -1,5 +1,5 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaBundle } from "../models/ota_bundle.js";
+import { OtaBundle } from "../models/ota/ota_bundle.js";
 export class OtaBundleManagement extends OtaCollection {
     static rootElementName = "data";
     static rootElementNameSingular = "data";

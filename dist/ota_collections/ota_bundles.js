@@ -1,5 +1,5 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaBundleArchive } from "../models/ota_bundle_archive.js";
+import { OtaBundleArchive } from "../models/ota/ota_bundle_archive.js";
 export class OtaBundles extends OtaCollection {
     static rootElementNameSingular = "data";
     static prefixURI = "lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";

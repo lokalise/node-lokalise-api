@@ -1,26 +1,13 @@
 import { BaseCollection } from "./base_collection.js";
 import { Comment } from "../models/comment.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-
-interface ParamsWithPagination extends ProjectWithPagination {
-  key_id: number | string;
-}
-
-interface ProjectAndKey extends ProjectOnly {
-  key_id: number | string;
-}
-
-type CommentData = {
-  comment: string;
-};
-
-type CommentDeleted = {
-  project_id: string;
-  comment_deleted: boolean;
-  branch?: string;
-};
+import type { ProjectWithPagination } from "../types/common_get_params.js";
+import type {
+  CommentData,
+  CommentDeleted,
+  KeyProjectPagination,
+  ProjectAndKey,
+} from "../types/comments.js";
 
 export class Comments extends BaseCollection {
   protected static rootElementName = "comments";
@@ -30,7 +17,7 @@ export class Comments extends BaseCollection {
   protected static elementClass = Comment;
 
   list(
-    request_params: ParamsWithPagination,
+    request_params: KeyProjectPagination,
   ): Promise<PaginatedResult<Comment>> {
     return this.doList(request_params);
   }

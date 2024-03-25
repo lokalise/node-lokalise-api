@@ -1,4 +1,4 @@
-import { HttpMethod } from "../types/http_method.js";
+import type { HttpMethod } from "../types/http_method.js";
 import { ApiRequest } from "../http_client/base.js";
 import { ApiError } from "../models/api_error.js";
 import { PaginatedResult } from "../models/paginated_result.js";

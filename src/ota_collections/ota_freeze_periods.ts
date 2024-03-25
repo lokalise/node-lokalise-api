@@ -1,14 +1,11 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaFreezePeriod } from "../models/ota_freeze_period.js";
-import { OtaTeamProject } from "../interfaces/ota_team_project.js";
-import { OtaTeamProjectFramework } from "../interfaces/ota_team_project_framework.js";
-import { OtaResourceDeleted } from "../types/ota_resource_deleted.js";
-
-type FreezePeriodParams = {
-  from: string;
-  to: string;
-  bundleId: number | string;
-};
+import { OtaFreezePeriod } from "../models/ota/ota_freeze_period.js";
+import type {
+  OtaTeamProject,
+  OtaTeamProjectFramework,
+  OtaResourceDeleted,
+  OtaFreezePeriodParams,
+} from "../types/ota.js";
 
 export class OtaFreezePeriods extends OtaCollection {
   protected static rootElementName = "data";
@@ -22,7 +19,7 @@ export class OtaFreezePeriods extends OtaCollection {
   }
 
   create(
-    freezeParams: FreezePeriodParams,
+    freezeParams: OtaFreezePeriodParams,
     requestParams: OtaTeamProject,
   ): Promise<OtaFreezePeriod> {
     return this.doCreate(
@@ -34,7 +31,7 @@ export class OtaFreezePeriods extends OtaCollection {
 
   update(
     freezeId: string | number,
-    freezeParams: FreezePeriodParams,
+    freezeParams: OtaFreezePeriodParams,
     requestParams: OtaTeamProject,
   ): Promise<OtaFreezePeriod> {
     return this.doUpdate(freezeId, freezeParams, requestParams);

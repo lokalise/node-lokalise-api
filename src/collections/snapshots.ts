@@ -1,16 +1,15 @@
 import { BaseCollection } from "./base_collection.js";
 import { Snapshot } from "../models/snapshot.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
 import { Project } from "../models/project.js";
-import { CreateSnapshotParams } from "../types/create_snapshot_params.js";
-
-type SnapshotDeleted = {
-  project_id: string;
-  snapshot_deleted: boolean;
-  branch?: string;
-};
+import type {
+  ProjectOnly,
+  ProjectWithPagination,
+} from "../types/common_get_params.js";
+import type {
+  CreateSnapshotParams,
+  SnapshotDeleted,
+} from "../types/snapshots.js";
 
 export class Snapshots extends BaseCollection {
   protected static rootElementName = "snapshots";

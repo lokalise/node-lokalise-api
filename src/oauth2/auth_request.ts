@@ -1,6 +1,6 @@
 import { LokalisePkg } from "../lokalise/pkg.js";
-import { HttpMethod } from "../types/http_method.js";
 import { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
+import type { HttpMethod } from "../types/http_method.js";
 
 export class AuthRequest {
   static async createPromise(

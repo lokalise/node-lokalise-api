@@ -1,4 +1,4 @@
-import { SupportedPlatforms } from "../supported_platforms.js";
+import type { SupportedPlatforms } from "../supported_platforms.js";
 export type WebhookProjectExported = {
     event: "project.exported";
     export: {

@@ -1,5 +1,5 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaFreezePeriod } from "../models/ota_freeze_period.js";
+import { OtaFreezePeriod } from "../models/ota/ota_freeze_period.js";
 export class OtaFreezePeriods extends OtaCollection {
     static rootElementName = "data";
     static rootElementNameSingular = "data";
