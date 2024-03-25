@@ -1,4 +1,4 @@
-import { Filenames } from "../filenames.js";
+import type { Filenames } from "../filenames.js";
 
 export type WebhookProjectKeysDeleted = {
   event: "project.keys.deleted";

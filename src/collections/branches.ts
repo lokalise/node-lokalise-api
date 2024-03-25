@@ -1,22 +1,16 @@
 import { BaseCollection } from "./base_collection.js";
 import { Branch } from "../models/branch.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-import { BranchParams } from "../types/branch_params.js";
-import { MergeBranchParams } from "../types/merge_branch_params.js";
-
-type BranchDeleted = {
-  project_id: string;
-  branch_deleted: boolean;
-};
-
-type BranchMerged = {
-  project_id: string;
-  branch_merged: boolean;
-  branch: Branch;
-  target_branch: Branch;
-};
+import type {
+  ProjectWithPagination,
+  ProjectOnly,
+} from "../types/common_get_params.js";
+import type {
+  BranchParams,
+  MergeBranchParams,
+  BranchDeleted,
+  BranchMerged,
+} from "../types/branches.js";
 
 export class Branches extends BaseCollection {
   protected static rootElementName = "branches";

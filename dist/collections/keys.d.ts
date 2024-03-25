@@ -1,25 +1,9 @@
 import { BaseCollection } from "./base_collection.js";
 import { Key } from "../models/key.js";
-import { KeyParamsWithPagination } from "../interfaces/key_params_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-import { CreateKeyParams } from "../types/create_key_params.js";
-import { UpdateKeyData } from "../types/update_key_data.js";
-import { BulkUpdateKeyParams } from "../types/bulk_update_key_params.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
-import { GetKeyParams } from "../interfaces/get_key_params.js";
-type KeyDeleted = {
-    project_id: string;
-    key_removed: boolean;
-    keys_locked?: number;
-    branch?: string;
-};
-type KeysBulkDeleted = {
-    project_id: string;
-    keys_removed: boolean;
-    keys_locked: number;
-    branch?: string;
-};
+import type { ProjectOnly } from "../types/common_get_params.js";
+import type { CreateKeyParams, UpdateKeyData, BulkUpdateKeyParams, KeyDeleted, KeysBulkDeleted, KeyParamsWithPagination, GetKeyParams } from "../types/keys.js";
 export declare class Keys extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
@@ -33,4 +17,3 @@ export declare class Keys extends BaseCollection {
     bulk_update(key_params: BulkUpdateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key>>;
     bulk_delete(key_ids: number[] | string[], request_params: ProjectOnly): Promise<KeysBulkDeleted>;
 }
-export {};

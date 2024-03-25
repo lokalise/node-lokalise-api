@@ -1,21 +1,8 @@
 import { BaseCollection } from "./base_collection.js";
 import { Translation } from "../models/translation.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-import { UpdateTranslationParams } from "../types/update_translation_params.js";
-interface ListTranslationParams extends ProjectWithPagination {
-    disable_references?: number | string;
-    filter_lang_id?: number | string;
-    filter_is_reviewed?: number | string;
-    filter_unverified?: number | string;
-    filter_untranslated?: number | string;
-    filter_qa_issues?: string;
-    filter_active_task_id?: number | string;
-}
-interface GetTranslationParams extends ProjectOnly {
-    disable_references?: number | string;
-}
+import type { ProjectOnly } from "../types/common_get_params.js";
+import type { UpdateTranslationParams, ListTranslationParams, GetTranslationParams } from "../types/translations.js";
 export declare class Translations extends BaseCollection {
     protected static rootElementName: string;
     protected static rootElementNameSingular: string;
@@ -25,4 +12,3 @@ export declare class Translations extends BaseCollection {
     get(translation_id: string | number, request_params: GetTranslationParams): Promise<Translation>;
     update(translation_id: string | number, translation_params: UpdateTranslationParams, request_params: ProjectOnly): Promise<Translation>;
 }
-export {};

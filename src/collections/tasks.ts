@@ -1,21 +1,13 @@
 import { BaseCollection } from "./base_collection.js";
 import { Task } from "../models/task.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-import { CreateTaskParams } from "../types/create_task_params.js";
-import { UpdateTaskParams } from "../types/update_task_params.js";
-
-interface ListTaskParams extends ProjectWithPagination {
-  filter_title?: string;
-  filter_statuses?: string;
-}
-
-type TaskDeleted = {
-  project_id: string;
-  task_deleted: boolean;
-  branch?: string;
-};
+import type { ProjectOnly } from "../types/common_get_params.js";
+import type {
+  CreateTaskParams,
+  UpdateTaskParams,
+  TaskDeleted,
+  ListTaskParams,
+} from "../types/tasks.js";
 
 export class Tasks extends BaseCollection {
   protected static rootElementName = "tasks";

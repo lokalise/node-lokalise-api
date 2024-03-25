@@ -1,9 +1,9 @@
 import { Order } from "../models/order.js";
 import { BaseCollection } from "./base_collection.js";
-import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
-import { TeamOnly } from "../interfaces/team_only.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { CreateOrderParams } from "../types/create_order_params.js";
+import type { TeamWithPagination } from "../types/teams.js";
+import type { TeamOnly } from "../types/common_get_params.js";
+import type { CreateOrderParams } from "../types/orders.js";
 export declare class Orders extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;

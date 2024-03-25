@@ -1,17 +1,16 @@
 import { BaseCollection } from "./base_collection.js";
 import { Screenshot } from "../models/screenshot.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
-import { CreateScreenshotParams } from "../types/create_screenshot_params.js";
-import { UpdateScreenshotParams } from "../types/update_screenshot_params.js";
-
-type ScreenshotDeleted = {
-  project_id: string;
-  screenshot_deleted: boolean;
-  branch?: string;
-};
+import type {
+  ProjectWithPagination,
+  ProjectOnly,
+} from "../types/common_get_params.js";
+import type {
+  CreateScreenshotParams,
+  UpdateScreenshotParams,
+  ScreenshotDeleted,
+} from "../types/screenshots.js";
 
 export class Screenshots extends BaseCollection {
   protected static rootElementName = "screenshots";

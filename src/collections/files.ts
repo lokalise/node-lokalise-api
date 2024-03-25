@@ -1,21 +1,15 @@
 import { BaseCollection } from "./base_collection.js";
 import { File } from "../models/file.js";
 import { QueuedProcess } from "../models/queued_process.js";
-import { UploadFileParams } from "../interfaces/upload_file_params.js";
-import { DownloadFileParams } from "../interfaces/download_file_params.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-import { DownloadBundle } from "../types/download_bundle.js";
-
-interface ListFileParams extends ProjectWithPagination {
-  filter_filename?: string;
-}
-
-type FileDeleted = {
-  project_id: string;
-  file_deleted: boolean;
-};
+import type { ProjectOnly } from "../types/common_get_params.js";
+import type {
+  DownloadBundle,
+  FileDeleted,
+  DownloadFileParams,
+  UploadFileParams,
+  ListFileParams,
+} from "../types/files.js";
 
 export class Files extends BaseCollection {
   protected static rootElementName = "files";

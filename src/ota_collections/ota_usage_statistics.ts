@@ -1,12 +1,6 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaStatistics } from "../models/ota_statistics.js";
-import { OtaTeamProject } from "../interfaces/ota_team_project.js";
-
-type OtaUsageParams = {
-  dateFrom: string;
-  dateTo: string;
-  framework?: string;
-};
+import { OtaStatistics } from "../models/ota/ota_statistics.js";
+import type { OtaTeamProject, OtaUsageParams } from "../types/ota.js";
 
 export class OtaUsageStatistics extends OtaCollection {
   protected static prefixURI =

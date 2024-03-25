@@ -1,5 +1,5 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaSdkToken } from "../models/ota_sdk_token.js";
+import { OtaSdkToken } from "../models/ota/ota_sdk_token.js";
 export class OtaSdkTokens extends OtaCollection {
     static rootElementName = "data";
     static rootElementNameSingular = "data";

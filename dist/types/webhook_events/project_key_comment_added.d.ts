@@ -1,4 +1,4 @@
-import { Filenames } from "../filenames.js";
+import type { Filenames } from "../filenames.js";
 export type WebhookProjectKeyCommentAdded = {
     event: "project.key.comment.added";
     comment: {

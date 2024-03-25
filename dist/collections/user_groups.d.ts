@@ -1,14 +1,10 @@
 import { BaseCollection } from "./base_collection.js";
 import { UserGroup } from "../models/user_group.js";
 import { Keyable } from "../interfaces/keyable.js";
-import { TeamWithPagination } from "../interfaces/team_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { TeamOnly } from "../interfaces/team_only.js";
-import { UserGroupParams } from "../types/user_group_params.js";
-type UserGroupDeleted = {
-    team_id: string;
-    group_deleted: boolean;
-};
+import type { TeamWithPagination } from "../types/teams.js";
+import type { TeamOnly } from "../types/common_get_params.js";
+import type { UserGroupParams, UserGroupDeleted } from "../types/user_groups.js";
 export declare class UserGroups extends BaseCollection {
     protected static rootElementName: string;
     protected static prefixURI: string;
@@ -24,4 +20,3 @@ export declare class UserGroups extends BaseCollection {
     remove_projects_from_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
     protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this;
 }
-export {};

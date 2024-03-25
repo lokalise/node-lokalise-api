@@ -1,5 +1,5 @@
 import { OtaCollection } from "./ota_collection.js";
-import { OtaStatistics } from "../models/ota_statistics.js";
+import { OtaStatistics } from "../models/ota/ota_statistics.js";
 export class OtaUsageStatistics extends OtaCollection {
     static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/stats";
     static elementClass = OtaStatistics;

@@ -1,8 +1,10 @@
 import { QueuedProcess } from "../models/queued_process.js";
 import { BaseCollection } from "./base_collection.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
+import type {
+  ProjectWithPagination,
+  ProjectOnly,
+} from "../types/common_get_params.js";
 
 export class QueuedProcesses extends BaseCollection {
   protected static rootElementName = "processes";

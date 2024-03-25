@@ -1,16 +1,15 @@
 import { BaseCollection } from "./base_collection.js";
 import { Contributor } from "../models/contributor.js";
-import { ProjectWithPagination } from "../interfaces/project_with_pagination.js";
 import { PaginatedResult } from "../interfaces/paginated_result.js";
-import { ProjectOnly } from "../interfaces/project_only.js";
-import { ContributorCreateData } from "../types/contributor_create_data.js";
-import { ContributorUpdateData } from "../types/contributor_update_data.js";
-
-type ContributorDeleted = {
-  project_id: string;
-  contributor_deleted: boolean;
-  branch?: string;
-};
+import type {
+  ProjectWithPagination,
+  ProjectOnly,
+} from "../types/common_get_params.js";
+import type {
+  ContributorCreateData,
+  ContributorUpdateData,
+  ContributorDeleted,
+} from "../types/contributors.js";
 
 export class Contributors extends BaseCollection {
   protected static rootElementName = "contributors";
