@@ -135,6 +135,7 @@ export type { WebhookProjectKeysDeleted } from "./webhook_events/project_keys_de
 export type { WebhookProjectKeyCommentAdded } from "./webhook_events/project_key_comment_added.js";
 export type { WebhookProjectTranslationUpdated } from "./webhook_events/project_translation_updated.js";
 export type { WebhookProjectTranslationsUpdated } from "./webhook_events/project_translations_updated.js";
+export type { WebhookProjectTranslationsProofread } from "./webhook_events/project_translations_proofread.js";
 export type { WebhookProjectTranslationProofread } from "./webhook_events/project_translation_proofread.js";
 export type { WebhookProjectContributorAdded } from "./webhook_events/project_contributor_added.js";
 export type { WebhookProjectContributorAddedPublic } from "./webhook_events/project_contributor_added_public.js";

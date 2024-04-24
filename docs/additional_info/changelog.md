@@ -1,5 +1,9 @@
 # Changelog
 
+## 12.4.1 (24-Apr-2024)
+
+* Add a new `WebhookProjectTranslationsProofread` webhook event type [according to the documentation](https://developers.lokalise.com/docs/webhook-events#projecttranslationsproofread)
+
 ## 12.4.0 (25-Mar-2024)
 
 * Enhance typings, export more types, various fixes
