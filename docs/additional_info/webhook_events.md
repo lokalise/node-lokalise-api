@@ -1,6 +1,6 @@
 # Webhook events
 
-If you're working with [webhook events](https://developers.lokalise.com/docs/webhook-events), you take take advantage of the typings from our Node SDK.
+If you're working with [webhook events](https://developers.lokalise.com/docs/webhook-events), you can take advantage of the typings from our Node SDK.
 
 For example, when processing `project.key.added` event:
 
