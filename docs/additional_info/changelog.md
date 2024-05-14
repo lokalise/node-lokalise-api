@@ -1,5 +1,32 @@
 # Changelog
 
+## 12.5.0 (14-May-2024)
+
+* Add support for cursor pagination for List keys and List translation endpoints:
+
+```js
+// This approach is also applicable for `lokaliseApi.translations().list()`
+const keys = await lokaliseApi.keys().list({
+  project_id: projectId,
+  limit: 2, // The number of items to fetch. Optional, default is 100
+  pagination: "cursor",
+  cursor: "eyIxIjo1MjcyNjU2MTd9", // The starting cursor. Optional, string
+});
+
+const key = keys.items[0]; // Accessing items as with regular pagination
+
+const hasNext = keys.hasNextCursor(); // Returns a boolean
+
+const nextCursor = keys.nextCursor; // Returns the next cursor as a string, empty if unavailable
+
+const keysNextPortion = await lokaliseApi.keys().list({
+  project_id: projectId,
+  limit: 2,
+  pagination: "cursor",
+  cursor: nextCursor,
+});
+```
+
 ## 12.4.1 (24-Apr-2024)
 
 * Add a new `WebhookProjectTranslationsProofread` webhook event type [according to the documentation](https://developers.lokalise.com/docs/webhook-events#projecttranslationsproofread)

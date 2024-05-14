@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Key } from "../models/key.js";
-import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { CursorPaginatedResult } from "../interfaces/cursor_paginated_result.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
 import type { ProjectOnly } from "../types/common_get_params.js";
 import type {
@@ -19,8 +19,10 @@ export class Keys extends BaseCollection {
   protected static prefixURI = "projects/{!:project_id}/keys/{:id}";
   protected static elementClass = Key;
 
-  list(request_params: KeyParamsWithPagination): Promise<PaginatedResult<Key>> {
-    return this.doList(request_params);
+  list(
+    request_params: KeyParamsWithPagination,
+  ): Promise<CursorPaginatedResult<Key>> {
+    return this.doListCursor(request_params);
   }
 
   create(

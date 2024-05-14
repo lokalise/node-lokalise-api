@@ -24,6 +24,8 @@ describe("Translations", function () {
     });
 
     expect(translations.items[0].translation_id).to.eq(translationId);
+    expect(translations.nextCursor).to.be.null;
+    expect(translations.hasNextCursor()).to.be.false;
   });
 
   it("lists and paginates", async function () {
@@ -57,6 +59,72 @@ describe("Translations", function () {
     expect(translations.totalPages).to.eq(2);
     expect(translations.resultsPerPage).to.eq(2);
     expect(translations.currentPage).to.eq(2);
+    expect(translations.nextCursor).to.be.null;
+    expect(translations.hasNextCursor()).to.be.false;
+  });
+
+  it("lists and paginates by cursor", async function () {
+    const params = {
+      pagination: <const>"cursor",
+    };
+
+    const stub = new Stub({
+      fixture: "translations/list_cursor_pagination.json",
+      uri: `projects/${projectId}/translations`,
+      query: params,
+      respHeaders: {
+        "x-pagination-limit": "100",
+        "x-pagination-next-cursor": "eyIxIjo1MjcyNjU2MTF9",
+      },
+    });
+
+    await stub.setStub();
+
+    const translations = await lokaliseApi.translations().list({
+      project_id: projectId,
+      ...params,
+    });
+
+    expect(translations.items[0].translation_id).to.eq(304581213);
+    expect(translations.totalResults).to.eq(0);
+    expect(translations.totalPages).to.eq(0);
+    expect(translations.resultsPerPage).to.eq(100);
+    expect(translations.currentPage).to.eq(0);
+    expect(translations.nextCursor).to.eq("eyIxIjo1MjcyNjU2MTF9");
+    expect(translations.hasNextCursor()).to.be.true;
+  });
+
+  it("lists and paginates by cursor with next cursor set", async function () {
+    const params = {
+      pagination: <const>"cursor",
+      cursor: "eyIxIjo1MjcyNjU2MTF9",
+      limit: 2,
+    };
+
+    const stub = new Stub({
+      fixture: "translations/list_cursor_pagination.json",
+      uri: `projects/${projectId}/translations`,
+      query: params,
+      respHeaders: {
+        "x-pagination-limit": "2",
+        "x-pagination-next-cursor": "eyIxIjo1MjcyNjU2MTd9",
+      },
+    });
+
+    await stub.setStub();
+
+    const translations = await lokaliseApi.translations().list({
+      project_id: projectId,
+      ...params,
+    });
+
+    expect(translations.items[0].translation_id).to.eq(304581213);
+    expect(translations.totalResults).to.eq(0);
+    expect(translations.totalPages).to.eq(0);
+    expect(translations.resultsPerPage).to.eq(2);
+    expect(translations.currentPage).to.eq(0);
+    expect(translations.nextCursor).to.eq("eyIxIjo1MjcyNjU2MTd9");
+    expect(translations.hasNextCursor()).to.be.true;
   });
 
   it("retrieves", async function () {

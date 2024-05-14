@@ -1,6 +1,6 @@
 import { BaseCollection } from "./base_collection.js";
 import { Translation } from "../models/translation.js";
-import { PaginatedResult } from "../interfaces/paginated_result.js";
+import { CursorPaginatedResult } from "../interfaces/cursor_paginated_result.js";
 import type { ProjectOnly } from "../types/common_get_params.js";
 import type {
   UpdateTranslationParams,
@@ -16,8 +16,8 @@ export class Translations extends BaseCollection {
 
   list(
     request_params: ListTranslationParams,
-  ): Promise<PaginatedResult<Translation>> {
-    return this.doList(request_params);
+  ): Promise<CursorPaginatedResult<Translation>> {
+    return this.doListCursor(request_params);
   }
 
   get(

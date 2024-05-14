@@ -109,6 +109,7 @@ export type {
   ProjectOnly,
   PaginationParams,
   ProjectWithPagination,
+  CursorPagination,
 } from "./common_get_params.js";
 export type { Filenames } from "./filenames.js";
 export type { SupportedPlatforms } from "./supported_platforms.js";

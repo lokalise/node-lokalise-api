@@ -88,6 +88,37 @@ const project = projects[0];
 project.name
 ```
 
+### Cursor pagination
+
+The [List Keys](https://developers.lokalise.com/reference/list-all-keys) and [List Translations](https://developers.lokalise.com/reference/list-all-translations) endpoints support cursor pagination, which is recommended for its faster performance compared to traditional "offset" pagination. By default, "offset" pagination is used, so you must explicitly set `pagination` to `"cursor"` to use cursor pagination.
+
+```js
+// This approach is also applicable for `lokaliseApi.translations().list()`
+const keys = await lokaliseApi.keys().list({
+  project_id: projectId,
+  limit: 2, // The number of items to fetch. Optional, default is 100
+  pagination: "cursor",
+  cursor: "eyIxIjo1MjcyNjU2MTd9", // The starting cursor. Optional, string
+});
+
+const key = keys.items[0]; // Accessing items as with regular pagination
+```
+
+After retrieving data from the Lokalise API, you can check for the availability of the next cursor and proceed accordingly:
+
+```js
+const hasNext = keys.hasNextCursor(); // Returns a boolean
+
+const nextCursor = keys.nextCursor; // Returns the next cursor as a string, empty if unavailable
+
+const keysNextPortion = await lokaliseApi.keys().list({
+  project_id: projectId,
+  limit: 2,
+  pagination: "cursor",
+  cursor: nextCursor,
+});
+```
+
 ## Branching
 
 If you are using [project branching feature](https://docs.lokalise.com/en/articles/3391861-project-branching), simply add branch name separated by semicolon to your project ID in any endpoint to access the branch. For example, in order to access `new-feature` branch for the project with an id `123abcdef.01`:

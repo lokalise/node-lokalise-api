@@ -31,6 +31,8 @@ describe("Keys", function () {
     const keys = await lokaliseApi.keys().list(params);
 
     expect(keys.items[0].key_id).to.eq(15519786);
+    expect(keys.nextCursor).to.be.null;
+    expect(keys.hasNextCursor()).to.be.false;
   });
 
   it("lists and paginates", async function () {
@@ -63,6 +65,73 @@ describe("Keys", function () {
     expect(keys.totalPages).to.eq(2);
     expect(keys.resultsPerPage).to.eq(1);
     expect(keys.currentPage).to.eq(2);
+    expect(keys.nextCursor).to.be.null;
+    expect(keys.hasNextCursor()).to.be.false;
+  });
+
+  it("lists and paginates by cursor", async function () {
+    const params = {
+      limit: 2,
+      pagination: <const>"cursor",
+    };
+
+    const stub = new Stub({
+      fixture: "keys/list_cursor_pagination.json",
+      uri: `projects/${projectId}/keys`,
+      query: params,
+      respHeaders: {
+        "x-pagination-limit": "2",
+        "x-pagination-next-cursor": "eyIxIjo0NDU5NjA2MX0=",
+      },
+    });
+
+    await stub.setStub();
+
+    const keys = await lokaliseApi.keys().list({
+      project_id: projectId,
+      ...params,
+    });
+
+    expect(keys.items[0].key_id).to.eq(15519786);
+    expect(keys.totalResults).to.eq(0);
+    expect(keys.totalPages).to.eq(0);
+    expect(keys.resultsPerPage).to.eq(2);
+    expect(keys.currentPage).to.eq(0);
+    expect(keys.nextCursor).to.eq("eyIxIjo0NDU5NjA2MX0=");
+    expect(keys.hasNextCursor()).to.be.true;
+  });
+
+  it("lists and paginates by cursor with next cursor set", async function () {
+    const params = {
+      limit: 2,
+      pagination: <const>"cursor",
+      cursor: "eyIxIjo0NDU5NjA2MX0=",
+    };
+
+    const stub = new Stub({
+      fixture: "keys/list_next_cursor_pagination.json",
+      uri: `projects/${projectId}/keys`,
+      query: params,
+      respHeaders: {
+        "x-pagination-limit": "2",
+        "x-pagination-next-cursor": "eyIxIjo0NDU5NjA2M30=",
+      },
+    });
+
+    await stub.setStub();
+
+    const keys = await lokaliseApi.keys().list({
+      project_id: projectId,
+      ...params,
+    });
+
+    expect(keys.items[0].key_id).to.eq(15571975);
+    expect(keys.totalResults).to.eq(0);
+    expect(keys.totalPages).to.eq(0);
+    expect(keys.resultsPerPage).to.eq(2);
+    expect(keys.currentPage).to.eq(0);
+    expect(keys.nextCursor).to.eq("eyIxIjo0NDU5NjA2M30=");
+    expect(keys.hasNextCursor()).to.be.true;
   });
 
   it("retrieves", async function () {

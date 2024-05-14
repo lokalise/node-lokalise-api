@@ -2,6 +2,7 @@ import type { HttpMethod } from "../types/http_method.js";
 import { ApiRequest } from "../http_client/base.js";
 import { ApiError } from "../models/api_error.js";
 import { PaginatedResult } from "../models/paginated_result.js";
+import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
 import { Keyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
@@ -34,6 +35,19 @@ export abstract class BaseCollection {
       "GET",
       params,
       this.populateArrayFromJson,
+      this.handleReject,
+      null,
+    );
+  }
+
+  protected doListCursor(req_params: Keyable): Promise<any> {
+    const params = {
+      ...req_params,
+    };
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateArrayFromJsonCursor,
       this.handleReject,
       null,
     );
@@ -177,6 +191,21 @@ export abstract class BaseCollection {
     } else {
       return arr;
     }
+  }
+
+  protected populateArrayFromJsonCursor(
+    json: Keyable,
+    headers: Headers,
+  ): CursorPaginatedResult | Keyable | this[] {
+    const childClass = <typeof BaseCollection>this.constructor;
+    const arr: this[] = [];
+    const jsonArray = json[(<any>childClass).rootElementName];
+
+    for (const obj of jsonArray) {
+      arr.push(<this>this.populateObjectFromJson(obj, headers));
+    }
+
+    return new CursorPaginatedResult(arr, headers);
   }
 
   protected populateApiErrorFromJson(json: any): ApiError {
