@@ -1,6 +1,6 @@
 # Exception handling
 
-To handle request errors, you may use the following approach:
+To handle request errors, you can use the following approach:
 
 ```js
 lokaliseApi.projects().list().catch(
@@ -10,7 +10,17 @@ lokaliseApi.projects().list().catch(
 );
 ```
 
-[Error codes](https://app.lokalise.com/api2docs/curl/#resource-errors) are listed in the API docs.
+Or with async/await:
+
+```js
+try {
+  await lokaliseApi.projects().list();
+} catch (e) {
+  console.log(e);
+}
+```
+
+[Error codes](https://developers.lokalise.com/reference/api-errors) are listed in the API docs.
 
 ## API Rate Limits
 

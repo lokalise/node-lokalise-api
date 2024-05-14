@@ -14,7 +14,7 @@ npm install @lokalise/node-api
 
 **[If you'd like to work with the OTA (over-the-air) endpoints, please refer to the OTA introduction article.](https://lokalise.github.io/node-lokalise-api/ota/introduction)**
 
-In order to perform API requests, you require a special token that can be obtained in your [personal profile](https://lokalise.com/profile#apitokens) (*API tokens* section).
+In order to perform API requests, you need a special token that can be obtained in your [personal profile](https://lokalise.com/profile#apitokens) (*API tokens* section).
 
 After you've obtained the token, initialize the client:
 
@@ -39,9 +39,9 @@ const projects = await lokaliseApi.projects().list();
 projects.items[0].name;
 ```
 
-Every request returns a promise with a corresponding object (or array of objects) as the result. Please note that Lokalise API locks parallel requests which means you should call methods in a synchronous manner.
+Every request returns a promise with a corresponding object (or array of objects) as the result.
 
-All object attributes may be found in the [interfaces](https://github.com/lokalise/node-lokalise-api/tree/master/src/interfaces).
+All object attributes can be found in the [interfaces](https://github.com/lokalise/node-lokalise-api/tree/master/src/interfaces).
 
 ## Pagination
 
