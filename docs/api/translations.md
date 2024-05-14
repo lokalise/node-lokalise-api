@@ -6,6 +6,8 @@
 
 [API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-translations-get)
 
+**This endpoint also supports cursor pagination which is now a recommended approach, especially for fetch large amounts of data. Please [learn more in the Pagination docs](https://lokalise.github.io/node-lokalise-api/api/getting-started#cursor-pagination).**
+
 ```js
 const translations = lokaliseApi.translations().list({
   project_id: project_id,

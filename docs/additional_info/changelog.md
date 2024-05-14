@@ -2,7 +2,7 @@
 
 ## 12.5.0 (14-May-2024)
 
-* Add support for cursor pagination for List keys and List translation endpoints:
+* Add support for [cursor pagination](https://lokalise.github.io/node-lokalise-api/api/getting-started#cursor-pagination) for List keys and List translation endpoints:
 
 ```js
 // This approach is also applicable for `lokaliseApi.translations().list()`
