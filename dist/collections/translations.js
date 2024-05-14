@@ -6,7 +6,7 @@ export class Translations extends BaseCollection {
     static prefixURI = "projects/{!:project_id}/translations/{:id}";
     static elementClass = Translation;
     list(request_params) {
-        return this.doList(request_params);
+        return this.doListCursor(request_params);
     }
     get(translation_id, request_params) {
         return this.doGet(translation_id, request_params);

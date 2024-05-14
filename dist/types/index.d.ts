@@ -20,7 +20,7 @@ export type { UpdateTranslationParams, TranslationData, ListTranslationParams, G
 export type { UserGroupParams, UserGroupDeleted } from "./user_groups.js";
 export type { WebhookEventLangMap, CreateWebhookParams, UpdateWebhookParams, WebhookDeleted, WebhookRegenerated, } from "./webhooks.js";
 export type { OtaResourceDeleted, OtaTeamProject, OtaFramework, OtaTeamProjectFramework, OtaFreezePeriodParams, OtaUsageParams, OtaBundleUpdateData, OtaRequestBundleParams, OtaProjectFramework, } from "./ota.js";
-export type { TeamOnly, ProjectOnly, PaginationParams, ProjectWithPagination, } from "./common_get_params.js";
+export type { TeamOnly, ProjectOnly, PaginationParams, ProjectWithPagination, CursorPagination, } from "./common_get_params.js";
 export type { Filenames } from "./filenames.js";
 export type { SupportedPlatforms } from "./supported_platforms.js";
 export type { NumericBool } from "./numeric_bool.js";

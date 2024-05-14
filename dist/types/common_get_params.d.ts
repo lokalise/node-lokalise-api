@@ -9,3 +9,8 @@ export type PaginationParams = {
     limit?: number;
 };
 export type ProjectWithPagination = ProjectOnly & PaginationParams;
+export type CursorPagination = {
+    limit?: number;
+    pagination?: "offset" | "cursor";
+    cursor?: string;
+};

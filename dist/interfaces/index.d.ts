@@ -11,6 +11,7 @@ export { Jwt } from "./jwt.js";
 export { Key } from "./key.js";
 export { Language } from "./language.js";
 export { Order } from "./order.js";
+export { CursorPaginatedResult } from "./cursor_paginated_result.js";
 export { PaginatedResult } from "./paginated_result.js";
 export { PaymentCard } from "./payment_card.js";
 export { ProjectSettings } from "./project_settings.js";

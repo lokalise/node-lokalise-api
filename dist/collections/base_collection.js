@@ -1,5 +1,6 @@
 import { ApiRequest } from "../http_client/base.js";
 import { PaginatedResult } from "../models/paginated_result.js";
+import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
 export class BaseCollection {
     clientData;
     static rootElementName;
@@ -19,6 +20,12 @@ export class BaseCollection {
             ...req_params,
         };
         return this.createPromise("GET", params, this.populateArrayFromJson, this.handleReject, null);
+    }
+    doListCursor(req_params) {
+        const params = {
+            ...req_params,
+        };
+        return this.createPromise("GET", params, this.populateArrayFromJsonCursor, this.handleReject, null);
     }
     doGet(id, req_params = {}) {
         const params = {
@@ -96,6 +103,15 @@ export class BaseCollection {
         else {
             return arr;
         }
+    }
+    populateArrayFromJsonCursor(json, headers) {
+        const childClass = this.constructor;
+        const arr = [];
+        const jsonArray = json[childClass.rootElementName];
+        for (const obj of jsonArray) {
+            arr.push(this.populateObjectFromJson(obj, headers));
+        }
+        return new CursorPaginatedResult(arr, headers);
     }
     populateApiErrorFromJson(json) {
         return json;

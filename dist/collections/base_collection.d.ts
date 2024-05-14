@@ -2,6 +2,7 @@ import type { HttpMethod } from "../types/http_method.js";
 import { ApiRequest } from "../http_client/base.js";
 import { ApiError } from "../models/api_error.js";
 import { PaginatedResult } from "../models/paginated_result.js";
+import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
 import { Keyable } from "../interfaces/keyable.js";
 import { ClientData } from "../interfaces/client_data.js";
 import { BulkResult } from "../interfaces/bulk_result.js";
@@ -18,6 +19,7 @@ export declare abstract class BaseCollection {
     protected static secondaryElementClass: any;
     constructor(clientData: ClientData);
     protected doList(req_params: Keyable): Promise<any>;
+    protected doListCursor(req_params: Keyable): Promise<any>;
     protected doGet(id: string | number, req_params?: Keyable): Promise<any>;
     protected doDelete(id: string | number, req_params?: Keyable): Promise<any>;
     protected doCreate(body: Keyable | null, req_params?: Keyable, resolveFn?: (json: Keyable, _headers: Headers, secondary?: boolean) => any): Promise<any>;
@@ -27,6 +29,7 @@ export declare abstract class BaseCollection {
     protected populateObjectFromJson(json: Keyable, _headers: Headers, secondary?: boolean): any;
     protected populateArrayFromJsonBulk(json: Keyable, headers: Headers): BulkResult | this[];
     protected populateArrayFromJson(json: Keyable, headers: Headers): PaginatedResult | Keyable | this[];
+    protected populateArrayFromJsonCursor(json: Keyable, headers: Headers): CursorPaginatedResult | Keyable | this[];
     protected populateApiErrorFromJson(json: any): ApiError;
     protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;

@@ -1,5 +1,5 @@
 import { Keyable } from "../interfaces/keyable.js";
-import type { ProjectWithPagination, ProjectOnly } from "./common_get_params.js";
+import type { ProjectWithPagination, ProjectOnly, CursorPagination } from "./common_get_params.js";
 export type TranslationData = {
     language_iso?: string;
     translation?: string | Keyable;
@@ -13,7 +13,7 @@ export type UpdateTranslationParams = {
     is_reviewed?: boolean;
     custom_translation_status_ids?: string[] | number[];
 };
-export type ListTranslationParams = ProjectWithPagination & {
+export type ListTranslationParams = ProjectWithPagination & CursorPagination & {
     disable_references?: number | string;
     filter_lang_id?: number | string;
     filter_is_reviewed?: number | string;

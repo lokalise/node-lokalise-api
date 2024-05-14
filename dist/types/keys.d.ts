@@ -3,7 +3,7 @@ import type { Filenames, Filenames as Keynames } from "./filenames.js";
 import type { CommentData } from "./comments.js";
 import type { ScreenshotData } from "./screenshots.js";
 import type { TranslationData } from "./translations.js";
-import type { ProjectWithPagination, ProjectOnly } from "./common_get_params.js";
+import type { ProjectWithPagination, ProjectOnly, CursorPagination } from "./common_get_params.js";
 import type { NumericBool } from "./numeric_bool.js";
 export type CreateKeyData = {
     key_name: string | Keynames;
@@ -50,7 +50,7 @@ export type KeysBulkDeleted = {
     keys_locked: number;
     branch?: string;
 };
-export type KeyParamsWithPagination = ProjectWithPagination & {
+export type KeyParamsWithPagination = ProjectWithPagination & CursorPagination & {
     disable_references?: NumericBool;
     include_comments?: NumericBool;
     include_screenshots?: NumericBool;

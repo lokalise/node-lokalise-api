@@ -6,7 +6,7 @@ export class Keys extends BaseCollection {
     static prefixURI = "projects/{!:project_id}/keys/{:id}";
     static elementClass = Key;
     list(request_params) {
-        return this.doList(request_params);
+        return this.doListCursor(request_params);
     }
     create(key_params, request_params) {
         return this.doCreate(key_params, request_params, this.populateArrayFromJsonBulk);
