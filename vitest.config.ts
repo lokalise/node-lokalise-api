@@ -4,7 +4,7 @@ const isCI = process.env.CI === "true";
 
 export default defineConfig({
 	esbuild: {
-    target: 'esnext',  // Ensure targeting modern JavaScript
+    target: 'esnext',
   },
 	test: {
 		globals: true,
@@ -12,7 +12,7 @@ export default defineConfig({
 		coverage: {
       provider: 'istanbul',
 			reporter: isCI ? ['lcov'] : ['html'],
-			exclude: ['docs/**', '.eslintrc.cjs', 'samples/**', 'src/collections/index.ts'],
+			exclude: ['docs/**', '.eslintrc.cjs', 'samples/**', 'test/setup.ts'],
     },
 		typecheck: {
 			enabled: true,
