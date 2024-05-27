@@ -1,7 +1,10 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 import { MockAgent, setGlobalDispatcher } from "undici";
-import type { MockInterceptor } from "undici/types/mock-interceptor.js";
+import type {
+  MockInterceptor,
+  Interceptable,
+} from "undici/types/mock-interceptor.js";
 import type { IncomingHttpHeaders } from "undici/types/header.js";
 import {
   LokaliseApi,
@@ -57,18 +60,34 @@ class Stub {
     this.uriPath = params.uri;
     this.requestHeaders = params.reqHeaders;
     this.responseHeaders = params.respHeaders;
-    this.statusCode = params.status ?? 200;
-    this.httpMethod = params.method ?? "GET";
+
     if (params.query) {
       const search = new URLSearchParams(params.query);
       this.uriPath = `${this.uriPath}?${search.toString()}`;
     }
+
     this.requestBody = params.body ? JSON.stringify(params.body) : undefined;
-    this.doFail = params.doFail ?? false;
-    this.rootUrl = params.rootUrl ?? "https://api.lokalise.com";
-    this.skipApiToken = params.skipApiToken ?? false;
-    this.version = params.version ?? "api2";
     this.data = params.data;
+
+    const defaultParams = {
+      status: 200,
+      method: <HttpMethod>"GET",
+      rootUrl: "https://api.lokalise.com",
+      skipApiToken: false,
+      version: "api2",
+      doFail: false,
+    };
+
+    const { status, method, rootUrl, skipApiToken, version, doFail } = {
+      ...defaultParams,
+      ...params,
+    };
+    this.statusCode = status;
+    this.httpMethod = method;
+    this.rootUrl = rootUrl;
+    this.skipApiToken = skipApiToken;
+    this.version = version;
+    this.doFail = doFail;
   }
 
   async setStub() {
@@ -79,32 +98,15 @@ class Stub {
       path: `/${this.version}/${this.uriPath}`,
     };
 
-    let requestHeaders = {
+    const requestHeaders = {
       Accept: "application/json",
       "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
+      ...(this.skipApiToken
+        ? {}
+        : { "x-api-token": String(process.env.API_KEY) }),
+      ...(this.requestBody ? { "Content-type": "application/json" } : {}),
+      ...this.requestHeaders,
     };
-
-    if (!this.skipApiToken) {
-      requestHeaders = {
-        ...requestHeaders,
-        ...{ "x-api-token": <string>process.env.API_KEY },
-      };
-    }
-
-    if (this.requestHeaders) {
-      requestHeaders = {
-        ...requestHeaders,
-        ...this.requestHeaders,
-      };
-    }
-
-    if (this.requestBody) {
-      mockOpts.body = this.requestBody;
-      requestHeaders = {
-        ...requestHeaders,
-        ...{ "Content-type": "application/json" },
-      };
-    }
 
     mockOpts.headers = requestHeaders;
 
@@ -114,11 +116,29 @@ class Stub {
       respOpts.headers = this.responseHeaders;
     }
 
-    if (this.doFail) {
-      mockPool.intercept(mockOpts).replyWithError(new Error("Fail"));
-    } else {
-      const data = this.data ?? (await this.readFixture());
-      mockPool.intercept(mockOpts).reply(this.statusCode, data, respOpts);
+    const respond = async (
+      mockPool: Interceptable,
+      mockOpts: MockInterceptor.Options,
+      isError: boolean,
+      respOpts: MockInterceptor.MockResponseOptions,
+    ) => {
+      if (isError) {
+        mockPool.intercept(mockOpts).replyWithError(new Error("Fail"));
+      } else {
+        mockPool
+          .intercept(mockOpts)
+          .reply(
+            this.statusCode,
+            this.data ?? (await this.readFixture()),
+            respOpts,
+          );
+      }
+    };
+
+    try {
+      await respond(mockPool, mockOpts, this.doFail, respOpts);
+    } catch (error) {
+      console.error("Error setting up test mock:", error);
     }
   }
 
