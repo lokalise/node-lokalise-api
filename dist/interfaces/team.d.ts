@@ -9,11 +9,13 @@ export interface Team {
         keys: number;
         projects: number;
         mau: number;
+        ai_words: number;
     };
     quota_allowed: {
         users: number;
         keys: number;
         projects: number;
         mau: number;
+        ai_words: number;
     };
 }
