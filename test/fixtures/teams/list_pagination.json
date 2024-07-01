@@ -10,13 +10,15 @@
         "users": 24,
         "keys": 183,
         "projects": 13,
-        "mau": 0
+        "mau": 0,
+        "ai_words": 1234
       },
       "quota_allowed": {
         "users": 999999999,
         "keys": 999999999,
         "projects": 999999999,
-        "mau": 0
+        "mau": 0,
+        "ai_words": 4000
       }
     }
   ]

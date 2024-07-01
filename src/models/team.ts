@@ -12,11 +12,13 @@ export class Team extends BaseModel implements TeamInterface {
     keys: number;
     projects: number;
     mau: number;
+    ai_words: number;
   };
   declare quota_allowed: {
     users: number;
     keys: number;
     projects: number;
     mau: number;
+    ai_words: number;
   };
 }

@@ -26,6 +26,8 @@ describe("Teams", function () {
     expect(team.created_at_timestamp).to.eq(1554981169);
     expect(team.quota_usage.users).to.eq(2);
     expect(team.quota_allowed.keys).to.eq(999999999);
+    expect(team.quota_allowed.ai_words).to.eq(4000);
+    expect(team.quota_usage.ai_words).to.eq(1234);
   });
 
   it("lists and paginates", async function () {

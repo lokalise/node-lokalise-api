@@ -1,5 +1,17 @@
 # Changelog
 
+## 12.6.0 (01-Jul-2024)
+
+* Added `ai_words` parameter under the `quota_usage` and `quota_allowed` field of the `Team` object:
+
+```js
+const teams = await lokaliseApi.teams().list();
+const team = teams.items[0];
+
+team.quota_allowed.ai_words // => 4000
+team.quota_usage.ai_words // => 1234
+```
+
 ## 12.5.0 (14-May-2024)
 
 * Add support for [cursor pagination](https://lokalise.github.io/node-lokalise-api/api/getting-started#cursor-pagination) for List keys and List translation endpoints:
