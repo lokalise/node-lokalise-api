@@ -51,6 +51,17 @@
           "95%+": 0,
           "100%": 2
         },
+        "tm_leverage": {
+          "status": "completed",
+          "value": { 
+            "0%+": 30,
+            "50%+": 31,
+            "75%+": 32,
+            "85%+": 33,
+            "95%+": 34,
+            "100%": 35
+          }
+        },
         "keys_count": 1,
         "words_count": 2,
         "completed_at": null,

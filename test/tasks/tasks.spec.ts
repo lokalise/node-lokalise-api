@@ -89,7 +89,12 @@ describe("Tasks", function () {
     expect(task.created_by).to.eq(20181);
     expect(task.created_by_email).to.eq("bodrovis@protonmail.com");
     expect(task.source_language_iso).to.eq("en");
-    expect(task.languages[0].language_iso).to.eq("fr");
+
+    const language = task.languages[0];
+    expect(language.language_iso).to.eq("fr");
+    expect(language.tm_leverage.status).to.eq("completed");
+    expect(language.tm_leverage.value["50%+"]).to.eq(31);
+
     expect(task.auto_close_languages).to.be.true;
     expect(task.auto_close_task).to.be.true;
     expect(task.auto_close_items).to.be.true;

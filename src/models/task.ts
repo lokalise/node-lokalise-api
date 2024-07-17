@@ -41,6 +41,17 @@ export class Task extends BaseModel implements TaskInterface {
       "95%+": number;
       "100%": number;
     };
+    tm_leverage: {
+      status: string;
+      value: {
+        "0%+": number;
+        "50%+": number;
+        "75%+": number;
+        "85%+": number;
+        "95%+": number;
+        "100%": number;
+      };
+    };
     keys_count: number;
     words_count: number;
     completed_at: string;

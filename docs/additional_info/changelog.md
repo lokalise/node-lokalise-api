@@ -1,5 +1,21 @@
 # Changelog
 
+## 12.7.0 (17-Jul-2024)
+
+* Added `tm_leverage` field for the `languages` of the `Task` object:
+
+```js
+const task = await lokaliseApi.tasks().get(taskId, {
+  project_id: projectId,
+});
+
+const language = task.languages[0];
+language.tm_leverage.status; // => "completed"
+language.tm_leverage.value["50%+"]; // => 31
+```
+
+* Available values for the `tm_leverage` are "0%+", "50%+", "75%+", "85%+", "95%+", and "100%". Please note that the usage of `initial_tm_leverage` is deprecated.
+
 ## 12.6.0 (01-Jul-2024)
 
 * Added `ai_words` parameter under the `quota_usage` and `quota_allowed` field of the `Team` object:
