@@ -72,7 +72,7 @@ export class ApiRequest {
         } else {
           responseJSON = await response.json();
         }
-      } catch (error) {
+      } catch (_error) {
         return Promise.reject({
           message: response.statusText,
           code: response.status,
