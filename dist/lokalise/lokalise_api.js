@@ -23,78 +23,78 @@ import { UserGroups } from "../collections/user_groups.js";
 import { Webhooks } from "../collections/webhooks.js";
 import { BaseClient } from "./base_client.js";
 export class LokaliseApi extends BaseClient {
-	constructor(params) {
-		super(params);
-		this.clientData.version = params.version ?? "api2";
-	}
-	branches() {
-		return new Branches(this.clientData);
-	}
-	comments() {
-		return new Comments(this.clientData);
-	}
-	contributors() {
-		return new Contributors(this.clientData);
-	}
-	files() {
-		return new Files(this.clientData);
-	}
-	jwt() {
-		return new Jwt(this.clientData);
-	}
-	keys() {
-		return new Keys(this.clientData);
-	}
-	languages() {
-		return new Languages(this.clientData);
-	}
-	orders() {
-		return new Orders(this.clientData);
-	}
-	paymentCards() {
-		return new PaymentCards(this.clientData);
-	}
-	projects() {
-		return new Projects(this.clientData);
-	}
-	queuedProcesses() {
-		return new QueuedProcesses(this.clientData);
-	}
-	screenshots() {
-		return new Screenshots(this.clientData);
-	}
-	segments() {
-		return new Segments(this.clientData);
-	}
-	snapshots() {
-		return new Snapshots(this.clientData);
-	}
-	tasks() {
-		return new Tasks(this.clientData);
-	}
-	teams() {
-		return new Teams(this.clientData);
-	}
-	teamUsers() {
-		return new TeamUsers(this.clientData);
-	}
-	teamUserBillingDetails() {
-		return new TeamUserBillingDetails(this.clientData);
-	}
-	translations() {
-		return new Translations(this.clientData);
-	}
-	translationProviders() {
-		return new TranslationProviders(this.clientData);
-	}
-	translationStatuses() {
-		return new TranslationStatuses(this.clientData);
-	}
-	userGroups() {
-		return new UserGroups(this.clientData);
-	}
-	webhooks() {
-		return new Webhooks(this.clientData);
-	}
+    constructor(params) {
+        super(params);
+        this.clientData.version = params.version ?? "api2";
+    }
+    branches() {
+        return new Branches(this.clientData);
+    }
+    comments() {
+        return new Comments(this.clientData);
+    }
+    contributors() {
+        return new Contributors(this.clientData);
+    }
+    files() {
+        return new Files(this.clientData);
+    }
+    jwt() {
+        return new Jwt(this.clientData);
+    }
+    keys() {
+        return new Keys(this.clientData);
+    }
+    languages() {
+        return new Languages(this.clientData);
+    }
+    orders() {
+        return new Orders(this.clientData);
+    }
+    paymentCards() {
+        return new PaymentCards(this.clientData);
+    }
+    projects() {
+        return new Projects(this.clientData);
+    }
+    queuedProcesses() {
+        return new QueuedProcesses(this.clientData);
+    }
+    screenshots() {
+        return new Screenshots(this.clientData);
+    }
+    segments() {
+        return new Segments(this.clientData);
+    }
+    snapshots() {
+        return new Snapshots(this.clientData);
+    }
+    tasks() {
+        return new Tasks(this.clientData);
+    }
+    teams() {
+        return new Teams(this.clientData);
+    }
+    teamUsers() {
+        return new TeamUsers(this.clientData);
+    }
+    teamUserBillingDetails() {
+        return new TeamUserBillingDetails(this.clientData);
+    }
+    translations() {
+        return new Translations(this.clientData);
+    }
+    translationProviders() {
+        return new TranslationProviders(this.clientData);
+    }
+    translationStatuses() {
+        return new TranslationStatuses(this.clientData);
+    }
+    userGroups() {
+        return new UserGroups(this.clientData);
+    }
+    webhooks() {
+        return new Webhooks(this.clientData);
+    }
 }
 //# sourceMappingURL=lokalise_api.js.map

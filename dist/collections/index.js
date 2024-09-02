@@ -19,27 +19,5 @@ import { TranslationStatuses } from "./translation_statuses.js";
 import { Translations } from "./translations.js";
 import { UserGroups } from "./user_groups.js";
 import { Webhooks } from "./webhooks.js";
-export {
-	Branches,
-	Comments,
-	Contributors,
-	Files,
-	Jwt,
-	Keys,
-	Languages,
-	Orders,
-	PaymentCards,
-	Projects,
-	QueuedProcesses,
-	Screenshots,
-	Snapshots,
-	Tasks,
-	TeamUsers,
-	Teams,
-	Translations,
-	TranslationProviders,
-	TranslationStatuses,
-	UserGroups,
-	Webhooks,
-};
+export { Branches, Comments, Contributors, Files, Jwt, Keys, Languages, Orders, PaymentCards, Projects, QueuedProcesses, Screenshots, Snapshots, Tasks, TeamUsers, Teams, Translations, TranslationProviders, TranslationStatuses, UserGroups, Webhooks, };
 //# sourceMappingURL=index.js.map

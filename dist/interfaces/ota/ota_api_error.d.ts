@@ -1,5 +1,5 @@
 export interface OtaApiError {
-	statusCode: string;
-	message: string;
-	error: string;
+    statusCode: string;
+    message: string;
+    error: string;
 }

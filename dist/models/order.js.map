@@ -1,1 +1,1 @@
-{"version":3,"file":"order.js","sourceRoot":"","sources":["../../src/models/order.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAG5C,MAAM,OAAO,KAAM,SAAQ,SAAS;CAuBnC"}
+{"version":3,"file":"order.js","sourceRoot":"","sources":["../../src/models/order.ts"],"names":[],"mappings":"AAEA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAE5C,MAAM,OAAO,KAAM,SAAQ,SAAS;CAuBnC"}

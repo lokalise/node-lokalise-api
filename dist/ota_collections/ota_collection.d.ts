@@ -1,8 +1,8 @@
 import { BaseCollection } from "../collections/base_collection.js";
-import { Keyable } from "../interfaces/keyable.js";
-import { ApiError } from "../models/api_error.js";
+import type { Keyable } from "../interfaces/keyable.js";
+import type { ApiError } from "../models/api_error.js";
 export declare abstract class OtaCollection extends BaseCollection {
-	protected populateApiErrorFromJson(json: any): ApiError;
-	protected doDelete(id: string | number, req_params: Keyable): Promise<any>;
-	protected returnJSONFromData(json: Keyable): Keyable | Array<Keyable>;
+    protected populateApiErrorFromJson(json: any): ApiError;
+    protected doDelete(id: string | number, req_params: Keyable): Promise<any>;
+    protected returnJSONFromData(json: Keyable): Keyable | Array<Keyable>;
 }

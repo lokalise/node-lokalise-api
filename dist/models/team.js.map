@@ -1,1 +1,1 @@
-{"version":3,"file":"team.js","sourceRoot":"","sources":["../../src/models/team.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAG5C,MAAM,OAAO,IAAK,SAAQ,SAAS;CAoBlC"}
+{"version":3,"file":"team.js","sourceRoot":"","sources":["../../src/models/team.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAE5C,MAAM,OAAO,IAAK,SAAQ,SAAS;CAoBlC"}

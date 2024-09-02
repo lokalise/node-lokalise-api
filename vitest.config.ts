@@ -13,6 +13,7 @@ export default defineConfig({
 			provider: "istanbul",
 			reporter: isCI ? ["lcov"] : ["html"],
 			exclude: ["docs/**", "samples/**", "test/setup.ts", "vitest.config.ts"],
+			include: ["src/**/*.ts"],
 		},
 		typecheck: {
 			enabled: true,

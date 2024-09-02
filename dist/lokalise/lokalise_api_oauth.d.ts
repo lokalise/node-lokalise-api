@@ -1,4 +1,4 @@
-import { ClientParams, LokaliseApi } from "./lokalise_api.js";
+import { type ClientParams, LokaliseApi } from "./lokalise_api.js";
 export declare class LokaliseApiOAuth extends LokaliseApi {
-	constructor(params: ClientParams);
+    constructor(params: ClientParams);
 }

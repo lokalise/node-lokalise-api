@@ -1,5 +1,5 @@
 export declare abstract class BaseModel {
-	constructor(params: {
-		[key: string]: any;
-	});
+    constructor(params: {
+        [key: string]: any;
+    });
 }

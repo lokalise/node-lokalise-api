@@ -1,12 +1,12 @@
-import { ClientData as ClientDataInterface } from "../interfaces/client_data.js";
+import type { ClientData as ClientDataInterface } from "../interfaces/client_data.js";
 export type ClientParams = {
-	apiKey?: string;
-	enableCompression?: boolean;
-	tokenType?: string;
-	host?: string;
-	version?: string;
+    apiKey?: string;
+    enableCompression?: boolean;
+    tokenType?: string;
+    host?: string;
+    version?: string;
 };
 export declare class BaseClient {
-	readonly clientData: ClientDataInterface;
-	constructor(params: ClientParams);
+    readonly clientData: ClientDataInterface;
+    constructor(params: ClientParams);
 }

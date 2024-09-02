@@ -1,4 +1,4 @@
 export interface OtaBundleArchive {
-	url: string;
-	version: number;
+    url: string;
+    version: number;
 }

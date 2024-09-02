@@ -1,1 +1,1 @@
-{"version":3,"file":"contributor.js","sourceRoot":"","sources":["../../src/models/contributor.ts"],"names":[],"mappings":"AAAA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAG5C,MAAM,OAAO,WAAY,SAAQ,SAAS;CAezC"}
+{"version":3,"file":"contributor.js","sourceRoot":"","sources":["../../src/models/contributor.ts"],"names":[],"mappings":"AACA,OAAO,EAAE,SAAS,EAAE,MAAM,iBAAiB,CAAC;AAE5C,MAAM,OAAO,WAAY,SAAQ,SAAS;CAezC"}
