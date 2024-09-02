@@ -1,11 +1,11 @@
 {
-  "team_id": 176692,
-  "team_user": {
-    "user_id": 308781,
-    "email": "translator4@mycompany.com",
-    "fullname": "Mr. Translator",
-    "created_at": "2023-09-21 11:16:39 (Etc/UTC)",
-    "created_at_timestamp": 1695294999,
-    "role": "admin"
-  }
+	"team_id": 176692,
+	"team_user": {
+		"user_id": 308781,
+		"email": "translator4@mycompany.com",
+		"fullname": "Mr. Translator",
+		"created_at": "2023-09-21 11:16:39 (Etc/UTC)",
+		"created_at_timestamp": 1695294999,
+		"role": "admin"
+	}
 }

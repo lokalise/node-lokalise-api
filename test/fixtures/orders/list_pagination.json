@@ -1,63 +1,54 @@
 {
-  "orders": [
-    {
-      "order_id": "20200127G0B",
-      "project_id": "124505395e2074d880f724.35422706",
-      "branch": null,
-      "payment_method": null,
-      "card_id": 2185,
-      "status": "completed",
-      "created_at": "2020-01-27 14:29:25 (Etc/UTC)",
-      "created_at_timestamp": 1580135365,
-      "created_by": 20181,
-      "created_by_email": "bodrovis@protonmail.com",
-      "source_language_iso": "en",
-      "target_language_isos": [
-        "ru_RU"
-      ],
-      "keys": [
-        35398054,
-        35446861
-      ],
-      "source_words": {
-        "ru_RU": 6
-      },
-      "provider_slug": "gengo",
-      "translation_style": "friendly",
-      "translation_tier": 1,
-      "translation_tier_name": "Professional translator",
-      "briefing": "Nothing specific.",
-      "is_saved_to_translation_memory": true,
-      "total": 0.41
-    },
-    {
-      "order_id": "20200620NFL",
-      "project_id": "454087345e09f3e7e7eae3.57891254",
-      "branch": null,
-      "payment_method": null,
-      "card_id": 2185,
-      "status": "completed",
-      "created_at": "2020-06-20 15:57:59 (Etc/UTC)",
-      "created_at_timestamp": 1592668679,
-      "created_by": 20181,
-      "created_by_email": "bodrovis@protonmail.com",
-      "source_language_iso": "en",
-      "target_language_isos": [
-        "ru_RU"
-      ],
-      "keys": [
-        34089721
-      ],
-      "source_words": {
-        "ru_RU": 2
-      },
-      "provider_slug": "gengo",
-      "translation_style": "friendly",
-      "translation_tier": 1,
-      "translation_tier_name": "Professional translator",
-      "briefing": "nothing special",
-      "is_saved_to_translation_memory": true,
-      "total": 0.14
-    }
-  ]
+	"orders": [
+		{
+			"order_id": "20200127G0B",
+			"project_id": "124505395e2074d880f724.35422706",
+			"branch": null,
+			"payment_method": null,
+			"card_id": 2185,
+			"status": "completed",
+			"created_at": "2020-01-27 14:29:25 (Etc/UTC)",
+			"created_at_timestamp": 1580135365,
+			"created_by": 20181,
+			"created_by_email": "bodrovis@protonmail.com",
+			"source_language_iso": "en",
+			"target_language_isos": ["ru_RU"],
+			"keys": [35398054, 35446861],
+			"source_words": {
+				"ru_RU": 6
+			},
+			"provider_slug": "gengo",
+			"translation_style": "friendly",
+			"translation_tier": 1,
+			"translation_tier_name": "Professional translator",
+			"briefing": "Nothing specific.",
+			"is_saved_to_translation_memory": true,
+			"total": 0.41
+		},
+		{
+			"order_id": "20200620NFL",
+			"project_id": "454087345e09f3e7e7eae3.57891254",
+			"branch": null,
+			"payment_method": null,
+			"card_id": 2185,
+			"status": "completed",
+			"created_at": "2020-06-20 15:57:59 (Etc/UTC)",
+			"created_at_timestamp": 1592668679,
+			"created_by": 20181,
+			"created_by_email": "bodrovis@protonmail.com",
+			"source_language_iso": "en",
+			"target_language_isos": ["ru_RU"],
+			"keys": [34089721],
+			"source_words": {
+				"ru_RU": 2
+			},
+			"provider_slug": "gengo",
+			"translation_style": "friendly",
+			"translation_tier": 1,
+			"translation_tier_name": "Professional translator",
+			"briefing": "nothing special",
+			"is_saved_to_translation_memory": true,
+			"total": 0.14
+		}
+	]
 }

@@ -1,11 +1,11 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "branch": "master",
-  "custom_translation_statuses": [
-    {
-      "status_id": 127,
-      "title": "tested",
-      "color": "#61bd4f"
-    }
-  ]
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"branch": "master",
+	"custom_translation_statuses": [
+		{
+			"status_id": 127,
+			"title": "tested",
+			"color": "#61bd4f"
+		}
+	]
 }

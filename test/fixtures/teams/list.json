@@ -1,67 +1,67 @@
 {
-  "teams": [
-    {
-      "team_id": 186612,
-      "name": "NikaNika",
-      "plan": "Trial",
-      "created_at": "2019-04-11 11:12:49 (Etc/UTC)",
-      "created_at_timestamp": 1554981169,
-      "quota_usage": {
-        "users": 2,
-        "keys": 715,
-        "projects": 4,
-        "mau": 0,
-        "ai_words": 1234
-      },
-      "quota_allowed": {
-        "users": 999999999,
-        "keys": 999999999,
-        "projects": 999999999,
-        "mau": 0,
-        "ai_words": 4000
-      }
-    },
-    {
-      "team_id": 176692,
-      "name": "Ilya's Team",
-      "plan": "Trial",
-      "created_at": "2018-08-21 15:35:25 (Etc/UTC)",
-      "created_at_timestamp": 1534865725,
-      "quota_usage": {
-        "users": 24,
-        "keys": 183,
-        "projects": 13,
-        "mau": 0,
-        "ai_words": 1234
-      },
-      "quota_allowed": {
-        "users": 999999999,
-        "keys": 999999999,
-        "projects": 999999999,
-        "mau": 0,
-        "ai_words": 4000
-      }
-    },
-    {
-      "team_id": 170312,
-      "name": "Lokalise",
-      "plan": "Trial",
-      "created_at": "2017-10-17 09:10:00 (Etc/UTC)",
-      "created_at_timestamp": 1508231400,
-      "quota_usage": {
-        "users": 106,
-        "keys": 13533,
-        "projects": 37,
-        "mau": 0,
-        "ai_words": 1234
-      },
-      "quota_allowed": {
-        "users": 999999999,
-        "keys": 999999999,
-        "projects": 999999999,
-        "mau": 0,
-        "ai_words": 4000
-      }
-    }
-  ]
+	"teams": [
+		{
+			"team_id": 186612,
+			"name": "NikaNika",
+			"plan": "Trial",
+			"created_at": "2019-04-11 11:12:49 (Etc/UTC)",
+			"created_at_timestamp": 1554981169,
+			"quota_usage": {
+				"users": 2,
+				"keys": 715,
+				"projects": 4,
+				"mau": 0,
+				"ai_words": 1234
+			},
+			"quota_allowed": {
+				"users": 999999999,
+				"keys": 999999999,
+				"projects": 999999999,
+				"mau": 0,
+				"ai_words": 4000
+			}
+		},
+		{
+			"team_id": 176692,
+			"name": "Ilya's Team",
+			"plan": "Trial",
+			"created_at": "2018-08-21 15:35:25 (Etc/UTC)",
+			"created_at_timestamp": 1534865725,
+			"quota_usage": {
+				"users": 24,
+				"keys": 183,
+				"projects": 13,
+				"mau": 0,
+				"ai_words": 1234
+			},
+			"quota_allowed": {
+				"users": 999999999,
+				"keys": 999999999,
+				"projects": 999999999,
+				"mau": 0,
+				"ai_words": 4000
+			}
+		},
+		{
+			"team_id": 170312,
+			"name": "Lokalise",
+			"plan": "Trial",
+			"created_at": "2017-10-17 09:10:00 (Etc/UTC)",
+			"created_at_timestamp": 1508231400,
+			"quota_usage": {
+				"users": 106,
+				"keys": 13533,
+				"projects": 37,
+				"mau": 0,
+				"ai_words": 1234
+			},
+			"quota_allowed": {
+				"users": 999999999,
+				"keys": 999999999,
+				"projects": 999999999,
+				"mau": 0,
+				"ai_words": 4000
+			}
+		}
+	]
 }

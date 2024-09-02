@@ -1,22 +1,22 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "branch": "master",
-  "translation": {
-    "translation_id": 304581208,
-    "segment_number": 1,
-    "key_id": 44596059,
-    "language_iso": "en",
-    "translation": "test",
-    "modified_by": 20181,
-    "modified_by_email": "bodrovis@protonmail.com",
-    "modified_at": "2023-09-22 16:23:59 (Etc/UTC)",
-    "modified_at_timestamp": 1695399839,
-    "is_reviewed": false,
-    "reviewed_by": 0,
-    "is_unverified": false,
-    "is_fuzzy": false,
-    "words": 1,
-    "custom_translation_statuses": [],
-    "task_id": null
-  }
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"branch": "master",
+	"translation": {
+		"translation_id": 304581208,
+		"segment_number": 1,
+		"key_id": 44596059,
+		"language_iso": "en",
+		"translation": "test",
+		"modified_by": 20181,
+		"modified_by_email": "bodrovis@protonmail.com",
+		"modified_at": "2023-09-22 16:23:59 (Etc/UTC)",
+		"modified_at_timestamp": 1695399839,
+		"is_reviewed": false,
+		"reviewed_by": 0,
+		"is_unverified": false,
+		"is_fuzzy": false,
+		"words": 1,
+		"custom_translation_statuses": [],
+		"task_id": null
+	}
 }

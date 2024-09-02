@@ -1,49 +1,49 @@
 {
-  "project_id": "36730698650d6bd755c737.69639337",
-  "key_id": 379099395,
-  "language_iso": "en",
-  "segments": [
-    {
-      "segment_number": 1,
-      "language_iso": "en",
-      "value": "Macrosoft",
-      "modified_by": 20181,
-      "modified_by_email": "bodrovis@protonmail.com",
-      "modified_at": "2023-09-22 10:26:50 (Etc/UTC)",
-      "modified_at_timestamp": 1695378410,
-      "is_reviewed": false,
-      "reviewed_by": 0,
-      "is_fuzzy": false,
-      "words": 1,
-      "custom_translation_statuses": []
-    },
-    {
-      "segment_number": 2,
-      "language_iso": "en",
-      "value": "Pineapple",
-      "modified_by": 20181,
-      "modified_by_email": "bodrovis@protonmail.com",
-      "modified_at": "2023-09-22 10:26:50 (Etc/UTC)",
-      "modified_at_timestamp": 1695378410,
-      "is_reviewed": false,
-      "reviewed_by": 0,
-      "is_fuzzy": false,
-      "words": 1,
-      "custom_translation_statuses": []
-    },
-    {
-      "segment_number": 3,
-      "language_iso": "en",
-      "value": "Facelook",
-      "modified_by": 20181,
-      "modified_by_email": "bodrovis@protonmail.com",
-      "modified_at": "2023-09-22 10:26:50 (Etc/UTC)",
-      "modified_at_timestamp": 1695378410,
-      "is_reviewed": false,
-      "reviewed_by": 0,
-      "is_fuzzy": false,
-      "words": 1,
-      "custom_translation_statuses": []
-    }
-  ]
+	"project_id": "36730698650d6bd755c737.69639337",
+	"key_id": 379099395,
+	"language_iso": "en",
+	"segments": [
+		{
+			"segment_number": 1,
+			"language_iso": "en",
+			"value": "Macrosoft",
+			"modified_by": 20181,
+			"modified_by_email": "bodrovis@protonmail.com",
+			"modified_at": "2023-09-22 10:26:50 (Etc/UTC)",
+			"modified_at_timestamp": 1695378410,
+			"is_reviewed": false,
+			"reviewed_by": 0,
+			"is_fuzzy": false,
+			"words": 1,
+			"custom_translation_statuses": []
+		},
+		{
+			"segment_number": 2,
+			"language_iso": "en",
+			"value": "Pineapple",
+			"modified_by": 20181,
+			"modified_by_email": "bodrovis@protonmail.com",
+			"modified_at": "2023-09-22 10:26:50 (Etc/UTC)",
+			"modified_at_timestamp": 1695378410,
+			"is_reviewed": false,
+			"reviewed_by": 0,
+			"is_fuzzy": false,
+			"words": 1,
+			"custom_translation_statuses": []
+		},
+		{
+			"segment_number": 3,
+			"language_iso": "en",
+			"value": "Facelook",
+			"modified_by": 20181,
+			"modified_by_email": "bodrovis@protonmail.com",
+			"modified_at": "2023-09-22 10:26:50 (Etc/UTC)",
+			"modified_at_timestamp": 1695378410,
+			"is_reviewed": false,
+			"reviewed_by": 0,
+			"is_fuzzy": false,
+			"words": 1,
+			"custom_translation_statuses": []
+		}
+	]
 }

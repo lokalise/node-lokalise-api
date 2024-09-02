@@ -1,15 +1,13 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "webhooks": [
-    {
-      "webhook_id": "b1a98c63f7e8a03b1c7aadc0a8171d637b7a9e02",
-      "url": "http://node.hook",
-      "branch": null,
-      "secret": "bd21b9b2983f3d7d2c2297294c90bb742f6cccae",
-      "events": [
-        "project.exported"
-      ],
-      "event_lang_map": []
-    }
-  ]
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"webhooks": [
+		{
+			"webhook_id": "b1a98c63f7e8a03b1c7aadc0a8171d637b7a9e02",
+			"url": "http://node.hook",
+			"branch": null,
+			"secret": "bd21b9b2983f3d7d2c2297294c90bb742f6cccae",
+			"events": ["project.exported"],
+			"event_lang_map": []
+		}
+	]
 }

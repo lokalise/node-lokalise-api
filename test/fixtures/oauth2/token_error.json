@@ -1,5 +1,5 @@
 {
-  "error": "invalid_request",
-  "error_description": "code: Code must be 40 characters long",
-  "error_uri": ""
+	"error": "invalid_request",
+	"error_description": "code: Code must be 40 characters long",
+	"error_uri": ""
 }

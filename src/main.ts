@@ -4,11 +4,11 @@ import { LokaliseApiOta } from "./lokalise/lokalise_api_ota.js";
 import { LokaliseOtaBundles } from "./lokalise/lokalise_ota_bundles.js";
 import { LokaliseAuth } from "./oauth2/lokalise_auth.js";
 export {
-  LokaliseApi,
-  LokaliseAuth,
-  LokaliseApiOAuth,
-  LokaliseApiOta,
-  LokaliseOtaBundles,
+	LokaliseApi,
+	LokaliseAuth,
+	LokaliseApiOAuth,
+	LokaliseApiOta,
+	LokaliseOtaBundles,
 };
 export * from "./interfaces/index.js";
 export type * from "./types/index.js";

@@ -1,12 +1,12 @@
 {
-  "company": "",
-  "address1": "Line 1",
-  "address2": "Line 2",
-  "city": "",
-  "zip": "LV-1234",
-  "phone": "",
-  "vatnumber": "123",
-  "country_code": "LV",
-  "billing_email": "updated@example.com",
-  "state_code": ""
+	"company": "",
+	"address1": "Line 1",
+	"address2": "Line 2",
+	"city": "",
+	"zip": "LV-1234",
+	"phone": "",
+	"vatnumber": "123",
+	"country_code": "LV",
+	"billing_email": "updated@example.com",
+	"state_code": ""
 }

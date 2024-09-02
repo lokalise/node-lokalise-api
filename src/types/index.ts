@@ -1,115 +1,115 @@
 export type {
-  BranchParams,
-  MergeBranchParams,
-  BranchDeleted,
-  BranchMerged,
+	BranchParams,
+	MergeBranchParams,
+	BranchDeleted,
+	BranchMerged,
 } from "./branches.js";
 export type {
-  CommentData,
-  CommentDeleted,
-  ProjectAndKey,
-  KeyProjectPagination,
+	CommentData,
+	CommentDeleted,
+	ProjectAndKey,
+	KeyProjectPagination,
 } from "./comments.js";
 export type {
-  ContributorCreateData,
-  ContributorUpdateData,
-  ContributorDeleted,
-  ContributorLanguages,
+	ContributorCreateData,
+	ContributorUpdateData,
+	ContributorDeleted,
+	ContributorLanguages,
 } from "./contributors.js";
 export type { ContributorRights } from "./contributor_rights.js";
 export type {
-  DownloadBundle,
-  FileDeleted,
-  DownloadFileParams,
-  ListFileParams,
+	DownloadBundle,
+	FileDeleted,
+	DownloadFileParams,
+	ListFileParams,
 } from "./files.js";
 export type {
-  CreateKeyData,
-  CreateKeyParams,
-  UpdateKeyData,
-  BulkUpdateKeyParams,
-  UpdateKeyDataWithId,
-  KeyDeleted,
-  KeysBulkDeleted,
-  KeyParamsWithPagination,
-  GetKeyParams,
+	CreateKeyData,
+	CreateKeyParams,
+	UpdateKeyData,
+	BulkUpdateKeyParams,
+	UpdateKeyDataWithId,
+	KeyDeleted,
+	KeysBulkDeleted,
+	KeyParamsWithPagination,
+	GetKeyParams,
 } from "./keys.js";
 export type {
-  CreateLanguageParams,
-  UpdateLanguageParams,
-  LanguageDeleted,
+	CreateLanguageParams,
+	UpdateLanguageParams,
+	LanguageDeleted,
 } from "./languages.js";
 export type { CreateOrderParams } from "./orders.js";
 export type { CreateCardParams, CardDeleted } from "./cards.js";
 export type {
-  CreateProjectParams,
-  UpdateProjectParams,
-  ProjectDeleted,
-  ProjectEmptied,
-  ProjectListParams,
+	CreateProjectParams,
+	UpdateProjectParams,
+	ProjectDeleted,
+	ProjectEmptied,
+	ProjectListParams,
 } from "./projects.js";
 export type {
-  CreateScreenshotParams,
-  UpdateScreenshotParams,
-  ScreenshotDeleted,
-  ScreenshotData,
+	CreateScreenshotParams,
+	UpdateScreenshotParams,
+	ScreenshotDeleted,
+	ScreenshotData,
 } from "./screenshots.js";
 export type {
-  GetSegmentParams,
-  UpdateSegmentReqParams,
-  UpdateSegmentBodyParams,
-  ListSegmentParams,
+	GetSegmentParams,
+	UpdateSegmentReqParams,
+	UpdateSegmentBodyParams,
+	ListSegmentParams,
 } from "./segments.js";
 export type { CreateSnapshotParams, SnapshotDeleted } from "./snapshots.js";
 export type {
-  CreateTaskParams,
-  TaskLanguage,
-  UpdateTaskParams,
-  TaskDeleted,
-  ListTaskParams,
+	CreateTaskParams,
+	TaskLanguage,
+	UpdateTaskParams,
+	TaskDeleted,
+	ListTaskParams,
 } from "./tasks.js";
 export type { BillingDetailsParams } from "./billing_details.js";
 export type { TeamWithPagination } from "./teams.js";
 export type { TeamUserParams, TeamUserDeleted } from "./team_users.js";
 export type {
-  CreateTranslationStatusParams,
-  UpdateTranslationStatusParams,
-  TranslationStatusDeleted,
-  TranslationStatusColors,
+	CreateTranslationStatusParams,
+	UpdateTranslationStatusParams,
+	TranslationStatusDeleted,
+	TranslationStatusColors,
 } from "./translation_statuses.js";
 export type {
-  UpdateTranslationParams,
-  TranslationData,
-  ListTranslationParams,
-  GetTranslationParams,
+	UpdateTranslationParams,
+	TranslationData,
+	ListTranslationParams,
+	GetTranslationParams,
 } from "./translations.js";
 export type { UserGroupParams, UserGroupDeleted } from "./user_groups.js";
 export type {
-  WebhookEventLangMap,
-  CreateWebhookParams,
-  UpdateWebhookParams,
-  WebhookDeleted,
-  WebhookRegenerated,
+	WebhookEventLangMap,
+	CreateWebhookParams,
+	UpdateWebhookParams,
+	WebhookDeleted,
+	WebhookRegenerated,
 } from "./webhooks.js";
 
 export type {
-  OtaResourceDeleted,
-  OtaTeamProject,
-  OtaFramework,
-  OtaTeamProjectFramework,
-  OtaFreezePeriodParams,
-  OtaUsageParams,
-  OtaBundleUpdateData,
-  OtaRequestBundleParams,
-  OtaProjectFramework,
+	OtaResourceDeleted,
+	OtaTeamProject,
+	OtaFramework,
+	OtaTeamProjectFramework,
+	OtaFreezePeriodParams,
+	OtaUsageParams,
+	OtaBundleUpdateData,
+	OtaRequestBundleParams,
+	OtaProjectFramework,
 } from "./ota.js";
 
 export type {
-  TeamOnly,
-  ProjectOnly,
-  PaginationParams,
-  ProjectWithPagination,
-  CursorPagination,
+	TeamOnly,
+	ProjectOnly,
+	PaginationParams,
+	ProjectWithPagination,
+	CursorPagination,
 } from "./common_get_params.js";
 export type { Filenames } from "./filenames.js";
 export type { SupportedPlatforms } from "./supported_platforms.js";

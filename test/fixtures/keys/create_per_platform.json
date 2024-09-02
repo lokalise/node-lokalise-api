@@ -1,100 +1,97 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "branch": "master",
-  "keys": [
-    {
-      "key_id": 378219556,
-      "created_at": "2023-09-21 12:26:15 (Etc/UTC)",
-      "created_at_timestamp": 1695299175,
-      "key_name": {
-        "ios": "name_for_ios2",
-        "android": "name_for_ios2",
-        "web": "name_for_web2",
-        "other": "name_for_ios2"
-      },
-      "filenames": {
-        "ios": "",
-        "android": "",
-        "web": "",
-        "other": ""
-      },
-      "description": "",
-      "platforms": [
-        "ios",
-        "web"
-      ],
-      "tags": [],
-      "comments": [],
-      "screenshots": [],
-      "translations": [
-        {
-          "translation_id": 3047664850,
-          "segment_number": 1,
-          "key_id": 378219556,
-          "language_iso": "en",
-          "translation": "Per-platform key names",
-          "modified_by": 20181,
-          "modified_by_email": "bodrovis@protonmail.com",
-          "modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
-          "modified_at_timestamp": 1695299175,
-          "is_reviewed": false,
-          "reviewed_by": 0,
-          "is_unverified": false,
-          "is_fuzzy": false,
-          "words": 3,
-          "custom_translation_statuses": [],
-          "task_id": null
-        },
-        {
-          "translation_id": 3047664848,
-          "segment_number": 1,
-          "key_id": 378219556,
-          "language_iso": "ar_001",
-          "translation": "",
-          "modified_by": 20181,
-          "modified_by_email": "bodrovis@protonmail.com",
-          "modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
-          "modified_at_timestamp": 1695299175,
-          "is_reviewed": false,
-          "reviewed_by": 0,
-          "is_unverified": true,
-          "is_fuzzy": true,
-          "words": 0,
-          "custom_translation_statuses": [],
-          "task_id": null
-        },
-        {
-          "translation_id": 3047664849,
-          "segment_number": 1,
-          "key_id": 378219556,
-          "language_iso": "sq",
-          "translation": "",
-          "modified_by": 20181,
-          "modified_by_email": "bodrovis@protonmail.com",
-          "modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
-          "modified_at_timestamp": 1695299175,
-          "is_reviewed": false,
-          "reviewed_by": 0,
-          "is_unverified": true,
-          "is_fuzzy": true,
-          "words": 0,
-          "custom_translation_statuses": [],
-          "task_id": null
-        }
-      ],
-      "is_plural": false,
-      "plural_name": "",
-      "is_hidden": false,
-      "is_archived": false,
-      "context": "",
-      "base_words": 3,
-      "char_limit": 0,
-      "custom_attributes": "",
-      "modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
-      "modified_at_timestamp": 1695299175,
-      "translations_modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
-      "translations_modified_at_timestamp": 1695299175
-    }
-  ],
-  "errors": []
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"branch": "master",
+	"keys": [
+		{
+			"key_id": 378219556,
+			"created_at": "2023-09-21 12:26:15 (Etc/UTC)",
+			"created_at_timestamp": 1695299175,
+			"key_name": {
+				"ios": "name_for_ios2",
+				"android": "name_for_ios2",
+				"web": "name_for_web2",
+				"other": "name_for_ios2"
+			},
+			"filenames": {
+				"ios": "",
+				"android": "",
+				"web": "",
+				"other": ""
+			},
+			"description": "",
+			"platforms": ["ios", "web"],
+			"tags": [],
+			"comments": [],
+			"screenshots": [],
+			"translations": [
+				{
+					"translation_id": 3047664850,
+					"segment_number": 1,
+					"key_id": 378219556,
+					"language_iso": "en",
+					"translation": "Per-platform key names",
+					"modified_by": 20181,
+					"modified_by_email": "bodrovis@protonmail.com",
+					"modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
+					"modified_at_timestamp": 1695299175,
+					"is_reviewed": false,
+					"reviewed_by": 0,
+					"is_unverified": false,
+					"is_fuzzy": false,
+					"words": 3,
+					"custom_translation_statuses": [],
+					"task_id": null
+				},
+				{
+					"translation_id": 3047664848,
+					"segment_number": 1,
+					"key_id": 378219556,
+					"language_iso": "ar_001",
+					"translation": "",
+					"modified_by": 20181,
+					"modified_by_email": "bodrovis@protonmail.com",
+					"modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
+					"modified_at_timestamp": 1695299175,
+					"is_reviewed": false,
+					"reviewed_by": 0,
+					"is_unverified": true,
+					"is_fuzzy": true,
+					"words": 0,
+					"custom_translation_statuses": [],
+					"task_id": null
+				},
+				{
+					"translation_id": 3047664849,
+					"segment_number": 1,
+					"key_id": 378219556,
+					"language_iso": "sq",
+					"translation": "",
+					"modified_by": 20181,
+					"modified_by_email": "bodrovis@protonmail.com",
+					"modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
+					"modified_at_timestamp": 1695299175,
+					"is_reviewed": false,
+					"reviewed_by": 0,
+					"is_unverified": true,
+					"is_fuzzy": true,
+					"words": 0,
+					"custom_translation_statuses": [],
+					"task_id": null
+				}
+			],
+			"is_plural": false,
+			"plural_name": "",
+			"is_hidden": false,
+			"is_archived": false,
+			"context": "",
+			"base_words": 3,
+			"char_limit": 0,
+			"custom_attributes": "",
+			"modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
+			"modified_at_timestamp": 1695299175,
+			"translations_modified_at": "2023-09-21 12:26:15 (Etc/UTC)",
+			"translations_modified_at_timestamp": 1695299175
+		}
+	],
+	"errors": []
 }

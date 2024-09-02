@@ -1,19 +1,17 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "branch": "master",
-  "contributors": [
-    {
-      "user_id": 308781,
-      "email": "translator4@mycompany.com",
-      "fullname": "Mr. Translator",
-      "created_at": "2023-09-21 11:16:39 (Etc/UTC)",
-      "created_at_timestamp": 1695294999,
-      "is_admin": false,
-      "is_reviewer": true,
-      "languages": [
-        {}
-      ],
-      "admin_rights": []
-    }
-  ]
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"branch": "master",
+	"contributors": [
+		{
+			"user_id": 308781,
+			"email": "translator4@mycompany.com",
+			"fullname": "Mr. Translator",
+			"created_at": "2023-09-21 11:16:39 (Etc/UTC)",
+			"created_at_timestamp": 1695294999,
+			"is_admin": false,
+			"is_reviewer": true,
+			"languages": [{}],
+			"admin_rights": []
+		}
+	]
 }

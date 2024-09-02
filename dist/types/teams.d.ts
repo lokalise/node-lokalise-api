@@ -1,2 +1,2 @@
-import type { TeamOnly, PaginationParams } from "./common_get_params.js";
+import type { PaginationParams, TeamOnly } from "./common_get_params.js";
 export type TeamWithPagination = TeamOnly & PaginationParams;

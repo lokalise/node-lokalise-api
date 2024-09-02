@@ -1,9 +1,9 @@
 export type CreateSnapshotParams = {
-  title: string;
+	title: string;
 };
 
 export type SnapshotDeleted = {
-  project_id: string;
-  snapshot_deleted: boolean;
-  branch?: string;
+	project_id: string;
+	snapshot_deleted: boolean;
+	branch?: string;
 };

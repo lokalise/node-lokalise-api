@@ -1,16 +1,13 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "branch": "master",
-  "languages": [
-    {
-      "lang_id": 640,
-      "lang_iso": "en",
-      "lang_name": "English",
-      "is_rtl": false,
-      "plural_forms": [
-        "one",
-        "other"
-      ]
-    }
-  ]
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"branch": "master",
+	"languages": [
+		{
+			"lang_id": 640,
+			"lang_iso": "en",
+			"lang_name": "English",
+			"is_rtl": false,
+			"plural_forms": ["one", "other"]
+		}
+	]
 }

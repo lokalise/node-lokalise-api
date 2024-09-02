@@ -1,44 +1,44 @@
 {
-  "provider_id": 4,
-  "name": "Lokalise",
-  "slug": "lokalise",
-  "price_pair_min": "10.00",
-  "website_url": "https://lokalise.com",
-  "description": "Our native professional translators are experts in mobile app, software, e-learning, website, multimedia and game localization. Translations in over 90 languages are available.<br><br>Reach out for our translation managers in our in-web support chat. They will guide you through.<br><br><strong>Lifetime quality guarantee</strong> applies.<br><br>Lokalise will not translate unlawful, abusive, pornographic, discriminatory or gambling-related content.<br>As soon as such content is found in the order for translation placed with Lokalise, the order is stopped, and the untranslated part is refunded. Please see more details in Section 7 \"Prohibited Content\" of <a href=\"https://lokalise.com/terms\" target=\"_blank\">Lokalise Terms</a>.",
-  "tiers": [
-    {
-      "tier_id": 1,
-      "title": "Translation only by a native professional linguist"
-    },
-    {
-      "tier_id": 2,
-      "title": "Translation + Bilingual revision by a second native professional linguist"
-    },
-    {
-      "tier_id": 3,
-      "title": "Bilingual editing"
-    },
-    {
-      "tier_id": 4,
-      "title": "Monolingual proofreading"
-    }
-  ],
-  "pairs": [
-    {
-      "tier_id": 1,
-      "price_per_word": 0.1,
-      "from_lang_iso": "ru",
-      "from_lang_name": "Russian",
-      "to_lang_iso": "en",
-      "to_lang_name": "English"
-    },
-    {
-      "tier_id": 1,
-      "price_per_word": 0.19,
-      "from_lang_iso": "zh_TW",
-      "from_lang_name": "Chinese Traditional",
-      "to_lang_iso": "en_GB",
-      "to_lang_name": "English (United Kingdom)"
-    }
-  ]
+	"provider_id": 4,
+	"name": "Lokalise",
+	"slug": "lokalise",
+	"price_pair_min": "10.00",
+	"website_url": "https://lokalise.com",
+	"description": "Our native professional translators are experts in mobile app, software, e-learning, website, multimedia and game localization. Translations in over 90 languages are available.<br><br>Reach out for our translation managers in our in-web support chat. They will guide you through.<br><br><strong>Lifetime quality guarantee</strong> applies.<br><br>Lokalise will not translate unlawful, abusive, pornographic, discriminatory or gambling-related content.<br>As soon as such content is found in the order for translation placed with Lokalise, the order is stopped, and the untranslated part is refunded. Please see more details in Section 7 \"Prohibited Content\" of <a href=\"https://lokalise.com/terms\" target=\"_blank\">Lokalise Terms</a>.",
+	"tiers": [
+		{
+			"tier_id": 1,
+			"title": "Translation only by a native professional linguist"
+		},
+		{
+			"tier_id": 2,
+			"title": "Translation + Bilingual revision by a second native professional linguist"
+		},
+		{
+			"tier_id": 3,
+			"title": "Bilingual editing"
+		},
+		{
+			"tier_id": 4,
+			"title": "Monolingual proofreading"
+		}
+	],
+	"pairs": [
+		{
+			"tier_id": 1,
+			"price_per_word": 0.1,
+			"from_lang_iso": "ru",
+			"from_lang_name": "Russian",
+			"to_lang_iso": "en",
+			"to_lang_name": "English"
+		},
+		{
+			"tier_id": 1,
+			"price_per_word": 0.19,
+			"from_lang_iso": "zh_TW",
+			"from_lang_name": "Chinese Traditional",
+			"to_lang_iso": "en_GB",
+			"to_lang_name": "English (United Kingdom)"
+		}
+	]
 }

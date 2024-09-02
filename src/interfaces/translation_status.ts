@@ -1,5 +1,5 @@
 export interface TranslationStatus {
-  status_id: number;
-  title: string;
-  color: string;
+	status_id: number;
+	title: string;
+	color: string;
 }

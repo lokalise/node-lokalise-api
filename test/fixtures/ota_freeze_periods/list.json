@@ -1,20 +1,20 @@
 {
-  "data": [
-    {
-      "id": 38299,
-      "projectId": 188763,
-      "bundleId": 682464,
-      "framework": "ios_sdk",
-      "from": "0",
-      "to": "1"
-    },
-    {
-      "id": 38300,
-      "projectId": 188763,
-      "bundleId": 682463,
-      "framework": "ios_sdk",
-      "from": "3",
-      "to": "4"
-    }
-  ]
+	"data": [
+		{
+			"id": 38299,
+			"projectId": 188763,
+			"bundleId": 682464,
+			"framework": "ios_sdk",
+			"from": "0",
+			"to": "1"
+		},
+		{
+			"id": 38300,
+			"projectId": 188763,
+			"bundleId": 682463,
+			"framework": "ios_sdk",
+			"from": "3",
+			"to": "4"
+		}
+	]
 }

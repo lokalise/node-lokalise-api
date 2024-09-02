@@ -1,62 +1,54 @@
 {
-  "name": "@lokalise/node-api",
-  "version": "12.7.0",
-  "description": "Official Lokalise API 2.0 Node.js client",
-  "license": "BSD-3-Clause",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/lokalise/node-lokalise-api.git"
-  },
-  "keywords": [
-    "api",
-    "node",
-    "typescript",
-    "lokalise",
-    "client",
-    "client library"
-  ],
-  "type": "module",
-  "scripts": {
-    "build": "tsc",
-    "test": "vitest run --coverage",
-    "test:watch": "vitest watch",
-    "lint": "eslint . --ext .js,.ts",
-    "lint:fix": "npm run lint -- --fix"
-  },
-  "publishConfig": {
-    "access": "public"
-  },
-  "devDependencies": {
-    "@types/node": "^22.0.2",
-    "@types/sinon": "^17.0.1",
-    "@typescript-eslint/eslint-plugin": "^8.0.0",
-    "@typescript-eslint/parser": "^8.0.0",
-    "@vitest/coverage-istanbul": "^2.0.3",
-    "dotenv": "^16.0.0",
-    "eslint": "^8.33.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-import-resolver-typescript": "^3.5.1",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-prettier": "^5.0.0",
-    "prettier": "^3.0.0",
-    "sinon": "^18.0.0",
-    "typescript": "^5.0.0",
-    "undici": "^6.0.0",
-    "vitest": "^2.0.3"
-  },
-  "bugs": {
-    "url": "https://github.com/lokalise/node-lokalise-api/issues"
-  },
-  "homepage": "https://lokalise.github.io/node-lokalise-api",
-  "exports": "./dist/main.js",
-  "types": "./dist/main.d.ts",
-  "directories": {
-    "lib": "./src",
-    "test": "./test"
-  },
-  "author": "Lokalise group, Ilya Krukowski",
-  "engines": {
-    "node": ">=18"
-  }
+	"name": "@lokalise/node-api",
+	"version": "12.7.0",
+	"description": "Official Lokalise API 2.0 Node.js client",
+	"license": "BSD-3-Clause",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/lokalise/node-lokalise-api.git"
+	},
+	"keywords": [
+		"api",
+		"node",
+		"typescript",
+		"lokalise",
+		"client",
+		"client library"
+	],
+	"type": "module",
+	"scripts": {
+		"build": "tsc",
+		"test": "vitest run --coverage",
+		"test:watch": "vitest watch",
+		"lint:fix": "npx @biomejs/biome check --write ./"
+	},
+	"publishConfig": {
+		"access": "public"
+	},
+	"devDependencies": {
+		"@biomejs/biome": "1.8.3",
+		"@types/node": "^22.0.2",
+		"@types/sinon": "^17.0.1",
+		"@vitest/coverage-istanbul": "^2.0.3",
+		"dotenv": "^16.0.0",
+		"prettier": "^3.0.0",
+		"sinon": "^18.0.0",
+		"typescript": "^5.0.0",
+		"undici": "^6.0.0",
+		"vitest": "^2.0.3"
+	},
+	"bugs": {
+		"url": "https://github.com/lokalise/node-lokalise-api/issues"
+	},
+	"homepage": "https://lokalise.github.io/node-lokalise-api",
+	"exports": "./dist/main.js",
+	"types": "./dist/main.d.ts",
+	"directories": {
+		"lib": "./src",
+		"test": "./test"
+	},
+	"author": "Lokalise group, Ilya Krukowski",
+	"engines": {
+		"node": ">=18"
+	}
 }

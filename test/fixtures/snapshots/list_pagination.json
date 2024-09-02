@@ -1,22 +1,22 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "branch": "master",
-  "snapshots": [
-    {
-      "snapshot_id": 516514,
-      "title": "Elixir snap",
-      "created_by": 20181,
-      "created_by_email": "bodrovis@protonmail.com",
-      "created_at": "2021-03-17 14:14:50 (Etc/UTC)",
-      "created_at_timestamp": 1615990490
-    },
-    {
-      "snapshot_id": 679169,
-      "title": "Find/Replace",
-      "created_by": 20181,
-      "created_by_email": "bodrovis@protonmail.com",
-      "created_at": "2021-07-22 11:39:34 (Etc/UTC)",
-      "created_at_timestamp": 1626953974
-    }
-  ]
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"branch": "master",
+	"snapshots": [
+		{
+			"snapshot_id": 516514,
+			"title": "Elixir snap",
+			"created_by": 20181,
+			"created_by_email": "bodrovis@protonmail.com",
+			"created_at": "2021-03-17 14:14:50 (Etc/UTC)",
+			"created_at_timestamp": 1615990490
+		},
+		{
+			"snapshot_id": 679169,
+			"title": "Find/Replace",
+			"created_by": 20181,
+			"created_by_email": "bodrovis@protonmail.com",
+			"created_at": "2021-07-22 11:39:34 (Etc/UTC)",
+			"created_at_timestamp": 1626953974
+		}
+	]
 }

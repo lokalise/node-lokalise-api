@@ -1,25 +1,25 @@
 {
-  "data": [
-    {
-      "id": 9690,
-      "token": "bd275d788d1e50b2ae1ac2632c840f5378c5",
-      "projectId": 188763,
-      "lokaliseId": null,
-      "createdAt": "2023-09-20T13:39:11.119Z"
-    },
-    {
-      "id": 9707,
-      "token": "70e735518bf049940f4b8d05215d4aa1ee61",
-      "projectId": 188763,
-      "lokaliseId": null,
-      "createdAt": "2023-09-23T11:55:38.894Z"
-    },
-    {
-      "id": 9708,
-      "token": "def8687efe9da67f5b0c7c06aff702ccf9b6",
-      "projectId": 188763,
-      "lokaliseId": null,
-      "createdAt": "2023-09-23T11:55:39.986Z"
-    }
-  ]
+	"data": [
+		{
+			"id": 9690,
+			"token": "bd275d788d1e50b2ae1ac2632c840f5378c5",
+			"projectId": 188763,
+			"lokaliseId": null,
+			"createdAt": "2023-09-20T13:39:11.119Z"
+		},
+		{
+			"id": 9707,
+			"token": "70e735518bf049940f4b8d05215d4aa1ee61",
+			"projectId": 188763,
+			"lokaliseId": null,
+			"createdAt": "2023-09-23T11:55:38.894Z"
+		},
+		{
+			"id": 9708,
+			"token": "def8687efe9da67f5b0c7c06aff702ccf9b6",
+			"projectId": 188763,
+			"lokaliseId": null,
+			"createdAt": "2023-09-23T11:55:39.986Z"
+		}
+	]
 }

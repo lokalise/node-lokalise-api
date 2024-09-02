@@ -1,13 +1,13 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "project_type": "localization_files",
-  "name": "Demo Phoenix",
-  "description": "Description Phoenix",
-  "created_at": "2018-09-24 16:05:22 (Etc/UTC)",
-  "created_at_timestamp": 1537805122,
-  "created_by": 20181,
-  "created_by_email": "bodrovis@protonmail.com",
-  "team_id": 176692,
-  "base_language_id": 640,
-  "base_language_iso": "en"
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"project_type": "localization_files",
+	"name": "Demo Phoenix",
+	"description": "Description Phoenix",
+	"created_at": "2018-09-24 16:05:22 (Etc/UTC)",
+	"created_at_timestamp": 1537805122,
+	"created_by": 20181,
+	"created_by_email": "bodrovis@protonmail.com",
+	"team_id": 176692,
+	"base_language_id": 640,
+	"base_language_iso": "en"
 }

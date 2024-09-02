@@ -12,11 +12,33 @@ import { QueuedProcesses } from "./queued_processes.js";
 import { Screenshots } from "./screenshots.js";
 import { Snapshots } from "./snapshots.js";
 import { Tasks } from "./tasks.js";
-import { Teams } from "./teams.js";
 import { TeamUsers } from "./team_users.js";
-import { Translations } from "./translations.js";
+import { Teams } from "./teams.js";
 import { TranslationProviders } from "./translation_providers.js";
 import { TranslationStatuses } from "./translation_statuses.js";
+import { Translations } from "./translations.js";
 import { UserGroups } from "./user_groups.js";
 import { Webhooks } from "./webhooks.js";
-export { Branches, Comments, Contributors, Files, Jwt, Keys, Languages, Orders, PaymentCards, Projects, QueuedProcesses, Screenshots, Snapshots, Tasks, TeamUsers, Teams, Translations, TranslationProviders, TranslationStatuses, UserGroups, Webhooks, };
+export {
+	Branches,
+	Comments,
+	Contributors,
+	Files,
+	Jwt,
+	Keys,
+	Languages,
+	Orders,
+	PaymentCards,
+	Projects,
+	QueuedProcesses,
+	Screenshots,
+	Snapshots,
+	Tasks,
+	TeamUsers,
+	Teams,
+	Translations,
+	TranslationProviders,
+	TranslationStatuses,
+	UserGroups,
+	Webhooks,
+};

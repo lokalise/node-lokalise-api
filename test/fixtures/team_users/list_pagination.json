@@ -1,21 +1,21 @@
 {
-  "team_id": 176692,
-  "team_users": [
-    {
-      "user_id": 141203,
-      "email": "ilya+demo@lokalise.com",
-      "fullname": "Ilya",
-      "created_at": "2021-12-10 18:32:12 (Etc/UTC)",
-      "created_at_timestamp": 1639161132,
-      "role": "member"
-    },
-    {
-      "user_id": 140889,
-      "email": "jane@example.com",
-      "fullname": "Jane",
-      "created_at": "2021-12-09 17:51:15 (Etc/UTC)",
-      "created_at_timestamp": 1639072275,
-      "role": "member"
-    }
-  ]
+	"team_id": 176692,
+	"team_users": [
+		{
+			"user_id": 141203,
+			"email": "ilya+demo@lokalise.com",
+			"fullname": "Ilya",
+			"created_at": "2021-12-10 18:32:12 (Etc/UTC)",
+			"created_at_timestamp": 1639161132,
+			"role": "member"
+		},
+		{
+			"user_id": 140889,
+			"email": "jane@example.com",
+			"fullname": "Jane",
+			"created_at": "2021-12-09 17:51:15 (Etc/UTC)",
+			"created_at_timestamp": 1639072275,
+			"role": "member"
+		}
+	]
 }

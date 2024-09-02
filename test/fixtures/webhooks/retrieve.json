@@ -1,31 +1,27 @@
 {
-  "project_id": "803826145ba90b42d5d860.46800099",
-  "webhook": {
-    "webhook_id": "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a",
-    "url": "https://serios.webhook",
-    "branch": null,
-    "secret": "42fd07785e2e281602d75c9044add68a15f454dc",
-    "events": [
-      "project.imported",
-      "project.key.added",
-      "project.keys.deleted",
-      "project.translation.updated",
-      "project.keys.added",
-      "project.translations.updated"
-    ],
-    "event_lang_map": [
-      {
-        "event": "project.translation.updated",
-        "lang_iso_codes": [
-          "nl"
-        ]
-      },
-      {
-        "event": "project.translations.updated",
-        "lang_iso_codes": [
-          "nl"
-        ]
-      }
-    ]
-  }
+	"project_id": "803826145ba90b42d5d860.46800099",
+	"webhook": {
+		"webhook_id": "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a",
+		"url": "https://serios.webhook",
+		"branch": null,
+		"secret": "42fd07785e2e281602d75c9044add68a15f454dc",
+		"events": [
+			"project.imported",
+			"project.key.added",
+			"project.keys.deleted",
+			"project.translation.updated",
+			"project.keys.added",
+			"project.translations.updated"
+		],
+		"event_lang_map": [
+			{
+				"event": "project.translation.updated",
+				"lang_iso_codes": ["nl"]
+			},
+			{
+				"event": "project.translations.updated",
+				"lang_iso_codes": ["nl"]
+			}
+		]
+	}
 }

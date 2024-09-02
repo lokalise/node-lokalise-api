@@ -1,3 +1,3 @@
 export interface Jwt {
-    jwt: string;
+	jwt: string;
 }

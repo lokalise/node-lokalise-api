@@ -1,6 +1,6 @@
 {
-  "error": {
-    "code": 500,
-    "message": "Something very bad has happened"
-  }
+	"error": {
+		"code": 500,
+		"message": "Something very bad has happened"
+	}
 }

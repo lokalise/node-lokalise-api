@@ -1,17 +1,17 @@
 {
-  "data": {
-    "id": 680066,
-    "projectId": "88628569645b945648b474.25982965",
-    "isPrerelease": true,
-    "isProduction": true,
-    "createdAt": "2023-09-20T13:39:20.469Z",
-    "createdBy": "20181",
-    "framework": "ios_sdk",
-    "description": "",
-    "isFrozen": false,
-    "lokaliseId": 859006,
-    "fileId": "9b946841-a83c-4353-be2c-13f387406e6d",
-    "fileUrl": "https://ota-bundles.lokalise.com/176692/88628569645b945648b474.25982965/bundles/469e08cd-27c1-4d92-b5c2-3f81647a7239?Expires=1695477094&Key-Pair-Id=KKVN81V83VN6B&Signature=vcbt1koHngfu~rZY0Hp3fg7D~CGwWZoEoyso72wPYTWf90u19kVkh3-NqLQ5qD5j-MI1C3yvYN6mf-wRJFGWfaDAdjDs5s0pByY9qcM4mGOzDg~QOW7Pr4ohkkUH-Yohp68LqlPtLSktMc6SpUBZF7z0Ve7~dAD8bAFX9I3Hk86WZ63XWYERj8W8sCgUunQV0w7ROdZac8VJ8mNwF2Pyu9MeIodZ8kuI0LsHmaBwHrmTpVIs-jpbgy2nABBp87DZ7BH-QJpYrLA-WGoEvJN8JHJ51QcvSnJrJ9PQK9ZLRpo20SdShpeNct3BY0VMRN29toTg0NC4qcDjGdHpqIU9UA__",
-    "modifiedAt": "2023-09-20T13:39:20.469Z"
-  }
+	"data": {
+		"id": 680066,
+		"projectId": "88628569645b945648b474.25982965",
+		"isPrerelease": true,
+		"isProduction": true,
+		"createdAt": "2023-09-20T13:39:20.469Z",
+		"createdBy": "20181",
+		"framework": "ios_sdk",
+		"description": "",
+		"isFrozen": false,
+		"lokaliseId": 859006,
+		"fileId": "9b946841-a83c-4353-be2c-13f387406e6d",
+		"fileUrl": "https://ota-bundles.lokalise.com/176692/88628569645b945648b474.25982965/bundles/469e08cd-27c1-4d92-b5c2-3f81647a7239?Expires=1695477094&Key-Pair-Id=KKVN81V83VN6B&Signature=vcbt1koHngfu~rZY0Hp3fg7D~CGwWZoEoyso72wPYTWf90u19kVkh3-NqLQ5qD5j-MI1C3yvYN6mf-wRJFGWfaDAdjDs5s0pByY9qcM4mGOzDg~QOW7Pr4ohkkUH-Yohp68LqlPtLSktMc6SpUBZF7z0Ve7~dAD8bAFX9I3Hk86WZ63XWYERj8W8sCgUunQV0w7ROdZac8VJ8mNwF2Pyu9MeIodZ8kuI0LsHmaBwHrmTpVIs-jpbgy2nABBp87DZ7BH-QJpYrLA-WGoEvJN8JHJ51QcvSnJrJ9PQK9ZLRpo20SdShpeNct3BY0VMRN29toTg0NC4qcDjGdHpqIU9UA__",
+		"modifiedAt": "2023-09-20T13:39:20.469Z"
+	}
 }
