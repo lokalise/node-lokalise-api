@@ -68,7 +68,7 @@ describe("Screenshots", () => {
 	it("lists with error", async () => {
 		const stub = new Stub({
 			fixture: "screenshots/list_error.json",
-			uri: `projects//screenshots`,
+			uri: "projects//screenshots",
 			status: 404,
 			respHeaders: {
 				"x-pagination-total-count": "2",

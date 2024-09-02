@@ -131,8 +131,8 @@ describe("Files", () => {
 
 		expect(process.process_id).to.eq(processId);
 		expect(process.status).to.eq("finished");
-		expect(process.details["files"].length).to.eq(1);
-		const file = process.details["files"][0];
+		expect(process.details.files.length).to.eq(1);
+		const file = process.details.files[0];
 		expect(file.name_original).to.eq("test_node.json");
 		expect(file.word_count_total).to.eq(3);
 		expect(file.status).to.eq("finished");

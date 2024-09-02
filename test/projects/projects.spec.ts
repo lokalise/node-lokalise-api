@@ -10,7 +10,7 @@ describe("Projects", () => {
 	it("lists", async () => {
 		const stub = new Stub({
 			fixture: "projects/list.json",
-			uri: `projects`,
+			uri: "projects",
 			respHeaders: {
 				"x-pagination-total-count": "2",
 				"x-pagination-page": "1",
@@ -34,7 +34,7 @@ describe("Projects", () => {
 
 		const stub = new Stub({
 			fixture: "projects/list_pagination.json",
-			uri: `projects`,
+			uri: "projects",
 			query: params,
 			respHeaders: {
 				"x-pagination-total-count": "2",
@@ -87,7 +87,7 @@ describe("Projects", () => {
 			fixture: "projects/retrieve_no_version.json",
 			uri: `projects/${projectId}`,
 			reqHeaders: {
-				"User-Agent": `node-lokalise-api/unknown`,
+				"User-Agent": "node-lokalise-api/unknown",
 			},
 		});
 
@@ -108,7 +108,7 @@ describe("Projects", () => {
 
 		const stub = new Stub({
 			fixture: "projects/create.json",
-			uri: `projects`,
+			uri: "projects",
 			method: "POST",
 			body: params,
 		});

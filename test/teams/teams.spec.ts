@@ -6,7 +6,7 @@ describe("Teams", () => {
 	it("lists", async () => {
 		const stub = new Stub({
 			fixture: "teams/list.json",
-			uri: `teams`,
+			uri: "teams",
 			respHeaders: {
 				"x-pagination-total-count": "3",
 				"x-pagination-page": "1",
@@ -35,7 +35,7 @@ describe("Teams", () => {
 
 		const stub = new Stub({
 			fixture: "teams/list_pagination.json",
-			uri: `teams`,
+			uri: "teams",
 			query: params,
 			respHeaders: {
 				"x-pagination-total-count": "3",

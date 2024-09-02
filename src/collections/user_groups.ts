@@ -139,7 +139,7 @@ export class UserGroups extends BaseCollection {
 	}
 
 	protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this {
-		const formatted_json = json["group"];
+		const formatted_json = json.group;
 		return <this>this.populateObjectFromJson(formatted_json, headers);
 	}
 }

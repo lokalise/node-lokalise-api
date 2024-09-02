@@ -35,10 +35,10 @@ GEM
       ffi (>= 1.15.0)
     eventmachine (1.2.7)
     execjs (2.9.1)
-    faraday (2.10.1)
-      faraday-net_http (>= 2.0, < 3.2)
+    faraday (2.11.0)
+      faraday-net_http (>= 2.0, < 3.4)
       logger
-    faraday-net_http (3.1.1)
+    faraday-net_http (3.3.0)
       net-http
     ffi (1.17.0-x64-mingw-ucrt)
     ffi (1.17.0-x86_64-linux-gnu)
@@ -220,7 +220,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.0)
+    logger (1.6.1)
     mercenary (0.3.6)
     minima (2.5.1)
       jekyll (>= 3.5, < 5.0)
@@ -268,8 +268,8 @@ GEM
     tzinfo-data (1.2024.1)
       tzinfo (>= 1.0.0)
     unicode-display_width (1.8.0)
-    uri (0.13.0)
-    wdm (0.1.1)
+    uri (0.13.1)
+    wdm (0.2.0)
     webrick (1.8.1)
 
 PLATFORMS
@@ -284,7 +284,7 @@ DEPENDENCIES
   minima (~> 2.0)
   tzinfo (~> 2.0)
   tzinfo-data
-  wdm (~> 0.1.0)
+  wdm (~> 0.2.0)
   webrick (~> 1.8)
 
 BUNDLED WITH

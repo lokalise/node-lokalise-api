@@ -148,9 +148,8 @@ export abstract class BaseCollection {
 
 		if (secondary) {
 			return new childClass.secondaryElementClass(json);
-		} else {
-			return new childClass.elementClass(json);
 		}
+		return new childClass.elementClass(json);
 	}
 
 	protected populateArrayFromJsonBulk(
@@ -164,7 +163,7 @@ export abstract class BaseCollection {
 			arr.push(<this>this.populateObjectFromJson(obj, headers));
 		}
 		const result: BulkResult = {
-			errors: json["errors"],
+			errors: json.errors,
 			items: arr,
 		};
 		return result;
@@ -188,9 +187,8 @@ export abstract class BaseCollection {
 		) {
 			const result: PaginatedResult = new PaginatedResult(arr, headers);
 			return result;
-		} else {
-			return arr;
 		}
+		return arr;
 	}
 
 	protected populateArrayFromJsonCursor(
@@ -237,7 +235,7 @@ export abstract class BaseCollection {
 			let result = null;
 
 			if (resolveFn !== null) {
-				result = resolveFn.call(this, data["json"], data["headers"]);
+				result = resolveFn.call(this, data.json, data.headers);
 			}
 
 			return Promise.resolve(result);
@@ -273,8 +271,7 @@ export abstract class BaseCollection {
 	protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable> {
 		if (!Array.isArray(raw_body)) {
 			return Array(raw_body);
-		} else {
-			return raw_body;
 		}
+		return raw_body;
 	}
 }

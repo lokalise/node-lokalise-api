@@ -1,4 +1,4 @@
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 import type { Keyable } from "../interfaces/keyable.js";
 
 export class LokalisePkg {

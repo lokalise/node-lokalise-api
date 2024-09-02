@@ -92,11 +92,10 @@ export class ApiRequest {
 	}
 
 	protected getErrorFromResp(respJson: any): any {
-		if (typeof respJson["error"] === "object") {
-			return respJson["error"];
-		} else {
-			return respJson;
+		if (typeof respJson.error === "object") {
+			return respJson.error;
 		}
+		return respJson;
 	}
 
 	protected composeURI(rawUri: string): string {
@@ -114,13 +113,11 @@ export class ApiRequest {
 				delete this.params[paramName];
 
 				return t_param;
-			} else {
-				if (isMandaratory === "!") {
-					throw new Error("Missing required param: " + paramName);
-				} else {
-					return "";
-				}
 			}
+			if (isMandaratory === "!") {
+				throw new Error(`Missing required param: ${paramName}`);
+			}
+			return "";
 		};
 	}
 }

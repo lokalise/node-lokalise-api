@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Migrate from eslint to biome
+
 ## 12.7.0 (17-Jul-2024)
 
 * Added `tm_leverage` field for the `languages` of the `Task` object:

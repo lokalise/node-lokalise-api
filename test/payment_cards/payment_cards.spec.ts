@@ -8,7 +8,7 @@ describe("PaymentCards", () => {
 	it("lists", async () => {
 		const stub = new Stub({
 			fixture: "payment_cards/list.json",
-			uri: `payment_cards`,
+			uri: "payment_cards",
 			respHeaders: {
 				"x-pagination-total-count": "4",
 				"x-pagination-page": "1",
@@ -32,7 +32,7 @@ describe("PaymentCards", () => {
 
 		const stub = new Stub({
 			fixture: "payment_cards/list_pagination.json",
-			uri: `payment_cards`,
+			uri: "payment_cards",
 			query: params,
 			respHeaders: {
 				"x-pagination-total-count": "4",
@@ -80,7 +80,7 @@ describe("PaymentCards", () => {
 
 		const stub = new Stub({
 			fixture: "payment_cards/create.json",
-			uri: `payment_cards`,
+			uri: "payment_cards",
 			method: "POST",
 			body: params,
 		});

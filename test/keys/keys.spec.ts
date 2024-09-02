@@ -228,12 +228,12 @@ describe("Keys", () => {
 			.keys()
 			.create(params, { project_id: projectId });
 
-		expect(keys.items[0].key_name["web"]).to.eq("welcome_web_new");
+		expect(keys.items[0].key_name.web).to.eq("welcome_web_new");
 		expect(keys.items[0].platforms).to.include("web");
-		expect(keys.items[0].filenames["web"]).to.eq("my_filename.json");
+		expect(keys.items[0].filenames.web).to.eq("my_filename.json");
 		expect(keys.items[0].translations[0].translation).to.eq("Welcome");
 
-		expect(keys.items[1].key_name["ios"]).to.eq("welcome_ios_new");
+		expect(keys.items[1].key_name.ios).to.eq("welcome_ios_new");
 		expect(keys.items[1].platforms).to.include("ios");
 		expect(keys.items[1].translations[0].language_iso).to.eq("en");
 	});
@@ -286,7 +286,7 @@ describe("Keys", () => {
 			.keys()
 			.create(params, { project_id: projectId });
 
-		expect(keys.items[0].key_name["ios"]).to.eq("welcome_ios_supernew");
+		expect(keys.items[0].key_name.ios).to.eq("welcome_ios_supernew");
 		expect(keys.items[0].platforms).to.include("ios");
 		expect(keys.items[0].translations[0].language_iso).to.eq("en");
 
@@ -330,8 +330,8 @@ describe("Keys", () => {
 
 		const key = keys.items[0];
 
-		expect(key.key_name["web"]).to.eq("name_for_web2");
-		expect(key.key_name["ios"]).to.eq("name_for_ios2");
+		expect(key.key_name.web).to.eq("name_for_web2");
+		expect(key.key_name.ios).to.eq("name_for_ios2");
 		expect(key.platforms).to.include("web", "ios");
 		expect(key.platforms).not.to.include("android", "other");
 	});

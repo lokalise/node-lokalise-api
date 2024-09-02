@@ -37,17 +37,15 @@ export class PaginatedResult implements PaginatedResultInterface {
 	nextPage(): number {
 		if (this.isLastPage()) {
 			return this.currentPage;
-		} else {
-			return this.currentPage + 1;
 		}
+		return this.currentPage + 1;
 	}
 
 	prevPage(): number {
 		if (this.isFirstPage()) {
 			return this.currentPage;
-		} else {
-			return this.currentPage - 1;
 		}
+		return this.currentPage - 1;
 	}
 
 	private safeParseInt(str: string | null): number {

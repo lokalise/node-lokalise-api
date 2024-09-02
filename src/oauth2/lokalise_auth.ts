@@ -23,9 +23,9 @@ export class LokaliseAuth {
 	) {
 		if (
 			clientId == null ||
-			clientId.length == 0 ||
+			clientId.length === 0 ||
 			clientSecret == null ||
-			clientSecret.length == 0
+			clientSecret.length === 0
 		) {
 			throw new Error(
 				"Error: Instantiation failed: Please pass client id and client secret",
@@ -43,7 +43,7 @@ export class LokaliseAuth {
 		redirect_uri?: string,
 		state?: string,
 	): string {
-		if (scope instanceof Array) {
+		if (Array.isArray(scope)) {
 			scope = scope.join(" ");
 		}
 
@@ -53,11 +53,11 @@ export class LokaliseAuth {
 		};
 
 		if (state) {
-			params["state"] = state;
+			params.state = state;
 		}
 
 		if (redirect_uri) {
-			params["redirect_uri"] = redirect_uri;
+			params.redirect_uri = redirect_uri;
 		}
 
 		return this.buildUrl(params);
@@ -95,7 +95,7 @@ export class LokaliseAuth {
 				params,
 				this.authData,
 			);
-			return Promise.resolve(data["json"]);
+			return Promise.resolve(data.json);
 		} catch (err) {
 			return Promise.reject(this.handleReject(err));
 		}

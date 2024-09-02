@@ -82,7 +82,7 @@ describe("Orders", () => {
 		expect(order.source_language_iso).to.eq("en");
 		expect(order.target_language_isos).to.include("lv_LV");
 		expect(order.keys).to.include(35076371);
-		expect(order.source_words["lv_LV"]).to.eq(22);
+		expect(order.source_words.lv_LV).to.eq(22);
 		expect(order.provider_slug).to.eq("google");
 		expect(order.translation_style).to.eq(null);
 		expect(order.translation_tier).to.eq(1);

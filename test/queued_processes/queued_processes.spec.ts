@@ -78,9 +78,9 @@ describe("QueuedProcesses", () => {
 		expect(process.created_by_email).to.eq("bodrovis@protonmail.com");
 		expect(process.created_at).to.eq("2023-09-19 13:26:18 (Etc/UTC)");
 		expect(process.created_at_timestamp).to.eq(1695129978);
-		expect(process.details["files"].length).to.eq(1);
+		expect(process.details.files.length).to.eq(1);
 
-		const file = process.details["files"][0];
+		const file = process.details.files[0];
 
 		expect(file.name_original).to.eq("test_async.json");
 		expect(file.word_count_total).to.eq(3);

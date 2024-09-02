@@ -1,6 +1,6 @@
 import * as dotenv from "dotenv";
 dotenv.config();
-import { readFile } from "fs/promises";
+import { readFile } from "node:fs/promises";
 import { MockAgent, setGlobalDispatcher } from "undici";
 import type { IncomingHttpHeaders } from "undici/types/header.js";
 import type {

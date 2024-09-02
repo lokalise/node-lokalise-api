@@ -22,6 +22,6 @@ export abstract class OtaCollection extends BaseCollection {
 	}
 
 	protected returnJSONFromData(json: Keyable): Keyable | Array<Keyable> {
-		return json["data"];
+		return json.data;
 	}
 }

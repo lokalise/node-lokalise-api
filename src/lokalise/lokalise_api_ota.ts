@@ -9,7 +9,7 @@ export class LokaliseApiOta extends BaseClient {
 	constructor(params: ClientParams) {
 		super(params);
 
-		this.clientData.tokenType = params["tokenType"] ?? "Bearer";
+		this.clientData.tokenType = params.tokenType ?? "Bearer";
 
 		this.clientData.authHeader = "Authorization";
 

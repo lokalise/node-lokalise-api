@@ -69,7 +69,7 @@ describe("Languages", () => {
 
 		const stub = new Stub({
 			fixture: "languages/list_system_pagination.json",
-			uri: `system/languages`,
+			uri: "system/languages",
 			query: params,
 			respHeaders: {
 				"x-pagination-total-count": "619",
