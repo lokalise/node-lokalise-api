@@ -6,6 +6,15 @@
 		"clientKind": "git",
 		"useIgnoreFile": true
 	},
+	"files": {
+		"ignore": [
+			"node_modules/**",
+			"dist/**/*",
+			"coverage/**/*",
+			".github/**/*",
+			"docs/**/*"
+		]
+	},
 	"linter": {
 		"enabled": true,
 		"rules": {
@@ -79,18 +88,7 @@
 				"useNamespaceKeyword": "error",
 				"useValidTypeof": "error"
 			}
-		},
-		"ignore": [
-			"node_modules/**",
-			"dist/**",
-			"**/coverage",
-			"**/.github",
-			"**/samples",
-			"**/main.d.ts",
-			"docs/**",
-			"**/vite.config.ts",
-			"**/vitest.config.ts"
-		]
+		}
 	},
 	"javascript": {
 		"globals": [
