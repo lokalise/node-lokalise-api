@@ -143,7 +143,9 @@ class Stub {
 	}
 
 	private async readFixture(): Promise<string> {
-		if (this.fixturePath === "") return "";
+		if (this.fixturePath === "") {
+			return "";
+		}
 
 		return JSON.parse(
 			(await readFile(new URL(this.fixturePath, import.meta.url))).toString(),

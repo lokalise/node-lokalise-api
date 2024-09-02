@@ -43,13 +43,11 @@ export class LokaliseAuth {
 		redirect_uri?: string,
 		state?: string,
 	): string {
-		if (Array.isArray(scope)) {
-			scope = scope.join(" ");
-		}
+		const scopeString = Array.isArray(scope) ? scope.join(" ") : scope;
 
 		const params: { [key: string]: string } = {
 			client_id: this.authData.client_id,
-			scope: scope,
+			scope: scopeString,
 		};
 
 		if (state) {

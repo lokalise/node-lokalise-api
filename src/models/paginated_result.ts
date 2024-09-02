@@ -15,7 +15,6 @@ export class PaginatedResult implements PaginatedResultInterface {
 		this.resultsPerPage = this.safeParseInt(headers.get("x-pagination-limit"));
 		this.currentPage = this.safeParseInt(headers.get("x-pagination-page"));
 		this.items = items;
-		return this;
 	}
 
 	hasNextPage(): boolean {
@@ -49,7 +48,9 @@ export class PaginatedResult implements PaginatedResultInterface {
 	}
 
 	private safeParseInt(str: string | null): number {
-		if (!str) return 0;
+		if (!str) {
+			return 0;
+		}
 
 		return Number.parseInt(str, 10);
 	}

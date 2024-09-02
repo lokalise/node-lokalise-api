@@ -11,7 +11,7 @@ export class AuthRequest {
 	): Promise<any> {
 		const prefixUrl = clientData.host;
 
-		uri = `/${clientData.version}/${uri}`;
+		const fullUri = `/${clientData.version}/${uri}`;
 
 		const options: RequestInit = {
 			method: method,
@@ -23,7 +23,7 @@ export class AuthRequest {
 			body: JSON.stringify(body),
 		};
 
-		const target = new URL(uri, prefixUrl);
+		const target = new URL(fullUri, prefixUrl);
 
 		try {
 			const response = await fetch(target, options);

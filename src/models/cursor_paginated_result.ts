@@ -11,8 +11,6 @@ export class CursorPaginatedResult
 		super(items, headers);
 
 		this.nextCursor = headers.get("x-pagination-next-cursor");
-
-		return this;
 	}
 
 	hasNextCursor(): boolean {

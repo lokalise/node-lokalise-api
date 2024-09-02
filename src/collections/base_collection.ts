@@ -124,10 +124,13 @@ export abstract class BaseCollection {
 
 	protected populateObjectFromJsonRoot(json: Keyable, headers: Headers): any {
 		const childClass = <typeof BaseCollection>this.constructor;
+		let jsonData = json;
+
 		if (childClass.rootElementNameSingular) {
-			json = Object(json)[childClass.rootElementNameSingular];
+			jsonData = Object(jsonData)[childClass.rootElementNameSingular];
 		}
-		return this.populateObjectFromJson(json, headers);
+
+		return this.populateObjectFromJson(jsonData, headers);
 	}
 
 	protected populateSecondaryObjectFromJsonRoot(
@@ -135,8 +138,11 @@ export abstract class BaseCollection {
 		headers: Headers,
 	): any {
 		const childClass = <typeof BaseCollection>this.constructor;
-		json = Object(json)[<string>childClass.secondaryElementNameSingular];
-		return this.populateObjectFromJson(json, headers, true);
+
+		const secondaryJson =
+			Object(json)[<string>childClass.secondaryElementNameSingular];
+
+		return this.populateObjectFromJson(secondaryJson, headers, true);
 	}
 
 	protected populateObjectFromJson(
@@ -261,11 +267,11 @@ export abstract class BaseCollection {
 
 	protected getUri(uri: string | null): string {
 		const childClass = <typeof BaseCollection>this.constructor;
-		if (!uri) {
-			uri = childClass.prefixURI;
-		}
 
-		return <string>uri;
+		// Use a local variable instead of reassigning the parameter
+		const resolvedUri = uri ? uri : childClass.prefixURI;
+
+		return <string>resolvedUri;
 	}
 
 	protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable> {

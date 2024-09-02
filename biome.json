@@ -15,7 +15,8 @@
 				"noMultipleSpacesInRegularExpressionLiterals": "error",
 				"noUselessCatch": "error",
 				"noUselessTypeConstraint": "error",
-				"noWith": "error"
+				"noWith": "error",
+				"noStaticOnlyClass": "off"
 			},
 			"correctness": {
 				"noConstAssign": "error",
@@ -38,7 +39,7 @@
 				"noUnsafeOptionalChaining": "error",
 				"noUnusedLabels": "error",
 				"noUnusedVariables": "error",
-				"useArrayLiterals": "off",
+				"useArrayLiterals": "error",
 				"useIsNan": "error",
 				"useValidForDirection": "error",
 				"useYield": "error"
@@ -46,7 +47,7 @@
 			"style": {
 				"noNamespace": "error",
 				"useAsConstAssertion": "error",
-				"useBlockStatements": "off"
+				"useBlockStatements": "error"
 			},
 			"suspicious": {
 				"noAsyncPromiseExecutor": "error",

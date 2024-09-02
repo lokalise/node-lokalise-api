@@ -18,7 +18,6 @@ export class ApiRequest {
 		// Since we modify params, we need to make a copy of it so we don't modify the original
 		this.params = { ...params };
 		this.promise = this.createPromise(uri, method, body, clientData);
-		return this;
 	}
 
 	protected async createPromise(
@@ -27,9 +26,7 @@ export class ApiRequest {
 		body: object | object[] | null,
 		clientData: ClientData,
 	): Promise<any> {
-		uri = `/${clientData.version}/${uri}`;
-
-		const url = this.composeURI(uri);
+		const url = this.composeURI(`/${clientData.version}/${uri}`);
 
 		const prefixUrl = clientData.host ?? this.urlRoot;
 
@@ -64,7 +61,7 @@ export class ApiRequest {
 
 		try {
 			const response = await fetch(target, options);
-			let responseJSON;
+			let responseJSON: any = null;
 
 			try {
 				if (response.status === 204) {
