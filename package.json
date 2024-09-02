@@ -20,7 +20,8 @@
 		"build": "tsc",
 		"test": "vitest run --coverage",
 		"test:watch": "vitest watch",
-		"lint:fix": "npx @biomejs/biome check --write ./"
+		"lint:fix": "npx @biomejs/biome check --write ./",
+		"lint:fix:unsafe": "npx @biomejs/biome check --write --unsafe ./"
 	},
 	"publishConfig": {
 		"access": "public"

@@ -70,10 +70,12 @@ describe("Translations", () => {
 			pagination: "cursor",
 		};
 
+		const { project_id, ...stubParams } = params;
+
 		const stub = new Stub({
 			fixture: "translations/list_cursor_pagination.json",
 			uri: `projects/${projectId}/translations`,
-			query: params,
+			query: stubParams,
 			respHeaders: {
 				"x-pagination-limit": "100",
 				"x-pagination-next-cursor": "eyIxIjo1MjcyNjU2MTF9",
@@ -103,10 +105,12 @@ describe("Translations", () => {
 			limit: 2,
 		};
 
+		const { project_id, ...stubParams } = params;
+
 		const stub = new Stub({
 			fixture: "translations/list_cursor_pagination.json",
 			uri: `projects/${projectId}/translations`,
-			query: params,
+			query: stubParams,
 			respHeaders: {
 				"x-pagination-limit": "2",
 				"x-pagination-next-cursor": "eyIxIjo1MjcyNjU2MTd9",

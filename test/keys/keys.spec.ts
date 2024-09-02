@@ -77,10 +77,12 @@ describe("Keys", () => {
 			pagination: "cursor",
 		};
 
+		const { project_id, ...stubParams } = params;
+
 		const stub = new Stub({
 			fixture: "keys/list_cursor_pagination.json",
 			uri: `projects/${projectId}/keys`,
-			query: params,
+			query: stubParams,
 			respHeaders: {
 				"x-pagination-limit": "2",
 				"x-pagination-next-cursor": "eyIxIjo0NDU5NjA2MX0=",
@@ -110,10 +112,12 @@ describe("Keys", () => {
 			cursor: "eyIxIjo0NDU5NjA2MX0=",
 		};
 
+		const { project_id, ...stubParams } = params;
+
 		const stub = new Stub({
 			fixture: "keys/list_next_cursor_pagination.json",
 			uri: `projects/${projectId}/keys`,
-			query: params,
+			query: stubParams,
 			respHeaders: {
 				"x-pagination-limit": "2",
 				"x-pagination-next-cursor": "eyIxIjo0NDU5NjA2M30=",
