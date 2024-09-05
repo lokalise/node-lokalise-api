@@ -29,11 +29,15 @@ export declare abstract class BaseCollection {
     protected populateObjectFromJson(json: Keyable, _headers: Headers, secondary?: boolean): any;
     protected populateArrayFromJsonBulk(json: Keyable, headers: Headers): BulkResult | this[];
     protected populateArrayFromJson(json: Keyable, headers: Headers): PaginatedResult | Keyable | this[];
+    private populateArray;
+    private isPaginated;
     protected populateArrayFromJsonCursor(json: Keyable, headers: Headers): CursorPaginatedResult | Keyable | this[];
     protected populateApiErrorFromJson(json: any): ApiError;
     protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
     protected handleReject(data: any): ApiError;
     protected createPromise(method: HttpMethod, params: Keyable, resolveFn: ResolveHandler | null, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
+    protected sendRequest(request: ApiRequest): Promise<any>;
+    protected handleError(err: any, rejectFn: RejectHandler): Promise<never>;
     protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Keyable, uri: string | null): ApiRequest;
     protected getUri(uri: string | null): string;
     protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable>;

@@ -152,10 +152,9 @@ export abstract class BaseCollection {
 	): any {
 		const childClass = <typeof BaseCollection>this.constructor;
 
-		if (secondary) {
-			return new childClass.secondaryElementClass(json);
-		}
-		return new childClass.elementClass(json);
+		return secondary
+			? new childClass.secondaryElementClass(json)
+			: new childClass.elementClass(json);
 	}
 
 	protected populateArrayFromJsonBulk(
@@ -179,22 +178,26 @@ export abstract class BaseCollection {
 		json: Keyable,
 		headers: Headers,
 	): PaginatedResult | Keyable | this[] {
+		const resultArray = this.populateArray(json, headers);
+
+		return this.isPaginated(headers)
+			? new PaginatedResult(resultArray, headers)
+			: resultArray;
+	}
+
+	private populateArray(json: Keyable, headers: Headers): this[] {
 		const childClass = <typeof BaseCollection>this.constructor;
-		const arr: this[] = [];
-		const jsonArray = json[(<any>childClass).rootElementName];
 
-		for (const obj of jsonArray) {
-			arr.push(<this>this.populateObjectFromJson(obj, headers));
-		}
+		return json[(<any>childClass).rootElementName].map((obj: Keyable) =>
+			this.populateObjectFromJson(obj, headers),
+		);
+	}
 
-		if (
-			headers.get("x-pagination-total-count") &&
-			headers.get("x-pagination-page")
-		) {
-			const result: PaginatedResult = new PaginatedResult(arr, headers);
-			return result;
-		}
-		return arr;
+	private isPaginated(headers: Headers): boolean {
+		return (
+			!!headers.get("x-pagination-total-count") &&
+			!!headers.get("x-pagination-page")
+		);
 	}
 
 	protected populateArrayFromJsonCursor(
@@ -237,17 +240,20 @@ export abstract class BaseCollection {
 		const request = this.prepareRequest(method, body, params, uri);
 
 		try {
-			const data = await request.promise;
-			let result = null;
+			const data = await this.sendRequest(request);
 
-			if (resolveFn !== null) {
-				result = resolveFn.call(this, data.json, data.headers);
-			}
-
-			return Promise.resolve(result);
+			return resolveFn ? resolveFn.call(this, data.json, data.headers) : null;
 		} catch (err) {
-			return Promise.reject(rejectFn.call(this, err));
+			return this.handleError(err, rejectFn);
 		}
+	}
+
+	protected sendRequest(request: ApiRequest): Promise<any> {
+		return request.promise;
+	}
+
+	protected handleError(err: any, rejectFn: RejectHandler): Promise<never> {
+		return Promise.reject(rejectFn.call(this, err));
 	}
 
 	protected prepareRequest(

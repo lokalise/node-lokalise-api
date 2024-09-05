@@ -4,8 +4,8 @@ export declare class PaginatedResult implements PaginatedResultInterface {
     totalPages: number;
     resultsPerPage: number;
     currentPage: number;
-    items: any[];
-    constructor(items: any[], headers: Headers);
+    items: any;
+    constructor(items: any, headers: Headers);
     hasNextPage(): boolean;
     hasPrevPage(): boolean;
     isLastPage(): boolean;

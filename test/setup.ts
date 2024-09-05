@@ -53,41 +53,35 @@ class Stub {
 	readonly version: string;
 	readonly data: string | undefined = undefined;
 
-	constructor(params: StubParams) {
-		if (params.fixture) {
-			this.fixturePath = `./fixtures/${params.fixture}`;
-		}
-		this.uriPath = params.uri;
-		this.requestHeaders = params.reqHeaders;
-		this.responseHeaders = params.respHeaders;
-
-		if (params.query) {
-			const search = new URLSearchParams(params.query);
-			this.uriPath = `${this.uriPath}?${search.toString()}`;
-		}
-
-		this.requestBody = params.body ? JSON.stringify(params.body) : undefined;
-		this.data = params.data;
-
-		const defaultParams = {
-			status: 200,
-			method: <HttpMethod>"GET",
-			rootUrl: "https://api.lokalise.com",
-			skipApiToken: false,
-			version: "api2",
-			doFail: false,
-		};
-
-		const { status, method, rootUrl, skipApiToken, version, doFail } = {
-			...defaultParams,
-			...params,
-		};
-		this.statusCode = status;
+	constructor({
+		uri,
+		fixture,
+		method = "GET",
+		query,
+		body,
+		reqHeaders,
+		respHeaders,
+		status = 200,
+		doFail = false,
+		rootUrl = "https://api.lokalise.com",
+		skipApiToken = false,
+		version = "api2",
+		data,
+	}: StubParams) {
+		this.uriPath = query
+			? `${uri}?${new URLSearchParams(query).toString()}`
+			: uri;
+		this.fixturePath = fixture ? `./fixtures/${fixture}` : "";
 		this.httpMethod = method;
+		this.requestBody = body ? JSON.stringify(body) : undefined;
+		this.requestHeaders = reqHeaders;
+		this.responseHeaders = respHeaders;
+		this.statusCode = status;
+		this.doFail = doFail;
 		this.rootUrl = rootUrl;
 		this.skipApiToken = skipApiToken;
 		this.version = version;
-		this.doFail = doFail;
+		this.data = data;
 	}
 
 	async setStub() {
@@ -116,29 +110,29 @@ class Stub {
 			respOpts.headers = this.responseHeaders;
 		}
 
-		const respond = async (
-			mockPool: Interceptable,
-			mockOpts: MockInterceptor.Options,
-			isError: boolean,
-			respOpts: MockInterceptor.MockResponseOptions,
-		) => {
-			if (isError) {
-				mockPool.intercept(mockOpts).replyWithError(new Error("Fail"));
-			} else {
-				mockPool
-					.intercept(mockOpts)
-					.reply(
-						this.statusCode,
-						this.data ?? (await this.readFixture()),
-						respOpts,
-					);
-			}
-		};
-
 		try {
-			await respond(mockPool, mockOpts, this.doFail, respOpts);
+			await this.respond(mockPool, mockOpts, this.doFail, respOpts);
 		} catch (error) {
 			console.error("Error setting up test mock:", error);
+		}
+	}
+
+	private async respond(
+		mockPool: Interceptable,
+		mockOpts: MockInterceptor.Options,
+		isError: boolean,
+		respOpts: MockInterceptor.MockResponseOptions,
+	) {
+		if (isError) {
+			mockPool.intercept(mockOpts).replyWithError(new Error("Fail"));
+		} else {
+			mockPool
+				.intercept(mockOpts)
+				.reply(
+					this.statusCode,
+					this.data ?? (await this.readFixture()),
+					respOpts,
+				);
 		}
 	}
 

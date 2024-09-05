@@ -27,13 +27,9 @@ export class LokaliseAuth {
         const params = {
             client_id: this.authData.client_id,
             scope: scopeString,
+            ...(state && { state }),
+            ...(redirect_uri && { redirect_uri }),
         };
-        if (state) {
-            params.state = state;
-        }
-        if (redirect_uri) {
-            params.redirect_uri = redirect_uri;
-        }
         return this.buildUrl(params);
     }
     async token(code) {
@@ -59,7 +55,7 @@ export class LokaliseAuth {
     async doRequest(params) {
         try {
             const data = await AuthRequest.createPromise("token", "POST", params, this.authData);
-            return Promise.resolve(data.json);
+            return data.json;
         }
         catch (err) {
             return Promise.reject(this.handleReject(err));
@@ -67,8 +63,7 @@ export class LokaliseAuth {
     }
     buildUrl(params) {
         const url = new URL("auth", this.authData.host);
-        const sParams = new URLSearchParams(params);
-        url.search = sParams.toString();
+        url.search = new URLSearchParams(params).toString();
         return url.toString();
     }
     base_params() {

@@ -69,10 +69,9 @@ export class BaseCollection {
     }
     populateObjectFromJson(json, _headers, secondary = false) {
         const childClass = this.constructor;
-        if (secondary) {
-            return new childClass.secondaryElementClass(json);
-        }
-        return new childClass.elementClass(json);
+        return secondary
+            ? new childClass.secondaryElementClass(json)
+            : new childClass.elementClass(json);
     }
     populateArrayFromJsonBulk(json, headers) {
         const childClass = this.constructor;
@@ -88,18 +87,18 @@ export class BaseCollection {
         return result;
     }
     populateArrayFromJson(json, headers) {
+        const resultArray = this.populateArray(json, headers);
+        return this.isPaginated(headers)
+            ? new PaginatedResult(resultArray, headers)
+            : resultArray;
+    }
+    populateArray(json, headers) {
         const childClass = this.constructor;
-        const arr = [];
-        const jsonArray = json[childClass.rootElementName];
-        for (const obj of jsonArray) {
-            arr.push(this.populateObjectFromJson(obj, headers));
-        }
-        if (headers.get("x-pagination-total-count") &&
-            headers.get("x-pagination-page")) {
-            const result = new PaginatedResult(arr, headers);
-            return result;
-        }
-        return arr;
+        return json[childClass.rootElementName].map((obj) => this.populateObjectFromJson(obj, headers));
+    }
+    isPaginated(headers) {
+        return (!!headers.get("x-pagination-total-count") &&
+            !!headers.get("x-pagination-page"));
     }
     populateArrayFromJsonCursor(json, headers) {
         const childClass = this.constructor;
@@ -122,16 +121,18 @@ export class BaseCollection {
     async createPromise(method, params, resolveFn, rejectFn, body, uri = null) {
         const request = this.prepareRequest(method, body, params, uri);
         try {
-            const data = await request.promise;
-            let result = null;
-            if (resolveFn !== null) {
-                result = resolveFn.call(this, data.json, data.headers);
-            }
-            return Promise.resolve(result);
+            const data = await this.sendRequest(request);
+            return resolveFn ? resolveFn.call(this, data.json, data.headers) : null;
         }
         catch (err) {
-            return Promise.reject(rejectFn.call(this, err));
+            return this.handleError(err, rejectFn);
         }
+    }
+    sendRequest(request) {
+        return request.promise;
+    }
+    handleError(err, rejectFn) {
+        return Promise.reject(rejectFn.call(this, err));
     }
     prepareRequest(method, body, params, uri) {
         return new ApiRequest(this.getUri(uri), method, body, params, this.clientData);

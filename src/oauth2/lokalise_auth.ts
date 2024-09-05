@@ -48,15 +48,9 @@ export class LokaliseAuth {
 		const params: { [key: string]: string } = {
 			client_id: this.authData.client_id,
 			scope: scopeString,
+			...(state && { state }),
+			...(redirect_uri && { redirect_uri }),
 		};
-
-		if (state) {
-			params.state = state;
-		}
-
-		if (redirect_uri) {
-			params.redirect_uri = redirect_uri;
-		}
 
 		return this.buildUrl(params);
 	}
@@ -93,7 +87,8 @@ export class LokaliseAuth {
 				params,
 				this.authData,
 			);
-			return Promise.resolve(data.json);
+
+			return data.json;
 		} catch (err) {
 			return Promise.reject(this.handleReject(err));
 		}
@@ -101,8 +96,7 @@ export class LokaliseAuth {
 
 	private buildUrl(params: { [key: string]: string }): string {
 		const url = new URL("auth", this.authData.host);
-		const sParams = new URLSearchParams(params);
-		url.search = sParams.toString();
+		url.search = new URLSearchParams(params).toString();
 		return url.toString();
 	}
 

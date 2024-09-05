@@ -5,9 +5,9 @@ export class PaginatedResult implements PaginatedResultInterface {
 	totalPages: number;
 	resultsPerPage: number;
 	currentPage: number;
-	items: any[];
+	items: any;
 
-	constructor(items: any[], headers: Headers) {
+	constructor(items: any, headers: Headers) {
 		this.totalResults = this.safeParseInt(
 			headers.get("x-pagination-total-count"),
 		);
@@ -48,7 +48,7 @@ export class PaginatedResult implements PaginatedResultInterface {
 	}
 
 	private safeParseInt(str: string | null): number {
-		if (!str) {
+		if (!str || Number.isNaN(Number(str))) {
 			return 0;
 		}
 

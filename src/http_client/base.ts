@@ -30,10 +30,65 @@ export class ApiRequest {
 
 		const prefixUrl = clientData.host ?? this.urlRoot;
 
+		const headers = await this.buildHeaders(clientData, method, body);
+
 		const options: RequestInit = {
 			method: method,
+			headers: headers,
+			...(method !== "GET" && body ? { body: JSON.stringify(body) } : {}),
 		};
 
+		const target = new URL(url, prefixUrl);
+
+		target.search = new URLSearchParams(this.params).toString();
+
+		return this.fetchAndHandleResponse(target, options);
+	}
+
+	protected async fetchAndHandleResponse(
+		target: URL,
+		options: RequestInit,
+	): Promise<any> {
+		try {
+			const response = await fetch(target, options);
+
+			return this.processResponse(response);
+		} catch (err) {
+			return Promise.reject({ message: err.message });
+		}
+	}
+
+	protected async processResponse(response: Response): Promise<any> {
+		let responseJSON: any = null;
+
+		try {
+			if (response.status === 204) {
+				responseJSON = null;
+			} else {
+				responseJSON = await response.json();
+			}
+		} catch (_error) {
+			return Promise.reject({
+				message: response.statusText,
+				code: response.status,
+			});
+		}
+
+		if (response.ok) {
+			return {
+				json: responseJSON,
+				headers: response.headers,
+			};
+		}
+
+		return Promise.reject(this.getErrorFromResp(responseJSON));
+	}
+
+	protected async buildHeaders(
+		clientData: ClientData,
+		method: HttpMethod,
+		body: object | object[] | null,
+	): Promise<Headers> {
 		const headers = new Headers({
 			Accept: "application/json",
 			"User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
@@ -49,43 +104,10 @@ export class ApiRequest {
 		}
 
 		if (method !== "GET" && body) {
-			options.body = JSON.stringify(body);
 			headers.append("Content-type", "application/json");
 		}
 
-		options.headers = headers;
-
-		const target = new URL(url, prefixUrl);
-
-		target.search = new URLSearchParams(this.params).toString();
-
-		try {
-			const response = await fetch(target, options);
-			let responseJSON: any = null;
-
-			try {
-				if (response.status === 204) {
-					responseJSON = null;
-				} else {
-					responseJSON = await response.json();
-				}
-			} catch (_error) {
-				return Promise.reject({
-					message: response.statusText,
-					code: response.status,
-				});
-			}
-
-			if (response.ok) {
-				return Promise.resolve({
-					json: responseJSON,
-					headers: response.headers,
-				});
-			}
-			return Promise.reject(this.getErrorFromResp(responseJSON));
-		} catch (err) {
-			return Promise.reject({ message: err.message });
-		}
+		return headers;
 	}
 
 	protected getErrorFromResp(respJson: any): any {

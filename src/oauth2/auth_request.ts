@@ -7,24 +7,24 @@ export class AuthRequest {
 		uri: string,
 		method: HttpMethod,
 		body: object | object[] | null,
-		clientData: AuthDataInterface,
+		{ host, version }: AuthDataInterface,
 	): Promise<any> {
-		const prefixUrl = clientData.host;
-
-		const fullUri = `/${clientData.version}/${uri}`;
+		const fullUri = `/${version}/${uri}`;
+		const target = new URL(fullUri, host);
 
 		const options: RequestInit = {
 			method: method,
-			headers: {
-				Accept: "application/json",
-				"User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
-				"Content-type": "application/json",
-			},
+			headers: await AuthRequest.buildHeaders(),
 			body: JSON.stringify(body),
 		};
 
-		const target = new URL(fullUri, prefixUrl);
+		return AuthRequest.fetchAndHandleResponse(target, options);
+	}
 
+	private static async fetchAndHandleResponse(
+		target: URL,
+		options: RequestInit,
+	): Promise<any> {
 		try {
 			const response = await fetch(target, options);
 			const responseJSON = await response.json();
@@ -41,7 +41,19 @@ export class AuthRequest {
 				...responseJSON,
 			});
 		} catch (err) {
-			return Promise.reject({ message: err.message });
+			return Promise.reject({
+				message: err.message,
+			});
 		}
+	}
+
+	private static async buildHeaders(): Promise<Headers> {
+		const headers = new Headers({
+			Accept: "application/json",
+			"User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
+			"Content-type": "application/json",
+		});
+
+		return headers;
 	}
 }

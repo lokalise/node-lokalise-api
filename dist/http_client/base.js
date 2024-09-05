@@ -11,9 +11,50 @@ export class ApiRequest {
     async createPromise(uri, method, body, clientData) {
         const url = this.composeURI(`/${clientData.version}/${uri}`);
         const prefixUrl = clientData.host ?? this.urlRoot;
+        const headers = await this.buildHeaders(clientData, method, body);
         const options = {
             method: method,
+            headers: headers,
+            ...(method !== "GET" && body ? { body: JSON.stringify(body) } : {}),
         };
+        const target = new URL(url, prefixUrl);
+        target.search = new URLSearchParams(this.params).toString();
+        return this.fetchAndHandleResponse(target, options);
+    }
+    async fetchAndHandleResponse(target, options) {
+        try {
+            const response = await fetch(target, options);
+            return this.processResponse(response);
+        }
+        catch (err) {
+            return Promise.reject({ message: err.message });
+        }
+    }
+    async processResponse(response) {
+        let responseJSON = null;
+        try {
+            if (response.status === 204) {
+                responseJSON = null;
+            }
+            else {
+                responseJSON = await response.json();
+            }
+        }
+        catch (_error) {
+            return Promise.reject({
+                message: response.statusText,
+                code: response.status,
+            });
+        }
+        if (response.ok) {
+            return {
+                json: responseJSON,
+                headers: response.headers,
+            };
+        }
+        return Promise.reject(this.getErrorFromResp(responseJSON));
+    }
+    async buildHeaders(clientData, method, body) {
         const headers = new Headers({
             Accept: "application/json",
             "User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
@@ -23,40 +64,9 @@ export class ApiRequest {
             headers.append("Accept-Encoding", "gzip,deflate");
         }
         if (method !== "GET" && body) {
-            options.body = JSON.stringify(body);
             headers.append("Content-type", "application/json");
         }
-        options.headers = headers;
-        const target = new URL(url, prefixUrl);
-        target.search = new URLSearchParams(this.params).toString();
-        try {
-            const response = await fetch(target, options);
-            let responseJSON = null;
-            try {
-                if (response.status === 204) {
-                    responseJSON = null;
-                }
-                else {
-                    responseJSON = await response.json();
-                }
-            }
-            catch (_error) {
-                return Promise.reject({
-                    message: response.statusText,
-                    code: response.status,
-                });
-            }
-            if (response.ok) {
-                return Promise.resolve({
-                    json: responseJSON,
-                    headers: response.headers,
-                });
-            }
-            return Promise.reject(this.getErrorFromResp(responseJSON));
-        }
-        catch (err) {
-            return Promise.reject({ message: err.message });
-        }
+        return headers;
     }
     getErrorFromResp(respJson) {
         if (typeof respJson.error === "object") {

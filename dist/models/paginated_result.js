@@ -36,7 +36,7 @@ export class PaginatedResult {
         return this.currentPage - 1;
     }
     safeParseInt(str) {
-        if (!str) {
+        if (!str || Number.isNaN(Number(str))) {
             return 0;
         }
         return Number.parseInt(str, 10);
