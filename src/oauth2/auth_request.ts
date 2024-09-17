@@ -42,7 +42,7 @@ export class AuthRequest {
 			});
 		} catch (err) {
 			return Promise.reject({
-				message: err.message,
+				message: (err as Error).message,
 			});
 		}
 	}

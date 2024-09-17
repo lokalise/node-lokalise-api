@@ -54,7 +54,7 @@ export class ApiRequest {
 
 			return this.processResponse(response);
 		} catch (err) {
-			return Promise.reject({ message: err.message });
+			return Promise.reject({ message: (err as Error).message });
 		}
 	}
 

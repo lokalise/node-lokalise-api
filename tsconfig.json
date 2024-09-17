@@ -5,20 +5,16 @@
 		"moduleResolution": "node16",
 		"outDir": "dist",
 		"sourceMap": true,
-		"noImplicitAny": true,
-		"strictNullChecks": true,
+		"strict": true,
 		"resolveJsonModule": true,
-		"noImplicitReturns": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"declaration": true,
 		"pretty": true,
 		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true,
-		"noImplicitThis": true,
-		"strictFunctionTypes": true
+		"noFallthroughCasesInSwitch": true
 	},
 	"types": ["vitest/globals"],
 	"include": ["src/**/*"],
-	"exclude": ["node_modules", "tests", "dist"]
+	"exclude": ["node_modules", "dist"]
 }

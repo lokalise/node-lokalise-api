@@ -8,6 +8,7 @@ export default defineConfig({
 	},
 	test: {
 		globals: true,
+		silent: isCI,
 		environment: "node",
 		coverage: {
 			provider: "istanbul",
