@@ -8,5 +8,6 @@ export class PermissionTemplate extends BaseModel implements PermissionTemplateI
 	declare description: string;
 	declare tag: string;
 	declare tagColor: string;
+	declare tagInfo: string;
 	declare doesEnableAllReadOnlyLanguages: boolean;
 }

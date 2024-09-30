@@ -24,6 +24,7 @@
       "description": "Manage project settings, contributors and tasks",
       "tag": "Full access",
       "tagColor": "green",
+      "tagInfo": null,
       "doesEnableAllReadOnlyLanguages": true
     },
     {
@@ -41,6 +42,7 @@
       "description": "Create keys, upload and download content",
       "tag": "Advanced",
       "tagColor": "cyan",
+      "tagInfo": null,
       "doesEnableAllReadOnlyLanguages": true
     },
     {
@@ -56,6 +58,7 @@
       "description": "Create, translate and edit keys, manage screenshots",
       "tag": "Advanced",
       "tagColor": "cyan",
+      "tagInfo": null,
       "doesEnableAllReadOnlyLanguages": true
     },
     {
@@ -69,6 +72,7 @@
       "description": "Translate keys, control key statuses",
       "tag": "Basic",
       "tagColor": "grey",
+      "tagInfo": "Basics",
       "doesEnableAllReadOnlyLanguages": false
     },
     {
@@ -80,6 +84,7 @@
       "description": "Translate keys",
       "tag": "Basic",
       "tagColor": "grey",
+      "tagInfo": "Basics",
       "doesEnableAllReadOnlyLanguages": false
     }
   ]
