@@ -2,8 +2,8 @@ export interface UserGroup {
 	group_id: number;
 	name: string;
 	permissions: {
-		is_admin: boolean;
-		is_reviewer: boolean;
+		is_admin: boolean; //deprecated
+		is_reviewer: boolean; //deprecated
 		admin_rights: string[];
 		languages: Array<{
 			lang_id: number;
@@ -11,6 +11,7 @@ export interface UserGroup {
 			lang_name: string;
 			is_writable: boolean;
 		}>;
+		role_id: number;
 	};
 	created_at: string;
 	created_at_timestamp: number;

@@ -7,8 +7,8 @@ export class Contributor extends BaseModel implements ContributorInterface {
 	declare fullname: string;
 	declare created_at: string;
 	declare created_at_timestamp: number;
-	declare is_admin: boolean;
-	declare is_reviewer: boolean;
+	declare is_admin: boolean;  //deprecated
+	declare is_reviewer: boolean;  //deprecated
 	declare languages: Array<{
 		lang_id: number;
 		lang_iso: string;
@@ -16,4 +16,5 @@ export class Contributor extends BaseModel implements ContributorInterface {
 		is_writable: boolean;
 	}>;
 	declare admin_rights: string[];
+	declare role_id: number;
 }

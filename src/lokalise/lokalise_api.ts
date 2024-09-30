@@ -22,6 +22,7 @@ import { Translations } from "../collections/translations.js";
 import { UserGroups } from "../collections/user_groups.js";
 import { Webhooks } from "../collections/webhooks.js";
 import { BaseClient, ClientParams } from "./base_client.js";
+import {PermissionTemplates} from "../collections/permission_templates.js";
 
 export { ClientParams };
 
@@ -117,6 +118,10 @@ export class LokaliseApi extends BaseClient {
 
 	userGroups(): UserGroups {
 		return new UserGroups(this.clientData);
+	}
+
+	permissionTemplates(): PermissionTemplates {
+		return new PermissionTemplates(this.clientData);
 	}
 
 	webhooks(): Webhooks {
