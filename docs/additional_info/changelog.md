@@ -3,6 +3,7 @@
 ## Unreleased
 
 * Migrate from eslint to biome
+* Use tsup for compilation
 
 ## 12.7.0 (17-Jul-2024)
 
