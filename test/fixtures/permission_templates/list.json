@@ -1,86 +1,80 @@
 {
-  "roles": [
-    {
-      "id": 1,
-      "role": "Localisation management",
-      "permissions": [
-        "activity",
-        "branches_main_modify",
-        "branches_create",
-        "branches_merge",
-        "statistics",
-        "tasks",
-        "contributors",
-        "settings",
-        "manage_languages",
-        "download",
-        "upload",
-        "glossary_delete",
-        "glossary_edit",
-        "manage_keys",
-        "screenshots",
-        "custom_status_modify"
-      ],
-      "description": "Manage project settings, contributors and tasks",
-      "tag": "Full access",
-      "tagColor": "green",
-      "doesEnableAllReadOnlyLanguages": true
-    },
-    {
-      "id": 2,
-      "role": "Developer",
-      "permissions": [
-        "activity",
-        "branches_main_modify",
-        "branches_create",
-        "download",
-        "upload",
-        "manage_keys",
-        "screenshots"
-      ],
-      "description": "Create keys, upload and download content",
-      "tag": "Advanced",
-      "tagColor": "cyan",
-      "doesEnableAllReadOnlyLanguages": true
-    },
-    {
-      "id": 3,
-      "role": "Content creator",
-      "permissions": [
-        "activity",
-        "manage_keys",
-        "manage_languages",
-        "screenshots",
-        "branches_main_modify"
-      ],
-      "description": "Create, translate and edit keys, manage screenshots",
-      "tag": "Advanced",
-      "tagColor": "cyan",
-      "doesEnableAllReadOnlyLanguages": true
-    },
-    {
-      "id": 4,
-      "role": "Reviewer",
-      "permissions": [
-        "branches_main_modify",
-        "review",
-        "custom_status_modify"
-      ],
-      "description": "Translate keys, control key statuses",
-      "tag": "Basic",
-      "tagColor": "grey",
-      "doesEnableAllReadOnlyLanguages": false
-    },
-    {
-      "id": 5,
-      "role": "Translator",
-      "permissions": [
-        "branches_main_modify"
-      ],
-      "description": "Translate keys",
-      "tag": "Basic",
-      "tagColor": "grey",
-      "doesEnableAllReadOnlyLanguages": false
-    }
-  ]
+	"roles": [
+		{
+			"id": 1,
+			"role": "Localisation management",
+			"permissions": [
+				"activity",
+				"branches_main_modify",
+				"branches_create",
+				"branches_merge",
+				"statistics",
+				"tasks",
+				"contributors",
+				"settings",
+				"manage_languages",
+				"download",
+				"upload",
+				"glossary_delete",
+				"glossary_edit",
+				"manage_keys",
+				"screenshots",
+				"custom_status_modify"
+			],
+			"description": "Manage project settings, contributors and tasks",
+			"tag": "Full access",
+			"tagColor": "green",
+			"doesEnableAllReadOnlyLanguages": true
+		},
+		{
+			"id": 2,
+			"role": "Developer",
+			"permissions": [
+				"activity",
+				"branches_main_modify",
+				"branches_create",
+				"download",
+				"upload",
+				"manage_keys",
+				"screenshots"
+			],
+			"description": "Create keys, upload and download content",
+			"tag": "Advanced",
+			"tagColor": "cyan",
+			"doesEnableAllReadOnlyLanguages": true
+		},
+		{
+			"id": 3,
+			"role": "Content creator",
+			"permissions": [
+				"activity",
+				"manage_keys",
+				"manage_languages",
+				"screenshots",
+				"branches_main_modify"
+			],
+			"description": "Create, translate and edit keys, manage screenshots",
+			"tag": "Advanced",
+			"tagColor": "cyan",
+			"doesEnableAllReadOnlyLanguages": true
+		},
+		{
+			"id": 4,
+			"role": "Reviewer",
+			"permissions": ["branches_main_modify", "review", "custom_status_modify"],
+			"description": "Translate keys, control key statuses",
+			"tag": "Basic",
+			"tagColor": "grey",
+			"doesEnableAllReadOnlyLanguages": false
+		},
+		{
+			"id": 5,
+			"role": "Translator",
+			"permissions": ["branches_main_modify"],
+			"description": "Translate keys",
+			"tag": "Basic",
+			"tagColor": "grey",
+			"doesEnableAllReadOnlyLanguages": false
+		}
+	]
 }

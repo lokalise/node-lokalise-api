@@ -7,6 +7,7 @@ import { Keys } from "../collections/keys.js";
 import { Languages } from "../collections/languages.js";
 import { Orders } from "../collections/orders.js";
 import { PaymentCards } from "../collections/payment_cards.js";
+import { PermissionTemplates } from "../collections/permission_templates.js";
 import { Projects } from "../collections/projects.js";
 import { QueuedProcesses } from "../collections/queued_processes.js";
 import { Screenshots } from "../collections/screenshots.js";
@@ -22,7 +23,6 @@ import { Translations } from "../collections/translations.js";
 import { UserGroups } from "../collections/user_groups.js";
 import { Webhooks } from "../collections/webhooks.js";
 import { BaseClient, ClientParams } from "./base_client.js";
-import {PermissionTemplates} from "../collections/permission_templates.js";
 
 export { ClientParams };
 

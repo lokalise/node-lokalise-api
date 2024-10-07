@@ -21,7 +21,8 @@
 			"created_at_timestamp": 1593176901,
 			"team_id": 176692,
 			"projects": [],
-			"members": []
+			"members": [],
+			"role_id": 5
 		},
 		{
 			"group_id": 9769,
@@ -43,7 +44,8 @@
 			"created_at_timestamp": 1689701755,
 			"team_id": 176692,
 			"projects": [],
-			"members": []
+			"members": [],
+			"role_id": null
 		}
 	]
 }

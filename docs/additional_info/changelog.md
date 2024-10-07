@@ -2,6 +2,16 @@
 
 ## Unreleased
 
+* Added `role_id` attribute to the user group object. For example:
+
+```js
+const user_group = await lokaliseApi.userGroups().get(groupId, {
+  team_id: teamId,
+});
+
+user_group.role_id; // => 5
+```
+
 * Migrate from eslint to biome
 * Use tsup for compilation
 

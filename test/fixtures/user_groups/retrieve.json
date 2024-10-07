@@ -24,5 +24,6 @@
 	"created_at_timestamp": 1659363404,
 	"team_id": 176692,
 	"projects": [],
-	"members": [34051, 71999]
+	"members": [34051, 71999],
+	"role_id": 5
 }
