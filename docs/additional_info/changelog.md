@@ -2,6 +2,20 @@
 
 ## Unreleased
 
+* Added support for a new [`PermissionTemplates` endpoint](https://developers.lokalise.com/reference/list-all-permission-templates):
+
+```js
+const roles = await lokaliseApi.permissionTemplates().list({
+  team_id: teamId,
+});
+
+const roleDetails = roles.items[0];
+
+roleDetails.id // => 1
+roleDetails.role // => "Manager"
+roleDetails.tag // => "Full access"
+```
+
 * Added `role_id` attribute to the user group object. For example:
 
 ```js

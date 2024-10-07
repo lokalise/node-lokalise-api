@@ -68,6 +68,10 @@ export class LokaliseApi extends BaseClient {
 		return new PaymentCards(this.clientData);
 	}
 
+	permissionTemplates(): PermissionTemplates {
+		return new PermissionTemplates(this.clientData);
+	}
+
 	projects(): Projects {
 		return new Projects(this.clientData);
 	}
@@ -118,10 +122,6 @@ export class LokaliseApi extends BaseClient {
 
 	userGroups(): UserGroups {
 		return new UserGroups(this.clientData);
-	}
-
-	permissionTemplates(): PermissionTemplates {
-		return new PermissionTemplates(this.clientData);
 	}
 
 	webhooks(): Webhooks {

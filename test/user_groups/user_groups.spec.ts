@@ -59,7 +59,7 @@ describe("UserGroups", () => {
 
 		expect(user_groups.items[0].group_id).to.eq(2500);
 		expect(user_groups.items[0].role_id).to.eq(5);
-		expect(user_groups.items[1].role_id).to.eq(null);
+		expect(user_groups.items[1].role_id).to.be.null;
 		expect(user_groups.totalResults).to.eq(4);
 		expect(user_groups.totalPages).to.eq(2);
 		expect(user_groups.resultsPerPage).to.eq(2);

@@ -120,6 +120,11 @@
       path: fetch-a-single-payment-card
     - title: Delete a payment card
       path: delete-a-payment-card
+- title: Permission templates
+  path: permission-templates
+  sub_paths:
+    - title: Fetch permission templates
+      path: fetch-permission-templates
 - title: Projects
   path: projects
   sub_paths:

@@ -11,5 +11,6 @@ export class PermissionTemplate
 	declare description: string;
 	declare tag: string;
 	declare tagColor: string;
+	declare tagInfo: string | null;
 	declare doesEnableAllReadOnlyLanguages: boolean;
 }

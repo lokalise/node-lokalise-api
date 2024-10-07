@@ -5,5 +5,6 @@ export interface PermissionTemplate {
 	description: string;
 	tag: string;
 	tagColor: string;
+	tagInfo: string | null;
 	doesEnableAllReadOnlyLanguages: boolean;
 }
