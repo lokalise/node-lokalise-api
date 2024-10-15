@@ -672,6 +672,20 @@ var PaymentCards = class extends BaseCollection {
   }
 };
 
+// src/models/permission_template.ts
+var PermissionTemplate = class extends BaseModel {
+};
+
+// src/collections/permission_templates.ts
+var PermissionTemplates = class extends BaseCollection {
+  static prefixURI = "teams/{!:team_id}/roles";
+  static elementClass = PermissionTemplate;
+  static rootElementName = "roles";
+  list(request_params) {
+    return this.doList(request_params);
+  }
+};
+
 // src/models/project.ts
 var Project = class extends BaseModel {
 };
@@ -1171,20 +1185,6 @@ var BaseClient = class {
   }
 };
 
-// src/models/permission_template.ts
-var PermissionTemplate = class extends BaseModel {
-};
-
-// src/collections/permission_templates.ts
-var PermissionTemplates = class extends BaseCollection {
-  static prefixURI = "teams/{!:team_id}/roles";
-  static elementClass = PermissionTemplate;
-  static rootElementName = "roles";
-  list(request_params) {
-    return this.doList(request_params);
-  }
-};
-
 // src/lokalise/lokalise_api.ts
 var LokaliseApi = class extends BaseClient {
   constructor(params) {
@@ -1217,6 +1217,9 @@ var LokaliseApi = class extends BaseClient {
   }
   paymentCards() {
     return new PaymentCards(this.clientData);
+  }
+  permissionTemplates() {
+    return new PermissionTemplates(this.clientData);
   }
   projects() {
     return new Projects(this.clientData);
@@ -1256,9 +1259,6 @@ var LokaliseApi = class extends BaseClient {
   }
   userGroups() {
     return new UserGroups(this.clientData);
-  }
-  permissionTemplates() {
-    return new PermissionTemplates(this.clientData);
   }
   webhooks() {
     return new Webhooks(this.clientData);

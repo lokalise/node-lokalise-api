@@ -878,6 +878,20 @@ declare class PaymentCards extends BaseCollection {
     delete(card_id: string | number): Promise<CardDeleted>;
 }
 
+interface AuthData {
+    client_id: string;
+    client_secret: string;
+    host?: string;
+    version?: string;
+}
+
+interface AuthError {
+    code: number;
+    error: string;
+    error_description: string;
+    error_uri?: string;
+}
+
 interface ProjectSettings {
     per_platform_key_names: boolean;
     reviewing: boolean;
@@ -939,106 +953,18 @@ interface Project$1 {
     statistics: ProjectStatistics;
 }
 
-declare class Project extends BaseModel implements Project$1 {
-    project_id: string;
-    project_type: string;
-    name: string;
-    description: string;
-    created_at: string;
-    created_at_timestamp: number;
-    created_by: number;
-    created_by_email: string;
-    team_id: number;
-    base_language_id: number;
-    base_language_iso: string;
-    settings: ProjectSettings;
-    statistics: ProjectStatistics;
+interface RefreshTokenResponse {
+    access_token: string;
+    scope: string;
+    expires_in: string | number;
+    token_type: string;
 }
 
-type CreateProjectParams = {
-    name: string;
-    team_id?: number | string;
-    description?: string;
-    languages?: Array<{
-        lang_iso: string;
-        custom_iso?: string;
-    }>;
-    base_lang_iso?: string;
-    project_type?: "localization_files" | "paged_documents";
-    is_segmentation_enabled?: boolean;
-};
-type UpdateProjectParams = {
-    name: string;
-    description?: string;
-};
-type ProjectDeleted = {
-    project_id: string;
-    project_deleted: boolean;
-};
-type ProjectEmptied = {
-    project_id: string;
-    keys_deleted: boolean;
-};
-type ProjectListParams = PaginationParams & {
-    filter_team_id?: number | string;
-    filter_names?: string;
-    include_statistics?: string | number;
-    include_settings?: string | number;
-};
-
-declare class Projects extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof Project;
-    list(request_params?: ProjectListParams): Promise<PaginatedResult$1<Project>>;
-    create(project_params: CreateProjectParams): Promise<Project>;
-    get(project_id: string | number): Promise<Project>;
-    update(project_id: string | number, project_params: UpdateProjectParams): Promise<Project>;
-    delete(project_id: string | number): Promise<ProjectDeleted>;
-    empty(project_id: any): Promise<ProjectEmptied>;
-}
-
-declare class QueuedProcesses extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof QueuedProcess;
-    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<QueuedProcess>>;
-    get(process_id: string | number, request_params: ProjectOnly): Promise<QueuedProcess>;
-}
-
-declare class Screenshot extends BaseModel implements Screenshot$1 {
-    screenshot_id: number;
-    key_ids: number[];
-    keys: Array<{
-        key_id: number;
-        coordinates: {
-            left: number;
-            top: number;
-            width: number;
-            height: number;
-        };
-    }>;
-    url: string;
-    title: string;
-    description: string;
-    screenshot_tags: string[];
-    width: number;
-    height: number;
-    created_at: string;
-    created_at_timestamp: number;
-}
-
-declare class Screenshots extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: object;
-    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Screenshot>>;
-    create(raw_body: CreateScreenshotParams | CreateScreenshotParams[], request_params: ProjectOnly): Promise<BulkResult<Screenshot>>;
-    get(screnshot_id: string | number, request_params: ProjectOnly): Promise<Screenshot>;
-    update(screenshot_id: string | number, screenshot_params: UpdateScreenshotParams, request_params: ProjectOnly): Promise<Screenshot>;
-    delete(screenshot_id: string | number, request_params: ProjectOnly): Promise<ScreenshotDeleted>;
+interface RequestTokenResponse$1 {
+    access_token: string;
+    refresh_token: string;
+    expires_in: string | number;
+    token_type: string;
 }
 
 interface Segment$1 {
@@ -1056,57 +982,6 @@ interface Segment$1 {
     custom_translation_statuses: TranslationStatus$1[];
 }
 
-declare class TranslationStatus extends BaseModel implements TranslationStatus$1 {
-    status_id: number;
-    title: string;
-    color: string;
-}
-
-declare class Segment extends BaseModel implements Segment$1 {
-    segment_number: number;
-    language_iso: string;
-    modified_at: string;
-    modified_at_timestamp: number;
-    modified_by: number;
-    modified_by_email: string;
-    value: string;
-    is_fuzzy: boolean;
-    is_reviewed: boolean;
-    reviewed_by: number;
-    words: number;
-    custom_translation_statuses: TranslationStatus[];
-}
-
-type GetSegmentParams = {
-    project_id: string;
-    key_id: number | string;
-    language_iso: string;
-    disable_references?: number | string;
-};
-type UpdateSegmentReqParams = Omit<GetSegmentParams, "disable_references">;
-type UpdateSegmentBodyParams = {
-    value: string;
-    is_fuzzy?: boolean;
-    is_reviewed?: boolean;
-    custom_translation_status_ids?: string[] | number[];
-};
-type ListSegmentParams = GetSegmentParams & {
-    filter_is_reviewed?: number | string;
-    filter_unverified?: number | string;
-    filter_untranslated?: number | string;
-    filter_qa_issues?: string;
-};
-
-declare class Segments extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof Segment;
-    list(request_params: ListSegmentParams): Promise<Segment[]>;
-    get(segment_number: string | number, request_params: GetSegmentParams): Promise<Segment>;
-    update(segment_number: string | number, segment_params: UpdateSegmentBodyParams, request_params: UpdateSegmentReqParams): Promise<Segment>;
-}
-
 interface Snapshot$1 {
     snapshot_id: number;
     title: string;
@@ -1114,35 +989,6 @@ interface Snapshot$1 {
     created_at_timestamp: number;
     created_by: number;
     created_by_email: string;
-}
-
-declare class Snapshot extends BaseModel implements Snapshot$1 {
-    snapshot_id: number;
-    title: string;
-    created_at: string;
-    created_at_timestamp: number;
-    created_by: number;
-    created_by_email: string;
-}
-
-type CreateSnapshotParams = {
-    title: string;
-};
-type SnapshotDeleted = {
-    project_id: string;
-    snapshot_deleted: boolean;
-    branch?: string;
-};
-
-declare class Snapshots extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof Snapshot;
-    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Snapshot>>;
-    create(snapshot_params: CreateSnapshotParams, request_params: ProjectOnly): Promise<Snapshot>;
-    restore(snapshot_id: string | number, request_params: ProjectOnly): Promise<Project>;
-    delete(snapshot_id: string | number, request_params: ProjectOnly): Promise<SnapshotDeleted>;
 }
 
 interface Task$1 {
@@ -1214,74 +1060,256 @@ interface Task$1 {
     custom_translation_status_ids: number[];
 }
 
-declare class Task extends BaseModel implements Task$1 {
-    task_id: number;
-    title: string;
-    description: string;
-    status: string;
-    progress: number;
-    due_date: string;
-    due_date_timestamp: number;
-    keys_count: number;
-    words_count: number;
+interface TeamUserBillingDetails$2 {
+    billing_email: string;
+    country_code: string;
+    zip: string;
+    state_code: string;
+    address1: string;
+    address2: string;
+    city: string;
+    phone: string;
+    company: string;
+    vatnumber: string;
+}
+
+interface TeamUser$1 {
+    user_id: number;
+    email: string;
+    fullname: string;
     created_at: string;
     created_at_timestamp: number;
-    created_by: number;
-    created_by_email: string;
-    can_be_parent: boolean;
-    task_type: string;
-    parent_task_id: number;
-    closing_tags: string[];
-    do_lock_translations: boolean;
-    languages: Array<{
-        language_iso: string;
-        users: Array<{
-            user_id: string | number;
-            email: string;
-            fullname: string;
-        }>;
-        groups: Array<{
-            id: string | number;
-            name: string;
-        }>;
-        keys: string[] | number[];
-        status: string;
-        progress: number;
-        initial_tm_leverage: {
-            "0%+": number;
-            "60%+": number;
-            "75%+": number;
-            "95%+": number;
-            "100%": number;
-        };
-        tm_leverage: {
-            status: string;
-            value: {
-                "0%+": number;
-                "50%+": number;
-                "75%+": number;
-                "85%+": number;
-                "95%+": number;
-                "100%": number;
-            };
-        };
-        keys_count: number;
-        words_count: number;
-        completed_at: string;
-        completed_at_timestamp: number;
-        completed_by: number;
-        completed_by_email: string;
-    }>;
-    source_language_iso: string;
-    auto_close_languages: boolean;
-    auto_close_task: boolean;
-    auto_close_items: boolean;
-    completed_at: string;
-    completed_at_timestamp: number;
-    completed_by: number;
-    completed_by_email: string;
-    custom_translation_status_ids: number[];
+    role: string;
 }
+
+interface Team$1 {
+    team_id: number;
+    name: string;
+    created_at: string;
+    created_at_timestamp: number;
+    plan: string;
+    quota_usage: {
+        users: number;
+        keys: number;
+        projects: number;
+        mau: number;
+        ai_words: number;
+    };
+    quota_allowed: {
+        users: number;
+        keys: number;
+        projects: number;
+        mau: number;
+        ai_words: number;
+    };
+}
+
+interface TranslationProvider$1 {
+    provider_id: number;
+    name: string;
+    slug: string;
+    price_pair_min: number;
+    website_url: string;
+    description: string;
+    tiers: Array<{
+        tier_id: number;
+        title: string;
+    }>;
+    pairs: Array<{
+        tier_id: number;
+        from_lang_iso: string;
+        from_lang_name: string;
+        to_lang_iso: string;
+        to_lang_name: string;
+        price_per_word: number;
+    }>;
+}
+
+interface UserGroup$1 {
+    group_id: number;
+    name: string;
+    permissions: {
+        is_admin: boolean;
+        is_reviewer: boolean;
+        admin_rights: string[];
+        languages: Array<{
+            lang_id: number;
+            lang_iso: string;
+            lang_name: string;
+            is_writable: boolean;
+        }>;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+    team_id: number;
+    projects: string[] | number[];
+    members: number[] | string[];
+    role_id: number | null;
+}
+
+interface Webhook$1 {
+    webhook_id: string;
+    url: string;
+    branch: string;
+    secret: string;
+    events: string[];
+    event_lang_map: Array<{
+        event: string;
+        lang_iso_codes: string[];
+    }>;
+}
+
+interface OtaSdkToken$1 {
+    id: number;
+    token: string;
+    projectId: number;
+    lokaliseId: number;
+    createdAt: string;
+}
+
+interface OtaApiError {
+    statusCode: string;
+    message: string;
+    error: string;
+}
+
+interface OtaBundleArchive$1 {
+    url: string;
+    version: number;
+}
+
+interface OtaBundle$1 {
+    id: number;
+    projectId: string;
+    isPrerelease: boolean;
+    isProduction: boolean;
+    createdAt: string;
+    createdBy: string;
+    framework: string;
+    description: string;
+    isFrozen: boolean;
+    lokaliseId: number;
+    fileId: string;
+    fileUrl: string;
+    modifiedAt: string;
+}
+
+interface OtaFreezePeriod$1 {
+    id: number;
+    projectId: number;
+    bundleId: number;
+    framework: string;
+    from: string;
+    to: string;
+}
+
+interface OtaStatistics$1 {
+    lokaliseProjectId: string;
+    from: string;
+    to: string;
+    sdk: string;
+    daily: Array<{
+        date: string;
+        downloads: number;
+        trafficMb: number;
+        trafficBytes: string;
+        framework: string;
+    }>;
+    monthly: Array<{
+        date: string;
+        downloads: number;
+        trafficMb: number;
+        trafficBytes: string;
+        framework: string;
+    }>;
+    totals: {
+        downloads: number;
+        trafficMb: number;
+        trafficBytes: string;
+    };
+}
+
+interface PermissionTemplate$1 {
+    id: number;
+    role: string;
+    permissions: string[];
+    description: string;
+    tag: string;
+    tagColor: string;
+    tagInfo: string | null;
+    doesEnableAllReadOnlyLanguages: boolean;
+}
+
+declare class PermissionTemplate extends BaseModel implements PermissionTemplate$1 {
+    id: number;
+    role: string;
+    permissions: string[];
+    description: string;
+    tag: string;
+    tagColor: string;
+    tagInfo: string | null;
+    doesEnableAllReadOnlyLanguages: boolean;
+}
+
+type CreateProjectParams = {
+    name: string;
+    team_id?: number | string;
+    description?: string;
+    languages?: Array<{
+        lang_iso: string;
+        custom_iso?: string;
+    }>;
+    base_lang_iso?: string;
+    project_type?: "localization_files" | "paged_documents";
+    is_segmentation_enabled?: boolean;
+};
+type UpdateProjectParams = {
+    name: string;
+    description?: string;
+};
+type ProjectDeleted = {
+    project_id: string;
+    project_deleted: boolean;
+};
+type ProjectEmptied = {
+    project_id: string;
+    keys_deleted: boolean;
+};
+type ProjectListParams = PaginationParams & {
+    filter_team_id?: number | string;
+    filter_names?: string;
+    include_statistics?: string | number;
+    include_settings?: string | number;
+};
+
+type GetSegmentParams = {
+    project_id: string;
+    key_id: number | string;
+    language_iso: string;
+    disable_references?: number | string;
+};
+type UpdateSegmentReqParams = Omit<GetSegmentParams, "disable_references">;
+type UpdateSegmentBodyParams = {
+    value: string;
+    is_fuzzy?: boolean;
+    is_reviewed?: boolean;
+    custom_translation_status_ids?: string[] | number[];
+};
+type ListSegmentParams = GetSegmentParams & {
+    filter_is_reviewed?: number | string;
+    filter_unverified?: number | string;
+    filter_untranslated?: number | string;
+    filter_qa_issues?: string;
+};
+
+type CreateSnapshotParams = {
+    title: string;
+};
+type SnapshotDeleted = {
+    project_id: string;
+    snapshot_deleted: boolean;
+    branch?: string;
+};
 
 type TaskLanguage = {
     language_iso: string;
@@ -1321,44 +1349,6 @@ type ListTaskParams = ProjectWithPagination & {
     filter_statuses?: string;
 };
 
-declare class Tasks extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof Task;
-    list(request_params: ListTaskParams): Promise<PaginatedResult$1<Task>>;
-    create(task_params: CreateTaskParams, request_params: ProjectOnly): Promise<Task>;
-    get(task_id: string | number, request_params: ProjectOnly): Promise<Task>;
-    update(task_id: string | number, task_params: UpdateTaskParams, request_params: ProjectOnly): Promise<Task>;
-    delete(task_id: string | number, request_params: ProjectOnly): Promise<TaskDeleted>;
-}
-
-interface TeamUserBillingDetails$2 {
-    billing_email: string;
-    country_code: string;
-    zip: string;
-    state_code: string;
-    address1: string;
-    address2: string;
-    city: string;
-    phone: string;
-    company: string;
-    vatnumber: string;
-}
-
-declare class TeamUserBillingDetails$1 extends BaseModel implements TeamUserBillingDetails$2 {
-    billing_email: string;
-    country_code: string;
-    zip: string;
-    state_code: string;
-    address1: string;
-    address2: string;
-    city: string;
-    phone: string;
-    company: string;
-    vatnumber: string;
-}
-
 type BillingDetailsParams = {
     billing_email: string;
     country_code: string;
@@ -1372,33 +1362,6 @@ type BillingDetailsParams = {
     vatnumber?: string;
 };
 
-declare class TeamUserBillingDetails extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof TeamUserBillingDetails$1;
-    get(team_id: string | number): Promise<TeamUserBillingDetails$1>;
-    create(billing_details_params: BillingDetailsParams, request_params: TeamOnly): Promise<TeamUserBillingDetails$1>;
-    update(team_id: string | number, billing_details_params: BillingDetailsParams): Promise<TeamUserBillingDetails$1>;
-}
-
-interface TeamUser$1 {
-    user_id: number;
-    email: string;
-    fullname: string;
-    created_at: string;
-    created_at_timestamp: number;
-    role: string;
-}
-
-declare class TeamUser extends BaseModel implements TeamUser$1 {
-    user_id: number;
-    email: string;
-    fullname: string;
-    created_at: string;
-    created_at_timestamp: number;
-    role: string;
-}
-
 type TeamUserParams = {
     role?: "owner" | "admin" | "member" | "biller";
 };
@@ -1406,118 +1369,6 @@ type TeamUserDeleted = {
     team_id: string;
     team_user_deleted: boolean;
 };
-
-declare class TeamUsers extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof TeamUser;
-    list(request_params: TeamWithPagination): Promise<PaginatedResult$1<TeamUser>>;
-    get(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUser>;
-    update(team_user_id: string | number, team_user_params: TeamUserParams, request_params: TeamOnly): Promise<TeamUser>;
-    delete(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUserDeleted>;
-}
-
-interface Team$1 {
-    team_id: number;
-    name: string;
-    created_at: string;
-    created_at_timestamp: number;
-    plan: string;
-    quota_usage: {
-        users: number;
-        keys: number;
-        projects: number;
-        mau: number;
-        ai_words: number;
-    };
-    quota_allowed: {
-        users: number;
-        keys: number;
-        projects: number;
-        mau: number;
-        ai_words: number;
-    };
-}
-
-declare class Team extends BaseModel implements Team$1 {
-    team_id: number;
-    name: string;
-    created_at: string;
-    created_at_timestamp: number;
-    plan: string;
-    quota_usage: {
-        users: number;
-        keys: number;
-        projects: number;
-        mau: number;
-        ai_words: number;
-    };
-    quota_allowed: {
-        users: number;
-        keys: number;
-        projects: number;
-        mau: number;
-        ai_words: number;
-    };
-}
-
-declare class Teams extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof Team;
-    list(request_params?: PaginationParams): Promise<PaginatedResult$1<Team>>;
-}
-
-interface TranslationProvider$1 {
-    provider_id: number;
-    name: string;
-    slug: string;
-    price_pair_min: number;
-    website_url: string;
-    description: string;
-    tiers: Array<{
-        tier_id: number;
-        title: string;
-    }>;
-    pairs: Array<{
-        tier_id: number;
-        from_lang_iso: string;
-        from_lang_name: string;
-        to_lang_iso: string;
-        to_lang_name: string;
-        price_per_word: number;
-    }>;
-}
-
-declare class TranslationProvider extends BaseModel implements TranslationProvider$1 {
-    provider_id: number;
-    name: string;
-    slug: string;
-    price_pair_min: number;
-    website_url: string;
-    description: string;
-    tiers: Array<{
-        tier_id: number;
-        title: string;
-    }>;
-    pairs: Array<{
-        tier_id: number;
-        from_lang_iso: string;
-        from_lang_name: string;
-        to_lang_iso: string;
-        to_lang_name: string;
-        price_per_word: number;
-    }>;
-}
-
-declare class TranslationProviders extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof TranslationProvider;
-    list(request_params: TeamWithPagination): Promise<PaginatedResult$1<TranslationProvider>>;
-    get(provider_id: string | number, request_params: TeamOnly): Promise<TranslationProvider>;
-}
 
 type CreateTranslationStatusParams = {
     title: string;
@@ -1536,92 +1387,6 @@ type TranslationStatusColors = {
     colors: string[];
 };
 
-declare class TranslationStatuses extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof TranslationStatus;
-    protected static rootElementNameSingular: string;
-    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<TranslationStatus>>;
-    create(translation_status_params: CreateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus>;
-    get(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatus>;
-    update(translation_status_id: string | number, translation_status_params: UpdateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus>;
-    delete(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatusDeleted>;
-    available_colors(request_params: ProjectOnly): Promise<TranslationStatusColors>;
-}
-
-declare class Translation extends BaseModel implements Translation$1 {
-    translation_id: number;
-    key_id: number;
-    language_iso: string;
-    modified_at: string;
-    modified_at_timestamp: number;
-    modified_by: number;
-    modified_by_email: string;
-    translation: string;
-    is_unverified: boolean;
-    is_reviewed: boolean;
-    reviewed_by: number;
-    is_fuzzy: boolean;
-    words: number;
-    custom_translation_statuses: TranslationStatus$1[];
-    task_id: number;
-    segment_number: number;
-}
-
-declare class Translations extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof Translation;
-    list(request_params: ListTranslationParams): Promise<CursorPaginatedResult$1<Translation>>;
-    get(translation_id: string | number, request_params: GetTranslationParams): Promise<Translation>;
-    update(translation_id: string | number, translation_params: UpdateTranslationParams, request_params: ProjectOnly): Promise<Translation>;
-}
-
-interface UserGroup$1 {
-    group_id: number;
-    name: string;
-    permissions: {
-        is_admin: boolean;
-        is_reviewer: boolean;
-        admin_rights: string[];
-        languages: Array<{
-            lang_id: number;
-            lang_iso: string;
-            lang_name: string;
-            is_writable: boolean;
-        }>;
-        role_id: number;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-    team_id: number;
-    projects: string[] | number[];
-    members: number[] | string[];
-}
-
-declare class UserGroup extends BaseModel implements UserGroup$1 {
-    group_id: number;
-    name: string;
-    permissions: {
-        is_admin: boolean;
-        is_reviewer: boolean;
-        admin_rights: string[];
-        languages: Array<{
-            lang_id: number;
-            lang_iso: string;
-            lang_name: string;
-            is_writable: boolean;
-        }>;
-        role_id: number;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-    team_id: number;
-    projects: string[] | number[];
-    members: number[] | string[];
-}
-
 type GroupLanguages = {
     reference: string[];
     contributable: string[];
@@ -1638,46 +1403,6 @@ type UserGroupDeleted = {
     team_id: string;
     group_deleted: boolean;
 };
-
-declare class UserGroups extends BaseCollection {
-    protected static rootElementName: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof UserGroup;
-    list(request_params: TeamWithPagination): Promise<PaginatedResult$1<UserGroup>>;
-    create(user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup>;
-    get(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroup>;
-    update(user_group_id: string | number, user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup>;
-    delete(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroupDeleted>;
-    add_members_to_group(team_id: string | number, group_id: string | number, user_ids: string[] | number[]): Promise<UserGroup>;
-    remove_members_from_group(team_id: string | number, group_id: string | number, user_ids: string[] | number[]): Promise<UserGroup>;
-    add_projects_to_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
-    remove_projects_from_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
-    protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this;
-}
-
-interface Webhook$1 {
-    webhook_id: string;
-    url: string;
-    branch: string;
-    secret: string;
-    events: string[];
-    event_lang_map: Array<{
-        event: string;
-        lang_iso_codes: string[];
-    }>;
-}
-
-declare class Webhook extends BaseModel implements Webhook$1 {
-    webhook_id: string;
-    branch: string;
-    url: string;
-    secret: string;
-    events: string[];
-    event_lang_map: Array<{
-        event: string;
-        lang_iso_codes: string[];
-    }>;
-}
 
 type WebhookEventLangMap = {
     event?: string;
@@ -1701,51 +1426,6 @@ type WebhookRegenerated = {
     project_id: string;
     secret: string;
 };
-
-declare class Webhooks extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof Webhook;
-    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Webhook>>;
-    create(webhook_params: CreateWebhookParams, request_params: ProjectOnly): Promise<Webhook>;
-    get(webhook_id: string | number, request_params: ProjectOnly): Promise<Webhook>;
-    update(webhook_id: string | number, webhook_params: UpdateWebhookParams, request_params: ProjectOnly): Promise<Webhook>;
-    delete(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookDeleted>;
-    regenerate_secret(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookRegenerated>;
-}
-
-type ClientParams = {
-    apiKey?: string;
-    enableCompression?: boolean;
-    tokenType?: string;
-    host?: string;
-    version?: string;
-};
-declare class BaseClient {
-    readonly clientData: ClientData;
-    constructor(params: ClientParams);
-}
-
-interface PermissionTemplate$1 {
-    id: number;
-    role: string;
-    permissions: string[];
-    description: string;
-    tag: string;
-    tagColor: string;
-    doesEnableAllReadOnlyLanguages: boolean;
-}
-
-declare class PermissionTemplate extends BaseModel implements PermissionTemplate$1 {
-    id: number;
-    role: string;
-    permissions: string[];
-    description: string;
-    tag: string;
-    tagColor: string;
-    doesEnableAllReadOnlyLanguages: boolean;
-}
 
 type OtaResourceDeleted = {
     id: number;
@@ -2524,109 +2204,431 @@ type WebhookProjectTaskInitialTmLeverageCalculated = {
     created_at_timestamp: number;
 };
 
-interface AuthData {
-    client_id: string;
-    client_secret: string;
-    host?: string;
-    version?: string;
-}
-
-interface AuthError {
-    code: number;
-    error: string;
-    error_description: string;
-    error_uri?: string;
-}
-
-interface RefreshTokenResponse {
-    access_token: string;
-    scope: string;
-    expires_in: string | number;
-    token_type: string;
-}
-
-interface RequestTokenResponse$1 {
-    access_token: string;
-    refresh_token: string;
-    expires_in: string | number;
-    token_type: string;
-}
-
-interface OtaSdkToken$1 {
-    id: number;
-    token: string;
-    projectId: number;
-    lokaliseId: number;
-    createdAt: string;
-}
-
-interface OtaApiError {
-    statusCode: string;
-    message: string;
-    error: string;
-}
-
-interface OtaBundleArchive$1 {
-    url: string;
-    version: number;
-}
-
-interface OtaBundle$1 {
-    id: number;
-    projectId: string;
-    isPrerelease: boolean;
-    isProduction: boolean;
-    createdAt: string;
-    createdBy: string;
-    framework: string;
-    description: string;
-    isFrozen: boolean;
-    lokaliseId: number;
-    fileId: string;
-    fileUrl: string;
-    modifiedAt: string;
-}
-
-interface OtaFreezePeriod$1 {
-    id: number;
-    projectId: number;
-    bundleId: number;
-    framework: string;
-    from: string;
-    to: string;
-}
-
-interface OtaStatistics$1 {
-    lokaliseProjectId: string;
-    from: string;
-    to: string;
-    sdk: string;
-    daily: Array<{
-        date: string;
-        downloads: number;
-        trafficMb: number;
-        trafficBytes: string;
-        framework: string;
-    }>;
-    monthly: Array<{
-        date: string;
-        downloads: number;
-        trafficMb: number;
-        trafficBytes: string;
-        framework: string;
-    }>;
-    totals: {
-        downloads: number;
-        trafficMb: number;
-        trafficBytes: string;
-    };
-}
-
 declare class PermissionTemplates extends BaseCollection {
     protected static prefixURI: string;
     protected static elementClass: typeof PermissionTemplate;
     protected static rootElementName: string;
     list(request_params: TeamOnly): Promise<PaginatedResult$1<PermissionTemplate>>;
+}
+
+declare class Project extends BaseModel implements Project$1 {
+    project_id: string;
+    project_type: string;
+    name: string;
+    description: string;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+    team_id: number;
+    base_language_id: number;
+    base_language_iso: string;
+    settings: ProjectSettings;
+    statistics: ProjectStatistics;
+}
+
+declare class Projects extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof Project;
+    list(request_params?: ProjectListParams): Promise<PaginatedResult$1<Project>>;
+    create(project_params: CreateProjectParams): Promise<Project>;
+    get(project_id: string | number): Promise<Project>;
+    update(project_id: string | number, project_params: UpdateProjectParams): Promise<Project>;
+    delete(project_id: string | number): Promise<ProjectDeleted>;
+    empty(project_id: any): Promise<ProjectEmptied>;
+}
+
+declare class QueuedProcesses extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof QueuedProcess;
+    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<QueuedProcess>>;
+    get(process_id: string | number, request_params: ProjectOnly): Promise<QueuedProcess>;
+}
+
+declare class Screenshot extends BaseModel implements Screenshot$1 {
+    screenshot_id: number;
+    key_ids: number[];
+    keys: Array<{
+        key_id: number;
+        coordinates: {
+            left: number;
+            top: number;
+            width: number;
+            height: number;
+        };
+    }>;
+    url: string;
+    title: string;
+    description: string;
+    screenshot_tags: string[];
+    width: number;
+    height: number;
+    created_at: string;
+    created_at_timestamp: number;
+}
+
+declare class Screenshots extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: object;
+    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Screenshot>>;
+    create(raw_body: CreateScreenshotParams | CreateScreenshotParams[], request_params: ProjectOnly): Promise<BulkResult<Screenshot>>;
+    get(screnshot_id: string | number, request_params: ProjectOnly): Promise<Screenshot>;
+    update(screenshot_id: string | number, screenshot_params: UpdateScreenshotParams, request_params: ProjectOnly): Promise<Screenshot>;
+    delete(screenshot_id: string | number, request_params: ProjectOnly): Promise<ScreenshotDeleted>;
+}
+
+declare class TranslationStatus extends BaseModel implements TranslationStatus$1 {
+    status_id: number;
+    title: string;
+    color: string;
+}
+
+declare class Segment extends BaseModel implements Segment$1 {
+    segment_number: number;
+    language_iso: string;
+    modified_at: string;
+    modified_at_timestamp: number;
+    modified_by: number;
+    modified_by_email: string;
+    value: string;
+    is_fuzzy: boolean;
+    is_reviewed: boolean;
+    reviewed_by: number;
+    words: number;
+    custom_translation_statuses: TranslationStatus[];
+}
+
+declare class Segments extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof Segment;
+    list(request_params: ListSegmentParams): Promise<Segment[]>;
+    get(segment_number: string | number, request_params: GetSegmentParams): Promise<Segment>;
+    update(segment_number: string | number, segment_params: UpdateSegmentBodyParams, request_params: UpdateSegmentReqParams): Promise<Segment>;
+}
+
+declare class Snapshot extends BaseModel implements Snapshot$1 {
+    snapshot_id: number;
+    title: string;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+}
+
+declare class Snapshots extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof Snapshot;
+    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Snapshot>>;
+    create(snapshot_params: CreateSnapshotParams, request_params: ProjectOnly): Promise<Snapshot>;
+    restore(snapshot_id: string | number, request_params: ProjectOnly): Promise<Project>;
+    delete(snapshot_id: string | number, request_params: ProjectOnly): Promise<SnapshotDeleted>;
+}
+
+declare class Task extends BaseModel implements Task$1 {
+    task_id: number;
+    title: string;
+    description: string;
+    status: string;
+    progress: number;
+    due_date: string;
+    due_date_timestamp: number;
+    keys_count: number;
+    words_count: number;
+    created_at: string;
+    created_at_timestamp: number;
+    created_by: number;
+    created_by_email: string;
+    can_be_parent: boolean;
+    task_type: string;
+    parent_task_id: number;
+    closing_tags: string[];
+    do_lock_translations: boolean;
+    languages: Array<{
+        language_iso: string;
+        users: Array<{
+            user_id: string | number;
+            email: string;
+            fullname: string;
+        }>;
+        groups: Array<{
+            id: string | number;
+            name: string;
+        }>;
+        keys: string[] | number[];
+        status: string;
+        progress: number;
+        initial_tm_leverage: {
+            "0%+": number;
+            "60%+": number;
+            "75%+": number;
+            "95%+": number;
+            "100%": number;
+        };
+        tm_leverage: {
+            status: string;
+            value: {
+                "0%+": number;
+                "50%+": number;
+                "75%+": number;
+                "85%+": number;
+                "95%+": number;
+                "100%": number;
+            };
+        };
+        keys_count: number;
+        words_count: number;
+        completed_at: string;
+        completed_at_timestamp: number;
+        completed_by: number;
+        completed_by_email: string;
+    }>;
+    source_language_iso: string;
+    auto_close_languages: boolean;
+    auto_close_task: boolean;
+    auto_close_items: boolean;
+    completed_at: string;
+    completed_at_timestamp: number;
+    completed_by: number;
+    completed_by_email: string;
+    custom_translation_status_ids: number[];
+}
+
+declare class Tasks extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof Task;
+    list(request_params: ListTaskParams): Promise<PaginatedResult$1<Task>>;
+    create(task_params: CreateTaskParams, request_params: ProjectOnly): Promise<Task>;
+    get(task_id: string | number, request_params: ProjectOnly): Promise<Task>;
+    update(task_id: string | number, task_params: UpdateTaskParams, request_params: ProjectOnly): Promise<Task>;
+    delete(task_id: string | number, request_params: ProjectOnly): Promise<TaskDeleted>;
+}
+
+declare class TeamUserBillingDetails$1 extends BaseModel implements TeamUserBillingDetails$2 {
+    billing_email: string;
+    country_code: string;
+    zip: string;
+    state_code: string;
+    address1: string;
+    address2: string;
+    city: string;
+    phone: string;
+    company: string;
+    vatnumber: string;
+}
+
+declare class TeamUserBillingDetails extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof TeamUserBillingDetails$1;
+    get(team_id: string | number): Promise<TeamUserBillingDetails$1>;
+    create(billing_details_params: BillingDetailsParams, request_params: TeamOnly): Promise<TeamUserBillingDetails$1>;
+    update(team_id: string | number, billing_details_params: BillingDetailsParams): Promise<TeamUserBillingDetails$1>;
+}
+
+declare class TeamUser extends BaseModel implements TeamUser$1 {
+    user_id: number;
+    email: string;
+    fullname: string;
+    created_at: string;
+    created_at_timestamp: number;
+    role: string;
+}
+
+declare class TeamUsers extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof TeamUser;
+    list(request_params: TeamWithPagination): Promise<PaginatedResult$1<TeamUser>>;
+    get(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUser>;
+    update(team_user_id: string | number, team_user_params: TeamUserParams, request_params: TeamOnly): Promise<TeamUser>;
+    delete(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUserDeleted>;
+}
+
+declare class Team extends BaseModel implements Team$1 {
+    team_id: number;
+    name: string;
+    created_at: string;
+    created_at_timestamp: number;
+    plan: string;
+    quota_usage: {
+        users: number;
+        keys: number;
+        projects: number;
+        mau: number;
+        ai_words: number;
+    };
+    quota_allowed: {
+        users: number;
+        keys: number;
+        projects: number;
+        mau: number;
+        ai_words: number;
+    };
+}
+
+declare class Teams extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof Team;
+    list(request_params?: PaginationParams): Promise<PaginatedResult$1<Team>>;
+}
+
+declare class TranslationProvider extends BaseModel implements TranslationProvider$1 {
+    provider_id: number;
+    name: string;
+    slug: string;
+    price_pair_min: number;
+    website_url: string;
+    description: string;
+    tiers: Array<{
+        tier_id: number;
+        title: string;
+    }>;
+    pairs: Array<{
+        tier_id: number;
+        from_lang_iso: string;
+        from_lang_name: string;
+        to_lang_iso: string;
+        to_lang_name: string;
+        price_per_word: number;
+    }>;
+}
+
+declare class TranslationProviders extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof TranslationProvider;
+    list(request_params: TeamWithPagination): Promise<PaginatedResult$1<TranslationProvider>>;
+    get(provider_id: string | number, request_params: TeamOnly): Promise<TranslationProvider>;
+}
+
+declare class TranslationStatuses extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof TranslationStatus;
+    protected static rootElementNameSingular: string;
+    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<TranslationStatus>>;
+    create(translation_status_params: CreateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus>;
+    get(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatus>;
+    update(translation_status_id: string | number, translation_status_params: UpdateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus>;
+    delete(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatusDeleted>;
+    available_colors(request_params: ProjectOnly): Promise<TranslationStatusColors>;
+}
+
+declare class Translation extends BaseModel implements Translation$1 {
+    translation_id: number;
+    key_id: number;
+    language_iso: string;
+    modified_at: string;
+    modified_at_timestamp: number;
+    modified_by: number;
+    modified_by_email: string;
+    translation: string;
+    is_unverified: boolean;
+    is_reviewed: boolean;
+    reviewed_by: number;
+    is_fuzzy: boolean;
+    words: number;
+    custom_translation_statuses: TranslationStatus$1[];
+    task_id: number;
+    segment_number: number;
+}
+
+declare class Translations extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof Translation;
+    list(request_params: ListTranslationParams): Promise<CursorPaginatedResult$1<Translation>>;
+    get(translation_id: string | number, request_params: GetTranslationParams): Promise<Translation>;
+    update(translation_id: string | number, translation_params: UpdateTranslationParams, request_params: ProjectOnly): Promise<Translation>;
+}
+
+declare class UserGroup extends BaseModel implements UserGroup$1 {
+    group_id: number;
+    name: string;
+    permissions: {
+        is_admin: boolean;
+        is_reviewer: boolean;
+        admin_rights: string[];
+        languages: Array<{
+            lang_id: number;
+            lang_iso: string;
+            lang_name: string;
+            is_writable: boolean;
+        }>;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+    team_id: number;
+    projects: string[] | number[];
+    members: number[] | string[];
+    role_id: number | null;
+}
+
+declare class UserGroups extends BaseCollection {
+    protected static rootElementName: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof UserGroup;
+    list(request_params: TeamWithPagination): Promise<PaginatedResult$1<UserGroup>>;
+    create(user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup>;
+    get(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroup>;
+    update(user_group_id: string | number, user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup>;
+    delete(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroupDeleted>;
+    add_members_to_group(team_id: string | number, group_id: string | number, user_ids: string[] | number[]): Promise<UserGroup>;
+    remove_members_from_group(team_id: string | number, group_id: string | number, user_ids: string[] | number[]): Promise<UserGroup>;
+    add_projects_to_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
+    remove_projects_from_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
+    protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this;
+}
+
+declare class Webhook extends BaseModel implements Webhook$1 {
+    webhook_id: string;
+    branch: string;
+    url: string;
+    secret: string;
+    events: string[];
+    event_lang_map: Array<{
+        event: string;
+        lang_iso_codes: string[];
+    }>;
+}
+
+declare class Webhooks extends BaseCollection {
+    protected static rootElementName: string;
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof Webhook;
+    list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Webhook>>;
+    create(webhook_params: CreateWebhookParams, request_params: ProjectOnly): Promise<Webhook>;
+    get(webhook_id: string | number, request_params: ProjectOnly): Promise<Webhook>;
+    update(webhook_id: string | number, webhook_params: UpdateWebhookParams, request_params: ProjectOnly): Promise<Webhook>;
+    delete(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookDeleted>;
+    regenerate_secret(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookRegenerated>;
+}
+
+type ClientParams = {
+    apiKey?: string;
+    enableCompression?: boolean;
+    tokenType?: string;
+    host?: string;
+    version?: string;
+};
+declare class BaseClient {
+    readonly clientData: ClientData;
+    constructor(params: ClientParams);
 }
 
 declare class LokaliseApi extends BaseClient {
@@ -2640,6 +2642,7 @@ declare class LokaliseApi extends BaseClient {
     languages(): Languages;
     orders(): Orders;
     paymentCards(): PaymentCards;
+    permissionTemplates(): PermissionTemplates;
     projects(): Projects;
     queuedProcesses(): QueuedProcesses;
     screenshots(): Screenshots;
@@ -2653,7 +2656,6 @@ declare class LokaliseApi extends BaseClient {
     translationProviders(): TranslationProviders;
     translationStatuses(): TranslationStatuses;
     userGroups(): UserGroups;
-    permissionTemplates(): PermissionTemplates;
     webhooks(): Webhooks;
 }
 
