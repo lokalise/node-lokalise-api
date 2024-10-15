@@ -1,12 +1,12 @@
 # Custom translation statuses
 
-[Translation Status attributes](https://app.lokalise.com/api2docs/curl/#object-translation-statuses)
+[Translation Status attributes](https://developers.lokalise.com/reference/custom-translation-status-object)
 
 *Custom translation statuses must be enabled for the project before using this endpoint!* It can be done in the project settings.
 
 ## Fetch translation statuses
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-statuses-get)
+[API doc](https://developers.lokalise.com/reference/list-all-statuses)
 
 ```js
 const statuses = await lokaliseApi.translationStatuses().list({
@@ -20,7 +20,7 @@ statuses.items[0].title;
 
 ## Fetch a single translation status
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-status-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-status)
 
 ```js
 const status = await lokaliseApi.translationStatuses().get(status_id, {project_id: project_id});
@@ -30,7 +30,7 @@ status.title;
 
 ## Create translation status
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-status-post)
+[API doc](https://developers.lokalise.com/reference/create-a-status)
 
 ```js
 const status = await lokaliseApi.translationStatuses().create(
@@ -43,7 +43,7 @@ status.title;
 
 ## Update translation status
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-status-put)
+[API doc](https://developers.lokalise.com/reference/update-a-status)
 
 ```js
 const status = await lokaliseApi.translationStatuses().update(
@@ -57,7 +57,7 @@ status.title;
 
 ## Delete translation status
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-status-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-status)
 
 ```js
 const response = await lokaliseApi.translationStatuses().delete(status_id, {project_id: project_id});
@@ -67,7 +67,7 @@ response.custom_translation_status_deleted;
 
 ## Supported color codes for translation statuses
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-available-colors-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-available-colors)
 
 As long as Lokalise supports only very limited array of color hexadecimal codes for custom translation statuses, this method can be used to fetch all permitted values.
 

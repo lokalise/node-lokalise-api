@@ -1,10 +1,10 @@
 # Languages
 
-[Language attributes](https://app.lokalise.com/api2docs/curl/#object-languages)
+[Language attributes](https://developers.lokalise.com/reference/language-object)
 
 ## Fetch system languages
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-system-languages-get)
+[API doc](https://developers.lokalise.com/reference/list-system-languages)
 
 ```js
 const languages = await lokaliseApi.languages().system_languages({
@@ -17,7 +17,7 @@ languages.items[0].lang_id;
 
 ## Fetch project languages
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-languages-get)
+[API doc](https://developers.lokalise.com/reference/list-project-languages)
 
 ```js
 const languages = await lokaliseApi.languages().list({
@@ -31,7 +31,7 @@ languages.items[0].lang_id;
 
 ## Fetch a single project language
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-language-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-language)
 
 ```js
 const language = await lokaliseApi.languages().get(lang_id, {
@@ -43,7 +43,7 @@ language.lang_name;
 
 ## Create project languages
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-languages-post)
+[API doc](https://developers.lokalise.com/reference/create-languages)
 
 ```js
 const languages = await lokaliseApi.languages().create([
@@ -58,7 +58,7 @@ languages.errors;
 
 ## Update project language
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-language-put)
+[API doc](https://developers.lokalise.com/reference/update-a-language)
 
 ```js
 const language = await lokaliseApi.languages().update(lang_id, {
@@ -70,7 +70,7 @@ language.lang_name;
 
 ## Delete project language
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-language-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-language)
 
 ```js
 const response = await lokaliseApi.languages().delete(lang_id, { project_id: project_id });

@@ -1,10 +1,10 @@
 # Tasks
 
-[Task attributes](https://app.lokalise.com/api2docs/curl/#resource-tasks)
+[Task attributes](https://developers.lokalise.com/reference/tasks-object)
 
 ## Fetch tasks
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-tasks-get)
+[API doc](https://developers.lokalise.com/reference/list-all-tasks)
 
 ```js
 const tasks = await lokaliseApi.tasks().list({
@@ -18,7 +18,7 @@ tasks.items[0].task_id;
 
 ## Fetch a single task
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-task-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-task)
 
 ```js
 const task = await lokaliseApi.tasks().get(task_id, {project_id: project_id});
@@ -28,7 +28,7 @@ task.title;
 
 ## Create task
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-task-post)
+[API doc](https://developers.lokalise.com/reference/create-a-task)
 
 ```js
 const task = await lokaliseApi.tasks().create(
@@ -50,7 +50,7 @@ task.task_id;
 
 ## Update task
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-task-put)
+[API doc](https://developers.lokalise.com/reference/update-a-task)
 
 ```js
 const task = await lokaliseApi.tasks().update(
@@ -64,7 +64,7 @@ task.title;
 
 ## Delete task
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-task-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-task)
 
 ```js
 const response = await lokaliseApi.tasks().delete(task_id, {project_id: project_id});

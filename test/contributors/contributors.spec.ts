@@ -81,6 +81,7 @@ describe("Contributors", () => {
 		expect(contributor.languages[0].lang_id).to.eq(803);
 		expect(contributor.languages[0].lang_iso).to.eq("sq");
 		expect(contributor.admin_rights).to.include("upload");
+		expect(contributor.role_id).to.eq(5);
 	});
 
 	it("creates", async () => {

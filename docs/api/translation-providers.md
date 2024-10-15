@@ -1,10 +1,10 @@
 # Translation providers
 
-[Translation provider attributes](https://app.lokalise.com/api2docs/curl/#object-translation-providers)
+[Translation provider attributes](https://developers.lokalise.com/reference/translationproviders-object)
 
 ## Fetch translation providers
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-providers-get)
+[API doc](https://developers.lokalise.com/reference/list-all-providers)
 
 ```js
 const providers = await lokaliseApi.translationProviders().list({
@@ -18,7 +18,7 @@ providers.items[0].name;
 
 ## Fetch a single translation provider
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-provider-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-provider)
 
 ```js
 const provider = await lokaliseApi.translationProviders().get(translation_provider_id, {team_id: team_id});

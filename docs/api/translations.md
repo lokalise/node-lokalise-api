@@ -1,10 +1,10 @@
 # Translations
 
-[Translation attributes](https://app.lokalise.com/api2docs/curl/#resource-translations)
+[Translation attributes](https://developers.lokalise.com/reference/translations-object)
 
 ## Fetch translations
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-translations-get)
+[API doc](https://developers.lokalise.com/reference/list-all-translations)
 
 **This endpoint also supports cursor pagination which is now a recommended approach, especially for fetching large amounts of data. Please [learn more in the Pagination docs](https://lokalise.github.io/node-lokalise-api/api/getting-started#cursor-pagination).**
 
@@ -24,7 +24,7 @@ Please note that if you would like to filter translations by their language, you
 
 ## Fetch a single translation
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-translation-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-translation)
 
 ```js
 const translation = await lokaliseApi.translations().get(translation_id, {project_id: project_id});
@@ -34,7 +34,7 @@ translation.key_id;
 
 ## Update translation
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-translation-put)
+[API doc](https://developers.lokalise.com/reference/update-a-translation)
 
 ```js
 const translation = await lokaliseApi.translations().update(

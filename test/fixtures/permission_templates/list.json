@@ -1,92 +1,86 @@
 {
-  "roles": [
-    {
-      "id": 1,
-      "role": "Manager",
-      "permissions": [
-        "activity",
-        "branches_main_modify",
-        "branches_create",
-        "branches_merge",
-        "statistics",
-        "tasks",
-        "contributors",
-        "settings",
-        "manage_languages",
-        "download",
-        "upload",
-        "glossary_delete",
-        "glossary_edit",
-        "manage_keys",
-        "screenshots",
-        "review",
-        "custom_status_modify"
-      ],
-      "description": "Manage project settings, contributors and tasks",
-      "tag": "Full access",
-      "tagColor": "green",
-      "tagInfo": null,
-      "doesEnableAllReadOnlyLanguages": true
-    },
-    {
-      "id": 2,
-      "role": "Developer",
-      "permissions": [
-        "activity",
-        "branches_main_modify",
-        "branches_create",
-        "download",
-        "upload",
-        "manage_keys",
-        "screenshots"
-      ],
-      "description": "Create keys, upload and download content",
-      "tag": "Advanced",
-      "tagColor": "cyan",
-      "tagInfo": null,
-      "doesEnableAllReadOnlyLanguages": true
-    },
-    {
-      "id": 3,
-      "role": "Content creator",
-      "permissions": [
-        "activity",
-        "manage_keys",
-        "manage_languages",
-        "screenshots",
-        "branches_main_modify"
-      ],
-      "description": "Create, translate and edit keys, manage screenshots",
-      "tag": "Advanced",
-      "tagColor": "cyan",
-      "tagInfo": null,
-      "doesEnableAllReadOnlyLanguages": true
-    },
-    {
-      "id": 4,
-      "role": "Reviewer",
-      "permissions": [
-        "branches_main_modify",
-        "review",
-        "custom_status_modify"
-      ],
-      "description": "Translate keys, control key statuses",
-      "tag": "Basic",
-      "tagColor": "grey",
-      "tagInfo": "All users, regardless of their assigned roles and permissions, are granted entry-level access, such as: View glossary, View source content, Collaborate via comments, Limited access to editor, Generate API tokens",
-      "doesEnableAllReadOnlyLanguages": false
-    },
-    {
-      "id": 5,
-      "role": "Translator",
-      "permissions": [
-        "branches_main_modify"
-      ],
-      "description": "Translate keys",
-      "tag": "Basic",
-      "tagColor": "grey",
-      "tagInfo": "All users, regardless of their assigned roles and permissions, are granted entry-level access, such as: View glossary, View source content, Collaborate via comments, Limited access to editor, Generate API tokens",
-      "doesEnableAllReadOnlyLanguages": false
-    }
-  ]
+	"roles": [
+		{
+			"id": 1,
+			"role": "Manager",
+			"permissions": [
+				"activity",
+				"branches_main_modify",
+				"branches_create",
+				"branches_merge",
+				"statistics",
+				"tasks",
+				"contributors",
+				"settings",
+				"manage_languages",
+				"download",
+				"upload",
+				"glossary_delete",
+				"glossary_edit",
+				"manage_keys",
+				"screenshots",
+				"review",
+				"custom_status_modify"
+			],
+			"description": "Manage project settings, contributors and tasks",
+			"tag": "Full access",
+			"tagColor": "green",
+			"tagInfo": null,
+			"doesEnableAllReadOnlyLanguages": true
+		},
+		{
+			"id": 2,
+			"role": "Developer",
+			"permissions": [
+				"activity",
+				"branches_main_modify",
+				"branches_create",
+				"download",
+				"upload",
+				"manage_keys",
+				"screenshots"
+			],
+			"description": "Create keys, upload and download content",
+			"tag": "Advanced",
+			"tagColor": "cyan",
+			"tagInfo": null,
+			"doesEnableAllReadOnlyLanguages": true
+		},
+		{
+			"id": 3,
+			"role": "Content creator",
+			"permissions": [
+				"activity",
+				"manage_keys",
+				"manage_languages",
+				"screenshots",
+				"branches_main_modify"
+			],
+			"description": "Create, translate and edit keys, manage screenshots",
+			"tag": "Advanced",
+			"tagColor": "cyan",
+			"tagInfo": null,
+			"doesEnableAllReadOnlyLanguages": true
+		},
+		{
+			"id": 4,
+			"role": "Reviewer",
+			"permissions": ["branches_main_modify", "review", "custom_status_modify"],
+			"description": "Translate keys, control key statuses",
+			"tag": "Basic",
+			"tagColor": "grey",
+			"tagInfo": "All users, regardless of their assigned roles and permissions, are granted entry-level access, such as: View glossary, View source content, Collaborate via comments, Limited access to editor, Generate API tokens",
+			"doesEnableAllReadOnlyLanguages": false
+		},
+		{
+			"id": 5,
+			"role": "Translator",
+			"permissions": ["branches_main_modify"],
+			"description": "Translate keys",
+			"tag": "Basic",
+			"tagColor": "grey",
+			"tagInfo": "All users, regardless of their assigned roles and permissions, are granted entry-level access, such as: View glossary, View source content, Collaborate via comments, Limited access to editor, Generate API tokens",
+			"doesEnableAllReadOnlyLanguages": false
+		}
+	]
 }

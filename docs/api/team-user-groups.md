@@ -1,10 +1,10 @@
 # Team user groups
 
-[Team user group attributes](https://app.lokalise.com/api2docs/curl/#object-team-user-groups)
+[Team user group attributes](https://developers.lokalise.com/reference/teamusergroups-object)
 
 ## Fetch team user groups
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-groups-get)
+[API doc](https://developers.lokalise.com/reference/list-all-groups)
 
 ```js
 const user_groups = await lokaliseApi.userGroups().list({
@@ -18,7 +18,7 @@ user_groups.items[0].group_id;
 
 ## Fetch a single group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-group-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-group)
 
 ```js
 const user_group = await lokaliseApi.userGroups().get(group_id, {team_id: team_id});
@@ -28,7 +28,7 @@ user_group.group_id;
 
 ## Create group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-group-post)
+[API doc](https://developers.lokalise.com/reference/create-a-group)
 
 ```js
 const user_group = await lokaliseApi.userGroups().create(
@@ -46,7 +46,7 @@ user_group.name;
 
 ## Update group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-group-put)
+[API doc](https://developers.lokalise.com/reference/update-a-group)
 
 ```js
 const user_group = await lokaliseApi.userGroups().update(
@@ -65,7 +65,7 @@ user_group.permissions.is_admin;
 
 ## Add projects to group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-add-projects-to-group-put)
+[API doc](https://developers.lokalise.com/reference/add-projects-to-group)
 
 ```js
 const user_group = await lokaliseApi.userGroups().add_projects_to_group(
@@ -79,7 +79,7 @@ user_group.projects;
 
 ## Remove projects from group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-remove-projects-from-group-put)
+[API doc](https://developers.lokalise.com/reference/remove-projects-from-group)
 
 ```js
 const user_group = await lokaliseApi.userGroups().remove_projects_from_group(
@@ -93,7 +93,7 @@ user_group.group_id;
 
 ## Add users to group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-add-members-to-group-put)
+[API doc](https://developers.lokalise.com/reference/add-members-to-group)
 
 ```js
 const user_group = await lokaliseApi.userGroups().add_members_to_group(
@@ -107,7 +107,7 @@ user_group.members;
 
 ## Remove users from group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-remove-members-from-group-put)
+[API doc](https://developers.lokalise.com/reference/remove-members-from-group)
 
 ```js
 const user_group = await lokaliseApi.userGroups().remove_members_from_group(
@@ -121,7 +121,7 @@ user_group.members;
 
 ## Destroy group
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-group-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-group)
 
 ```js
 const response = await lokaliseApi.userGroups().delete(new_group_id, {team_id: team_id});

@@ -1,10 +1,10 @@
 # Screenshots
 
-[Screenshot attributes](https://app.lokalise.com/api2docs/curl/#resource-screenshots)
+[Screenshot attributes](https://developers.lokalise.com/reference/screenshot-object)
 
 ## Fetch screenshots
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-screenshots-get)
+[API doc](https://developers.lokalise.com/reference/list-all-screenshots)
 
 ```js
 const screenshots = await lokaliseApi.screenshots().list({
@@ -18,7 +18,7 @@ screenshots.items[0].screenshot_id;
 
 ## Fetch a single screenshot
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-screenshot-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-screenshot)
 
 ```js
 const screenshot = await lokaliseApi.screenshots().get(screenshot_id, {project_id: project_id});
@@ -28,7 +28,7 @@ screenshot.title;
 
 ## Create screenshots
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-screenshots-post)
+[API doc](https://developers.lokalise.com/reference/create-screenshots)
 
 ```js
 const screenshots = await lokaliseApi.screenshots().create(
@@ -47,7 +47,7 @@ screenshots.errors;
 
 ## Update screenshot
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-screenshot-put)
+[API doc](https://developers.lokalise.com/reference/update-a-screenshot)
 
 ```js
 const screenshot = await lokaliseApi.screenshots().update(screenshot_id,
@@ -60,7 +60,7 @@ screenshot.title;
 
 ## Delete screenshot
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-screenshot-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-screenshot)
 
 ```js
 const response = await lokaliseApi.screenshots().delete(screenshot_id, {project_id: project_id});

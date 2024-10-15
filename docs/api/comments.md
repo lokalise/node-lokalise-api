@@ -1,10 +1,10 @@
 # Comments
 
-[Comments attributes](https://app.lokalise.com/api2docs/curl/#resource-comments)
+[Comments attributes](https://developers.lokalise.com/reference/comment-object)
 
 ## Fetch project comments
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-project-comments-get)
+[API doc](https://developers.lokalise.com/reference/list-project-comments)
 
 ```js
 const comments = await lokaliseApi.comments().list_project_comments({
@@ -18,7 +18,7 @@ comments.items[0].comment_id;
 
 ## Fetch key comments
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-key-comments-get)
+[API doc](https://developers.lokalise.com/reference/list-key-comments)
 
 ```js
 const comments =  lokaliseApi.comments().list({
@@ -33,7 +33,7 @@ comments.items[0].comment_id;
 
 ## Create key comments
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-comments-post)
+[API doc](https://developers.lokalise.com/reference/create-comments)
 
 ```js
 const comments = await lokaliseApi.comments().create(
@@ -47,7 +47,7 @@ comments[0].comment;
 
 ## Fetch key comment
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-comment-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-comment)
 
 ```js
 const comment = await lokaliseApi.comments().get(comment_id, {project_id: project_id, key_id: key_id});
@@ -57,7 +57,7 @@ comment.comment_id;
 
 ## Delete key comment
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-comment-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-comment)
 
 ```js
 const response = await lokaliseApi.comments().delete(comment_id, {project_id: project_id, key_id: key_id});

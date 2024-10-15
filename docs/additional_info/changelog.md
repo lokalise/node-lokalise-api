@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 12.8.0 (15-Oct-2024)
 
 * Added support for a new [`PermissionTemplates` endpoint](https://developers.lokalise.com/reference/list-all-permission-templates):
 
@@ -24,6 +24,16 @@ const user_group = await lokaliseApi.userGroups().get(groupId, {
 });
 
 user_group.role_id; // => 5
+```
+
+* Added `role_id` attribute to the contributor object. For example:
+
+```js
+const contributor = await lokaliseApi.contributors().get(userId, {
+  project_id: projectId,
+});
+
+contributor.role_id; // => 5
 ```
 
 * Migrate from eslint to biome

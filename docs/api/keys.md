@@ -1,10 +1,10 @@
 # Translation keys
 
-[Key attributes](https://app.lokalise.com/api2docs/curl/#object-keys)
+[Key attributes](https://developers.lokalise.com/reference/key-object)
 
 ## Fetch project keys
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-keys-get)
+[API doc](https://developers.lokalise.com/reference/list-all-keys)
 
 **This endpoint also supports cursor pagination which is now a recommended approach, especially for fetching large amounts of data. Please [learn more in the Pagination docs](https://lokalise.github.io/node-lokalise-api/api/getting-started#cursor-pagination).**
 
@@ -20,7 +20,7 @@ keys.items[0].key_id;
 
 ## Fetch a single project key
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-key-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-key)
 
 ```js
 const key = await lokaliseApi.keys().get(key_id, {
@@ -33,7 +33,7 @@ key.key_name.ios;
 
 ## Create project keys
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-keys-post)
+[API doc](https://developers.lokalise.com/reference/create-keys)
 
 ```js
 const keys = await lokaliseApi.keys().create(
@@ -111,7 +111,7 @@ Things to note:
 
 ## Update project key
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-key-put)
+[API doc](https://developers.lokalise.com/reference/update-a-key)
 
 ```js
 const key = await lokaliseApi.keys().update(key_id, {
@@ -124,7 +124,7 @@ key.platforms;
 
 ## Bulk update project keys
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-bulk-update-put)
+[API doc](https://developers.lokalise.com/reference/bulk-update)
 
 ```js
 const keys = await lokaliseApi.keys().bulk_update(
@@ -150,7 +150,7 @@ keys.errors;
 
 ## Delete project key
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-key-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-key)
 
 ```js
 const response = await lokaliseApi.keys().delete(key_id, { project_id: project_id });
@@ -160,7 +160,7 @@ response.key_removed;
 
 ## Bulk delete project keys
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-multiple-keys-delete)
+[API doc](https://developers.lokalise.com/reference/delete-multiple-keys)
 
 ```js
 const response = await lokaliseApi.keys().bulk_delete([

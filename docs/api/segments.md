@@ -1,10 +1,10 @@
 # Segments
 
-[Segment attributes](https://app.lokalise.com/api2docs/curl/#object-segments)
+[Segment attributes](https://developers.lokalise.com/reference/segments-object)
 
 ## Fetch segments
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-segments-for-key-language-get)
+[API doc](https://developers.lokalise.com/reference/list-all-segments-for-key-language)
 
 ```js
 const segments = await lokaliseApi.segments().list({
@@ -18,7 +18,7 @@ const segments = await lokaliseApi.segments().list({
 
 ## Fetch a single segment
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-segment-for-key-language-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-segment-for-key-language)
 
 ```js
 const segment_number = 2;
@@ -33,7 +33,7 @@ const segment = await lokaliseApi.segments().get(segment_number, {
 
 ## Update segment
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-segment-put)
+[API doc](https://developers.lokalise.com/reference/update-a-segment)
 
 ```js
 const segment_number = 2;

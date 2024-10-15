@@ -1,10 +1,10 @@
 # Webhooks
 
-[Webhook attributes](https://app.lokalise.com/api2docs/curl/#object-webhooks)
+[Webhook attributes](https://developers.lokalise.com/reference/webhooks-object)
 
 ## Fetch webhooks
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-webhooks-get)
+[API doc](https://developers.lokalise.com/reference/list-all-webhooks)
 
 ```js
 const webhooks = await lokaliseApi.webhooks().list({
@@ -18,7 +18,7 @@ webhooks.items[0].url;
 
 ## Fetch a single webhook
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-webhook-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-webhook)
 
 ```js
 const webhook = await lokaliseApi.webhooks().get(webhook_id, {project_id: project_id});
@@ -28,7 +28,7 @@ webhook.secret;
 
 ## Create webhook
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-webhook-post)
+[API doc](https://developers.lokalise.com/reference/create-a-webhook)
 
 ```js
 const webhook = await lokaliseApi.webhooks().create(
@@ -41,7 +41,7 @@ webhook.url;
 
 ## Update webhook
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-webhook-put)
+[API doc](https://developers.lokalise.com/reference/update-a-webhook)
 
 ```js
 const webhook = await lokaliseApi.webhooks().update(
@@ -55,7 +55,7 @@ webhook.events[0];
 
 ## Delete webhook
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-webhook-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-webhook)
 
 ```js
 const response = await lokaliseApi.webhooks().delete(
@@ -68,7 +68,7 @@ response.webhook_deleted;
 
 ## Regenerate webhook secret
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-regenerate-a-webhook-secret-patch)
+[API doc](https://developers.lokalise.com/reference/regenerate-a-webhook-secret)
 
 ```js
 const response = await lokaliseApi.webhooks().regenerate_secret(

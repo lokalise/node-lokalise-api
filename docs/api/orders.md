@@ -1,10 +1,10 @@
 # Translation orders
 
-[Order attributes](https://app.lokalise.com/api2docs/curl/#object-orders)
+[Order attributes](https://developers.lokalise.com/reference/order-object)
 
 ## Fetch orders
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-orders-get)
+[API doc](https://developers.lokalise.com/reference/list-all-orders)
 
 ```js
 const orders = await lokaliseApi.orders().list({
@@ -18,7 +18,7 @@ orders.items[0].order_id;
 
 ## Fetch a single order
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-an-order-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-an-order)
 
 ```js
 const order = await lokaliseApi.orders().get(order_id, {team_id: team_id});
@@ -28,7 +28,7 @@ order.order_id;
 
 ## Create an order
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-an-order-post)
+[API doc](https://developers.lokalise.com/reference/create-an-order)
 
 ```js
 const order = await lokaliseApi.orders().create(

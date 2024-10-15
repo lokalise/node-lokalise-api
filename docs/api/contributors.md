@@ -1,8 +1,10 @@
 # Contributors
 
+[Contributor attributes](https://developers.lokalise.com/reference/contributor-object)
+
 ## Fetch contributors
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-contributors-get)
+[API doc](https://developers.lokalise.com/reference/list-all-contributors)
 
 ```js
 const contributors = await lokaliseApi.contributors().list({
@@ -16,7 +18,7 @@ contributors.items[0].user_id;
 
 ## Fetch a single contributor
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-contributor-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-contributor)
 
 ```js
 const contributor = await lokaliseApi.contributors().get(user_id, {project_id: project_id});
@@ -26,7 +28,7 @@ contributor.email;
 
 ## Create contributors
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-contributors-post)
+[API doc](https://developers.lokalise.com/reference/create-contributors)
 
 ```js
 const contributors = await lokaliseApi.contributors().create([
@@ -49,7 +51,7 @@ contributors[0].user_id
 
 ## Update contributor
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-update-a-contributor-put)
+[API doc](https://developers.lokalise.com/reference/update-a-contributor)
 
 ```js
 const contributor = await lokaliseApi.contributors().update(
@@ -63,7 +65,7 @@ contributor.user_id;
 
 ## Delete contributor
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-contributor-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-contributor)
 
 ```js
 const response = await lokaliseApi.contributors().delete(user_id, {project_id: project_id});

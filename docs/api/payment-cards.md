@@ -1,10 +1,10 @@
 # Payment cards
 
-[Payment card attributes](https://app.lokalise.com/api2docs/curl/#object-payment-cards)
+[Payment card attributes](https://developers.lokalise.com/reference/payment-card-object)
 
 ## Fetch payment cards
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-list-all-cards-get)
+[API doc](https://developers.lokalise.com/reference/list-all-cards)
 
 ```js
 const cards = await lokaliseApi.paymentCards().list({ page: 2, limit: 1 });
@@ -14,7 +14,7 @@ cards.items[0].card_id;
 
 ## Fetch a single payment card
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-retrieve-a-card-get)
+[API doc](https://developers.lokalise.com/reference/retrieve-a-card)
 
 ```js
 const card = await lokaliseApi.paymentCards().get(card_id);
@@ -24,7 +24,7 @@ card.last4;
 
 ## Create a payment card
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-create-a-card-post)
+[API doc](https://developers.lokalise.com/reference/create-a-card)
 
 ```js
 const card = await lokaliseApi.paymentCards().create({
@@ -39,7 +39,7 @@ card.brand;
 
 ## Delete a payment card
 
-[API doc](https://app.lokalise.com/api2docs/curl/#transition-delete-a-card-delete)
+[API doc](https://developers.lokalise.com/reference/delete-a-card)
 
 ```js
 const result = await lokaliseApi.paymentCards().delete(card_id);
