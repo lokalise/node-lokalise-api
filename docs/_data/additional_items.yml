@@ -5,6 +5,8 @@
   sub_paths:
     - title: API Rate Limits
       path: api-rate-limits
+- title: Configuring API host
+  path: configuring_api_host
 - title: Proxy support
   path: proxy_support
 - title: Webhook events
