@@ -9,4 +9,5 @@ export default defineConfig({
 	shims: true,
 	sourcemap: true,
 	clean: true,
+	minify: true,
 });
