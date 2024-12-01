@@ -2628,6 +2628,10 @@ type ClientParams = {
 };
 declare class BaseClient {
     readonly clientData: ClientData;
+    /**
+     * Instantiate BaseClient with API key and optional parameters
+     * @param params ClientParams object
+     */
     constructor(params: ClientParams);
 }
 

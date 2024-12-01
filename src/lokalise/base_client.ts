@@ -16,21 +16,17 @@ export class BaseClient {
 		enableCompression: false,
 	};
 
-	/*
-	 * Instantiate LokaliseApi to call API methods
-	 * @param params  object, mandatory
-	 * @returns       LokaliseApi object to work with.
+	/**
+	 * Instantiate BaseClient with API key and optional parameters
+	 * @param params ClientParams object
 	 */
 	constructor(params: ClientParams) {
 		const apiKey = params.apiKey;
-		if (apiKey === null || apiKey === undefined || apiKey.length === 0) {
+		if (!apiKey || apiKey.trim().length === 0) {
 			throw new Error("Error: Instantiation failed: Please pass an API key");
 		}
 		this.clientData.token = apiKey;
-		const compression = params.enableCompression;
-		if (compression !== null && compression !== undefined) {
-			this.clientData.enableCompression = compression;
-		}
+		this.clientData.enableCompression = params.enableCompression ?? false;
 		this.clientData.host = params.host;
 	}
 }

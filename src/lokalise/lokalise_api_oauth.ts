@@ -4,9 +4,7 @@ export class LokaliseApiOAuth extends LokaliseApi {
 	constructor(params: ClientParams) {
 		super(params);
 
-		const tokenType = params.tokenType;
-		this.clientData.tokenType = tokenType ?? "Bearer";
-
+		this.clientData.tokenType = params.tokenType ?? "Bearer";
 		this.clientData.authHeader = "Authorization";
 	}
 }

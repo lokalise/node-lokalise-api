@@ -96,7 +96,9 @@ export class ApiRequest {
 
 		headers.append(
 			clientData.authHeader,
-			`${clientData.tokenType} ${clientData.token}`,
+			clientData.tokenType.length > 0
+				? `${clientData.tokenType} ${clientData.token}`
+				: clientData.token,
 		);
 
 		if (clientData.enableCompression) {
