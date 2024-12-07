@@ -28,14 +28,13 @@ async function getVersion() {
 }
 
 // src/models/api_error.ts
-var ApiError = class _ApiError extends Error {
+var ApiError = class extends Error {
   code;
   details;
   constructor(message, code, details) {
     super(message);
     this.code = code;
     this.details = details;
-    Object.setPrototypeOf(this, _ApiError.prototype);
   }
 };
 
