@@ -1,2 +1,1882 @@
-var i=class{constructor(e){for(let t of Object.keys(e))this[t]=e[t]}};var b=class extends i{};import{readFile as Ke}from"node:fs/promises";function Ue(){return"../../package.json"}async function j(){let n;try{let e=await Ke(new URL(Ue(),import.meta.url));n=JSON.parse(e.toString())}catch{n=null}return n?n.version:"unknown"}var p=class n extends Error{code;details;constructor(e,t,r){super(e),this.code=t,this.details=r,Object.setPrototypeOf(this,n.prototype)}};var T=class{promise;params={};urlRoot="https://api.lokalise.com/api2/";constructor(e,t,r,o,l){this.params={...o},this.promise=this.createPromise(e,t,r,l)}async createPromise(e,t,r,o){let l=this.composeURI(`/${o.version}/${e}`),c=o.host??this.urlRoot,u=await this.buildHeaders(o,t,r),De={method:t,headers:u,...t!=="GET"&&r?{body:JSON.stringify(r)}:{}},Se=new URL(l,c);return Se.search=new URLSearchParams(this.params).toString(),this.fetchAndHandleResponse(Se,De,o.requestTimeout)}async fetchAndHandleResponse(e,t,r){let o=new AbortController,l=null;r&&r>0&&(l=setTimeout(()=>o.abort(),r));try{let c=await fetch(e,{...t,signal:o.signal});return this.processResponse(c)}catch(c){return c instanceof Error?c.name==="AbortError"?Promise.reject(new p(c.message,408,{reason:"timeout"})):Promise.reject(new p(c.message,500,{reason:"network or fetch error"})):Promise.reject(new p("An unknown error occurred",500,{reason:String(c)}))}finally{l&&clearTimeout(l)}}async processResponse(e){let t=null;try{e.status!==204&&(t=await e.json())}catch(r){return Promise.reject(new p(r.message,e.status,{statusText:e.statusText,reason:"JSON processing failed"}))}return e.ok?{json:t,headers:e.headers}:Promise.reject(this.getErrorFromResp(t))}getErrorFromResp(e){if(!e||typeof e!="object")return new p("An unknown error occurred",500,{reason:"unexpected response format"});let t=e;if(typeof t.message=="string"&&typeof t.statusCode=="number"&&typeof t.error=="string")return new p(t.message,t.statusCode,{reason:t.error});if(t.error&&typeof t.error=="object"){let{message:r="Unknown error",code:o=500,details:l}=t.error;return new p(String(r),typeof o=="number"?o:500,l??{reason:"server error without details"})}return typeof t.message=="string"&&(typeof t.code=="number"||typeof t.errorCode=="number")?new p(t.message,typeof t.code=="number"?t.code:t.errorCode,t.details??{reason:"server error without details"}):new p("An unknown error occurred",500,{reason:"unhandled error format",data:e})}async buildHeaders(e,t,r){let o=new Headers({Accept:"application/json","User-Agent":`node-lokalise-api/${await j()}`});return o.append(e.authHeader,e.tokenType.length>0?`${e.tokenType} ${e.token}`:e.token),e.enableCompression&&o.append("Accept-Encoding","gzip,deflate"),t!=="GET"&&r&&o.append("Content-type","application/json"),o}composeURI(e){let t=/{(!{0,1}):(\w*)}/g,r=e.replace(t,this.mapUriParams());return r.endsWith("/")?r.slice(0,-1):r}mapUriParams(){return(e,t,r)=>{if(this.params[r]!=null){let o=String(this.params[r]);return delete this.params[r],o}if(t==="!")throw new Error(`Missing required param: ${r}`);return""}}};var y=class{totalResults;totalPages;resultsPerPage;currentPage;items;constructor(e,t){this.totalResults=this.safeParseInt(t.get("x-pagination-total-count")),this.totalPages=this.safeParseInt(t.get("x-pagination-page-count")),this.resultsPerPage=this.safeParseInt(t.get("x-pagination-limit")),this.currentPage=this.safeParseInt(t.get("x-pagination-page")),this.items=e}hasNextPage(){return this.currentPage>0&&this.currentPage<this.totalPages}hasPrevPage(){return this.currentPage>1}isLastPage(){return!this.hasNextPage()}isFirstPage(){return!this.hasPrevPage()}nextPage(){return this.isLastPage()?this.currentPage:this.currentPage+1}prevPage(){return this.isFirstPage()?this.currentPage:this.currentPage-1}safeParseInt(e){return!e||Number.isNaN(Number(e))?0:Number.parseInt(e,10)}};var k=class extends y{nextCursor;constructor(e,t){super(e,t),this.nextCursor=t.get("x-pagination-next-cursor")}hasNextCursor(){return this.nextCursor!==null}};var m=class{clientData;static endpoint;static prefixURI;constructor(e){this.clientData=e}get rootElementName(){throw new Error("Root element name is not defined for this collection")}get rootElementNameSingular(){throw new Error("Root element name singular is not defined for this collection")}get secondaryElementClass(){throw new Error("Secondary elements are not supported by this collection")}get secondaryElementNameSingular(){throw new Error("Secondary element name singular is not defined for this collection")}doList(e){let t={...e};return this.createPromise("GET",t,this.populateArrayFromJson,null)}doListCursor(e){let t={...e};return this.createPromise("GET",t,this.populateArrayFromJsonCursor,null)}doGet(e,t={}){let r={...t,id:e};return this.createPromise("GET",r,this.populateObjectFromJsonRoot,null)}doDelete(e,t={}){let r={...t,id:e};return this.createPromise("DELETE",r,this.returnBareJSON,null)}doCreate(e,t={},r=this.populateObjectFromJson){let o={...t};return this.createPromise("POST",o,r,e)}doCreateArray(e,t,r=this.populateArray){let o={...t};return this.createPromise("POST",o,r,e)}doUpdate(e,t,r,o=this.populateObjectFromJsonRoot,l="PUT"){let c={...r,id:e};return this.createPromise(l,c,o,t)}populateObjectFromJsonRoot(e,t){let r=e,o=this.rootElementNameSingular;if(this.rootElementNameSingular&&o&&(r=r[o],!r))throw new Error(`Missing property '${o}' in JSON object`);return this.populateObjectFromJson(r,t)}populateSecondaryObjectFromJsonRoot(e,t){let r=this.secondaryElementNameSingular,l=e[r];if(!l)throw new Error(`Missing property '${r}' in JSON object`);return this.populateObjectFromJson(l,t,!0)}populateArrayFromJsonBulk(e,t){let r=this.rootElementName,o=e[r];if(!Array.isArray(o))throw new Error(`Expected an array under '${r}', but got ${typeof o}`);let l=o.map(u=>this.populateObjectFromJson(u,t));return{errors:e.errors,items:l}}populateArrayFromJson(e,t){let r=this.populateArray(e,t);return this.isPaginated(t)?new y(r,t):r}populateArray(e,t){let r=this.rootElementName,o=e[r];if(!Array.isArray(o))throw new Error(`Expected an array under '${r}', but got ${typeof o}`);return o.map(l=>this.populateObjectFromJson(l,t))}populateArrayFromJsonCursor(e,t){let r=this.rootElementName,o=e[r];if(!Array.isArray(o))throw new Error(`Expected an array under '${r}', but got ${typeof o}`);let l=o.map(c=>this.populateObjectFromJson(c,t));return new k(l,t)}populateObjectFromJson(e,t,r=!1){let o=r?this.secondaryElementClass:this.elementClass;return new o(e)}returnBareJSON(e){return e}objToArray(e){return Array.isArray(e)?e:[e]}async createPromise(e,t,r,o,l=null){let c=this.prepareRequest(e,o,t,l),u=await this.sendRequest(c);return r.call(this,u.json,u.headers)}prepareRequest(e,t,r,o){return new T(this.getUri(o),e,t,r,this.clientData)}sendRequest(e){return e.promise}getUri(e){let t=this.constructor,r=e??t.prefixURI;if(!r)throw new Error("No URI or prefixURI provided.");return r}isPaginated(e){return!!e.get("x-pagination-total-count")&&!!e.get("x-pagination-page")}};var x=class extends m{static prefixURI="projects/{!:project_id}/branches/{:id}";get elementClass(){return b}get rootElementName(){return"branches"}get rootElementNameSingular(){return"branch"}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateObjectFromJsonRoot)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}merge(e,t,r={}){let o={...t,id:e};return this.createPromise("POST",o,this.returnBareJSON,r,"projects/{!:project_id}/branches/{:id}/merge")}};var R=class extends i{};var O=class extends m{static prefixURI="projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";get elementClass(){return R}get rootElementName(){return"comments"}get rootElementNameSingular(){return"comment"}list(e){return this.doList(e)}create(e,t){let r={comments:this.objToArray(e)};return this.doCreateArray(r,t)}get(e,t){return this.doGet(e,t)}delete(e,t){return this.doDelete(e,t)}list_project_comments(e){return this.createPromise("GET",e,this.populateArrayFromJson,null,"projects/{!:project_id}/comments")}};var w=class extends i{};var C=class extends m{static prefixURI="projects/{!:project_id}/contributors/{:id}";get elementClass(){return w}get rootElementName(){return"contributors"}get rootElementNameSingular(){return"contributor"}list(e){return this.doList(e)}create(e,t){let r={contributors:this.objToArray(e)};return this.doCreateArray(r,t)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}};var S=class extends i{};var f=class extends i{};var B=class extends m{static prefixURI="projects/{!:project_id}/files/{:id}";get elementClass(){return S}get rootElementName(){return"files"}get secondaryElementClass(){return f}get secondaryElementNameSingular(){return"process"}list(e){return this.doList(e)}upload(e,t){return this.createPromise("POST",{project_id:e},this.populateSecondaryObjectFromJsonRoot,t,"projects/{!:project_id}/files/upload")}download(e,t){return this.createPromise("POST",{project_id:e},this.returnBareJSON,t,"projects/{!:project_id}/files/download")}delete(e,t){return this.doDelete(e,t)}};var D=class extends i{};var K=class extends m{static prefixURI="projects/{!:project_id}/tokens";get elementClass(){return D}create(e,t={service:"ota"}){let r={project_id:e};return this.doCreate(t,r,this.populateObjectFromJson)}};var U=class extends i{};var E=class extends m{static prefixURI="projects/{!:project_id}/keys/{:id}";get elementClass(){return U}get rootElementName(){return"keys"}get rootElementNameSingular(){return"key"}list(e){return this.doListCursor(e)}create(e,t){return this.createPromise("POST",t,this.populateArrayFromJsonBulk,e)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}bulk_update(e,t){return this.createPromise("PUT",t,this.populateArrayFromJsonBulk,e,"projects/{!:project_id}/keys")}bulk_delete(e,t){let r={keys:this.objToArray(e)};return this.createPromise("DELETE",t,this.returnBareJSON,r,"projects/{!:project_id}/keys")}};var I=class extends i{};var A=class extends m{static prefixURI="projects/{!:project_id}/languages/{:id}";get elementClass(){return I}get rootElementName(){return"languages"}get rootElementNameSingular(){return"language"}system_languages(e={}){return this.createPromise("GET",e,this.populateArrayFromJson,null,"system/languages")}list(e){return this.doList(e)}create(e,t){let r={languages:this.objToArray(e)};return this.createPromise("POST",t,this.populateArrayFromJsonBulk,r)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return super.doDelete(e,t)}};var v=class extends i{};var F=class extends m{static prefixURI="teams/{!:team_id}/orders/{:id}";get elementClass(){return v}get rootElementName(){return"orders"}get rootElementNameSingular(){return null}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateObjectFromJsonRoot)}get(e,t){return this.doGet(e,t)}};var N=class extends i{};var L=class extends m{static prefixURI="payment_cards/{:id}";get elementClass(){return N}get rootElementName(){return"payment_cards"}get rootElementNameSingular(){return"payment_card"}list(e={}){return this.doList(e)}create(e){return this.doCreate(e)}get(e){return this.doGet(e)}delete(e){return this.doDelete(e)}};var J=class extends i{};var G=class extends m{static prefixURI="teams/{!:team_id}/roles";get elementClass(){return J}get rootElementName(){return"roles"}list(e){return this.doList(e)}};var M=class extends i{};var W=class extends m{static prefixURI="projects/{:id}";get elementClass(){return M}get rootElementName(){return"projects"}get rootElementNameSingular(){return null}list(e={}){return this.doList(e)}create(e){return this.doCreate(e)}get(e){return this.doGet(e)}update(e,t){return this.doUpdate(e,t,{},this.populateObjectFromJson)}delete(e){return this.doDelete(e)}empty(e){return this.createPromise("PUT",{project_id:e},this.returnBareJSON,null,"projects/{!:project_id}/empty")}};var H=class extends m{static prefixURI="projects/{!:project_id}/processes/{:id}";get elementClass(){return f}get rootElementName(){return"processes"}get rootElementNameSingular(){return"process"}list(e){return this.doList(e)}get(e,t){return this.doGet(e,t)}};var q=class extends i{};var z=class extends m{static prefixURI="projects/{!:project_id}/screenshots/{:id}";get elementClass(){return q}get rootElementName(){return"screenshots"}get rootElementNameSingular(){return"screenshot"}list(e){return this.doList(e)}create(e,t){let r={screenshots:this.objToArray(e)};return this.createPromise("POST",t,this.populateArrayFromJsonBulk,r)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}};var $=class extends i{};var Q=class extends m{static prefixURI="projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";get elementClass(){return $}get rootElementName(){return"segments"}get rootElementNameSingular(){return"segment"}list(e){return this.doList(e)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}};var V=class extends i{};var X=class extends m{static prefixURI="projects/{!:project_id}/snapshots/{:id}";get elementClass(){return V}get rootElementName(){return"snapshots"}get rootElementNameSingular(){return"snapshot"}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateObjectFromJsonRoot)}restore(e,t){let r={...t,id:e};return this.createPromise("POST",r,this.returnBareJSON,{})}delete(e,t){return this.doDelete(e,t)}};var Y=class extends i{};var Z=class extends m{static prefixURI="projects/{!:project_id}/tasks/{:id}";get elementClass(){return Y}get rootElementName(){return"tasks"}get rootElementNameSingular(){return"task"}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateObjectFromJsonRoot)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}};var ee=class extends i{};var te=class extends m{static prefixURI="teams/{!:team_id}/billing_details";get elementClass(){return ee}get(e){let t={team_id:e};return this.createPromise("GET",t,this.populateObjectFromJson,null)}create(e,t){return this.doCreate(e,t)}update(e,t){let r={team_id:e};return this.createPromise("PUT",r,this.populateObjectFromJson,t)}};var re=class extends i{};var se=class extends m{static prefixURI="teams/{!:team_id}/users/{:id}";get elementClass(){return re}get rootElementName(){return"team_users"}get rootElementNameSingular(){return"team_user"}list(e){return this.doList(e)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}};var ae=class extends i{};var ne=class extends m{static prefixURI="teams";get elementClass(){return ae}get rootElementName(){return"teams"}list(e={}){return this.doList(e)}};var oe=class extends i{};var ie=class extends m{static prefixURI="teams/{!:team_id}/translation_providers/{:id}";get elementClass(){return oe}get rootElementName(){return"translation_providers"}get rootElementNameSingular(){return null}list(e){return this.doList(e)}get(e,t){return this.doGet(e,t)}};var me=class extends i{};var le=class extends m{static prefixURI="projects/{!:project_id}/custom_translation_statuses/{:id}";get elementClass(){return me}get rootElementName(){return"custom_translation_statuses"}get rootElementNameSingular(){return"custom_translation_status"}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateObjectFromJsonRoot)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}available_colors(e){return this.createPromise("GET",e,this.returnBareJSON,{},"projects/{!:project_id}/custom_translation_statuses/colors")}};var ce=class extends i{};var de=class extends m{static prefixURI="projects/{!:project_id}/translations/{:id}";get elementClass(){return ce}get rootElementName(){return"translations"}get rootElementNameSingular(){return"translation"}list(e){return this.doListCursor(e)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}};var pe=class extends i{};var ue=class extends m{static prefixURI="teams/{!:team_id}/groups/{:id}";get elementClass(){return pe}get rootElementName(){return"user_groups"}get rootElementNameSingular(){return null}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateGroupFromJsonRoot)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r,this.populateGroupFromJsonRoot)}delete(e,t){return this.doDelete(e,t)}add_members_to_group(e,t,r){let o={team_id:e,group_id:t},l={users:r};return this.createPromise("PUT",o,this.populateGroupFromJsonRoot,l,"teams/{!:team_id}/groups/{!:group_id}/members/add")}remove_members_from_group(e,t,r){let o={team_id:e,group_id:t},l={users:r};return this.createPromise("PUT",o,this.populateGroupFromJsonRoot,l,"teams/{!:team_id}/groups/{!:group_id}/members/remove")}add_projects_to_group(e,t,r){let o={team_id:e,group_id:t},l={projects:r};return this.createPromise("PUT",o,this.populateGroupFromJsonRoot,l,"teams/{!:team_id}/groups/{!:group_id}/projects/add")}remove_projects_from_group(e,t,r){let o={team_id:e,group_id:t},l={projects:r};return this.createPromise("PUT",o,this.populateGroupFromJsonRoot,l,"teams/{!:team_id}/groups/{!:group_id}/projects/remove")}populateGroupFromJsonRoot(e,t){let r=e.group;return this.populateObjectFromJson(r,t)}};var ge=class extends i{};var be=class extends m{static prefixURI="projects/{!:project_id}/webhooks/{:id}";get elementClass(){return ge}get rootElementName(){return"webhooks"}get rootElementNameSingular(){return"webhook"}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateObjectFromJsonRoot)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}regenerate_secret(e,t){let r={...t,id:e};return this.createPromise("PATCH",r,this.returnBareJSON,null,"projects/{!:project_id}/webhooks/{:id}/secret/regenerate")}};var g=class{clientData={token:"",tokenType:"",authHeader:"x-api-token",enableCompression:!1,requestTimeout:void 0};constructor(e){let t=e.apiKey;if(!t||t.trim().length===0)throw new Error("Instantiation failed: Please pass an API key");this.clientData.token=t,this.clientData.enableCompression=e.enableCompression??!1,this.clientData.host=e.host,this.clientData.requestTimeout=e.requestTimeout}};var _=class extends g{constructor(e){super(e),this.clientData.version=e.version??"api2"}branches(){return new x(this.clientData)}comments(){return new O(this.clientData)}contributors(){return new C(this.clientData)}files(){return new B(this.clientData)}jwt(){return new K(this.clientData)}keys(){return new E(this.clientData)}languages(){return new A(this.clientData)}orders(){return new F(this.clientData)}paymentCards(){return new L(this.clientData)}permissionTemplates(){return new G(this.clientData)}projects(){return new W(this.clientData)}queuedProcesses(){return new H(this.clientData)}screenshots(){return new z(this.clientData)}segments(){return new Q(this.clientData)}snapshots(){return new X(this.clientData)}tasks(){return new Z(this.clientData)}teams(){return new ne(this.clientData)}teamUsers(){return new se(this.clientData)}teamUserBillingDetails(){return new te(this.clientData)}translations(){return new de(this.clientData)}translationProviders(){return new ie(this.clientData)}translationStatuses(){return new le(this.clientData)}userGroups(){return new ue(this.clientData)}webhooks(){return new be(this.clientData)}};var Re=class extends _{constructor(e){super(e),this.clientData.tokenType=e.tokenType??"Bearer",this.clientData.authHeader="Authorization"}};var ye=class extends i{};var d=class extends m{doDelete(e,t){let r={...t,id:e};return this.createPromise("DELETE",r,this.returnJSONFromData,null)}returnJSONFromData(e){return e.data}async createVoidPromise(e,t,r,o=null){let l=this.prepareRequest(e,r,t,o);return await this.sendRequest(l),null}};var fe=class extends d{static prefixURI="teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundles/{:id}";get elementClass(){return ye}get rootElementName(){return"data"}get rootElementNameSingular(){return"data"}list(e){return this.doList(e)}get(e,t){return this.doGet(e,t)}update(e,t,r){return this.doUpdate(e,t,r,this.populateObjectFromJsonRoot,"PATCH")}delete(e,t){return this.doDelete(e,t)}};var _e=class extends d{static prefixURI="teams/{!:teamId}/projects/{!:lokaliseProjectId}/frameworks/{!:framework}/{!:action}";get elementClass(){return b}publish(e,t){let r={...t,action:"publish"};return this.createVoidPromise("POST",r,{bundleId:e})}stage(e,t){let r={...t,action:"stage"};return this.createVoidPromise("POST",r,{bundleId:e})}};var Pe=class extends i{};var he=class extends d{static prefixURI="teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundle-freezes/{:id}";get elementClass(){return Pe}get rootElementName(){return"data"}get rootElementNameSingular(){return"data"}list(e){return this.doList(e)}create(e,t){return this.doCreate(e,t,this.populateObjectFromJsonRoot)}update(e,t,r){return this.doUpdate(e,t,r)}delete(e,t){return this.doDelete(e,t)}};var je=class extends i{};var Te=class extends d{static prefixURI="teams/{!:teamId}/projects/{!:lokaliseProjectId}/tokens/{:id}";get elementClass(){return je}get rootElementName(){return"data"}get rootElementNameSingular(){return"data"}list(e){return this.doList(e)}create(e){return this.doCreate(null,e,this.populateObjectFromJsonRoot)}delete(e,t){return this.doDelete(e,t)}};var P=class extends i{};var ke=class extends d{static prefixURI="teams/{!:teamId}/projects/{!:lokaliseProjectId}/stats";static elementClass=P;get elementClass(){return P}get(e,t){let r={...t,...e};return this.createPromise("GET",r,this.populateObjectFromJson,null)}};var Oe=class extends g{constructor(e){super(e),this.clientData.tokenType=e.tokenType??"Bearer",this.clientData.authHeader="Authorization",this.clientData.host=this.clientData.host??"https://ota.lokalise.com",this.clientData.version=e.version??"v3"}otaBundleManagement(){return new fe(this.clientData)}otaBundlePublishing(){return new _e(this.clientData)}otaUsageStatistics(){return new ke(this.clientData)}otaFreezePeriods(){return new he(this.clientData)}otaSdkTokens(){return new Te(this.clientData)}};var h=class extends i{};var xe=class extends d{static rootElementNameSingular="data";static prefixURI="lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";static elementClass=h;get elementClass(){return h}get rootElementNameSingular(){return"data"}get(e,t){let r={...t,...e};return this.createPromise("GET",r,this.populateObjectFromJsonRoot,null)}};var we=class extends g{constructor(e){super(e),this.clientData.authHeader="x-ota-api-token",this.clientData.host=this.clientData.host??"https://ota.lokalise.com",this.clientData.version=e.version??"v3"}otaBundles(){return new xe(this.clientData)}};async function Ee(){return new Headers({Accept:"application/json","User-Agent":`node-lokalise-api/${await j()}`,"Content-type":"application/json"})}async function Ie(n,e){try{let t=await fetch(n,e),r=await t.json();if(t.ok)return{json:r,headers:t.headers};let o={code:t.status,...r};return Promise.reject(o)}catch(t){let r={error:t.message,code:500,error_description:""};return Promise.reject(r)}}async function Be(n,e,t,{host:r,version:o}){let l=`/${o}/${n}`,c=new URL(l,r),u={method:e,headers:await Ee(),body:JSON.stringify(t)};return Ie(c,u)}var Ce=class{authData;constructor(e,t,r="https://app.lokalise.com",o="oauth2"){if(!e||!t)throw new Error("Error: Instantiation failed: Please pass client ID and client secret");this.authData={client_id:e,client_secret:t,host:r,version:o}}auth(e,t,r){let o=Array.isArray(e)?e.join(" "):e,l={client_id:this.authData.client_id,scope:o,...r&&{state:r},...t&&{redirect_uri:t}};return this.buildUrl(l)}token(e){let t={...this.baseParams(),code:e,grant_type:"authorization_code"};return this.doRequest(t)}refresh(e){let t={...this.baseParams(),refresh_token:e,grant_type:"refresh_token"};return this.doRequest(t)}async doRequest(e){try{return(await Be("token","POST",e,this.authData)).json}catch(t){throw this.handleReject(t)}}buildUrl(e){let t=new URL("auth",this.authData.host);return t.search=new URLSearchParams(e).toString(),t.toString()}baseParams(){return{client_id:this.authData.client_id,client_secret:this.authData.client_secret}}handleReject(e){return e}};export{_ as LokaliseApi,Re as LokaliseApiOAuth,Oe as LokaliseApiOta,Ce as LokaliseAuth,we as LokaliseOtaBundles};
+// src/models/base_model.ts
+var BaseModel = class {
+  constructor(params) {
+    for (const key of Object.keys(params)) {
+      this[key] = params[key];
+    }
+  }
+};
+
+// src/models/branch.ts
+var Branch = class extends BaseModel {
+};
+
+// src/lokalise/pkg.ts
+import { readFile } from "node:fs/promises";
+function pkgPath() {
+  return "../../package.json";
+}
+async function getVersion() {
+  let pkg;
+  try {
+    const data = await readFile(new URL(pkgPath(), import.meta.url));
+    pkg = JSON.parse(data.toString());
+  } catch {
+    pkg = null;
+  }
+  return pkg ? pkg.version : "unknown";
+}
+
+// src/models/api_error.ts
+var ApiError = class _ApiError extends Error {
+  code;
+  details;
+  constructor(message, code, details) {
+    super(message);
+    this.code = code;
+    this.details = details;
+    Object.setPrototypeOf(this, _ApiError.prototype);
+  }
+};
+
+// src/http_client/base.ts
+var ApiRequest = class {
+  promise;
+  params = {};
+  urlRoot = "https://api.lokalise.com/api2/";
+  constructor(uri, method, body, params, clientData) {
+    this.params = { ...params };
+    this.promise = this.createPromise(uri, method, body, clientData);
+  }
+  async createPromise(uri, method, body, clientData) {
+    const url = this.composeURI(`/${clientData.version}/${uri}`);
+    const prefixUrl = clientData.host ?? this.urlRoot;
+    const headers = await this.buildHeaders(clientData, method, body);
+    const options = {
+      method,
+      headers,
+      ...method !== "GET" && body ? { body: JSON.stringify(body) } : {}
+    };
+    const target = new URL(url, prefixUrl);
+    target.search = new URLSearchParams(this.params).toString();
+    return this.fetchAndHandleResponse(
+      target,
+      options,
+      clientData.requestTimeout
+    );
+  }
+  async fetchAndHandleResponse(target, options, requestTimeout) {
+    const controller = new AbortController();
+    let timeoutId = null;
+    if (requestTimeout && requestTimeout > 0) {
+      timeoutId = setTimeout(() => controller.abort(), requestTimeout);
+    }
+    try {
+      const response = await fetch(target, {
+        ...options,
+        signal: controller.signal
+      });
+      return this.processResponse(response);
+    } catch (err) {
+      if (err instanceof Error) {
+        if (err.name === "AbortError") {
+          return Promise.reject(
+            new ApiError(err.message, 408, { reason: "timeout" })
+          );
+        }
+        return Promise.reject(
+          new ApiError(err.message, 500, { reason: "network or fetch error" })
+        );
+      }
+      return Promise.reject(
+        new ApiError("An unknown error occurred", 500, {
+          reason: String(err)
+        })
+      );
+    } finally {
+      if (timeoutId) {
+        clearTimeout(timeoutId);
+      }
+    }
+  }
+  async processResponse(response) {
+    let responseJSON = null;
+    try {
+      if (response.status !== 204) {
+        responseJSON = await response.json();
+      }
+    } catch (error) {
+      return Promise.reject(
+        new ApiError(error.message, response.status, {
+          statusText: response.statusText,
+          reason: "JSON processing failed"
+        })
+      );
+    }
+    if (response.ok) {
+      return {
+        json: responseJSON,
+        headers: response.headers
+      };
+    }
+    return Promise.reject(this.getErrorFromResp(responseJSON));
+  }
+  getErrorFromResp(respJson) {
+    if (!respJson || typeof respJson !== "object") {
+      return new ApiError("An unknown error occurred", 500, {
+        reason: "unexpected response format"
+      });
+    }
+    const errorObj = respJson;
+    if (typeof errorObj.message === "string" && typeof errorObj.statusCode === "number" && typeof errorObj.error === "string") {
+      return new ApiError(
+        errorObj.message,
+        errorObj.statusCode,
+        { reason: errorObj.error }
+        // Use the string `error` as the reason
+      );
+    }
+    if (errorObj.error && typeof errorObj.error === "object") {
+      const {
+        message = "Unknown error",
+        code = 500,
+        details
+      } = errorObj.error;
+      return new ApiError(
+        String(message),
+        typeof code === "number" ? code : 500,
+        details ?? { reason: "server error without details" }
+      );
+    }
+    if (typeof errorObj.message === "string" && (typeof errorObj.code === "number" || typeof errorObj.errorCode === "number")) {
+      return new ApiError(
+        errorObj.message,
+        typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode,
+        errorObj.details ?? { reason: "server error without details" }
+      );
+    }
+    return new ApiError("An unknown error occurred", 500, {
+      reason: "unhandled error format",
+      data: respJson
+    });
+  }
+  async buildHeaders(clientData, method, body) {
+    const headers = new Headers({
+      Accept: "application/json",
+      "User-Agent": `node-lokalise-api/${await getVersion()}`
+    });
+    headers.append(
+      clientData.authHeader,
+      clientData.tokenType.length > 0 ? `${clientData.tokenType} ${clientData.token}` : clientData.token
+    );
+    if (clientData.enableCompression) {
+      headers.append("Accept-Encoding", "gzip,deflate");
+    }
+    if (method !== "GET" && body) {
+      headers.append("Content-type", "application/json");
+    }
+    return headers;
+  }
+  composeURI(rawUri) {
+    const regexp = /{(!{0,1}):(\w*)}/g;
+    const uri = rawUri.replace(regexp, this.mapUriParams());
+    return uri.endsWith("/") ? uri.slice(0, -1) : uri;
+  }
+  mapUriParams() {
+    return (_substring, isMandatory, paramName) => {
+      if (this.params[paramName] != null) {
+        const t_param = String(this.params[paramName]);
+        delete this.params[paramName];
+        return t_param;
+      }
+      if (isMandatory === "!") {
+        throw new Error(`Missing required param: ${paramName}`);
+      }
+      return "";
+    };
+  }
+};
+
+// src/models/paginated_result.ts
+var PaginatedResult = class {
+  totalResults;
+  totalPages;
+  resultsPerPage;
+  currentPage;
+  items;
+  constructor(items, headers) {
+    this.totalResults = this.safeParseInt(
+      headers.get("x-pagination-total-count")
+    );
+    this.totalPages = this.safeParseInt(headers.get("x-pagination-page-count"));
+    this.resultsPerPage = this.safeParseInt(headers.get("x-pagination-limit"));
+    this.currentPage = this.safeParseInt(headers.get("x-pagination-page"));
+    this.items = items;
+  }
+  hasNextPage() {
+    return this.currentPage > 0 && this.currentPage < this.totalPages;
+  }
+  hasPrevPage() {
+    return this.currentPage > 1;
+  }
+  isLastPage() {
+    return !this.hasNextPage();
+  }
+  isFirstPage() {
+    return !this.hasPrevPage();
+  }
+  nextPage() {
+    if (this.isLastPage()) {
+      return this.currentPage;
+    }
+    return this.currentPage + 1;
+  }
+  prevPage() {
+    if (this.isFirstPage()) {
+      return this.currentPage;
+    }
+    return this.currentPage - 1;
+  }
+  safeParseInt(str) {
+    if (!str || Number.isNaN(Number(str))) {
+      return 0;
+    }
+    return Number.parseInt(str, 10);
+  }
+};
+
+// src/models/cursor_paginated_result.ts
+var CursorPaginatedResult = class extends PaginatedResult {
+  nextCursor;
+  constructor(items, headers) {
+    super(items, headers);
+    this.nextCursor = headers.get("x-pagination-next-cursor");
+  }
+  hasNextCursor() {
+    return this.nextCursor !== null;
+  }
+};
+
+// src/collections/base_collection.ts
+var BaseCollection = class {
+  clientData;
+  static endpoint;
+  static prefixURI;
+  constructor(clientData) {
+    this.clientData = clientData;
+  }
+  get rootElementName() {
+    throw new Error("Root element name is not defined for this collection");
+  }
+  get rootElementNameSingular() {
+    throw new Error(
+      "Root element name singular is not defined for this collection"
+    );
+  }
+  // Secondaries are used when an instance of a different class has to be created
+  // For example, uploading a File may return a QueuedProcess
+  get secondaryElementClass() {
+    throw new Error("Secondary elements are not supported by this collection");
+  }
+  get secondaryElementNameSingular() {
+    throw new Error(
+      "Secondary element name singular is not defined for this collection"
+    );
+  }
+  doList(req_params) {
+    const params = {
+      ...req_params
+    };
+    return this.createPromise("GET", params, this.populateArrayFromJson, null);
+  }
+  doListCursor(req_params) {
+    const params = {
+      ...req_params
+    };
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateArrayFromJsonCursor,
+      null
+    );
+  }
+  doGet(id, req_params = {}) {
+    const params = {
+      ...req_params,
+      id
+    };
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateObjectFromJsonRoot,
+      null
+    );
+  }
+  doDelete(id, req_params = {}) {
+    const params = {
+      ...req_params,
+      id
+    };
+    return this.createPromise(
+      "DELETE",
+      params,
+      this.returnBareJSON,
+      null
+    );
+  }
+  doCreate(body, req_params = {}, resolveFn = this.populateObjectFromJson) {
+    const params = {
+      ...req_params
+    };
+    return this.createPromise("POST", params, resolveFn, body);
+  }
+  doCreateArray(body, req_params, resolveFn = this.populateArray) {
+    const params = { ...req_params };
+    return this.createPromise("POST", params, resolveFn, body);
+  }
+  doUpdate(id, body, req_params, resolveFn = this.populateObjectFromJsonRoot, method = "PUT") {
+    const params = {
+      ...req_params,
+      id
+    };
+    return this.createPromise(method, params, resolveFn, body);
+  }
+  populateObjectFromJsonRoot(json, headers) {
+    let jsonData = json;
+    const rootElementName = this.rootElementNameSingular;
+    if (this.rootElementNameSingular && rootElementName) {
+      const dataRecord = jsonData;
+      jsonData = dataRecord[rootElementName];
+      if (!jsonData) {
+        throw new Error(`Missing property '${rootElementName}' in JSON object`);
+      }
+    }
+    return this.populateObjectFromJson(jsonData, headers);
+  }
+  populateSecondaryObjectFromJsonRoot(json, headers) {
+    const secondaryElementName = this.secondaryElementNameSingular;
+    const jsonRecord = json;
+    const secondaryJson = jsonRecord[secondaryElementName];
+    if (!secondaryJson) {
+      throw new Error(
+        `Missing property '${secondaryElementName}' in JSON object`
+      );
+    }
+    return this.populateObjectFromJson(
+      secondaryJson,
+      headers,
+      true
+    );
+  }
+  populateArrayFromJsonBulk(json, headers) {
+    const rootElementName = this.rootElementName;
+    const jsonArray = json[rootElementName];
+    if (!Array.isArray(jsonArray)) {
+      throw new Error(
+        `Expected an array under '${rootElementName}', but got ${typeof jsonArray}`
+      );
+    }
+    const items = jsonArray.map(
+      (obj) => this.populateObjectFromJson(obj, headers)
+    );
+    const result = {
+      errors: json.errors,
+      items
+    };
+    return result;
+  }
+  populateArrayFromJson(json, headers) {
+    const resultArray = this.populateArray(json, headers);
+    return this.isPaginated(headers) ? new PaginatedResult(resultArray, headers) : resultArray;
+  }
+  populateArray(json, headers) {
+    const rootElementName = this.rootElementName;
+    const jsonArray = json[rootElementName];
+    if (!Array.isArray(jsonArray)) {
+      throw new Error(
+        `Expected an array under '${rootElementName}', but got ${typeof jsonArray}`
+      );
+    }
+    return jsonArray.map(
+      (obj) => this.populateObjectFromJson(obj, headers)
+    );
+  }
+  populateArrayFromJsonCursor(json, headers) {
+    const rootElementName = this.rootElementName;
+    const jsonArray = json[rootElementName];
+    if (!Array.isArray(jsonArray)) {
+      throw new Error(
+        `Expected an array under '${rootElementName}', but got ${typeof jsonArray}`
+      );
+    }
+    const items = jsonArray.map(
+      (obj) => this.populateObjectFromJson(obj, headers)
+    );
+    return new CursorPaginatedResult(items, headers);
+  }
+  populateObjectFromJson(json, _headers, secondary = false) {
+    const cls = secondary ? this.secondaryElementClass : this.elementClass;
+    return new cls(json);
+  }
+  returnBareJSON(json) {
+    return json;
+  }
+  objToArray(raw_body) {
+    return Array.isArray(raw_body) ? raw_body : [raw_body];
+  }
+  async createPromise(method, params, resolveFn, body, uri = null) {
+    const request = this.prepareRequest(method, body, params, uri);
+    const data = await this.sendRequest(request);
+    return resolveFn.call(this, data.json, data.headers);
+  }
+  prepareRequest(method, body, params, uri) {
+    return new ApiRequest(
+      this.getUri(uri),
+      method,
+      body,
+      params,
+      this.clientData
+    );
+  }
+  sendRequest(request) {
+    return request.promise;
+  }
+  getUri(uri) {
+    const childClass = this.constructor;
+    const resolvedUri = uri ?? childClass.prefixURI;
+    if (!resolvedUri) {
+      throw new Error("No URI or prefixURI provided.");
+    }
+    return resolvedUri;
+  }
+  isPaginated(headers) {
+    return !!headers.get("x-pagination-total-count") && !!headers.get("x-pagination-page");
+  }
+};
+
+// src/collections/branches.ts
+var Branches = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/branches/{:id}";
+  get elementClass() {
+    return Branch;
+  }
+  get rootElementName() {
+    return "branches";
+  }
+  get rootElementNameSingular() {
+    return "branch";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(branch_params, request_params) {
+    return this.doCreate(
+      branch_params,
+      request_params,
+      this.populateObjectFromJsonRoot
+    );
+  }
+  get(branch_id, request_params) {
+    return this.doGet(branch_id, request_params);
+  }
+  update(branch_id, branch_params, request_params) {
+    return this.doUpdate(branch_id, branch_params, request_params);
+  }
+  delete(branch_id, request_params) {
+    return this.doDelete(branch_id, request_params);
+  }
+  merge(branch_id, request_params, body = {}) {
+    const params = {
+      ...request_params,
+      ...{ id: branch_id }
+    };
+    return this.createPromise(
+      "POST",
+      params,
+      this.returnBareJSON,
+      body,
+      "projects/{!:project_id}/branches/{:id}/merge"
+    );
+  }
+};
+
+// src/models/comment.ts
+var Comment = class extends BaseModel {
+};
+
+// src/collections/comments.ts
+var Comments = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
+  get elementClass() {
+    return Comment;
+  }
+  get rootElementName() {
+    return "comments";
+  }
+  get rootElementNameSingular() {
+    return "comment";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(comment_params, request_params) {
+    const body = { comments: this.objToArray(comment_params) };
+    return this.doCreateArray(body, request_params);
+  }
+  get(comment_id, request_params) {
+    return this.doGet(comment_id, request_params);
+  }
+  delete(comment_id, request_params) {
+    return this.doDelete(comment_id, request_params);
+  }
+  list_project_comments(params) {
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateArrayFromJson,
+      null,
+      "projects/{!:project_id}/comments"
+    );
+  }
+};
+
+// src/models/contributor.ts
+var Contributor = class extends BaseModel {
+};
+
+// src/collections/contributors.ts
+var Contributors = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/contributors/{:id}";
+  get elementClass() {
+    return Contributor;
+  }
+  get rootElementName() {
+    return "contributors";
+  }
+  get rootElementNameSingular() {
+    return "contributor";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(contributor_params, request_params) {
+    const body = { contributors: this.objToArray(contributor_params) };
+    return this.doCreateArray(body, request_params);
+  }
+  get(contributor_id, request_params) {
+    return this.doGet(contributor_id, request_params);
+  }
+  update(contributor_id, contributor_params, request_params) {
+    return this.doUpdate(contributor_id, contributor_params, request_params);
+  }
+  delete(contributor_id, request_params) {
+    return this.doDelete(contributor_id, request_params);
+  }
+};
+
+// src/models/file.ts
+var File = class extends BaseModel {
+};
+
+// src/models/queued_process.ts
+var QueuedProcess = class extends BaseModel {
+};
+
+// src/collections/files.ts
+var Files = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/files/{:id}";
+  get elementClass() {
+    return File;
+  }
+  get rootElementName() {
+    return "files";
+  }
+  get secondaryElementClass() {
+    return QueuedProcess;
+  }
+  get secondaryElementNameSingular() {
+    return "process";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  upload(project_id, upload) {
+    return this.createPromise(
+      "POST",
+      { project_id },
+      this.populateSecondaryObjectFromJsonRoot,
+      upload,
+      "projects/{!:project_id}/files/upload"
+    );
+  }
+  download(project_id, download) {
+    return this.createPromise(
+      "POST",
+      { project_id },
+      this.returnBareJSON,
+      download,
+      "projects/{!:project_id}/files/download"
+    );
+  }
+  delete(file_id, request_params) {
+    return this.doDelete(file_id, request_params);
+  }
+};
+
+// src/models/jwt.ts
+var Jwt = class extends BaseModel {
+};
+
+// src/collections/jwt.ts
+var Jwt2 = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/tokens";
+  get elementClass() {
+    return Jwt;
+  }
+  create(project_id, body = { service: "ota" }) {
+    const request_params = { project_id };
+    return this.doCreate(body, request_params, this.populateObjectFromJson);
+  }
+};
+
+// src/models/key.ts
+var Key = class extends BaseModel {
+};
+
+// src/collections/keys.ts
+var Keys = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/keys/{:id}";
+  get elementClass() {
+    return Key;
+  }
+  get rootElementName() {
+    return "keys";
+  }
+  get rootElementNameSingular() {
+    return "key";
+  }
+  list(request_params) {
+    return this.doListCursor(request_params);
+  }
+  create(key_params, request_params) {
+    return this.createPromise(
+      "POST",
+      request_params,
+      this.populateArrayFromJsonBulk,
+      key_params
+    );
+  }
+  get(key_id, request_params) {
+    return this.doGet(key_id, request_params);
+  }
+  update(key_id, key_params, request_params) {
+    return this.doUpdate(key_id, key_params, request_params);
+  }
+  delete(key_id, request_params) {
+    return this.doDelete(key_id, request_params);
+  }
+  bulk_update(key_params, request_params) {
+    return this.createPromise(
+      "PUT",
+      request_params,
+      this.populateArrayFromJsonBulk,
+      key_params,
+      "projects/{!:project_id}/keys"
+    );
+  }
+  bulk_delete(key_ids, request_params) {
+    const keys = { keys: this.objToArray(key_ids) };
+    return this.createPromise(
+      "DELETE",
+      request_params,
+      this.returnBareJSON,
+      keys,
+      "projects/{!:project_id}/keys"
+    );
+  }
+};
+
+// src/models/language.ts
+var Language = class extends BaseModel {
+};
+
+// src/collections/languages.ts
+var Languages = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/languages/{:id}";
+  get elementClass() {
+    return Language;
+  }
+  get rootElementName() {
+    return "languages";
+  }
+  get rootElementNameSingular() {
+    return "language";
+  }
+  system_languages(params = {}) {
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateArrayFromJson,
+      null,
+      "system/languages"
+    );
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(raw_body, request_params) {
+    const body = { languages: this.objToArray(raw_body) };
+    return this.createPromise(
+      "POST",
+      request_params,
+      this.populateArrayFromJsonBulk,
+      body
+    );
+  }
+  get(lang_id, request_params) {
+    return this.doGet(lang_id, request_params);
+  }
+  update(lang_id, lang_params, request_params) {
+    return this.doUpdate(lang_id, lang_params, request_params);
+  }
+  delete(lang_id, request_params) {
+    return super.doDelete(lang_id, request_params);
+  }
+};
+
+// src/models/order.ts
+var Order = class extends BaseModel {
+};
+
+// src/collections/orders.ts
+var Orders = class extends BaseCollection {
+  static prefixURI = "teams/{!:team_id}/orders/{:id}";
+  get elementClass() {
+    return Order;
+  }
+  get rootElementName() {
+    return "orders";
+  }
+  get rootElementNameSingular() {
+    return null;
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(order_params, request_params) {
+    return this.doCreate(
+      order_params,
+      request_params,
+      this.populateObjectFromJsonRoot
+    );
+  }
+  get(order_id, request_params) {
+    return this.doGet(order_id, request_params);
+  }
+};
+
+// src/models/payment_card.ts
+var PaymentCard = class extends BaseModel {
+};
+
+// src/collections/payment_cards.ts
+var PaymentCards = class extends BaseCollection {
+  static prefixURI = "payment_cards/{:id}";
+  get elementClass() {
+    return PaymentCard;
+  }
+  get rootElementName() {
+    return "payment_cards";
+  }
+  get rootElementNameSingular() {
+    return "payment_card";
+  }
+  list(request_params = {}) {
+    return this.doList(request_params);
+  }
+  create(card_params) {
+    return this.doCreate(card_params);
+  }
+  get(card_id) {
+    return this.doGet(card_id);
+  }
+  delete(card_id) {
+    return this.doDelete(card_id);
+  }
+};
+
+// src/models/permission_template.ts
+var PermissionTemplate = class extends BaseModel {
+};
+
+// src/collections/permission_templates.ts
+var PermissionTemplates = class extends BaseCollection {
+  static prefixURI = "teams/{!:team_id}/roles";
+  get elementClass() {
+    return PermissionTemplate;
+  }
+  get rootElementName() {
+    return "roles";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+};
+
+// src/models/project.ts
+var Project = class extends BaseModel {
+};
+
+// src/collections/projects.ts
+var Projects = class extends BaseCollection {
+  static prefixURI = "projects/{:id}";
+  get elementClass() {
+    return Project;
+  }
+  get rootElementName() {
+    return "projects";
+  }
+  get rootElementNameSingular() {
+    return null;
+  }
+  list(request_params = {}) {
+    return this.doList(request_params);
+  }
+  create(project_params) {
+    return this.doCreate(project_params);
+  }
+  get(project_id) {
+    return this.doGet(project_id);
+  }
+  update(project_id, project_params) {
+    return this.doUpdate(
+      project_id,
+      project_params,
+      {},
+      this.populateObjectFromJson
+    );
+  }
+  delete(project_id) {
+    return this.doDelete(project_id);
+  }
+  empty(project_id) {
+    return this.createPromise(
+      "PUT",
+      { project_id },
+      this.returnBareJSON,
+      null,
+      "projects/{!:project_id}/empty"
+    );
+  }
+};
+
+// src/collections/queued_processes.ts
+var QueuedProcesses = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/processes/{:id}";
+  get elementClass() {
+    return QueuedProcess;
+  }
+  get rootElementName() {
+    return "processes";
+  }
+  get rootElementNameSingular() {
+    return "process";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  get(process_id, request_params) {
+    return this.doGet(process_id, request_params);
+  }
+};
+
+// src/models/screenshot.ts
+var Screenshot = class extends BaseModel {
+};
+
+// src/collections/screenshots.ts
+var Screenshots = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
+  get elementClass() {
+    return Screenshot;
+  }
+  get rootElementName() {
+    return "screenshots";
+  }
+  get rootElementNameSingular() {
+    return "screenshot";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(raw_body, request_params) {
+    const body = { screenshots: this.objToArray(raw_body) };
+    return this.createPromise(
+      "POST",
+      request_params,
+      this.populateArrayFromJsonBulk,
+      body
+    );
+  }
+  get(screnshot_id, request_params) {
+    return this.doGet(screnshot_id, request_params);
+  }
+  update(screenshot_id, screenshot_params, request_params) {
+    return this.doUpdate(screenshot_id, screenshot_params, request_params);
+  }
+  delete(screenshot_id, request_params) {
+    return this.doDelete(screenshot_id, request_params);
+  }
+};
+
+// src/models/segment.ts
+var Segment = class extends BaseModel {
+};
+
+// src/collections/segments.ts
+var Segments = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
+  get elementClass() {
+    return Segment;
+  }
+  get rootElementName() {
+    return "segments";
+  }
+  get rootElementNameSingular() {
+    return "segment";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  get(segment_number, request_params) {
+    return this.doGet(segment_number, request_params);
+  }
+  update(segment_number, segment_params, request_params) {
+    return this.doUpdate(segment_number, segment_params, request_params);
+  }
+};
+
+// src/models/snapshot.ts
+var Snapshot = class extends BaseModel {
+};
+
+// src/collections/snapshots.ts
+var Snapshots = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
+  get elementClass() {
+    return Snapshot;
+  }
+  get rootElementName() {
+    return "snapshots";
+  }
+  get rootElementNameSingular() {
+    return "snapshot";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(snapshot_params, request_params) {
+    return this.doCreate(
+      snapshot_params,
+      request_params,
+      this.populateObjectFromJsonRoot
+    );
+  }
+  restore(snapshot_id, request_params) {
+    const params = {
+      ...request_params,
+      ...{ id: snapshot_id }
+    };
+    return this.createPromise("POST", params, this.returnBareJSON, {});
+  }
+  delete(snapshot_id, request_params) {
+    return this.doDelete(snapshot_id, request_params);
+  }
+};
+
+// src/models/task.ts
+var Task = class extends BaseModel {
+};
+
+// src/collections/tasks.ts
+var Tasks = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/tasks/{:id}";
+  get elementClass() {
+    return Task;
+  }
+  get rootElementName() {
+    return "tasks";
+  }
+  get rootElementNameSingular() {
+    return "task";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(task_params, request_params) {
+    return this.doCreate(
+      task_params,
+      request_params,
+      this.populateObjectFromJsonRoot
+    );
+  }
+  get(task_id, request_params) {
+    return this.doGet(task_id, request_params);
+  }
+  update(task_id, task_params, request_params) {
+    return this.doUpdate(task_id, task_params, request_params);
+  }
+  delete(task_id, request_params) {
+    return this.doDelete(task_id, request_params);
+  }
+};
+
+// src/models/team_user_billing_details.ts
+var TeamUserBillingDetails = class extends BaseModel {
+};
+
+// src/collections/team_user_billing_details.ts
+var TeamUserBillingDetails2 = class extends BaseCollection {
+  static prefixURI = "teams/{!:team_id}/billing_details";
+  get elementClass() {
+    return TeamUserBillingDetails;
+  }
+  get(team_id) {
+    const params = { team_id };
+    return this.createPromise("GET", params, this.populateObjectFromJson, null);
+  }
+  create(billing_details_params, request_params) {
+    return this.doCreate(billing_details_params, request_params);
+  }
+  update(team_id, billing_details_params) {
+    const params = { team_id };
+    return this.createPromise(
+      "PUT",
+      params,
+      this.populateObjectFromJson,
+      billing_details_params
+    );
+  }
+};
+
+// src/models/team_user.ts
+var TeamUser = class extends BaseModel {
+};
+
+// src/collections/team_users.ts
+var TeamUsers = class extends BaseCollection {
+  static prefixURI = "teams/{!:team_id}/users/{:id}";
+  get elementClass() {
+    return TeamUser;
+  }
+  get rootElementName() {
+    return "team_users";
+  }
+  get rootElementNameSingular() {
+    return "team_user";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  get(team_user_id, request_params) {
+    return this.doGet(team_user_id, request_params);
+  }
+  update(team_user_id, team_user_params, request_params) {
+    return this.doUpdate(team_user_id, team_user_params, request_params);
+  }
+  delete(team_user_id, request_params) {
+    return this.doDelete(team_user_id, request_params);
+  }
+};
+
+// src/models/team.ts
+var Team = class extends BaseModel {
+};
+
+// src/collections/teams.ts
+var Teams = class extends BaseCollection {
+  static prefixURI = "teams";
+  get elementClass() {
+    return Team;
+  }
+  get rootElementName() {
+    return "teams";
+  }
+  list(request_params = {}) {
+    return this.doList(request_params);
+  }
+};
+
+// src/models/translation_provider.ts
+var TranslationProvider = class extends BaseModel {
+};
+
+// src/collections/translation_providers.ts
+var TranslationProviders = class extends BaseCollection {
+  static prefixURI = "teams/{!:team_id}/translation_providers/{:id}";
+  get elementClass() {
+    return TranslationProvider;
+  }
+  get rootElementName() {
+    return "translation_providers";
+  }
+  get rootElementNameSingular() {
+    return null;
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  get(provider_id, request_params) {
+    return this.doGet(provider_id, request_params);
+  }
+};
+
+// src/models/translation_status.ts
+var TranslationStatus = class extends BaseModel {
+};
+
+// src/collections/translation_statuses.ts
+var TranslationStatuses = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/custom_translation_statuses/{:id}";
+  get elementClass() {
+    return TranslationStatus;
+  }
+  get rootElementName() {
+    return "custom_translation_statuses";
+  }
+  get rootElementNameSingular() {
+    return "custom_translation_status";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(translation_status_params, request_params) {
+    return this.doCreate(
+      translation_status_params,
+      request_params,
+      this.populateObjectFromJsonRoot
+    );
+  }
+  get(translation_status_id, request_params) {
+    return this.doGet(translation_status_id, request_params);
+  }
+  update(translation_status_id, translation_status_params, request_params) {
+    return this.doUpdate(
+      translation_status_id,
+      translation_status_params,
+      request_params
+    );
+  }
+  delete(translation_status_id, request_params) {
+    return this.doDelete(translation_status_id, request_params);
+  }
+  available_colors(request_params) {
+    return this.createPromise(
+      "GET",
+      request_params,
+      this.returnBareJSON,
+      {},
+      "projects/{!:project_id}/custom_translation_statuses/colors"
+    );
+  }
+};
+
+// src/models/translation.ts
+var Translation = class extends BaseModel {
+};
+
+// src/collections/translations.ts
+var Translations = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/translations/{:id}";
+  get elementClass() {
+    return Translation;
+  }
+  get rootElementName() {
+    return "translations";
+  }
+  get rootElementNameSingular() {
+    return "translation";
+  }
+  list(request_params) {
+    return this.doListCursor(request_params);
+  }
+  get(translation_id, request_params) {
+    return this.doGet(translation_id, request_params);
+  }
+  update(translation_id, translation_params, request_params) {
+    return this.doUpdate(translation_id, translation_params, request_params);
+  }
+};
+
+// src/models/user_group.ts
+var UserGroup = class extends BaseModel {
+};
+
+// src/collections/user_groups.ts
+var UserGroups = class extends BaseCollection {
+  static prefixURI = "teams/{!:team_id}/groups/{:id}";
+  get elementClass() {
+    return UserGroup;
+  }
+  get rootElementName() {
+    return "user_groups";
+  }
+  get rootElementNameSingular() {
+    return null;
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(user_group_params, request_params) {
+    return this.doCreate(
+      user_group_params,
+      request_params,
+      this.populateGroupFromJsonRoot
+    );
+  }
+  get(user_group_id, request_params) {
+    return this.doGet(user_group_id, request_params);
+  }
+  update(user_group_id, user_group_params, request_params) {
+    return this.doUpdate(
+      user_group_id,
+      user_group_params,
+      request_params,
+      this.populateGroupFromJsonRoot
+    );
+  }
+  delete(user_group_id, request_params) {
+    return this.doDelete(user_group_id, request_params);
+  }
+  add_members_to_group(team_id, group_id, user_ids) {
+    const params = {
+      team_id,
+      group_id
+    };
+    const body = { users: user_ids };
+    return this.createPromise(
+      "PUT",
+      params,
+      this.populateGroupFromJsonRoot,
+      body,
+      "teams/{!:team_id}/groups/{!:group_id}/members/add"
+    );
+  }
+  remove_members_from_group(team_id, group_id, user_ids) {
+    const params = {
+      team_id,
+      group_id
+    };
+    const body = { users: user_ids };
+    return this.createPromise(
+      "PUT",
+      params,
+      this.populateGroupFromJsonRoot,
+      body,
+      "teams/{!:team_id}/groups/{!:group_id}/members/remove"
+    );
+  }
+  add_projects_to_group(team_id, group_id, project_ids) {
+    const params = {
+      team_id,
+      group_id
+    };
+    const body = { projects: project_ids };
+    return this.createPromise(
+      "PUT",
+      params,
+      this.populateGroupFromJsonRoot,
+      body,
+      "teams/{!:team_id}/groups/{!:group_id}/projects/add"
+    );
+  }
+  remove_projects_from_group(team_id, group_id, project_ids) {
+    const params = {
+      team_id,
+      group_id
+    };
+    const body = { projects: project_ids };
+    return this.createPromise(
+      "PUT",
+      params,
+      this.populateGroupFromJsonRoot,
+      body,
+      "teams/{!:team_id}/groups/{!:group_id}/projects/remove"
+    );
+  }
+  populateGroupFromJsonRoot(json, headers) {
+    const formatted_json = json.group;
+    return this.populateObjectFromJson(formatted_json, headers);
+  }
+};
+
+// src/models/webhook.ts
+var Webhook = class extends BaseModel {
+};
+
+// src/collections/webhooks.ts
+var Webhooks = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
+  get elementClass() {
+    return Webhook;
+  }
+  get rootElementName() {
+    return "webhooks";
+  }
+  get rootElementNameSingular() {
+    return "webhook";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(webhook_params, request_params) {
+    return this.doCreate(
+      webhook_params,
+      request_params,
+      this.populateObjectFromJsonRoot
+    );
+  }
+  get(webhook_id, request_params) {
+    return this.doGet(webhook_id, request_params);
+  }
+  update(webhook_id, webhook_params, request_params) {
+    return this.doUpdate(webhook_id, webhook_params, request_params);
+  }
+  delete(webhook_id, request_params) {
+    return this.doDelete(webhook_id, request_params);
+  }
+  regenerate_secret(webhook_id, request_params) {
+    const params = {
+      ...request_params,
+      ...{ id: webhook_id }
+    };
+    return this.createPromise(
+      "PATCH",
+      params,
+      this.returnBareJSON,
+      null,
+      "projects/{!:project_id}/webhooks/{:id}/secret/regenerate"
+    );
+  }
+};
+
+// src/lokalise/base_client.ts
+var BaseClient = class {
+  clientData = {
+    token: "",
+    tokenType: "",
+    authHeader: "x-api-token",
+    enableCompression: false,
+    requestTimeout: void 0
+  };
+  /**
+   * Instantiate BaseClient with API key and optional parameters
+   * @param params ClientParams object
+   */
+  constructor(params) {
+    const apiKey = params.apiKey;
+    if (!apiKey || apiKey.trim().length === 0) {
+      throw new Error("Instantiation failed: Please pass an API key");
+    }
+    this.clientData.token = apiKey;
+    this.clientData.enableCompression = params.enableCompression ?? false;
+    this.clientData.host = params.host;
+    this.clientData.requestTimeout = params.requestTimeout;
+  }
+};
+
+// src/lokalise/lokalise_api.ts
+var LokaliseApi = class extends BaseClient {
+  constructor(params) {
+    super(params);
+    this.clientData.version = params.version ?? "api2";
+  }
+  branches() {
+    return new Branches(this.clientData);
+  }
+  comments() {
+    return new Comments(this.clientData);
+  }
+  contributors() {
+    return new Contributors(this.clientData);
+  }
+  files() {
+    return new Files(this.clientData);
+  }
+  jwt() {
+    return new Jwt2(this.clientData);
+  }
+  keys() {
+    return new Keys(this.clientData);
+  }
+  languages() {
+    return new Languages(this.clientData);
+  }
+  orders() {
+    return new Orders(this.clientData);
+  }
+  paymentCards() {
+    return new PaymentCards(this.clientData);
+  }
+  permissionTemplates() {
+    return new PermissionTemplates(this.clientData);
+  }
+  projects() {
+    return new Projects(this.clientData);
+  }
+  queuedProcesses() {
+    return new QueuedProcesses(this.clientData);
+  }
+  screenshots() {
+    return new Screenshots(this.clientData);
+  }
+  segments() {
+    return new Segments(this.clientData);
+  }
+  snapshots() {
+    return new Snapshots(this.clientData);
+  }
+  tasks() {
+    return new Tasks(this.clientData);
+  }
+  teams() {
+    return new Teams(this.clientData);
+  }
+  teamUsers() {
+    return new TeamUsers(this.clientData);
+  }
+  teamUserBillingDetails() {
+    return new TeamUserBillingDetails2(this.clientData);
+  }
+  translations() {
+    return new Translations(this.clientData);
+  }
+  translationProviders() {
+    return new TranslationProviders(this.clientData);
+  }
+  translationStatuses() {
+    return new TranslationStatuses(this.clientData);
+  }
+  userGroups() {
+    return new UserGroups(this.clientData);
+  }
+  webhooks() {
+    return new Webhooks(this.clientData);
+  }
+};
+
+// src/lokalise/lokalise_api_oauth.ts
+var LokaliseApiOAuth = class extends LokaliseApi {
+  constructor(params) {
+    super(params);
+    this.clientData.tokenType = params.tokenType ?? "Bearer";
+    this.clientData.authHeader = "Authorization";
+  }
+};
+
+// src/models/ota/ota_bundle.ts
+var OtaBundle = class extends BaseModel {
+};
+
+// src/ota_collections/ota_collection.ts
+var OtaCollection = class extends BaseCollection {
+  doDelete(id, req_params) {
+    const params = {
+      ...req_params,
+      id
+    };
+    return this.createPromise(
+      "DELETE",
+      params,
+      this.returnJSONFromData,
+      null
+    );
+  }
+  returnJSONFromData(json) {
+    return json.data;
+  }
+  async createVoidPromise(method, params, body, uri = null) {
+    const request = this.prepareRequest(method, body, params, uri);
+    await this.sendRequest(request);
+    return null;
+  }
+};
+
+// src/ota_collections/ota_bundle_management.ts
+var OtaBundleManagement = class extends OtaCollection {
+  static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundles/{:id}";
+  get elementClass() {
+    return OtaBundle;
+  }
+  get rootElementName() {
+    return "data";
+  }
+  get rootElementNameSingular() {
+    return "data";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  get(bundleId, requestParams) {
+    return this.doGet(bundleId, requestParams);
+  }
+  update(bundleId, bundleParams, requestParams) {
+    return this.doUpdate(
+      bundleId,
+      bundleParams,
+      requestParams,
+      this.populateObjectFromJsonRoot,
+      "PATCH"
+    );
+  }
+  delete(bundleId, requestParams) {
+    return this.doDelete(bundleId, requestParams);
+  }
+};
+
+// src/ota_collections/ota_bundle_publishing.ts
+var OtaBundlePublishing = class extends OtaCollection {
+  static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/frameworks/{!:framework}/{!:action}";
+  // This is just a dummy implementation to keep linter happy
+  // It's not used in this class
+  // istanbul ignore next
+  get elementClass() {
+    return Branch;
+  }
+  publish(bundleId, request_params) {
+    const params = {
+      ...request_params,
+      ...{ action: "publish" }
+    };
+    return this.createVoidPromise("POST", params, {
+      bundleId
+    });
+  }
+  stage(bundleId, request_params) {
+    const params = {
+      ...request_params,
+      ...{ action: "stage" }
+    };
+    return this.createVoidPromise("POST", params, {
+      bundleId
+    });
+  }
+};
+
+// src/models/ota/ota_freeze_period.ts
+var OtaFreezePeriod = class extends BaseModel {
+};
+
+// src/ota_collections/ota_freeze_periods.ts
+var OtaFreezePeriods = class extends OtaCollection {
+  static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundle-freezes/{:id}";
+  get elementClass() {
+    return OtaFreezePeriod;
+  }
+  get rootElementName() {
+    return "data";
+  }
+  get rootElementNameSingular() {
+    return "data";
+  }
+  list(requestParams) {
+    return this.doList(requestParams);
+  }
+  create(freezeParams, requestParams) {
+    return this.doCreate(
+      freezeParams,
+      requestParams,
+      this.populateObjectFromJsonRoot
+    );
+  }
+  update(freezeId, freezeParams, requestParams) {
+    return this.doUpdate(freezeId, freezeParams, requestParams);
+  }
+  delete(freezeId, requestParams) {
+    return this.doDelete(freezeId, requestParams);
+  }
+};
+
+// src/models/ota/ota_sdk_token.ts
+var OtaSdkToken = class extends BaseModel {
+};
+
+// src/ota_collections/ota_sdk_tokens.ts
+var OtaSdkTokens = class extends OtaCollection {
+  static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/tokens/{:id}";
+  get elementClass() {
+    return OtaSdkToken;
+  }
+  get rootElementName() {
+    return "data";
+  }
+  get rootElementNameSingular() {
+    return "data";
+  }
+  list(request_params) {
+    return this.doList(request_params);
+  }
+  create(request_params) {
+    return this.doCreate(null, request_params, this.populateObjectFromJsonRoot);
+  }
+  delete(tokenId, request_params) {
+    return this.doDelete(tokenId, request_params);
+  }
+};
+
+// src/models/ota/ota_statistics.ts
+var OtaStatistics = class extends BaseModel {
+};
+
+// src/ota_collections/ota_usage_statistics.ts
+var OtaUsageStatistics = class extends OtaCollection {
+  static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/stats";
+  static elementClass = OtaStatistics;
+  get elementClass() {
+    return OtaStatistics;
+  }
+  get(bundle_params, request_params) {
+    const params = {
+      ...request_params,
+      ...bundle_params
+    };
+    return this.createPromise("GET", params, this.populateObjectFromJson, null);
+  }
+};
+
+// src/lokalise/lokalise_api_ota.ts
+var LokaliseApiOta = class extends BaseClient {
+  constructor(params) {
+    super(params);
+    this.clientData.tokenType = params.tokenType ?? "Bearer";
+    this.clientData.authHeader = "Authorization";
+    this.clientData.host = this.clientData.host ?? "https://ota.lokalise.com";
+    this.clientData.version = params.version ?? "v3";
+  }
+  otaBundleManagement() {
+    return new OtaBundleManagement(this.clientData);
+  }
+  otaBundlePublishing() {
+    return new OtaBundlePublishing(this.clientData);
+  }
+  otaUsageStatistics() {
+    return new OtaUsageStatistics(this.clientData);
+  }
+  otaFreezePeriods() {
+    return new OtaFreezePeriods(this.clientData);
+  }
+  otaSdkTokens() {
+    return new OtaSdkTokens(this.clientData);
+  }
+};
+
+// src/models/ota/ota_bundle_archive.ts
+var OtaBundleArchive = class extends BaseModel {
+};
+
+// src/ota_collections/ota_bundles.ts
+var OtaBundles = class extends OtaCollection {
+  static rootElementNameSingular = "data";
+  static prefixURI = "lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";
+  static elementClass = OtaBundleArchive;
+  get elementClass() {
+    return OtaBundleArchive;
+  }
+  get rootElementNameSingular() {
+    return "data";
+  }
+  get(bundle_params, request_params) {
+    const params = {
+      ...request_params,
+      ...bundle_params
+    };
+    return this.createPromise(
+      "GET",
+      params,
+      this.populateObjectFromJsonRoot,
+      null
+    );
+  }
+};
+
+// src/lokalise/lokalise_ota_bundles.ts
+var LokaliseOtaBundles = class extends BaseClient {
+  constructor(params) {
+    super(params);
+    this.clientData.authHeader = "x-ota-api-token";
+    this.clientData.host = this.clientData.host ?? "https://ota.lokalise.com";
+    this.clientData.version = params.version ?? "v3";
+  }
+  otaBundles() {
+    return new OtaBundles(this.clientData);
+  }
+};
+
+// src/oauth2/auth_request.ts
+async function buildHeaders() {
+  const headers = new Headers({
+    Accept: "application/json",
+    "User-Agent": `node-lokalise-api/${await getVersion()}`,
+    "Content-type": "application/json"
+  });
+  return headers;
+}
+async function fetchAndHandleResponse(target, options) {
+  try {
+    const response = await fetch(target, options);
+    const responseJSON = await response.json();
+    if (response.ok) {
+      return {
+        json: responseJSON,
+        headers: response.headers
+      };
+    }
+    const error = {
+      code: response.status,
+      ...responseJSON
+    };
+    return Promise.reject(error);
+  } catch (err) {
+    const error = {
+      error: err.message,
+      code: 500,
+      error_description: ""
+    };
+    return Promise.reject(error);
+  }
+}
+async function createPromise(uri, method, body, { host, version }) {
+  const fullUri = `/${version}/${uri}`;
+  const target = new URL(fullUri, host);
+  const options = {
+    method,
+    headers: await buildHeaders(),
+    body: JSON.stringify(body)
+  };
+  return fetchAndHandleResponse(target, options);
+}
+
+// src/oauth2/lokalise_auth.ts
+var LokaliseAuth = class {
+  authData;
+  /**
+   * Instantiate LokaliseAuth to work with OAuth 2 tokens
+   *
+   * @param clientId - The client ID (mandatory)
+   * @param clientSecret - The client secret (mandatory)
+   * @param host - Optional host, defaults to "https://app.lokalise.com"
+   * @param version - Optional API version, defaults to "oauth2"
+   */
+  constructor(clientId, clientSecret, host = "https://app.lokalise.com", version = "oauth2") {
+    if (!clientId || !clientSecret) {
+      throw new Error(
+        "Error: Instantiation failed: Please pass client ID and client secret"
+      );
+    }
+    this.authData = {
+      client_id: clientId,
+      client_secret: clientSecret,
+      host,
+      version
+    };
+  }
+  /**
+   * Generate the authorization URL
+   *
+   * @param scope - The scope(s) for the authorization
+   * @param redirectUri - Optional redirect URI
+   * @param state - Optional state parameter
+   * @returns The authorization URL as a string
+   */
+  auth(scope, redirectUri, state) {
+    const scopeString = Array.isArray(scope) ? scope.join(" ") : scope;
+    const params = {
+      client_id: this.authData.client_id,
+      scope: scopeString,
+      ...state && { state },
+      ...redirectUri && { redirect_uri: redirectUri }
+    };
+    return this.buildUrl(params);
+  }
+  /**
+   * Exchange an authorization code for an access token
+   *
+   * @param code - The authorization code
+   * @returns A promise resolving to the token response
+   */
+  token(code) {
+    const params = {
+      ...this.baseParams(),
+      code,
+      grant_type: "authorization_code"
+    };
+    return this.doRequest(params);
+  }
+  /**
+   * Refresh an access token using a refresh token
+   *
+   * @param refreshToken - The refresh token
+   * @returns A promise resolving to the token response
+   */
+  refresh(refreshToken) {
+    const params = {
+      ...this.baseParams(),
+      refresh_token: refreshToken,
+      grant_type: "refresh_token"
+    };
+    return this.doRequest(params);
+  }
+  /**
+   * Internal method to perform the API request
+   *
+   * @param params - Request parameters
+   * @returns A promise resolving to the API response
+   */
+  async doRequest(params) {
+    try {
+      const data = await createPromise("token", "POST", params, this.authData);
+      return data.json;
+    } catch (err) {
+      throw this.handleReject(err);
+    }
+  }
+  /**
+   * Build the authorization URL
+   *
+   * @param params - URL parameters
+   * @returns The complete URL as a string
+   */
+  buildUrl(params) {
+    const url = new URL("auth", this.authData.host);
+    url.search = new URLSearchParams(params).toString();
+    return url.toString();
+  }
+  /**
+   * Get the base parameters for authentication requests
+   *
+   * @returns A record containing the client ID and client secret
+   */
+  baseParams() {
+    return {
+      client_id: this.authData.client_id,
+      client_secret: this.authData.client_secret
+    };
+  }
+  /**
+   * Handle API request errors and transform them into an `AuthError`
+   *
+   * @param error - The error object
+   * @returns An `AuthError` instance
+   */
+  handleReject(error) {
+    return error;
+  }
+};
+export {
+  LokaliseApi,
+  LokaliseApiOAuth,
+  LokaliseApiOta,
+  LokaliseAuth,
+  LokaliseOtaBundles
+};
 //# sourceMappingURL=main.js.map
