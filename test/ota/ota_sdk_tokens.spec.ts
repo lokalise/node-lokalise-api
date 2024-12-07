@@ -1,4 +1,3 @@
-import type { OtaApiError } from "../../src/models/ota/ota_api_error.js";
 import { LokaliseApiOta, Stub, describe, expect, it } from "../setup.js";
 
 describe("OtaSdkTokens", () => {
@@ -10,9 +9,10 @@ describe("OtaSdkTokens", () => {
 	const tokenId = 9709;
 
 	it("handles errors", async () => {
+		const fakeProjectId = "123.abc";
 		const stub = new Stub({
 			fixture: "ota_sdk_tokens/error_404.json",
-			uri: `teams/${teamId}/projects/fake/tokens`,
+			uri: `teams/${teamId}/projects/${fakeProjectId}/tokens`,
 			version: "v3",
 			skipApiToken: true,
 			rootUrl,
@@ -24,17 +24,16 @@ describe("OtaSdkTokens", () => {
 
 		await stub.setStub();
 
-		await lokaliseApiOta
-			.otaSdkTokens()
-			.list({
+		await expect(
+			lokaliseApiOta.otaSdkTokens().list({
 				teamId: teamId,
-				lokaliseProjectId: "fake",
-			})
-			.catch((e: OtaApiError) => {
-				expect(e.message).to.eq("Project not found");
-				expect(e.statusCode).to.eq(404);
-				expect(e.error).to.eq("ENTITY_NOT_FOUND");
-			});
+				lokaliseProjectId: fakeProjectId,
+			}),
+		).rejects.toMatchObject({
+			message: "Project not found",
+			code: 404,
+			details: { reason: "ENTITY_NOT_FOUND" },
+		});
 	});
 
 	it("lists", async () => {

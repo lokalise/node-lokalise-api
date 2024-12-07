@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Branch } from "../models/branch.js";
 import type {
@@ -12,16 +13,27 @@ import type {
 } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Branches extends BaseCollection {
-	protected static rootElementName = "branches";
-	protected static rootElementNameSingular = "branch";
+export class Branches extends BaseCollection<Branch> {
 	protected static prefixURI = "projects/{!:project_id}/branches/{:id}";
-	protected static elementClass = Branch;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Branch {
+		return Branch;
+	}
+
+	protected get rootElementName(): string {
+		return "branches";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "branch";
+	}
 
 	list(
 		request_params: ProjectWithPagination,
 	): Promise<PaginatedResult<Branch>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Branch>>;
 	}
 
 	create(
@@ -54,7 +66,7 @@ export class Branches extends BaseCollection {
 		branch_id: string | number,
 		request_params: ProjectOnly,
 	): Promise<BranchDeleted> {
-		return this.doDelete(branch_id, request_params);
+		return this.doDelete<BranchDeleted>(branch_id, request_params);
 	}
 
 	merge(
@@ -67,11 +79,10 @@ export class Branches extends BaseCollection {
 			...{ id: branch_id },
 		};
 
-		return this.createPromise(
+		return this.createPromise<BranchMerged>(
 			"POST",
 			params,
-			this.returnBareJSON,
-			this.handleReject,
+			this.returnBareJSON<BranchMerged>,
 			body,
 			"projects/{!:project_id}/branches/{:id}/merge",
 		);

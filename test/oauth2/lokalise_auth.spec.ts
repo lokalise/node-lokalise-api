@@ -1,5 +1,4 @@
 import type {
-	ApiError,
 	AuthError,
 	RefreshTokenResponse,
 	RequestTokenResponse,
@@ -77,8 +76,8 @@ describe("LokaliseAuth", () => {
 
 			await stub.setStub();
 
-			await lokaliseAuth.token(code).catch((e: ApiError) => {
-				expect(e.message).to.eq("fetch failed");
+			await lokaliseAuth.token(code).catch((e) => {
+				expect(e.error).to.eq("fetch failed");
 			});
 		});
 
@@ -164,6 +163,29 @@ describe("LokaliseAuth", () => {
 			expect(resp.scope).to.eq("write_team_groups read_projects");
 			expect(resp.expires_in).to.eq(3600);
 			expect(resp.token_type).to.eq("Bearer");
+		});
+
+		it("handles unexpected errors", async () => {
+			const stub = new Stub({
+				uri: "token",
+				status: 400,
+				version: "oauth2",
+				method: "POST",
+				rootUrl: rootUrl,
+				skipApiToken: true,
+				body: {
+					client_id,
+					client_secret,
+					refresh_token: "fake",
+					grant_type: "refresh_token",
+				},
+			});
+
+			await stub.setStub();
+
+			await lokaliseAuth.refresh("fake").catch((e: AuthError) => {
+				expect(e.error).to.equal("Unexpected end of JSON input");
+			});
 		});
 
 		it("handles errors", async () => {

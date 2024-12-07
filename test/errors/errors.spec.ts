@@ -1,24 +1,83 @@
-import type { ApiError, ProjectWithPagination } from "../../src/main.js";
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import type { ProjectWithPagination } from "../../src/main.js";
+import { ApiError } from "../../src/models/api_error.js";
+import { LokaliseApi, Stub, describe, expect, it, vi } from "../setup.js";
 
 describe("Errors", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
 	const project_id = "803826145ba90b42d5d860.46800099";
 
-	it("is expected to reject with proper http message and status code if json is not parsable", async () => {
+	it("is expected to reject with when there are too many requests", async () => {
 		const stub = new Stub({
-			data: "Too many requests",
+			fixture: "errors/error_429.json",
 			uri: `projects/${project_id}`,
 			status: 429,
 		});
 
 		await stub.setStub();
 
-		try {
-			expect(await lokaliseApi.projects().get(project_id)).to.throw();
-		} catch (error) {
-			expect(error).to.deep.equal({ message: "Too Many Requests", code: 429 });
-		}
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
+			message: "Too many requests",
+			code: 429,
+			details: { reason: "server error without details" },
+		});
+	});
+
+	it("is expected to throw when JSON processing failed", async () => {
+		const stub = new Stub({
+			uri: `projects/${project_id}`,
+			status: 200,
+		});
+
+		await stub.setStub();
+
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
+			message: "Unexpected end of JSON input",
+			code: 200,
+			details: {
+				statusText: "OK",
+				reason: "JSON processing failed",
+			},
+		});
+	});
+
+	it("is expected to handle cases when error codes are not numbers", async () => {
+		const stub = new Stub({
+			uri: `projects/${project_id}`,
+			status: 500,
+			fixture: "errors/error_with_malformed_code.json",
+		});
+
+		await stub.setStub();
+
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
+			message: "An unknown error occurred",
+			code: 500,
+			details: {
+				reason: "unhandled error format",
+				data: {
+					code: "invalid",
+					message: "Server error",
+				},
+			},
+		});
+	});
+
+	it("is expected to handle cases when error is nested and error codes are not numbers", async () => {
+		const stub = new Stub({
+			uri: `projects/${project_id}`,
+			status: 404,
+			fixture: "errors/nested_error_with_malformed_code.json",
+		});
+
+		await stub.setStub();
+
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
+			message: "Server error",
+			code: 500,
+			details: {
+				reason: "server error without details",
+			},
+		});
 	});
 
 	it("handles exceptions", async () => {
@@ -31,14 +90,16 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await lokaliseApi
-			.branches()
-			.list({
+		try {
+			await lokaliseApi.branches().list({
 				project_id: fakeProjectId,
-			})
-			.catch((e: ApiError) => {
-				expect(e.message).to.include("failed");
 			});
+		} catch (e) {
+			expect(e).toBeInstanceOf(ApiError);
+			expect(e.message).toBe("fetch failed");
+			expect(e.code).toBe(500);
+			expect(e.details).toEqual({ reason: "network or fetch error" });
+		}
 	});
 
 	it("handles plain errors", async () => {
@@ -52,24 +113,93 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await lokaliseApi
-			.branches()
-			.list({ project_id: fakeProjectId })
-			.catch((e: ApiError) => {
-				expect(e.message).to.eq("Auth error");
-				expect(e.code).to.eq(401);
-			});
+		await expect(
+			lokaliseApi.branches().list({ project_id: fakeProjectId }),
+		).rejects.toMatchObject({
+			message: "Auth error",
+			code: 401,
+			details: { reason: "server error without details" },
+		});
+	});
+
+	it("handles plain errors with errorCode", async () => {
+		const stub = new Stub({
+			fixture: "errors/error_code.json",
+			uri: `projects/${project_id}/branches`,
+			status: 401,
+		});
+
+		await stub.setStub();
+
+		await expect(
+			lokaliseApi.branches().list({ project_id: project_id }),
+		).rejects.toMatchObject({
+			message: "Auth error",
+			code: 401,
+			details: { reason: "server error without details" },
+		});
+	});
+
+	it("handles empty nested errors", async () => {
+		const stub = new Stub({
+			fixture: "errors/error_empty.json",
+			uri: `projects/${project_id}/branches`,
+			status: 401,
+		});
+
+		await stub.setStub();
+
+		await expect(
+			lokaliseApi.branches().list({ project_id: project_id }),
+		).rejects.toMatchObject({
+			message: "Unknown error",
+			code: 500,
+			details: { reason: "server error without details" },
+		});
+	});
+
+	it("handles unexpected fetch errors", async () => {
+		const originalFetch = global.fetch;
+		global.fetch = vi.fn().mockRejectedValueOnce("unexpected fetch error");
+
+		await expect(
+			lokaliseApi.branches().list({ project_id: project_id }),
+		).rejects.toMatchObject({
+			message: "An unknown error occurred",
+			code: 500,
+			details: { reason: "unexpected fetch error" },
+		});
+
+		global.fetch = originalFetch;
+	});
+
+	it("handles errors when the response is unexpected", async () => {
+		const originalFetch = global.fetch;
+		global.fetch = vi.fn().mockResolvedValueOnce({
+			ok: false,
+			status: 400,
+			statusText: "Bad Request",
+			json: async () => "Very unexpected string in response",
+			headers: new Headers(),
+		} as Response);
+
+		await expect(
+			lokaliseApi.branches().list({ project_id: project_id }),
+		).rejects.toMatchObject({
+			message: "An unknown error occurred",
+			code: 500,
+			details: { reason: "unexpected response format" },
+		});
+
+		global.fetch = originalFetch;
 	});
 
 	it("handles params-related errors", async () => {
 		const params = <ProjectWithPagination>{};
 
-		await lokaliseApi
-			.branches()
-			.list(params)
-			.catch((e: Error) => {
-				expect(e.message).to.eq("Missing required param: project_id");
-			});
+		await expect(lokaliseApi.branches().list(params)).rejects.toThrow(
+			"Missing required param: project_id",
+		);
 	});
 
 	it("handles error 500", async () => {
@@ -88,12 +218,12 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await lokaliseApi
-			.branches()
-			.create(params, { project_id: fakeProjectId })
-			.catch((e: ApiError) => {
-				expect(e.message).to.eq("Something very bad has happened");
-				expect(e.code).to.eq(500);
-			});
+		await expect(
+			lokaliseApi.branches().create(params, { project_id: fakeProjectId }),
+		).rejects.toMatchObject({
+			message: "Something very bad has happened",
+			code: 500,
+			details: { reason: "server error without details" },
+		});
 	});
 });

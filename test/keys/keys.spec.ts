@@ -104,6 +104,38 @@ describe("Keys", () => {
 		expect(keys.hasNextCursor()).to.be.true;
 	});
 
+	it("raises error when cursor pagination is malformed", async () => {
+		const params: KeyParamsWithPagination = {
+			project_id: projectId,
+			limit: 2,
+			pagination: "cursor",
+		};
+
+		const { project_id, ...stubParams } = params;
+
+		const stub = new Stub({
+			fixture: "keys/list_cursor_pagination_malformed.json",
+			uri: `projects/${projectId}/keys`,
+			query: stubParams,
+			respHeaders: {
+				"x-pagination-limit": "2",
+				"x-pagination-next-cursor": "eyIxIjo0NDU5NjA2MX0=",
+			},
+		});
+
+		await stub.setStub();
+
+		try {
+			await lokaliseApi.keys().list({
+				...params,
+			});
+		} catch (e) {
+			expect(e.message).toEqual(
+				"Expected an array under 'keys', but got object",
+			);
+		}
+	});
+
 	it("lists and paginates by cursor with next cursor set", async () => {
 		const params: KeyParamsWithPagination = {
 			project_id: projectId,
@@ -178,6 +210,27 @@ describe("Keys", () => {
 		expect(key.modified_at_timestamp).to.eq(1695129975);
 		expect(key.translations_modified_at).to.eq("2021-07-27 10:42:09 (Etc/UTC)");
 		expect(key.translations_modified_at_timestamp).to.eq(1627382529);
+	});
+
+	it("raises error for malformed response", async () => {
+		const stub = new Stub({
+			fixture: "keys/retrieve_malformed.json",
+			uri: `projects/${projectId}/keys/${keyId}`,
+			query: { disable_references: 1 },
+		});
+
+		await stub.setStub();
+
+		const params: GetKeyParams = {
+			project_id: projectId,
+			disable_references: 1,
+		};
+
+		try {
+			await lokaliseApi.keys().get(keyId, params);
+		} catch (e) {
+			expect(e.message).toEqual("Missing property 'key' in JSON object");
+		}
 	});
 
 	it("creates", async () => {

@@ -1,46 +1,61 @@
 import { ApiRequest } from "../http_client/base.js";
+import type { ApiResponse } from "../http_client/base.js";
 import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { ClientData } from "../interfaces/client_data.js";
 import type { Keyable } from "../interfaces/keyable.js";
-import type { ApiError } from "../models/api_error.js";
 import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
 import { PaginatedResult } from "../models/paginated_result.js";
 import type { HttpMethod } from "../types/http_method.js";
 
-type RejectHandler = (data: any) => ApiError;
-type ResolveHandler = (json: Keyable, headers: Headers, ...args: any[]) => any;
+type ResolveHandler<T> = (json: Keyable, headers: Headers) => T;
 
-export abstract class BaseCollection {
+export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	readonly clientData: ClientData;
-	protected static rootElementName: string;
-	protected static rootElementNameSingular: string | null;
 	protected static endpoint: string | null;
 	protected static prefixURI: string | null;
-	protected static elementClass: any;
-
-	// Secondaries are used when an instance of a different class has to be created
-	// For example, uploading a File may return a QueuedProcess
-	protected static secondaryElementNameSingular: string | null;
-	protected static secondaryElementClass: any;
 
 	constructor(clientData: ClientData) {
 		this.clientData = clientData;
 	}
 
-	protected doList(req_params: Keyable): Promise<any> {
-		const params = {
-			...req_params,
-		};
-		return this.createPromise(
-			"GET",
-			params,
-			this.populateArrayFromJson,
-			this.handleReject,
-			null,
+	// Model to represent the data returned by the API
+	protected abstract get elementClass(): new (
+		json: Keyable,
+	) => ElementType;
+	protected get rootElementName(): string {
+		throw new Error("Root element name is not defined for this collection");
+	}
+	protected get rootElementNameSingular(): string | null {
+		throw new Error(
+			"Root element name singular is not defined for this collection",
+		);
+	}
+	// Secondaries are used when an instance of a different class has to be created
+	// For example, uploading a File may return a QueuedProcess
+	protected get secondaryElementClass(): new (
+		json: Keyable,
+	) => SecondaryType {
+		throw new Error("Secondary elements are not supported by this collection");
+	}
+
+	protected get secondaryElementNameSingular(): string {
+		throw new Error(
+			"Secondary element name singular is not defined for this collection",
 		);
 	}
 
-	protected doListCursor(req_params: Keyable): Promise<any> {
+	protected doList(
+		req_params: Keyable,
+	): Promise<PaginatedResult<ElementType> | ElementType[]> {
+		const params = {
+			...req_params,
+		};
+		return this.createPromise("GET", params, this.populateArrayFromJson, null);
+	}
+
+	protected doListCursor(
+		req_params: Keyable,
+	): Promise<CursorPaginatedResult<ElementType>> {
 		const params = {
 			...req_params,
 		};
@@ -48,12 +63,14 @@ export abstract class BaseCollection {
 			"GET",
 			params,
 			this.populateArrayFromJsonCursor,
-			this.handleReject,
 			null,
 		);
 	}
 
-	protected doGet(id: string | number, req_params: Keyable = {}): Promise<any> {
+	protected doGet(
+		id: string | number,
+		req_params: Keyable = {},
+	): Promise<ElementType> {
 		const params = {
 			...req_params,
 			id,
@@ -62,15 +79,14 @@ export abstract class BaseCollection {
 			"GET",
 			params,
 			this.populateObjectFromJsonRoot,
-			this.handleReject,
 			null,
 		);
 	}
 
-	protected doDelete(
+	protected doDelete<T = Keyable | Keyable[]>(
 		id: string | number,
 		req_params: Keyable = {},
-	): Promise<any> {
+	): Promise<T> {
 		const params = {
 			...req_params,
 			id,
@@ -79,27 +95,30 @@ export abstract class BaseCollection {
 			"DELETE",
 			params,
 			this.returnBareJSON,
-			this.handleReject,
 			null,
-		);
+		) as Promise<T>;
 	}
 
 	protected doCreate(
-		body: Keyable | null,
+		body: object | object[] | null,
 		req_params: Keyable = {},
 		resolveFn = this.populateObjectFromJson,
-	): Promise<any> {
+	): Promise<ElementType | SecondaryType> {
 		const params = {
 			...req_params,
 		};
 
-		return this.createPromise(
-			"POST",
-			params,
-			resolveFn,
-			this.handleReject,
-			body,
-		);
+		return this.createPromise("POST", params, resolveFn, body);
+	}
+
+	protected doCreateArray(
+		body: object | object[] | null,
+		req_params: Keyable,
+		resolveFn: ResolveHandler<ElementType[]> = this.populateArray,
+	): Promise<ElementType[]> {
+		const params = { ...req_params };
+
+		return this.createPromise("POST", params, resolveFn, body);
 	}
 
 	protected doUpdate(
@@ -108,152 +127,156 @@ export abstract class BaseCollection {
 		req_params: Keyable,
 		resolveFn = this.populateObjectFromJsonRoot,
 		method: HttpMethod = "PUT",
-	): Promise<any> {
+	): Promise<ElementType> {
 		const params = {
 			...req_params,
 			id,
 		};
-		return this.createPromise(
-			method,
-			params,
-			resolveFn,
-			this.handleReject,
-			body,
-		);
+		return this.createPromise(method, params, resolveFn, body);
 	}
 
-	protected populateObjectFromJsonRoot(json: Keyable, headers: Headers): any {
-		const childClass = <typeof BaseCollection>this.constructor;
+	protected populateObjectFromJsonRoot(
+		json: Keyable,
+		headers: Headers,
+	): ElementType {
 		let jsonData = json;
 
-		if (childClass.rootElementNameSingular) {
-			jsonData = Object(jsonData)[childClass.rootElementNameSingular];
+		const rootElementName = this.rootElementNameSingular;
+		if (this.rootElementNameSingular && rootElementName) {
+			const dataRecord = jsonData as Record<string, Keyable>;
+			jsonData = dataRecord[rootElementName];
+			if (!jsonData) {
+				throw new Error(`Missing property '${rootElementName}' in JSON object`);
+			}
 		}
 
-		return this.populateObjectFromJson(jsonData, headers);
+		return this.populateObjectFromJson(jsonData, headers) as ElementType;
 	}
 
 	protected populateSecondaryObjectFromJsonRoot(
 		json: Keyable,
 		headers: Headers,
-	): any {
-		const childClass = <typeof BaseCollection>this.constructor;
+	): SecondaryType {
+		const secondaryElementName = this.secondaryElementNameSingular;
+		const jsonRecord = json as Record<string, unknown>;
+		const secondaryJson = jsonRecord[secondaryElementName];
 
-		const secondaryJson =
-			Object(json)[<string>childClass.secondaryElementNameSingular];
+		if (!secondaryJson) {
+			throw new Error(
+				`Missing property '${secondaryElementName}' in JSON object`,
+			);
+		}
 
-		return this.populateObjectFromJson(secondaryJson, headers, true);
-	}
-
-	protected populateObjectFromJson(
-		json: Keyable,
-		_headers: Headers,
-		secondary = false,
-	): any {
-		const childClass = <typeof BaseCollection>this.constructor;
-
-		return secondary
-			? new childClass.secondaryElementClass(json)
-			: new childClass.elementClass(json);
+		return this.populateObjectFromJson(
+			secondaryJson,
+			headers,
+			true,
+		) as SecondaryType;
 	}
 
 	protected populateArrayFromJsonBulk(
 		json: Keyable,
 		headers: Headers,
-	): BulkResult | this[] {
-		const childClass = <typeof BaseCollection>this.constructor;
-		const arr: this[] = [];
-		const jsonArray = json[(<any>childClass).rootElementName];
-		for (const obj of jsonArray) {
-			arr.push(<this>this.populateObjectFromJson(obj, headers));
+	): BulkResult {
+		const rootElementName = this.rootElementName;
+
+		const jsonArray = json[rootElementName];
+		if (!Array.isArray(jsonArray)) {
+			throw new Error(
+				`Expected an array under '${rootElementName}', but got ${typeof jsonArray}`,
+			);
 		}
+
+		const items: ElementType[] = jsonArray.map(
+			(obj) => this.populateObjectFromJson(obj, headers) as ElementType,
+		);
+
 		const result: BulkResult = {
 			errors: json.errors,
-			items: arr,
+			items,
 		};
+
 		return result;
 	}
 
 	protected populateArrayFromJson(
 		json: Keyable,
 		headers: Headers,
-	): PaginatedResult | Keyable | this[] {
+	): PaginatedResult<ElementType> | ElementType[] {
 		const resultArray = this.populateArray(json, headers);
 
 		return this.isPaginated(headers)
-			? new PaginatedResult(resultArray, headers)
+			? new PaginatedResult<ElementType>(resultArray, headers)
 			: resultArray;
 	}
 
-	private populateArray(json: Keyable, headers: Headers): this[] {
-		const childClass = <typeof BaseCollection>this.constructor;
+	protected populateArray(json: Keyable, headers: Headers): ElementType[] {
+		const rootElementName = this.rootElementName;
 
-		return json[(<any>childClass).rootElementName].map((obj: Keyable) =>
-			this.populateObjectFromJson(obj, headers),
-		);
-	}
+		const jsonArray = json[rootElementName];
+		if (!Array.isArray(jsonArray)) {
+			throw new Error(
+				`Expected an array under '${rootElementName}', but got ${typeof jsonArray}`,
+			);
+		}
 
-	private isPaginated(headers: Headers): boolean {
-		return (
-			!!headers.get("x-pagination-total-count") &&
-			!!headers.get("x-pagination-page")
+		return jsonArray.map(
+			(obj: Keyable) =>
+				this.populateObjectFromJson(obj, headers) as ElementType,
 		);
 	}
 
 	protected populateArrayFromJsonCursor(
 		json: Keyable,
 		headers: Headers,
-	): CursorPaginatedResult | Keyable | this[] {
-		const childClass = <typeof BaseCollection>this.constructor;
-		const arr: this[] = [];
-		const jsonArray = json[(<any>childClass).rootElementName];
+	): CursorPaginatedResult<ElementType> {
+		const rootElementName = this.rootElementName;
 
-		for (const obj of jsonArray) {
-			arr.push(<this>this.populateObjectFromJson(obj, headers));
+		const jsonArray = json[rootElementName];
+		if (!Array.isArray(jsonArray)) {
+			throw new Error(
+				`Expected an array under '${rootElementName}', but got ${typeof jsonArray}`,
+			);
 		}
 
-		return new CursorPaginatedResult(arr, headers);
+		const items: ElementType[] = jsonArray.map(
+			(obj: Keyable) =>
+				this.populateObjectFromJson(obj, headers) as ElementType,
+		);
+
+		return new CursorPaginatedResult<ElementType>(items, headers);
 	}
 
-	protected populateApiErrorFromJson(json: any): ApiError {
-		return <ApiError>json;
+	protected populateObjectFromJson(
+		json: Keyable,
+		_headers: Headers,
+		secondary = false,
+	): ElementType | SecondaryType {
+		const cls = secondary ? this.secondaryElementClass : this.elementClass;
+		return new cls(json);
 	}
 
-	protected returnBareJSON(
-		json: Keyable | Array<Keyable>,
-	): Keyable | Array<Keyable> {
-		return json;
+	protected returnBareJSON<T>(json: Keyable | Keyable[]): T {
+		return json as T;
 	}
 
-	protected handleReject(data: any): ApiError {
-		return this.populateApiErrorFromJson(data);
+	protected objToArray(raw_body: Keyable | Keyable[]): Keyable[] {
+		return Array.isArray(raw_body) ? raw_body : [raw_body];
 	}
 
-	protected async createPromise(
+	protected async createPromise<T>(
 		method: HttpMethod,
 		params: Keyable,
-		resolveFn: ResolveHandler | null,
-		rejectFn: RejectHandler,
+		resolveFn: ResolveHandler<T>,
 		body: object | object[] | null,
 		uri: string | null = null,
-	): Promise<any> {
+	): Promise<T> {
 		const request = this.prepareRequest(method, body, params, uri);
 
-		try {
-			const data = await this.sendRequest(request);
+		const data = await this.sendRequest(request);
 
-			return resolveFn ? resolveFn.call(this, data.json, data.headers) : null;
-		} catch (err) {
-			return this.handleError(err, rejectFn);
-		}
-	}
-
-	protected sendRequest(request: ApiRequest): Promise<any> {
-		return request.promise;
-	}
-
-	protected handleError(err: any, rejectFn: RejectHandler): Promise<never> {
-		return Promise.reject(rejectFn.call(this, err));
+		// return resolveFn ? resolveFn.call(this, data.json, data.headers) : null;
+		return resolveFn.call(this, data.json, data.headers);
 	}
 
 	protected prepareRequest(
@@ -271,19 +294,23 @@ export abstract class BaseCollection {
 		);
 	}
 
-	protected getUri(uri: string | null): string {
-		const childClass = <typeof BaseCollection>this.constructor;
-
-		// Use a local variable instead of reassigning the parameter
-		const resolvedUri = uri ? uri : childClass.prefixURI;
-
-		return <string>resolvedUri;
+	protected sendRequest(request: ApiRequest): Promise<ApiResponse> {
+		return request.promise;
 	}
 
-	protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable> {
-		if (!Array.isArray(raw_body)) {
-			return Array(raw_body);
+	protected getUri(uri: string | null): string {
+		const childClass = this.constructor as typeof BaseCollection;
+		const resolvedUri = uri ?? childClass.prefixURI;
+		if (!resolvedUri) {
+			throw new Error("No URI or prefixURI provided.");
 		}
-		return raw_body;
+		return resolvedUri;
+	}
+
+	private isPaginated(headers: Headers): boolean {
+		return (
+			!!headers.get("x-pagination-total-count") &&
+			!!headers.get("x-pagination-page")
+		);
 	}
 }

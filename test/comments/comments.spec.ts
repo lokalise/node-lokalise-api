@@ -29,6 +29,31 @@ describe("Comments", () => {
 	});
 
 	it("lists project comments", async () => {
+		const stub = new Stub({
+			fixture: "comments/project_comments_malformed.json",
+			uri: `projects/${projectId}/comments`,
+			respHeaders: {
+				"x-pagination-total-count": "1",
+				"x-pagination-page": "1",
+				"x-pagination-limit": "100",
+				"x-pagination-page-count": "1",
+			},
+		});
+
+		await stub.setStub();
+
+		try {
+			await lokaliseApi.comments().list_project_comments({
+				project_id: projectId,
+			});
+		} catch (e) {
+			expect(e.message).toEqual(
+				"Expected an array under 'comments', but got object",
+			);
+		}
+	});
+
+	it("lists project comments", async () => {
 		const params = {
 			page: 2,
 			limit: 2,

@@ -1,4 +1,5 @@
 import type { BulkResult } from "../interfaces/bulk_result.js";
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Language } from "../models/language.js";
 import type {
@@ -13,11 +14,22 @@ import type {
 } from "../types/languages.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Languages extends BaseCollection {
-	protected static rootElementName = "languages";
-	protected static rootElementNameSingular = "language";
+export class Languages extends BaseCollection<Language> {
 	protected static prefixURI = "projects/{!:project_id}/languages/{:id}";
-	protected static elementClass = Language;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Language {
+		return Language;
+	}
+
+	protected get rootElementName(): string {
+		return "languages";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "language";
+	}
 
 	system_languages(
 		params: PaginationParams = {},
@@ -26,16 +38,15 @@ export class Languages extends BaseCollection {
 			"GET",
 			params,
 			this.populateArrayFromJson,
-			this.handleReject,
 			null,
 			"system/languages",
-		);
+		) as Promise<PaginatedResult<Language>>;
 	}
 
 	list(
 		request_params: ProjectWithPagination,
 	): Promise<PaginatedResult<Language>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Language>>;
 	}
 
 	create(
@@ -43,7 +54,13 @@ export class Languages extends BaseCollection {
 		request_params: ProjectOnly,
 	): Promise<BulkResult<Language>> {
 		const body = { languages: this.objToArray(raw_body) };
-		return this.doCreate(body, request_params, this.populateArrayFromJsonBulk);
+
+		return this.createPromise(
+			"POST",
+			request_params,
+			this.populateArrayFromJsonBulk,
+			body,
+		);
 	}
 
 	get(

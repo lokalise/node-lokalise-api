@@ -1,4 +1,3 @@
-import type { ApiError } from "../../src/main.js";
 import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
 
 describe("Screenshots", () => {
@@ -85,7 +84,7 @@ describe("Screenshots", () => {
 			.list({
 				project_id: "",
 			})
-			.catch((e: ApiError) => {
+			.catch((e) => {
 				expect(e.message).to.eq("Not Found");
 				expect(e.code).to.eq(404);
 			});
@@ -143,6 +142,34 @@ describe("Screenshots", () => {
 		expect(screenshots.items[0].screenshot_id).to.eq(secondScreenshotId);
 		expect(screenshots.items[0].key_ids).to.include(378217831);
 		expect(screenshots.errors).to.be.lengthOf(0);
+	});
+
+	it("raises error when create response is malformed", async () => {
+		const params = [
+			{
+				data: data,
+				ocr: false,
+				key_ids: [378217831],
+				tags: ["onboarding"],
+			},
+		];
+
+		const stub = new Stub({
+			fixture: "screenshots/create_malformed.json",
+			uri: `projects/${projectId}/screenshots`,
+			method: "POST",
+			body: { screenshots: params },
+		});
+
+		await stub.setStub();
+
+		try {
+			await lokaliseApi.screenshots().create(params, { project_id: projectId });
+		} catch (e) {
+			expect(e.message).toEqual(
+				"Expected an array under 'screenshots', but got object",
+			);
+		}
 	});
 
 	it("updates", async () => {

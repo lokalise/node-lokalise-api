@@ -6,6 +6,7 @@ export type ClientParams = {
 	tokenType?: string;
 	host?: string;
 	version?: string;
+	requestTimeout?: number;
 };
 
 export class BaseClient {
@@ -14,6 +15,7 @@ export class BaseClient {
 		tokenType: "",
 		authHeader: "x-api-token",
 		enableCompression: false,
+		requestTimeout: undefined,
 	};
 
 	/**
@@ -23,10 +25,11 @@ export class BaseClient {
 	constructor(params: ClientParams) {
 		const apiKey = params.apiKey;
 		if (!apiKey || apiKey.trim().length === 0) {
-			throw new Error("Error: Instantiation failed: Please pass an API key");
+			throw new Error("Instantiation failed: Please pass an API key");
 		}
 		this.clientData.token = apiKey;
 		this.clientData.enableCompression = params.enableCompression ?? false;
 		this.clientData.host = params.host;
+		this.clientData.requestTimeout = params.requestTimeout;
 	}
 }

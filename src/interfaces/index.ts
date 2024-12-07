@@ -1,4 +1,3 @@
-export { ApiError } from "./api_error.js";
 export { AuthData } from "./auth_data.js";
 export { AuthError } from "./auth_error.js";
 export { Branch } from "./branch.js";
@@ -34,7 +33,6 @@ export { UserGroup } from "./user_group.js";
 export { Webhook } from "./webhook.js";
 
 export { OtaSdkToken } from "./ota/ota_sdk_token.js";
-export { OtaApiError } from "./ota/ota_api_error.js";
 export { OtaBundleArchive } from "./ota/ota_bundle_archive.js";
 export { OtaBundle } from "./ota/ota_bundle.js";
 export { OtaFreezePeriod } from "./ota/ota_freeze_period.js";

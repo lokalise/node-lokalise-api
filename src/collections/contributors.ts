@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Contributor } from "../models/contributor.js";
 import type {
@@ -11,16 +12,27 @@ import type {
 } from "../types/contributors.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Contributors extends BaseCollection {
-	protected static rootElementName = "contributors";
-	protected static rootElementNameSingular = "contributor";
+export class Contributors extends BaseCollection<Contributor> {
 	protected static prefixURI = "projects/{!:project_id}/contributors/{:id}";
-	protected static elementClass = Contributor;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Contributor {
+		return Contributor;
+	}
+
+	protected get rootElementName(): string {
+		return "contributors";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "contributor";
+	}
 
 	list(
 		request_params: ProjectWithPagination,
 	): Promise<PaginatedResult<Contributor>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Contributor>>;
 	}
 
 	create(
@@ -29,7 +41,7 @@ export class Contributors extends BaseCollection {
 	): Promise<Contributor[]> {
 		const body = { contributors: this.objToArray(contributor_params) };
 
-		return this.doCreate(body, request_params, this.populateArrayFromJson);
+		return this.doCreateArray(body, request_params);
 	}
 
 	get(

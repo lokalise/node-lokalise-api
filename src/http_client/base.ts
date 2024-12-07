@@ -1,10 +1,16 @@
 import type { ClientData } from "../interfaces/client_data.js";
 import type { Keyable, WritableKeyable } from "../interfaces/keyable.js";
-import { LokalisePkg } from "../lokalise/pkg.js";
+import { getVersion } from "../lokalise/pkg.js";
+import { ApiError } from "../models/api_error.js";
 import type { HttpMethod } from "../types/http_method.js";
 
+export type ApiResponse = {
+	json: Keyable;
+	headers: Headers;
+};
+
 export class ApiRequest {
-	public promise: Promise<any>;
+	public promise: Promise<ApiResponse>;
 	public params: WritableKeyable = {};
 	protected readonly urlRoot = "https://api.lokalise.com/api2/";
 
@@ -25,7 +31,7 @@ export class ApiRequest {
 		method: HttpMethod,
 		body: object | object[] | null,
 		clientData: ClientData,
-	): Promise<any> {
+	): Promise<ApiResponse> {
 		const url = this.composeURI(`/${clientData.version}/${uri}`);
 
 		const prefixUrl = clientData.host ?? this.urlRoot;
@@ -39,49 +45,139 @@ export class ApiRequest {
 		};
 
 		const target = new URL(url, prefixUrl);
-
 		target.search = new URLSearchParams(this.params).toString();
 
-		return this.fetchAndHandleResponse(target, options);
+		return this.fetchAndHandleResponse(
+			target,
+			options,
+			clientData.requestTimeout,
+		);
 	}
 
 	protected async fetchAndHandleResponse(
 		target: URL,
 		options: RequestInit,
-	): Promise<any> {
+		requestTimeout: number | undefined,
+	): Promise<ApiResponse> {
+		const controller = new AbortController();
+		let timeoutId: NodeJS.Timeout | null = null;
+
+		if (requestTimeout && requestTimeout > 0) {
+			timeoutId = setTimeout(() => controller.abort(), requestTimeout);
+		}
+
 		try {
-			const response = await fetch(target, options);
+			const response = await fetch(target, {
+				...options,
+				signal: controller.signal,
+			});
 
 			return this.processResponse(response);
 		} catch (err) {
-			return Promise.reject({ message: (err as Error).message });
+			if (err instanceof Error) {
+				if (err.name === "AbortError") {
+					return Promise.reject(
+						new ApiError(err.message, 408, { reason: "timeout" }),
+					);
+				}
+				return Promise.reject(
+					new ApiError(err.message, 500, { reason: "network or fetch error" }),
+				);
+			}
+			return Promise.reject(
+				new ApiError("An unknown error occurred", 500, {
+					reason: String(err),
+				}),
+			);
+		} finally {
+			if (timeoutId) {
+				clearTimeout(timeoutId);
+			}
 		}
 	}
 
-	protected async processResponse(response: Response): Promise<any> {
-		let responseJSON: any = null;
+	protected async processResponse(response: Response): Promise<ApiResponse> {
+		let responseJSON: unknown = null;
 
 		try {
-			if (response.status === 204) {
-				responseJSON = null;
-			} else {
+			if (response.status !== 204) {
 				responseJSON = await response.json();
 			}
-		} catch (_error) {
-			return Promise.reject({
-				message: response.statusText,
-				code: response.status,
-			});
+		} catch (error) {
+			return Promise.reject(
+				new ApiError((error as Error).message, response.status, {
+					statusText: response.statusText,
+					reason: "JSON processing failed",
+				}),
+			);
 		}
 
 		if (response.ok) {
 			return {
-				json: responseJSON,
+				json: responseJSON as Keyable,
 				headers: response.headers,
 			};
 		}
 
 		return Promise.reject(this.getErrorFromResp(responseJSON));
+	}
+
+	protected getErrorFromResp(respJson: unknown): ApiError {
+		if (!respJson || typeof respJson !== "object") {
+			// Fallback for unexpected non-object responses
+			return new ApiError("An unknown error occurred", 500, {
+				reason: "unexpected response format",
+			});
+		}
+
+		const errorObj = respJson as Record<string, unknown>;
+
+		// Handle top-level "error" as a string (e.g., ENTITY_NOT_FOUND)
+		if (
+			typeof errorObj.message === "string" &&
+			typeof errorObj.statusCode === "number" &&
+			typeof errorObj.error === "string"
+		) {
+			return new ApiError(
+				errorObj.message,
+				errorObj.statusCode,
+				{ reason: errorObj.error }, // Use the string `error` as the reason
+			);
+		}
+
+		// Nested "error" object
+		if (errorObj.error && typeof errorObj.error === "object") {
+			const {
+				message = "Unknown error",
+				code = 500,
+				details,
+			} = errorObj.error as Record<string, unknown>;
+			return new ApiError(
+				String(message),
+				typeof code === "number" ? code : 500,
+				details ?? { reason: "server error without details" },
+			);
+		}
+
+		// Top-level fields for error
+		if (
+			typeof errorObj.message === "string" &&
+			(typeof errorObj.code === "number" ||
+				typeof errorObj.errorCode === "number")
+		) {
+			return new ApiError(
+				errorObj.message,
+				(typeof errorObj.code === "number"
+					? errorObj.code
+					: errorObj.errorCode) as number,
+				errorObj.details ?? { reason: "server error without details" },
+			);
+		}
+
+		return new ApiError("An unknown error occurred", 500, {
+			reason: "unhandled error format",
+			data: respJson,
+		});
 	}
 
 	protected async buildHeaders(
@@ -91,7 +187,7 @@ export class ApiRequest {
 	): Promise<Headers> {
 		const headers = new Headers({
 			Accept: "application/json",
-			"User-Agent": `node-lokalise-api/${await LokalisePkg.getVersion()}`,
+			"User-Agent": `node-lokalise-api/${await getVersion()}`,
 		});
 
 		headers.append(
@@ -112,30 +208,29 @@ export class ApiRequest {
 		return headers;
 	}
 
-	protected getErrorFromResp(respJson: any): any {
-		if (typeof respJson.error === "object") {
-			return respJson.error;
-		}
-		return respJson;
-	}
-
 	protected composeURI(rawUri: string): string {
 		const regexp = /{(!{0,1}):(\w*)}/g;
 		const uri = rawUri.replace(regexp, this.mapUriParams());
 		return uri.endsWith("/") ? uri.slice(0, -1) : uri;
 	}
 
-	protected mapUriParams() {
-		return (_entity: any, isMandaratory: string, paramName: string): string => {
+	protected mapUriParams(): (
+		substring: string,
+		isMandatory: string,
+		paramName: string,
+	) => string {
+		return (
+			_substring: string,
+			isMandatory: string,
+			paramName: string,
+		): string => {
 			if (this.params[paramName] != null) {
-				const t_param = this.params[paramName];
-
-				// We delete the param so we don't send it as a query param as well.
+				const t_param = String(this.params[paramName]);
+				// Remove the param so it won't appear as a query parameter
 				delete this.params[paramName];
-
 				return t_param;
 			}
-			if (isMandaratory === "!") {
+			if (isMandatory === "!") {
 				throw new Error(`Missing required param: ${paramName}`);
 			}
 			return "";

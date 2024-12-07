@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import { OtaFreezePeriod } from "../models/ota/ota_freeze_period.js";
 import type {
 	OtaFreezePeriodParams,
@@ -7,15 +8,26 @@ import type {
 } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
 
-export class OtaFreezePeriods extends OtaCollection {
-	protected static rootElementName = "data";
-	protected static rootElementNameSingular = "data";
+export class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod> {
 	protected static prefixURI =
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundle-freezes/{:id}";
-	protected static elementClass = OtaFreezePeriod;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => OtaFreezePeriod {
+		return OtaFreezePeriod;
+	}
+
+	protected get rootElementName(): string {
+		return "data";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "data";
+	}
 
 	list(requestParams: OtaTeamProjectFramework): Promise<OtaFreezePeriod[]> {
-		return this.doList(requestParams);
+		return this.doList(requestParams) as Promise<OtaFreezePeriod[]>;
 	}
 
 	create(

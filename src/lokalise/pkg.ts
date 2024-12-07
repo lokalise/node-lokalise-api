@@ -1,24 +1,19 @@
 import { readFile } from "node:fs/promises";
 import type { Keyable } from "../interfaces/keyable.js";
 
-export class LokalisePkg {
-	static pkgPath() {
-		return "../../package.json";
+function pkgPath(): string {
+	return "../../package.json";
+}
+
+export async function getVersion(): Promise<string> {
+	let pkg: Keyable | null;
+
+	try {
+		const data = await readFile(new URL(pkgPath(), import.meta.url));
+		pkg = JSON.parse(data.toString());
+	} catch {
+		pkg = null;
 	}
 
-	static async getVersion(): Promise<string> {
-		let pkg: Keyable | null;
-
-		try {
-			pkg = JSON.parse(
-				(
-					await readFile(new URL(LokalisePkg.pkgPath(), import.meta.url))
-				).toString(),
-			);
-		} catch (_e) {
-			pkg = null;
-		}
-
-		return pkg ? pkg.version : "unknown";
-	}
+	return pkg ? pkg.version : "unknown";
 }
