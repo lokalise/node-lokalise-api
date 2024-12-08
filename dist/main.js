@@ -28,8 +28,21 @@ async function getVersion() {
 
 // src/models/api_error.ts
 var ApiError = class extends Error {
+  /**
+   * The error code representing the type of API error.
+   */
   code;
+  /**
+   * Additional details about the error (optional).
+   */
   details;
+  /**
+   * Creates an instance of ApiError.
+   *
+   * @param {string} message - The error message.
+   * @param {number} code - The error code.
+   * @param {any} [details] - Additional details about the error.
+   */
   constructor(message, code, details) {
     super(message);
     this.code = code;
