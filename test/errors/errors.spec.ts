@@ -1,5 +1,5 @@
 import type { ProjectWithPagination } from "../../src/main.js";
-import { ApiError } from "../../src/models/api_error.js";
+import { ApiError } from "../../src/main.js";
 import { LokaliseApi, Stub, describe, expect, it, vi } from "../setup.js";
 
 describe("Errors", () => {

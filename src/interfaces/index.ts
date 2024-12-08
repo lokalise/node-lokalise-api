@@ -1,6 +1,6 @@
 export { AuthData } from "./auth_data.js";
-export { ApiError } from "./api_error.js";
-export { AuthError } from "./auth_error.js";
+export { IApiError } from "./api_error.js";
+export { IAuthError } from "./auth_error.js";
 export { Branch } from "./branch.js";
 export { BulkResult } from "./bulk_result.js";
 export { ClientData } from "./client_data.js";

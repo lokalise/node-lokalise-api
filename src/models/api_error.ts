@@ -1,9 +1,9 @@
-import type { ApiError as ApiErrorInterface } from "../interfaces/api_error.js";
+import type { IApiError } from "../interfaces/api_error.js";
 
 /**
  * Represents an API error with a specific code and optional details.
  */
-export class ApiError extends Error implements ApiErrorInterface {
+export class ApiError extends Error implements IApiError {
 	/**
 	 * The error code representing the type of API error.
 	 */

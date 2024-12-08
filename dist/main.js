@@ -2210,7 +2210,13 @@ var LokaliseAuth = class {
     return error;
   }
 };
+
+// src/models/auth_error.ts
+var AuthError = class extends BaseModel {
+};
 export {
+  ApiError,
+  AuthError,
   LokaliseApi,
   LokaliseApiOAuth,
   LokaliseApiOta,

@@ -1,7 +1,7 @@
 /**
  * Interface representing the structure of an API error.
  */
-export interface ApiError {
+export interface IApiError {
 	/**
 	 * The error message.
 	 */
