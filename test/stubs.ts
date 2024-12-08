@@ -6,10 +6,10 @@ import type {
 	MockInterceptor,
 } from "undici/types/mock-interceptor.js";
 import type { Keyable } from "../src/interfaces/keyable.js";
-import { LokalisePkg } from "../src/lokalise/pkg.js";
+import { getVersion } from "../src/lokalise/pkg.js";
 import type { HttpMethod } from "../src/types/http_method.js";
 
-const packageVersion = await LokalisePkg.getVersion();
+const packageVersion = await getVersion();
 
 const mockAgent = new MockAgent();
 setGlobalDispatcher(mockAgent);
@@ -29,6 +29,7 @@ type StubParams = Partial<{
 	skipApiToken: boolean;
 	version: string;
 	data: string;
+	delay: number;
 }>;
 
 export class Stub {
@@ -43,6 +44,7 @@ export class Stub {
 	private readonly rootUrl: string;
 	private readonly version: string;
 	private readonly data: string | undefined;
+	private readonly delay: number;
 
 	constructor(params: StubParams) {
 		if (!params.uri) {
@@ -63,6 +65,7 @@ export class Stub {
 			skipApiToken = false,
 			version = "api2",
 			data,
+			delay,
 		} = params;
 
 		this.uriPath = this.buildUriPath(uri, query);
@@ -80,6 +83,7 @@ export class Stub {
 		this.rootUrl = rootUrl;
 		this.version = version;
 		this.data = data;
+		this.delay = delay ?? 0;
 	}
 
 	async setStub() {
@@ -111,9 +115,13 @@ export class Stub {
 			mockPool.intercept(mockOpts).replyWithError(new Error("Fail"));
 		} else {
 			const responseData = this.data ?? (await this.readFixture());
-			mockPool
+			const pool = mockPool
 				.intercept({ ...mockOpts, body: this.requestBody })
 				.reply(this.statusCode, responseData, respOpts);
+
+			if (this.delay > 0) {
+				pool.delay(this.delay);
+			}
 		}
 	}
 

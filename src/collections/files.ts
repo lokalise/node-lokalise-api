@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { File } from "../models/file.js";
 import { QueuedProcess } from "../models/queued_process.js";
@@ -11,24 +12,38 @@ import type {
 } from "../types/files.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Files extends BaseCollection {
-	protected static rootElementName = "files";
+export class Files extends BaseCollection<File, QueuedProcess> {
 	protected static prefixURI = "projects/{!:project_id}/files/{:id}";
-	protected static elementClass = File;
 
-	protected static secondaryElementNameSingular = "process";
-	protected static secondaryElementClass = QueuedProcess;
+	protected get elementClass(): new (
+		json: Keyable,
+	) => File {
+		return File;
+	}
+
+	protected get rootElementName(): string {
+		return "files";
+	}
+
+	protected override get secondaryElementClass(): new (
+		json: Keyable,
+	) => QueuedProcess {
+		return QueuedProcess;
+	}
+
+	protected override get secondaryElementNameSingular(): string {
+		return "process";
+	}
 
 	list(request_params: ListFileParams): Promise<PaginatedResult<File>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<File>>;
 	}
 
 	upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess> {
 		return this.createPromise(
 			"POST",
-			{ project_id: project_id },
+			{ project_id },
 			this.populateSecondaryObjectFromJsonRoot,
-			this.handleReject,
 			upload,
 			"projects/{!:project_id}/files/upload",
 		);
@@ -40,9 +55,8 @@ export class Files extends BaseCollection {
 	): Promise<DownloadBundle> {
 		return this.createPromise(
 			"POST",
-			{ project_id: project_id },
-			this.returnBareJSON,
-			this.handleReject,
+			{ project_id },
+			this.returnBareJSON<DownloadBundle>,
 			download,
 			"projects/{!:project_id}/files/download",
 		);

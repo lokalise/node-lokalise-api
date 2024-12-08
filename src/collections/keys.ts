@@ -1,5 +1,6 @@
 import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { CursorPaginatedResult } from "../interfaces/cursor_paginated_result.js";
+import type { Keyable } from "../interfaces/keyable.js";
 import { Key } from "../models/key.js";
 import type { ProjectOnly } from "../types/common_get_params.js";
 import type {
@@ -13,11 +14,22 @@ import type {
 } from "../types/keys.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Keys extends BaseCollection {
-	protected static rootElementName = "keys";
-	protected static rootElementNameSingular = "key";
+export class Keys extends BaseCollection<Key> {
 	protected static prefixURI = "projects/{!:project_id}/keys/{:id}";
-	protected static elementClass = Key;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Key {
+		return Key;
+	}
+
+	protected get rootElementName(): string {
+		return "keys";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "key";
+	}
 
 	list(
 		request_params: KeyParamsWithPagination,
@@ -29,10 +41,11 @@ export class Keys extends BaseCollection {
 		key_params: CreateKeyParams,
 		request_params: ProjectOnly,
 	): Promise<BulkResult<Key>> {
-		return this.doCreate(
-			key_params,
+		return this.createPromise(
+			"POST",
 			request_params,
 			this.populateArrayFromJsonBulk,
+			key_params,
 		);
 	}
 
@@ -63,7 +76,6 @@ export class Keys extends BaseCollection {
 			"PUT",
 			request_params,
 			this.populateArrayFromJsonBulk,
-			this.handleReject,
 			key_params,
 			"projects/{!:project_id}/keys",
 		);
@@ -78,8 +90,7 @@ export class Keys extends BaseCollection {
 		return this.createPromise(
 			"DELETE",
 			request_params,
-			this.returnBareJSON,
-			this.handleReject,
+			this.returnBareJSON<KeysBulkDeleted>,
 			keys,
 			"projects/{!:project_id}/keys",
 		);

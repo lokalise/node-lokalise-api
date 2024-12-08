@@ -1,113 +1,140 @@
 import type { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
 import type { AuthError } from "../models/auth_error.js";
+import type { RefreshTokenResponse } from "../models/refresh_token_response.js";
 import type { RequestTokenResponse } from "../models/request_token_response.js";
-import { AuthRequest } from "./auth_request.js";
+import { createPromise } from "./auth_request.js";
 
 export class LokaliseAuth {
-	authData: AuthDataInterface = {
-		client_id: "",
-		client_secret: "",
-	};
+	public authData: AuthDataInterface;
 
-	/*
+	/**
 	 * Instantiate LokaliseAuth to work with OAuth 2 tokens
-	 * @param clientId      string, mandatory
-	 * @param clientSecret  string, mandatory
-	 * @returns             LokaliseAuth object to work with.
+	 *
+	 * @param clientId - The client ID (mandatory)
+	 * @param clientSecret - The client secret (mandatory)
+	 * @param host - Optional host, defaults to "https://app.lokalise.com"
+	 * @param version - Optional API version, defaults to "oauth2"
 	 */
 	constructor(
 		clientId: string,
 		clientSecret: string,
-		host?: string,
-		version?: string,
+		host = "https://app.lokalise.com",
+		version = "oauth2",
 	) {
-		if (
-			clientId == null ||
-			clientId.length === 0 ||
-			clientSecret == null ||
-			clientSecret.length === 0
-		) {
+		if (!clientId || !clientSecret) {
 			throw new Error(
-				"Error: Instantiation failed: Please pass client id and client secret",
+				"Error: Instantiation failed: Please pass client ID and client secret",
 			);
 		}
 
-		this.authData.client_id = clientId;
-		this.authData.client_secret = clientSecret;
-		this.authData.host = host ?? "https://app.lokalise.com";
-		this.authData.version = version ?? "oauth2";
+		this.authData = {
+			client_id: clientId,
+			client_secret: clientSecret,
+			host,
+			version,
+		};
 	}
 
-	auth(
-		scope: string | string[],
-		redirect_uri?: string,
-		state?: string,
-	): string {
+	/**
+	 * Generate the authorization URL
+	 *
+	 * @param scope - The scope(s) for the authorization
+	 * @param redirectUri - Optional redirect URI
+	 * @param state - Optional state parameter
+	 * @returns The authorization URL as a string
+	 */
+	auth(scope: string | string[], redirectUri?: string, state?: string): string {
 		const scopeString = Array.isArray(scope) ? scope.join(" ") : scope;
 
-		const params: { [key: string]: string } = {
+		const params: Record<string, string> = {
 			client_id: this.authData.client_id,
 			scope: scopeString,
 			...(state && { state }),
-			...(redirect_uri && { redirect_uri }),
+			...(redirectUri && { redirect_uri: redirectUri }),
 		};
 
 		return this.buildUrl(params);
 	}
 
-	async token(code: string): Promise<RequestTokenResponse> {
+	/**
+	 * Exchange an authorization code for an access token
+	 *
+	 * @param code - The authorization code
+	 * @returns A promise resolving to the token response
+	 */
+	token(code: string): Promise<RequestTokenResponse> {
 		const params = {
-			...this.base_params(),
-			...{
-				code: code,
-				grant_type: "authorization_code",
-			},
+			...this.baseParams(),
+			code,
+			grant_type: "authorization_code",
 		};
 
-		return await this.doRequest(params);
+		return this.doRequest<RequestTokenResponse>(params);
 	}
 
-	async refresh(refresh_token: string): Promise<any> {
+	/**
+	 * Refresh an access token using a refresh token
+	 *
+	 * @param refreshToken - The refresh token
+	 * @returns A promise resolving to the token response
+	 */
+	refresh(refreshToken: string): Promise<RefreshTokenResponse> {
 		const params = {
-			...this.base_params(),
-			...{
-				refresh_token: refresh_token,
-				grant_type: "refresh_token",
-			},
+			...this.baseParams(),
+			refresh_token: refreshToken,
+			grant_type: "refresh_token",
 		};
 
-		return await this.doRequest(params);
+		return this.doRequest<RefreshTokenResponse>(params);
 	}
 
-	private async doRequest(params: { [key: string]: string }): Promise<any> {
+	/**
+	 * Internal method to perform the API request
+	 *
+	 * @param params - Request parameters
+	 * @returns A promise resolving to the API response
+	 */
+	private async doRequest<T>(params: Record<string, string>): Promise<T> {
 		try {
-			const data = await AuthRequest.createPromise(
-				"token",
-				"POST",
-				params,
-				this.authData,
-			);
+			const data = await createPromise("token", "POST", params, this.authData);
 
-			return data.json;
+			return data.json as T;
 		} catch (err) {
-			return Promise.reject(this.handleReject(err));
+			throw this.handleReject(err);
 		}
 	}
 
-	private buildUrl(params: { [key: string]: string }): string {
+	/**
+	 * Build the authorization URL
+	 *
+	 * @param params - URL parameters
+	 * @returns The complete URL as a string
+	 */
+	private buildUrl(params: Record<string, string>): string {
 		const url = new URL("auth", this.authData.host);
 		url.search = new URLSearchParams(params).toString();
 		return url.toString();
 	}
 
-	private base_params(): { [key: string]: string } {
+	/**
+	 * Get the base parameters for authentication requests
+	 *
+	 * @returns A record containing the client ID and client secret
+	 */
+	private baseParams(): Record<string, string> {
 		return {
 			client_id: this.authData.client_id,
 			client_secret: this.authData.client_secret,
 		};
 	}
 
-	private handleReject(data: unknown): AuthError {
-		return <AuthError>data;
+	/**
+	 * Handle API request errors and transform them into an `AuthError`
+	 *
+	 * @param error - The error object
+	 * @returns An `AuthError` instance
+	 */
+	private handleReject(error: unknown): AuthError {
+		return error as AuthError;
 	}
 }

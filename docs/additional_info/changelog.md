@@ -1,5 +1,26 @@
 # Changelog
 
+## 13.0.0
+
+* Reworked code, make types stricter and error handling better
+* Allow to provide request timeout:
+
+```js
+const client = new LokaliseApi({
+  apiKey: "API_KEY",
+  requestTimeout: 5e3, // the value is in milliseconds
+});
+
+try {
+  await client.projects().list();
+} catch (e) {
+  console.error(e);
+  console.log(e.message); // "Request timed out after 1000ms"
+  console.log(e.code); // 408
+  console.log(e.details); // { reason: "timeout" }
+}
+```
+
 ## 12.8.0 (15-Oct-2024)
 
 * Added support for a new [`PermissionTemplates` endpoint](https://developers.lokalise.com/reference/list-all-permission-templates):

@@ -1,22 +1,21 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details.js";
 import type { BillingDetailsParams } from "../types/billing_details.js";
 import type { TeamOnly } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class TeamUserBillingDetails extends BaseCollection {
-	protected static rootElementName = "";
+export class TeamUserBillingDetails extends BaseCollection<BillingDetailsModel> {
 	protected static prefixURI = "teams/{!:team_id}/billing_details";
-	protected static elementClass = BillingDetailsModel;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => BillingDetailsModel {
+		return BillingDetailsModel;
+	}
 
 	get(team_id: string | number): Promise<BillingDetailsModel> {
 		const params = { team_id: team_id };
-		return this.createPromise(
-			"GET",
-			params,
-			this.populateObjectFromJson,
-			this.handleReject,
-			null,
-		);
+		return this.createPromise("GET", params, this.populateObjectFromJson, null);
 	}
 
 	create(
@@ -35,7 +34,6 @@ export class TeamUserBillingDetails extends BaseCollection {
 			"PUT",
 			params,
 			this.populateObjectFromJson,
-			this.handleReject,
 			billing_details_params,
 		);
 	}

@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { TeamUser } from "../models/team_user.js";
 import type { TeamOnly } from "../types/common_get_params.js";
@@ -5,14 +6,25 @@ import type { TeamUserDeleted, TeamUserParams } from "../types/team_users.js";
 import type { TeamWithPagination } from "../types/teams.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class TeamUsers extends BaseCollection {
-	protected static rootElementName = "team_users";
-	protected static rootElementNameSingular = "team_user";
+export class TeamUsers extends BaseCollection<TeamUser> {
 	protected static prefixURI = "teams/{!:team_id}/users/{:id}";
-	protected static elementClass = TeamUser;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => TeamUser {
+		return TeamUser;
+	}
+
+	protected get rootElementName(): string {
+		return "team_users";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "team_user";
+	}
 
 	list(request_params: TeamWithPagination): Promise<PaginatedResult<TeamUser>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<TeamUser>>;
 	}
 
 	get(

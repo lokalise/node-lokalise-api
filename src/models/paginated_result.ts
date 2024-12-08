@@ -1,13 +1,13 @@
 import type { PaginatedResult as PaginatedResultInterface } from "../interfaces/paginated_result.js";
 
-export class PaginatedResult implements PaginatedResultInterface {
+export class PaginatedResult<T> implements PaginatedResultInterface {
 	totalResults: number;
 	totalPages: number;
 	resultsPerPage: number;
 	currentPage: number;
-	items: any;
+	items: T[];
 
-	constructor(items: any, headers: Headers) {
+	constructor(items: T[], headers: Headers) {
 		this.totalResults = this.safeParseInt(
 			headers.get("x-pagination-total-count"),
 		);

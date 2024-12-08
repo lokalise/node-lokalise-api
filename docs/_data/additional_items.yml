@@ -5,10 +5,15 @@
   sub_paths:
     - title: API Rate Limits
       path: api-rate-limits
-- title: Configuring API host
-  path: configuring_api_host
-- title: Proxy support
-  path: proxy_support
+- title: Customizing client
+  path: customizing_client
+  sub_paths:
+    - title: Configuring timeouts
+      path: configuring-timeouts
+    - title: Configuring API host
+      path: configuring-api-host
+    - title: Proxy support
+      path: proxy-support
 - title: Webhook events
   path: webhook_events
 - title: Contributing

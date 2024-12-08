@@ -1,5 +1,3 @@
-import sinon from "sinon";
-import { LokalisePkg } from "../../src/lokalise/pkg.js";
 import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
 
 describe("Projects", () => {
@@ -78,26 +76,6 @@ describe("Projects", () => {
 		expect(project.base_language_iso).to.equal("en");
 		expect(project.settings.per_platform_key_names).to.be.true;
 		expect(project.statistics.progress_total).to.equal(32);
-	});
-
-	it("retrieves with no version", async () => {
-		sinon.replace(LokalisePkg, "pkgPath", () => "fake_file_here");
-
-		const stub = new Stub({
-			fixture: "projects/retrieve_no_version.json",
-			uri: `projects/${projectId}`,
-			reqHeaders: {
-				"User-Agent": "node-lokalise-api/unknown",
-			},
-		});
-
-		await stub.setStub();
-
-		const project = await lokaliseApi.projects().get(projectId);
-
-		expect(project.name).to.eq("Demo Phoenix");
-
-		sinon.restore();
 	});
 
 	it("creates", async () => {

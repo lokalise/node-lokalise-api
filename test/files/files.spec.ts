@@ -117,6 +117,32 @@ describe("Files", () => {
 		expect(process.status).to.eq("queued");
 	});
 
+	it("raises error for malformed response", async () => {
+		const params = {
+			data: data,
+			filename: "test_node.json",
+			lang_iso: "en",
+			format: <FileFormat>"json",
+		};
+
+		const stub = new Stub({
+			fixture: "files/upload_malformed.json",
+			uri: `projects/${projectId}/files/upload`,
+			body: params,
+			method: "POST",
+		});
+
+		await stub.setStub();
+
+		try {
+			await lokaliseApi.files().upload(projectId, params);
+		} catch (e) {
+			expect(e.message).toEqual(
+				"Missing expected secondary property 'process' in JSON response.",
+			);
+		}
+	});
+
 	it("checks upload status", async () => {
 		const stub = new Stub({
 			fixture: "files/upload_process_check.json",

@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Comment } from "../models/comment.js";
 import type {
@@ -9,17 +10,28 @@ import type {
 import type { ProjectWithPagination } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Comments extends BaseCollection {
-	protected static rootElementName = "comments";
-	protected static rootElementNameSingular = "comment";
+export class Comments extends BaseCollection<Comment> {
 	protected static prefixURI =
 		"projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
-	protected static elementClass = Comment;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Comment {
+		return Comment;
+	}
+
+	protected get rootElementName(): string {
+		return "comments";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "comment";
+	}
 
 	list(
 		request_params: KeyProjectPagination,
 	): Promise<PaginatedResult<Comment>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Comment>>;
 	}
 
 	create(
@@ -27,7 +39,8 @@ export class Comments extends BaseCollection {
 		request_params: ProjectAndKey,
 	): Promise<Comment[]> {
 		const body = { comments: this.objToArray(comment_params) };
-		return this.doCreate(body, request_params, this.populateArrayFromJson);
+
+		return this.doCreateArray(body, request_params);
 	}
 
 	get(
@@ -51,9 +64,8 @@ export class Comments extends BaseCollection {
 			"GET",
 			params,
 			this.populateArrayFromJson,
-			this.handleReject,
 			null,
 			"projects/{!:project_id}/comments",
-		);
+		) as Promise<PaginatedResult<Comment>>;
 	}
 }
