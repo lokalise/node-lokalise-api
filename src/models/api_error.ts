@@ -1,8 +1,27 @@
-export class ApiError extends Error {
+import type { ApiError as ApiErrorInterface } from "../interfaces/api_error.js";
+
+/**
+ * Represents an API error with a specific code and optional details.
+ */
+export class ApiError extends Error implements ApiErrorInterface {
+	/**
+	 * The error code representing the type of API error.
+	 */
 	code: number;
+
+	/**
+	 * Additional details about the error (optional).
+	 */
 	details?: any;
 
-	constructor(message: string, code: number, details: any) {
+	/**
+	 * Creates an instance of ApiError.
+	 *
+	 * @param {string} message - The error message.
+	 * @param {number} code - The error code.
+	 * @param {any} [details] - Additional details about the error.
+	 */
+	constructor(message: string, code: number, details?: any) {
 		super(message);
 		this.code = code;
 		this.details = details;
