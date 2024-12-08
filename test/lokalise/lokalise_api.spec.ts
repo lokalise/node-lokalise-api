@@ -5,7 +5,7 @@ describe("LokaliseApi", () => {
 	it("is expected to throw an error if the API key is not provided", () => {
 		expect(() => {
 			new LokaliseApi({ apiKey: "" });
-		}).toThrow("Instantiation failed: Please pass an API key");
+		}).toThrow("Instantiation failed: A non-empty API key must be provided.");
 	});
 
 	it("is expected to contain clientData", () => {
@@ -57,7 +57,7 @@ describe("LokaliseApi timeouts", () => {
 		await expect(
 			client.contributors().list({ project_id: project_id, limit: 2 }),
 		).rejects.toMatchObject({
-			message: "This operation was aborted",
+			message: "Request timed out after 1ms",
 			code: 408,
 			details: { reason: "timeout" },
 		});

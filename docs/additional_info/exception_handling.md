@@ -16,7 +16,10 @@ Or with async/await:
 try {
   await lokaliseApi.projects().list();
 } catch (e) {
-  console.log(e);
+  console.error(e);
+  console.log(e.message); // "Request timed out after 1000ms"
+  console.log(e.code); // 408
+  console.log(e.details); // { reason: "timeout" }
 }
 ```
 

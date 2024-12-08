@@ -6,26 +6,26 @@ describe("BaseCollection", () => {
 	const collection = new DummyCollection(lokaliseApi.clientData);
 
 	it("should throw error if rootElementName is not defined", () => {
-		expect(() => collection.rootElementName).toThrowError(
-			"Root element name is not defined for this collection",
+		expect(() => collection.testRootElementName()).toThrowError(
+			"rootElementName is not defined. Subclasses must override `rootElementName`.",
 		);
 	});
 
 	it("should throw error if rootElementNameSingular is not defined", () => {
-		expect(() => collection.rootElementNameSingular).toThrowError(
-			"Root element name singular is not defined for this collection",
+		expect(() => collection.testRootElementNameSingular()).toThrowError(
+			"rootElementNameSingular is not defined. Subclasses must override `rootElementNameSingular`.",
 		);
 	});
 
 	it("should throw error if secondaryElementClass is not defined", () => {
-		expect(() => collection.secondaryElementClass).toThrowError(
+		expect(() => collection.testSecondaryElementClass()).toThrowError(
 			"Secondary elements are not supported by this collection",
 		);
 	});
 
 	it("should throw error if secondaryElementNameSingular is not defined", () => {
-		expect(() => collection.secondaryElementNameSingular).toThrowError(
-			"Secondary element name singular is not defined for this collection",
+		expect(() => collection.testSecondaryElementNameSingular()).toThrowError(
+			"secondaryElementNameSingular is not defined. Subclasses must override this if secondary elements are used.",
 		);
 	});
 

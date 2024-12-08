@@ -9,11 +9,35 @@ export type ApiResponse = {
 	headers: Headers;
 };
 
+/**
+ * Represents a single API request to the Lokalise API.
+ * Handles URL construction, request initiation, response processing, and error handling.
+ */
 export class ApiRequest {
+	/**
+	 * A Promise that resolves to an ApiResponse containing the parsed JSON and headers.
+	 */
 	public promise: Promise<ApiResponse>;
+
+	/**
+	 * Query and path parameters used to construct the request URL.
+	 * This object is modified during URL construction, removing parameters used in path segments.
+	 */
 	public params: WritableKeyable = {};
+
+	/**
+	 * The default base URL for the Lokalise API.
+	 */
 	protected readonly urlRoot = "https://api.lokalise.com/api2/";
 
+	/**
+	 * Constructs a new ApiRequest instance.
+	 * @param uri - The endpoint URI (versioned path expected).
+	 * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
+	 * @param body - The request payload, if applicable.
+	 * @param params - Query and/or path parameters.
+	 * @param clientData - Authentication and configuration data for the request.
+	 */
 	constructor(
 		uri: string,
 		method: HttpMethod,
@@ -21,11 +45,19 @@ export class ApiRequest {
 		params: Keyable,
 		clientData: ClientData,
 	) {
-		// Since we modify params, we need to make a copy of it so we don't modify the original
+		// Copy params to avoid modifying the original object
 		this.params = { ...params };
 		this.promise = this.createPromise(uri, method, body, clientData);
 	}
 
+	/**
+	 * Creates the request promise by composing the URL, building headers, and executing the fetch.
+	 * @param uri - The endpoint URI.
+	 * @param method - The HTTP method.
+	 * @param body - The request payload.
+	 * @param clientData - Client configuration and auth data.
+	 * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
+	 */
 	protected async createPromise(
 		uri: string,
 		method: HttpMethod,
@@ -33,9 +65,7 @@ export class ApiRequest {
 		clientData: ClientData,
 	): Promise<ApiResponse> {
 		const url = this.composeURI(`/${clientData.version}/${uri}`);
-
 		const prefixUrl = clientData.host ?? this.urlRoot;
-
 		const headers = await this.buildHeaders(clientData, method, body);
 
 		const options: RequestInit = {
@@ -54,6 +84,14 @@ export class ApiRequest {
 		);
 	}
 
+	/**
+	 * Executes the fetch request and handles network-level errors.
+	 * Applies a request timeout if specified.
+	 * @param target - The fully constructed request URL.
+	 * @param options - The fetch request options.
+	 * @param requestTimeout - Optional timeout in milliseconds.
+	 * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
+	 */
 	protected async fetchAndHandleResponse(
 		target: URL,
 		options: RequestInit,
@@ -77,7 +115,9 @@ export class ApiRequest {
 			if (err instanceof Error) {
 				if (err.name === "AbortError") {
 					return Promise.reject(
-						new ApiError(err.message, 408, { reason: "timeout" }),
+						new ApiError(`Request timed out after ${requestTimeout}ms`, 408, {
+							reason: "timeout",
+						}),
 					);
 				}
 				return Promise.reject(
@@ -96,6 +136,12 @@ export class ApiRequest {
 		}
 	}
 
+	/**
+	 * Processes the fetch response.
+	 * Attempts to parse JSON unless the status is 204 (No Content).
+	 * @param response - The raw fetch Response object.
+	 * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
+	 */
 	protected async processResponse(response: Response): Promise<ApiResponse> {
 		let responseJSON: unknown = null;
 
@@ -107,7 +153,7 @@ export class ApiRequest {
 			return Promise.reject(
 				new ApiError((error as Error).message, response.status, {
 					statusText: response.statusText,
-					reason: "JSON processing failed",
+					reason: "JSON parsing error",
 				}),
 			);
 		}
@@ -122,9 +168,13 @@ export class ApiRequest {
 		return Promise.reject(this.getErrorFromResp(responseJSON));
 	}
 
+	/**
+	 * Derives an ApiError instance from the response JSON, which may follow various patterns.
+	 * @param respJson - The parsed JSON response from the server.
+	 * @returns An ApiError representing the server error.
+	 */
 	protected getErrorFromResp(respJson: unknown): ApiError {
 		if (!respJson || typeof respJson !== "object") {
-			// Fallback for unexpected non-object responses
 			return new ApiError("An unknown error occurred", 500, {
 				reason: "unexpected response format",
 			});
@@ -132,20 +182,18 @@ export class ApiRequest {
 
 		const errorObj = respJson as Record<string, unknown>;
 
-		// Handle top-level "error" as a string (e.g., ENTITY_NOT_FOUND)
+		// Top-level error format: { message: string, statusCode: number, error: string }
 		if (
 			typeof errorObj.message === "string" &&
 			typeof errorObj.statusCode === "number" &&
 			typeof errorObj.error === "string"
 		) {
-			return new ApiError(
-				errorObj.message,
-				errorObj.statusCode,
-				{ reason: errorObj.error }, // Use the string `error` as the reason
-			);
+			return new ApiError(errorObj.message, errorObj.statusCode, {
+				reason: errorObj.error,
+			});
 		}
 
-		// Nested "error" object
+		// Nested error object: { error: { message, code, details } }
 		if (errorObj.error && typeof errorObj.error === "object") {
 			const {
 				message = "Unknown error",
@@ -159,27 +207,35 @@ export class ApiRequest {
 			);
 		}
 
-		// Top-level fields for error
+		// Alternative top-level fields: { message: string, code?: number, errorCode?: number, details?: any }
 		if (
 			typeof errorObj.message === "string" &&
 			(typeof errorObj.code === "number" ||
 				typeof errorObj.errorCode === "number")
 		) {
+			const statusCode =
+				typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
 			return new ApiError(
 				errorObj.message,
-				(typeof errorObj.code === "number"
-					? errorObj.code
-					: errorObj.errorCode) as number,
+				statusCode as number,
 				errorObj.details ?? { reason: "server error without details" },
 			);
 		}
 
+		// Fallback if no known error format matches
 		return new ApiError("An unknown error occurred", 500, {
 			reason: "unhandled error format",
 			data: respJson,
 		});
 	}
 
+	/**
+	 * Builds the request headers, including authentication, compression, and JSON headers as needed.
+	 * @param clientData - Client configuration and auth data.
+	 * @param method - The HTTP method.
+	 * @param body - The request payload.
+	 * @returns A promise resolving to the constructed Headers.
+	 */
 	protected async buildHeaders(
 		clientData: ClientData,
 		method: HttpMethod,
@@ -190,6 +246,7 @@ export class ApiRequest {
 			"User-Agent": `node-lokalise-api/${await getVersion()}`,
 		});
 
+		// Auth header can be either just the token or "<tokenType> <token>"
 		headers.append(
 			clientData.authHeader,
 			clientData.tokenType.length > 0
@@ -202,18 +259,30 @@ export class ApiRequest {
 		}
 
 		if (method !== "GET" && body) {
-			headers.append("Content-type", "application/json");
+			headers.append("Content-Type", "application/json");
 		}
 
 		return headers;
 	}
 
+	/**
+	 * Composes the final URI by replacing placeholders of the form `/{!:{paramName}}`
+	 * with the corresponding parameter values.
+	 * @param rawUri - The raw URI template.
+	 * @returns The final composed URI string.
+	 * @throws Error if a required parameter is missing.
+	 */
 	protected composeURI(rawUri: string): string {
 		const regexp = /{(!{0,1}):(\w*)}/g;
 		const uri = rawUri.replace(regexp, this.mapUriParams());
 		return uri.endsWith("/") ? uri.slice(0, -1) : uri;
 	}
 
+	/**
+	 * Returns a function that maps URI parameters from placeholders.
+	 * @returns A function used as a replacement callback in `composeURI`.
+	 * @throws Error if a required parameter is missing.
+	 */
 	protected mapUriParams(): (
 		substring: string,
 		isMandatory: string,
@@ -225,13 +294,13 @@ export class ApiRequest {
 			paramName: string,
 		): string => {
 			if (this.params[paramName] != null) {
-				const t_param = String(this.params[paramName]);
-				// Remove the param so it won't appear as a query parameter
+				const paramValue = String(this.params[paramName]);
+				// Remove the parameter so it doesn't appear as a query parameter
 				delete this.params[paramName];
-				return t_param;
+				return paramValue;
 			}
 			if (isMandatory === "!") {
-				throw new Error(`Missing required param: ${paramName}`);
+				throw new Error(`Missing required parameter: ${paramName}`);
 			}
 			return "";
 		};

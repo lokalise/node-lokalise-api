@@ -100,17 +100,85 @@ type ApiResponse = {
     json: Keyable;
     headers: Headers;
 };
+/**
+ * Represents a single API request to the Lokalise API.
+ * Handles URL construction, request initiation, response processing, and error handling.
+ */
 declare class ApiRequest {
+    /**
+     * A Promise that resolves to an ApiResponse containing the parsed JSON and headers.
+     */
     promise: Promise<ApiResponse>;
+    /**
+     * Query and path parameters used to construct the request URL.
+     * This object is modified during URL construction, removing parameters used in path segments.
+     */
     params: WritableKeyable;
+    /**
+     * The default base URL for the Lokalise API.
+     */
     protected readonly urlRoot = "https://api.lokalise.com/api2/";
+    /**
+     * Constructs a new ApiRequest instance.
+     * @param uri - The endpoint URI (versioned path expected).
+     * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
+     * @param body - The request payload, if applicable.
+     * @param params - Query and/or path parameters.
+     * @param clientData - Authentication and configuration data for the request.
+     */
     constructor(uri: string, method: HttpMethod, body: object | object[] | null, params: Keyable, clientData: ClientData);
+    /**
+     * Creates the request promise by composing the URL, building headers, and executing the fetch.
+     * @param uri - The endpoint URI.
+     * @param method - The HTTP method.
+     * @param body - The request payload.
+     * @param clientData - Client configuration and auth data.
+     * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
+     */
     protected createPromise(uri: string, method: HttpMethod, body: object | object[] | null, clientData: ClientData): Promise<ApiResponse>;
+    /**
+     * Executes the fetch request and handles network-level errors.
+     * Applies a request timeout if specified.
+     * @param target - The fully constructed request URL.
+     * @param options - The fetch request options.
+     * @param requestTimeout - Optional timeout in milliseconds.
+     * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
+     */
     protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout: number | undefined): Promise<ApiResponse>;
+    /**
+     * Processes the fetch response.
+     * Attempts to parse JSON unless the status is 204 (No Content).
+     * @param response - The raw fetch Response object.
+     * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
+     */
     protected processResponse(response: Response): Promise<ApiResponse>;
+    /**
+     * Derives an ApiError instance from the response JSON, which may follow various patterns.
+     * @param respJson - The parsed JSON response from the server.
+     * @returns An ApiError representing the server error.
+     */
     protected getErrorFromResp(respJson: unknown): ApiError;
+    /**
+     * Builds the request headers, including authentication, compression, and JSON headers as needed.
+     * @param clientData - Client configuration and auth data.
+     * @param method - The HTTP method.
+     * @param body - The request payload.
+     * @returns A promise resolving to the constructed Headers.
+     */
     protected buildHeaders(clientData: ClientData, method: HttpMethod, body: object | object[] | null): Promise<Headers>;
+    /**
+     * Composes the final URI by replacing placeholders of the form `/{!:{paramName}}`
+     * with the corresponding parameter values.
+     * @param rawUri - The raw URI template.
+     * @returns The final composed URI string.
+     * @throws Error if a required parameter is missing.
+     */
     protected composeURI(rawUri: string): string;
+    /**
+     * Returns a function that maps URI parameters from placeholders.
+     * @returns A function used as a replacement callback in `composeURI`.
+     * @throws Error if a required parameter is missing.
+     */
     protected mapUriParams(): (substring: string, isMandatory: string, paramName: string) => string;
 }
 
@@ -147,36 +215,214 @@ declare class CursorPaginatedResult<T> extends PaginatedResult<T> implements Cur
 }
 
 type ResolveHandler<T> = (json: Keyable, headers: Headers) => T;
+/**
+ * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
+ * and handling for pagination, cursor pagination, and bulk operations. Other "collection" classes
+ * should extend this class and provide specific implementations for resource endpoints.
+ *
+ * Expected usage:
+ * - Subclasses define `rootElementName` and/or `rootElementNameSingular` to indicate the JSON fields
+ *   that contain the desired data.
+ * - `elementClass` and optionally `secondaryElementClass` should be overridden to map raw JSON
+ *   objects to strongly typed model instances.
+ * - `endpoint` and `prefixURI` should be set as static properties in subclasses to specify resource paths.
+ */
 declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
+    /**
+     * Client data containing authentication and configuration details.
+     * Provided by a `BaseClient` or similar client instance.
+     */
     readonly clientData: ClientData;
+    /**
+     * Static endpoint property that subclasses can define to indicate the API endpoint
+     * for this collection. If not set, ensure `prefixURI` or `uri` parameters are passed.
+     */
     protected static endpoint: string | null;
+    /**
+     * Static prefixURI property that subclasses can define to indicate a base path.
+     * If `uri` is not passed explicitly, this prefix is used to construct the request URL.
+     */
     protected static prefixURI: string | null;
+    /**
+     * Constructs a new BaseCollection instance.
+     * @param clientData - Client data for making authenticated requests.
+     */
     constructor(clientData: ClientData);
+    /**
+     * Abstract getter that must be implemented by subclasses.
+     * Should return a class constructor that maps a JSON object to an `ElementType` instance.
+     */
     protected abstract get elementClass(): new (json: Keyable) => ElementType;
+    /**
+     * Getter that must be overridden by subclasses to return the root element name
+     * for array-based JSON responses.
+     * @throws Error if not defined by the subclass.
+     */
     protected get rootElementName(): string;
+    /**
+     * Getter that may be overridden by subclasses to return the root element name
+     * for single-item JSON responses.
+     * @throws Error if not defined by the subclass.
+     */
     protected get rootElementNameSingular(): string | null;
+    /**
+     * Getter that may be overridden by subclasses if a secondary model type is returned.
+     * By default, this throws an error. If needed, override it in the subclass.
+     */
     protected get secondaryElementClass(): new (json: Keyable) => SecondaryType;
+    /**
+     * Getter that must be overridden if `secondaryElementClass` is used.
+     * Returns the JSON property name for the secondary element.
+     * @throws Error if not defined by the subclass that uses secondary elements.
+     */
     protected get secondaryElementNameSingular(): string;
-    protected doList(req_params: Keyable): Promise<PaginatedResult<ElementType> | ElementType[]>;
-    protected doListCursor(req_params: Keyable): Promise<CursorPaginatedResult<ElementType>>;
-    protected doGet(id: string | number, req_params?: Keyable): Promise<ElementType>;
-    protected doDelete<T = Keyable | Keyable[]>(id: string | number, req_params?: Keyable): Promise<T>;
-    protected doCreate(body: object | object[] | null, req_params?: Keyable, resolveFn?: (json: Keyable, _headers: Headers, secondary?: boolean) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
-    protected doCreateArray(body: object | object[] | null, req_params: Keyable, resolveFn?: ResolveHandler<ElementType[]>): Promise<ElementType[]>;
-    protected doUpdate(id: string | number, body: Keyable | null, req_params: Keyable, resolveFn?: (json: Keyable, headers: Headers) => ElementType, method?: HttpMethod): Promise<ElementType>;
+    /**
+     * Perform a GET request that expects a list of items.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to either a paginated result or an array of ElementType.
+     */
+    protected doList(params: Keyable): Promise<PaginatedResult<ElementType> | ElementType[]>;
+    /**
+     * Perform a GET request that expects a cursor-paginated list of items.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to a CursorPaginatedResult of ElementType.
+     */
+    protected doListCursor(params: Keyable): Promise<CursorPaginatedResult<ElementType>>;
+    /**
+     * Perform a GET request to retrieve a single item by its ID.
+     * @param id The ID of the item to retrieve.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to a single ElementType instance.
+     */
+    protected doGet(id: string | number, params?: Keyable): Promise<ElementType>;
+    /**
+     * Perform a DELETE request to remove a single item by its ID.
+     * @param id The ID of the item to delete.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to JSON representing the deletion result.
+     */
+    protected doDelete<T = Keyable | Keyable[]>(id: string | number, params?: Keyable): Promise<T>;
+    /**
+     * Perform a POST request to create a new resource.
+     * @param body The object or array of objects to send in the request body.
+     * @param params Optional query or request parameters.
+     * @param resolveFn Optional custom resolve handler to parse the response.
+     * @returns A promise resolving to an ElementType or SecondaryType instance.
+     */
+    protected doCreate(body: object | object[] | null, params?: Keyable, resolveFn?: (json: Keyable, _headers: Headers, secondary?: boolean) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
+    /**
+     * Perform a POST request to create multiple resources at once.
+     * @param body The object or array of objects to send in the request body.
+     * @param params Optional query or request parameters.
+     * @param resolveFn Optional custom resolve handler to parse the response array.
+     * @returns A promise resolving to an array of ElementType.
+     */
+    protected doCreateArray(body: object | object[] | null, params: Keyable, resolveFn?: ResolveHandler<ElementType[]>): Promise<ElementType[]>;
+    /**
+     * Perform an UPDATE (PUT/PATCH) request to modify an existing resource by its ID.
+     * @param id The ID of the item to update.
+     * @param body The updated fields to send in the request body.
+     * @param params Optional query or request parameters.
+     * @param resolveFn Optional custom resolve handler to parse the response object.
+     * @param method The HTTP method to use, typically PUT or PATCH.
+     * @returns A promise resolving to the updated ElementType instance.
+     */
+    protected doUpdate(id: string | number, body: Keyable | null, params: Keyable, resolveFn?: (json: Keyable, headers: Headers) => ElementType, method?: HttpMethod): Promise<ElementType>;
+    /**
+     * Parse a JSON response that contains a single item under a known root element name.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     * @returns The parsed ElementType instance.
+     * @throws Error if the expected root element name is missing.
+     */
     protected populateObjectFromJsonRoot(json: Keyable, headers: Headers): ElementType;
+    /**
+     * Parse a JSON response that contains a secondary item under a known secondary root element name.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     * @returns The parsed SecondaryType instance.
+     * @throws Error if the expected secondary element name is missing.
+     */
     protected populateSecondaryObjectFromJsonRoot(json: Keyable, headers: Headers): SecondaryType;
+    /**
+     * Parse a JSON response that contains an array of items along with bulk result details.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     * @returns A BulkResult object containing items and potential errors.
+     * @throws Error if the expected root element is missing or not an array.
+     */
     protected populateArrayFromJsonBulk(json: Keyable, headers: Headers): BulkResult;
+    /**
+     * Parse a JSON response that contains an array of items.
+     * If pagination headers are detected, returns a PaginatedResult.
+     * Otherwise, returns a plain array of ElementType.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     */
     protected populateArrayFromJson(json: Keyable, headers: Headers): PaginatedResult<ElementType> | ElementType[];
+    /**
+     * Parse a JSON response that contains an array of items.
+     * This method returns a plain array and does not consider pagination.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     */
     protected populateArray(json: Keyable, headers: Headers): ElementType[];
+    /**
+     * Parse a JSON response that contains a cursor-paginated array of items.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     */
     protected populateArrayFromJsonCursor(json: Keyable, headers: Headers): CursorPaginatedResult<ElementType>;
+    /**
+     * Parse a JSON object into either an ElementType or a SecondaryType instance.
+     * @param json The raw JSON object returned by the API.
+     * @param _headers The response headers (if needed).
+     * @param secondary If true, use the secondaryElementClass instead of elementClass.
+     */
     protected populateObjectFromJson(json: Keyable, _headers: Headers, secondary?: boolean): ElementType | SecondaryType;
+    /**
+     * Return the raw JSON as-is.
+     * @param json The raw JSON object or array returned by the API.
+     */
     protected returnBareJSON<T>(json: Keyable | Keyable[]): T;
+    /**
+     * Convert a single object into an array if it's not already an array.
+     * @param raw_body The raw request body.
+     */
     protected objToArray(raw_body: Keyable | Keyable[]): Keyable[];
+    /**
+     * Create a Promise that sends an HTTP request and resolves with a parsed response.
+     * @param method The HTTP method (GET, POST, PUT, DELETE, etc.).
+     * @param params Query or request parameters.
+     * @param resolveFn A function to resolve and parse the JSON response.
+     * @param body The request body, if applicable.
+     * @param uri An explicit URI to use for the request. If not provided, prefixURI is used.
+     */
     protected createPromise<T>(method: HttpMethod, params: Keyable, resolveFn: ResolveHandler<T>, body: object | object[] | null, uri?: string | null): Promise<T>;
+    /**
+     * Prepare the API request by creating a new ApiRequest instance.
+     * @param method The HTTP method.
+     * @param body The request body.
+     * @param params The request parameters.
+     * @param uri An explicit URI for the request or null.
+     */
     protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Keyable, uri: string | null): ApiRequest;
+    /**
+     * Send the prepared request and return its promise.
+     * @param request The ApiRequest instance to send.
+     * @returns A Promise resolving to an ApiResponse.
+     */
     protected sendRequest(request: ApiRequest): Promise<ApiResponse>;
+    /**
+     * Determine the URI for the request. If uri is not provided, use prefixURI.
+     * @param uri An explicit URI or null.
+     * @throws Error if no URI or prefixURI is provided.
+     */
     protected getUri(uri: string | null): string;
+    /**
+     * Determine if the response headers indicate pagination.
+     * @param headers The response headers.
+     */
     private isPaginated;
 }
 
@@ -2614,52 +2860,175 @@ declare class Webhooks extends BaseCollection<Webhook> {
     regenerate_secret(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookRegenerated>;
 }
 
+/**
+ * Parameters used to configure a BaseClient instance.
+ */
 type ClientParams = {
+    /**
+     * The API key for authenticating requests. This must be provided.
+     */
     apiKey?: string;
+    /**
+     * Whether to enable response compression (e.g., gzip).
+     * Defaults to `false` if not specified.
+     */
     enableCompression?: boolean;
+    /**
+     * The type of token used for authentication, e.g. "Bearer".
+     * If omitted, the token will be used as-is.
+     */
     tokenType?: string;
+    /**
+     * The base host URL for requests. If not provided, a default may be used downstream.
+     */
     host?: string;
+    /**
+     * API version. Defaults to "api2" if not specified elsewhere.
+     */
     version?: string;
+    /**
+     * Request timeout in milliseconds. If not provided, requests have no explicit timeout.
+     */
     requestTimeout?: number;
 };
+/**
+ * A foundational client class that establishes authentication and configuration data.
+ * Other specialized clients can inherit from this class to leverage the configured
+ * authentication, compression, host, and timeout settings.
+ */
 declare class BaseClient {
+    /**
+     * Internal client data including token, token type, host, compression, and timeouts.
+     */
     readonly clientData: ClientData;
     /**
-     * Instantiate BaseClient with API key and optional parameters
-     * @param params ClientParams object
+     * Constructs a new BaseClient instance.
+     * @param params - Configuration parameters including API key and optional features.
+     * @throws Error if the API key is not provided or is empty.
      */
     constructor(params: ClientParams);
 }
 
+/**
+ * A main entry point for interacting with the Lokalise API.
+ * Provides easy access to various resource collections (Branches, Comments, Projects, etc.)
+ * through dedicated methods.
+ */
 declare class LokaliseApi extends BaseClient {
+    /**
+     * Creates a new instance of the LokaliseApi client.
+     * @param params - Configuration parameters including `apiKey` and optional `version`, `host`, etc.
+     */
     constructor(params: ClientParams);
+    /**
+     * Access Branch-related endpoints.
+     */
     branches(): Branches;
+    /**
+     * Access Comment-related endpoints.
+     */
     comments(): Comments;
+    /**
+     * Access Contributor-related endpoints.
+     */
     contributors(): Contributors;
+    /**
+     * Access File-related endpoints.
+     */
     files(): Files;
+    /**
+     * Access JWT-related endpoints.
+     */
     jwt(): Jwt;
+    /**
+     * Access Key-related endpoints.
+     */
     keys(): Keys;
+    /**
+     * Access Language-related endpoints.
+     */
     languages(): Languages;
+    /**
+     * Access Order-related endpoints.
+     */
     orders(): Orders;
+    /**
+     * Access Payment Card-related endpoints.
+     */
     paymentCards(): PaymentCards;
+    /**
+     * Access Permission Template-related endpoints.
+     */
     permissionTemplates(): PermissionTemplates;
+    /**
+     * Access Project-related endpoints.
+     */
     projects(): Projects;
+    /**
+     * Access Queued Process-related endpoints.
+     */
     queuedProcesses(): QueuedProcesses;
+    /**
+     * Access Screenshot-related endpoints.
+     */
     screenshots(): Screenshots;
+    /**
+     * Access Segment-related endpoints.
+     */
     segments(): Segments;
+    /**
+     * Access Snapshot-related endpoints.
+     */
     snapshots(): Snapshots;
+    /**
+     * Access Task-related endpoints.
+     */
     tasks(): Tasks;
+    /**
+     * Access Team-related endpoints.
+     */
     teams(): Teams;
+    /**
+     * Access Team User-related endpoints.
+     */
     teamUsers(): TeamUsers;
+    /**
+     * Access Team User Billing Detail-related endpoints.
+     */
     teamUserBillingDetails(): TeamUserBillingDetails;
+    /**
+     * Access Translation-related endpoints.
+     */
     translations(): Translations;
+    /**
+     * Access Translation Provider-related endpoints.
+     */
     translationProviders(): TranslationProviders;
+    /**
+     * Access Translation Status-related endpoints.
+     */
     translationStatuses(): TranslationStatuses;
+    /**
+     * Access User Group-related endpoints.
+     */
     userGroups(): UserGroups;
+    /**
+     * Access Webhook-related endpoints.
+     */
     webhooks(): Webhooks;
 }
 
+/**
+ * A specialized client for interacting with the Lokalise API using OAuth authentication.
+ * Extends `LokaliseApi` and configures the token type and authorization header to use Bearer tokens.
+ */
 declare class LokaliseApiOAuth extends LokaliseApi {
+    /**
+     * Constructs a new LokaliseApiOAuth client instance.
+     * @param params - Configuration parameters including `apiKey` (OAuth token)
+     *                 and optionally `tokenType` (defaults to "Bearer").
+     * @throws Error If `apiKey` is missing or empty.
+     */
     constructor(params: ClientParams);
 }
 
@@ -2701,6 +3070,20 @@ declare class OtaBundlePublishing extends OtaCollection<void> {
     protected get elementClass(): new (json: Keyable) => Branch;
     publish(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
     stage(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
+}
+
+declare class OtaBundleArchive extends BaseModel implements OtaBundleArchive$1 {
+    url: string;
+    version: number;
+}
+
+declare class OtaBundles extends OtaCollection<OtaBundleArchive> {
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof OtaBundleArchive;
+    protected get elementClass(): new (json: Keyable) => OtaBundleArchive;
+    protected get rootElementNameSingular(): string;
+    get(bundle_params: OtaRequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundleArchive>;
 }
 
 declare class OtaFreezePeriod extends BaseModel implements OtaFreezePeriod$1 {
@@ -2774,31 +3157,60 @@ declare class OtaUsageStatistics extends OtaCollection<OtaStatistics> {
     get(bundle_params: OtaUsageParams, request_params: OtaTeamProject): Promise<OtaStatistics>;
 }
 
+/**
+ * A specialized client configured for interacting with Lokalise OTA endpoints.
+ * Extends `BaseClient` and sets defaults suitable for OTA requests:
+ * - `tokenType` defaults to "Bearer"
+ * - `authHeader` set to "Authorization"
+ * - `host` defaults to "https://ota.lokalise.com"
+ * - `version` defaults to "v3"
+ */
 declare class LokaliseApiOta extends BaseClient {
+    /**
+     * Creates a new LokaliseApiOta client instance.
+     * @param params - Configuration parameters including `apiKey` and optional overrides for tokenType, host, version, etc.
+     * @throws Error If `apiKey` is missing or empty.
+     */
     constructor(params: ClientParams);
+    /**
+     * Provides access to the OtaBundleManagement collection.
+     */
     otaBundleManagement(): OtaBundleManagement;
+    /**
+     * Provides access to the OtaBundlePublishing collection.
+     */
     otaBundlePublishing(): OtaBundlePublishing;
+    /**
+     * Provides access to the OtaUsageStatistics collection.
+     */
     otaUsageStatistics(): OtaUsageStatistics;
+    /**
+     * Provides access to the OtaFreezePeriods collection.
+     */
     otaFreezePeriods(): OtaFreezePeriods;
+    /**
+     * Provides access to the OtaSdkTokens collection.
+     */
     otaSdkTokens(): OtaSdkTokens;
 }
 
-declare class OtaBundleArchive extends BaseModel implements OtaBundleArchive$1 {
-    url: string;
-    version: number;
-}
-
-declare class OtaBundles extends OtaCollection<OtaBundleArchive> {
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof OtaBundleArchive;
-    protected get elementClass(): new (json: Keyable) => OtaBundleArchive;
-    protected get rootElementNameSingular(): string;
-    get(bundle_params: OtaRequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundleArchive>;
-}
-
+/**
+ * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
+ * Extends the BaseClient to configure authentication and endpoint specifics for OTA bundles.
+ */
 declare class LokaliseOtaBundles extends BaseClient {
+    /**
+     * Constructs a new LokaliseOtaBundles client instance.
+     * @param params - Configuration parameters, including the required `apiKey`.
+     *                 Optional parameters include `version`, `host`, etc.
+     *                 Defaults: `host` = "https://ota.lokalise.com", `version` = "v3".
+     * @throws Error If no valid API key is provided.
+     */
     constructor(params: ClientParams);
+    /**
+     * Provides access to the OtaBundles collection.
+     * @returns An OtaBundles instance.
+     */
     otaBundles(): OtaBundles;
 }
 

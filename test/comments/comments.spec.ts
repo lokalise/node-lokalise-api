@@ -48,7 +48,7 @@ describe("Comments", () => {
 			});
 		} catch (e) {
 			expect(e.message).toEqual(
-				"Expected an array under 'comments', but got object",
+				"Expected an array under 'comments' but received: object",
 			);
 		}
 	});

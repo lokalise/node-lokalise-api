@@ -167,7 +167,7 @@ describe("Screenshots", () => {
 			await lokaliseApi.screenshots().create(params, { project_id: projectId });
 		} catch (e) {
 			expect(e.message).toEqual(
-				"Expected an array under 'screenshots', but got object",
+				"Expected an array under 'screenshots' but received: object",
 			);
 		}
 	});

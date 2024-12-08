@@ -131,7 +131,7 @@ describe("Keys", () => {
 			});
 		} catch (e) {
 			expect(e.message).toEqual(
-				"Expected an array under 'keys', but got object",
+				"Expected an array under 'keys' for cursor pagination but received: object",
 			);
 		}
 	});

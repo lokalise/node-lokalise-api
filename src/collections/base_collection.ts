@@ -9,56 +9,117 @@ import type { HttpMethod } from "../types/http_method.js";
 
 type ResolveHandler<T> = (json: Keyable, headers: Headers) => T;
 
+/**
+ * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
+ * and handling for pagination, cursor pagination, and bulk operations. Other "collection" classes
+ * should extend this class and provide specific implementations for resource endpoints.
+ *
+ * Expected usage:
+ * - Subclasses define `rootElementName` and/or `rootElementNameSingular` to indicate the JSON fields
+ *   that contain the desired data.
+ * - `elementClass` and optionally `secondaryElementClass` should be overridden to map raw JSON
+ *   objects to strongly typed model instances.
+ * - `endpoint` and `prefixURI` should be set as static properties in subclasses to specify resource paths.
+ */
 export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
+	/**
+	 * Client data containing authentication and configuration details.
+	 * Provided by a `BaseClient` or similar client instance.
+	 */
 	readonly clientData: ClientData;
+
+	/**
+	 * Static endpoint property that subclasses can define to indicate the API endpoint
+	 * for this collection. If not set, ensure `prefixURI` or `uri` parameters are passed.
+	 */
 	protected static endpoint: string | null;
+
+	/**
+	 * Static prefixURI property that subclasses can define to indicate a base path.
+	 * If `uri` is not passed explicitly, this prefix is used to construct the request URL.
+	 */
 	protected static prefixURI: string | null;
 
+	/**
+	 * Constructs a new BaseCollection instance.
+	 * @param clientData - Client data for making authenticated requests.
+	 */
 	constructor(clientData: ClientData) {
 		this.clientData = clientData;
 	}
 
-	// Model to represent the data returned by the API
+	/**
+	 * Abstract getter that must be implemented by subclasses.
+	 * Should return a class constructor that maps a JSON object to an `ElementType` instance.
+	 */
 	protected abstract get elementClass(): new (
 		json: Keyable,
 	) => ElementType;
+
+	/**
+	 * Getter that must be overridden by subclasses to return the root element name
+	 * for array-based JSON responses.
+	 * @throws Error if not defined by the subclass.
+	 */
 	protected get rootElementName(): string {
-		throw new Error("Root element name is not defined for this collection");
-	}
-	protected get rootElementNameSingular(): string | null {
 		throw new Error(
-			"Root element name singular is not defined for this collection",
+			"rootElementName is not defined. Subclasses must override `rootElementName`.",
 		);
 	}
-	// Secondaries are used when an instance of a different class has to be created
-	// For example, uploading a File may return a QueuedProcess
+
+	/**
+	 * Getter that may be overridden by subclasses to return the root element name
+	 * for single-item JSON responses.
+	 * @throws Error if not defined by the subclass.
+	 */
+	protected get rootElementNameSingular(): string | null {
+		throw new Error(
+			"rootElementNameSingular is not defined. Subclasses must override `rootElementNameSingular`.",
+		);
+	}
+
+	/**
+	 * Getter that may be overridden by subclasses if a secondary model type is returned.
+	 * By default, this throws an error. If needed, override it in the subclass.
+	 */
 	protected get secondaryElementClass(): new (
 		json: Keyable,
 	) => SecondaryType {
-		throw new Error("Secondary elements are not supported by this collection");
-	}
-
-	protected get secondaryElementNameSingular(): string {
 		throw new Error(
-			"Secondary element name singular is not defined for this collection",
+			"Secondary elements are not supported by this collection. Override `secondaryElementClass` if needed.",
 		);
 	}
 
+	/**
+	 * Getter that must be overridden if `secondaryElementClass` is used.
+	 * Returns the JSON property name for the secondary element.
+	 * @throws Error if not defined by the subclass that uses secondary elements.
+	 */
+	protected get secondaryElementNameSingular(): string {
+		throw new Error(
+			"secondaryElementNameSingular is not defined. Subclasses must override this if secondary elements are used.",
+		);
+	}
+
+	/**
+	 * Perform a GET request that expects a list of items.
+	 * @param params Optional query or request parameters.
+	 * @returns A promise resolving to either a paginated result or an array of ElementType.
+	 */
 	protected doList(
-		req_params: Keyable,
+		params: Keyable,
 	): Promise<PaginatedResult<ElementType> | ElementType[]> {
-		const params = {
-			...req_params,
-		};
 		return this.createPromise("GET", params, this.populateArrayFromJson, null);
 	}
 
+	/**
+	 * Perform a GET request that expects a cursor-paginated list of items.
+	 * @param params Optional query or request parameters.
+	 * @returns A promise resolving to a CursorPaginatedResult of ElementType.
+	 */
 	protected doListCursor(
-		req_params: Keyable,
+		params: Keyable,
 	): Promise<CursorPaginatedResult<ElementType>> {
-		const params = {
-			...req_params,
-		};
 		return this.createPromise(
 			"GET",
 			params,
@@ -67,74 +128,98 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		);
 	}
 
+	/**
+	 * Perform a GET request to retrieve a single item by its ID.
+	 * @param id The ID of the item to retrieve.
+	 * @param params Optional query or request parameters.
+	 * @returns A promise resolving to a single ElementType instance.
+	 */
 	protected doGet(
 		id: string | number,
-		req_params: Keyable = {},
+		params: Keyable = {},
 	): Promise<ElementType> {
-		const params = {
-			...req_params,
-			id,
-		};
 		return this.createPromise(
 			"GET",
-			params,
+			{ ...params, id },
 			this.populateObjectFromJsonRoot,
 			null,
 		);
 	}
 
+	/**
+	 * Perform a DELETE request to remove a single item by its ID.
+	 * @param id The ID of the item to delete.
+	 * @param params Optional query or request parameters.
+	 * @returns A promise resolving to JSON representing the deletion result.
+	 */
 	protected doDelete<T = Keyable | Keyable[]>(
 		id: string | number,
-		req_params: Keyable = {},
+		params: Keyable = {},
 	): Promise<T> {
-		const params = {
-			...req_params,
-			id,
-		};
 		return this.createPromise(
 			"DELETE",
-			params,
+			{ ...params, id },
 			this.returnBareJSON,
 			null,
 		) as Promise<T>;
 	}
 
+	/**
+	 * Perform a POST request to create a new resource.
+	 * @param body The object or array of objects to send in the request body.
+	 * @param params Optional query or request parameters.
+	 * @param resolveFn Optional custom resolve handler to parse the response.
+	 * @returns A promise resolving to an ElementType or SecondaryType instance.
+	 */
 	protected doCreate(
 		body: object | object[] | null,
-		req_params: Keyable = {},
+		params: Keyable = {},
 		resolveFn = this.populateObjectFromJson,
 	): Promise<ElementType | SecondaryType> {
-		const params = {
-			...req_params,
-		};
-
 		return this.createPromise("POST", params, resolveFn, body);
 	}
 
+	/**
+	 * Perform a POST request to create multiple resources at once.
+	 * @param body The object or array of objects to send in the request body.
+	 * @param params Optional query or request parameters.
+	 * @param resolveFn Optional custom resolve handler to parse the response array.
+	 * @returns A promise resolving to an array of ElementType.
+	 */
 	protected doCreateArray(
 		body: object | object[] | null,
-		req_params: Keyable,
+		params: Keyable,
 		resolveFn: ResolveHandler<ElementType[]> = this.populateArray,
 	): Promise<ElementType[]> {
-		const params = { ...req_params };
-
 		return this.createPromise("POST", params, resolveFn, body);
 	}
 
+	/**
+	 * Perform an UPDATE (PUT/PATCH) request to modify an existing resource by its ID.
+	 * @param id The ID of the item to update.
+	 * @param body The updated fields to send in the request body.
+	 * @param params Optional query or request parameters.
+	 * @param resolveFn Optional custom resolve handler to parse the response object.
+	 * @param method The HTTP method to use, typically PUT or PATCH.
+	 * @returns A promise resolving to the updated ElementType instance.
+	 */
 	protected doUpdate(
 		id: string | number,
 		body: Keyable | null,
-		req_params: Keyable,
+		params: Keyable,
 		resolveFn = this.populateObjectFromJsonRoot,
 		method: HttpMethod = "PUT",
 	): Promise<ElementType> {
-		const params = {
-			...req_params,
-			id,
-		};
-		return this.createPromise(method, params, resolveFn, body);
+		return this.createPromise(method, { ...params, id }, resolveFn, body);
 	}
 
+	/**
+	 * Parse a JSON response that contains a single item under a known root element name.
+	 * @param json The raw JSON object returned by the API.
+	 * @param headers The response headers.
+	 * @returns The parsed ElementType instance.
+	 * @throws Error if the expected root element name is missing.
+	 */
 	protected populateObjectFromJsonRoot(
 		json: Keyable,
 		headers: Headers,
@@ -153,37 +238,51 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		return this.populateObjectFromJson(jsonData, headers) as ElementType;
 	}
 
+	/**
+	 * Parse a JSON response that contains a secondary item under a known secondary root element name.
+	 * @param json The raw JSON object returned by the API.
+	 * @param headers The response headers.
+	 * @returns The parsed SecondaryType instance.
+	 * @throws Error if the expected secondary element name is missing.
+	 */
 	protected populateSecondaryObjectFromJsonRoot(
 		json: Keyable,
 		headers: Headers,
 	): SecondaryType {
-		const secondaryElementName = this.secondaryElementNameSingular;
-		const jsonRecord = json as Record<string, unknown>;
-		const secondaryJson = jsonRecord[secondaryElementName];
+		const root = this.secondaryElementNameSingular;
+		const record = json as Record<string, unknown>;
 
-		if (!secondaryJson) {
+		const itemJson = record[root];
+		if (!itemJson) {
 			throw new Error(
-				`Missing property '${secondaryElementName}' in JSON object`,
+				`Missing expected secondary property '${root}' in JSON response.`,
 			);
 		}
 
 		return this.populateObjectFromJson(
-			secondaryJson,
+			itemJson,
 			headers,
 			true,
 		) as SecondaryType;
 	}
 
+	/**
+	 * Parse a JSON response that contains an array of items along with bulk result details.
+	 * @param json The raw JSON object returned by the API.
+	 * @param headers The response headers.
+	 * @returns A BulkResult object containing items and potential errors.
+	 * @throws Error if the expected root element is missing or not an array.
+	 */
 	protected populateArrayFromJsonBulk(
 		json: Keyable,
 		headers: Headers,
 	): BulkResult {
-		const rootElementName = this.rootElementName;
+		const root = this.rootElementName;
+		const jsonArray = json[root];
 
-		const jsonArray = json[rootElementName];
 		if (!Array.isArray(jsonArray)) {
 			throw new Error(
-				`Expected an array under '${rootElementName}', but got ${typeof jsonArray}`,
+				`Expected an array under '${root}' but received: ${typeof jsonArray}`,
 			);
 		}
 
@@ -191,32 +290,42 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			(obj) => this.populateObjectFromJson(obj, headers) as ElementType,
 		);
 
-		const result: BulkResult = {
+		return {
 			errors: json.errors,
 			items,
 		};
-
-		return result;
 	}
 
+	/**
+	 * Parse a JSON response that contains an array of items.
+	 * If pagination headers are detected, returns a PaginatedResult.
+	 * Otherwise, returns a plain array of ElementType.
+	 * @param json The raw JSON object returned by the API.
+	 * @param headers The response headers.
+	 */
 	protected populateArrayFromJson(
 		json: Keyable,
 		headers: Headers,
 	): PaginatedResult<ElementType> | ElementType[] {
-		const resultArray = this.populateArray(json, headers);
-
+		const array = this.populateArray(json, headers);
 		return this.isPaginated(headers)
-			? new PaginatedResult<ElementType>(resultArray, headers)
-			: resultArray;
+			? new PaginatedResult<ElementType>(array, headers)
+			: array;
 	}
 
+	/**
+	 * Parse a JSON response that contains an array of items.
+	 * This method returns a plain array and does not consider pagination.
+	 * @param json The raw JSON object returned by the API.
+	 * @param headers The response headers.
+	 */
 	protected populateArray(json: Keyable, headers: Headers): ElementType[] {
-		const rootElementName = this.rootElementName;
+		const root = this.rootElementName;
+		const jsonArray = json[root];
 
-		const jsonArray = json[rootElementName];
 		if (!Array.isArray(jsonArray)) {
 			throw new Error(
-				`Expected an array under '${rootElementName}', but got ${typeof jsonArray}`,
+				`Expected an array under '${root}' but received: ${typeof jsonArray}`,
 			);
 		}
 
@@ -226,20 +335,25 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		);
 	}
 
+	/**
+	 * Parse a JSON response that contains a cursor-paginated array of items.
+	 * @param json The raw JSON object returned by the API.
+	 * @param headers The response headers.
+	 */
 	protected populateArrayFromJsonCursor(
 		json: Keyable,
 		headers: Headers,
 	): CursorPaginatedResult<ElementType> {
-		const rootElementName = this.rootElementName;
+		const root = this.rootElementName;
+		const jsonArray = json[root];
 
-		const jsonArray = json[rootElementName];
 		if (!Array.isArray(jsonArray)) {
 			throw new Error(
-				`Expected an array under '${rootElementName}', but got ${typeof jsonArray}`,
+				`Expected an array under '${root}' for cursor pagination but received: ${typeof jsonArray}`,
 			);
 		}
 
-		const items: ElementType[] = jsonArray.map(
+		const items = jsonArray.map(
 			(obj: Keyable) =>
 				this.populateObjectFromJson(obj, headers) as ElementType,
 		);
@@ -247,6 +361,12 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		return new CursorPaginatedResult<ElementType>(items, headers);
 	}
 
+	/**
+	 * Parse a JSON object into either an ElementType or a SecondaryType instance.
+	 * @param json The raw JSON object returned by the API.
+	 * @param _headers The response headers (if needed).
+	 * @param secondary If true, use the secondaryElementClass instead of elementClass.
+	 */
 	protected populateObjectFromJson(
 		json: Keyable,
 		_headers: Headers,
@@ -256,14 +376,30 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		return new cls(json);
 	}
 
+	/**
+	 * Return the raw JSON as-is.
+	 * @param json The raw JSON object or array returned by the API.
+	 */
 	protected returnBareJSON<T>(json: Keyable | Keyable[]): T {
 		return json as T;
 	}
 
+	/**
+	 * Convert a single object into an array if it's not already an array.
+	 * @param raw_body The raw request body.
+	 */
 	protected objToArray(raw_body: Keyable | Keyable[]): Keyable[] {
 		return Array.isArray(raw_body) ? raw_body : [raw_body];
 	}
 
+	/**
+	 * Create a Promise that sends an HTTP request and resolves with a parsed response.
+	 * @param method The HTTP method (GET, POST, PUT, DELETE, etc.).
+	 * @param params Query or request parameters.
+	 * @param resolveFn A function to resolve and parse the JSON response.
+	 * @param body The request body, if applicable.
+	 * @param uri An explicit URI to use for the request. If not provided, prefixURI is used.
+	 */
 	protected async createPromise<T>(
 		method: HttpMethod,
 		params: Keyable,
@@ -272,13 +408,17 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		uri: string | null = null,
 	): Promise<T> {
 		const request = this.prepareRequest(method, body, params, uri);
-
 		const data = await this.sendRequest(request);
-
-		// return resolveFn ? resolveFn.call(this, data.json, data.headers) : null;
 		return resolveFn.call(this, data.json, data.headers);
 	}
 
+	/**
+	 * Prepare the API request by creating a new ApiRequest instance.
+	 * @param method The HTTP method.
+	 * @param body The request body.
+	 * @param params The request parameters.
+	 * @param uri An explicit URI for the request or null.
+	 */
 	protected prepareRequest(
 		method: HttpMethod,
 		body: object | object[] | null,
@@ -294,19 +434,35 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		);
 	}
 
+	/**
+	 * Send the prepared request and return its promise.
+	 * @param request The ApiRequest instance to send.
+	 * @returns A Promise resolving to an ApiResponse.
+	 */
 	protected sendRequest(request: ApiRequest): Promise<ApiResponse> {
 		return request.promise;
 	}
 
+	/**
+	 * Determine the URI for the request. If uri is not provided, use prefixURI.
+	 * @param uri An explicit URI or null.
+	 * @throws Error if no URI or prefixURI is provided.
+	 */
 	protected getUri(uri: string | null): string {
 		const childClass = this.constructor as typeof BaseCollection;
 		const resolvedUri = uri ?? childClass.prefixURI;
 		if (!resolvedUri) {
-			throw new Error("No URI or prefixURI provided.");
+			throw new Error(
+				"No URI or prefixURI provided. Ensure the subclass defines a static prefixURI or pass a URI explicitly.",
+			);
 		}
 		return resolvedUri;
 	}
 
+	/**
+	 * Determine if the response headers indicate pagination.
+	 * @param headers The response headers.
+	 */
 	private isPaginated(headers: Headers): boolean {
 		return (
 			!!headers.get("x-pagination-total-count") &&

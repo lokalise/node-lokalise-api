@@ -35,7 +35,7 @@ describe("Errors", () => {
 			code: 200,
 			details: {
 				statusText: "OK",
-				reason: "JSON processing failed",
+				reason: "JSON parsing error",
 			},
 		});
 	});
@@ -198,7 +198,7 @@ describe("Errors", () => {
 		const params = <ProjectWithPagination>{};
 
 		await expect(lokaliseApi.branches().list(params)).rejects.toThrow(
-			"Missing required param: project_id",
+			"Missing required parameter: project_id",
 		);
 	});
 
