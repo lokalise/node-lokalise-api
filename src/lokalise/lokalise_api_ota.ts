@@ -1,3 +1,4 @@
+import type { ClientParams } from "../interfaces/client_params.js";
 import {
 	OtaBundleManagement,
 	OtaBundlePublishing,
@@ -5,7 +6,7 @@ import {
 	OtaSdkTokens,
 	OtaUsageStatistics,
 } from "../ota_collections/index.js";
-import { BaseClient, type ClientParams } from "./base_client.js";
+import { BaseClient } from "./base_client.js";
 
 /**
  * A specialized client configured for interacting with Lokalise OTA endpoints.

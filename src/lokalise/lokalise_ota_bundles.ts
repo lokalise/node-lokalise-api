@@ -1,5 +1,6 @@
+import type { ClientParams } from "../interfaces/client_params.js";
 import { OtaBundles } from "../ota_collections/ota_bundles.js";
-import { BaseClient, type ClientParams } from "./base_client.js";
+import { BaseClient } from "./base_client.js";
 
 /**
  * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.

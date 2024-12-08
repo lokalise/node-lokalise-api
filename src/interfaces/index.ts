@@ -3,6 +3,7 @@ export { IApiError } from "./api_error.js";
 export { IAuthError } from "./auth_error.js";
 export { Branch } from "./branch.js";
 export { BulkResult } from "./bulk_result.js";
+export { ClientParams } from "./client_params.js";
 export { ClientData } from "./client_data.js";
 export { Comment } from "./comment.js";
 export { Contributor } from "./contributor.js";

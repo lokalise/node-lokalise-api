@@ -25,9 +25,8 @@ import {
 	Webhooks,
 } from "../collections/index.js";
 
-import { BaseClient, ClientParams } from "./base_client.js";
-
-export { ClientParams };
+import type { ClientParams } from "../interfaces/client_params.js";
+import { BaseClient } from "./base_client.js";
 
 /**
  * A main entry point for interacting with the Lokalise API.

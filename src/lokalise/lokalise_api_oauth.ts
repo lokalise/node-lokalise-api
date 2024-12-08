@@ -1,4 +1,5 @@
-import { type ClientParams, LokaliseApi } from "./lokalise_api.js";
+import type { ClientParams } from "../interfaces/client_params.js";
+import { LokaliseApi } from "./lokalise_api.js";
 
 /**
  * A specialized client for interacting with the Lokalise API using OAuth authentication.
