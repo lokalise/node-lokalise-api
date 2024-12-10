@@ -17,6 +17,7 @@ export type {
 	ContributorLanguages,
 } from "./contributors.js";
 export type { ContributorRights } from "./contributor_rights.js";
+export type { FileFormat } from "./file_format.js";
 export type {
 	DownloadBundle,
 	FileDeleted,

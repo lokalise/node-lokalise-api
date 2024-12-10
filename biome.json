@@ -25,7 +25,7 @@
 				"noUselessCatch": "error",
 				"noUselessTypeConstraint": "error",
 				"noWith": "error",
-				"noStaticOnlyClass": "off"
+				"noStaticOnlyClass": "error"
 			},
 			"correctness": {
 				"noConstAssign": "error",

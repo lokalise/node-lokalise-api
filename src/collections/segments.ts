@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import { Segment } from "../models/segment.js";
 import type {
 	GetSegmentParams,
@@ -7,15 +8,26 @@ import type {
 } from "../types/segments.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Segments extends BaseCollection {
-	protected static rootElementName = "segments";
-	protected static rootElementNameSingular = "segment";
+export class Segments extends BaseCollection<Segment> {
 	protected static prefixURI =
 		"projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
-	protected static elementClass = Segment;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Segment {
+		return Segment;
+	}
+
+	protected get rootElementName(): string {
+		return "segments";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "segment";
+	}
 
 	list(request_params: ListSegmentParams): Promise<Segment[]> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<Segment[]>;
 	}
 
 	get(

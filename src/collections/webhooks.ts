@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Webhook } from "../models/webhook.js";
 import type {
@@ -12,16 +13,27 @@ import type {
 } from "../types/webhooks.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Webhooks extends BaseCollection {
-	protected static rootElementName = "webhooks";
-	protected static rootElementNameSingular = "webhook";
+export class Webhooks extends BaseCollection<Webhook> {
 	protected static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
-	protected static elementClass = Webhook;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Webhook {
+		return Webhook;
+	}
+
+	protected get rootElementName(): string {
+		return "webhooks";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "webhook";
+	}
 
 	list(
 		request_params: ProjectWithPagination,
 	): Promise<PaginatedResult<Webhook>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Webhook>>;
 	}
 
 	create(
@@ -68,8 +80,7 @@ export class Webhooks extends BaseCollection {
 		return this.createPromise(
 			"PATCH",
 			params,
-			this.returnBareJSON,
-			this.handleReject,
+			this.returnBareJSON<WebhookRegenerated>,
 			null,
 			"projects/{!:project_id}/webhooks/{:id}/secret/regenerate",
 		);

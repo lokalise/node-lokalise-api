@@ -1,13 +1,15 @@
 import { BaseCollection } from "../collections/base_collection.js";
 import type { Keyable } from "../interfaces/keyable.js";
-import type { ApiError } from "../models/api_error.js";
+import type { HttpMethod } from "../types/http_method.js";
 
-export abstract class OtaCollection extends BaseCollection {
-	protected populateApiErrorFromJson(json: any): ApiError {
-		return <ApiError>json;
-	}
-
-	protected doDelete(id: string | number, req_params: Keyable): Promise<any> {
+export abstract class OtaCollection<
+	ElementType,
+	SecondaryType = ElementType,
+> extends BaseCollection<ElementType, SecondaryType> {
+	protected doDelete<T = Keyable | Keyable[]>(
+		id: string | number,
+		req_params: Keyable,
+	): Promise<T> {
 		const params = {
 			...req_params,
 			id,
@@ -16,12 +18,23 @@ export abstract class OtaCollection extends BaseCollection {
 			"DELETE",
 			params,
 			this.returnJSONFromData,
-			this.handleReject,
 			null,
-		);
+		) as Promise<T>;
 	}
 
 	protected returnJSONFromData(json: Keyable): Keyable | Array<Keyable> {
 		return json.data;
+	}
+
+	protected async createVoidPromise(
+		method: HttpMethod,
+		params: Keyable,
+		body: object | object[] | null,
+		uri: string | null = null,
+	): Promise<null> {
+		const request = this.prepareRequest(method, body, params, uri);
+
+		await this.sendRequest(request);
+		return null;
 	}
 }

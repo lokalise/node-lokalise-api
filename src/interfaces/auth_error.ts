@@ -1,4 +1,4 @@
-export interface AuthError {
+export interface IAuthError {
 	code: number;
 	error: string;
 	error_description: string;

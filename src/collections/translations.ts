@@ -1,4 +1,5 @@
 import type { CursorPaginatedResult } from "../interfaces/cursor_paginated_result.js";
+import type { Keyable } from "../interfaces/keyable.js";
 import { Translation } from "../models/translation.js";
 import type { ProjectOnly } from "../types/common_get_params.js";
 import type {
@@ -8,11 +9,22 @@ import type {
 } from "../types/translations.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Translations extends BaseCollection {
-	protected static rootElementName = "translations";
-	protected static rootElementNameSingular = "translation";
+export class Translations extends BaseCollection<Translation> {
 	protected static prefixURI = "projects/{!:project_id}/translations/{:id}";
-	protected static elementClass = Translation;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Translation {
+		return Translation;
+	}
+
+	protected get rootElementName(): string {
+		return "translations";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "translation";
+	}
 
 	list(
 		request_params: ListTranslationParams,

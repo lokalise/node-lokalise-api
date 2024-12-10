@@ -5,4 +5,5 @@ export interface ClientData {
 	enableCompression: boolean;
 	host?: string;
 	version?: string;
+	requestTimeout?: number;
 }

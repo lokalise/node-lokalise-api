@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config();
 
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
 	LokaliseApi,
 	LokaliseApiOAuth,
@@ -21,4 +21,7 @@ export {
 	LokaliseApiOAuth,
 	LokaliseApiOta,
 	LokaliseOtaBundles,
+	vi,
+	beforeEach,
+	afterEach,
 };

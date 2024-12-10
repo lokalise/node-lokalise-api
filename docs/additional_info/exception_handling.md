@@ -13,10 +13,17 @@ lokaliseApi.projects().list().catch(
 Or with async/await:
 
 ```js
+import { ApiError } from "@lokalise/node-api";
+
 try {
   await lokaliseApi.projects().list();
 } catch (e) {
-  console.log(e);
+  console.error(e);
+  if (error instanceof ApiError) {
+    console.log(e.message); // "Request timed out after 1000ms"
+    console.log(e.code); // 408
+    console.log(e.details); // { reason: "timeout" }
+  }
 }
 ```
 

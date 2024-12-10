@@ -1,24 +1,25 @@
 import { readFile } from "node:fs/promises";
-import type { Keyable } from "../interfaces/keyable.js";
 
-export class LokalisePkg {
-	static pkgPath() {
-		return "../../package.json";
-	}
+/**
+ * Returns the relative path to the package.json file.
+ * Adjust this if your directory structure changes.
+ */
+function pkgPath(): string {
+	return "../../package.json";
+}
 
-	static async getVersion(): Promise<string> {
-		let pkg: Keyable | null;
-
-		try {
-			pkg = JSON.parse(
-				(
-					await readFile(new URL(LokalisePkg.pkgPath(), import.meta.url))
-				).toString(),
-			);
-		} catch (_e) {
-			pkg = null;
-		}
-
-		return pkg ? pkg.version : "unknown";
+/**
+ * Attempts to read and parse the local package.json file to retrieve the version.
+ * If the file cannot be read or parsed, returns "unknown".
+ *
+ * @returns {Promise<string>} The package version string or "unknown" if unavailable.
+ */
+export async function getVersion(): Promise<string> {
+	try {
+		const data = await readFile(new URL(pkgPath(), import.meta.url));
+		const pkg = JSON.parse(data.toString()) as { version?: string };
+		return String(pkg.version);
+	} catch {
+		return "unknown";
 	}
 }

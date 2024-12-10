@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Project } from "../models/project.js";
 import type {
@@ -9,15 +10,27 @@ import type {
 } from "../types/projects.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Projects extends BaseCollection {
-	protected static rootElementName = "projects";
+export class Projects extends BaseCollection<Project> {
 	protected static prefixURI = "projects/{:id}";
-	protected static elementClass = Project;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Project {
+		return Project;
+	}
+
+	protected get rootElementName(): string {
+		return "projects";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return null;
+	}
 
 	list(
 		request_params: ProjectListParams = {},
 	): Promise<PaginatedResult<Project>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Project>>;
 	}
 
 	create(project_params: CreateProjectParams): Promise<Project> {
@@ -48,8 +61,7 @@ export class Projects extends BaseCollection {
 		return this.createPromise(
 			"PUT",
 			{ project_id: project_id },
-			this.returnBareJSON,
-			this.handleReject,
+			this.returnBareJSON<ProjectEmptied>,
 			null,
 			"projects/{!:project_id}/empty",
 		);

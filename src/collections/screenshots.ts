@@ -1,4 +1,5 @@
 import type { BulkResult } from "../interfaces/bulk_result.js";
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Screenshot } from "../models/screenshot.js";
 import type {
@@ -12,16 +13,27 @@ import type {
 } from "../types/screenshots.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Screenshots extends BaseCollection {
-	protected static rootElementName = "screenshots";
-	protected static rootElementNameSingular = "screenshot";
+export class Screenshots extends BaseCollection<Screenshot> {
 	protected static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
-	protected static elementClass: object = Screenshot;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Screenshot {
+		return Screenshot;
+	}
+
+	protected get rootElementName(): string {
+		return "screenshots";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "screenshot";
+	}
 
 	list(
 		request_params: ProjectWithPagination,
 	): Promise<PaginatedResult<Screenshot>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Screenshot>>;
 	}
 
 	create(
@@ -29,7 +41,13 @@ export class Screenshots extends BaseCollection {
 		request_params: ProjectOnly,
 	): Promise<BulkResult<Screenshot>> {
 		const body = { screenshots: this.objToArray(raw_body) };
-		return this.doCreate(body, request_params, this.populateArrayFromJsonBulk);
+
+		return this.createPromise(
+			"POST",
+			request_params,
+			this.populateArrayFromJsonBulk,
+			body,
+		);
 	}
 
 	get(

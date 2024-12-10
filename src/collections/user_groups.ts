@@ -9,15 +9,27 @@ import type {
 } from "../types/user_groups.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class UserGroups extends BaseCollection {
-	protected static rootElementName = "user_groups";
+export class UserGroups extends BaseCollection<UserGroup> {
 	protected static prefixURI = "teams/{!:team_id}/groups/{:id}";
-	protected static elementClass = UserGroup;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => UserGroup {
+		return UserGroup;
+	}
+
+	protected get rootElementName(): string {
+		return "user_groups";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return null;
+	}
 
 	list(
 		request_params: TeamWithPagination,
 	): Promise<PaginatedResult<UserGroup>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<UserGroup>>;
 	}
 
 	create(
@@ -72,7 +84,6 @@ export class UserGroups extends BaseCollection {
 			"PUT",
 			params,
 			this.populateGroupFromJsonRoot,
-			this.handleReject,
 			body,
 			"teams/{!:team_id}/groups/{!:group_id}/members/add",
 		);
@@ -92,7 +103,6 @@ export class UserGroups extends BaseCollection {
 			"PUT",
 			params,
 			this.populateGroupFromJsonRoot,
-			this.handleReject,
 			body,
 			"teams/{!:team_id}/groups/{!:group_id}/members/remove",
 		);
@@ -112,7 +122,6 @@ export class UserGroups extends BaseCollection {
 			"PUT",
 			params,
 			this.populateGroupFromJsonRoot,
-			this.handleReject,
 			body,
 			"teams/{!:team_id}/groups/{!:group_id}/projects/add",
 		);
@@ -132,14 +141,16 @@ export class UserGroups extends BaseCollection {
 			"PUT",
 			params,
 			this.populateGroupFromJsonRoot,
-			this.handleReject,
 			body,
 			"teams/{!:team_id}/groups/{!:group_id}/projects/remove",
 		);
 	}
 
-	protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this {
+	protected populateGroupFromJsonRoot(
+		json: Keyable,
+		headers: Headers,
+	): UserGroup {
 		const formatted_json = json.group;
-		return <this>this.populateObjectFromJson(formatted_json, headers);
+		return this.populateObjectFromJson(formatted_json, headers);
 	}
 }

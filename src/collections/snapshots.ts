@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import type { Project } from "../models/project.js";
 import { Snapshot } from "../models/snapshot.js";
@@ -11,16 +12,27 @@ import type {
 } from "../types/snapshots.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class Snapshots extends BaseCollection {
-	protected static rootElementName = "snapshots";
-	protected static rootElementNameSingular = "snapshot";
+export class Snapshots extends BaseCollection<Snapshot> {
 	protected static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
-	protected static elementClass = Snapshot;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => Snapshot {
+		return Snapshot;
+	}
+
+	protected get rootElementName(): string {
+		return "snapshots";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "snapshot";
+	}
 
 	list(
 		request_params: ProjectWithPagination,
 	): Promise<PaginatedResult<Snapshot>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<Snapshot>>;
 	}
 
 	create(
@@ -43,13 +55,7 @@ export class Snapshots extends BaseCollection {
 			...{ id: snapshot_id },
 		};
 
-		return this.createPromise(
-			"POST",
-			params,
-			this.returnBareJSON,
-			this.handleReject,
-			{},
-		);
+		return this.createPromise("POST", params, this.returnBareJSON<Project>, {});
 	}
 
 	delete(

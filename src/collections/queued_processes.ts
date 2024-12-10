@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { QueuedProcess } from "../models/queued_process.js";
 import type {
@@ -6,16 +7,29 @@ import type {
 } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class QueuedProcesses extends BaseCollection {
-	protected static rootElementName = "processes";
-	protected static rootElementNameSingular = "process";
+export class QueuedProcesses extends BaseCollection<QueuedProcess> {
 	protected static prefixURI = "projects/{!:project_id}/processes/{:id}";
-	protected static elementClass = QueuedProcess;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => QueuedProcess {
+		return QueuedProcess;
+	}
+
+	protected get rootElementName(): string {
+		return "processes";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "process";
+	}
 
 	list(
 		request_params: ProjectWithPagination,
 	): Promise<PaginatedResult<QueuedProcess>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<
+			PaginatedResult<QueuedProcess>
+		>;
 	}
 
 	get(
