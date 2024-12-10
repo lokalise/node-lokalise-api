@@ -218,12 +218,22 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await expect(
-			lokaliseApi.branches().create(params, { project_id: fakeProjectId }),
-		).rejects.toMatchObject({
-			message: "Something very bad has happened",
-			code: 500,
-			details: { reason: "server error without details" },
-		});
+		try {
+			await lokaliseApi
+				.branches()
+				.create(params, { project_id: fakeProjectId });
+		} catch (error) {
+			expect(error.message).toEqual("Something very bad has happened");
+			expect(error.code).toEqual(500);
+			expect(error.details).toEqual({ reason: "server error without details" });
+			expect(String(error)).toEqual(
+				"LokaliseError: Something very bad has happened (Code: 500) | Details: reason: server error without details",
+			);
+		}
+	});
+
+	it("converts errors without details to string", () => {
+		const error = new ApiError("Sample error", 404);
+		expect(String(error)).toEqual("LokaliseError: Sample error (Code: 404)");
 	});
 });
