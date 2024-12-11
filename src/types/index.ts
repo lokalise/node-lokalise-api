@@ -23,6 +23,7 @@ export type {
 	FileDeleted,
 	DownloadFileParams,
 	ListFileParams,
+	UploadFileParams,
 } from "./files.js";
 export type {
 	CreateKeyData,
