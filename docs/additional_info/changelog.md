@@ -1,6 +1,6 @@
 # Changelog
 
-## 13.0.0
+## 13.0.0 (12-Dec-2024)
 
 * Reworked code, make types stricter and error handling better
 * Allow to provide request timeout:
