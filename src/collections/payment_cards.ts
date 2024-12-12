@@ -1,19 +1,31 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { PaymentCard } from "../models/payment_card.js";
 import type { CardDeleted, CreateCardParams } from "../types/cards.js";
 import type { PaginationParams } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
-export class PaymentCards extends BaseCollection {
-	protected static rootElementName = "payment_cards";
-	protected static rootElementNameSingular = "payment_card";
+export class PaymentCards extends BaseCollection<PaymentCard> {
 	protected static prefixURI = "payment_cards/{:id}";
-	protected static elementClass = PaymentCard;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => PaymentCard {
+		return PaymentCard;
+	}
+
+	protected get rootElementName(): string {
+		return "payment_cards";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "payment_card";
+	}
 
 	list(
 		request_params: PaginationParams = {},
 	): Promise<PaginatedResult<PaymentCard>> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<PaginatedResult<PaymentCard>>;
 	}
 
 	create(card_params: CreateCardParams): Promise<PaymentCard> {

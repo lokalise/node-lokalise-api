@@ -7,11 +7,14 @@ import { Keys } from "./keys.js";
 import { Languages } from "./languages.js";
 import { Orders } from "./orders.js";
 import { PaymentCards } from "./payment_cards.js";
+import { PermissionTemplates } from "./permission_templates.js";
 import { Projects } from "./projects.js";
 import { QueuedProcesses } from "./queued_processes.js";
 import { Screenshots } from "./screenshots.js";
+import { Segments } from "./segments.js";
 import { Snapshots } from "./snapshots.js";
 import { Tasks } from "./tasks.js";
+import { TeamUserBillingDetails } from "./team_user_billing_details.js";
 import { TeamUsers } from "./team_users.js";
 import { Teams } from "./teams.js";
 import { TranslationProviders } from "./translation_providers.js";
@@ -30,12 +33,15 @@ export {
 	Languages,
 	Orders,
 	PaymentCards,
+	PermissionTemplates,
 	Projects,
 	QueuedProcesses,
+	Segments,
 	Screenshots,
 	Snapshots,
 	Tasks,
 	TeamUsers,
+	TeamUserBillingDetails,
 	Teams,
 	Translations,
 	TranslationProviders,

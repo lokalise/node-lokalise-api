@@ -1,3 +1,4 @@
+import type { Keyable } from "../interfaces/keyable.js";
 import { OtaBundle } from "../models/ota/ota_bundle.js";
 import type {
 	OtaBundleUpdateData,
@@ -6,15 +7,26 @@ import type {
 } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
 
-export class OtaBundleManagement extends OtaCollection {
-	protected static rootElementName = "data";
-	protected static rootElementNameSingular = "data";
+export class OtaBundleManagement extends OtaCollection<OtaBundle> {
 	protected static prefixURI =
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundles/{:id}";
-	protected static elementClass = OtaBundle;
+
+	protected get elementClass(): new (
+		json: Keyable,
+	) => OtaBundle {
+		return OtaBundle;
+	}
+
+	protected get rootElementName(): string {
+		return "data";
+	}
+
+	protected get rootElementNameSingular(): string | null {
+		return "data";
+	}
 
 	list(request_params: OtaTeamProject): Promise<OtaBundle[]> {
-		return this.doList(request_params);
+		return this.doList(request_params) as Promise<OtaBundle[]>;
 	}
 
 	get(

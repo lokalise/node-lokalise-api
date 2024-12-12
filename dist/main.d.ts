@@ -1,3 +1,10 @@
+interface Keyable {
+    readonly [key: string]: any;
+}
+interface WritableKeyable {
+    [key: string]: any;
+}
+
 interface PaginatedResult$1<T = any> {
     readonly totalResults: number;
     readonly totalPages: number;
@@ -78,29 +85,141 @@ interface ClientData {
     enableCompression: boolean;
     host?: string;
     version?: string;
+    requestTimeout?: number;
 }
 
-interface Keyable {
-    readonly [key: string]: any;
+/**
+ * Interface representing the structure of an API error.
+ */
+interface IApiError {
+    /**
+     * The error message.
+     */
+    message: string;
+    /**
+     * The error code representing the type of API error.
+     */
+    code: number;
+    /**
+     * Additional details about the error (optional).
+     */
+    details?: any;
 }
-interface WritableKeyable {
-    [key: string]: any;
+
+/**
+ * Represents an API error with a specific code and optional details.
+ */
+declare class ApiError extends Error implements IApiError {
+    /**
+     * The error code representing the type of API error.
+     */
+    code: number;
+    /**
+     * Additional details about the error (optional).
+     */
+    details?: Record<string, any>;
+    /**
+     * Creates an instance of ApiError.
+     *
+     * @param {string} message - The error message.
+     * @param {number} code - The error code.
+     * @param {Record<string, any>} [details] - Additional details about the error.
+     */
+    constructor(message: string, code: number, details?: Record<string, any>);
+    /**
+     * Returns a string representation of the error, including code and details.
+     *
+     * @returns The formatted error message.
+     */
+    toString(): string;
 }
 
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 
+type ApiResponse = {
+    json: Keyable;
+    headers: Headers;
+};
+/**
+ * Represents a single API request to the Lokalise API.
+ * Handles URL construction, request initiation, response processing, and error handling.
+ */
 declare class ApiRequest {
-    promise: Promise<any>;
+    /**
+     * A Promise that resolves to an ApiResponse containing the parsed JSON and headers.
+     */
+    promise: Promise<ApiResponse>;
+    /**
+     * Query and path parameters used to construct the request URL.
+     * This object is modified during URL construction, removing parameters used in path segments.
+     */
     params: WritableKeyable;
+    /**
+     * The default base URL for the Lokalise API.
+     */
     protected readonly urlRoot = "https://api.lokalise.com/api2/";
+    /**
+     * Constructs a new ApiRequest instance.
+     * @param uri - The endpoint URI (versioned path expected).
+     * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
+     * @param body - The request payload, if applicable.
+     * @param params - Query and/or path parameters.
+     * @param clientData - Authentication and configuration data for the request.
+     */
     constructor(uri: string, method: HttpMethod, body: object | object[] | null, params: Keyable, clientData: ClientData);
-    protected createPromise(uri: string, method: HttpMethod, body: object | object[] | null, clientData: ClientData): Promise<any>;
-    protected fetchAndHandleResponse(target: URL, options: RequestInit): Promise<any>;
-    protected processResponse(response: Response): Promise<any>;
+    /**
+     * Creates the request promise by composing the URL, building headers, and executing the fetch.
+     * @param uri - The endpoint URI.
+     * @param method - The HTTP method.
+     * @param body - The request payload.
+     * @param clientData - Client configuration and auth data.
+     * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
+     */
+    protected createPromise(uri: string, method: HttpMethod, body: object | object[] | null, clientData: ClientData): Promise<ApiResponse>;
+    /**
+     * Executes the fetch request and handles network-level errors.
+     * Applies a request timeout if specified.
+     * @param target - The fully constructed request URL.
+     * @param options - The fetch request options.
+     * @param requestTimeout - Optional timeout in milliseconds.
+     * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
+     */
+    protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout: number | undefined): Promise<ApiResponse>;
+    /**
+     * Processes the fetch response.
+     * Attempts to parse JSON unless the status is 204 (No Content).
+     * @param response - The raw fetch Response object.
+     * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
+     */
+    protected processResponse(response: Response): Promise<ApiResponse>;
+    /**
+     * Derives an ApiError instance from the response JSON, which may follow various patterns.
+     * @param respJson - The parsed JSON response from the server.
+     * @returns An ApiError representing the server error.
+     */
+    protected getErrorFromResp(respJson: unknown): ApiError;
+    /**
+     * Builds the request headers, including authentication, compression, and JSON headers as needed.
+     * @param clientData - Client configuration and auth data.
+     * @param method - The HTTP method.
+     * @param body - The request payload.
+     * @returns A promise resolving to the constructed Headers.
+     */
     protected buildHeaders(clientData: ClientData, method: HttpMethod, body: object | object[] | null): Promise<Headers>;
-    protected getErrorFromResp(respJson: any): any;
+    /**
+     * Composes the final URI by replacing placeholders of the form `/{!:{paramName}}`
+     * with the corresponding parameter values.
+     * @param rawUri - The raw URI template.
+     * @returns The final composed URI string.
+     * @throws Error if a required parameter is missing.
+     */
     protected composeURI(rawUri: string): string;
-    protected mapUriParams(): (_entity: any, isMandaratory: string, paramName: string) => string;
+    /**
+     * Returns a function that maps URI parameters from placeholders.
+     * @returns A function used as a replacement callback in `composeURI`.
+     * @throws Error if a required parameter is missing.
+     */
+    protected mapUriParams(): (substring: string, isMandatory: string, paramName: string) => string;
 }
 
 interface BulkResult<T = any> {
@@ -108,28 +227,18 @@ interface BulkResult<T = any> {
     readonly errors: any[];
 }
 
-interface ApiError$1 {
-    code: number;
-    message: string;
-}
-
-declare class ApiError extends BaseModel implements ApiError$1 {
-    code: number;
-    message: string;
-}
-
 interface CursorPaginatedResult$1<T = any> extends PaginatedResult$1<T> {
     readonly nextCursor: string | null;
     hasNextCursor(): boolean;
 }
 
-declare class PaginatedResult implements PaginatedResult$1 {
+declare class PaginatedResult<T> implements PaginatedResult$1 {
     totalResults: number;
     totalPages: number;
     resultsPerPage: number;
     currentPage: number;
-    items: any;
-    constructor(items: any, headers: Headers);
+    items: T[];
+    constructor(items: T[], headers: Headers);
     hasNextPage(): boolean;
     hasPrevPage(): boolean;
     isLastPage(): boolean;
@@ -139,54 +248,229 @@ declare class PaginatedResult implements PaginatedResult$1 {
     private safeParseInt;
 }
 
-declare class CursorPaginatedResult extends PaginatedResult implements CursorPaginatedResult$1 {
+declare class CursorPaginatedResult<T> extends PaginatedResult<T> implements CursorPaginatedResult$1 {
     nextCursor: string | null;
-    constructor(items: any[], headers: Headers);
+    constructor(items: T[], headers: Headers);
     hasNextCursor(): boolean;
 }
 
-type RejectHandler = (data: any) => ApiError;
-type ResolveHandler = (json: Keyable, headers: Headers, ...args: any[]) => any;
-declare abstract class BaseCollection {
+type ResolveHandler<T> = (json: Keyable, headers: Headers) => T;
+/**
+ * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
+ * and handling for pagination, cursor pagination, and bulk operations. Other "collection" classes
+ * should extend this class and provide specific implementations for resource endpoints.
+ *
+ * Expected usage:
+ * - Subclasses define `rootElementName` and/or `rootElementNameSingular` to indicate the JSON fields
+ *   that contain the desired data.
+ * - `elementClass` and optionally `secondaryElementClass` should be overridden to map raw JSON
+ *   objects to strongly typed model instances.
+ * - `endpoint` and `prefixURI` should be set as static properties in subclasses to specify resource paths.
+ */
+declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
+    /**
+     * Client data containing authentication and configuration details.
+     * Provided by a `BaseClient` or similar client instance.
+     */
     readonly clientData: ClientData;
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string | null;
+    /**
+     * Static endpoint property that subclasses can define to indicate the API endpoint
+     * for this collection. If not set, ensure `prefixURI` or `uri` parameters are passed.
+     */
     protected static endpoint: string | null;
+    /**
+     * Static prefixURI property that subclasses can define to indicate a base path.
+     * If `uri` is not passed explicitly, this prefix is used to construct the request URL.
+     */
     protected static prefixURI: string | null;
-    protected static elementClass: any;
-    protected static secondaryElementNameSingular: string | null;
-    protected static secondaryElementClass: any;
+    /**
+     * Constructs a new BaseCollection instance.
+     * @param clientData - Client data for making authenticated requests.
+     */
     constructor(clientData: ClientData);
-    protected doList(req_params: Keyable): Promise<any>;
-    protected doListCursor(req_params: Keyable): Promise<any>;
-    protected doGet(id: string | number, req_params?: Keyable): Promise<any>;
-    protected doDelete(id: string | number, req_params?: Keyable): Promise<any>;
-    protected doCreate(body: Keyable | null, req_params?: Keyable, resolveFn?: (json: Keyable, _headers: Headers, secondary?: boolean) => any): Promise<any>;
-    protected doUpdate(id: string | number, body: Keyable | null, req_params: Keyable, resolveFn?: (json: Keyable, headers: Headers) => any, method?: HttpMethod): Promise<any>;
-    protected populateObjectFromJsonRoot(json: Keyable, headers: Headers): any;
-    protected populateSecondaryObjectFromJsonRoot(json: Keyable, headers: Headers): any;
-    protected populateObjectFromJson(json: Keyable, _headers: Headers, secondary?: boolean): any;
-    protected populateArrayFromJsonBulk(json: Keyable, headers: Headers): BulkResult | this[];
-    protected populateArrayFromJson(json: Keyable, headers: Headers): PaginatedResult | Keyable | this[];
-    private populateArray;
-    private isPaginated;
-    protected populateArrayFromJsonCursor(json: Keyable, headers: Headers): CursorPaginatedResult | Keyable | this[];
-    protected populateApiErrorFromJson(json: any): ApiError;
-    protected returnBareJSON(json: Keyable | Array<Keyable>): Keyable | Array<Keyable>;
-    protected handleReject(data: any): ApiError;
-    protected createPromise(method: HttpMethod, params: Keyable, resolveFn: ResolveHandler | null, rejectFn: RejectHandler, body: object | object[] | null, uri?: string | null): Promise<any>;
-    protected sendRequest(request: ApiRequest): Promise<any>;
-    protected handleError(err: any, rejectFn: RejectHandler): Promise<never>;
+    /**
+     * Abstract getter that must be implemented by subclasses.
+     * Should return a class constructor that maps a JSON object to an `ElementType` instance.
+     */
+    protected abstract get elementClass(): new (json: Keyable) => ElementType;
+    /**
+     * Getter that must be overridden by subclasses to return the root element name
+     * for array-based JSON responses.
+     * @throws Error if not defined by the subclass.
+     */
+    protected get rootElementName(): string;
+    /**
+     * Getter that may be overridden by subclasses to return the root element name
+     * for single-item JSON responses.
+     * @throws Error if not defined by the subclass.
+     */
+    protected get rootElementNameSingular(): string | null;
+    /**
+     * Getter that may be overridden by subclasses if a secondary model type is returned.
+     * By default, this throws an error. If needed, override it in the subclass.
+     */
+    protected get secondaryElementClass(): new (json: Keyable) => SecondaryType;
+    /**
+     * Getter that must be overridden if `secondaryElementClass` is used.
+     * Returns the JSON property name for the secondary element.
+     * @throws Error if not defined by the subclass that uses secondary elements.
+     */
+    protected get secondaryElementNameSingular(): string;
+    /**
+     * Perform a GET request that expects a list of items.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to either a paginated result or an array of ElementType.
+     */
+    protected doList(params: Keyable): Promise<PaginatedResult<ElementType> | ElementType[]>;
+    /**
+     * Perform a GET request that expects a cursor-paginated list of items.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to a CursorPaginatedResult of ElementType.
+     */
+    protected doListCursor(params: Keyable): Promise<CursorPaginatedResult<ElementType>>;
+    /**
+     * Perform a GET request to retrieve a single item by its ID.
+     * @param id The ID of the item to retrieve.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to a single ElementType instance.
+     */
+    protected doGet(id: string | number, params?: Keyable): Promise<ElementType>;
+    /**
+     * Perform a DELETE request to remove a single item by its ID.
+     * @param id The ID of the item to delete.
+     * @param params Optional query or request parameters.
+     * @returns A promise resolving to JSON representing the deletion result.
+     */
+    protected doDelete<T = Keyable | Keyable[]>(id: string | number, params?: Keyable): Promise<T>;
+    /**
+     * Perform a POST request to create a new resource.
+     * @param body The object or array of objects to send in the request body.
+     * @param params Optional query or request parameters.
+     * @param resolveFn Optional custom resolve handler to parse the response.
+     * @returns A promise resolving to an ElementType or SecondaryType instance.
+     */
+    protected doCreate(body: object | object[] | null, params?: Keyable, resolveFn?: (json: Keyable, _headers: Headers, secondary?: boolean) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
+    /**
+     * Perform a POST request to create multiple resources at once.
+     * @param body The object or array of objects to send in the request body.
+     * @param params Optional query or request parameters.
+     * @param resolveFn Optional custom resolve handler to parse the response array.
+     * @returns A promise resolving to an array of ElementType.
+     */
+    protected doCreateArray(body: object | object[] | null, params: Keyable, resolveFn?: ResolveHandler<ElementType[]>): Promise<ElementType[]>;
+    /**
+     * Perform an UPDATE (PUT/PATCH) request to modify an existing resource by its ID.
+     * @param id The ID of the item to update.
+     * @param body The updated fields to send in the request body.
+     * @param params Optional query or request parameters.
+     * @param resolveFn Optional custom resolve handler to parse the response object.
+     * @param method The HTTP method to use, typically PUT or PATCH.
+     * @returns A promise resolving to the updated ElementType instance.
+     */
+    protected doUpdate(id: string | number, body: Keyable | null, params: Keyable, resolveFn?: (json: Keyable, headers: Headers) => ElementType, method?: HttpMethod): Promise<ElementType>;
+    /**
+     * Parse a JSON response that contains a single item under a known root element name.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     * @returns The parsed ElementType instance.
+     * @throws Error if the expected root element name is missing.
+     */
+    protected populateObjectFromJsonRoot(json: Keyable, headers: Headers): ElementType;
+    /**
+     * Parse a JSON response that contains a secondary item under a known secondary root element name.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     * @returns The parsed SecondaryType instance.
+     * @throws Error if the expected secondary element name is missing.
+     */
+    protected populateSecondaryObjectFromJsonRoot(json: Keyable, headers: Headers): SecondaryType;
+    /**
+     * Parse a JSON response that contains an array of items along with bulk result details.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     * @returns A BulkResult object containing items and potential errors.
+     * @throws Error if the expected root element is missing or not an array.
+     */
+    protected populateArrayFromJsonBulk(json: Keyable, headers: Headers): BulkResult;
+    /**
+     * Parse a JSON response that contains an array of items.
+     * If pagination headers are detected, returns a PaginatedResult.
+     * Otherwise, returns a plain array of ElementType.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     */
+    protected populateArrayFromJson(json: Keyable, headers: Headers): PaginatedResult<ElementType> | ElementType[];
+    /**
+     * Parse a JSON response that contains an array of items.
+     * This method returns a plain array and does not consider pagination.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     */
+    protected populateArray(json: Keyable, headers: Headers): ElementType[];
+    /**
+     * Parse a JSON response that contains a cursor-paginated array of items.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     */
+    protected populateArrayFromJsonCursor(json: Keyable, headers: Headers): CursorPaginatedResult<ElementType>;
+    /**
+     * Parse a JSON object into either an ElementType or a SecondaryType instance.
+     * @param json The raw JSON object returned by the API.
+     * @param _headers The response headers (if needed).
+     * @param secondary If true, use the secondaryElementClass instead of elementClass.
+     */
+    protected populateObjectFromJson(json: Keyable, _headers: Headers, secondary?: boolean): ElementType | SecondaryType;
+    /**
+     * Return the raw JSON as-is.
+     * @param json The raw JSON object or array returned by the API.
+     */
+    protected returnBareJSON<T>(json: Keyable | Keyable[]): T;
+    /**
+     * Convert a single object into an array if it's not already an array.
+     * @param raw_body The raw request body.
+     */
+    protected objToArray(raw_body: Keyable | Keyable[]): Keyable[];
+    /**
+     * Create a Promise that sends an HTTP request and resolves with a parsed response.
+     * @param method The HTTP method (GET, POST, PUT, DELETE, etc.).
+     * @param params Query or request parameters.
+     * @param resolveFn A function to resolve and parse the JSON response.
+     * @param body The request body, if applicable.
+     * @param uri An explicit URI to use for the request. If not provided, prefixURI is used.
+     */
+    protected createPromise<T>(method: HttpMethod, params: Keyable, resolveFn: ResolveHandler<T>, body: object | object[] | null, uri?: string | null): Promise<T>;
+    /**
+     * Prepare the API request by creating a new ApiRequest instance.
+     * @param method The HTTP method.
+     * @param body The request body.
+     * @param params The request parameters.
+     * @param uri An explicit URI for the request or null.
+     */
     protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Keyable, uri: string | null): ApiRequest;
+    /**
+     * Send the prepared request and return its promise.
+     * @param request The ApiRequest instance to send.
+     * @returns A Promise resolving to an ApiResponse.
+     */
+    protected sendRequest(request: ApiRequest): Promise<ApiResponse>;
+    /**
+     * Determine the URI for the request. If uri is not provided, use prefixURI.
+     * @param uri An explicit URI or null.
+     * @throws Error if no URI or prefixURI is provided.
+     */
     protected getUri(uri: string | null): string;
-    protected objToArray(raw_body: Keyable | Keyable[]): Array<Keyable>;
+    /**
+     * Determine if the response headers indicate pagination.
+     * @param headers The response headers.
+     */
+    private isPaginated;
 }
 
-declare class Branches extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Branches extends BaseCollection<Branch> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Branch;
+    protected get elementClass(): new (json: Keyable) => Branch;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Branch>>;
     create(branch_params: BranchParams, request_params: ProjectOnly): Promise<Branch>;
     get(branch_id: string | number, request_params: ProjectOnly): Promise<Branch>;
@@ -230,11 +514,11 @@ type KeyProjectPagination = ProjectWithPagination & {
     key_id: number | string;
 };
 
-declare class Comments extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Comments extends BaseCollection<Comment> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Comment;
+    protected get elementClass(): new (json: Keyable) => Comment;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: KeyProjectPagination): Promise<PaginatedResult$1<Comment>>;
     create(comment_params: CommentData | CommentData[], request_params: ProjectAndKey): Promise<Comment[]>;
     get(comment_id: string | number, request_params: ProjectAndKey): Promise<Comment>;
@@ -304,11 +588,11 @@ type ContributorDeleted = {
     branch?: string;
 };
 
-declare class Contributors extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Contributors extends BaseCollection<Contributor> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Contributor;
+    protected get elementClass(): new (json: Keyable) => Contributor;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Contributor>>;
     create(contributor_params: ContributorCreateData | ContributorCreateData[], request_params: ProjectOnly): Promise<Contributor[]>;
     get(contributor_id: string | number, request_params: ProjectOnly): Promise<Contributor>;
@@ -452,12 +736,12 @@ type ListFileParams = ProjectWithPagination & {
     filter_filename?: string;
 };
 
-declare class Files extends BaseCollection {
-    protected static rootElementName: string;
+declare class Files extends BaseCollection<File, QueuedProcess> {
     protected static prefixURI: string;
-    protected static elementClass: typeof File;
-    protected static secondaryElementNameSingular: string;
-    protected static secondaryElementClass: typeof QueuedProcess;
+    protected get elementClass(): new (json: Keyable) => File;
+    protected get rootElementName(): string;
+    protected get secondaryElementClass(): new (json: Keyable) => QueuedProcess;
+    protected get secondaryElementNameSingular(): string;
     list(request_params: ListFileParams): Promise<PaginatedResult$1<File>>;
     upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess>;
     download(project_id: string, download: DownloadFileParams): Promise<DownloadBundle>;
@@ -472,9 +756,9 @@ declare class Jwt$1 extends BaseModel implements Jwt$2 {
     jwt: string;
 }
 
-declare class Jwt extends BaseCollection {
+declare class Jwt extends BaseCollection<Jwt$1> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Jwt$1;
+    protected get elementClass(): new (json: Keyable) => Jwt$1;
     create(project_id: string, body?: {
         service: string;
     }): Promise<Jwt$1>;
@@ -703,11 +987,11 @@ type GetKeyParams = ProjectOnly & {
     disable_references?: NumericBool;
 };
 
-declare class Keys extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Keys extends BaseCollection<Key> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Key;
+    protected get elementClass(): new (json: Keyable) => Key;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: KeyParamsWithPagination): Promise<CursorPaginatedResult$1<Key>>;
     create(key_params: CreateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key>>;
     get(key_id: string | number, request_params: GetKeyParams): Promise<Key>;
@@ -750,11 +1034,11 @@ type LanguageDeleted = {
     branch?: string;
 };
 
-declare class Languages extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Languages extends BaseCollection<Language> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Language;
+    protected get elementClass(): new (json: Keyable) => Language;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     system_languages(params?: PaginationParams): Promise<PaginatedResult$1<Language>>;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Language>>;
     create(raw_body: CreateLanguageParams | CreateLanguageParams[], request_params: ProjectOnly): Promise<BulkResult<Language>>;
@@ -831,10 +1115,11 @@ type CreateOrderParams = {
 
 type TeamWithPagination = TeamOnly & PaginationParams;
 
-declare class Orders extends BaseCollection {
-    protected static rootElementName: string;
+declare class Orders extends BaseCollection<Order> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Order;
+    protected get elementClass(): new (json: Keyable) => Order;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: TeamWithPagination): Promise<PaginatedResult$1<Order>>;
     create(order_params: CreateOrderParams, request_params: TeamOnly): Promise<Order>;
     get(order_id: string | number, request_params: TeamOnly): Promise<Order>;
@@ -867,11 +1152,11 @@ type CardDeleted = {
     card_deleted: boolean;
 };
 
-declare class PaymentCards extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class PaymentCards extends BaseCollection<PaymentCard> {
     protected static prefixURI: string;
-    protected static elementClass: typeof PaymentCard;
+    protected get elementClass(): new (json: Keyable) => PaymentCard;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params?: PaginationParams): Promise<PaginatedResult$1<PaymentCard>>;
     create(card_params: CreateCardParams): Promise<PaymentCard>;
     get(card_id: string | number): Promise<PaymentCard>;
@@ -885,12 +1170,44 @@ interface AuthData {
     version?: string;
 }
 
-interface AuthError {
+interface IAuthError {
     code: number;
     error: string;
     error_description: string;
     error_uri?: string;
 }
+
+/**
+ * Parameters used to configure a BaseClient instance.
+ */
+type ClientParams = {
+    /**
+     * The API key for authenticating requests. This must be provided.
+     */
+    apiKey?: string;
+    /**
+     * Whether to enable response compression (e.g., gzip).
+     * Defaults to `false` if not specified.
+     */
+    enableCompression?: boolean;
+    /**
+     * The type of token used for authentication, e.g. "Bearer".
+     * If omitted, the token will be used as-is.
+     */
+    tokenType?: string;
+    /**
+     * The base host URL for requests. If not provided, a default may be used downstream.
+     */
+    host?: string;
+    /**
+     * API version. Defaults to "api2" if not specified elsewhere.
+     */
+    version?: string;
+    /**
+     * Request timeout in milliseconds. If not provided, requests have no explicit timeout.
+     */
+    requestTimeout?: number;
+};
 
 interface ProjectSettings {
     per_platform_key_names: boolean;
@@ -953,7 +1270,7 @@ interface Project$1 {
     statistics: ProjectStatistics;
 }
 
-interface RefreshTokenResponse {
+interface RefreshTokenResponse$1 {
     access_token: string;
     scope: string;
     expires_in: string | number;
@@ -1165,12 +1482,6 @@ interface OtaSdkToken$1 {
     projectId: number;
     lokaliseId: number;
     createdAt: string;
-}
-
-interface OtaApiError {
-    statusCode: string;
-    message: string;
-    error: string;
 }
 
 interface OtaBundleArchive$1 {
@@ -2204,10 +2515,10 @@ type WebhookProjectTaskInitialTmLeverageCalculated = {
     created_at_timestamp: number;
 };
 
-declare class PermissionTemplates extends BaseCollection {
+declare class PermissionTemplates extends BaseCollection<PermissionTemplate> {
     protected static prefixURI: string;
-    protected static elementClass: typeof PermissionTemplate;
-    protected static rootElementName: string;
+    protected get elementClass(): new (json: Keyable) => PermissionTemplate;
+    protected get rootElementName(): string;
     list(request_params: TeamOnly): Promise<PaginatedResult$1<PermissionTemplate>>;
 }
 
@@ -2227,10 +2538,11 @@ declare class Project extends BaseModel implements Project$1 {
     statistics: ProjectStatistics;
 }
 
-declare class Projects extends BaseCollection {
-    protected static rootElementName: string;
+declare class Projects extends BaseCollection<Project> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Project;
+    protected get elementClass(): new (json: Keyable) => Project;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params?: ProjectListParams): Promise<PaginatedResult$1<Project>>;
     create(project_params: CreateProjectParams): Promise<Project>;
     get(project_id: string | number): Promise<Project>;
@@ -2239,11 +2551,11 @@ declare class Projects extends BaseCollection {
     empty(project_id: any): Promise<ProjectEmptied>;
 }
 
-declare class QueuedProcesses extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class QueuedProcesses extends BaseCollection<QueuedProcess> {
     protected static prefixURI: string;
-    protected static elementClass: typeof QueuedProcess;
+    protected get elementClass(): new (json: Keyable) => QueuedProcess;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<QueuedProcess>>;
     get(process_id: string | number, request_params: ProjectOnly): Promise<QueuedProcess>;
 }
@@ -2270,11 +2582,11 @@ declare class Screenshot extends BaseModel implements Screenshot$1 {
     created_at_timestamp: number;
 }
 
-declare class Screenshots extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Screenshots extends BaseCollection<Screenshot> {
     protected static prefixURI: string;
-    protected static elementClass: object;
+    protected get elementClass(): new (json: Keyable) => Screenshot;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Screenshot>>;
     create(raw_body: CreateScreenshotParams | CreateScreenshotParams[], request_params: ProjectOnly): Promise<BulkResult<Screenshot>>;
     get(screnshot_id: string | number, request_params: ProjectOnly): Promise<Screenshot>;
@@ -2303,11 +2615,11 @@ declare class Segment extends BaseModel implements Segment$1 {
     custom_translation_statuses: TranslationStatus[];
 }
 
-declare class Segments extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Segments extends BaseCollection<Segment> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Segment;
+    protected get elementClass(): new (json: Keyable) => Segment;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ListSegmentParams): Promise<Segment[]>;
     get(segment_number: string | number, request_params: GetSegmentParams): Promise<Segment>;
     update(segment_number: string | number, segment_params: UpdateSegmentBodyParams, request_params: UpdateSegmentReqParams): Promise<Segment>;
@@ -2322,11 +2634,11 @@ declare class Snapshot extends BaseModel implements Snapshot$1 {
     created_by_email: string;
 }
 
-declare class Snapshots extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Snapshots extends BaseCollection<Snapshot> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Snapshot;
+    protected get elementClass(): new (json: Keyable) => Snapshot;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Snapshot>>;
     create(snapshot_params: CreateSnapshotParams, request_params: ProjectOnly): Promise<Snapshot>;
     restore(snapshot_id: string | number, request_params: ProjectOnly): Promise<Project>;
@@ -2402,11 +2714,11 @@ declare class Task extends BaseModel implements Task$1 {
     custom_translation_status_ids: number[];
 }
 
-declare class Tasks extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Tasks extends BaseCollection<Task> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Task;
+    protected get elementClass(): new (json: Keyable) => Task;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ListTaskParams): Promise<PaginatedResult$1<Task>>;
     create(task_params: CreateTaskParams, request_params: ProjectOnly): Promise<Task>;
     get(task_id: string | number, request_params: ProjectOnly): Promise<Task>;
@@ -2427,10 +2739,9 @@ declare class TeamUserBillingDetails$1 extends BaseModel implements TeamUserBill
     vatnumber: string;
 }
 
-declare class TeamUserBillingDetails extends BaseCollection {
-    protected static rootElementName: string;
+declare class TeamUserBillingDetails extends BaseCollection<TeamUserBillingDetails$1> {
     protected static prefixURI: string;
-    protected static elementClass: typeof TeamUserBillingDetails$1;
+    protected get elementClass(): new (json: Keyable) => TeamUserBillingDetails$1;
     get(team_id: string | number): Promise<TeamUserBillingDetails$1>;
     create(billing_details_params: BillingDetailsParams, request_params: TeamOnly): Promise<TeamUserBillingDetails$1>;
     update(team_id: string | number, billing_details_params: BillingDetailsParams): Promise<TeamUserBillingDetails$1>;
@@ -2445,11 +2756,11 @@ declare class TeamUser extends BaseModel implements TeamUser$1 {
     role: string;
 }
 
-declare class TeamUsers extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class TeamUsers extends BaseCollection<TeamUser> {
     protected static prefixURI: string;
-    protected static elementClass: typeof TeamUser;
+    protected get elementClass(): new (json: Keyable) => TeamUser;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: TeamWithPagination): Promise<PaginatedResult$1<TeamUser>>;
     get(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUser>;
     update(team_user_id: string | number, team_user_params: TeamUserParams, request_params: TeamOnly): Promise<TeamUser>;
@@ -2478,10 +2789,10 @@ declare class Team extends BaseModel implements Team$1 {
     };
 }
 
-declare class Teams extends BaseCollection {
-    protected static rootElementName: string;
+declare class Teams extends BaseCollection<Team> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Team;
+    protected get elementClass(): new (json: Keyable) => Team;
+    protected get rootElementName(): string;
     list(request_params?: PaginationParams): Promise<PaginatedResult$1<Team>>;
 }
 
@@ -2506,19 +2817,20 @@ declare class TranslationProvider extends BaseModel implements TranslationProvid
     }>;
 }
 
-declare class TranslationProviders extends BaseCollection {
-    protected static rootElementName: string;
+declare class TranslationProviders extends BaseCollection<TranslationProvider> {
     protected static prefixURI: string;
-    protected static elementClass: typeof TranslationProvider;
+    protected get elementClass(): new (json: Keyable) => TranslationProvider;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: TeamWithPagination): Promise<PaginatedResult$1<TranslationProvider>>;
     get(provider_id: string | number, request_params: TeamOnly): Promise<TranslationProvider>;
 }
 
-declare class TranslationStatuses extends BaseCollection {
-    protected static rootElementName: string;
+declare class TranslationStatuses extends BaseCollection<TranslationStatus> {
     protected static prefixURI: string;
-    protected static elementClass: typeof TranslationStatus;
-    protected static rootElementNameSingular: string;
+    protected get elementClass(): new (json: Keyable) => TranslationStatus;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<TranslationStatus>>;
     create(translation_status_params: CreateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus>;
     get(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatus>;
@@ -2546,11 +2858,11 @@ declare class Translation extends BaseModel implements Translation$1 {
     segment_number: number;
 }
 
-declare class Translations extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Translations extends BaseCollection<Translation> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Translation;
+    protected get elementClass(): new (json: Keyable) => Translation;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ListTranslationParams): Promise<CursorPaginatedResult$1<Translation>>;
     get(translation_id: string | number, request_params: GetTranslationParams): Promise<Translation>;
     update(translation_id: string | number, translation_params: UpdateTranslationParams, request_params: ProjectOnly): Promise<Translation>;
@@ -2578,10 +2890,11 @@ declare class UserGroup extends BaseModel implements UserGroup$1 {
     role_id: number | null;
 }
 
-declare class UserGroups extends BaseCollection {
-    protected static rootElementName: string;
+declare class UserGroups extends BaseCollection<UserGroup> {
     protected static prefixURI: string;
-    protected static elementClass: typeof UserGroup;
+    protected get elementClass(): new (json: Keyable) => UserGroup;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: TeamWithPagination): Promise<PaginatedResult$1<UserGroup>>;
     create(user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup>;
     get(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroup>;
@@ -2591,7 +2904,7 @@ declare class UserGroups extends BaseCollection {
     remove_members_from_group(team_id: string | number, group_id: string | number, user_ids: string[] | number[]): Promise<UserGroup>;
     add_projects_to_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
     remove_projects_from_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup>;
-    protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): this;
+    protected populateGroupFromJsonRoot(json: Keyable, headers: Headers): UserGroup;
 }
 
 declare class Webhook extends BaseModel implements Webhook$1 {
@@ -2606,11 +2919,11 @@ declare class Webhook extends BaseModel implements Webhook$1 {
     }>;
 }
 
-declare class Webhooks extends BaseCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class Webhooks extends BaseCollection<Webhook> {
     protected static prefixURI: string;
-    protected static elementClass: typeof Webhook;
+    protected get elementClass(): new (json: Keyable) => Webhook;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Webhook>>;
     create(webhook_params: CreateWebhookParams, request_params: ProjectOnly): Promise<Webhook>;
     get(webhook_id: string | number, request_params: ProjectOnly): Promise<Webhook>;
@@ -2619,51 +2932,144 @@ declare class Webhooks extends BaseCollection {
     regenerate_secret(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookRegenerated>;
 }
 
-type ClientParams = {
-    apiKey?: string;
-    enableCompression?: boolean;
-    tokenType?: string;
-    host?: string;
-    version?: string;
-};
+/**
+ * A foundational client class that establishes authentication and configuration data.
+ * Other specialized clients can inherit from this class to leverage the configured
+ * authentication, compression, host, and timeout settings.
+ */
 declare class BaseClient {
+    /**
+     * Internal client data including token, token type, host, compression, and timeouts.
+     */
     readonly clientData: ClientData;
     /**
-     * Instantiate BaseClient with API key and optional parameters
-     * @param params ClientParams object
+     * Constructs a new BaseClient instance.
+     * @param params - Configuration parameters including API key and optional features.
+     * @throws Error if the API key is not provided or is empty.
      */
     constructor(params: ClientParams);
 }
 
+/**
+ * A main entry point for interacting with the Lokalise API.
+ * Provides easy access to various resource collections (Branches, Comments, Projects, etc.)
+ * through dedicated methods.
+ */
 declare class LokaliseApi extends BaseClient {
+    /**
+     * Creates a new instance of the LokaliseApi client.
+     * @param params - Configuration parameters including `apiKey` and optional `version`, `host`, etc.
+     */
     constructor(params: ClientParams);
+    /**
+     * Access Branch-related endpoints.
+     */
     branches(): Branches;
+    /**
+     * Access Comment-related endpoints.
+     */
     comments(): Comments;
+    /**
+     * Access Contributor-related endpoints.
+     */
     contributors(): Contributors;
+    /**
+     * Access File-related endpoints.
+     */
     files(): Files;
+    /**
+     * Access JWT-related endpoints.
+     */
     jwt(): Jwt;
+    /**
+     * Access Key-related endpoints.
+     */
     keys(): Keys;
+    /**
+     * Access Language-related endpoints.
+     */
     languages(): Languages;
+    /**
+     * Access Order-related endpoints.
+     */
     orders(): Orders;
+    /**
+     * Access Payment Card-related endpoints.
+     */
     paymentCards(): PaymentCards;
+    /**
+     * Access Permission Template-related endpoints.
+     */
     permissionTemplates(): PermissionTemplates;
+    /**
+     * Access Project-related endpoints.
+     */
     projects(): Projects;
+    /**
+     * Access Queued Process-related endpoints.
+     */
     queuedProcesses(): QueuedProcesses;
+    /**
+     * Access Screenshot-related endpoints.
+     */
     screenshots(): Screenshots;
+    /**
+     * Access Segment-related endpoints.
+     */
     segments(): Segments;
+    /**
+     * Access Snapshot-related endpoints.
+     */
     snapshots(): Snapshots;
+    /**
+     * Access Task-related endpoints.
+     */
     tasks(): Tasks;
+    /**
+     * Access Team-related endpoints.
+     */
     teams(): Teams;
+    /**
+     * Access Team User-related endpoints.
+     */
     teamUsers(): TeamUsers;
+    /**
+     * Access Team User Billing Detail-related endpoints.
+     */
     teamUserBillingDetails(): TeamUserBillingDetails;
+    /**
+     * Access Translation-related endpoints.
+     */
     translations(): Translations;
+    /**
+     * Access Translation Provider-related endpoints.
+     */
     translationProviders(): TranslationProviders;
+    /**
+     * Access Translation Status-related endpoints.
+     */
     translationStatuses(): TranslationStatuses;
+    /**
+     * Access User Group-related endpoints.
+     */
     userGroups(): UserGroups;
+    /**
+     * Access Webhook-related endpoints.
+     */
     webhooks(): Webhooks;
 }
 
+/**
+ * A specialized client for interacting with the Lokalise API using OAuth authentication.
+ * Extends `LokaliseApi` and configures the token type and authorization header to use Bearer tokens.
+ */
 declare class LokaliseApiOAuth extends LokaliseApi {
+    /**
+     * Constructs a new LokaliseApiOAuth client instance.
+     * @param params - Configuration parameters including `apiKey` (OAuth token)
+     *                 and optionally `tokenType` (defaults to "Bearer").
+     * @throws Error If `apiKey` is missing or empty.
+     */
     constructor(params: ClientParams);
 }
 
@@ -2683,27 +3089,42 @@ declare class OtaBundle extends BaseModel implements OtaBundle$1 {
     modifiedAt: string;
 }
 
-declare abstract class OtaCollection extends BaseCollection {
-    protected populateApiErrorFromJson(json: any): ApiError;
-    protected doDelete(id: string | number, req_params: Keyable): Promise<any>;
+declare abstract class OtaCollection<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
+    protected doDelete<T = Keyable | Keyable[]>(id: string | number, req_params: Keyable): Promise<T>;
     protected returnJSONFromData(json: Keyable): Keyable | Array<Keyable>;
+    protected createVoidPromise(method: HttpMethod, params: Keyable, body: object | object[] | null, uri?: string | null): Promise<null>;
 }
 
-declare class OtaBundleManagement extends OtaCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class OtaBundleManagement extends OtaCollection<OtaBundle> {
     protected static prefixURI: string;
-    protected static elementClass: typeof OtaBundle;
+    protected get elementClass(): new (json: Keyable) => OtaBundle;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: OtaTeamProject): Promise<OtaBundle[]>;
     get(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaBundle>;
     update(bundleId: string | number, bundleParams: OtaBundleUpdateData, requestParams: OtaTeamProject): Promise<OtaBundle>;
     delete(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaResourceDeleted>;
 }
 
-declare class OtaBundlePublishing extends OtaCollection {
+declare class OtaBundlePublishing extends OtaCollection<void> {
     protected static prefixURI: string;
-    publish(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<void>;
-    stage(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<void>;
+    protected get elementClass(): new (json: Keyable) => Branch;
+    publish(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
+    stage(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
+}
+
+declare class OtaBundleArchive extends BaseModel implements OtaBundleArchive$1 {
+    url: string;
+    version: number;
+}
+
+declare class OtaBundles extends OtaCollection<OtaBundleArchive> {
+    protected static rootElementNameSingular: string;
+    protected static prefixURI: string;
+    protected static elementClass: typeof OtaBundleArchive;
+    protected get elementClass(): new (json: Keyable) => OtaBundleArchive;
+    protected get rootElementNameSingular(): string;
+    get(bundle_params: OtaRequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundleArchive>;
 }
 
 declare class OtaFreezePeriod extends BaseModel implements OtaFreezePeriod$1 {
@@ -2715,11 +3136,11 @@ declare class OtaFreezePeriod extends BaseModel implements OtaFreezePeriod$1 {
     to: string;
 }
 
-declare class OtaFreezePeriods extends OtaCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod> {
     protected static prefixURI: string;
-    protected static elementClass: typeof OtaFreezePeriod;
+    protected get elementClass(): new (json: Keyable) => OtaFreezePeriod;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(requestParams: OtaTeamProjectFramework): Promise<OtaFreezePeriod[]>;
     create(freezeParams: OtaFreezePeriodParams, requestParams: OtaTeamProject): Promise<OtaFreezePeriod>;
     update(freezeId: string | number, freezeParams: OtaFreezePeriodParams, requestParams: OtaTeamProject): Promise<OtaFreezePeriod>;
@@ -2734,11 +3155,11 @@ declare class OtaSdkToken extends BaseModel implements OtaSdkToken$1 {
     createdAt: string;
 }
 
-declare class OtaSdkTokens extends OtaCollection {
-    protected static rootElementName: string;
-    protected static rootElementNameSingular: string;
+declare class OtaSdkTokens extends OtaCollection<OtaSdkToken> {
     protected static prefixURI: string;
-    protected static elementClass: typeof OtaSdkToken;
+    protected get elementClass(): new (json: Keyable) => OtaSdkToken;
+    protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params: OtaTeamProject): Promise<OtaSdkToken[]>;
     create(request_params: OtaTeamProject): Promise<OtaSdkToken>;
     delete(tokenId: string | number, request_params: OtaTeamProject): Promise<OtaResourceDeleted>;
@@ -2770,36 +3191,75 @@ declare class OtaStatistics extends BaseModel implements OtaStatistics$1 {
     };
 }
 
-declare class OtaUsageStatistics extends OtaCollection {
+declare class OtaUsageStatistics extends OtaCollection<OtaStatistics> {
     protected static prefixURI: string;
     protected static elementClass: typeof OtaStatistics;
+    protected get elementClass(): new (json: Keyable) => OtaStatistics;
     get(bundle_params: OtaUsageParams, request_params: OtaTeamProject): Promise<OtaStatistics>;
 }
 
+/**
+ * A specialized client configured for interacting with Lokalise OTA endpoints.
+ * Extends `BaseClient` and sets defaults suitable for OTA requests:
+ * - `tokenType` defaults to "Bearer"
+ * - `authHeader` set to "Authorization"
+ * - `host` defaults to "https://ota.lokalise.com"
+ * - `version` defaults to "v3"
+ */
 declare class LokaliseApiOta extends BaseClient {
+    /**
+     * Creates a new LokaliseApiOta client instance.
+     * @param params - Configuration parameters including `apiKey` and optional overrides for tokenType, host, version, etc.
+     * @throws Error If `apiKey` is missing or empty.
+     */
     constructor(params: ClientParams);
+    /**
+     * Provides access to the OtaBundleManagement collection.
+     */
     otaBundleManagement(): OtaBundleManagement;
+    /**
+     * Provides access to the OtaBundlePublishing collection.
+     */
     otaBundlePublishing(): OtaBundlePublishing;
+    /**
+     * Provides access to the OtaUsageStatistics collection.
+     */
     otaUsageStatistics(): OtaUsageStatistics;
+    /**
+     * Provides access to the OtaFreezePeriods collection.
+     */
     otaFreezePeriods(): OtaFreezePeriods;
+    /**
+     * Provides access to the OtaSdkTokens collection.
+     */
     otaSdkTokens(): OtaSdkTokens;
 }
 
-declare class OtaBundleArchive extends BaseModel implements OtaBundleArchive$1 {
-    url: string;
-    version: number;
-}
-
-declare class OtaBundles extends OtaCollection {
-    protected static rootElementNameSingular: string;
-    protected static prefixURI: string;
-    protected static elementClass: typeof OtaBundleArchive;
-    get(bundle_params: OtaRequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundleArchive>;
-}
-
+/**
+ * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
+ * Extends the BaseClient to configure authentication and endpoint specifics for OTA bundles.
+ */
 declare class LokaliseOtaBundles extends BaseClient {
+    /**
+     * Constructs a new LokaliseOtaBundles client instance.
+     * @param params - Configuration parameters, including the required `apiKey`.
+     *                 Optional parameters include `version`, `host`, etc.
+     *                 Defaults: `host` = "https://ota.lokalise.com", `version` = "v3".
+     * @throws Error If no valid API key is provided.
+     */
     constructor(params: ClientParams);
+    /**
+     * Provides access to the OtaBundles collection.
+     * @returns An OtaBundles instance.
+     */
     otaBundles(): OtaBundles;
+}
+
+declare class RefreshTokenResponse extends BaseModel implements RefreshTokenResponse$1 {
+    access_token: string;
+    scope: string;
+    expires_in: string | number;
+    token_type: string;
 }
 
 declare class RequestTokenResponse extends BaseModel implements RequestTokenResponse$1 {
@@ -2811,14 +3271,72 @@ declare class RequestTokenResponse extends BaseModel implements RequestTokenResp
 
 declare class LokaliseAuth {
     authData: AuthData;
+    /**
+     * Instantiate LokaliseAuth to work with OAuth 2 tokens
+     *
+     * @param clientId - The client ID (mandatory)
+     * @param clientSecret - The client secret (mandatory)
+     * @param host - Optional host, defaults to "https://app.lokalise.com"
+     * @param version - Optional API version, defaults to "oauth2"
+     */
     constructor(clientId: string, clientSecret: string, host?: string, version?: string);
-    auth(scope: string | string[], redirect_uri?: string, state?: string): string;
+    /**
+     * Generate the authorization URL
+     *
+     * @param scope - The scope(s) for the authorization
+     * @param redirectUri - Optional redirect URI
+     * @param state - Optional state parameter
+     * @returns The authorization URL as a string
+     */
+    auth(scope: string | string[], redirectUri?: string, state?: string): string;
+    /**
+     * Exchange an authorization code for an access token
+     *
+     * @param code - The authorization code
+     * @returns A promise resolving to the token response
+     */
     token(code: string): Promise<RequestTokenResponse>;
-    refresh(refresh_token: string): Promise<any>;
+    /**
+     * Refresh an access token using a refresh token
+     *
+     * @param refreshToken - The refresh token
+     * @returns A promise resolving to the token response
+     */
+    refresh(refreshToken: string): Promise<RefreshTokenResponse>;
+    /**
+     * Internal method to perform the API request
+     *
+     * @param params - Request parameters
+     * @returns A promise resolving to the API response
+     */
     private doRequest;
+    /**
+     * Build the authorization URL
+     *
+     * @param params - URL parameters
+     * @returns The complete URL as a string
+     */
     private buildUrl;
-    private base_params;
+    /**
+     * Get the base parameters for authentication requests
+     *
+     * @returns A record containing the client ID and client secret
+     */
+    private baseParams;
+    /**
+     * Handle API request errors and transform them into an `AuthError`
+     *
+     * @param error - The error object
+     * @returns An `AuthError` instance
+     */
     private handleReject;
 }
 
-export { type ApiError$1 as ApiError, type AuthData, type AuthError, type BillingDetailsParams, type Branch$1 as Branch, type BranchDeleted, type BranchMerged, type BranchParams, type BulkResult, type BulkUpdateKeyParams, type CardDeleted, type ClientData, type Comment$1 as Comment, type CommentData, type CommentDeleted, type Contributor$1 as Contributor, type ContributorCreateData, type ContributorDeleted, type ContributorLanguages, type ContributorRights, type ContributorUpdateData, type CreateCardParams, type CreateKeyData, type CreateKeyParams, type CreateLanguageParams, type CreateOrderParams, type CreateProjectParams, type CreateScreenshotParams, type CreateSnapshotParams, type CreateTaskParams, type CreateTranslationStatusParams, type CreateWebhookParams, type CursorPaginatedResult$1 as CursorPaginatedResult, type CursorPagination, type DownloadBundle, type DownloadFileParams, type File$1 as File, type FileDeleted, type Filenames, type GetKeyParams, type GetSegmentParams, type GetTranslationParams, type HttpMethod, type Jwt$2 as Jwt, type Key$1 as Key, type KeyDeleted, type KeyParamsWithPagination, type KeyProjectPagination, type KeysBulkDeleted, type Language$1 as Language, type LanguageDeleted, type ListFileParams, type ListSegmentParams, type ListTaskParams, type ListTranslationParams, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseAuth, LokaliseOtaBundles, type MergeBranchParams, type NumericBool, type Order$1 as Order, type OtaApiError, type OtaBundle$1 as OtaBundle, type OtaBundleArchive$1 as OtaBundleArchive, type OtaBundleUpdateData, type OtaFramework, type OtaFreezePeriod$1 as OtaFreezePeriod, type OtaFreezePeriodParams, type OtaProjectFramework, type OtaRequestBundleParams, type OtaResourceDeleted, type OtaSdkToken$1 as OtaSdkToken, type OtaStatistics$1 as OtaStatistics, type OtaTeamProject, type OtaTeamProjectFramework, type OtaUsageParams, type PaginatedResult$1 as PaginatedResult, type PaginationParams, type PaymentCard$1 as PaymentCard, type Project$1 as Project, type ProjectAndKey, type ProjectDeleted, type ProjectEmptied, type ProjectListParams, type ProjectOnly, type ProjectSettings, type ProjectStatistics, type ProjectWithPagination, type QueuedProcess$1 as QueuedProcess, type RefreshTokenResponse, type RequestTokenResponse$1 as RequestTokenResponse, type Screenshot$1 as Screenshot, type ScreenshotData, type ScreenshotDeleted, type Segment$1 as Segment, type Snapshot$1 as Snapshot, type SnapshotDeleted, type SupportedPlatforms, type Task$1 as Task, type TaskDeleted, type TaskLanguage, type Team$1 as Team, type TeamOnly, type TeamUser$1 as TeamUser, type TeamUserBillingDetails$2 as TeamUserBillingDetails, type TeamUserDeleted, type TeamUserParams, type TeamWithPagination, type Translation$1 as Translation, type TranslationData, type TranslationProvider$1 as TranslationProvider, type TranslationStatus$1 as TranslationStatus, type TranslationStatusColors, type TranslationStatusDeleted, type UpdateKeyData, type UpdateKeyDataWithId, type UpdateLanguageParams, type UpdateProjectParams, type UpdateScreenshotParams, type UpdateSegmentBodyParams, type UpdateSegmentReqParams, type UpdateTaskParams, type UpdateTranslationParams, type UpdateTranslationStatusParams, type UpdateWebhookParams, type UserGroup$1 as UserGroup, type UserGroupDeleted, type UserGroupParams, type Webhook$1 as Webhook, type WebhookDeleted, type WebhookEventLangMap, type WebhookProjectBranchAdded, type WebhookProjectBranchDeleted, type WebhookProjectBranchMerged, type WebhookProjectContributorAdded, type WebhookProjectContributorAddedPublic, type WebhookProjectContributorDeleted, type WebhookProjectCopied, type WebhookProjectDeleted, type WebhookProjectExported, type WebhookProjectImported, type WebhookProjectKeyAdded, type WebhookProjectKeyCommentAdded, type WebhookProjectKeyModified, type WebhookProjectKeysAdded, type WebhookProjectKeysDeleted, type WebhookProjectKeysModified, type WebhookProjectLanguageRemoved, type WebhookProjectLanguageSettingsChanged, type WebhookProjectLanguagesAdded, type WebhookProjectSnapshotCreated, type WebhookProjectTaskClosed, type WebhookProjectTaskCreated, type WebhookProjectTaskDeleted, type WebhookProjectTaskInitialTmLeverageCalculated, type WebhookProjectTaskLanguageClosed, type WebhookProjectTaskQueued, type WebhookProjectTranslationProofread, type WebhookProjectTranslationUpdated, type WebhookProjectTranslationsProofread, type WebhookProjectTranslationsUpdated, type WebhookRegenerated, type WebhookTeamOrderCompleted, type WebhookTeamOrderCreated, type WebhookTeamOrderDeleted };
+declare class AuthError extends BaseModel implements IAuthError {
+    code: number;
+    error: string;
+    error_description: string;
+    error_uri?: string;
+}
+
+export { ApiError, type AuthData, AuthError, type BillingDetailsParams, type Branch$1 as Branch, type BranchDeleted, type BranchMerged, type BranchParams, type BulkResult, type BulkUpdateKeyParams, type CardDeleted, type ClientData, type ClientParams, type Comment$1 as Comment, type CommentData, type CommentDeleted, type Contributor$1 as Contributor, type ContributorCreateData, type ContributorDeleted, type ContributorLanguages, type ContributorRights, type ContributorUpdateData, type CreateCardParams, type CreateKeyData, type CreateKeyParams, type CreateLanguageParams, type CreateOrderParams, type CreateProjectParams, type CreateScreenshotParams, type CreateSnapshotParams, type CreateTaskParams, type CreateTranslationStatusParams, type CreateWebhookParams, type CursorPaginatedResult$1 as CursorPaginatedResult, type CursorPagination, type DownloadBundle, type DownloadFileParams, type File$1 as File, type FileDeleted, type FileFormat, type Filenames, type GetKeyParams, type GetSegmentParams, type GetTranslationParams, type HttpMethod, type IApiError, type IAuthError, type Jwt$2 as Jwt, type Key$1 as Key, type KeyDeleted, type KeyParamsWithPagination, type KeyProjectPagination, type KeysBulkDeleted, type Language$1 as Language, type LanguageDeleted, type ListFileParams, type ListSegmentParams, type ListTaskParams, type ListTranslationParams, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseAuth, LokaliseOtaBundles, type MergeBranchParams, type NumericBool, type Order$1 as Order, type OtaBundle$1 as OtaBundle, type OtaBundleArchive$1 as OtaBundleArchive, type OtaBundleUpdateData, type OtaFramework, type OtaFreezePeriod$1 as OtaFreezePeriod, type OtaFreezePeriodParams, type OtaProjectFramework, type OtaRequestBundleParams, type OtaResourceDeleted, type OtaSdkToken$1 as OtaSdkToken, type OtaStatistics$1 as OtaStatistics, type OtaTeamProject, type OtaTeamProjectFramework, type OtaUsageParams, type PaginatedResult$1 as PaginatedResult, type PaginationParams, type PaymentCard$1 as PaymentCard, type Project$1 as Project, type ProjectAndKey, type ProjectDeleted, type ProjectEmptied, type ProjectListParams, type ProjectOnly, type ProjectSettings, type ProjectStatistics, type ProjectWithPagination, type QueuedProcess$1 as QueuedProcess, type RefreshTokenResponse$1 as RefreshTokenResponse, type RequestTokenResponse$1 as RequestTokenResponse, type Screenshot$1 as Screenshot, type ScreenshotData, type ScreenshotDeleted, type Segment$1 as Segment, type Snapshot$1 as Snapshot, type SnapshotDeleted, type SupportedPlatforms, type Task$1 as Task, type TaskDeleted, type TaskLanguage, type Team$1 as Team, type TeamOnly, type TeamUser$1 as TeamUser, type TeamUserBillingDetails$2 as TeamUserBillingDetails, type TeamUserDeleted, type TeamUserParams, type TeamWithPagination, type Translation$1 as Translation, type TranslationData, type TranslationProvider$1 as TranslationProvider, type TranslationStatus$1 as TranslationStatus, type TranslationStatusColors, type TranslationStatusDeleted, type UpdateKeyData, type UpdateKeyDataWithId, type UpdateLanguageParams, type UpdateProjectParams, type UpdateScreenshotParams, type UpdateSegmentBodyParams, type UpdateSegmentReqParams, type UpdateTaskParams, type UpdateTranslationParams, type UpdateTranslationStatusParams, type UpdateWebhookParams, type UploadFileParams, type UserGroup$1 as UserGroup, type UserGroupDeleted, type UserGroupParams, type Webhook$1 as Webhook, type WebhookDeleted, type WebhookEventLangMap, type WebhookProjectBranchAdded, type WebhookProjectBranchDeleted, type WebhookProjectBranchMerged, type WebhookProjectContributorAdded, type WebhookProjectContributorAddedPublic, type WebhookProjectContributorDeleted, type WebhookProjectCopied, type WebhookProjectDeleted, type WebhookProjectExported, type WebhookProjectImported, type WebhookProjectKeyAdded, type WebhookProjectKeyCommentAdded, type WebhookProjectKeyModified, type WebhookProjectKeysAdded, type WebhookProjectKeysDeleted, type WebhookProjectKeysModified, type WebhookProjectLanguageRemoved, type WebhookProjectLanguageSettingsChanged, type WebhookProjectLanguagesAdded, type WebhookProjectSnapshotCreated, type WebhookProjectTaskClosed, type WebhookProjectTaskCreated, type WebhookProjectTaskDeleted, type WebhookProjectTaskInitialTmLeverageCalculated, type WebhookProjectTaskLanguageClosed, type WebhookProjectTaskQueued, type WebhookProjectTranslationProofread, type WebhookProjectTranslationUpdated, type WebhookProjectTranslationsProofread, type WebhookProjectTranslationsUpdated, type WebhookRegenerated, type WebhookTeamOrderCompleted, type WebhookTeamOrderCreated, type WebhookTeamOrderDeleted };

@@ -1,12 +1,11 @@
 import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
-
 const project_id = "803826145ba90b42d5d860.46800099";
 
 describe("LokaliseApi", () => {
 	it("is expected to throw an error if the API key is not provided", () => {
 		expect(() => {
 			new LokaliseApi({ apiKey: "" });
-		}).to.throw(Error);
+		}).toThrow("Instantiation failed: A non-empty API key must be provided.");
 	});
 
 	it("is expected to contain clientData", () => {
@@ -30,6 +29,38 @@ describe("LokaliseApi host", () => {
 			host: "http://example.com",
 		});
 		expect(client.clientData.host).to.eq("http://example.com");
+	});
+});
+
+describe("LokaliseApi timeouts", () => {
+	it("raises error on timeout", async () => {
+		const stub = new Stub({
+			fixture: "lokalise/contributors.json",
+			query: { limit: 2 },
+			uri: `projects/${project_id}/contributors`,
+			delay: 50,
+			respHeaders: {
+				"x-pagination-total-count": "1",
+				"x-pagination-page": "1",
+				"x-pagination-limit": "2",
+				"x-pagination-page-count": "1",
+			},
+		});
+
+		await stub.setStub();
+
+		const client = new LokaliseApi({
+			apiKey: process.env.API_KEY,
+			requestTimeout: 1,
+		});
+
+		await expect(
+			client.contributors().list({ project_id: project_id, limit: 2 }),
+		).rejects.toMatchObject({
+			message: "Request timed out after 1ms",
+			code: 408,
+			details: { reason: "timeout" },
+		});
 	});
 });
 
