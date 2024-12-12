@@ -15,7 +15,7 @@ try {
   await client.projects().list();
 } catch (e) {
   console.error(e);
-  console.log(e.message); // "Request timed out after 1000ms"
+  console.log(e.message); // "Request timed out after 5000ms"
   console.log(e.code); // 408
   console.log(e.details); // { reason: "timeout" }
 }

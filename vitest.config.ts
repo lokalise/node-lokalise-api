@@ -12,7 +12,7 @@ export default defineConfig({
 		environment: "node",
 		coverage: {
 			provider: "istanbul",
-			reporter: isCI ? ["lcov"] : ["html"],
+			reporter: isCI ? ["lcov"] : ["html", "text-summary"],
 			exclude: ["docs/**", "samples/**", "test/setup.ts", "vitest.config.ts"],
 			include: ["src/**/*.ts"],
 		},
