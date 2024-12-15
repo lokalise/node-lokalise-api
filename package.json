@@ -18,7 +18,7 @@
 	"type": "module",
 	"scripts": {
 		"build": "rimraf dist && tsup",
-		"test": "vitest run --coverage",
+		"test": "vitest run",
 		"test:watch": "vitest watch",
 		"lint": "npx @biomejs/biome check ./",
 		"lint:fix": "npx @biomejs/biome check --write ./",

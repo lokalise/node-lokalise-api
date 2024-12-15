@@ -4,16 +4,17 @@ const isCI = process.env.CI === "true";
 
 export default defineConfig({
 	esbuild: {
-		target: "esnext",
+		target: "es2022",
 	},
 	test: {
-		globals: true,
 		silent: isCI,
-		environment: "node",
+		sequence: {
+			shuffle: true,
+		},
 		coverage: {
+			enabled: true,
 			provider: "istanbul",
 			reporter: isCI ? ["lcov"] : ["html", "text-summary"],
-			exclude: ["docs/**", "samples/**", "test/setup.ts", "vitest.config.ts"],
 			include: ["src/**/*.ts"],
 		},
 		typecheck: {
