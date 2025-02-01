@@ -160,14 +160,9 @@ declare class ApiRequest {
     protected readonly urlRoot = "https://api.lokalise.com/api2/";
     /**
      * Constructs a new ApiRequest instance.
-     * This constructor is synchronous; async initialization happens in the static factory method.
-     * @param uri - The endpoint URI (versioned path expected).
-     * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
-     * @param body - The request payload, if applicable.
      * @param params - Query and/or path parameters.
-     * @param clientData - Authentication and configuration data for the request.
      */
-    constructor(_uri: string, _method: HttpMethod, _body: object | object[] | null, params: Keyable, _clientData: ClientData);
+    constructor(params: Keyable);
     /**
      * Static async factory method to create an ApiRequest instance with a fully resolved response.
      * @param uri - The endpoint URI (versioned path expected).

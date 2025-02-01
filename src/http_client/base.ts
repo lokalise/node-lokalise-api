@@ -32,20 +32,9 @@ export class ApiRequest {
 
 	/**
 	 * Constructs a new ApiRequest instance.
-	 * This constructor is synchronous; async initialization happens in the static factory method.
-	 * @param uri - The endpoint URI (versioned path expected).
-	 * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
-	 * @param body - The request payload, if applicable.
 	 * @param params - Query and/or path parameters.
-	 * @param clientData - Authentication and configuration data for the request.
 	 */
-	constructor(
-		_uri: string,
-		_method: HttpMethod,
-		_body: object | object[] | null,
-		params: Keyable,
-		_clientData: ClientData,
-	) {
+	constructor(params: Keyable) {
 		// Copy params to avoid modifying the original object
 		this.params = { ...params };
 	}
@@ -66,7 +55,7 @@ export class ApiRequest {
 		params: Keyable,
 		clientData: ClientData,
 	): Promise<ApiRequest> {
-		const apiRequest = new ApiRequest(uri, method, body, params, clientData);
+		const apiRequest = new ApiRequest(params);
 		apiRequest.response = await apiRequest.createPromise(
 			uri,
 			method,

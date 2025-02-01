@@ -81,14 +81,9 @@ var ApiRequest = class _ApiRequest {
   urlRoot = "https://api.lokalise.com/api2/";
   /**
    * Constructs a new ApiRequest instance.
-   * This constructor is synchronous; async initialization happens in the static factory method.
-   * @param uri - The endpoint URI (versioned path expected).
-   * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
-   * @param body - The request payload, if applicable.
    * @param params - Query and/or path parameters.
-   * @param clientData - Authentication and configuration data for the request.
    */
-  constructor(_uri, _method, _body, params, _clientData) {
+  constructor(params) {
     this.params = { ...params };
   }
   /**
@@ -101,7 +96,7 @@ var ApiRequest = class _ApiRequest {
    * @returns A promise that resolves to a fully constructed ApiRequest instance with the `response` set.
    */
   static async create(uri, method, body, params, clientData) {
-    const apiRequest = new _ApiRequest(uri, method, body, params, clientData);
+    const apiRequest = new _ApiRequest(params);
     apiRequest.response = await apiRequest.createPromise(
       uri,
       method,
