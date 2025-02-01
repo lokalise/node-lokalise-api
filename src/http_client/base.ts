@@ -15,9 +15,9 @@ export type ApiResponse = {
  */
 export class ApiRequest {
 	/**
-	 * A Promise that resolves to an ApiResponse containing the parsed JSON and headers.
+	 * The resolved response from the API request.
 	 */
-	public promise: Promise<ApiResponse>;
+	public response!: ApiResponse;
 
 	/**
 	 * Query and path parameters used to construct the request URL.
@@ -32,6 +32,7 @@ export class ApiRequest {
 
 	/**
 	 * Constructs a new ApiRequest instance.
+	 * This constructor is synchronous; async initialization happens in the static factory method.
 	 * @param uri - The endpoint URI (versioned path expected).
 	 * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
 	 * @param body - The request payload, if applicable.
@@ -39,15 +40,40 @@ export class ApiRequest {
 	 * @param clientData - Authentication and configuration data for the request.
 	 */
 	constructor(
+		_uri: string,
+		_method: HttpMethod,
+		_body: object | object[] | null,
+		params: Keyable,
+		_clientData: ClientData,
+	) {
+		// Copy params to avoid modifying the original object
+		this.params = { ...params };
+	}
+
+	/**
+	 * Static async factory method to create an ApiRequest instance with a fully resolved response.
+	 * @param uri - The endpoint URI (versioned path expected).
+	 * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
+	 * @param body - The request payload, if applicable.
+	 * @param params - Query and/or path parameters.
+	 * @param clientData - Authentication and configuration data for the request.
+	 * @returns A promise that resolves to a fully constructed ApiRequest instance with the `response` set.
+	 */
+	public static async create(
 		uri: string,
 		method: HttpMethod,
 		body: object | object[] | null,
 		params: Keyable,
 		clientData: ClientData,
-	) {
-		// Copy params to avoid modifying the original object
-		this.params = { ...params };
-		this.promise = this.createPromise(uri, method, body, clientData);
+	): Promise<ApiRequest> {
+		const apiRequest = new ApiRequest(uri, method, body, params, clientData);
+		apiRequest.response = await apiRequest.createPromise(
+			uri,
+			method,
+			body,
+			clientData,
+		);
+		return apiRequest;
 	}
 
 	/**
@@ -273,7 +299,7 @@ export class ApiRequest {
 	 * @throws Error if a required parameter is missing.
 	 */
 	protected composeURI(rawUri: string): string {
-		const regexp = /{(!{0,1}):(\w*)}/g;
+		const regexp = /\{(!?):(\w+)\}/g;
 		const uri = rawUri.replace(regexp, this.mapUriParams());
 		return uri.endsWith("/") ? uri.slice(0, -1) : uri;
 	}

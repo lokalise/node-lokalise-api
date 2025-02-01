@@ -65,11 +65,11 @@ var ApiError = class extends Error {
 };
 
 // src/http_client/base.ts
-var ApiRequest = class {
+var ApiRequest = class _ApiRequest {
   /**
-   * A Promise that resolves to an ApiResponse containing the parsed JSON and headers.
+   * The resolved response from the API request.
    */
-  promise;
+  response;
   /**
    * Query and path parameters used to construct the request URL.
    * This object is modified during URL construction, removing parameters used in path segments.
@@ -81,15 +81,34 @@ var ApiRequest = class {
   urlRoot = "https://api.lokalise.com/api2/";
   /**
    * Constructs a new ApiRequest instance.
+   * This constructor is synchronous; async initialization happens in the static factory method.
    * @param uri - The endpoint URI (versioned path expected).
    * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
    * @param body - The request payload, if applicable.
    * @param params - Query and/or path parameters.
    * @param clientData - Authentication and configuration data for the request.
    */
-  constructor(uri, method, body, params, clientData) {
+  constructor(_uri, _method, _body, params, _clientData) {
     this.params = { ...params };
-    this.promise = this.createPromise(uri, method, body, clientData);
+  }
+  /**
+   * Static async factory method to create an ApiRequest instance with a fully resolved response.
+   * @param uri - The endpoint URI (versioned path expected).
+   * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
+   * @param body - The request payload, if applicable.
+   * @param params - Query and/or path parameters.
+   * @param clientData - Authentication and configuration data for the request.
+   * @returns A promise that resolves to a fully constructed ApiRequest instance with the `response` set.
+   */
+  static async create(uri, method, body, params, clientData) {
+    const apiRequest = new _ApiRequest(uri, method, body, params, clientData);
+    apiRequest.response = await apiRequest.createPromise(
+      uri,
+      method,
+      body,
+      clientData
+    );
+    return apiRequest;
   }
   /**
    * Creates the request promise by composing the URL, building headers, and executing the fetch.
@@ -262,7 +281,7 @@ var ApiRequest = class {
    * @throws Error if a required parameter is missing.
    */
   composeURI(rawUri) {
-    const regexp = /{(!{0,1}):(\w*)}/g;
+    const regexp = /\{(!?):(\w+)\}/g;
     const uri = rawUri.replace(regexp, this.mapUriParams());
     return uri.endsWith("/") ? uri.slice(0, -1) : uri;
   }
@@ -634,33 +653,28 @@ var BaseCollection = class {
    * @param uri An explicit URI to use for the request. If not provided, prefixURI is used.
    */
   async createPromise(method, params, resolveFn, body, uri = null) {
-    const request = this.prepareRequest(method, body, params, uri);
-    const data = await this.sendRequest(request);
-    return resolveFn.call(this, data.json, data.headers);
+    const request = await this.prepareRequest(method, body, params, uri);
+    return resolveFn.call(
+      this,
+      request.response.json,
+      request.response.headers
+    );
   }
   /**
-   * Prepare the API request by creating a new ApiRequest instance.
+   * Prepare the API request by creating a new ApiRequest instance using the static async factory method.
    * @param method The HTTP method.
    * @param body The request body.
    * @param params The request parameters.
    * @param uri An explicit URI for the request or null.
    */
-  prepareRequest(method, body, params, uri) {
-    return new ApiRequest(
+  async prepareRequest(method, body, params, uri) {
+    return await ApiRequest.create(
       this.getUri(uri),
       method,
       body,
       params,
       this.clientData
     );
-  }
-  /**
-   * Send the prepared request and return its promise.
-   * @param request The ApiRequest instance to send.
-   * @returns A Promise resolving to an ApiResponse.
-   */
-  sendRequest(request) {
-    return request.promise;
   }
   /**
    * Determine the URI for the request. If uri is not provided, use prefixURI.
@@ -1802,10 +1816,7 @@ var OtaBundle = class extends BaseModel {
 // src/ota_collections/ota_collection.ts
 var OtaCollection = class extends BaseCollection {
   doDelete(id, req_params) {
-    const params = {
-      ...req_params,
-      id
-    };
+    const params = { ...req_params, id };
     return this.createPromise(
       "DELETE",
       params,
@@ -1817,8 +1828,7 @@ var OtaCollection = class extends BaseCollection {
     return json.data;
   }
   async createVoidPromise(method, params, body, uri = null) {
-    const request = this.prepareRequest(method, body, params, uri);
-    await this.sendRequest(request);
+    await this.prepareRequest(method, body, params, uri);
     return null;
   }
 };

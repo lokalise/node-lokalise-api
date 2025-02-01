@@ -10,10 +10,7 @@ export abstract class OtaCollection<
 		id: string | number,
 		req_params: Keyable,
 	): Promise<T> {
-		const params = {
-			...req_params,
-			id,
-		};
+		const params = { ...req_params, id };
 		return this.createPromise(
 			"DELETE",
 			params,
@@ -32,9 +29,7 @@ export abstract class OtaCollection<
 		body: object | object[] | null,
 		uri: string | null = null,
 	): Promise<null> {
-		const request = this.prepareRequest(method, body, params, uri);
-
-		await this.sendRequest(request);
+		await this.prepareRequest(method, body, params, uri);
 		return null;
 	}
 }

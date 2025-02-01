@@ -1,5 +1,4 @@
 import { ApiRequest } from "../http_client/base.js";
-import type { ApiResponse } from "../http_client/base.js";
 import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { ClientData } from "../interfaces/client_data.js";
 import type { Keyable } from "../interfaces/keyable.js";
@@ -407,40 +406,34 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		body: object | object[] | null,
 		uri: string | null = null,
 	): Promise<T> {
-		const request = this.prepareRequest(method, body, params, uri);
-		const data = await this.sendRequest(request);
-		return resolveFn.call(this, data.json, data.headers);
+		const request = await this.prepareRequest(method, body, params, uri);
+		return resolveFn.call(
+			this,
+			request.response.json,
+			request.response.headers,
+		);
 	}
 
 	/**
-	 * Prepare the API request by creating a new ApiRequest instance.
+	 * Prepare the API request by creating a new ApiRequest instance using the static async factory method.
 	 * @param method The HTTP method.
 	 * @param body The request body.
 	 * @param params The request parameters.
 	 * @param uri An explicit URI for the request or null.
 	 */
-	protected prepareRequest(
+	protected async prepareRequest(
 		method: HttpMethod,
 		body: object | object[] | null,
 		params: Keyable,
 		uri: string | null,
-	): ApiRequest {
-		return new ApiRequest(
+	): Promise<ApiRequest> {
+		return await ApiRequest.create(
 			this.getUri(uri),
 			method,
 			body,
 			params,
 			this.clientData,
 		);
-	}
-
-	/**
-	 * Send the prepared request and return its promise.
-	 * @param request The ApiRequest instance to send.
-	 * @returns A Promise resolving to an ApiResponse.
-	 */
-	protected sendRequest(request: ApiRequest): Promise<ApiResponse> {
-		return request.promise;
 	}
 
 	/**

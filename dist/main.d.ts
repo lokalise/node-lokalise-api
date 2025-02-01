@@ -146,9 +146,9 @@ type ApiResponse = {
  */
 declare class ApiRequest {
     /**
-     * A Promise that resolves to an ApiResponse containing the parsed JSON and headers.
+     * The resolved response from the API request.
      */
-    promise: Promise<ApiResponse>;
+    response: ApiResponse;
     /**
      * Query and path parameters used to construct the request URL.
      * This object is modified during URL construction, removing parameters used in path segments.
@@ -160,13 +160,24 @@ declare class ApiRequest {
     protected readonly urlRoot = "https://api.lokalise.com/api2/";
     /**
      * Constructs a new ApiRequest instance.
+     * This constructor is synchronous; async initialization happens in the static factory method.
      * @param uri - The endpoint URI (versioned path expected).
      * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
      * @param body - The request payload, if applicable.
      * @param params - Query and/or path parameters.
      * @param clientData - Authentication and configuration data for the request.
      */
-    constructor(uri: string, method: HttpMethod, body: object | object[] | null, params: Keyable, clientData: ClientData);
+    constructor(_uri: string, _method: HttpMethod, _body: object | object[] | null, params: Keyable, _clientData: ClientData);
+    /**
+     * Static async factory method to create an ApiRequest instance with a fully resolved response.
+     * @param uri - The endpoint URI (versioned path expected).
+     * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
+     * @param body - The request payload, if applicable.
+     * @param params - Query and/or path parameters.
+     * @param clientData - Authentication and configuration data for the request.
+     * @returns A promise that resolves to a fully constructed ApiRequest instance with the `response` set.
+     */
+    static create(uri: string, method: HttpMethod, body: object | object[] | null, params: Keyable, clientData: ClientData): Promise<ApiRequest>;
     /**
      * Creates the request promise by composing the URL, building headers, and executing the fetch.
      * @param uri - The endpoint URI.
@@ -440,19 +451,13 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
      */
     protected createPromise<T>(method: HttpMethod, params: Keyable, resolveFn: ResolveHandler<T>, body: object | object[] | null, uri?: string | null): Promise<T>;
     /**
-     * Prepare the API request by creating a new ApiRequest instance.
+     * Prepare the API request by creating a new ApiRequest instance using the static async factory method.
      * @param method The HTTP method.
      * @param body The request body.
      * @param params The request parameters.
      * @param uri An explicit URI for the request or null.
      */
-    protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Keyable, uri: string | null): ApiRequest;
-    /**
-     * Send the prepared request and return its promise.
-     * @param request The ApiRequest instance to send.
-     * @returns A Promise resolving to an ApiResponse.
-     */
-    protected sendRequest(request: ApiRequest): Promise<ApiResponse>;
+    protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Keyable, uri: string | null): Promise<ApiRequest>;
     /**
      * Determine the URI for the request. If uri is not provided, use prefixURI.
      * @param uri An explicit URI or null.
