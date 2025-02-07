@@ -1,5 +1,30 @@
 # Changelog
 
+## 13.1.0 (07-Feb-2025)
+
+* Added support for [async file downloads](https://developers.lokalise.com/reference/download-files-async):
+
+```js
+const process = await lokaliseApi
+  .files()
+  .async_download(projectId, params);
+
+console.log(process.process_id); 
+```
+
+The `process` is a [QueuedProcess](https://developers.lokalise.com/reference/queued-process-object). Then you can simply [fetch information about the process](https://developers.lokalise.com/reference/retrieve-a-process) and grab the bundle URL:
+
+```js
+const processInfo = await lokaliseApi
+  .queuedProcesses()
+  .get(process.process_id, { project_id: projectId });
+
+processInfo.type; // => "async-export"
+processInfo.status; // => "finished"
+processInfo.details.total_number_of_keys; // => 14
+processInfo.details.download_url // => "https://lokalise-live-lok-s3-fss-export.s3.eu-central-1.amazonaws.com/..."
+```
+
 ## 13.0.0 (12-Dec-2024)
 
 * Reworked code, make types stricter and error handling better

@@ -30,6 +30,34 @@ const response = await lokaliseApi.files().download(project_id,
 response.bundle_url;
 ```
 
+## Download translation files (async)
+
+[API doc](https://developers.lokalise.com/reference/download-files-async)
+
+Starts a project export process.
+
+```js
+const projectId = "123.abc";
+const process = await lokaliseApi.files().async_download(projectId,
+  {format: 'json', "original_filenames": true}
+);
+
+const process_id = process.process_id;
+```
+
+Once complete, the download URL can be accessed using the [Retrieve process API endpoint](https://developers.lokalise.com/reference/retrieve-a-process):
+
+```js
+const processInfo = await lokaliseApi
+  .queuedProcesses()
+  .get(process_id, { project_id: projectId });
+
+processInfo.type; // => "async-export"
+processInfo.status; // => "finished"
+processInfo.details.total_number_of_keys; // => 14
+processInfo.details.download_url // => "https://lokalise-live-lok-s3-fss-export.s3.eu-central-1.amazonaws.com/..."
+```
+
 ## Upload translation file
 
 [API doc](https://developers.lokalise.com/reference/upload-a-file)

@@ -1,0 +1,16 @@
+{
+	"process": {
+		"process_id": "1efe5657-8e10-655a-b1c3-ce96b16d47b1",
+		"type": "async-export",
+		"status": "finished",
+		"message": null,
+		"created_by": 20181,
+		"created_at": "2025-02-07 16:09:05 (Europe/Berlin)",
+		"created_at_timestamp": 1738940945,
+		"details": {
+			"file_size_kb": 1,
+			"total_number_of_keys": 14,
+			"download_url": "https://lokalise-live-lok-s3-fss-export.s3.eu-central-1.amazonaws.com/export/176692/9668707567a61ab8c59811.83698199/export/a031fb50-5b3c-4e70-a96b-aaeea42a2360?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=ASIAQVSVRZDENLQCT3LE%2F20250207%2Feu-central-1%2Fs3%2Faws4_request&X-Amz-Date=20250207T152503Z&X-Amz-Expires=86400&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEF8aDGV1LWNlbnRyYWwtMSJGMEQCICkwztBvlAtpN%2BCWhzqzTY%2Bc6Zg%2BAqz5x1HLi37k8%2FzfAiBoi43Kb9fj1EJI7mREPmAIap9nu4RVUCTRcH3tljQidSqOBQh5EAEaDDA0NjM1MDMyMTg2NCIMDPlxTOty35%2Ba6AOqKusElLxWq3iGfbrIeZfPnWHyG8JB8Z4FwvnKUFs6D83WK9gSeBUSuCDLJrOp64JYs70BljNNAL%2BXCxOKrG4Dxoc59dPysdw2DurvabeYZC4EFu7swdZoYPl2Y4oAJ%2F9uYPhFYP5iLXnpdNHvGatngQ8Rx5z7b2gWY%2BE5jke5A8tcJYaR9veEjzU%2FTLmufW2jIhUnWnYYWcRpfk7vw9Ohs2CDtUjklpggw9LLBSek0IHYaHc%2BhluEj2sd5%2FfetMC%2BG%2BzVuEXgdkNZ3f7mJ%2BActTMo5JjdRyIRYzpxXs%2F3MEoKaI%2FHjxqaHUNfxJnnsZkS5LNyk7ll1vhHMX2qBvbfDL0FrKh%2FIkGeL9uNlKhQZCIUaYQriBMwCV0O8QbDGBhhXz%2BEZlrg9p61cdno3go%2BvnG8lizpp1Os%2BcygItWquSdathG4iAepWPN%2Fb%2FIi0UjHO6cc%2BTfoCmVmnLlyE9%2BsAW%2F2Jwt9upds5mHwmrsgzWWxV85FfWJEykRcZXiW762jOBfcoiQUej6P2aFqANkLHeF9o7zTLlWUdknN1o5D3sOQf35UlRFvnzlX7XAC4chl8oIakUGvxlz4wccxi%2FZXZ0QzUQFaPE%2BrxQW6yR%2B5Rg79VAsxydWBaaeIdVCBn1fbqGHxCkjgPa%2BWR0TOZH6443J0aASW6AuBDT7rr%2FP8O07ei5E6lojNZl7vldV%2FV9HBqR0aKTkX0D9Kc6B0aOMTL9WNBJ77jnlOJgoUto2cMl7zNINCv5YlWANyNiqUD4ICm1u2PZPavVTmWJN8u4vDF34li0L2t9WgJfADKTwFskfMUw%2B3Cf75XggQ2puYezDoypi9BjqbAX6vQ%2FV5KftbYZGIbz0HiRTv%2BOoV7zCQnCeUlsm4JH8m81JYtJdqoUixWIsa3pOpI19o%2Fd2Rg09mx%2FKQED6c8X4MlZZ4O2CAqpx7f8b2POp6kt8xmw7%2BMje2LbGi%2FdntrOiXUyzTOg%2BDb1A2mQLyzDLRzPjEOE4iMlqxStlXFBsyAEVQppjqQd2xLoFZvI6mtskc2TFYGVta8W8z&X-Amz-Signature=18ea7b21d8355a180543ce9ad022559b50dd1b04f8ee448c0f3cb2c6f8f28fb0&X-Amz-SignedHeaders=host&x-id=GetObject"
+		}
+	}
+}

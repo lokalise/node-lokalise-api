@@ -1,4 +1,5 @@
-import type { DownloadFileParams, QueuedProcess } from "../../src/main.js";
+import type { DownloadFileParams } from "../../src/main.js";
+import { QueuedProcess } from "../../src/models/queued_process.js";
 import type { FileFormat } from "../../src/types/file_format.js";
 import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
 
@@ -184,6 +185,48 @@ describe("Files", () => {
 		expect(response.project_id).to.eq(projectId);
 		expect(response.branch).to.eq("master");
 		expect(response.bundle_url).to.include("s3.eu-central-1.amazonaws.com");
+	});
+
+	it("downloads asynchronously", async () => {
+		const params: DownloadFileParams = {
+			format: <FileFormat>"json",
+			original_filenames: true,
+		};
+
+		const stub = new Stub({
+			fixture: "files/async_download.json",
+			uri: `projects/${projectId}/files/async-download`,
+			body: params,
+			method: "POST",
+		});
+
+		await stub.setStub();
+
+		const process: QueuedProcess = await lokaliseApi
+			.files()
+			.async_download(projectId, params);
+
+		expect(process).toBeInstanceOf(QueuedProcess);
+		expect(process.process_id).to.eq("2efe5657-8e10-655a-b1c3-ce96b16d47b2");
+
+		const stubProcess = new Stub({
+			fixture: "files/download_process_check.json",
+			uri: `projects/${projectId}/processes/${process.process_id}`,
+			method: "GET",
+		});
+
+		await stubProcess.setStub();
+
+		const processInfo = await lokaliseApi
+			.queuedProcesses()
+			.get(process.process_id, { project_id: projectId });
+
+		expect(processInfo.type).toEqual("async-export");
+		expect(processInfo.status).toEqual("finished");
+		expect(processInfo.details.total_number_of_keys).toEqual(14);
+		expect(processInfo.details.download_url).toContain(
+			"https://lokalise-live-lok-s3-fss-export.s3.eu-central-1.amazonaws.com",
+		);
 	});
 
 	it("deletes", async () => {

@@ -1,9 +1,7 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { QueuedProcess as QueuedProcessInterface } from "../interfaces/queued_process.js";
 import { BaseModel } from "./base_model.js";
 
 type ProcessDetails = {
-	files: Keyable[];
 	[key: string]: any;
 };
 

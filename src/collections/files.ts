@@ -62,6 +62,19 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		);
 	}
 
+	async_download(
+		project_id: string,
+		download: DownloadFileParams,
+	): Promise<QueuedProcess> {
+		return this.createPromise(
+			"POST",
+			{ project_id },
+			this.populateSecondaryObjectFromJson,
+			download,
+			"projects/{!:project_id}/files/async-download",
+		);
+	}
+
 	delete(
 		file_id: string | number,
 		request_params: ProjectOnly,

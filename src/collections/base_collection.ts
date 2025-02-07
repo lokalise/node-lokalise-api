@@ -266,6 +266,19 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	}
 
 	/**
+	 * Parse a JSON response that contains a secondary item.
+	 * @param json The raw JSON object returned by the API.
+	 * @param headers The response headers.
+	 * @returns The parsed SecondaryType instance.
+	 */
+	protected populateSecondaryObjectFromJson(
+		json: Keyable,
+		headers: Headers,
+	): SecondaryType {
+		return this.populateObjectFromJson(json, headers, true) as SecondaryType;
+	}
+
+	/**
 	 * Parse a JSON response that contains an array of items along with bulk result details.
 	 * @param json The raw JSON object returned by the API.
 	 * @param headers The response headers.
