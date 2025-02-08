@@ -391,6 +391,13 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
      */
     protected populateSecondaryObjectFromJsonRoot(json: Keyable, headers: Headers): SecondaryType;
     /**
+     * Parse a JSON response that contains a secondary item.
+     * @param json The raw JSON object returned by the API.
+     * @param headers The response headers.
+     * @returns The parsed SecondaryType instance.
+     */
+    protected populateSecondaryObjectFromJson(json: Keyable, headers: Headers): SecondaryType;
+    /**
      * Parse a JSON response that contains an array of items along with bulk result details.
      * @param json The raw JSON object returned by the API.
      * @param headers The response headers.
@@ -613,7 +620,6 @@ declare class File extends BaseModel implements File$1 {
 }
 
 type ProcessDetails$1 = {
-    files: Keyable[];
     [key: string]: any;
 };
 interface QueuedProcess$1 {
@@ -629,7 +635,6 @@ interface QueuedProcess$1 {
 }
 
 type ProcessDetails = {
-    files: Keyable[];
     [key: string]: any;
 };
 declare class QueuedProcess extends BaseModel implements QueuedProcess$1 {
@@ -745,6 +750,7 @@ declare class Files extends BaseCollection<File, QueuedProcess> {
     list(request_params: ListFileParams): Promise<PaginatedResult$1<File>>;
     upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess>;
     download(project_id: string, download: DownloadFileParams): Promise<DownloadBundle>;
+    async_download(project_id: string, download: DownloadFileParams): Promise<QueuedProcess>;
     delete(file_id: string | number, request_params: ProjectOnly): Promise<FileDeleted>;
 }
 

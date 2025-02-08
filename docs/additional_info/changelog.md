@@ -1,6 +1,6 @@
 # Changelog
 
-## 13.1.0 (07-Feb-2025)
+## 13.1.0 (08-Feb-2025)
 
 * Added support for [async file downloads](https://developers.lokalise.com/reference/download-files-async):
 

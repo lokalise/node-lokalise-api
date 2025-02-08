@@ -59,6 +59,8 @@
       path: fetch-translation-files
     - title: Download translation files
       path: download-translation-files
+    - title: Download translation files (async)
+      path: download-translation-files-async
     - title: Upload translation file
       path: upload-translation-file
     - title: Delete translation file

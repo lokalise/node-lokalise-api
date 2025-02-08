@@ -546,6 +546,15 @@ var BaseCollection = class {
     );
   }
   /**
+   * Parse a JSON response that contains a secondary item.
+   * @param json The raw JSON object returned by the API.
+   * @param headers The response headers.
+   * @returns The parsed SecondaryType instance.
+   */
+  populateSecondaryObjectFromJson(json, headers) {
+    return this.populateObjectFromJson(json, headers, true);
+  }
+  /**
    * Parse a JSON response that contains an array of items along with bulk result details.
    * @param json The raw JSON object returned by the API.
    * @param headers The response headers.
@@ -857,6 +866,15 @@ var Files = class extends BaseCollection {
       this.returnBareJSON,
       download,
       "projects/{!:project_id}/files/download"
+    );
+  }
+  async_download(project_id, download) {
+    return this.createPromise(
+      "POST",
+      { project_id },
+      this.populateSecondaryObjectFromJson,
+      download,
+      "projects/{!:project_id}/files/async-download"
     );
   }
   delete(file_id, request_params) {
