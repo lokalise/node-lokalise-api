@@ -26,7 +26,7 @@ export class BaseClient {
 		const { apiKey } = params;
 		if (!apiKey || apiKey.trim().length === 0) {
 			throw new Error(
-				"Instantiation failed: A non-empty API key must be provided.",
+				"Instantiation failed: A non-empty API key or JWT must be provided.",
 			);
 		}
 

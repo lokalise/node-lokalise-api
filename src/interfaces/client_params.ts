@@ -8,6 +8,11 @@ export type ClientParams = {
 	apiKey?: string;
 
 	/**
+	 * Header for auth requests, if nothing is set default one will be used.
+	 */
+	header?: string;
+
+	/**
 	 * Whether to enable response compression (e.g., gzip).
 	 * Defaults to `false` if not specified.
 	 */
