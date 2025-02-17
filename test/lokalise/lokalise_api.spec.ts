@@ -5,7 +5,7 @@ describe("LokaliseApi", () => {
 	it("is expected to throw an error if the API key is not provided", () => {
 		expect(() => {
 			new LokaliseApi({ apiKey: "" });
-		}).toThrow("Instantiation failed: A non-empty API key must be provided.");
+		}).toThrow("Instantiation failed: A non-empty API key or JWT must be provided.");
 	});
 
 	it("is expected to contain clientData", () => {
@@ -16,6 +16,8 @@ describe("LokaliseApi", () => {
 		expect(client.clientData.version).to.eq("api2");
 	});
 });
+
+//TODO add a JWT test
 
 describe("LokaliseApi host", () => {
 	it("is expected to have empty host by default", () => {
