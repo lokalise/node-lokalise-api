@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.0 (17-Feb-2025)
+
+* Allow to customize `authHeader` when instantiating LokaliseApi
+
 ## 13.1.0 (08-Feb-2025)
 
 * Added support for [async file downloads](https://developers.lokalise.com/reference/download-files-async):

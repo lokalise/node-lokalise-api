@@ -5,7 +5,9 @@ describe("LokaliseApi", () => {
 	it("is expected to throw an error if the API key is not provided", () => {
 		expect(() => {
 			new LokaliseApi({ apiKey: "" });
-		}).toThrow("Instantiation failed: A non-empty API key or JWT must be provided.");
+		}).toThrow(
+			"Instantiation failed: A non-empty API key or JWT must be provided.",
+		);
 	});
 
 	it("is expected to contain clientData", () => {
@@ -17,7 +19,10 @@ describe("LokaliseApi", () => {
 	});
 
 	it("is expected to contain custom header", () => {
-		const client = new LokaliseApi({ apiKey: process.env.API_KEY, header:"Authorization" });
+		const client = new LokaliseApi({
+			apiKey: process.env.API_KEY,
+			header: "Authorization",
+		});
 		expect(client.clientData.token).to.eq(process.env.API_KEY);
 		expect(client.clientData.authHeader).to.eq("Authorization");
 		expect(client.clientData.enableCompression).to.be.false;

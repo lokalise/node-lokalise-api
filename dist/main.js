@@ -1640,7 +1640,7 @@ var BaseClient = class {
     const { apiKey } = params;
     if (!apiKey || apiKey.trim().length === 0) {
       throw new Error(
-        "Instantiation failed: A non-empty API key must be provided."
+        "Instantiation failed: A non-empty API key or JWT must be provided."
       );
     }
     this.clientData.token = apiKey;
@@ -1660,6 +1660,7 @@ var LokaliseApi = class extends BaseClient {
   constructor(params) {
     super(params);
     this.clientData.version = params.version ?? "api2";
+    this.clientData.authHeader = params.header ?? this.clientData.authHeader;
   }
   /**
    * Access Branch-related endpoints.
