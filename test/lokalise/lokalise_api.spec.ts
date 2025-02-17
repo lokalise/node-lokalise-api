@@ -16,8 +16,8 @@ describe("LokaliseApi", () => {
 		expect(client.clientData.version).to.eq("api2");
 	});
 
-	it("is expected to contain clientData when jwt is provided", () => {
-		const client = new LokaliseApi({ jwt: process.env.API_KEY });
+	it("is expected to contain custom header", () => {
+		const client = new LokaliseApi({ apiKey: process.env.API_KEY, header:"Authorization" });
 		expect(client.clientData.token).to.eq(process.env.API_KEY);
 		expect(client.clientData.authHeader).to.eq("Authorization");
 		expect(client.clientData.enableCompression).to.be.false;

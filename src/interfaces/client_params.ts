@@ -8,9 +8,9 @@ export type ClientParams = {
 	apiKey?: string;
 
 	/**
-	 * The JWT for authenticating requests. Either this or api key must be provided.
+	 * Header for auth requests, if nothing is set default one will be used.
 	 */
-	jwt?: string;
+	header?: string;
 
 	/**
 	 * Whether to enable response compression (e.g., gzip).
