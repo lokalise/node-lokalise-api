@@ -15,9 +15,15 @@ describe("LokaliseApi", () => {
 		expect(client.clientData.enableCompression).to.be.false;
 		expect(client.clientData.version).to.eq("api2");
 	});
-});
 
-//TODO add a JWT test
+	it("is expected to contain clientData when jwt is provided", () => {
+		const client = new LokaliseApi({ jwt: process.env.API_KEY });
+		expect(client.clientData.token).to.eq(process.env.API_KEY);
+		expect(client.clientData.authHeader).to.eq("Authorization");
+		expect(client.clientData.enableCompression).to.be.false;
+		expect(client.clientData.version).to.eq("api2");
+	});
+});
 
 describe("LokaliseApi host", () => {
 	it("is expected to have empty host by default", () => {
