@@ -1,5 +1,9 @@
 # Changelog
 
+## 13.2.1 (21-Feb-2025)
+
+* Remove `translations` field from `UpdateKeyData` as the [Update key endpoint](https://developers.lokalise.com/reference/update-a-key-1) does not allow updating translations directly
+
 ## 13.2.0 (17-Feb-2025)
 
 * Allow to customize `authHeader` when instantiating LokaliseApi

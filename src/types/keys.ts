@@ -33,7 +33,10 @@ export type CreateKeyParams = {
 	use_automations?: boolean;
 };
 
-export type UpdateKeyData = Omit<CreateKeyData, "key_name" | "platforms"> & {
+export type UpdateKeyData = Omit<
+	CreateKeyData,
+	"key_name" | "platforms" | "translations"
+> & {
 	key_name?: string | Keynames;
 	merge_tags?: boolean;
 	platforms?: SupportedPlatforms[];
@@ -46,6 +49,7 @@ export type BulkUpdateKeyParams = {
 
 export type UpdateKeyDataWithId = UpdateKeyData & {
 	key_id: string | number;
+	translations?: TranslationData[];
 };
 
 export type KeyDeleted = {

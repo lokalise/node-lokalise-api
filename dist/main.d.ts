@@ -950,7 +950,7 @@ type CreateKeyParams = {
     keys?: CreateKeyData[];
     use_automations?: boolean;
 };
-type UpdateKeyData = Omit<CreateKeyData, "key_name" | "platforms"> & {
+type UpdateKeyData = Omit<CreateKeyData, "key_name" | "platforms" | "translations"> & {
     key_name?: string | Filenames;
     merge_tags?: boolean;
     platforms?: SupportedPlatforms[];
@@ -961,6 +961,7 @@ type BulkUpdateKeyParams = {
 };
 type UpdateKeyDataWithId = UpdateKeyData & {
     key_id: string | number;
+    translations?: TranslationData[];
 };
 type KeyDeleted = {
     project_id: string;
