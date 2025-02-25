@@ -9,7 +9,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Segments extends BaseCollection<Segment> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
 
 	protected get elementClass(): new (
@@ -18,11 +18,11 @@ export class Segments extends BaseCollection<Segment> {
 		return Segment;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "segments";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "segment";
 	}
 

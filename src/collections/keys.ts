@@ -15,7 +15,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Keys extends BaseCollection<Key> {
-	protected static prefixURI = "projects/{!:project_id}/keys/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/keys/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -23,11 +23,11 @@ export class Keys extends BaseCollection<Key> {
 		return Key;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "keys";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "key";
 	}
 

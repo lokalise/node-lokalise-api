@@ -4,7 +4,7 @@ import type { OtaTeamProject, OtaUsageParams } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
 
 export class OtaUsageStatistics extends OtaCollection<OtaStatistics> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/stats";
 	protected static elementClass = OtaStatistics;
 

@@ -11,7 +11,7 @@ import type { ProjectWithPagination } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class Comments extends BaseCollection<Comment> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
 
 	protected get elementClass(): new (
@@ -20,11 +20,11 @@ export class Comments extends BaseCollection<Comment> {
 		return Comment;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "comments";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "comment";
 	}
 

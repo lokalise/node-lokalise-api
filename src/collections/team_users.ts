@@ -7,7 +7,7 @@ import type { TeamWithPagination } from "../types/teams.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class TeamUsers extends BaseCollection<TeamUser> {
-	protected static prefixURI = "teams/{!:team_id}/users/{:id}";
+	protected static override prefixURI = "teams/{!:team_id}/users/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -15,11 +15,11 @@ export class TeamUsers extends BaseCollection<TeamUser> {
 		return TeamUser;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "team_users";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "team_user";
 	}
 

@@ -5,7 +5,7 @@ import type { TeamOnly } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class TeamUserBillingDetails extends BaseCollection<BillingDetailsModel> {
-	protected static prefixURI = "teams/{!:team_id}/billing_details";
+	protected static override prefixURI = "teams/{!:team_id}/billing_details";
 
 	protected get elementClass(): new (
 		json: Keyable,

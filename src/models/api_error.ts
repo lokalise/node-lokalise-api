@@ -32,7 +32,7 @@ export class ApiError extends Error implements IApiError {
 	 *
 	 * @returns The formatted error message.
 	 */
-	toString(): string {
+	override toString(): string {
 		let baseMessage = `LokaliseError: ${this.message}`;
 		baseMessage += ` (Code: ${this.code})`;
 

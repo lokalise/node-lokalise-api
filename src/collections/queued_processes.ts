@@ -8,7 +8,8 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class QueuedProcesses extends BaseCollection<QueuedProcess> {
-	protected static prefixURI = "projects/{!:project_id}/processes/{:id}";
+	protected static override prefixURI =
+		"projects/{!:project_id}/processes/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -16,11 +17,11 @@ export class QueuedProcesses extends BaseCollection<QueuedProcess> {
 		return QueuedProcess;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "processes";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "process";
 	}
 

@@ -9,7 +9,7 @@ import type {
 import { OtaCollection } from "./ota_collection.js";
 
 export class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundle-freezes/{:id}";
 
 	protected get elementClass(): new (
@@ -18,11 +18,11 @@ export class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod> {
 		return OtaFreezePeriod;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "data";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "data";
 	}
 

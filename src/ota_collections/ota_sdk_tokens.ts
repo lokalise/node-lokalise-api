@@ -4,7 +4,7 @@ import type { OtaResourceDeleted, OtaTeamProject } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
 
 export class OtaSdkTokens extends OtaCollection<OtaSdkToken> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/tokens/{:id}";
 
 	protected get elementClass(): new (
@@ -13,11 +13,11 @@ export class OtaSdkTokens extends OtaCollection<OtaSdkToken> {
 		return OtaSdkToken;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "data";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "data";
 	}
 

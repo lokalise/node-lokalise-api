@@ -6,7 +6,7 @@ import type { PaginationParams } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class PaymentCards extends BaseCollection<PaymentCard> {
-	protected static prefixURI = "payment_cards/{:id}";
+	protected static override prefixURI = "payment_cards/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -14,11 +14,11 @@ export class PaymentCards extends BaseCollection<PaymentCard> {
 		return PaymentCard;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "payment_cards";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "payment_card";
 	}
 

@@ -5,7 +5,7 @@ import type { TeamOnly } from "../types/index.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class PermissionTemplates extends BaseCollection<PermissionTemplate> {
-	protected static prefixURI = "teams/{!:team_id}/roles";
+	protected static override prefixURI = "teams/{!:team_id}/roles";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -13,7 +13,7 @@ export class PermissionTemplates extends BaseCollection<PermissionTemplate> {
 		return PermissionTemplate;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "roles";
 	}
 

@@ -14,7 +14,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class TranslationStatuses extends BaseCollection<TranslationStatus> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"projects/{!:project_id}/custom_translation_statuses/{:id}";
 
 	protected get elementClass(): new (
@@ -23,11 +23,11 @@ export class TranslationStatuses extends BaseCollection<TranslationStatus> {
 		return TranslationStatus;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "custom_translation_statuses";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "custom_translation_status";
 	}
 

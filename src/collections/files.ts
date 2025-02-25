@@ -13,7 +13,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Files extends BaseCollection<File, QueuedProcess> {
-	protected static prefixURI = "projects/{!:project_id}/files/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/files/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -21,7 +21,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		return File;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "files";
 	}
 

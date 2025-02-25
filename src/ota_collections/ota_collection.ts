@@ -6,7 +6,7 @@ export abstract class OtaCollection<
 	ElementType,
 	SecondaryType = ElementType,
 > extends BaseCollection<ElementType, SecondaryType> {
-	protected doDelete<T = Keyable | Keyable[]>(
+	protected override doDelete<T = Keyable | Keyable[]>(
 		id: string | number,
 		req_params: Keyable,
 	): Promise<T> {

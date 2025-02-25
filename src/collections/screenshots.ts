@@ -14,7 +14,8 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Screenshots extends BaseCollection<Screenshot> {
-	protected static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
+	protected static override prefixURI =
+		"projects/{!:project_id}/screenshots/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -22,11 +23,11 @@ export class Screenshots extends BaseCollection<Screenshot> {
 		return Screenshot;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "screenshots";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "screenshot";
 	}
 

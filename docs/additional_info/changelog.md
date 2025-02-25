@@ -1,5 +1,11 @@
 # Changelog
 
+## 14.0.0 (unreleased)
+
+* Compile with Typescript 5.8.0
+* Use `ES2024` as target
+* Minor code updates
+
 ## 13.2.1 (21-Feb-2025)
 
 * Remove `translations` field from `UpdateKeyData` as the [Update key endpoint](https://developers.lokalise.com/reference/update-a-key-1) does not allow updating translations directly

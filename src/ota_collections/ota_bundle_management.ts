@@ -8,7 +8,7 @@ import type {
 import { OtaCollection } from "./ota_collection.js";
 
 export class OtaBundleManagement extends OtaCollection<OtaBundle> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundles/{:id}";
 
 	protected get elementClass(): new (
@@ -17,11 +17,11 @@ export class OtaBundleManagement extends OtaCollection<OtaBundle> {
 		return OtaBundle;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "data";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "data";
 	}
 

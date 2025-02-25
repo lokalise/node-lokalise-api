@@ -4,7 +4,7 @@ import type { OtaTeamProjectFramework } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
 
 export class OtaBundlePublishing extends OtaCollection<void> {
-	protected static prefixURI =
+	protected static override prefixURI =
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/frameworks/{!:framework}/{!:action}";
 
 	// This is just a dummy implementation to keep linter happy

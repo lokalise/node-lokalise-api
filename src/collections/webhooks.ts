@@ -14,7 +14,8 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Webhooks extends BaseCollection<Webhook> {
-	protected static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
+	protected static override prefixURI =
+		"projects/{!:project_id}/webhooks/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -22,11 +23,11 @@ export class Webhooks extends BaseCollection<Webhook> {
 		return Webhook;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "webhooks";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "webhook";
 	}
 

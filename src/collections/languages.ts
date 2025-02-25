@@ -15,7 +15,8 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Languages extends BaseCollection<Language> {
-	protected static prefixURI = "projects/{!:project_id}/languages/{:id}";
+	protected static override prefixURI =
+		"projects/{!:project_id}/languages/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -23,11 +24,11 @@ export class Languages extends BaseCollection<Language> {
 		return Language;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "languages";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return "language";
 	}
 

@@ -8,7 +8,7 @@ import { OtaCollection } from "./ota_collection.js";
 
 export class OtaBundles extends OtaCollection<OtaBundleArchive> {
 	protected static rootElementNameSingular = "data";
-	protected static prefixURI =
+	protected static override prefixURI =
 		"lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";
 	protected static elementClass = OtaBundleArchive;
 
@@ -18,7 +18,7 @@ export class OtaBundles extends OtaCollection<OtaBundleArchive> {
 		return OtaBundleArchive;
 	}
 
-	protected get rootElementNameSingular(): string {
+	protected override get rootElementNameSingular(): string {
 		return "data";
 	}
 

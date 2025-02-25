@@ -5,7 +5,7 @@ import type { PaginationParams } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class Teams extends BaseCollection<Team> {
-	protected static prefixURI = "teams";
+	protected static override prefixURI = "teams";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -13,7 +13,7 @@ export class Teams extends BaseCollection<Team> {
 		return Team;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "teams";
 	}
 

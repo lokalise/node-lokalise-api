@@ -4,7 +4,7 @@ const isCI = process.env.CI === "true";
 
 export default defineConfig({
 	esbuild: {
-		target: "es2022",
+		target: "es2024",
 	},
 	test: {
 		silent: isCI,

@@ -3,7 +3,7 @@ import { Jwt as JwtModel } from "../models/jwt.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class Jwt extends BaseCollection<JwtModel> {
-	protected static prefixURI = "projects/{!:project_id}/tokens";
+	protected static override prefixURI = "projects/{!:project_id}/tokens";
 
 	protected get elementClass(): new (
 		json: Keyable,

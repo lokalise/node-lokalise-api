@@ -10,7 +10,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class UserGroups extends BaseCollection<UserGroup> {
-	protected static prefixURI = "teams/{!:team_id}/groups/{:id}";
+	protected static override prefixURI = "teams/{!:team_id}/groups/{:id}";
 
 	protected get elementClass(): new (
 		json: Keyable,
@@ -18,11 +18,11 @@ export class UserGroups extends BaseCollection<UserGroup> {
 		return UserGroup;
 	}
 
-	protected get rootElementName(): string {
+	protected override get rootElementName(): string {
 		return "user_groups";
 	}
 
-	protected get rootElementNameSingular(): string | null {
+	protected override get rootElementNameSingular(): string | null {
 		return null;
 	}
 

@@ -1,18 +1,21 @@
 {
 	"compilerOptions": {
-		"target": "es2022",
+		"target": "ES2024",
 		"module": "node16",
 		"moduleResolution": "node16",
 		"outDir": "dist",
 		"sourceMap": true,
 		"strict": true,
+		"declaration": true,
+		"pretty": true,
 		"resolveJsonModule": true,
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
-		"declaration": true,
-		"pretty": true,
 		"forceConsistentCasingInFileNames": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"erasableSyntaxOnly": true,
+		"noImplicitOverride": true,
+		"verbatimModuleSyntax": true
 	},
 	"types": ["vitest/globals"],
 	"include": ["src/**/*"],
