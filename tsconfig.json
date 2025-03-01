@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "ES2024",
-		"module": "node16",
+		"module": "node18",
 		"moduleResolution": "node16",
 		"outDir": "dist",
 		"sourceMap": true,
