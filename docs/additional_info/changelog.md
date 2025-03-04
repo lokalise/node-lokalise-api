@@ -1,6 +1,6 @@
 # Changelog
 
-## 14.0.0 (unreleased)
+## 14.0.0 (04-Mar-2025)
 
 * Compile with Typescript 5.8.0
 * Use `ES2024` as target
