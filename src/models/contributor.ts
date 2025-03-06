@@ -17,4 +17,5 @@ export class Contributor extends BaseModel implements ContributorInterface {
 	}>;
 	declare admin_rights: string[];
 	declare role_id: number;
+	declare uuid?: string;
 }

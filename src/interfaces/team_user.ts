@@ -5,4 +5,5 @@ export interface TeamUser {
 	created_at: string;
 	created_at_timestamp: number;
 	role: string;
+	uuid?: string;
 }

@@ -4,6 +4,7 @@ import type { ProjectStatistics } from "./project_statistics.js";
 export interface Project {
 	project_id: string;
 	project_type: string;
+	uuid?: string;
 	name: string;
 	description: string;
 	created_at: string;
