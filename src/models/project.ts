@@ -6,6 +6,7 @@ import { BaseModel } from "./base_model.js";
 export class Project extends BaseModel implements ProjectInterface {
 	declare project_id: string;
 	declare project_type: string;
+	declare uuid?: string;
 	declare name: string;
 	declare description: string;
 	declare created_at: string;

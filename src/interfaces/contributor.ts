@@ -14,4 +14,5 @@ export interface Contributor {
 	}>;
 	admin_rights: string[];
 	role_id: number;
+	uuid?: string;
 }
