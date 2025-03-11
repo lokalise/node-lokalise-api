@@ -52,6 +52,12 @@ export class Contributors extends BaseCollection<Contributor> {
 		return this.doGet(contributor_id, request_params);
 	}
 
+	me(
+		request_params: ProjectOnly,
+	): Promise<Contributor> {
+		return this.doGet('me', request_params);
+	}
+
 	update(
 		contributor_id: string | number,
 		contributor_params: ContributorUpdateData,

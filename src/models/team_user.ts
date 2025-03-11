@@ -8,4 +8,5 @@ export class TeamUser extends BaseModel implements TeamUserInterface {
 	declare created_at: string;
 	declare created_at_timestamp: number;
 	declare role: string;
+	declare uuid?: string;
 }
