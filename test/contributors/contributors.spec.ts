@@ -84,6 +84,27 @@ describe("Contributors", () => {
 		expect(contributor.role_id).to.eq(5);
 	});
 
+	it("retrieves current contributor details", async () => {
+		const stub = new Stub({
+			fixture: "contributors/me.json",
+			uri: `projects/${projectId}/contributors/me`,
+		});
+
+		await stub.setStub();
+
+		const contributor = await lokaliseApi.contributors().me({
+			project_id: projectId,
+		});
+
+		expect(contributor.user_id).to.eq(20181);
+		expect(contributor.email).to.eq("bodrovis@protonmail.com");
+		expect(contributor.fullname).to.eq("Ilya B");
+		expect(contributor.created_at).to.eq("2018-08-21 15:35:25 (Etc/UTC)");
+		expect(contributor.created_at_timestamp).to.eq(1534865725);
+		expect(contributor.is_admin).to.be.true;
+		expect(contributor.is_reviewer).to.be.true;
+	});
+
 	it("creates", async () => {
 		const params = [
 			{
