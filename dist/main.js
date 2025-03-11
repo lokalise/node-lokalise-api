@@ -816,6 +816,9 @@ var Contributors = class extends BaseCollection {
   get(contributor_id, request_params) {
     return this.doGet(contributor_id, request_params);
   }
+  me(request_params) {
+    return this.doGet("me", request_params);
+  }
   update(contributor_id, contributor_params, request_params) {
     return this.doUpdate(contributor_id, contributor_params, request_params);
   }

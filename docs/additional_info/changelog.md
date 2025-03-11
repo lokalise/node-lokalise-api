@@ -1,5 +1,10 @@
 # Changelog
 
+## 14.1.0 (11-Mar-2025)
+
+* Added `uuid` fields to contrbiturs and projects for internal purposes
+* Added `/me` endpoint (contributors) for internal purposes
+
 ## 14.0.0 (04-Mar-2025)
 
 * Compile with Typescript 5.8.0

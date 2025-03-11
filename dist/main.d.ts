@@ -549,6 +549,7 @@ interface Contributor$1 {
     }>;
     admin_rights: string[];
     role_id: number;
+    uuid?: string;
 }
 
 declare class Contributor extends BaseModel implements Contributor$1 {
@@ -567,6 +568,7 @@ declare class Contributor extends BaseModel implements Contributor$1 {
     }>;
     admin_rights: string[];
     role_id: number;
+    uuid?: string;
 }
 
 type ContributorRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
@@ -603,6 +605,7 @@ declare class Contributors extends BaseCollection<Contributor> {
     list(request_params: ProjectWithPagination): Promise<PaginatedResult$1<Contributor>>;
     create(contributor_params: ContributorCreateData | ContributorCreateData[], request_params: ProjectOnly): Promise<Contributor[]>;
     get(contributor_id: string | number, request_params: ProjectOnly): Promise<Contributor>;
+    me(request_params: ProjectOnly): Promise<Contributor>;
     update(contributor_id: string | number, contributor_params: ContributorUpdateData, request_params: ProjectOnly): Promise<Contributor>;
     delete(contributor_id: string | number, request_params: ProjectOnly): Promise<ContributorDeleted>;
 }
@@ -1268,6 +1271,7 @@ interface ProjectStatistics {
 interface Project$1 {
     project_id: string;
     project_type: string;
+    uuid?: string;
     name: string;
     description: string;
     created_at: string;
@@ -1408,6 +1412,7 @@ interface TeamUser$1 {
     created_at: string;
     created_at_timestamp: number;
     role: string;
+    uuid?: string;
 }
 
 interface Team$1 {
@@ -2536,6 +2541,7 @@ declare class PermissionTemplates extends BaseCollection<PermissionTemplate> {
 declare class Project extends BaseModel implements Project$1 {
     project_id: string;
     project_type: string;
+    uuid?: string;
     name: string;
     description: string;
     created_at: string;
@@ -2765,6 +2771,7 @@ declare class TeamUser extends BaseModel implements TeamUser$1 {
     created_at: string;
     created_at_timestamp: number;
     role: string;
+    uuid?: string;
 }
 
 declare class TeamUsers extends BaseCollection<TeamUser> {

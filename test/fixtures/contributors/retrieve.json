@@ -8,6 +8,7 @@
 		"created_at_timestamp": 1534865725,
 		"is_admin": true,
 		"is_reviewer": true,
+		"uuid": "123-abc",
 		"languages": [
 			{
 				"lang_id": 803,
