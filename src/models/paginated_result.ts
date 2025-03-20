@@ -5,6 +5,7 @@ export class PaginatedResult<T> implements PaginatedResultInterface {
 	totalPages: number;
 	resultsPerPage: number;
 	currentPage: number;
+	responseTooBig: boolean;
 	items: T[];
 
 	constructor(items: T[], headers: Headers) {
@@ -14,6 +15,7 @@ export class PaginatedResult<T> implements PaginatedResultInterface {
 		this.totalPages = this.safeParseInt(headers.get("x-pagination-page-count"));
 		this.resultsPerPage = this.safeParseInt(headers.get("x-pagination-limit"));
 		this.currentPage = this.safeParseInt(headers.get("x-pagination-page"));
+		this.responseTooBig = headers.has("x-response-too-big");
 		this.items = items;
 	}
 

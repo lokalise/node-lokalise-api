@@ -306,6 +306,7 @@ var PaginatedResult = class {
   totalPages;
   resultsPerPage;
   currentPage;
+  responseTooBig;
   items;
   constructor(items, headers) {
     this.totalResults = this.safeParseInt(
@@ -314,6 +315,7 @@ var PaginatedResult = class {
     this.totalPages = this.safeParseInt(headers.get("x-pagination-page-count"));
     this.resultsPerPage = this.safeParseInt(headers.get("x-pagination-limit"));
     this.currentPage = this.safeParseInt(headers.get("x-pagination-page"));
+    this.responseTooBig = headers.has("x-response-too-big");
     this.items = items;
   }
   hasNextPage() {
@@ -637,8 +639,9 @@ var BaseCollection = class {
   /**
    * Return the raw JSON as-is.
    * @param json The raw JSON object or array returned by the API.
+   * @param _headers The response headers (if needed).
    */
-  returnBareJSON(json) {
+  returnBareJSON(json, _headers) {
     return json;
   }
   /**
@@ -695,12 +698,15 @@ var BaseCollection = class {
     }
     return resolvedUri;
   }
+  isResponseTooBig(headers) {
+    return headers.has("x-response-too-big");
+  }
   /**
    * Determine if the response headers indicate pagination.
    * @param headers The response headers.
    */
   isPaginated(headers) {
-    return !!headers.get("x-pagination-total-count") && !!headers.get("x-pagination-page");
+    return headers.has("x-pagination-total-count") && headers.has("x-pagination-page");
   }
 };
 
@@ -849,6 +855,12 @@ var Files = class extends BaseCollection {
   }
   get secondaryElementNameSingular() {
     return "process";
+  }
+  returnBareJSON(json, headers) {
+    return {
+      ...super.returnBareJSON(json, headers),
+      responseTooBig: this.isResponseTooBig(headers)
+    };
   }
   list(request_params) {
     return this.doList(request_params);

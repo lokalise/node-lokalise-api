@@ -27,6 +27,32 @@ describe("Translations", () => {
 		expect(translations.items[0].translation_id).to.eq(translationId);
 		expect(translations.nextCursor).to.be.null;
 		expect(translations.hasNextCursor()).to.be.false;
+		expect(translations.responseTooBig).to.be.false;
+	});
+
+	it("lists with response too big header", async () => {
+		const stub = new Stub({
+			fixture: "translations/list.json",
+			uri: `projects/${projectId}/translations`,
+			respHeaders: {
+				"x-pagination-total-count": "2",
+				"x-pagination-page": "1",
+				"x-pagination-limit": "500",
+				"x-pagination-page-count": "1",
+				"x-response-too-big": "",
+			},
+		});
+
+		await stub.setStub();
+
+		const translations = await lokaliseApi.translations().list({
+			project_id: projectId,
+		});
+
+		expect(translations.items[0].translation_id).to.eq(translationId);
+		expect(translations.nextCursor).to.be.null;
+		expect(translations.hasNextCursor()).to.be.false;
+		expect(translations.responseTooBig).to.be.true;
 	});
 
 	it("lists and paginates", async () => {

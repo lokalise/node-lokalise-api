@@ -34,6 +34,32 @@ describe("Keys", () => {
 		expect(keys.items[0].key_id).to.eq(15519786);
 		expect(keys.nextCursor).to.be.null;
 		expect(keys.hasNextCursor()).to.be.false;
+		expect(keys.responseTooBig).to.be.false;
+	});
+
+	it("lists with response too big header", async () => {
+		const stub = new Stub({
+			fixture: "keys/list.json",
+			uri: `projects/${projectId}/keys`,
+			respHeaders: {
+				"x-pagination-total-count": "2",
+				"x-pagination-page": "1",
+				"x-pagination-limit": "100",
+				"x-pagination-page-count": "1",
+				"x-response-too-big": "",
+			},
+		});
+
+		await stub.setStub();
+
+		const params = { project_id: projectId };
+
+		const keys = await lokaliseApi.keys().list(params);
+
+		expect(keys.items[0].key_id).to.eq(15519786);
+		expect(keys.nextCursor).to.be.null;
+		expect(keys.hasNextCursor()).to.be.false;
+		expect(keys.responseTooBig).to.be.true;
 	});
 
 	it("lists and paginates", async () => {

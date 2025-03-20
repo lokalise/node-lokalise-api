@@ -391,8 +391,9 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	/**
 	 * Return the raw JSON as-is.
 	 * @param json The raw JSON object or array returned by the API.
+	 * @param _headers The response headers (if needed).
 	 */
-	protected returnBareJSON<T>(json: Keyable | Keyable[]): T {
+	protected returnBareJSON<T>(json: Keyable | Keyable[], _headers: Headers): T {
 		return json as T;
 	}
 
@@ -465,14 +466,18 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		return resolvedUri;
 	}
 
+	protected isResponseTooBig(headers: Headers): boolean {
+		return headers.has("x-response-too-big");
+	}
+
 	/**
 	 * Determine if the response headers indicate pagination.
 	 * @param headers The response headers.
 	 */
 	private isPaginated(headers: Headers): boolean {
 		return (
-			!!headers.get("x-pagination-total-count") &&
-			!!headers.get("x-pagination-page")
+			headers.has("x-pagination-total-count") &&
+			headers.has("x-pagination-page")
 		);
 	}
 }

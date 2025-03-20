@@ -35,6 +35,16 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		return "process";
 	}
 
+	protected override returnBareJSON<T>(
+		json: Keyable | Keyable[],
+		headers: Headers,
+	): T {
+		return {
+			...super.returnBareJSON<T>(json, headers),
+			responseTooBig: this.isResponseTooBig(headers),
+		};
+	}
+
 	list(request_params: ListFileParams): Promise<PaginatedResult<File>> {
 		return this.doList(request_params) as Promise<PaginatedResult<File>>;
 	}

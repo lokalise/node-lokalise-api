@@ -4,6 +4,7 @@ export interface PaginatedResult<T = any> {
 	readonly resultsPerPage: number;
 	readonly currentPage: number;
 	readonly items: T[];
+	readonly responseTooBig: boolean;
 	hasNextPage(): boolean;
 	hasPrevPage(): boolean;
 	isLastPage(): boolean;

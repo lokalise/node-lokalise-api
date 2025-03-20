@@ -1,5 +1,21 @@
 # Changelog
 
+## 14.2.0 (20-Mar-2025)
+
+* Added `responseTooBig` attribute to paginated responses and file download responses. For example:
+
+```js
+const response = await lokaliseApi.files().download(projectId, params);
+
+response.responseTooBig; // false
+
+const keys = await lokaliseApi.keys().list({ project_id: projectId });
+
+keys.responseTooBig; // true
+```
+
+* This attribute is introduced to help users prepare for the upcoming changes to the API.
+
 ## 14.1.0 (11-Mar-2025)
 
 * Added `uuid` fields to contrbiturs and projects for internal purposes

@@ -185,6 +185,30 @@ describe("Files", () => {
 		expect(response.project_id).to.eq(projectId);
 		expect(response.branch).to.eq("master");
 		expect(response.bundle_url).to.include("s3.eu-central-1.amazonaws.com");
+		expect(response.responseTooBig).to.be.false;
+	});
+
+	it("reports response as too big for downloads", async () => {
+		const params: DownloadFileParams = {
+			format: <FileFormat>"json",
+			original_filenames: true,
+		};
+
+		const stub = new Stub({
+			fixture: "files/download.json",
+			uri: `projects/${projectId}/files/download`,
+			body: params,
+			method: "POST",
+			respHeaders: {
+				"x-response-too-big": "",
+			},
+		});
+
+		await stub.setStub();
+
+		const response = await lokaliseApi.files().download(projectId, params);
+
+		expect(response.responseTooBig).to.be.true;
 	});
 
 	it("downloads asynchronously", async () => {

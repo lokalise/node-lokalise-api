@@ -11,6 +11,7 @@ interface PaginatedResult$1<T = any> {
     readonly resultsPerPage: number;
     readonly currentPage: number;
     readonly items: T[];
+    readonly responseTooBig: boolean;
     hasNextPage(): boolean;
     hasPrevPage(): boolean;
     isLastPage(): boolean;
@@ -243,6 +244,7 @@ declare class PaginatedResult<T> implements PaginatedResult$1 {
     totalPages: number;
     resultsPerPage: number;
     currentPage: number;
+    responseTooBig: boolean;
     items: T[];
     constructor(items: T[], headers: Headers);
     hasNextPage(): boolean;
@@ -436,8 +438,9 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
     /**
      * Return the raw JSON as-is.
      * @param json The raw JSON object or array returned by the API.
+     * @param _headers The response headers (if needed).
      */
-    protected returnBareJSON<T>(json: Keyable | Keyable[]): T;
+    protected returnBareJSON<T>(json: Keyable | Keyable[], _headers: Headers): T;
     /**
      * Convert a single object into an array if it's not already an array.
      * @param raw_body The raw request body.
@@ -466,6 +469,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
      * @throws Error if no URI or prefixURI is provided.
      */
     protected getUri(uri: string | null): string;
+    protected isResponseTooBig(headers: Headers): boolean;
     /**
      * Determine if the response headers indicate pagination.
      * @param headers The response headers.
@@ -658,6 +662,7 @@ type DownloadBundle = {
     project_id: string;
     bundle_url: string;
     branch?: string;
+    responseTooBig?: boolean;
 };
 type FileDeleted = {
     project_id: string;
@@ -750,6 +755,7 @@ declare class Files extends BaseCollection<File, QueuedProcess> {
     protected get rootElementName(): string;
     protected get secondaryElementClass(): new (json: Keyable) => QueuedProcess;
     protected get secondaryElementNameSingular(): string;
+    protected returnBareJSON<T>(json: Keyable | Keyable[], headers: Headers): T;
     list(request_params: ListFileParams): Promise<PaginatedResult$1<File>>;
     upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess>;
     download(project_id: string, download: DownloadFileParams): Promise<DownloadBundle>;
