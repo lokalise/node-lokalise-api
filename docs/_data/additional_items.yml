@@ -5,6 +5,8 @@
   sub_paths:
     - title: API Rate Limits
       path: api-rate-limits
+    - title: Too big responses
+      path: too-big-responses
 - title: Customizing client
   path: customizing_client
   sub_paths:
