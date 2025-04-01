@@ -3,7 +3,7 @@
 ![npm](https://img.shields.io/npm/v/@lokalise/node-api)
 ![CI](https://github.com/lokalise/node-lokalise-api/actions/workflows/ci.yml/badge.svg)
 [![Coverage Status](https://coveralls.io/repos/github/lokalise/node-lokalise-api/badge.svg?branch=master)](https://coveralls.io/github/lokalise/node-lokalise-api?branch=master)
-![Downloads total](https://img.shields.io/npm/dt/@lokalise/node-api)
+[![NPM Downloads][npm-downloads-image]][npm-downloads-url]
 
 Official Node interface for the [Lokalise API](https://app.lokalise.com/api2docs/curl/#resource-getting-started).
 
@@ -65,3 +65,6 @@ You can also check [this repo containing some usage examples](https://github.com
 This library is licensed under the [BSD 3 Clause](https://github.com/lokalise/node-lokalise-api/blob/master/LICENSE). Prior to version 5.1.0 the license was MIT.
 
 Copyright (c) [Lokalise group](http://lokalise.com) and [Ilya Krukowski](http://bodrovis.tech)
+
+[npm-downloads-image]: https://badgen.net/npm/dm/@lokalise/node-api
+[npm-downloads-url]: https://npmcharts.com/compare/@lokalise/node-api?minimal=true
