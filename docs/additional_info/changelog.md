@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.2.1 (02-Apr-2025)
+
+* Added `team_uuid` to `Project` for internal purposes
+
 ## 14.2.0 (20-Mar-2025)
 
 * Added `responseTooBig` attribute to paginated responses and file download responses. For example:
