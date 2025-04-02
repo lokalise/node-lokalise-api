@@ -14,6 +14,7 @@ export class Project extends BaseModel implements ProjectInterface {
 	declare created_by: number;
 	declare created_by_email: string;
 	declare team_id: number;
+	declare team_uuid: string;
 	declare base_language_id: number;
 	declare base_language_iso: string;
 	declare settings: ProjectSettings;

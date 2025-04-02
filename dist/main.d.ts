@@ -1285,6 +1285,7 @@ interface Project$1 {
     created_by: number;
     created_by_email: string;
     team_id: number;
+    team_uuid: string;
     base_language_id: number;
     base_language_iso: string;
     settings: ProjectSettings;
@@ -2555,6 +2556,7 @@ declare class Project extends BaseModel implements Project$1 {
     created_by: number;
     created_by_email: string;
     team_id: number;
+    team_uuid: string;
     base_language_id: number;
     base_language_iso: string;
     settings: ProjectSettings;

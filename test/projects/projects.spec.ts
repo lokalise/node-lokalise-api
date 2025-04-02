@@ -72,6 +72,7 @@ describe("Projects", () => {
 		expect(project.created_by).to.equal(20181);
 		expect(project.created_by_email).to.equal("bodrovis@protonmail.com");
 		expect(project.team_id).to.equal(176692);
+		expect(project.team_uuid).to.equal("9ef160a0-d4c7-45f5-ab80-bc9e22e95b12");
 		expect(project.base_language_id).to.equal(640);
 		expect(project.base_language_iso).to.equal("en");
 		expect(project.settings.per_platform_key_names).to.be.true;

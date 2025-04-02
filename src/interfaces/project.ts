@@ -12,6 +12,7 @@ export interface Project {
 	created_by: number;
 	created_by_email: string;
 	team_id: number;
+	team_uuid: string;
 	base_language_id: number;
 	base_language_iso: string;
 	settings: ProjectSettings;
