@@ -1,5 +1,4 @@
 import type { BulkResult } from "../interfaces/bulk_result.js";
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Language } from "../models/language.js";
 import type {
@@ -19,7 +18,7 @@ export class Languages extends BaseCollection<Language> {
 		"projects/{!:project_id}/languages/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Language {
 		return Language;
 	}

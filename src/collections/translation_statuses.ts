@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { TranslationStatus } from "../models/translation_status.js";
 import type {
@@ -18,7 +17,7 @@ export class TranslationStatuses extends BaseCollection<TranslationStatus> {
 		"projects/{!:project_id}/custom_translation_statuses/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => TranslationStatus {
 		return TranslationStatus;
 	}

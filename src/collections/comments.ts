@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Comment } from "../models/comment.js";
 import type {
@@ -15,7 +14,7 @@ export class Comments extends BaseCollection<Comment> {
 		"projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Comment {
 		return Comment;
 	}

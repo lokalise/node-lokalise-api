@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { OtaFreezePeriod } from "../models/ota/ota_freeze_period.js";
 import type {
 	OtaFreezePeriodParams,
@@ -13,7 +12,7 @@ export class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod> {
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundle-freezes/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => OtaFreezePeriod {
 		return OtaFreezePeriod;
 	}

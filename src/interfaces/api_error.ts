@@ -15,5 +15,5 @@ export interface IApiError {
 	/**
 	 * Additional details about the error (optional).
 	 */
-	details?: any;
+	details?: Record<string, string | number | boolean>;
 }

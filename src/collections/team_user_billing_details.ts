@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { TeamUserBillingDetails as BillingDetailsModel } from "../models/team_user_billing_details.js";
 import type { BillingDetailsParams } from "../types/billing_details.js";
 import type { TeamOnly } from "../types/common_get_params.js";
@@ -8,7 +7,7 @@ export class TeamUserBillingDetails extends BaseCollection<BillingDetailsModel> 
 	protected static override prefixURI = "teams/{!:team_id}/billing_details";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => BillingDetailsModel {
 		return BillingDetailsModel;
 	}

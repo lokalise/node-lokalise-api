@@ -6,7 +6,7 @@ import { describe, expect, it } from "../setup.js";
 
 describe("Webhook event types", () => {
 	it("should provide typings", () => {
-		const event: WebhookProjectImported = {
+		const event: Partial<WebhookProjectImported> = {
 			event: "project.imported",
 			import: {
 				filename: "en.json",
@@ -27,7 +27,7 @@ describe("Webhook event types", () => {
 			created_at_timestamp: 1564395511,
 		};
 
-		expect(event.import.filename).to.eq("en.json");
+		expect(event.import?.filename).to.eq("en.json");
 
 		const eventLangs: WebhookProjectLanguagesAdded = {
 			event: "project.languages.added",

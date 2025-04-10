@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { File } from "../models/file.js";
 import { QueuedProcess } from "../models/queued_process.js";
@@ -16,7 +15,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 	protected static override prefixURI = "projects/{!:project_id}/files/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => File {
 		return File;
 	}
@@ -26,7 +25,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 	}
 
 	protected override get secondaryElementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => QueuedProcess {
 		return QueuedProcess;
 	}
@@ -36,7 +35,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 	}
 
 	protected override returnBareJSON<T>(
-		json: Keyable | Keyable[],
+		json: Record<string, unknown> | Record<string, unknown>[],
 		headers: Headers,
 	): T {
 		return {

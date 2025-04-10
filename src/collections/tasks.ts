@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Task } from "../models/task.js";
 import type { ProjectOnly } from "../types/common_get_params.js";
@@ -14,7 +13,7 @@ export class Tasks extends BaseCollection<Task> {
 	protected static override prefixURI = "projects/{!:project_id}/tasks/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Task {
 		return Task;
 	}

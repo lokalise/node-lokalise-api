@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { OtaSdkToken } from "../models/ota/ota_sdk_token.js";
 import type { OtaResourceDeleted, OtaTeamProject } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
@@ -8,7 +7,7 @@ export class OtaSdkTokens extends OtaCollection<OtaSdkToken> {
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/tokens/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => OtaSdkToken {
 		return OtaSdkToken;
 	}

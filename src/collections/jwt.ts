@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { Jwt as JwtModel } from "../models/jwt.js";
 import { BaseCollection } from "./base_collection.js";
 
@@ -6,7 +5,7 @@ export class Jwt extends BaseCollection<JwtModel> {
 	protected static override prefixURI = "projects/{!:project_id}/tokens";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => JwtModel {
 		return JwtModel;
 	}

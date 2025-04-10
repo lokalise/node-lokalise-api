@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Order } from "../models/order.js";
 import type { TeamOnly } from "../types/common_get_params.js";
@@ -10,7 +9,7 @@ export class Orders extends BaseCollection<Order> {
 	protected static override prefixURI = "teams/{!:team_id}/orders/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Order {
 		return Order;
 	}

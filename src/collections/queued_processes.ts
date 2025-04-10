@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { QueuedProcess } from "../models/queued_process.js";
 import type {
@@ -12,7 +11,7 @@ export class QueuedProcesses extends BaseCollection<QueuedProcess> {
 		"projects/{!:project_id}/processes/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => QueuedProcess {
 		return QueuedProcess;
 	}

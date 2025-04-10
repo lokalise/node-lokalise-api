@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Branch } from "../models/branch.js";
 import type {
@@ -18,7 +17,7 @@ export class Branches extends BaseCollection<Branch> {
 		"projects/{!:project_id}/branches/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Branch {
 		return Branch;
 	}

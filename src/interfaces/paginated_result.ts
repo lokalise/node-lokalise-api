@@ -1,4 +1,4 @@
-export interface PaginatedResult<T = any> {
+export interface PaginatedResult<T = unknown> {
 	readonly totalResults: number;
 	readonly totalPages: number;
 	readonly resultsPerPage: number;

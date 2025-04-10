@@ -370,7 +370,8 @@ describe("Keys", () => {
 		expect(keys.items[0].translations[0].language_iso).to.eq("en");
 
 		expect(keys.errors[0].message).to.eq("This key name is already taken");
-		expect(keys.errors[0].key_name.ios).to.eq("welcome_web");
+		const keyName = keys.errors[0].key_name as { ios: string };
+		expect(keyName.ios).to.eq("welcome_web");
 	});
 
 	it("creates with per-platform names", async () => {

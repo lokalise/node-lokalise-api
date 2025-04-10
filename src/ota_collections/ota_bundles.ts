@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { OtaBundleArchive } from "../models/ota/ota_bundle_archive.js";
 import type {
 	OtaProjectFramework,
@@ -13,7 +12,7 @@ export class OtaBundles extends OtaCollection<OtaBundleArchive> {
 	protected static elementClass = OtaBundleArchive;
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => OtaBundleArchive {
 		return OtaBundleArchive;
 	}

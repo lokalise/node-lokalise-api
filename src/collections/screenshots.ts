@@ -1,5 +1,4 @@
 import type { BulkResult } from "../interfaces/bulk_result.js";
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Screenshot } from "../models/screenshot.js";
 import type {
@@ -18,7 +17,7 @@ export class Screenshots extends BaseCollection<Screenshot> {
 		"projects/{!:project_id}/screenshots/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Screenshot {
 		return Screenshot;
 	}

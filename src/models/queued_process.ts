@@ -1,9 +1,6 @@
 import type { QueuedProcess as QueuedProcessInterface } from "../interfaces/queued_process.js";
+import type { QueuedProcessDetails } from "../types/queued_process_details.js";
 import { BaseModel } from "./base_model.js";
-
-type ProcessDetails = {
-	[key: string]: any;
-};
 
 export class QueuedProcess extends BaseModel implements QueuedProcessInterface {
 	declare process_id: string;
@@ -14,5 +11,5 @@ export class QueuedProcess extends BaseModel implements QueuedProcessInterface {
 	declare created_by_email: string;
 	declare created_at: string;
 	declare created_at_timestamp: number;
-	declare details: ProcessDetails;
+	declare details: QueuedProcessDetails;
 }

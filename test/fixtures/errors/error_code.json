@@ -1,4 +1,7 @@
 {
 	"errorCode": 401,
-	"message": "Auth error"
+	"message": "Auth error",
+	"details": {
+		"status": "failed"
+	}
 }

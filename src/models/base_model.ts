@@ -1,7 +1,7 @@
-export abstract class BaseModel {
-	constructor(params: { [key: string]: any }) {
-		for (const key of Object.keys(params)) {
-			(<any>this)[key] = params[key];
-		}
+export abstract class BaseModel<
+	T extends Record<string, unknown> = Record<string, unknown>,
+> {
+	constructor(params: Partial<T>) {
+		Object.assign(this, params);
 	}
 }

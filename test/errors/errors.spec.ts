@@ -54,10 +54,7 @@ describe("Errors", () => {
 			code: 500,
 			details: {
 				reason: "unhandled error format",
-				data: {
-					code: "invalid",
-					message: "Server error",
-				},
+				data: '{"code":"invalid","message":"Server error"}',
 			},
 		});
 	});
@@ -136,7 +133,7 @@ describe("Errors", () => {
 		).rejects.toMatchObject({
 			message: "Auth error",
 			code: 401,
-			details: { reason: "server error without details" },
+			details: { status: "failed" },
 		});
 	});
 
@@ -225,9 +222,9 @@ describe("Errors", () => {
 		} catch (error) {
 			expect(error.message).toEqual("Something very bad has happened");
 			expect(error.code).toEqual(500);
-			expect(error.details).toEqual({ reason: "server error without details" });
+			expect(error.details).toEqual({ status: "failed" });
 			expect(String(error)).toEqual(
-				"LokaliseError: Something very bad has happened (Code: 500) | Details: reason: server error without details",
+				"LokaliseError: Something very bad has happened (Code: 500) | Details: status: failed",
 			);
 		}
 	});

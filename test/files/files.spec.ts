@@ -1,6 +1,7 @@
 import type { DownloadFileParams } from "../../src/main.js";
 import { QueuedProcess } from "../../src/models/queued_process.js";
 import type { FileFormat } from "../../src/types/file_format.js";
+import type { DownloadedFileProcessDetails } from "../../src/types/queued_process_details.js";
 import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
 
 describe("Files", () => {
@@ -158,11 +159,16 @@ describe("Files", () => {
 
 		expect(process.process_id).to.eq(processId);
 		expect(process.status).to.eq("finished");
-		expect(process.details.files.length).to.eq(1);
-		const file = process.details.files[0];
-		expect(file.name_original).to.eq("test_node.json");
-		expect(file.word_count_total).to.eq(3);
-		expect(file.status).to.eq("finished");
+
+		const processDetails = process.details;
+		expect(processDetails).to.have.property("files");
+		if ("files" in processDetails) {
+			expect(processDetails.files.length).to.eq(1);
+			const file = processDetails.files[0];
+			expect(file.name_original).to.eq("test_node.json");
+			expect(file.word_count_total).to.eq(3);
+			expect(file.status).to.eq("finished");
+		}
 	});
 
 	it("downloads", async () => {
@@ -174,7 +180,7 @@ describe("Files", () => {
 		const stub = new Stub({
 			fixture: "files/download.json",
 			uri: `projects/${projectId}/files/download`,
-			body: params,
+			body: params as unknown as Record<string, unknown>,
 			method: "POST",
 		});
 
@@ -197,7 +203,7 @@ describe("Files", () => {
 		const stub = new Stub({
 			fixture: "files/download.json",
 			uri: `projects/${projectId}/files/download`,
-			body: params,
+			body: params as unknown as Record<string, unknown>,
 			method: "POST",
 			respHeaders: {
 				"x-response-too-big": "",
@@ -220,7 +226,7 @@ describe("Files", () => {
 		const stub = new Stub({
 			fixture: "files/async_download.json",
 			uri: `projects/${projectId}/files/async-download`,
-			body: params,
+			body: params as unknown as Record<string, unknown>,
 			method: "POST",
 		});
 
@@ -247,8 +253,9 @@ describe("Files", () => {
 
 		expect(processInfo.type).toEqual("async-export");
 		expect(processInfo.status).toEqual("finished");
-		expect(processInfo.details.total_number_of_keys).toEqual(14);
-		expect(processInfo.details.download_url).toContain(
+		const downloadDetails = processInfo.details as DownloadedFileProcessDetails;
+		expect(downloadDetails.total_number_of_keys).toEqual(14);
+		expect(downloadDetails.download_url).toContain(
 			"https://lokalise-live-lok-s3-fss-export.s3.eu-central-1.amazonaws.com",
 		);
 	});

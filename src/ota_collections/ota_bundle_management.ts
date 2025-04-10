@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { OtaBundle } from "../models/ota/ota_bundle.js";
 import type {
 	OtaBundleUpdateData,
@@ -12,7 +11,7 @@ export class OtaBundleManagement extends OtaCollection<OtaBundle> {
 		"teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundles/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => OtaBundle {
 		return OtaBundle;
 	}

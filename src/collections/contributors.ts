@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Contributor } from "../models/contributor.js";
 import type {
@@ -17,7 +16,7 @@ export class Contributors extends BaseCollection<Contributor> {
 		"projects/{!:project_id}/contributors/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Contributor {
 		return Contributor;
 	}

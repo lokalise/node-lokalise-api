@@ -1,12 +1,11 @@
 import { ApiRequest } from "../http_client/base.js";
 import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { ClientData } from "../interfaces/client_data.js";
-import type { Keyable } from "../interfaces/keyable.js";
 import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
 import { PaginatedResult } from "../models/paginated_result.js";
 import type { HttpMethod } from "../types/http_method.js";
 
-type ResolveHandler<T> = (json: Keyable, headers: Headers) => T;
+type ResolveHandler<T> = (json: Record<string, unknown>, headers: Headers) => T;
 
 /**
  * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
@@ -52,7 +51,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * Should return a class constructor that maps a JSON object to an `ElementType` instance.
 	 */
 	protected abstract get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => ElementType;
 
 	/**
@@ -82,7 +81,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * By default, this throws an error. If needed, override it in the subclass.
 	 */
 	protected get secondaryElementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => SecondaryType {
 		throw new Error(
 			"Secondary elements are not supported by this collection. Override `secondaryElementClass` if needed.",
@@ -106,7 +105,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @returns A promise resolving to either a paginated result or an array of ElementType.
 	 */
 	protected doList(
-		params: Keyable,
+		params: Record<string, unknown>,
 	): Promise<PaginatedResult<ElementType> | ElementType[]> {
 		return this.createPromise("GET", params, this.populateArrayFromJson, null);
 	}
@@ -117,7 +116,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @returns A promise resolving to a CursorPaginatedResult of ElementType.
 	 */
 	protected doListCursor(
-		params: Keyable,
+		params: Record<string, unknown>,
 	): Promise<CursorPaginatedResult<ElementType>> {
 		return this.createPromise(
 			"GET",
@@ -135,7 +134,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 */
 	protected doGet(
 		id: string | number,
-		params: Keyable = {},
+		params: Record<string, unknown> = {},
 	): Promise<ElementType> {
 		return this.createPromise(
 			"GET",
@@ -151,9 +150,9 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param params Optional query or request parameters.
 	 * @returns A promise resolving to JSON representing the deletion result.
 	 */
-	protected doDelete<T = Keyable | Keyable[]>(
+	protected doDelete<T = Record<string, unknown> | Record<string, unknown>[]>(
 		id: string | number,
-		params: Keyable = {},
+		params: Record<string, unknown> = {},
 	): Promise<T> {
 		return this.createPromise(
 			"DELETE",
@@ -172,7 +171,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 */
 	protected doCreate(
 		body: object | object[] | null,
-		params: Keyable = {},
+		params: Record<string, unknown> = {},
 		resolveFn = this.populateObjectFromJson,
 	): Promise<ElementType | SecondaryType> {
 		return this.createPromise("POST", params, resolveFn, body);
@@ -187,7 +186,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 */
 	protected doCreateArray(
 		body: object | object[] | null,
-		params: Keyable,
+		params: Record<string, unknown>,
 		resolveFn: ResolveHandler<ElementType[]> = this.populateArray,
 	): Promise<ElementType[]> {
 		return this.createPromise("POST", params, resolveFn, body);
@@ -204,8 +203,8 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 */
 	protected doUpdate(
 		id: string | number,
-		body: Keyable | null,
-		params: Keyable,
+		body: Record<string, unknown> | null,
+		params: Record<string, unknown>,
 		resolveFn = this.populateObjectFromJsonRoot,
 		method: HttpMethod = "PUT",
 	): Promise<ElementType> {
@@ -220,14 +219,14 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @throws Error if the expected root element name is missing.
 	 */
 	protected populateObjectFromJsonRoot(
-		json: Keyable,
+		json: Record<string, unknown>,
 		headers: Headers,
 	): ElementType {
 		let jsonData = json;
 
 		const rootElementName = this.rootElementNameSingular;
 		if (this.rootElementNameSingular && rootElementName) {
-			const dataRecord = jsonData as Record<string, Keyable>;
+			const dataRecord = jsonData as Record<string, Record<string, unknown>>;
 			jsonData = dataRecord[rootElementName];
 			if (!jsonData) {
 				throw new Error(`Missing property '${rootElementName}' in JSON object`);
@@ -245,21 +244,21 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @throws Error if the expected secondary element name is missing.
 	 */
 	protected populateSecondaryObjectFromJsonRoot(
-		json: Keyable,
+		json: Record<string, unknown>,
 		headers: Headers,
 	): SecondaryType {
 		const root = this.secondaryElementNameSingular;
 		const record = json as Record<string, unknown>;
 
 		const itemJson = record[root];
-		if (!itemJson) {
+		if (typeof itemJson !== "object" || itemJson === null) {
 			throw new Error(
 				`Missing expected secondary property '${root}' in JSON response.`,
 			);
 		}
 
 		return this.populateObjectFromJson(
-			itemJson,
+			itemJson as Record<string, unknown>,
 			headers,
 			true,
 		) as SecondaryType;
@@ -272,7 +271,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @returns The parsed SecondaryType instance.
 	 */
 	protected populateSecondaryObjectFromJson(
-		json: Keyable,
+		json: Record<string, unknown>,
 		headers: Headers,
 	): SecondaryType {
 		return this.populateObjectFromJson(json, headers, true) as SecondaryType;
@@ -286,9 +285,9 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @throws Error if the expected root element is missing or not an array.
 	 */
 	protected populateArrayFromJsonBulk(
-		json: Keyable,
+		json: Record<string, unknown>,
 		headers: Headers,
-	): BulkResult {
+	): BulkResult<ElementType> {
 		const root = this.rootElementName;
 		const jsonArray = json[root];
 
@@ -302,8 +301,12 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			(obj) => this.populateObjectFromJson(obj, headers) as ElementType,
 		);
 
+		const errors = Array.isArray(json.errors)
+			? (json.errors as BulkResult["errors"])
+			: [];
+
 		return {
-			errors: json.errors,
+			errors,
 			items,
 		};
 	}
@@ -316,7 +319,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param headers The response headers.
 	 */
 	protected populateArrayFromJson(
-		json: Keyable,
+		json: Record<string, unknown>,
 		headers: Headers,
 	): PaginatedResult<ElementType> | ElementType[] {
 		const array = this.populateArray(json, headers);
@@ -331,7 +334,10 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param json The raw JSON object returned by the API.
 	 * @param headers The response headers.
 	 */
-	protected populateArray(json: Keyable, headers: Headers): ElementType[] {
+	protected populateArray(
+		json: Record<string, unknown>,
+		headers: Headers,
+	): ElementType[] {
 		const root = this.rootElementName;
 		const jsonArray = json[root];
 
@@ -342,7 +348,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		}
 
 		return jsonArray.map(
-			(obj: Keyable) =>
+			(obj: Record<string, unknown>) =>
 				this.populateObjectFromJson(obj, headers) as ElementType,
 		);
 	}
@@ -353,7 +359,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param headers The response headers.
 	 */
 	protected populateArrayFromJsonCursor(
-		json: Keyable,
+		json: Record<string, unknown>,
 		headers: Headers,
 	): CursorPaginatedResult<ElementType> {
 		const root = this.rootElementName;
@@ -366,7 +372,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		}
 
 		const items = jsonArray.map(
-			(obj: Keyable) =>
+			(obj: Record<string, unknown>) =>
 				this.populateObjectFromJson(obj, headers) as ElementType,
 		);
 
@@ -380,7 +386,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param secondary If true, use the secondaryElementClass instead of elementClass.
 	 */
 	protected populateObjectFromJson(
-		json: Keyable,
+		json: Record<string, unknown>,
 		_headers: Headers,
 		secondary = false,
 	): ElementType | SecondaryType {
@@ -393,7 +399,10 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param json The raw JSON object or array returned by the API.
 	 * @param _headers The response headers (if needed).
 	 */
-	protected returnBareJSON<T>(json: Keyable | Keyable[], _headers: Headers): T {
+	protected returnBareJSON<T>(
+		json: Record<string, unknown> | Record<string, unknown>[],
+		_headers: Headers,
+	): T {
 		return json as T;
 	}
 
@@ -401,7 +410,9 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * Convert a single object into an array if it's not already an array.
 	 * @param raw_body The raw request body.
 	 */
-	protected objToArray(raw_body: Keyable | Keyable[]): Keyable[] {
+	protected objToArray(
+		raw_body: Record<string, unknown> | Record<string, unknown>[],
+	): Record<string, unknown>[] {
 		return Array.isArray(raw_body) ? raw_body : [raw_body];
 	}
 
@@ -415,7 +426,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 */
 	protected async createPromise<T>(
 		method: HttpMethod,
-		params: Keyable,
+		params: Record<string, unknown>,
 		resolveFn: ResolveHandler<T>,
 		body: object | object[] | null,
 		uri: string | null = null,
@@ -438,7 +449,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	protected async prepareRequest(
 		method: HttpMethod,
 		body: object | object[] | null,
-		params: Keyable,
+		params: Record<string, unknown>,
 		uri: string | null,
 	): Promise<ApiRequest> {
 		return await ApiRequest.create(

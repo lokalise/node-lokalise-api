@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Project } from "../models/project.js";
 import type {
@@ -14,7 +13,7 @@ export class Projects extends BaseCollection<Project> {
 	protected static override prefixURI = "projects/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Project {
 		return Project;
 	}
@@ -37,12 +36,12 @@ export class Projects extends BaseCollection<Project> {
 		return this.doCreate(project_params);
 	}
 
-	get(project_id: string | number): Promise<Project> {
+	get(project_id: string): Promise<Project> {
 		return this.doGet(project_id);
 	}
 
 	update(
-		project_id: string | number,
+		project_id: string,
 		project_params: UpdateProjectParams,
 	): Promise<Project> {
 		return this.doUpdate(
@@ -53,11 +52,11 @@ export class Projects extends BaseCollection<Project> {
 		);
 	}
 
-	delete(project_id: string | number): Promise<ProjectDeleted> {
+	delete(project_id: string): Promise<ProjectDeleted> {
 		return this.doDelete(project_id);
 	}
 
-	empty(project_id: any): Promise<ProjectEmptied> {
+	empty(project_id: string): Promise<ProjectEmptied> {
 		return this.createPromise(
 			"PUT",
 			{ project_id: project_id },

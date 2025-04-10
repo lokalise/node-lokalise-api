@@ -1,5 +1,3 @@
-import type { Keyable } from "./keyable.js";
-
 export interface Order {
 	order_id: string;
 	project_id: string;
@@ -14,7 +12,7 @@ export interface Order {
 	source_language_iso: string;
 	target_language_isos: string[];
 	keys: number[] | string[];
-	source_words: Keyable;
+	source_words: Record<string, unknown>;
 	provider_slug: string;
 	translation_style: string;
 	translation_tier: number;

@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { Segment } from "../models/segment.js";
 import type {
 	GetSegmentParams,
@@ -13,7 +12,7 @@ export class Segments extends BaseCollection<Segment> {
 		"projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Segment {
 		return Segment;
 	}

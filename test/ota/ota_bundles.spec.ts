@@ -23,7 +23,7 @@ describe("OtaBundles", () => {
 			rootUrl,
 			query: params,
 			reqHeaders: {
-				"x-ota-api-token": token,
+				"x-ota-api-token": token as string,
 			},
 		});
 

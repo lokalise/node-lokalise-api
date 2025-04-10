@@ -25,7 +25,7 @@ export interface Key {
 	context: string;
 	base_words: number;
 	char_limit: number;
-	custom_attributes: any[] | string;
+	custom_attributes: string;
 	modified_at: string;
 	modified_at_timestamp: number;
 	translations_modified_at: string;

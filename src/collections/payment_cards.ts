@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { PaymentCard } from "../models/payment_card.js";
 import type { CardDeleted, CreateCardParams } from "../types/cards.js";
@@ -9,7 +8,7 @@ export class PaymentCards extends BaseCollection<PaymentCard> {
 	protected static override prefixURI = "payment_cards/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => PaymentCard {
 		return PaymentCard;
 	}

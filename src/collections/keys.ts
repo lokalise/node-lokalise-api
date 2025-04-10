@@ -1,6 +1,5 @@
 import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { CursorPaginatedResult } from "../interfaces/cursor_paginated_result.js";
-import type { Keyable } from "../interfaces/keyable.js";
 import { Key } from "../models/key.js";
 import type { ProjectOnly } from "../types/common_get_params.js";
 import type {
@@ -18,7 +17,7 @@ export class Keys extends BaseCollection<Key> {
 	protected static override prefixURI = "projects/{!:project_id}/keys/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Key {
 		return Key;
 	}
@@ -85,7 +84,7 @@ export class Keys extends BaseCollection<Key> {
 		key_ids: number[] | string[],
 		request_params: ProjectOnly,
 	): Promise<KeysBulkDeleted> {
-		const keys = { keys: this.objToArray(key_ids) };
+		const keys = { keys: key_ids };
 
 		return this.createPromise(
 			"DELETE",

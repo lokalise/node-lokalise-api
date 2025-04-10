@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Team } from "../models/team.js";
 import type { PaginationParams } from "../types/common_get_params.js";
@@ -8,7 +7,7 @@ export class Teams extends BaseCollection<Team> {
 	protected static override prefixURI = "teams";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Team {
 		return Team;
 	}

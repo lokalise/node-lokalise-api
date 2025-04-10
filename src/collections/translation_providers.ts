@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { TranslationProvider } from "../models/translation_provider.js";
 import type { TeamOnly } from "../types/common_get_params.js";
@@ -10,7 +9,7 @@ export class TranslationProviders extends BaseCollection<TranslationProvider> {
 		"teams/{!:team_id}/translation_providers/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => TranslationProvider {
 		return TranslationProvider;
 	}

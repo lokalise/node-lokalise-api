@@ -122,4 +122,56 @@ describe("OtaBundleManagement", () => {
 		expect(response.id).to.eq(bundleId);
 		expect(response.deleted).to.be.true;
 	});
+
+	it("raises an error for unexpected delete response with data as string", async () => {
+		const stub = new Stub({
+			fixture: "ota_bundle_management/delete_invalid.json",
+			uri: `teams/${teamId}/projects/${projectId}/bundles/${bundleId}`,
+			version: "v3",
+			skipApiToken: true,
+			method: "DELETE",
+			rootUrl,
+			reqHeaders: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		await stub.setStub();
+
+		await expect(
+			lokaliseApiOta.otaBundleManagement().delete(bundleId, {
+				teamId: teamId,
+				lokaliseProjectId: projectId,
+			}),
+		).rejects.toMatchObject({
+			message:
+				"Invalid response format: expected object or array of objects in `data`",
+		});
+	});
+
+	it("raises an error for unexpected delete response with data as array with null items", async () => {
+		const stub = new Stub({
+			fixture: "ota_bundle_management/delete_invalid2.json",
+			uri: `teams/${teamId}/projects/${projectId}/bundles/${bundleId}`,
+			version: "v3",
+			skipApiToken: true,
+			method: "DELETE",
+			rootUrl,
+			reqHeaders: {
+				Authorization: `Bearer ${token}`,
+			},
+		});
+
+		await stub.setStub();
+
+		await expect(
+			lokaliseApiOta.otaBundleManagement().delete(bundleId, {
+				teamId: teamId,
+				lokaliseProjectId: projectId,
+			}),
+		).rejects.toMatchObject({
+			message:
+				"Invalid response format: expected object or array of objects in `data`",
+		});
+	});
 });

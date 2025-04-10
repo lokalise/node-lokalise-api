@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import type { Project } from "../models/project.js";
 import { Snapshot } from "../models/snapshot.js";
@@ -17,7 +16,7 @@ export class Snapshots extends BaseCollection<Snapshot> {
 		"projects/{!:project_id}/snapshots/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Snapshot {
 		return Snapshot;
 	}

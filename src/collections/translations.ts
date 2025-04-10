@@ -1,5 +1,4 @@
 import type { CursorPaginatedResult } from "../interfaces/cursor_paginated_result.js";
-import type { Keyable } from "../interfaces/keyable.js";
 import { Translation } from "../models/translation.js";
 import type { ProjectOnly } from "../types/common_get_params.js";
 import type {
@@ -14,7 +13,7 @@ export class Translations extends BaseCollection<Translation> {
 		"projects/{!:project_id}/translations/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Translation {
 		return Translation;
 	}

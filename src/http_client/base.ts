@@ -1,11 +1,10 @@
 import type { ClientData } from "../interfaces/client_data.js";
-import type { Keyable, WritableKeyable } from "../interfaces/keyable.js";
 import { getVersion } from "../lokalise/pkg.js";
 import { ApiError } from "../models/api_error.js";
 import type { HttpMethod } from "../types/http_method.js";
 
 export type ApiResponse = {
-	json: Keyable;
+	json: Record<string, unknown>;
 	headers: Headers;
 };
 
@@ -23,7 +22,7 @@ export class ApiRequest {
 	 * Query and path parameters used to construct the request URL.
 	 * This object is modified during URL construction, removing parameters used in path segments.
 	 */
-	public params: WritableKeyable = {};
+	public params: Record<string, unknown> = {};
 
 	/**
 	 * The default base URL for the Lokalise API.
@@ -34,7 +33,7 @@ export class ApiRequest {
 	 * Constructs a new ApiRequest instance.
 	 * @param params - Query and/or path parameters.
 	 */
-	constructor(params: Keyable) {
+	constructor(params: Record<string, unknown>) {
 		// Copy params to avoid modifying the original object
 		this.params = { ...params };
 	}
@@ -52,7 +51,7 @@ export class ApiRequest {
 		uri: string,
 		method: HttpMethod,
 		body: object | object[] | null,
-		params: Keyable,
+		params: Record<string, unknown>,
 		clientData: ClientData,
 	): Promise<ApiRequest> {
 		const apiRequest = new ApiRequest(params);
@@ -90,7 +89,12 @@ export class ApiRequest {
 		};
 
 		const target = new URL(url, prefixUrl);
-		target.search = new URLSearchParams(this.params).toString();
+		const stringifiedParams: Record<string, string> = Object.fromEntries(
+			Object.entries(this.params)
+				.filter(([, value]) => value !== undefined && value !== null)
+				.map(([key, value]) => [key, String(value)]),
+		);
+		target.search = new URLSearchParams(stringifiedParams).toString();
 
 		return this.fetchAndHandleResponse(
 			target,
@@ -175,7 +179,7 @@ export class ApiRequest {
 
 		if (response.ok) {
 			return {
-				json: responseJSON as Keyable,
+				json: responseJSON as Record<string, unknown>,
 				headers: response.headers,
 			};
 		}
@@ -215,10 +219,15 @@ export class ApiRequest {
 				code = 500,
 				details,
 			} = errorObj.error as Record<string, unknown>;
+			const safeDetails: Record<string, string | number | boolean> =
+				typeof details === "object" && details !== null
+					? (details as Record<string, string | number | boolean>)
+					: { reason: "server error without details" };
+
 			return new ApiError(
 				String(message),
 				typeof code === "number" ? code : 500,
-				details ?? { reason: "server error without details" },
+				safeDetails,
 			);
 		}
 
@@ -230,17 +239,18 @@ export class ApiRequest {
 		) {
 			const statusCode =
 				typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
-			return new ApiError(
-				errorObj.message,
-				statusCode as number,
-				errorObj.details ?? { reason: "server error without details" },
-			);
+			const rawDetails = errorObj.details;
+			const safeDetails: Record<string, string | number | boolean> =
+				typeof rawDetails === "object" && rawDetails !== null
+					? (rawDetails as Record<string, string | number | boolean>)
+					: { reason: "server error without details" };
+			return new ApiError(errorObj.message, statusCode as number, safeDetails);
 		}
 
 		// Fallback if no known error format matches
 		return new ApiError("An unknown error occurred", 500, {
 			reason: "unhandled error format",
-			data: respJson,
+			data: JSON.stringify(respJson),
 		});
 	}
 

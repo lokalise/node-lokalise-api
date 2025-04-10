@@ -12,16 +12,20 @@ export class ApiError extends Error implements IApiError {
 	/**
 	 * Additional details about the error (optional).
 	 */
-	details?: Record<string, any>;
+	details?: Record<string, string | number | boolean>;
 
 	/**
 	 * Creates an instance of ApiError.
 	 *
 	 * @param {string} message - The error message.
 	 * @param {number} code - The error code.
-	 * @param {Record<string, any>} [details] - Additional details about the error.
+	 * @param {Record<string, string | number | boolean>} [details] - Additional details about the error.
 	 */
-	constructor(message: string, code: number, details?: Record<string, any>) {
+	constructor(
+		message: string,
+		code: number,
+		details?: Record<string, string | number | boolean>,
+	) {
 		super(message);
 		this.code = code;
 		this.details = details;

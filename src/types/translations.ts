@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type {
 	CursorPagination,
 	ProjectOnly,
@@ -7,7 +6,7 @@ import type {
 
 export type TranslationData = {
 	language_iso?: string;
-	translation?: string | Keyable;
+	translation?: string | Record<string, unknown>;
 	is_reviewed?: boolean;
 	is_unverified?: boolean;
 	custom_translation_status_ids?: string[] | number[];

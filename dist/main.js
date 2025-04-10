@@ -1,9 +1,7 @@
 // src/models/base_model.ts
 var BaseModel = class {
   constructor(params) {
-    for (const key of Object.keys(params)) {
-      this[key] = params[key];
-    }
+    Object.assign(this, params);
   }
 };
 
@@ -41,7 +39,7 @@ var ApiError = class extends Error {
    *
    * @param {string} message - The error message.
    * @param {number} code - The error code.
-   * @param {Record<string, any>} [details] - Additional details about the error.
+   * @param {Record<string, string | number | boolean>} [details] - Additional details about the error.
    */
   constructor(message, code, details) {
     super(message);
@@ -123,7 +121,10 @@ var ApiRequest = class _ApiRequest {
       ...method !== "GET" && body ? { body: JSON.stringify(body) } : {}
     };
     const target = new URL(url, prefixUrl);
-    target.search = new URLSearchParams(this.params).toString();
+    const stringifiedParams = Object.fromEntries(
+      Object.entries(this.params).filter(([, value]) => value !== void 0 && value !== null).map(([key, value]) => [key, String(value)])
+    );
+    target.search = new URLSearchParams(stringifiedParams).toString();
     return this.fetchAndHandleResponse(
       target,
       options,
@@ -225,23 +226,22 @@ var ApiRequest = class _ApiRequest {
         code = 500,
         details
       } = errorObj.error;
+      const safeDetails = typeof details === "object" && details !== null ? details : { reason: "server error without details" };
       return new ApiError(
         String(message),
         typeof code === "number" ? code : 500,
-        details ?? { reason: "server error without details" }
+        safeDetails
       );
     }
     if (typeof errorObj.message === "string" && (typeof errorObj.code === "number" || typeof errorObj.errorCode === "number")) {
       const statusCode = typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
-      return new ApiError(
-        errorObj.message,
-        statusCode,
-        errorObj.details ?? { reason: "server error without details" }
-      );
+      const rawDetails = errorObj.details;
+      const safeDetails = typeof rawDetails === "object" && rawDetails !== null ? rawDetails : { reason: "server error without details" };
+      return new ApiError(errorObj.message, statusCode, safeDetails);
     }
     return new ApiError("An unknown error occurred", 500, {
       reason: "unhandled error format",
-      data: respJson
+      data: JSON.stringify(respJson)
     });
   }
   /**
@@ -536,7 +536,7 @@ var BaseCollection = class {
     const root = this.secondaryElementNameSingular;
     const record = json;
     const itemJson = record[root];
-    if (!itemJson) {
+    if (typeof itemJson !== "object" || itemJson === null) {
       throw new Error(
         `Missing expected secondary property '${root}' in JSON response.`
       );
@@ -574,8 +574,9 @@ var BaseCollection = class {
     const items = jsonArray.map(
       (obj) => this.populateObjectFromJson(obj, headers)
     );
+    const errors = Array.isArray(json.errors) ? json.errors : [];
     return {
-      errors: json.errors,
+      errors,
       items
     };
   }
@@ -959,7 +960,7 @@ var Keys = class extends BaseCollection {
     );
   }
   bulk_delete(key_ids, request_params) {
-    const keys = { keys: this.objToArray(key_ids) };
+    const keys = { keys: key_ids };
     return this.createPromise(
       "DELETE",
       request_params,
@@ -1854,7 +1855,13 @@ var OtaCollection = class extends BaseCollection {
     );
   }
   returnJSONFromData(json) {
-    return json.data;
+    const data = json.data;
+    if (data && typeof data === "object" && (!Array.isArray(data) || data.every((item) => typeof item === "object" && item !== null))) {
+      return data;
+    }
+    throw new Error(
+      "Invalid response format: expected object or array of objects in `data`"
+    );
   }
   async createVoidPromise(method, params, body, uri = null) {
     await this.prepareRequest(method, body, params, uri);

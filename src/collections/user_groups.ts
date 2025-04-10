@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { UserGroup } from "../models/user_group.js";
 import type { TeamOnly } from "../types/common_get_params.js";
@@ -13,7 +12,7 @@ export class UserGroups extends BaseCollection<UserGroup> {
 	protected static override prefixURI = "teams/{!:team_id}/groups/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => UserGroup {
 		return UserGroup;
 	}
@@ -147,10 +146,10 @@ export class UserGroups extends BaseCollection<UserGroup> {
 	}
 
 	protected populateGroupFromJsonRoot(
-		json: Keyable,
+		json: Record<string, unknown>,
 		headers: Headers,
 	): UserGroup {
-		const formatted_json = json.group;
+		const formatted_json = json.group as Record<string, unknown>;
 		return this.populateObjectFromJson(formatted_json, headers);
 	}
 }

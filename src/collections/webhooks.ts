@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Webhook } from "../models/webhook.js";
 import type {
@@ -18,7 +17,7 @@ export class Webhooks extends BaseCollection<Webhook> {
 		"projects/{!:project_id}/webhooks/{:id}";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Webhook {
 		return Webhook;
 	}

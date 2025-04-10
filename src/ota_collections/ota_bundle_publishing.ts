@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { Branch } from "../models/branch.js";
 import type { OtaTeamProjectFramework } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
@@ -11,7 +10,7 @@ export class OtaBundlePublishing extends OtaCollection<void> {
 	// It's not used in this class
 	// istanbul ignore next
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Branch {
 		// istanbul ignore next
 		return Branch;

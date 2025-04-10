@@ -1,5 +1,4 @@
 import type { PaginatedResult } from "../interfaces/index.js";
-import type { Keyable } from "../interfaces/keyable.js";
 import { PermissionTemplate } from "../models/permission_template.js";
 import type { TeamOnly } from "../types/index.js";
 import { BaseCollection } from "./base_collection.js";
@@ -8,7 +7,7 @@ export class PermissionTemplates extends BaseCollection<PermissionTemplate> {
 	protected static override prefixURI = "teams/{!:team_id}/roles";
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => PermissionTemplate {
 		return PermissionTemplate;
 	}

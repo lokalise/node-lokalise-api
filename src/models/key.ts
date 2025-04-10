@@ -27,7 +27,7 @@ export class Key extends BaseModel implements KeyInterface {
 	declare context: string;
 	declare base_words: number;
 	declare char_limit: number;
-	declare custom_attributes: any[] | string;
+	declare custom_attributes: string;
 	declare modified_at: string;
 	declare modified_at_timestamp: number;
 	declare translations_modified_at: string;

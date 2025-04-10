@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import { OtaStatistics } from "../models/ota/ota_statistics.js";
 import type { OtaTeamProject, OtaUsageParams } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
@@ -9,7 +8,7 @@ export class OtaUsageStatistics extends OtaCollection<OtaStatistics> {
 	protected static elementClass = OtaStatistics;
 
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => OtaStatistics {
 		return OtaStatistics;
 	}

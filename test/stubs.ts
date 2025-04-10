@@ -5,7 +5,6 @@ import type {
 	Interceptable,
 	MockInterceptor,
 } from "undici/types/mock-interceptor.js";
-import type { Keyable } from "../src/interfaces/keyable.js";
 import { getVersion } from "../src/lokalise/pkg.js";
 import type { HttpMethod } from "../src/types/http_method.js";
 
@@ -19,9 +18,9 @@ type StubParams = Partial<{
 	uri: string;
 	fixture: string;
 	method: HttpMethod;
-	query: Keyable;
-	body: Keyable;
-	reqHeaders: Keyable;
+	query: Record<string, unknown>;
+	body: Record<string, unknown>;
+	reqHeaders: Record<string, string>;
 	respHeaders: IncomingHttpHeaders;
 	status: number;
 	doFail: boolean;
@@ -36,7 +35,7 @@ export class Stub {
 	private readonly uriPath: string;
 	private readonly fixturePath: string;
 	private readonly httpMethod: HttpMethod;
-	private readonly requestHeaders: Keyable | undefined;
+	private readonly requestHeaders: Record<string, string> | undefined;
 	private readonly requestBody: string | undefined;
 	private readonly responseHeaders: IncomingHttpHeaders | undefined;
 	private readonly statusCode: number;
@@ -125,7 +124,7 @@ export class Stub {
 		}
 	}
 
-	private async readFixture(): Promise<Record<string, any> | string> {
+	private async readFixture(): Promise<Record<string, unknown> | string> {
 		if (!this.fixturePath) {
 			return "";
 		}
@@ -146,9 +145,9 @@ export class Stub {
 
 	private buildRequestHeaders(
 		skipApiToken: boolean,
-		body: Keyable | undefined,
-		reqHeaders?: Keyable,
-	): Keyable {
+		body: Record<string, unknown> | undefined,
+		reqHeaders?: Record<string, string>,
+	): Record<string, string> {
 		return {
 			Accept: "application/json",
 			"User-Agent": `node-lokalise-api/${packageVersion}`,
@@ -158,8 +157,18 @@ export class Stub {
 		};
 	}
 
-	private buildUriPath(uri: string, query?: Keyable): string {
-		return query ? `${uri}?${new URLSearchParams(query).toString()}` : uri;
+	private buildUriPath(uri: string, query?: Record<string, unknown>): string {
+		if (!query) {
+			return uri;
+		}
+
+		const stringifiedQuery = Object.fromEntries(
+			Object.entries(query)
+				.filter(([, value]) => value !== undefined && value !== null)
+				.map(([key, value]) => [key, String(value)]),
+		);
+
+		return `${uri}?${new URLSearchParams(stringifiedQuery).toString()}`;
 	}
 
 	private buildMockOptions(): MockInterceptor.Options {

@@ -1,4 +1,3 @@
-import type { Keyable } from "../interfaces/keyable.js";
 import type { Order as OrderInterface } from "../interfaces/order.js";
 import { BaseModel } from "./base_model.js";
 
@@ -15,7 +14,7 @@ export class Order extends BaseModel implements OrderInterface {
 	declare source_language_iso: string;
 	declare target_language_isos: string[];
 	declare keys: number[] | string[];
-	declare source_words: Keyable;
+	declare source_words: Record<string, unknown>;
 	declare provider_slug: string;
 	declare translation_style: string;
 	declare translation_tier: number;

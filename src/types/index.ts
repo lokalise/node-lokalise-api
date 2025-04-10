@@ -26,6 +26,11 @@ export type {
 	UploadFileParams,
 } from "./files.js";
 export type {
+	UploadedFileProcessDetails,
+	DownloadedFileProcessDetails,
+	QueuedProcessDetails,
+} from "./queued_process_details.js";
+export type {
 	CreateKeyData,
 	CreateKeyParams,
 	UpdateKeyData,

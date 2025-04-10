@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.3.0
+
+* Various code updates, stronger types
+
 ## 14.2.1 (02-Apr-2025)
 
 * Added `team_uuid` to `Project` for internal purposes

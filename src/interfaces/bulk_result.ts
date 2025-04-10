@@ -1,4 +1,8 @@
-export interface BulkResult<T = any> {
+export interface BulkResult<T = unknown> {
 	readonly items: T[];
-	readonly errors: any[];
+	readonly errors: {
+		message: string;
+		code: number;
+		[key: string]: unknown;
+	}[];
 }

@@ -1,10 +1,9 @@
 import { BaseCollection } from "../../src/collections/base_collection";
-import type { Keyable } from "../../src/interfaces/keyable.js";
 import { Branch } from "../../src/models/branch.js";
 
 export class DummyCollection extends BaseCollection<Branch> {
 	protected get elementClass(): new (
-		json: Keyable,
+		json: Record<string, unknown>,
 	) => Branch {
 		return Branch;
 	}
@@ -21,7 +20,9 @@ export class DummyCollection extends BaseCollection<Branch> {
 		return this.rootElementNameSingular;
 	}
 
-	public testSecondaryElementClass(): new (json: Keyable) => Branch {
+	public testSecondaryElementClass(): new (
+		json: Record<string, unknown>,
+	) => Branch {
 		return this.secondaryElementClass;
 	}
 
