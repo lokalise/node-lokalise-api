@@ -1,6 +1,6 @@
 # Changelog
 
-## 14.3.0
+## 14.3.0 (12-Apr-2025)
 
 * Various code updates, stronger types
 
