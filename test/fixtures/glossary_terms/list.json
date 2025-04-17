@@ -1,0 +1,78 @@
+{
+	"data": [
+		{
+			"id": 5319746,
+			"term": "router",
+			"description": "A network device",
+			"caseSensitive": false,
+			"translatable": true,
+			"forbidden": false,
+			"translations": [
+				{
+					"langId": 597,
+					"langName": "Russian",
+					"langIso": "ru",
+					"translation": "",
+					"description": ""
+				},
+				{
+					"langId": 640,
+					"langName": "English",
+					"langIso": "en",
+					"translation": "",
+					"description": ""
+				},
+				{
+					"langId": 674,
+					"langName": "French (Canada)",
+					"langIso": "fr_CA",
+					"translation": "",
+					"description": ""
+				}
+			],
+			"tags": [],
+			"createdAt": "2025-03-31 15:01:00 (Etc/UTC)",
+			"updatedAt": null
+		},
+		{
+			"id": 5471757,
+			"term": "sample",
+			"description": "Sample",
+			"caseSensitive": false,
+			"translatable": false,
+			"forbidden": false,
+			"translations": [
+				{
+					"langId": 597,
+					"langName": "Russian",
+					"langIso": "ru",
+					"translation": "",
+					"description": ""
+				},
+				{
+					"langId": 640,
+					"langName": "English",
+					"langIso": "en",
+					"translation": "",
+					"description": ""
+				},
+				{
+					"langId": 674,
+					"langName": "French (Canada)",
+					"langIso": "fr_CA",
+					"translation": "",
+					"description": ""
+				}
+			],
+			"tags": [],
+			"createdAt": "2025-04-17 17:25:42 (Etc/UTC)",
+			"updatedAt": null
+		}
+	],
+	"meta": {
+		"count": 2,
+		"limit": 500,
+		"cursor": 0,
+		"hasMore": false
+	}
+}

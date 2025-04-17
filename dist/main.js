@@ -898,6 +898,65 @@ var Files = class extends BaseCollection {
   }
 };
 
+// src/models/glossary_term.ts
+var GlossaryTerm = class extends BaseModel {
+};
+
+// src/collections/glossary_terms.ts
+var GlossaryTerms = class extends BaseCollection {
+  static prefixURI = "projects/{!:project_id}/glossary-terms/{:id}";
+  get elementClass() {
+    return GlossaryTerm;
+  }
+  get rootElementName() {
+    return "data";
+  }
+  get rootElementNameSingular() {
+    return "data";
+  }
+  get(term_id, request_params) {
+    return this.doGet(term_id, request_params);
+  }
+  list(request_params) {
+    return this.doListCursor(request_params);
+  }
+  create(term_params, request_params) {
+    return this.createPromise(
+      "POST",
+      request_params,
+      this.populateArrayFromJsonBulk,
+      term_params
+    );
+  }
+  update(term_params, request_params) {
+    return this.createPromise(
+      "PUT",
+      request_params,
+      this.populateArrayFromJsonBulk,
+      term_params,
+      "projects/{!:project_id}/glossary-terms"
+    );
+  }
+  delete(term_ids, request_params) {
+    const keys = { terms: term_ids };
+    return this.createPromise(
+      "DELETE",
+      request_params,
+      this.populateFromBulkDelete,
+      keys,
+      "projects/{!:project_id}/glossary-terms"
+    );
+  }
+  populateFromBulkDelete(json, _headers) {
+    const dataRecord = json;
+    const jsonData = dataRecord.data;
+    if (!jsonData) {
+      throw new Error(`Missing property 'data' in JSON object`);
+    }
+    return jsonData;
+  }
+};
+
 // src/models/jwt.ts
 var Jwt = class extends BaseModel {
 };
@@ -1701,6 +1760,12 @@ var LokaliseApi = class extends BaseClient {
    */
   files() {
     return new Files(this.clientData);
+  }
+  /**
+   * Access Glossary-related endpoints.
+   */
+  glossaryTerms() {
+    return new GlossaryTerms(this.clientData);
   }
   /**
    * Access JWT-related endpoints.

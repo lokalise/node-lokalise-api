@@ -1,0 +1,16 @@
+{
+	"data": [
+		{
+			"id": 12345,
+			"term": "test updated",
+			"description": "sample desc updated",
+			"caseSensitive": false,
+			"translatable": true,
+			"forbidden": false,
+			"translations": [],
+			"tags": [],
+			"createdAt": "2025-04-17 17:25:42 (Etc/UTC)",
+			"updatedAt": null
+		}
+	]
+}

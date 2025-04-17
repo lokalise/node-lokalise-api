@@ -1,0 +1,22 @@
+{
+	"data": [
+		{
+			"id": 12345,
+			"term": "test",
+			"description": "sample desc",
+			"caseSensitive": false,
+			"translatable": true,
+			"forbidden": false,
+			"translations": [],
+			"tags": [],
+			"createdAt": "2025-04-17 17:25:42 (Etc/UTC)",
+			"updatedAt": null
+		}
+	],
+	"meta": {
+		"count": 0,
+		"created": 0,
+		"limit": 0
+	},
+	"errors": []
+}

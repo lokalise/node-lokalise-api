@@ -8,6 +8,7 @@ export type { ClientData } from "./client_data.js";
 export type { Comment } from "./comment.js";
 export type { Contributor } from "./contributor.js";
 export type { File } from "./file.js";
+export type { GlossaryTerm } from "./glossary_term.js";
 export type { Jwt } from "./jwt.js";
 export type { Key } from "./key.js";
 export type { Language } from "./language.js";

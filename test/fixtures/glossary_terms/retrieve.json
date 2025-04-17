@@ -1,0 +1,36 @@
+{
+	"data": {
+		"id": 5319746,
+		"term": "router",
+		"description": "A network device",
+		"caseSensitive": false,
+		"translatable": true,
+		"forbidden": false,
+		"translations": [
+			{
+				"langId": 597,
+				"langName": "Russian",
+				"langIso": "ru",
+				"translation": "маршрутизатор",
+				"description": "описание"
+			},
+			{
+				"langId": 640,
+				"langName": "English",
+				"langIso": "en",
+				"translation": "",
+				"description": ""
+			},
+			{
+				"langId": 674,
+				"langName": "French (Canada)",
+				"langIso": "fr_CA",
+				"translation": "",
+				"description": ""
+			}
+		],
+		"tags": ["sample", "stuff"],
+		"createdAt": "2025-03-31 15:01:00 (Etc/UTC)",
+		"updatedAt": null
+	}
+}

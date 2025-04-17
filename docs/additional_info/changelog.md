@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+* Added support for the [Glossary terms endpoint](https://lokalise.github.io/node-lokalise-api/api/glossary-terms)
+
 ## 14.3.0 (12-Apr-2025)
 
 * Various code updates, stronger types

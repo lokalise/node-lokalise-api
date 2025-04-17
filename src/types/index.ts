@@ -26,6 +26,12 @@ export type {
 	UploadFileParams,
 } from "./files.js";
 export type {
+	ListTermsParams,
+	CreateTermsParams,
+	UpdateTermsParams,
+	TermsDeleted,
+} from "./glossary_terms.js";
+export type {
 	UploadedFileProcessDetails,
 	DownloadedFileProcessDetails,
 	QueuedProcessDetails,

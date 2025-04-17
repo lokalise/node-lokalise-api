@@ -1,0 +1,16 @@
+{
+	"data": {
+		"deleted": {
+			"count": 1,
+			"ids": [12345]
+		},
+		"failed": [
+			{
+				"count": 1,
+				"ids": [3343],
+				"message": "Term IDs not found"
+			}
+		]
+	},
+	"meta": []
+}

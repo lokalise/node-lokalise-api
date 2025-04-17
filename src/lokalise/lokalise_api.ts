@@ -3,6 +3,7 @@ import {
 	Comments,
 	Contributors,
 	Files,
+	GlossaryTerms,
 	Jwt,
 	Keys,
 	Languages,
@@ -72,6 +73,13 @@ export class LokaliseApi extends BaseClient {
 	 */
 	files(): Files {
 		return new Files(this.clientData);
+	}
+
+	/**
+	 * Access Glossary-related endpoints.
+	 */
+	glossaryTerms(): GlossaryTerms {
+		return new GlossaryTerms(this.clientData);
 	}
 
 	/**

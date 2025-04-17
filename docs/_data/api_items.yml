@@ -65,6 +65,19 @@
       path: upload-translation-file
     - title: Delete translation file
       path: delete-translation-file
+- title: Glossary terms
+  path: glossary-terms
+  sub_paths:
+    - title: List glossary terms
+      path: list-glossary-terms
+    - title: Fetch a glossary term
+      path: fetch-a-glossary-term
+    - title: Create glossary terms
+      path: create-glossary-terms
+    - title: Update glossary terms
+      path: update-glossary-terms
+    - title: Delete glossary terms
+      path: delete-glossary-terms
 - title: JWT
   path: jwt
   sub_paths:
