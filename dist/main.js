@@ -950,9 +950,6 @@ var GlossaryTerms = class extends BaseCollection {
   populateFromBulkDelete(json, _headers) {
     const dataRecord = json;
     const jsonData = dataRecord.data;
-    if (!jsonData) {
-      throw new Error(`Missing property 'data' in JSON object`);
-    }
     return jsonData;
   }
 };
