@@ -819,9 +819,9 @@ type CreateTermsParams = {
         translatable: boolean;
         forbidden: boolean;
         translations?: Array<{
-            langId: number;
-            translation: string;
-            description: string;
+            langId?: number;
+            translation?: string;
+            description?: string;
         }>;
         tags?: string[];
     }>;
@@ -835,9 +835,9 @@ type UpdateTermsParams = {
         translatable?: boolean;
         forbidden?: boolean;
         translations?: Array<{
-            langId: number;
-            translation: string;
-            description: string;
+            langId?: number;
+            translation?: string;
+            description?: string;
         }>;
         tags?: string[];
     }>;
@@ -864,7 +864,7 @@ declare class GlossaryTerms extends BaseCollection<GlossaryTerm> {
     create(term_params: CreateTermsParams, request_params: ProjectOnly): Promise<BulkResult<GlossaryTerm>>;
     update(term_params: UpdateTermsParams, request_params: ProjectOnly): Promise<BulkResult<GlossaryTerm>>;
     delete(term_ids: number[], request_params: ProjectOnly): Promise<TermsDeleted>;
-    protected populateFromBulkDelete(json: Record<string, unknown>, _headers: Headers): TermsDeleted;
+    private populateFromBulkDelete;
 }
 
 interface Jwt$2 {

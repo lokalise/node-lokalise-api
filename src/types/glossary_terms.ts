@@ -11,9 +11,9 @@ export type CreateTermsParams = {
 		translatable: boolean;
 		forbidden: boolean;
 		translations?: Array<{
-			langId: number;
-			translation: string;
-			description: string;
+			langId?: number;
+			translation?: string;
+			description?: string;
 		}>;
 		tags?: string[];
 	}>;
@@ -28,9 +28,9 @@ export type UpdateTermsParams = {
 		translatable?: boolean;
 		forbidden?: boolean;
 		translations?: Array<{
-			langId: number;
-			translation: string;
-			description: string;
+			langId?: number;
+			translation?: string;
+			description?: string;
 		}>;
 		tags?: string[];
 	}>;

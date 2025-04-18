@@ -81,7 +81,7 @@ export class GlossaryTerms extends BaseCollection<GlossaryTerm> {
 		);
 	}
 
-	protected populateFromBulkDelete(
+	private populateFromBulkDelete(
 		json: Record<string, unknown>,
 		_headers: Headers,
 	): TermsDeleted {
