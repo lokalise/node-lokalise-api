@@ -7,7 +7,7 @@ import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
 
 describe("GlossaryTerms", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
-	const projectId = "803826145ba90b42d5d860.46800099";
+	const projectId = "6504960967ab53d45e0ed7.15877499";
 	const termId = 5319746;
 
 	it("retrieves", async () => {
@@ -52,11 +52,9 @@ describe("GlossaryTerms", () => {
 			fixture: "glossary_terms/list.json",
 			uri: `projects/${projectId}/glossary-terms`,
 			query: stubParams,
-			// It seems the API currently does not set these headers
-			// respHeaders: {
-			// 	"x-pagination-limit": "2",
-			// 	"x-pagination-next-cursor": "eyIxIjo0NDU5NjA2MX0=",
-			// },
+			respHeaders: {
+				"x-pagination-next-cursor": "5489103",
+			},
 		});
 
 		await stub.setStub();
@@ -64,8 +62,11 @@ describe("GlossaryTerms", () => {
 		const terms = await lokaliseApi.glossaryTerms().list({
 			...params,
 		});
+
 		expect(terms.items.length).toEqual(2);
 		expect(terms.items[0].id).toEqual(termId);
+
+		expect(terms.nextCursor).toEqual("5489103");
 	});
 
 	it("creates", async () => {
