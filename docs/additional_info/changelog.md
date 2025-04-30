@@ -1,6 +1,6 @@
 # Changelog
 
-## 14.5.0
+## 14.5.0 (30-Apr-2025)
 
 * Added `projectId` attribute for glossary items:
 
