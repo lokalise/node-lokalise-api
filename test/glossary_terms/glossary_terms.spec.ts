@@ -23,6 +23,7 @@ describe("GlossaryTerms", () => {
 		});
 
 		expect(termObject.id).toEqual(termId);
+		expect(termObject.projectId).toEqual(projectId);
 		expect(termObject.term).toEqual("router");
 		expect(termObject.description).toEqual("A network device");
 		expect(termObject.caseSensitive).toEqual(false);
@@ -65,6 +66,7 @@ describe("GlossaryTerms", () => {
 
 		expect(terms.items.length).toEqual(2);
 		expect(terms.items[0].id).toEqual(termId);
+		expect(terms.items[0].projectId).toEqual(projectId);
 
 		expect(terms.nextCursor).toEqual("5489103");
 	});

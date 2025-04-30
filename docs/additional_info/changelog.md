@@ -1,5 +1,17 @@
 # Changelog
 
+## 14.5.0
+
+* Added `projectId` attribute for glossary items:
+
+```js
+const termObject = await lokaliseApi.glossaryTerms().get(termId, {
+  project_id: projectId,
+});
+
+termObject.projectId; // => "123.abc"
+```
+
 ## 14.4.0 (18-Apr-2025)
 
 * Added support for the [Glossary terms endpoint](https://lokalise.github.io/node-lokalise-api/api/glossary-terms)

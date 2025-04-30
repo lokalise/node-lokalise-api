@@ -3,6 +3,7 @@ import { BaseModel } from "./base_model.js";
 
 export class GlossaryTerm extends BaseModel implements GlossaryTermInterface {
 	declare id: number;
+	declare projectId: string;
 	declare term: string;
 	declare description: string;
 	declare caseSensitive: boolean;

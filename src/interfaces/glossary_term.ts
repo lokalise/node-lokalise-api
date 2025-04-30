@@ -1,5 +1,6 @@
 export interface GlossaryTerm {
 	id: number;
+	projectId: string;
 	term: string;
 	description: string;
 	caseSensitive: boolean;
