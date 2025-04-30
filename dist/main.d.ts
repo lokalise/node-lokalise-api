@@ -774,6 +774,7 @@ declare class Files extends BaseCollection<File, QueuedProcess> {
 
 interface GlossaryTerm$1 {
     id: number;
+    projectId: string;
     term: string;
     description: string;
     caseSensitive: boolean;
@@ -793,6 +794,7 @@ interface GlossaryTerm$1 {
 
 declare class GlossaryTerm extends BaseModel implements GlossaryTerm$1 {
     id: number;
+    projectId: string;
     term: string;
     description: string;
     caseSensitive: boolean;
