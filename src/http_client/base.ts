@@ -114,25 +114,21 @@ export class ApiRequest {
 	protected async fetchAndHandleResponse(
 		target: URL,
 		options: RequestInit,
-		requestTimeout: number | undefined,
+		requestTimeout = 0,
 	): Promise<ApiResponse> {
-		const controller = new AbortController();
-		let timeoutId: NodeJS.Timeout | null = null;
-
-		if (requestTimeout && requestTimeout > 0) {
-			timeoutId = setTimeout(() => controller.abort(), requestTimeout);
-		}
+		const signal =
+			requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : undefined;
 
 		try {
 			const response = await fetch(target, {
 				...options,
-				signal: controller.signal,
+				signal,
 			});
 
 			return this.processResponse(response);
 		} catch (err) {
 			if (err instanceof Error) {
-				if (err.name === "AbortError") {
+				if (err.name === "TimeoutError") {
 					return Promise.reject(
 						new ApiError(`Request timed out after ${requestTimeout}ms`, 408, {
 							reason: "timeout",
@@ -148,10 +144,6 @@ export class ApiRequest {
 					reason: String(err),
 				}),
 			);
-		} finally {
-			if (timeoutId) {
-				clearTimeout(timeoutId);
-			}
 		}
 	}
 

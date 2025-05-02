@@ -139,21 +139,17 @@ var ApiRequest = class _ApiRequest {
    * @param requestTimeout - Optional timeout in milliseconds.
    * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
    */
-  async fetchAndHandleResponse(target, options, requestTimeout) {
-    const controller = new AbortController();
-    let timeoutId = null;
-    if (requestTimeout && requestTimeout > 0) {
-      timeoutId = setTimeout(() => controller.abort(), requestTimeout);
-    }
+  async fetchAndHandleResponse(target, options, requestTimeout = 0) {
+    const signal = requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : void 0;
     try {
       const response = await fetch(target, {
         ...options,
-        signal: controller.signal
+        signal
       });
       return this.processResponse(response);
     } catch (err) {
       if (err instanceof Error) {
-        if (err.name === "AbortError") {
+        if (err.name === "TimeoutError") {
           return Promise.reject(
             new ApiError(`Request timed out after ${requestTimeout}ms`, 408, {
               reason: "timeout"
@@ -169,10 +165,6 @@ var ApiRequest = class _ApiRequest {
           reason: String(err)
         })
       );
-    } finally {
-      if (timeoutId) {
-        clearTimeout(timeoutId);
-      }
     }
   }
   /**

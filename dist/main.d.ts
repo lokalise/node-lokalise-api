@@ -182,7 +182,7 @@ declare class ApiRequest {
      * @param requestTimeout - Optional timeout in milliseconds.
      * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
      */
-    protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout: number | undefined): Promise<ApiResponse>;
+    protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout?: number): Promise<ApiResponse>;
     /**
      * Processes the fetch response.
      * Attempts to parse JSON unless the status is 204 (No Content).
