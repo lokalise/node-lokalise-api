@@ -24,7 +24,7 @@ export class BaseClient {
 	 */
 	constructor(params: ClientParams) {
 		const { apiKey } = params;
-		if (!apiKey || apiKey.trim().length === 0) {
+		if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
 			throw new Error(
 				"Instantiation failed: A non-empty API key or JWT must be provided.",
 			);

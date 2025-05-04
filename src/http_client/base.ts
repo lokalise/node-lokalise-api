@@ -14,6 +14,11 @@ export type ApiResponse = {
  */
 export class ApiRequest {
 	/**
+	 * The default base URL for the Lokalise API.
+	 */
+	protected static readonly urlRoot = "https://api.lokalise.com/api2/";
+
+	/**
 	 * The resolved response from the API request.
 	 */
 	public response!: ApiResponse;
@@ -23,11 +28,6 @@ export class ApiRequest {
 	 * This object is modified during URL construction, removing parameters used in path segments.
 	 */
 	public params: Record<string, unknown> = {};
-
-	/**
-	 * The default base URL for the Lokalise API.
-	 */
-	protected readonly urlRoot = "https://api.lokalise.com/api2/";
 
 	/**
 	 * Constructs a new ApiRequest instance.
@@ -79,7 +79,7 @@ export class ApiRequest {
 		clientData: ClientData,
 	): Promise<ApiResponse> {
 		const url = this.composeURI(`/${clientData.version}/${uri}`);
-		const prefixUrl = clientData.host ?? this.urlRoot;
+		const prefixUrl = clientData.host ?? ApiRequest.urlRoot;
 		const headers = await this.buildHeaders(clientData, method, body);
 
 		const options: RequestInit = {

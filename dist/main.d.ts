@@ -138,6 +138,10 @@ type ApiResponse = {
  */
 declare class ApiRequest {
     /**
+     * The default base URL for the Lokalise API.
+     */
+    protected static readonly urlRoot = "https://api.lokalise.com/api2/";
+    /**
      * The resolved response from the API request.
      */
     response: ApiResponse;
@@ -146,10 +150,6 @@ declare class ApiRequest {
      * This object is modified during URL construction, removing parameters used in path segments.
      */
     params: Record<string, unknown>;
-    /**
-     * The default base URL for the Lokalise API.
-     */
-    protected readonly urlRoot = "https://api.lokalise.com/api2/";
     /**
      * Constructs a new ApiRequest instance.
      * @param params - Query and/or path parameters.

@@ -65,6 +65,10 @@ var ApiError = class extends Error {
 // src/http_client/base.ts
 var ApiRequest = class _ApiRequest {
   /**
+   * The default base URL for the Lokalise API.
+   */
+  static urlRoot = "https://api.lokalise.com/api2/";
+  /**
    * The resolved response from the API request.
    */
   response;
@@ -73,10 +77,6 @@ var ApiRequest = class _ApiRequest {
    * This object is modified during URL construction, removing parameters used in path segments.
    */
   params = {};
-  /**
-   * The default base URL for the Lokalise API.
-   */
-  urlRoot = "https://api.lokalise.com/api2/";
   /**
    * Constructs a new ApiRequest instance.
    * @param params - Query and/or path parameters.
@@ -113,7 +113,7 @@ var ApiRequest = class _ApiRequest {
    */
   async createPromise(uri, method, body, clientData) {
     const url = this.composeURI(`/${clientData.version}/${uri}`);
-    const prefixUrl = clientData.host ?? this.urlRoot;
+    const prefixUrl = clientData.host ?? _ApiRequest.urlRoot;
     const headers = await this.buildHeaders(clientData, method, body);
     const options = {
       method,
@@ -1702,7 +1702,7 @@ var BaseClient = class {
    */
   constructor(params) {
     const { apiKey } = params;
-    if (!apiKey || apiKey.trim().length === 0) {
+    if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
       throw new Error(
         "Instantiation failed: A non-empty API key or JWT must be provided."
       );
