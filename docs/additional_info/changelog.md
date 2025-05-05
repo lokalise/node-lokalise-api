@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.5.2 (05-May-2025)
+
+* Display a warning message for files downloads when the request is too big (thanks, @kosmos2uh)
+
 ## 14.5.1 (04-May-2025)
 
 * Minor code tweaks
