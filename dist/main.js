@@ -851,7 +851,9 @@ var Files = class extends BaseCollection {
   }
   returnBareJSON(json, headers) {
     if (this.isResponseTooBig(headers)) {
-      console.warn("\x1B[33m\x1B[1mWarning:\x1B[0m Project too big for sync export. Please use our async export lokaliseApi.files().async_download() method.");
+      console.warn(
+        "\x1B[33m\x1B[1mWarning:\x1B[0m Project too big for sync export. Please use our async export lokaliseApi.files().async_download() method."
+      );
     }
     return {
       ...super.returnBareJSON(json, headers),
