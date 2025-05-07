@@ -2,7 +2,7 @@ import type { DownloadFileParams } from "../../src/main.js";
 import { QueuedProcess } from "../../src/models/queued_process.js";
 import type { FileFormat } from "../../src/types/file_format.js";
 import type { DownloadedFileProcessDetails } from "../../src/types/queued_process_details.js";
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import { LokaliseApi, Stub, describe, expect, it, vi } from "../setup.js";
 
 describe("Files", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
@@ -212,9 +212,17 @@ describe("Files", () => {
 
 		await stub.setStub();
 
+		const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
 		const response = await lokaliseApi.files().download(projectId, params);
 
 		expect(response.responseTooBig).to.be.true;
+
+		expect(warnSpy).toHaveBeenCalledWith(
+			"\x1b[33m\x1b[1mWarning:\x1b[0m Project too big for sync export. Please use our async export lokaliseApi.files().async_download() method."
+		);
+	
+		warnSpy.mockRestore();
 	});
 
 	it("downloads asynchronously", async () => {
