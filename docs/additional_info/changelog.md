@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.6.0 (08-May-2025)
+
+* Added support for [Get team details](https://developers.lokalise.com/reference/get-team-details) endpoint
+
 ## 14.5.2 (05-May-2025)
 
 * Display a warning message for files downloads when the request is too big (thanks, @kosmos2uh)

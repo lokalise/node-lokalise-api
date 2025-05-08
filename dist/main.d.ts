@@ -2925,7 +2925,9 @@ declare class Teams extends BaseCollection<Team> {
     protected static prefixURI: string;
     protected get elementClass(): new (json: Record<string, unknown>) => Team;
     protected get rootElementName(): string;
+    protected get rootElementNameSingular(): string | null;
     list(request_params?: PaginationParams): Promise<PaginatedResult$1<Team>>;
+    get(id: number | string): Promise<Team>;
 }
 
 declare class TranslationProvider extends BaseModel implements TranslationProvider$1 {

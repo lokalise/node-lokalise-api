@@ -2,6 +2,7 @@ import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
 
 describe("Teams", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const teamId = 176692;
 
 	it("lists", async () => {
 		const stub = new Stub({
@@ -54,5 +55,19 @@ describe("Teams", () => {
 		expect(teams.totalPages).to.eq(3);
 		expect(teams.resultsPerPage).to.eq(1);
 		expect(teams.currentPage).to.eq(2);
+	});
+
+	it("retreives", async () => {
+		const stub = new Stub({
+			fixture: "teams/retreive.json",
+			uri: `teams/${teamId}`,
+		});
+
+		await stub.setStub();
+
+		const team = await lokaliseApi.teams().get(teamId);
+
+		expect(team.team_id).toEqual(teamId);
+		expect(team.name).toEqual("Ilya's Team");
 	});
 });

@@ -46,6 +46,8 @@
       path: fetch-contributors
     - title: Fetch a single contributor
       path: fetch-a-single-contributor
+    - title: Fetch current contributor (token-based)
+      path: fetch-current-contributor-token-based
     - title: Create contributors
       path: create-contributors
     - title: Update contributor
@@ -213,6 +215,8 @@
   sub_paths:
     - title: Fetch teams
       path: fetch-teams
+    - title: Fetch a single team
+      path: fetch-a-single-team
 - title: Team users
   path: team-users
   sub_paths:

@@ -1423,15 +1423,21 @@ var Team = class extends BaseModel {
 
 // src/collections/teams.ts
 var Teams = class extends BaseCollection {
-  static prefixURI = "teams";
+  static prefixURI = "teams/{:id}";
   get elementClass() {
     return Team;
   }
   get rootElementName() {
     return "teams";
   }
+  get rootElementNameSingular() {
+    return "team";
+  }
   list(request_params = {}) {
     return this.doList(request_params);
+  }
+  get(id) {
+    return this.doGet(id);
   }
 };
 

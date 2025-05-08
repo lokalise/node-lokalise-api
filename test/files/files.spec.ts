@@ -219,9 +219,9 @@ describe("Files", () => {
 		expect(response.responseTooBig).to.be.true;
 
 		expect(warnSpy).toHaveBeenCalledWith(
-			"\x1b[33m\x1b[1mWarning:\x1b[0m Project too big for sync export. Please use our async export lokaliseApi.files().async_download() method."
+			"\x1b[33m\x1b[1mWarning:\x1b[0m Project too big for sync export. Please use our async export lokaliseApi.files().async_download() method.",
 		);
-	
+
 		warnSpy.mockRestore();
 	});
 

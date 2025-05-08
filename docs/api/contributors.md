@@ -26,6 +26,20 @@ const contributor = await lokaliseApi.contributors().get(user_id, {project_id: p
 contributor.email;
 ```
 
+## Fetch current contributor (token-based)
+
+[API doc](https://developers.lokalise.com/reference/retrieve-me-as-a-contributor)
+
+This endpoint returns contributor in the given project based on the user whose token is used to send the request. In other words, it returns information about self in scope of a project.
+
+```js
+const current_contributor = await lokaliseApi.contributors().me({
+  project_id: projectId,
+});
+
+current_contributor.fullname; // => "John Doe"
+```
+
 ## Create contributors
 
 [API doc](https://developers.lokalise.com/reference/create-contributors)
