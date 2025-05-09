@@ -75,6 +75,7 @@ interface ClientData {
     tokenType: string;
     authHeader: string;
     enableCompression: boolean;
+    silent: boolean;
     host?: string;
     version?: string;
     requestTimeout?: number;
@@ -1333,6 +1334,10 @@ type ClientParams = {
      * Request timeout in milliseconds. If not provided, requests have no explicit timeout.
      */
     requestTimeout?: number;
+    /**
+     * Silent mode (supress all warning/error messages). Defaults to false.
+     */
+    silent?: boolean;
 };
 
 interface ProjectSettings {
@@ -3081,7 +3086,7 @@ declare class BaseClient {
      * @param params - Configuration parameters including API key and optional features.
      * @throws Error if the API key is not provided or is empty.
      */
-    constructor(params: ClientParams);
+    constructor({ apiKey, enableCompression, silent, tokenType, host, requestTimeout, }: ClientParams);
 }
 
 /**

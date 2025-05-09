@@ -30,6 +30,17 @@ const client = new LokaliseApi({
 
 Then use your `client` as usual.
 
+## Silent mode
+
+To supress all warning messages, set the `silent` option to `true` (`false` by default):
+
+```js
+const client = new LokaliseApi({
+  // other config ...
+  silent: true,
+});
+```
+
 ## Proxy support
 
 If you are behind a firewall and have to use proxy in order to communicate with Lokalise API, that's not a problem! You can take advantage of the [global-agent](https://github.com/gajus/global-agent) package which allows to enable proxy globally without the need to do any changes to your API-related script.

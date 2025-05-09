@@ -1,5 +1,16 @@
 # Changelog
 
+## 14.7.0 (09-May-2025)
+
+* Added `silent` option for `LokaliseApi` to supress warning messages (default is `false`):
+
+```js
+const client = new LokaliseApi({
+  // other config ...
+  silent: true,
+});
+```
+
 ## 14.6.0 (08-May-2025)
 
 * Added support for [Get team details](https://developers.lokalise.com/reference/get-team-details) endpoint

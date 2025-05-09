@@ -3,6 +3,7 @@ export interface ClientData {
 	tokenType: string;
 	authHeader: string;
 	enableCompression: boolean;
+	silent: boolean;
 	host?: string;
 	version?: string;
 	requestTimeout?: number;

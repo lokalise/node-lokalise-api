@@ -9,6 +9,7 @@ import type {
 	ListFileParams,
 	UploadFileParams,
 } from "../types/files.js";
+import { warn } from "../utils/logger.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class Files extends BaseCollection<File, QueuedProcess> {
@@ -39,7 +40,8 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		headers: Headers,
 	): T {
 		if (this.isResponseTooBig(headers)) {
-			console.warn(
+			warn(
+				this.clientData.silent,
 				"\x1b[33m\x1b[1mWarning:\x1b[0m Project too big for sync export. Please use our async export lokaliseApi.files().async_download() method.",
 			);
 		}

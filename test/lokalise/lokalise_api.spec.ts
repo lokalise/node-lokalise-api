@@ -15,6 +15,7 @@ describe("LokaliseApi", () => {
 		expect(client.clientData.token).to.eq(process.env.API_KEY);
 		expect(client.clientData.authHeader).to.eq("x-api-token");
 		expect(client.clientData.enableCompression).to.be.false;
+		expect(client.clientData.silent).to.be.false;
 		expect(client.clientData.version).to.eq("api2");
 	});
 

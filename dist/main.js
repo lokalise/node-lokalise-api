@@ -834,6 +834,12 @@ var File = class extends BaseModel {
 var QueuedProcess = class extends BaseModel {
 };
 
+// src/utils/logger.ts
+function warn(silent, ...args) {
+  if (silent) return;
+  console.warn(...args);
+}
+
 // src/collections/files.ts
 var Files = class extends BaseCollection {
   static prefixURI = "projects/{!:project_id}/files/{:id}";
@@ -851,7 +857,8 @@ var Files = class extends BaseCollection {
   }
   returnBareJSON(json, headers) {
     if (this.isResponseTooBig(headers)) {
-      console.warn(
+      warn(
+        this.clientData.silent,
         "\x1B[33m\x1B[1mWarning:\x1B[0m Project too big for sync export. Please use our async export lokaliseApi.files().async_download() method."
       );
     }
@@ -1704,25 +1711,33 @@ var BaseClient = class {
     tokenType: "",
     authHeader: "x-api-token",
     enableCompression: false,
-    requestTimeout: void 0
+    requestTimeout: void 0,
+    silent: false
   };
   /**
    * Constructs a new BaseClient instance.
    * @param params - Configuration parameters including API key and optional features.
    * @throws Error if the API key is not provided or is empty.
    */
-  constructor(params) {
-    const { apiKey } = params;
+  constructor({
+    apiKey,
+    enableCompression = false,
+    silent = false,
+    tokenType = "",
+    host,
+    requestTimeout
+  }) {
     if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
       throw new Error(
         "Instantiation failed: A non-empty API key or JWT must be provided."
       );
     }
     this.clientData.token = apiKey;
-    this.clientData.enableCompression = params.enableCompression ?? false;
-    this.clientData.tokenType = params.tokenType ?? "";
-    this.clientData.host = params.host;
-    this.clientData.requestTimeout = params.requestTimeout;
+    this.clientData.enableCompression = enableCompression;
+    this.clientData.silent = silent;
+    this.clientData.tokenType = tokenType;
+    this.clientData.host = host;
+    this.clientData.requestTimeout = requestTimeout;
   }
 };
 

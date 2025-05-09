@@ -38,4 +38,9 @@ export type ClientParams = {
 	 * Request timeout in milliseconds. If not provided, requests have no explicit timeout.
 	 */
 	requestTimeout?: number;
+
+	/**
+	 * Silent mode (supress all warning/error messages). Defaults to false.
+	 */
+	silent?: boolean;
 };
