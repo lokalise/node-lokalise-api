@@ -9,7 +9,7 @@ export type CreateProjectParams = {
 		custom_iso?: string;
 	}>;
 	base_lang_iso?: string;
-	project_type?: "localization_files" | "paged_documents";
+	project_type?: "localization_files" | "paged_documents" | "marketing";
 	is_segmentation_enabled?: boolean;
 };
 
