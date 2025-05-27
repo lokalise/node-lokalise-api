@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.8.0 (27-May-2025)
+
+* Added `marketing` as a supported project type
+
 ## 14.7.0 (09-May-2025)
 
 * Added `silent` option for `LokaliseApi` to supress warning messages (default is `false`):

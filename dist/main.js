@@ -10,7 +10,7 @@ var Branch = class extends BaseModel {
 };
 
 // src/lokalise/pkg.ts
-import { readFile } from "node:fs/promises";
+import { readFile } from "fs/promises";
 function pkgPath() {
   return "../../package.json";
 }
