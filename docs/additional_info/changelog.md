@@ -3,6 +3,7 @@
 ## 14.8.0 (27-May-2025)
 
 * Added `marketing` as a supported project type
+* Added `filenames` into the `key` field (`project.translations.updated` webhook)
 
 ## 14.7.0 (09-May-2025)
 

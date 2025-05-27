@@ -2324,6 +2324,7 @@ type WebhookProjectTranslationsUpdated = {
         key: {
             id: number;
             name: string;
+            filenames: Filenames;
         };
     }>;
     project: {

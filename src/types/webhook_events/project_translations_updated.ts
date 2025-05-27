@@ -1,3 +1,5 @@
+import type { Filenames } from "../filenames.js";
+
 export type WebhookProjectTranslationsUpdated = {
 	event: "project.translations.updated";
 	action: string;
@@ -13,6 +15,7 @@ export type WebhookProjectTranslationsUpdated = {
 		key: {
 			id: number;
 			name: string;
+			filenames: Filenames;
 		};
 	}>;
 	project: {
