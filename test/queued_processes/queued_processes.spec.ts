@@ -1,5 +1,5 @@
 import type { UploadedFileProcessDetails } from "../../src/types/queued_process_details.js";
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("QueuedProcesses", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });

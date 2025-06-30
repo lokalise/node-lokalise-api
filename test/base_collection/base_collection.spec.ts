@@ -1,4 +1,4 @@
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApi } from "../setup.js";
 import { DummyCollection } from "./dummy_collection.js";
 
 describe("BaseCollection", () => {

@@ -1,4 +1,4 @@
-import { LokaliseOtaBundles, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseOtaBundles } from "../setup.js";
 
 describe("LokaliseOtaBundles", () => {
 	const token = "fake";

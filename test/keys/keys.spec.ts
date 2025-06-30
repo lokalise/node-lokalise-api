@@ -5,7 +5,7 @@ import type {
 	KeyParamsWithPagination,
 	UpdateKeyData,
 } from "../../src/main.js";
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Keys", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
@@ -121,6 +121,7 @@ describe("Keys", () => {
 			...params,
 		});
 
+		expect(projectId).toEqual(project_id);
 		expect(keys.items[0].key_id).to.eq(15519786);
 		expect(keys.totalResults).to.eq(0);
 		expect(keys.totalPages).to.eq(0);
@@ -150,6 +151,8 @@ describe("Keys", () => {
 		});
 
 		await stub.setStub();
+
+		expect(projectId).toEqual(project_id);
 
 		try {
 			await lokaliseApi.keys().list({
@@ -188,6 +191,7 @@ describe("Keys", () => {
 			...params,
 		});
 
+		expect(projectId).toEqual(project_id);
 		expect(keys.items[0].key_id).to.eq(15571975);
 		expect(keys.totalResults).to.eq(0);
 		expect(keys.totalPages).to.eq(0);

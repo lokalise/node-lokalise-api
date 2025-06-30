@@ -1,5 +1,5 @@
 import type { ListTranslationParams } from "../../src/main.js";
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Translations", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
@@ -114,6 +114,7 @@ describe("Translations", () => {
 			...params,
 		});
 
+		expect(projectId).toEqual(project_id);
 		expect(translations.items[0].translation_id).to.eq(304581213);
 		expect(translations.totalResults).to.eq(0);
 		expect(translations.totalPages).to.eq(0);
@@ -149,6 +150,7 @@ describe("Translations", () => {
 			...params,
 		});
 
+		expect(projectId).toEqual(project_id);
 		expect(translations.items[0].translation_id).to.eq(304581213);
 		expect(translations.totalResults).to.eq(0);
 		expect(translations.totalPages).to.eq(0);

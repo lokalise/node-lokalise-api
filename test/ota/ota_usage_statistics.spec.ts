@@ -1,4 +1,4 @@
-import { LokaliseApiOta, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApiOta, Stub } from "../setup.js";
 
 describe("OtaUsageStatistics", () => {
 	const token = process.env.API_JWT;

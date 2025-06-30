@@ -21,6 +21,9 @@ export type CreateTaskParams = {
 	closing_tags?: string[];
 	do_lock_translations?: boolean;
 	custom_translation_status_ids?: string[] | number[];
+	save_ai_translation_to_tm?: boolean;
+	apply_ai_tm100_matches?: boolean;
+	use_tm_as_context?: boolean;
 };
 
 export type UpdateTaskParams = Omit<

@@ -1,4 +1,4 @@
-import { LokaliseOtaBundles, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseOtaBundles, Stub } from "../setup.js";
 
 describe("OtaBundles", () => {
 	const token = process.env.SDK_TOKEN;

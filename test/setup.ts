@@ -1,5 +1,6 @@
-import * as dotenv from "dotenv";
-dotenv.config();
+import * as dotenv from "@dotenvx/dotenvx";
+
+dotenv.config({ quiet: true });
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {

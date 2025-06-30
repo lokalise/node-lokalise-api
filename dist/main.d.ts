@@ -1340,6 +1340,70 @@ type ClientParams = {
     silent?: boolean;
 };
 
+interface OtaBundle$1 {
+    id: number;
+    projectId: string;
+    isPrerelease: boolean;
+    isProduction: boolean;
+    createdAt: string;
+    createdBy: string;
+    framework: string;
+    description: string;
+    isFrozen: boolean;
+    lokaliseId: number;
+    fileId: string;
+    fileUrl: string;
+    modifiedAt: string;
+}
+
+interface OtaBundleArchive$1 {
+    url: string;
+    version: number;
+}
+
+interface OtaFreezePeriod$1 {
+    id: number;
+    projectId: number;
+    bundleId: number;
+    framework: string;
+    from: string;
+    to: string;
+}
+
+interface OtaSdkToken$1 {
+    id: number;
+    token: string;
+    projectId: number;
+    lokaliseId: number;
+    createdAt: string;
+}
+
+interface OtaStatistics$1 {
+    lokaliseProjectId: string;
+    from: string;
+    to: string;
+    sdk: string;
+    daily: Array<{
+        date: string;
+        downloads: number;
+        trafficMb: number;
+        trafficBytes: string;
+        framework: string;
+    }>;
+    monthly: Array<{
+        date: string;
+        downloads: number;
+        trafficMb: number;
+        trafficBytes: string;
+        framework: string;
+    }>;
+    totals: {
+        downloads: number;
+        trafficMb: number;
+        trafficBytes: string;
+    };
+}
+
 interface ProjectSettings {
     per_platform_key_names: boolean;
     reviewing: boolean;
@@ -1510,29 +1574,6 @@ interface Task$1 {
     custom_translation_status_ids: number[];
 }
 
-interface TeamUserBillingDetails$2 {
-    billing_email: string;
-    country_code: string;
-    zip: string;
-    state_code: string;
-    address1: string;
-    address2: string;
-    city: string;
-    phone: string;
-    company: string;
-    vatnumber: string;
-}
-
-interface TeamUser$1 {
-    user_id: number;
-    email: string;
-    fullname: string;
-    created_at: string;
-    created_at_timestamp: number;
-    role: string;
-    uuid?: string;
-}
-
 interface Team$1 {
     team_id: number;
     name: string;
@@ -1553,6 +1594,29 @@ interface Team$1 {
         mau: number;
         ai_words: number;
     };
+}
+
+interface TeamUser$1 {
+    user_id: number;
+    email: string;
+    fullname: string;
+    created_at: string;
+    created_at_timestamp: number;
+    role: string;
+    uuid?: string;
+}
+
+interface TeamUserBillingDetails$2 {
+    billing_email: string;
+    country_code: string;
+    zip: string;
+    state_code: string;
+    address1: string;
+    address2: string;
+    city: string;
+    phone: string;
+    company: string;
+    vatnumber: string;
 }
 
 interface TranslationProvider$1 {
@@ -1610,70 +1674,6 @@ interface Webhook$1 {
     }>;
 }
 
-interface OtaSdkToken$1 {
-    id: number;
-    token: string;
-    projectId: number;
-    lokaliseId: number;
-    createdAt: string;
-}
-
-interface OtaBundleArchive$1 {
-    url: string;
-    version: number;
-}
-
-interface OtaBundle$1 {
-    id: number;
-    projectId: string;
-    isPrerelease: boolean;
-    isProduction: boolean;
-    createdAt: string;
-    createdBy: string;
-    framework: string;
-    description: string;
-    isFrozen: boolean;
-    lokaliseId: number;
-    fileId: string;
-    fileUrl: string;
-    modifiedAt: string;
-}
-
-interface OtaFreezePeriod$1 {
-    id: number;
-    projectId: number;
-    bundleId: number;
-    framework: string;
-    from: string;
-    to: string;
-}
-
-interface OtaStatistics$1 {
-    lokaliseProjectId: string;
-    from: string;
-    to: string;
-    sdk: string;
-    daily: Array<{
-        date: string;
-        downloads: number;
-        trafficMb: number;
-        trafficBytes: string;
-        framework: string;
-    }>;
-    monthly: Array<{
-        date: string;
-        downloads: number;
-        trafficMb: number;
-        trafficBytes: string;
-        framework: string;
-    }>;
-    totals: {
-        downloads: number;
-        trafficMb: number;
-        trafficBytes: string;
-    };
-}
-
 interface PermissionTemplate$1 {
     id: number;
     role: string;
@@ -1695,6 +1695,53 @@ declare class PermissionTemplate extends BaseModel implements PermissionTemplate
     tagInfo: string | null;
     doesEnableAllReadOnlyLanguages: boolean;
 }
+
+type BillingDetailsParams = {
+    billing_email: string;
+    country_code: string;
+    zip: string | number;
+    state_code?: string;
+    address1?: string;
+    address2?: string;
+    city?: string;
+    phone?: string;
+    company?: string;
+    vatnumber?: string;
+};
+
+type OtaResourceDeleted = {
+    id: number;
+    deleted: boolean;
+};
+type OtaTeamProject = {
+    teamId: number | string;
+    lokaliseProjectId: string;
+};
+type OtaFramework = {
+    framework: "ios_sdk" | "android_sdk" | "flutter_sdk";
+};
+type OtaTeamProjectFramework = OtaTeamProject & OtaFramework;
+type OtaProjectFramework = OtaFramework & {
+    lokaliseProjectId: string;
+};
+type OtaFreezePeriodParams = {
+    from: string;
+    to: string;
+    bundleId: number | string;
+};
+type OtaUsageParams = {
+    dateFrom: string;
+    dateTo: string;
+    framework?: string;
+};
+type OtaBundleUpdateData = {
+    description: string;
+};
+type OtaRequestBundleParams = {
+    appVersion: string;
+    transVersion: number;
+    prerelease?: boolean;
+};
 
 type CreateProjectParams = {
     name: string;
@@ -1776,6 +1823,9 @@ type CreateTaskParams = {
     closing_tags?: string[];
     do_lock_translations?: boolean;
     custom_translation_status_ids?: string[] | number[];
+    save_ai_translation_to_tm?: boolean;
+    apply_ai_tm100_matches?: boolean;
+    use_tm_as_context?: boolean;
 };
 type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_language_iso" | "task_type" | "parent_task_id" | "custom_translation_status_ids"> & {
     title?: string;
@@ -1792,19 +1842,6 @@ type TaskDeleted = {
 type ListTaskParams = ProjectWithPagination & {
     filter_title?: string;
     filter_statuses?: string;
-};
-
-type BillingDetailsParams = {
-    billing_email: string;
-    country_code: string;
-    zip: string | number;
-    state_code?: string;
-    address1?: string;
-    address2?: string;
-    city?: string;
-    phone?: string;
-    company?: string;
-    vatnumber?: string;
 };
 
 type TeamUserParams = {
@@ -1847,172 +1884,6 @@ type UserGroupParams = {
 type UserGroupDeleted = {
     team_id: string;
     group_deleted: boolean;
-};
-
-type WebhookEventLangMap = {
-    event?: string;
-    lang_iso_codes?: string[];
-};
-type CreateWebhookParams = {
-    url: string;
-    branch?: string;
-    events: string[];
-    event_lang_map?: WebhookEventLangMap[];
-};
-type UpdateWebhookParams = Omit<CreateWebhookParams, "url" | "events"> & {
-    url?: string;
-    events?: string[];
-};
-type WebhookDeleted = {
-    project_id: string;
-    webhook_deleted: boolean;
-};
-type WebhookRegenerated = {
-    project_id: string;
-    secret: string;
-};
-
-type OtaResourceDeleted = {
-    id: number;
-    deleted: boolean;
-};
-type OtaTeamProject = {
-    teamId: number | string;
-    lokaliseProjectId: string;
-};
-type OtaFramework = {
-    framework: "ios_sdk" | "android_sdk" | "flutter_sdk";
-};
-type OtaTeamProjectFramework = OtaTeamProject & OtaFramework;
-type OtaProjectFramework = OtaFramework & {
-    lokaliseProjectId: string;
-};
-type OtaFreezePeriodParams = {
-    from: string;
-    to: string;
-    bundleId: number | string;
-};
-type OtaUsageParams = {
-    dateFrom: string;
-    dateTo: string;
-    framework?: string;
-};
-type OtaBundleUpdateData = {
-    description: string;
-};
-type OtaRequestBundleParams = {
-    appVersion: string;
-    transVersion: number;
-    prerelease?: boolean;
-};
-
-type WebhookProjectImported = {
-    event: "project.imported";
-    import: {
-        filename: string;
-        format: string;
-        inserted: number;
-        updated: number;
-        skipped: number;
-    };
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    import_options: {
-        replace_line_breaks: boolean;
-        convert_placeholders: boolean;
-        replace_modified: boolean;
-        key_tags: string[];
-        tag_keys_inserted: boolean;
-        tag_keys_updated: boolean;
-        tag_keys_skipped: boolean;
-        detect_icu_plurals: boolean;
-        fill_empty_with_keys: boolean;
-        hide_from_contributors: boolean;
-        diff_by_file: boolean;
-        use_tm: boolean;
-        cleanup: boolean;
-    };
-    language: {
-        id: number;
-        iso: string;
-        name: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectExported = {
-    event: "project.exported";
-    export: {
-        type: string;
-        filename: string;
-        platform: SupportedPlatforms;
-    };
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectCopied = {
-    event: "project.copied";
-    action?: string;
-    project: {
-        id: string;
-        name: string;
-    };
-    new_project: {
-        id: string;
-        name: string;
-    };
-    user: {
-        full_name: string;
-        email: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectDeleted = {
-    event: "project.deleted";
-    project: {
-        id: string;
-        name: string;
-    };
-    user: {
-        full_name: string;
-        email: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectSnapshotCreated = {
-    event: "project.snapshot";
-    project: {
-        id: string;
-        name: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
 };
 
 type WebhookProjectBranchAdded = {
@@ -2077,12 +1948,280 @@ type WebhookProjectBranchMerged = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectLanguagesAdded = {
-    event: "project.languages.added";
-    languages: Array<{
+type WebhookProjectContributorAdded = {
+    event: "project.contributor.added";
+    contributor: {
+        email: string;
+    };
+    project: {
+        id: string;
+        name: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectContributorAddedPublic = {
+    event: "project.contributor.added_public";
+    contributor: {
+        email: string;
+    };
+    project: {
+        id: string;
+        name: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectContributorDeleted = {
+    event: "project.contributor.deleted";
+    contributor: {
+        email: string;
+    };
+    project: {
+        id: string;
+        name: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectCopied = {
+    event: "project.copied";
+    action?: string;
+    project: {
+        id: string;
+        name: string;
+    };
+    new_project: {
+        id: string;
+        name: string;
+    };
+    user: {
+        full_name: string;
+        email: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectDeleted = {
+    event: "project.deleted";
+    project: {
+        id: string;
+        name: string;
+    };
+    user: {
+        full_name: string;
+        email: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectExported = {
+    event: "project.exported";
+    export: {
+        type: string;
+        filename: string;
+        platform: SupportedPlatforms;
+    };
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectImported = {
+    event: "project.imported";
+    import: {
+        filename: string;
+        format: string;
+        inserted: number;
+        updated: number;
+        skipped: number;
+    };
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    import_options: {
+        replace_line_breaks: boolean;
+        convert_placeholders: boolean;
+        replace_modified: boolean;
+        key_tags: string[];
+        tag_keys_inserted: boolean;
+        tag_keys_updated: boolean;
+        tag_keys_skipped: boolean;
+        detect_icu_plurals: boolean;
+        fill_empty_with_keys: boolean;
+        hide_from_contributors: boolean;
+        diff_by_file: boolean;
+        use_tm: boolean;
+        cleanup: boolean;
+    };
+    language: {
         id: number;
         iso: string;
         name: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectKeyAdded = {
+    event: "project.key.added";
+    key: {
+        id: number;
+        name: string;
+        base_value: string;
+        tags: string[];
+        filenames: Filenames;
+    };
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectKeyCommentAdded = {
+    event: "project.key.comment.added";
+    comment: {
+        value: string;
+    };
+    key: {
+        id: number;
+        name: string;
+        filenames: Filenames;
+    };
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectKeyModified = {
+    event: "project.key.modified";
+    key: {
+        id: number;
+        name: string;
+        previous_name?: string | null;
+        tags: string[];
+        filenames: Filenames;
+        hidden: boolean;
+        screenshots: string[] | number[];
+    };
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectKeysAdded = {
+    event: "project.keys.added";
+    action?: "string";
+    keys: Array<{
+        id: number;
+        name: string;
+        base_value: string;
+        tags: string[];
+        filenames: Filenames;
+        previous_name?: string | null;
+        hidden: boolean;
+        screenshots: string[] | number[];
+    }>;
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectKeysDeleted = {
+    event: "project.keys.deleted";
+    action?: string;
+    keys: Array<{
+        id: number;
+        name: string;
+        base_value: string;
+        filenames: Filenames;
+    }>;
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectKeysModified = {
+    event: "project.keys.modified";
+    action?: string;
+    keys: Array<{
+        id: number;
+        name: string;
+        previous_name?: string | null;
+        tags: string[];
+        filenames: Filenames;
+        hidden: boolean;
+        screenshots: string[] | number[];
     }>;
     project: {
         id: string;
@@ -2136,40 +2275,12 @@ type WebhookProjectLanguageSettingsChanged = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectKeyAdded = {
-    event: "project.key.added";
-    key: {
+type WebhookProjectLanguagesAdded = {
+    event: "project.languages.added";
+    languages: Array<{
         id: number;
+        iso: string;
         name: string;
-        base_value: string;
-        tags: string[];
-        filenames: Filenames;
-    };
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectKeysAdded = {
-    event: "project.keys.added";
-    action?: "string";
-    keys: Array<{
-        id: number;
-        name: string;
-        base_value: string;
-        tags: string[];
-        filenames: Filenames;
-        previous_name?: string | null;
-        hidden: boolean;
-        screenshots: string[] | number[];
     }>;
     project: {
         id: string;
@@ -2184,16 +2295,28 @@ type WebhookProjectKeysAdded = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectKeyModified = {
-    event: "project.key.modified";
-    key: {
-        id: number;
+type WebhookProjectSnapshotCreated = {
+    event: "project.snapshot";
+    project: {
+        id: string;
         name: string;
-        previous_name?: string | null;
-        tags: string[];
-        filenames: Filenames;
-        hidden: boolean;
-        screenshots: string[] | number[];
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectTaskClosed = {
+    event: "project.task.closed";
+    task: {
+        id: number;
+        type: string;
+        title: string;
+        due_date: string;
+        description: string;
     };
     project: {
         id: string;
@@ -2208,18 +2331,15 @@ type WebhookProjectKeyModified = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectKeysModified = {
-    event: "project.keys.modified";
-    action?: string;
-    keys: Array<{
+type WebhookProjectTaskCreated = {
+    event: "project.task.created";
+    task: {
         id: number;
-        name: string;
-        previous_name?: string | null;
-        tags: string[];
-        filenames: Filenames;
-        hidden: boolean;
-        screenshots: string[] | number[];
-    }>;
+        type: string;
+        title: string;
+        due_date: string;
+        description: string;
+    };
     project: {
         id: string;
         name: string;
@@ -2233,15 +2353,15 @@ type WebhookProjectKeysModified = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectKeysDeleted = {
-    event: "project.keys.deleted";
-    action?: string;
-    keys: Array<{
+type WebhookProjectTaskDeleted = {
+    event: "project.task.deleted";
+    task: {
         id: number;
-        name: string;
-        base_value: string;
-        filenames: Filenames;
-    }>;
+        type: string;
+        title: string;
+        due_date: string;
+        description: string;
+    };
     project: {
         id: string;
         name: string;
@@ -2255,10 +2375,93 @@ type WebhookProjectKeysDeleted = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectKeyCommentAdded = {
-    event: "project.key.comment.added";
-    comment: {
+type TmLeverage = {
+    "0": number;
+    "50": number;
+    "75": number;
+    "85": number;
+    "95": number;
+    "100%": number;
+};
+type WebhookProjectTaskInitialTmLeverageCalculated = {
+    event: "project.task.initial_tm_leverage.calculated";
+    task: {
+        id: number;
+        title: string;
+        description: string;
+        initial_tm_leverage: {
+            [key: string | number]: TmLeverage;
+        };
+    };
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectTaskLanguageClosed = {
+    event: "project.task.language.closed";
+    language: {
+        id: number;
+        iso: string;
+        name: string;
+    };
+    task: {
+        id: number;
+        type: string;
+        title: string;
+        due_date: string;
+        description: string;
+    };
+    project: {
+        id: string;
+        name: string;
+        branch?: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectTaskQueued = {
+    event: "project.task.queued";
+    task: {
+        id: number;
+        type: string;
+        title: string;
+        due_date: string;
+        description: string;
+    };
+    project: {
+        id: string;
+        name: string;
+    };
+    user: {
+        email: string;
+        full_name: string;
+    };
+    created_at: string;
+    created_at_timestamp: number;
+};
+
+type WebhookProjectTranslationProofread = {
+    event: "project.translation.proofread";
+    translation: {
+        id: number;
         value: string;
+        is_proofread: boolean;
+        segment?: number;
+    };
+    language: {
+        id: number;
+        iso: string;
+        name: string;
     };
     key: {
         id: number;
@@ -2309,37 +2512,6 @@ type WebhookProjectTranslationUpdated = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectTranslationsUpdated = {
-    event: "project.translations.updated";
-    action: string;
-    translations: Array<{
-        id: number;
-        value: string;
-        previous_value: string;
-        language: {
-            id: number;
-            iso: string;
-            name: string;
-        };
-        key: {
-            id: number;
-            name: string;
-            filenames: Filenames;
-        };
-    }>;
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    user: {
-        full_name: string;
-        email: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
 type WebhookProjectTranslationsProofread = {
     event: "project.translations.proofread";
     action: string;
@@ -2371,197 +2543,47 @@ type WebhookProjectTranslationsProofread = {
     created_at_timestamp: number;
 };
 
-type WebhookProjectTranslationProofread = {
-    event: "project.translation.proofread";
-    translation: {
+type WebhookProjectTranslationsUpdated = {
+    event: "project.translations.updated";
+    action: string;
+    translations: Array<{
         id: number;
         value: string;
-        is_proofread: boolean;
-        segment?: number;
-    };
-    language: {
-        id: number;
-        iso: string;
-        name: string;
-    };
-    key: {
-        id: number;
-        name: string;
-        filenames: Filenames;
-    };
+        previous_value: string;
+        language: {
+            id: number;
+            iso: string;
+            name: string;
+        };
+        key: {
+            id: number;
+            name: string;
+            filenames: Filenames;
+        };
+    }>;
     project: {
         id: string;
         name: string;
         branch?: string;
     };
     user: {
-        email: string;
         full_name: string;
+        email: string;
     };
     created_at: string;
     created_at_timestamp: number;
 };
 
-type WebhookProjectContributorAdded = {
-    event: "project.contributor.added";
-    contributor: {
-        email: string;
-    };
-    project: {
-        id: string;
-        name: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectContributorAddedPublic = {
-    event: "project.contributor.added_public";
-    contributor: {
-        email: string;
-    };
-    project: {
-        id: string;
-        name: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectContributorDeleted = {
-    event: "project.contributor.deleted";
-    contributor: {
-        email: string;
-    };
-    project: {
-        id: string;
-        name: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectTaskQueued = {
-    event: "project.task.queued";
-    task: {
-        id: number;
-        type: string;
-        title: string;
-        due_date: string;
-        description: string;
-    };
-    project: {
-        id: string;
-        name: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectTaskCreated = {
-    event: "project.task.created";
-    task: {
-        id: number;
-        type: string;
-        title: string;
-        due_date: string;
-        description: string;
-    };
+type WebhookTeamOrderCompleted = {
+    event: "team.order.completed";
     project: {
         id: string;
         name: string;
         branch?: string;
     };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectTaskClosed = {
-    event: "project.task.closed";
-    task: {
-        id: number;
-        type: string;
-        title: string;
-        due_date: string;
-        description: string;
-    };
-    project: {
+    order: {
         id: string;
-        name: string;
-        branch?: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectTaskDeleted = {
-    event: "project.task.deleted";
-    task: {
-        id: number;
-        type: string;
-        title: string;
-        due_date: string;
-        description: string;
-    };
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
-};
-
-type WebhookProjectTaskLanguageClosed = {
-    event: "project.task.language.closed";
-    language: {
-        id: number;
-        iso: string;
-        name: string;
-    };
-    task: {
-        id: number;
-        type: string;
-        title: string;
-        due_date: string;
-        description: string;
-    };
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    user: {
-        email: string;
-        full_name: string;
+        provider: string;
     };
     created_at: string;
     created_at_timestamp: number;
@@ -2608,46 +2630,27 @@ type WebhookTeamOrderDeleted = {
     created_at_timestamp: number;
 };
 
-type WebhookTeamOrderCompleted = {
-    event: "team.order.completed";
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    order: {
-        id: string;
-        provider: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
+type WebhookEventLangMap = {
+    event?: string;
+    lang_iso_codes?: string[];
 };
-
-type TmLeverage = {
-    "0": number;
-    "50": number;
-    "75": number;
-    "85": number;
-    "95": number;
-    "100%": number;
+type CreateWebhookParams = {
+    url: string;
+    branch?: string;
+    events: string[];
+    event_lang_map?: WebhookEventLangMap[];
 };
-type WebhookProjectTaskInitialTmLeverageCalculated = {
-    event: "project.task.initial_tm_leverage.calculated";
-    task: {
-        id: number;
-        title: string;
-        description: string;
-        initial_tm_leverage: {
-            [key: string | number]: TmLeverage;
-        };
-    };
-    project: {
-        id: string;
-        name: string;
-        branch?: string;
-    };
-    created_at: string;
-    created_at_timestamp: number;
+type UpdateWebhookParams = Omit<CreateWebhookParams, "url" | "events"> & {
+    url?: string;
+    events?: string[];
+};
+type WebhookDeleted = {
+    project_id: string;
+    webhook_deleted: boolean;
+};
+type WebhookRegenerated = {
+    project_id: string;
+    secret: string;
 };
 
 declare class PermissionTemplates extends BaseCollection<PermissionTemplate> {

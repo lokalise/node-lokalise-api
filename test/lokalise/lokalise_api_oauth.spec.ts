@@ -1,4 +1,4 @@
-import { LokaliseApiOAuth, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApiOAuth, Stub } from "../setup.js";
 
 const token = process.env.OAUTH2_ACCESS_TOKEN;
 const project_id = "803826145ba90b42d5d860.46800099";

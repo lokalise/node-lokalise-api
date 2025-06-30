@@ -2,7 +2,7 @@ import type { DownloadFileParams } from "../../src/main.js";
 import { QueuedProcess } from "../../src/models/queued_process.js";
 import type { FileFormat } from "../../src/types/file_format.js";
 import type { DownloadedFileProcessDetails } from "../../src/types/queued_process_details.js";
-import { LokaliseApi, Stub, describe, expect, it, vi } from "../setup.js";
+import { describe, expect, it, LokaliseApi, Stub, vi } from "../setup.js";
 
 describe("Files", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });

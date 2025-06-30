@@ -28,10 +28,10 @@
 		"access": "public"
 	},
 	"devDependencies": {
-		"@biomejs/biome": "^1.9.0",
-		"@types/node": "^22.0.2",
+		"@biomejs/biome": "^2.0.6",
+		"@types/node": "^24.0.7",
 		"@vitest/coverage-istanbul": "^3.0.3",
-		"dotenv": "^16.0.0",
+		"@dotenvx/dotenvx": "^1.45.1",
 		"rimraf": "^6.0.1",
 		"tsup": "^8.3.0",
 		"typescript": "^5.8.2",

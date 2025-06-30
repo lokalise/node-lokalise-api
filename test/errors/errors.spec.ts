@@ -1,6 +1,6 @@
 import type { ProjectWithPagination } from "../../src/main.js";
 import { ApiError } from "../../src/main.js";
-import { LokaliseApi, Stub, describe, expect, it, vi } from "../setup.js";
+import { describe, expect, it, LokaliseApi, Stub, vi } from "../setup.js";
 
 describe("Errors", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });

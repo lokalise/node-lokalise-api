@@ -1,4 +1,4 @@
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Team user billing details", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });

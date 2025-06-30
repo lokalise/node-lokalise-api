@@ -3,7 +3,7 @@ import type {
 	RefreshTokenResponse,
 	RequestTokenResponse,
 } from "../../src/main.js";
-import { LokaliseAuth, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseAuth, Stub } from "../setup.js";
 
 describe("LokaliseAuth", () => {
 	const client_id = <string>process.env.OAUTH2_CLIENT_ID;

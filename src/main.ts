@@ -10,7 +10,7 @@ export {
 	LokaliseApiOta,
 	LokaliseOtaBundles,
 };
-export { AuthError } from "./models/auth_error.js";
-export { ApiError } from "./models/api_error.js";
 export * from "./interfaces/index.js";
+export { ApiError } from "./models/api_error.js";
+export { AuthError } from "./models/auth_error.js";
 export type * from "./types/index.js";

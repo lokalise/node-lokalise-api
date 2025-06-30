@@ -3,7 +3,7 @@ import type {
 	ListTermsParams,
 	UpdateTermsParams,
 } from "../../src/main.js";
-import { LokaliseApi, Stub, describe, expect, it } from "../setup.js";
+import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("GlossaryTerms", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
@@ -64,6 +64,7 @@ describe("GlossaryTerms", () => {
 			...params,
 		});
 
+		expect(projectId).toEqual(project_id);
 		expect(terms.items.length).toEqual(2);
 		expect(terms.items[0].id).toEqual(termId);
 		expect(terms.items[0].projectId).toEqual(projectId);
