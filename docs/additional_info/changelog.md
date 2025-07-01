@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.9.0 (01-Jul-2025)
+
+* Update tasks-related types based on the recent changes. Specifically, it's now possible to create AI-powered tasks via the API and set `save_ai_translation_to_tm`, `apply_ai_tm100_matches`, and `use_tm_as_context` during task creation.
+
 ## 14.8.0 (27-May-2025)
 
 * Added `marketing` as a supported project type

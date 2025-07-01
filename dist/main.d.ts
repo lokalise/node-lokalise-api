@@ -1827,7 +1827,7 @@ type CreateTaskParams = {
     apply_ai_tm100_matches?: boolean;
     use_tm_as_context?: boolean;
 };
-type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_language_iso" | "task_type" | "parent_task_id" | "custom_translation_status_ids"> & {
+type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_language_iso" | "task_type" | "parent_task_id" | "custom_translation_status_ids" | "save_ai_translation_to_tm" | "apply_ai_tm100_matches" | "use_tm_as_context"> & {
     title?: string;
     close_task?: boolean;
     languages?: Array<TaskLanguage & {

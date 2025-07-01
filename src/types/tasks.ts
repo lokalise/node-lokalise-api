@@ -34,6 +34,9 @@ export type UpdateTaskParams = Omit<
 	| "task_type"
 	| "parent_task_id"
 	| "custom_translation_status_ids"
+	| "save_ai_translation_to_tm"
+	| "apply_ai_tm100_matches"
+	| "use_tm_as_context"
 > & {
 	title?: string;
 	close_task?: boolean;
