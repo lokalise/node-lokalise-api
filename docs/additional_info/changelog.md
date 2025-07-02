@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.0.0
+
+* Require Node 20+
+
 ## 14.9.1 (02-Jul-2025)
 
 * Update types according to latest API changes, make types stronger
