@@ -1,6 +1,6 @@
-import * as dotenv from "@dotenvx/dotenvx";
+import { loadEnvFile } from "node:process";
 
-dotenv.config({ quiet: true });
+loadEnvFile();
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {

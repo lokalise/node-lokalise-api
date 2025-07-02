@@ -1,6 +1,6 @@
 {
 	"name": "@lokalise/node-api",
-	"version": "14.9.1",
+	"version": "15.0.0",
 	"description": "Official Lokalise API 2.0 Node.js client",
 	"license": "BSD-3-Clause",
 	"repository": {
@@ -17,7 +17,7 @@
 	],
 	"type": "module",
 	"scripts": {
-		"build": "rimraf dist && tsup",
+		"build": "tsup",
 		"test": "vitest run",
 		"test:watch": "vitest watch",
 		"lint": "npx @biomejs/biome check ./",
@@ -31,8 +31,6 @@
 		"@biomejs/biome": "^2.0.6",
 		"@types/node": "^24.0.7",
 		"@vitest/coverage-istanbul": "^3.0.3",
-		"@dotenvx/dotenvx": "^1.45.1",
-		"rimraf": "^6.0.1",
 		"tsup": "^8.3.0",
 		"typescript": "^5.8.2",
 		"undici": "^7.0.0",
@@ -42,7 +40,9 @@
 		"url": "https://github.com/lokalise/node-lokalise-api/issues"
 	},
 	"homepage": "https://lokalise.github.io/node-lokalise-api",
-	"exports": "./dist/main.js",
+	"exports": {
+		".": "./dist/main.js"
+	},
 	"types": "./dist/main.d.ts",
 	"directories": {
 		"lib": "./src",
@@ -50,6 +50,6 @@
 	},
 	"author": "Lokalise group, Ilya Krukowski",
 	"engines": {
-		"node": ">=18"
+		"node": ">=20"
 	}
 }
