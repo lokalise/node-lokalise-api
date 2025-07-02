@@ -1,7 +1,7 @@
 export type BillingDetailsParams = {
 	billing_email: string;
 	country_code: string;
-	zip: string | number;
+	zip: string;
 	state_code?: string;
 	address1?: string;
 	address2?: string;

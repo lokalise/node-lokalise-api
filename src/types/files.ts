@@ -108,7 +108,7 @@ export interface DownloadFileParams {
 	yaml_include_root?: boolean;
 	json_unescaped_slashes?: boolean;
 	java_properties_encoding?: JavaPropertiesEncoding;
-	java_properties_separator?: string;
+	java_properties_separator?: "=" | ":";
 	bundle_description?: string;
 	filter_task_id?: number;
 	compact?: boolean;

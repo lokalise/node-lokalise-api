@@ -5,7 +5,7 @@ export type BranchParams = {
 };
 
 export type MergeBranchParams = {
-	force_conflict_resolve_using?: string;
+	force_conflict_resolve_using?: "target" | "source";
 	target_branch_id?: number | string;
 };
 

@@ -1,3 +1,7 @@
+import type {
+	CreateWebhookParams,
+	UpdateWebhookParams,
+} from "../../src/main.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Webhooks", () => {
@@ -83,7 +87,7 @@ describe("Webhooks", () => {
 	});
 
 	it("creates", async () => {
-		const params = {
+		const params: CreateWebhookParams = {
 			url: "https://bodrovis.tech/lokalise",
 			events: ["project.exported"],
 		};
@@ -107,7 +111,7 @@ describe("Webhooks", () => {
 	});
 
 	it("updates", async () => {
-		const params = {
+		const params: UpdateWebhookParams = {
 			url: "https://bodrovis.tech/lokalise",
 			events: ["project.snapshot"],
 		};

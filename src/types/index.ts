@@ -20,6 +20,7 @@ export type {
 	TeamOnly,
 } from "./common_get_params.js";
 export type { ContributorRights } from "./contributor_rights.js";
+export type { ContributorRoles } from "./contributor_roles.js";
 export type {
 	ContributorCreateData,
 	ContributorDeleted,
@@ -157,5 +158,6 @@ export type {
 	UpdateWebhookParams,
 	WebhookDeleted,
 	WebhookEventLangMap,
+	WebhookEvents,
 	WebhookRegenerated,
 } from "./webhooks.js";

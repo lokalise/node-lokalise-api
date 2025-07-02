@@ -39,7 +39,7 @@ type BranchParams = {
     name?: string;
 };
 type MergeBranchParams = {
-    force_conflict_resolve_using?: string;
+    force_conflict_resolve_using?: "target" | "source";
     target_branch_id?: number | string;
 };
 type BranchDeleted = {
@@ -571,7 +571,9 @@ declare class Contributor extends BaseModel implements Contributor$1 {
     uuid?: string;
 }
 
-type ContributorRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
+type ContributorRights = "activity" | "branches_create" | "branches_main_modify" | "branches_merge" | "contributors" | "custom_status_modify" | "download" | "glossary" | "glossary_delete" | "glossary_edit" | "keys" | "manage_languages" | "review" | "screenshots" | "settings" | "statistics" | "tasks" | "upload";
+
+type ContributorRoles = 1 | 2 | 3 | 4 | 5;
 
 type ContributorLanguages = {
     lang_iso: string;
@@ -582,12 +584,14 @@ type ContributorCreateData = {
     fullname?: string;
     is_admin?: boolean;
     is_reviewer?: boolean;
+    role_id?: ContributorRoles;
     languages: ContributorLanguages[];
     admin_rights?: ContributorRights[];
 };
 type ContributorUpdateData = {
     is_admin?: boolean;
     is_reviewer?: boolean;
+    role_id?: ContributorRoles;
     languages?: ContributorLanguages[];
     admin_rights?: ContributorRights[];
 };
@@ -666,7 +670,7 @@ declare class QueuedProcess extends BaseModel implements QueuedProcess$1 {
     details: QueuedProcessDetails;
 }
 
-type FileFormat = "android_sdk" | "ios_sdk" | "flutter_sdk" | "xml" | "strings" | "csv" | "xlsx" | "po" | "properties" | "json" | "json_structured" | "xliff" | "plist" | "resx" | "js" | "react_native" | "symfony_xliff" | "xlf" | "php_array" | "php_laravel" | "ini" | "ruby_yaml" | "yaml" | "stf" | "ts" | "docx" | "html" | "arb" | "offline_xliff";
+type FileFormat = "android_sdk" | "arb" | "csv" | "docx" | "flutter_sdk" | "html" | "ini" | "ios_sdk" | "js" | "json" | "json_structured" | "offline_xliff" | "php_array" | "php_laravel" | "plist" | "po" | "properties" | "react_native" | "resx" | "ruby_yaml" | "stf" | "strings" | "symfony_xliff" | "ts" | "xlf" | "xliff" | "xlsx" | "xml" | "yaml";
 
 type DownloadBundle = {
     project_id: string;
@@ -724,7 +728,7 @@ interface DownloadFileParams {
     yaml_include_root?: boolean;
     json_unescaped_slashes?: boolean;
     java_properties_encoding?: JavaPropertiesEncoding;
-    java_properties_separator?: string;
+    java_properties_separator?: "=" | ":";
     bundle_description?: string;
     filter_task_id?: number;
     compact?: boolean;
@@ -1699,7 +1703,7 @@ declare class PermissionTemplate extends BaseModel implements PermissionTemplate
 type BillingDetailsParams = {
     billing_email: string;
     country_code: string;
-    zip: string | number;
+    zip: string;
     state_code?: string;
     address1?: string;
     address2?: string;
@@ -1818,7 +1822,7 @@ type CreateTaskParams = {
     auto_close_languages?: boolean;
     auto_close_task?: boolean;
     auto_close_items?: boolean;
-    task_type?: string;
+    task_type?: "translation" | "automatic_translation" | "lqa_by_ai" | "review";
     parent_task_id?: string | number;
     closing_tags?: string[];
     do_lock_translations?: boolean;
@@ -1841,7 +1845,7 @@ type TaskDeleted = {
 };
 type ListTaskParams = ProjectWithPagination & {
     filter_title?: string;
-    filter_statuses?: string;
+    filter_statuses?: "created" | "queued" | "in_progress" | "completed";
 };
 
 type TeamUserParams = {
@@ -1873,12 +1877,12 @@ type GroupLanguages = {
     reference: string[];
     contributable: string[];
 };
-type AdminRights = "upload" | "activity" | "download" | "settings" | "create_branches" | "statistics" | "keys" | "screenshots" | "glossary" | "contributors" | "languages" | "tasks";
 type UserGroupParams = {
     name: string;
     is_reviewer: boolean;
     is_admin: boolean;
-    admin_rights?: AdminRights[];
+    role_id?: ContributorRoles;
+    admin_rights?: ContributorRights[];
     languages?: GroupLanguages;
 };
 type UserGroupDeleted = {
@@ -2630,19 +2634,20 @@ type WebhookTeamOrderDeleted = {
     created_at_timestamp: number;
 };
 
+type WebhookEvents = "project.branch.added" | "project.branch.deleted" | "project.branch.merged" | "project.contributor.added" | "project.contributor.deleted" | "project.deleted" | "project.exported" | "project.imported" | "project.key.added" | "project.key.comment.added" | "project.key.modified" | "project.keys.deleted" | "project.language.removed" | "project.language.settings_changed" | "project.languages.added" | "project.snapshot" | "project.task.closed" | "project.task.created" | "project.task.deleted" | "project.task.language.closed" | "project.translation.proofread" | "project.translation.updated" | "team.order.completed" | "team.order.created" | "team.order.deleted";
 type WebhookEventLangMap = {
-    event?: string;
+    event?: WebhookEvents;
     lang_iso_codes?: string[];
 };
 type CreateWebhookParams = {
     url: string;
     branch?: string;
-    events: string[];
+    events: WebhookEvents[];
     event_lang_map?: WebhookEventLangMap[];
 };
 type UpdateWebhookParams = Omit<CreateWebhookParams, "url" | "events"> & {
     url?: string;
-    events?: string[];
+    events?: WebhookEvents[];
 };
 type WebhookDeleted = {
     project_id: string;
@@ -3486,4 +3491,4 @@ declare class AuthError extends BaseModel implements IAuthError {
     error_uri?: string;
 }
 
-export { ApiError, type AuthData, AuthError, type BillingDetailsParams, type Branch$1 as Branch, type BranchDeleted, type BranchMerged, type BranchParams, type BulkResult, type BulkUpdateKeyParams, type CardDeleted, type ClientData, type ClientParams, type Comment$1 as Comment, type CommentData, type CommentDeleted, type Contributor$1 as Contributor, type ContributorCreateData, type ContributorDeleted, type ContributorLanguages, type ContributorRights, type ContributorUpdateData, type CreateCardParams, type CreateKeyData, type CreateKeyParams, type CreateLanguageParams, type CreateOrderParams, type CreateProjectParams, type CreateScreenshotParams, type CreateSnapshotParams, type CreateTaskParams, type CreateTermsParams, type CreateTranslationStatusParams, type CreateWebhookParams, type CursorPaginatedResult$1 as CursorPaginatedResult, type CursorPagination, type DownloadBundle, type DownloadFileParams, type DownloadedFileProcessDetails, type File$1 as File, type FileDeleted, type FileFormat, type Filenames, type GetKeyParams, type GetSegmentParams, type GetTranslationParams, type GlossaryTerm$1 as GlossaryTerm, type HttpMethod, type IApiError, type IAuthError, type Jwt$2 as Jwt, type Key$1 as Key, type KeyDeleted, type KeyParamsWithPagination, type KeyProjectPagination, type KeysBulkDeleted, type Language$1 as Language, type LanguageDeleted, type ListFileParams, type ListSegmentParams, type ListTaskParams, type ListTermsParams, type ListTranslationParams, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseAuth, LokaliseOtaBundles, type MergeBranchParams, type NumericBool, type Order$1 as Order, type OtaBundle$1 as OtaBundle, type OtaBundleArchive$1 as OtaBundleArchive, type OtaBundleUpdateData, type OtaFramework, type OtaFreezePeriod$1 as OtaFreezePeriod, type OtaFreezePeriodParams, type OtaProjectFramework, type OtaRequestBundleParams, type OtaResourceDeleted, type OtaSdkToken$1 as OtaSdkToken, type OtaStatistics$1 as OtaStatistics, type OtaTeamProject, type OtaTeamProjectFramework, type OtaUsageParams, type PaginatedResult$1 as PaginatedResult, type PaginationParams, type PaymentCard$1 as PaymentCard, type Project$1 as Project, type ProjectAndKey, type ProjectDeleted, type ProjectEmptied, type ProjectListParams, type ProjectOnly, type ProjectSettings, type ProjectStatistics, type ProjectWithPagination, type QueuedProcess$1 as QueuedProcess, type QueuedProcessDetails, type RefreshTokenResponse$1 as RefreshTokenResponse, type RequestTokenResponse$1 as RequestTokenResponse, type Screenshot$1 as Screenshot, type ScreenshotData, type ScreenshotDeleted, type Segment$1 as Segment, type Snapshot$1 as Snapshot, type SnapshotDeleted, type SupportedPlatforms, type Task$1 as Task, type TaskDeleted, type TaskLanguage, type Team$1 as Team, type TeamOnly, type TeamUser$1 as TeamUser, type TeamUserBillingDetails$2 as TeamUserBillingDetails, type TeamUserDeleted, type TeamUserParams, type TeamWithPagination, type TermsDeleted, type Translation$1 as Translation, type TranslationData, type TranslationProvider$1 as TranslationProvider, type TranslationStatus$1 as TranslationStatus, type TranslationStatusColors, type TranslationStatusDeleted, type UpdateKeyData, type UpdateKeyDataWithId, type UpdateLanguageParams, type UpdateProjectParams, type UpdateScreenshotParams, type UpdateSegmentBodyParams, type UpdateSegmentReqParams, type UpdateTaskParams, type UpdateTermsParams, type UpdateTranslationParams, type UpdateTranslationStatusParams, type UpdateWebhookParams, type UploadFileParams, type UploadedFileProcessDetails, type UserGroup$1 as UserGroup, type UserGroupDeleted, type UserGroupParams, type Webhook$1 as Webhook, type WebhookDeleted, type WebhookEventLangMap, type WebhookProjectBranchAdded, type WebhookProjectBranchDeleted, type WebhookProjectBranchMerged, type WebhookProjectContributorAdded, type WebhookProjectContributorAddedPublic, type WebhookProjectContributorDeleted, type WebhookProjectCopied, type WebhookProjectDeleted, type WebhookProjectExported, type WebhookProjectImported, type WebhookProjectKeyAdded, type WebhookProjectKeyCommentAdded, type WebhookProjectKeyModified, type WebhookProjectKeysAdded, type WebhookProjectKeysDeleted, type WebhookProjectKeysModified, type WebhookProjectLanguageRemoved, type WebhookProjectLanguageSettingsChanged, type WebhookProjectLanguagesAdded, type WebhookProjectSnapshotCreated, type WebhookProjectTaskClosed, type WebhookProjectTaskCreated, type WebhookProjectTaskDeleted, type WebhookProjectTaskInitialTmLeverageCalculated, type WebhookProjectTaskLanguageClosed, type WebhookProjectTaskQueued, type WebhookProjectTranslationProofread, type WebhookProjectTranslationUpdated, type WebhookProjectTranslationsProofread, type WebhookProjectTranslationsUpdated, type WebhookRegenerated, type WebhookTeamOrderCompleted, type WebhookTeamOrderCreated, type WebhookTeamOrderDeleted };
+export { ApiError, type AuthData, AuthError, type BillingDetailsParams, type Branch$1 as Branch, type BranchDeleted, type BranchMerged, type BranchParams, type BulkResult, type BulkUpdateKeyParams, type CardDeleted, type ClientData, type ClientParams, type Comment$1 as Comment, type CommentData, type CommentDeleted, type Contributor$1 as Contributor, type ContributorCreateData, type ContributorDeleted, type ContributorLanguages, type ContributorRights, type ContributorRoles, type ContributorUpdateData, type CreateCardParams, type CreateKeyData, type CreateKeyParams, type CreateLanguageParams, type CreateOrderParams, type CreateProjectParams, type CreateScreenshotParams, type CreateSnapshotParams, type CreateTaskParams, type CreateTermsParams, type CreateTranslationStatusParams, type CreateWebhookParams, type CursorPaginatedResult$1 as CursorPaginatedResult, type CursorPagination, type DownloadBundle, type DownloadFileParams, type DownloadedFileProcessDetails, type File$1 as File, type FileDeleted, type FileFormat, type Filenames, type GetKeyParams, type GetSegmentParams, type GetTranslationParams, type GlossaryTerm$1 as GlossaryTerm, type HttpMethod, type IApiError, type IAuthError, type Jwt$2 as Jwt, type Key$1 as Key, type KeyDeleted, type KeyParamsWithPagination, type KeyProjectPagination, type KeysBulkDeleted, type Language$1 as Language, type LanguageDeleted, type ListFileParams, type ListSegmentParams, type ListTaskParams, type ListTermsParams, type ListTranslationParams, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseAuth, LokaliseOtaBundles, type MergeBranchParams, type NumericBool, type Order$1 as Order, type OtaBundle$1 as OtaBundle, type OtaBundleArchive$1 as OtaBundleArchive, type OtaBundleUpdateData, type OtaFramework, type OtaFreezePeriod$1 as OtaFreezePeriod, type OtaFreezePeriodParams, type OtaProjectFramework, type OtaRequestBundleParams, type OtaResourceDeleted, type OtaSdkToken$1 as OtaSdkToken, type OtaStatistics$1 as OtaStatistics, type OtaTeamProject, type OtaTeamProjectFramework, type OtaUsageParams, type PaginatedResult$1 as PaginatedResult, type PaginationParams, type PaymentCard$1 as PaymentCard, type Project$1 as Project, type ProjectAndKey, type ProjectDeleted, type ProjectEmptied, type ProjectListParams, type ProjectOnly, type ProjectSettings, type ProjectStatistics, type ProjectWithPagination, type QueuedProcess$1 as QueuedProcess, type QueuedProcessDetails, type RefreshTokenResponse$1 as RefreshTokenResponse, type RequestTokenResponse$1 as RequestTokenResponse, type Screenshot$1 as Screenshot, type ScreenshotData, type ScreenshotDeleted, type Segment$1 as Segment, type Snapshot$1 as Snapshot, type SnapshotDeleted, type SupportedPlatforms, type Task$1 as Task, type TaskDeleted, type TaskLanguage, type Team$1 as Team, type TeamOnly, type TeamUser$1 as TeamUser, type TeamUserBillingDetails$2 as TeamUserBillingDetails, type TeamUserDeleted, type TeamUserParams, type TeamWithPagination, type TermsDeleted, type Translation$1 as Translation, type TranslationData, type TranslationProvider$1 as TranslationProvider, type TranslationStatus$1 as TranslationStatus, type TranslationStatusColors, type TranslationStatusDeleted, type UpdateKeyData, type UpdateKeyDataWithId, type UpdateLanguageParams, type UpdateProjectParams, type UpdateScreenshotParams, type UpdateSegmentBodyParams, type UpdateSegmentReqParams, type UpdateTaskParams, type UpdateTermsParams, type UpdateTranslationParams, type UpdateTranslationStatusParams, type UpdateWebhookParams, type UploadFileParams, type UploadedFileProcessDetails, type UserGroup$1 as UserGroup, type UserGroupDeleted, type UserGroupParams, type Webhook$1 as Webhook, type WebhookDeleted, type WebhookEventLangMap, type WebhookEvents, type WebhookProjectBranchAdded, type WebhookProjectBranchDeleted, type WebhookProjectBranchMerged, type WebhookProjectContributorAdded, type WebhookProjectContributorAddedPublic, type WebhookProjectContributorDeleted, type WebhookProjectCopied, type WebhookProjectDeleted, type WebhookProjectExported, type WebhookProjectImported, type WebhookProjectKeyAdded, type WebhookProjectKeyCommentAdded, type WebhookProjectKeyModified, type WebhookProjectKeysAdded, type WebhookProjectKeysDeleted, type WebhookProjectKeysModified, type WebhookProjectLanguageRemoved, type WebhookProjectLanguageSettingsChanged, type WebhookProjectLanguagesAdded, type WebhookProjectSnapshotCreated, type WebhookProjectTaskClosed, type WebhookProjectTaskCreated, type WebhookProjectTaskDeleted, type WebhookProjectTaskInitialTmLeverageCalculated, type WebhookProjectTaskLanguageClosed, type WebhookProjectTaskQueued, type WebhookProjectTranslationProofread, type WebhookProjectTranslationUpdated, type WebhookProjectTranslationsProofread, type WebhookProjectTranslationsUpdated, type WebhookRegenerated, type WebhookTeamOrderCompleted, type WebhookTeamOrderCreated, type WebhookTeamOrderDeleted };

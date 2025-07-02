@@ -1,3 +1,4 @@
+import type { CreateTaskParams } from "../../src/main.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Tasks", () => {
@@ -107,7 +108,8 @@ describe("Tasks", () => {
 	});
 
 	it("creates", async () => {
-		const params = {
+		const params: CreateTaskParams = {
+			task_type: "translation",
 			title: "node task",
 			keys: [378217831],
 			languages: [

@@ -16,7 +16,7 @@ export type CreateTaskParams = {
 	auto_close_languages?: boolean;
 	auto_close_task?: boolean;
 	auto_close_items?: boolean;
-	task_type?: string;
+	task_type?: "translation" | "automatic_translation" | "lqa_by_ai" | "review";
 	parent_task_id?: string | number;
 	closing_tags?: string[];
 	do_lock_translations?: boolean;
@@ -55,5 +55,5 @@ export type TaskDeleted = {
 
 export type ListTaskParams = ProjectWithPagination & {
 	filter_title?: string;
-	filter_statuses?: string;
+	filter_statuses?: "created" | "queued" | "in_progress" | "completed";
 };

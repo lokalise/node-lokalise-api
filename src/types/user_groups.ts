@@ -1,27 +1,17 @@
+import type { ContributorRights } from "./contributor_rights.js";
+import type { ContributorRoles } from "./contributor_roles.js";
+
 type GroupLanguages = {
 	reference: string[];
 	contributable: string[];
 };
 
-export type AdminRights =
-	| "upload"
-	| "activity"
-	| "download"
-	| "settings"
-	| "create_branches"
-	| "statistics"
-	| "keys"
-	| "screenshots"
-	| "glossary"
-	| "contributors"
-	| "languages"
-	| "tasks";
-
 export type UserGroupParams = {
 	name: string;
 	is_reviewer: boolean;
 	is_admin: boolean;
-	admin_rights?: AdminRights[];
+	role_id?: ContributorRoles;
+	admin_rights?: ContributorRights[];
 	languages?: GroupLanguages;
 };
 
