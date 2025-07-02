@@ -1,5 +1,9 @@
 # Changelog
 
+## 14.9.1 (02-Jul-2025)
+
+* Update types according to latest API changes, make types stronger
+
 ## 14.9.0 (01-Jul-2025)
 
 * Update tasks-related types based on the recent changes. Specifically, it's now possible to create AI-powered tasks via the API and set `save_ai_translation_to_tm`, `apply_ai_tm100_matches`, and `use_tm_as_context` during task creation.
