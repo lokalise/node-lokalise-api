@@ -1,6 +1,9 @@
+import { existsSync } from "node:fs";
 import { loadEnvFile } from "node:process";
 
-loadEnvFile();
+if (existsSync(".env")) {
+	loadEnvFile();
+}
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
