@@ -1,8 +1,8 @@
 # Changelog
 
-## 15.0.0
+## 15.0.0 (23-Jul-2025)
 
-* Require Node 20+
+* **Breaking change:** Require Node 20+
 
 ## 14.9.1 (02-Jul-2025)
 
