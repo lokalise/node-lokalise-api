@@ -7,4 +7,5 @@ export class Language extends BaseModel implements LanguageInterface {
 	declare lang_name: string;
 	declare is_rtl: boolean;
 	declare plural_forms: string[];
+	declare project_language_uuid?: string;
 }
