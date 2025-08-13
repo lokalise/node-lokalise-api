@@ -55,7 +55,9 @@ describe("Languages", () => {
 
 		expect(languages.items[0].lang_id).to.eq(langId);
 		expect(languages.items[0].lang_name).to.eq("English");
-		expect(languages.items[0].project_language_uuid).to.include("01989e27-0e7e-7e1f-a9c3-1941288a4f85");
+		expect(languages.items[0].project_language_uuid).to.include(
+			"01989e27-0e7e-7e1f-a9c3-1941288a4f85",
+		);
 		expect(languages.totalResults).to.eq(3);
 		expect(languages.totalPages).to.eq(3);
 		expect(languages.resultsPerPage).to.eq(1);
@@ -131,7 +133,9 @@ describe("Languages", () => {
 		expect(language.lang_iso).to.eq("en");
 		expect(language.is_rtl).to.be.false;
 		expect(language.plural_forms).to.include("other");
-		expect(language.project_language_uuid).to.include("01989e27-0e7e-7e1f-a9c3-1941288a4f85");
+		expect(language.project_language_uuid).to.include(
+			"01989e27-0e7e-7e1f-a9c3-1941288a4f85",
+		);
 	});
 
 	it("creates", async () => {

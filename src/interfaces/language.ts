@@ -4,4 +4,5 @@ export interface Language {
 	lang_name: string;
 	is_rtl: boolean;
 	plural_forms: string[];
+	project_language_uuid?: string;
 }

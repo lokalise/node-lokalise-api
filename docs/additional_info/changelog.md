@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.1.0 (13-Aug-2025)
+
+* Added `project_language_uuid` for the `Language` model
+
 ## 15.0.0 (23-Jul-2025)
 
 * **Breaking change:** Require Node 20+
