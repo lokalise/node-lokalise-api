@@ -6,6 +6,7 @@
 		"lang_iso": "en",
 		"lang_name": "English",
 		"is_rtl": false,
-		"plural_forms": ["one", "other"]
+		"plural_forms": ["one", "other"],
+		"project_language_uuid": "01989e27-0e7e-7e1f-a9c3-1941288a4f85"
 	}
 }
