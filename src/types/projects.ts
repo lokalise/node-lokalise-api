@@ -13,7 +13,7 @@ export type CreateProjectParams = {
 		| "localization_files"
 		| "paged_documents"
 		| "marketing"
-		| "content_integration";
+		| "marketing_integrations";
 	is_segmentation_enabled?: boolean;
 };
 
