@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.2.1 (14-Aug-2025)
+
+* `content_integration` should be `marketing_integrations`
+
 ## 15.2.0 (14-Aug-2025)
 
 * Add `content_integration` as the support project type
