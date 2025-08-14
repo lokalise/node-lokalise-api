@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.2.0 (14-Aug-2025)
+
+* Add `content_integration` as the support project type
+
 ## 15.1.0 (13-Aug-2025)
 
 * Added `project_language_uuid` for the `Language` model
