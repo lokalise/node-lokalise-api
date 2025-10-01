@@ -23,7 +23,7 @@ export type CreateTaskParams = {
 	custom_translation_status_ids?: string[] | number[];
 	save_ai_translation_to_tm?: boolean;
 	apply_ai_tm100_matches?: boolean;
-	use_tm_as_context?: boolean;
+	mark_verified?: boolean;
 };
 
 export type UpdateTaskParams = Omit<
@@ -36,7 +36,7 @@ export type UpdateTaskParams = Omit<
 	| "custom_translation_status_ids"
 	| "save_ai_translation_to_tm"
 	| "apply_ai_tm100_matches"
-	| "use_tm_as_context"
+	| "mark_verified"
 > & {
 	title?: string;
 	close_task?: boolean;

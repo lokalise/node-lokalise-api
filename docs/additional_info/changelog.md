@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.3.0 (01-Oct-2025)
+
+* Removed `use_tm_as_context` from task creation params, added `mark_verified` boolean parameter (as per recent API changes)
+
 ## 15.2.1 (14-Aug-2025)
 
 * `content_integration` should be `marketing_integrations`
