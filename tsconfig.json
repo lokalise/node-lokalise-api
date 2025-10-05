@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
 		"target": "es2024",
-		"module": "node18",
+		"module": "node20",
 		"moduleResolution": "node16",
 		"outDir": "dist",
 		"sourceMap": true,
@@ -16,7 +16,8 @@
 		"erasableSyntaxOnly": true,
 		"noImplicitOverride": true,
 		"verbatimModuleSyntax": true,
-		"types": ["vitest/globals"],
+		"exactOptionalPropertyTypes": true,
+		"types": ["vitest/globals"]
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist"]

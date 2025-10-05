@@ -14,7 +14,7 @@ export class BaseClient {
 		tokenType: "",
 		authHeader: "x-api-token",
 		enableCompression: false,
-		requestTimeout: undefined,
+		requestTimeout: 0,
 		silent: false,
 	};
 
@@ -42,6 +42,6 @@ export class BaseClient {
 		this.clientData.silent = silent;
 		this.clientData.tokenType = tokenType;
 		this.clientData.host = host;
-		this.clientData.requestTimeout = requestTimeout;
+		this.clientData.requestTimeout = requestTimeout ?? 0;
 	}
 }

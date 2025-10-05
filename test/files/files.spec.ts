@@ -139,7 +139,7 @@ describe("Files", () => {
 		try {
 			await lokaliseApi.files().upload(projectId, params);
 		} catch (e) {
-			expect(e).toBeInstanceOf(Error)
+			expect(e).toBeInstanceOf(Error);
 			expect((e as Error).message).toEqual(
 				"Missing expected secondary property 'process' in JSON response.",
 			);

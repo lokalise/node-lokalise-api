@@ -122,7 +122,7 @@ export class ApiRequest {
 		try {
 			const response = await fetch(target, {
 				...options,
-				signal,
+				...(signal ? { signal } : {}),
 			});
 
 			return this.processResponse(response);

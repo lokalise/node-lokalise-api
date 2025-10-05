@@ -8,11 +8,10 @@ export class OtaBundlePublishing extends OtaCollection<void> {
 
 	// This is just a dummy implementation to keep linter happy
 	// It's not used in this class
-	// istanbul ignore next
+	/* v8 ignore next 5 */
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
 	) => Branch {
-		// istanbul ignore next
 		return Branch;
 	}
 

@@ -28,7 +28,9 @@ export class ApiError extends Error implements IApiError {
 	) {
 		super(message);
 		this.code = code;
-		this.details = details;
+		if (details) {
+			this.details = details;
+		}
 	}
 
 	/**

@@ -1,8 +1,6 @@
 import { defineConfig } from "vitest/config";
 
 const isCI = process.env.CI === "true";
-// On some win systems coverage randomly causes timeouts
-const isWindows = process.platform === "win32";
 
 export default defineConfig({
 	esbuild: {
@@ -14,10 +12,11 @@ export default defineConfig({
 			shuffle: true,
 		},
 		coverage: {
-			enabled: !isWindows,
-			provider: "istanbul",
+			enabled: true,
+			provider: "v8",
 			reporter: isCI ? ["lcov"] : ["html", "text-summary"],
 			include: ["src/**/*.ts"],
+			clean: true,
 		},
 		typecheck: {
 			enabled: true,

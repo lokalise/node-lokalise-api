@@ -4,7 +4,7 @@ export interface ClientData {
 	authHeader: string;
 	enableCompression: boolean;
 	silent: boolean;
-	host?: string;
+	host?: string | undefined;
 	version?: string;
 	requestTimeout?: number;
 }

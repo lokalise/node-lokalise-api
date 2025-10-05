@@ -44,7 +44,9 @@ var ApiError = class extends Error {
   constructor(message, code, details) {
     super(message);
     this.code = code;
-    this.details = details;
+    if (details) {
+      this.details = details;
+    }
   }
   /**
    * Returns a string representation of the error, including code and details.
@@ -144,7 +146,7 @@ var ApiRequest = class _ApiRequest {
     try {
       const response = await fetch(target, {
         ...options,
-        signal
+        ...signal ? { signal } : {}
       });
       return this.processResponse(response);
     } catch (err) {
@@ -1711,7 +1713,7 @@ var BaseClient = class {
     tokenType: "",
     authHeader: "x-api-token",
     enableCompression: false,
-    requestTimeout: void 0,
+    requestTimeout: 0,
     silent: false
   };
   /**
@@ -1737,7 +1739,7 @@ var BaseClient = class {
     this.clientData.silent = silent;
     this.clientData.tokenType = tokenType;
     this.clientData.host = host;
-    this.clientData.requestTimeout = requestTimeout;
+    this.clientData.requestTimeout = requestTimeout ?? 0;
   }
 };
 
@@ -1986,7 +1988,7 @@ var OtaBundlePublishing = class extends OtaCollection {
   static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/frameworks/{!:framework}/{!:action}";
   // This is just a dummy implementation to keep linter happy
   // It's not used in this class
-  // istanbul ignore next
+  /* v8 ignore next 5 */
   get elementClass() {
     return Branch;
   }

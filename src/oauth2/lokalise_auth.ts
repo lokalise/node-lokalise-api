@@ -1,7 +1,7 @@
 import type { AuthData as AuthDataInterface } from "../interfaces/auth_data.js";
+import type { RefreshTokenResponse } from "../interfaces/refresh_token_response.js";
+import type { RequestTokenResponse } from "../interfaces/request_token_response.js";
 import type { AuthError } from "../models/auth_error.js";
-import type { RefreshTokenResponse } from "../models/refresh_token_response.js";
-import type { RequestTokenResponse } from "../models/request_token_response.js";
 import { createPromise } from "./auth_request.js";
 
 export class LokaliseAuth {
