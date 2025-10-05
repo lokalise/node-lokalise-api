@@ -15,9 +15,9 @@
 		"noFallthroughCasesInSwitch": true,
 		"erasableSyntaxOnly": true,
 		"noImplicitOverride": true,
-		"verbatimModuleSyntax": true
+		"verbatimModuleSyntax": true,
+		"types": ["vitest/globals"],
 	},
-	"types": ["vitest/globals"],
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist"]
 }
