@@ -114,7 +114,7 @@ export interface DownloadFileParams {
 	compact?: boolean;
 }
 
-export type UploadFileParams = {
+export interface UploadFileParams {
 	data: string;
 	filename: string;
 	lang_iso: string;
@@ -139,7 +139,7 @@ export type UploadFileParams = {
 	skip_detect_lang_iso?: boolean;
 	format?: FileFormat;
 	filter_task_id?: number;
-};
+}
 
 export type ListFileParams = ProjectWithPagination & {
 	filter_filename?: string;

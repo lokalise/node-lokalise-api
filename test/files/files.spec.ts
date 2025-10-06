@@ -1,4 +1,4 @@
-import type { DownloadFileParams } from "../../src/main.js";
+import type { DownloadFileParams, UploadFileParams } from "../../src/main.js";
 import { QueuedProcess } from "../../src/models/queued_process.js";
 import type { FileFormat } from "../../src/types/file_format.js";
 import type { DownloadedFileProcessDetails } from "../../src/types/queued_process_details.js";
@@ -64,17 +64,17 @@ describe("Files", () => {
 	});
 
 	it("uploads", async () => {
-		const params = {
+		const params: UploadFileParams = {
 			data: data,
 			filename: "test_node.json",
 			lang_iso: "en",
-			format: <FileFormat>"json",
+			format: "json",
 		};
 
 		const stub = new Stub({
 			fixture: "files/upload.json",
 			uri: `projects/${projectId}/files/upload`,
-			body: params,
+			body: params as unknown as Record<string, unknown>,
 			method: "POST",
 		});
 
@@ -174,7 +174,7 @@ describe("Files", () => {
 
 	it("downloads", async () => {
 		const params: DownloadFileParams = {
-			format: <FileFormat>"json",
+			format: "json",
 			original_filenames: true,
 		};
 
@@ -228,7 +228,7 @@ describe("Files", () => {
 
 	it("downloads asynchronously", async () => {
 		const params: DownloadFileParams = {
-			format: <FileFormat>"json",
+			format: "json",
 			original_filenames: true,
 		};
 

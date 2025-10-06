@@ -733,7 +733,7 @@ interface DownloadFileParams {
     filter_task_id?: number;
     compact?: boolean;
 }
-type UploadFileParams = {
+interface UploadFileParams {
     data: string;
     filename: string;
     lang_iso: string;
@@ -758,7 +758,7 @@ type UploadFileParams = {
     skip_detect_lang_iso?: boolean;
     format?: FileFormat;
     filter_task_id?: number;
-};
+}
 type ListFileParams = ProjectWithPagination & {
     filter_filename?: string;
 };
