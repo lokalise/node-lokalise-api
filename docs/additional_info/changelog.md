@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.3.1 (14-Oct-2025)
+
+* Fix task-related webhooks (`due_date` might be `null`)
+
 ## 15.3.0 (01-Oct-2025)
 
 * Removed `use_tm_as_context` from task creation params, added `mark_verified` boolean parameter (as per recent API changes)
