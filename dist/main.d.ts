@@ -2321,7 +2321,7 @@ type WebhookProjectTaskClosed = {
         id: number;
         type: string;
         title: string;
-        due_date: string;
+        due_date: string | null;
         description: string;
     };
     project: {
@@ -2343,7 +2343,7 @@ type WebhookProjectTaskCreated = {
         id: number;
         type: string;
         title: string;
-        due_date: string;
+        due_date: string | null;
         description: string;
     };
     project: {
@@ -2365,7 +2365,7 @@ type WebhookProjectTaskDeleted = {
         id: number;
         type: string;
         title: string;
-        due_date: string;
+        due_date: string | null;
         description: string;
     };
     project: {
@@ -2419,7 +2419,7 @@ type WebhookProjectTaskLanguageClosed = {
         id: number;
         type: string;
         title: string;
-        due_date: string;
+        due_date: string | null;
         description: string;
     };
     project: {
@@ -2441,7 +2441,7 @@ type WebhookProjectTaskQueued = {
         id: number;
         type: string;
         title: string;
-        due_date: string;
+        due_date: string | null;
         description: string;
     };
     project: {
