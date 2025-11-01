@@ -30,11 +30,11 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.6",
 		"@types/node": "^24.0.7",
-		"@vitest/coverage-v8": "^3.2.4",
+		"@vitest/coverage-v8": "^4.0.3",
 		"tsup": "^8.3.0",
 		"typescript": "^5.8.2",
 		"undici": "^7.0.0",
-		"vitest": "^3.0.3"
+		"vitest": "^4.0.3"
 	},
 	"bugs": {
 		"url": "https://github.com/lokalise/node-lokalise-api/issues"
