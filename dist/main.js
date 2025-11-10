@@ -1729,7 +1729,7 @@ var BaseClient = class {
     tokenType = "",
     host,
     requestTimeout,
-    userAgent
+    userAgent = void 0
   }) {
     if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
       throw new Error(

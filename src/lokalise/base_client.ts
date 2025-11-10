@@ -30,7 +30,7 @@ export class BaseClient {
 		tokenType = "",
 		host,
 		requestTimeout,
-		userAgent,
+		userAgent = undefined,
 	}: ClientParams) {
 		if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
 			throw new Error(
