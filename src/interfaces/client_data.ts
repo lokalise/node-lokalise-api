@@ -7,5 +7,5 @@ export interface ClientData {
 	host?: string | undefined;
 	version?: string;
 	requestTimeout?: number;
-	userAgent?: string;
+	userAgent?: string | undefined;
 }
