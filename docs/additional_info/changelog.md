@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.4.0 (10-Nov-2025)
+
+* Allow to set custom user agent during client initialization via `userAgent` param
+
 ## 15.3.1 (14-Oct-2025)
 
 * Fix task-related webhooks (`due_date` might be `null`)

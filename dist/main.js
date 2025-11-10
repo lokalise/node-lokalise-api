@@ -246,9 +246,10 @@ var ApiRequest = class _ApiRequest {
    * @returns A promise resolving to the constructed Headers.
    */
   async buildHeaders(clientData, method, body) {
+    const userAgent = clientData.userAgent?.trim() || `node-lokalise-api/${await getVersion()}`;
     const headers = new Headers({
       Accept: "application/json",
-      "User-Agent": `node-lokalise-api/${await getVersion()}`
+      "User-Agent": userAgent
     });
     headers.append(
       clientData.authHeader,
@@ -1727,7 +1728,8 @@ var BaseClient = class {
     silent = false,
     tokenType = "",
     host,
-    requestTimeout
+    requestTimeout,
+    userAgent
   }) {
     if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
       throw new Error(
@@ -1740,6 +1742,7 @@ var BaseClient = class {
     this.clientData.tokenType = tokenType;
     this.clientData.host = host;
     this.clientData.requestTimeout = requestTimeout ?? 0;
+    this.clientData.userAgent = userAgent;
   }
 };
 

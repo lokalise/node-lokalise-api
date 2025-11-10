@@ -79,6 +79,7 @@ interface ClientData {
     host?: string | undefined;
     version?: string;
     requestTimeout?: number;
+    userAgent?: string | undefined;
 }
 
 /**
@@ -1344,6 +1345,10 @@ type ClientParams = {
      * Silent mode (supress all warning/error messages). Defaults to false.
      */
     silent?: boolean;
+    /**
+     * Custom User-Agent header value. If not provided, defaults to `node-lokalise-api/{version}`.
+     */
+    userAgent?: string;
 };
 
 interface OtaBundle$1 {
@@ -3097,7 +3102,7 @@ declare class BaseClient {
      * @param params - Configuration parameters including API key and optional features.
      * @throws Error if the API key is not provided or is empty.
      */
-    constructor({ apiKey, enableCompression, silent, tokenType, host, requestTimeout, }: ClientParams);
+    constructor({ apiKey, enableCompression, silent, tokenType, host, requestTimeout, userAgent, }: ClientParams);
 }
 
 /**
