@@ -258,8 +258,7 @@ export class ApiRequest {
 		method: HttpMethod,
 		body: object | object[] | null,
 	): Promise<Headers> {
-		const userAgent =
-			clientData.userAgent ?? `node-lokalise-api/${await getVersion()}`;
+		const userAgent = clientData.userAgent?.trim() || `node-lokalise-api/${await getVersion()}`;
 		const headers = new Headers({
 			Accept: "application/json",
 			"User-Agent": userAgent,
