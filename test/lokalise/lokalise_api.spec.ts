@@ -34,7 +34,6 @@ describe("LokaliseApi", () => {
 	it("is expected to contain custom user-agent", () => {
 		const client = new LokaliseApi({
 			apiKey: process.env.API_KEY,
-			header: "Authorization",
 			userAgent: "CustomUserAgent/1.0",
 		});
 		expect(client.clientData.token).to.eq(process.env.API_KEY);
