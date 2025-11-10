@@ -43,4 +43,9 @@ export type ClientParams = {
 	 * Silent mode (supress all warning/error messages). Defaults to false.
 	 */
 	silent?: boolean;
+
+	/**
+	 * Custom User-Agent header value. If not provided, defaults to `node-lokalise-api/{version}`.
+	 */
+	userAgent?: string;
 };

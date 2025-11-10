@@ -30,6 +30,17 @@ describe("LokaliseApi", () => {
 		expect(client.clientData.enableCompression).to.be.false;
 		expect(client.clientData.version).to.eq("api2");
 	});
+
+	it("is expected to contain custom user-agent", () => {
+		const client = new LokaliseApi({
+			apiKey: process.env.API_KEY,
+			userAgent: "CustomUserAgent/1.0",
+		});
+		expect(client.clientData.token).to.eq(process.env.API_KEY);
+		expect(client.clientData.enableCompression).to.be.false;
+		expect(client.clientData.version).to.eq("api2");
+		expect(client.clientData.userAgent).to.eq("CustomUserAgent/1.0");
+	});
 });
 
 describe("LokaliseApi host", () => {
