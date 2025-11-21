@@ -91,8 +91,14 @@ export class Stub {
 		try {
 			await this.setupMock(mockPool);
 		} catch (error) {
+			if (error instanceof Error) {
+				throw new Error(
+					`Failed to set up mock for URI: ${this.uriPath} - ${error.message}`,
+				);
+			}
+
 			throw new Error(
-				`Failed to set up mock for URI: ${this.uriPath} - ${error.message}`,
+				`Failed to set up mock for URI: ${this.uriPath} - ${String(error)}`,
 			);
 		}
 	}
