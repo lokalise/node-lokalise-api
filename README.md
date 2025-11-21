@@ -66,5 +66,5 @@ This library is licensed under the [BSD 3 Clause](https://github.com/lokalise/no
 
 Copyright (c) [Lokalise group](http://lokalise.com) and [Ilya Krukowski](http://bodrovis.tech)
 
-[npm-downloads-image]: https://badgen.net/npm/dm/@lokalise/node-api
+[npm-downloads-image]: https://img.shields.io/npm/dm/%40lokalise%2Fnode-api
 [npm-downloads-url]: https://npmcharts.com/compare/@lokalise/node-api?minimal=true
