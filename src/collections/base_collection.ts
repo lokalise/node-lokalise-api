@@ -1,4 +1,4 @@
-import { ApiRequest } from "../http_client/base.js";
+import { ApiRequest, type ApiResponse } from "../http_client/base.js";
 import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { ClientData } from "../interfaces/client_data.js";
 import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
@@ -6,6 +6,7 @@ import { PaginatedResult } from "../models/paginated_result.js";
 import type { HttpMethod } from "../types/http_method.js";
 
 type ResolveHandler<T> = (json: Record<string, unknown>, headers: Headers) => T;
+type ApiRequestWithResponse = ApiRequest & { response: ApiResponse };
 
 /**
  * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
@@ -222,15 +223,17 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		json: Record<string, unknown>,
 		headers: Headers,
 	): ElementType {
-		let jsonData = json;
+		let jsonData: Record<string, unknown> = json;
 
 		const rootElementName = this.rootElementNameSingular;
-		if (this.rootElementNameSingular && rootElementName) {
-			const dataRecord = jsonData as Record<string, Record<string, unknown>>;
-			jsonData = dataRecord[rootElementName];
-			if (!jsonData) {
+		if (rootElementName) {
+			const picked = jsonData[rootElementName];
+
+			if (!this.isRecord(picked)) {
 				throw new Error(`Missing property '${rootElementName}' in JSON object`);
 			}
+
+			jsonData = picked;
 		}
 
 		return this.populateObjectFromJson(jsonData, headers) as ElementType;
@@ -399,10 +402,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param json The raw JSON object or array returned by the API.
 	 * @param _headers The response headers (if needed).
 	 */
-	protected returnBareJSON<T>(
-		json: Record<string, unknown> | Record<string, unknown>[],
-		_headers: Headers,
-	): T {
+	protected returnBareJSON<T>(json: unknown, _headers: Headers): T {
 		return json as T;
 	}
 
@@ -451,7 +451,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		body: object | object[] | null,
 		params: Record<string, unknown>,
 		uri: string | null,
-	): Promise<ApiRequest> {
+	): Promise<ApiRequestWithResponse> {
 		return await ApiRequest.create(
 			this.getUri(uri),
 			method,
@@ -490,5 +490,14 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			headers.has("x-pagination-total-count") &&
 			headers.has("x-pagination-page")
 		);
+	}
+
+	/**
+	 * Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
+	 *
+	 * @param value The value to test.
+	 */
+	private isRecord(value: unknown): value is Record<string, unknown> {
+		return value !== null && typeof value === "object" && !Array.isArray(value);
 	}
 }

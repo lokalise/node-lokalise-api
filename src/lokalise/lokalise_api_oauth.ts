@@ -16,7 +16,7 @@ export class LokaliseApiOAuth extends LokaliseApi {
 		super(params);
 
 		// Default to "Bearer" if tokenType not provided.
-		this.clientData.tokenType = params.tokenType ?? "Bearer";
+		this.clientData.tokenType = (params.tokenType ?? "Bearer").trim();
 
 		// For OAuth, the header should be `Authorization`.
 		this.clientData.authHeader = "Authorization";

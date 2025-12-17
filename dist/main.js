@@ -511,12 +511,12 @@ var BaseCollection = class {
   populateObjectFromJsonRoot(json, headers) {
     let jsonData = json;
     const rootElementName = this.rootElementNameSingular;
-    if (this.rootElementNameSingular && rootElementName) {
-      const dataRecord = jsonData;
-      jsonData = dataRecord[rootElementName];
-      if (!jsonData) {
+    if (rootElementName) {
+      const picked = jsonData[rootElementName];
+      if (!this.isRecord(picked)) {
         throw new Error(`Missing property '${rootElementName}' in JSON object`);
       }
+      jsonData = picked;
     }
     return this.populateObjectFromJson(jsonData, headers);
   }
@@ -703,6 +703,14 @@ var BaseCollection = class {
    */
   isPaginated(headers) {
     return headers.has("x-pagination-total-count") && headers.has("x-pagination-page");
+  }
+  /**
+   * Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
+   *
+   * @param value The value to test.
+   */
+  isRecord(value) {
+    return value !== null && typeof value === "object" && !Array.isArray(value);
   }
 };
 
@@ -1729,20 +1737,23 @@ var BaseClient = class {
     tokenType = "",
     host,
     requestTimeout,
-    userAgent = void 0
+    userAgent
   }) {
     if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
       throw new Error(
         "Instantiation failed: A non-empty API key or JWT must be provided."
       );
     }
-    this.clientData.token = apiKey;
-    this.clientData.enableCompression = enableCompression;
-    this.clientData.silent = silent;
-    this.clientData.tokenType = tokenType;
-    this.clientData.host = host;
-    this.clientData.requestTimeout = requestTimeout ?? 0;
-    this.clientData.userAgent = userAgent;
+    this.clientData = {
+      token: apiKey,
+      tokenType: tokenType.trim(),
+      authHeader: "x-api-token",
+      enableCompression,
+      host,
+      requestTimeout: requestTimeout ?? 0,
+      silent,
+      userAgent
+    };
   }
 };
 
@@ -1919,7 +1930,7 @@ var LokaliseApiOAuth = class extends LokaliseApi {
    */
   constructor(params) {
     super(params);
-    this.clientData.tokenType = params.tokenType ?? "Bearer";
+    this.clientData.tokenType = (params.tokenType ?? "Bearer").trim();
     this.clientData.authHeader = "Authorization";
   }
 };
@@ -2134,7 +2145,7 @@ var LokaliseApiOta = class extends BaseClient {
    */
   constructor(params) {
     super(params);
-    this.clientData.tokenType = params.tokenType ?? "Bearer";
+    this.clientData.tokenType = (params.tokenType ?? "Bearer").trim();
     this.clientData.authHeader = "Authorization";
     this.clientData.host = this.clientData.host ?? "https://ota.lokalise.com";
     this.clientData.version = params.version ?? "v3";

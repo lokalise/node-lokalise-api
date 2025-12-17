@@ -1,6 +1,6 @@
 import { defineConfig } from "vitest/config";
 
-const isCI = process.env.CI === "true";
+const isCI = !!process.env.CI;
 
 export default defineConfig({
 	esbuild: {
@@ -9,7 +9,7 @@ export default defineConfig({
 	test: {
 		silent: isCI,
 		sequence: {
-			shuffle: true,
+			shuffle: { files: true, tests: true },
 		},
 		coverage: {
 			enabled: true,
@@ -20,6 +20,7 @@ export default defineConfig({
 		},
 		typecheck: {
 			enabled: true,
+			tsconfig: "./tsconfig.test.json",
 		},
 	},
 });

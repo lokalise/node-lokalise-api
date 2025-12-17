@@ -30,7 +30,7 @@ export class BaseClient {
 		tokenType = "",
 		host,
 		requestTimeout,
-		userAgent = undefined,
+		userAgent,
 	}: ClientParams) {
 		if (typeof apiKey !== "string" || apiKey.trim().length === 0) {
 			throw new Error(
@@ -38,12 +38,15 @@ export class BaseClient {
 			);
 		}
 
-		this.clientData.token = apiKey;
-		this.clientData.enableCompression = enableCompression;
-		this.clientData.silent = silent;
-		this.clientData.tokenType = tokenType;
-		this.clientData.host = host;
-		this.clientData.requestTimeout = requestTimeout ?? 0;
-		this.clientData.userAgent = userAgent;
+		this.clientData = {
+			token: apiKey,
+			tokenType: tokenType.trim(),
+			authHeader: "x-api-token",
+			enableCompression,
+			host,
+			requestTimeout: requestTimeout ?? 0,
+			silent,
+			userAgent,
+		};
 	}
 }

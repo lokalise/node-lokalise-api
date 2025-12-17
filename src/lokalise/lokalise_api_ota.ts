@@ -25,7 +25,7 @@ export class LokaliseApiOta extends BaseClient {
 	constructor(params: ClientParams) {
 		super(params);
 
-		this.clientData.tokenType = params.tokenType ?? "Bearer";
+		this.clientData.tokenType = (params.tokenType ?? "Bearer").trim();
 		this.clientData.authHeader = "Authorization";
 		this.clientData.host = this.clientData.host ?? "https://ota.lokalise.com";
 		this.clientData.version = params.version ?? "v3";

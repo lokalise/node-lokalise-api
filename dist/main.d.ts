@@ -146,7 +146,7 @@ declare class ApiRequest {
     /**
      * The resolved response from the API request.
      */
-    response: ApiResponse;
+    response?: ApiResponse;
     /**
      * Query and path parameters used to construct the request URL.
      * This object is modified during URL construction, removing parameters used in path segments.
@@ -157,16 +157,9 @@ declare class ApiRequest {
      * @param params - Query and/or path parameters.
      */
     constructor(params: Record<string, unknown>);
-    /**
-     * Static async factory method to create an ApiRequest instance with a fully resolved response.
-     * @param uri - The endpoint URI (versioned path expected).
-     * @param method - The HTTP method (GET, POST, PUT, DELETE, etc).
-     * @param body - The request payload, if applicable.
-     * @param params - Query and/or path parameters.
-     * @param clientData - Authentication and configuration data for the request.
-     * @returns A promise that resolves to a fully constructed ApiRequest instance with the `response` set.
-     */
-    static create(uri: string, method: HttpMethod, body: object | object[] | null, params: Record<string, unknown>, clientData: ClientData): Promise<ApiRequest>;
+    static create(uri: string, method: HttpMethod, body: object | object[] | null, params: Record<string, unknown>, clientData: ClientData): Promise<ApiRequest & {
+        response: ApiResponse;
+    }>;
     /**
      * Creates the request promise by composing the URL, building headers, and executing the fetch.
      * @param uri - The endpoint URI.
@@ -260,6 +253,9 @@ declare class CursorPaginatedResult<T> extends PaginatedResult<T> implements Cur
 }
 
 type ResolveHandler<T> = (json: Record<string, unknown>, headers: Headers) => T;
+type ApiRequestWithResponse = ApiRequest & {
+    response: ApiResponse;
+};
 /**
  * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
  * and handling for pagination, cursor pagination, and bulk operations. Other "collection" classes
@@ -437,7 +433,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
      * @param json The raw JSON object or array returned by the API.
      * @param _headers The response headers (if needed).
      */
-    protected returnBareJSON<T>(json: Record<string, unknown> | Record<string, unknown>[], _headers: Headers): T;
+    protected returnBareJSON<T>(json: unknown, _headers: Headers): T;
     /**
      * Convert a single object into an array if it's not already an array.
      * @param raw_body The raw request body.
@@ -459,7 +455,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
      * @param params The request parameters.
      * @param uri An explicit URI for the request or null.
      */
-    protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Record<string, unknown>, uri: string | null): Promise<ApiRequest>;
+    protected prepareRequest(method: HttpMethod, body: object | object[] | null, params: Record<string, unknown>, uri: string | null): Promise<ApiRequestWithResponse>;
     /**
      * Determine the URI for the request. If uri is not provided, use prefixURI.
      * @param uri An explicit URI or null.
@@ -472,6 +468,12 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
      * @param headers The response headers.
      */
     private isPaginated;
+    /**
+     * Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
+     *
+     * @param value The value to test.
+     */
+    private isRecord;
 }
 
 declare class Branches extends BaseCollection<Branch> {

@@ -21,7 +21,7 @@ export class ApiRequest {
 	/**
 	 * The resolved response from the API request.
 	 */
-	public response!: ApiResponse;
+	public response?: ApiResponse;
 
 	/**
 	 * Query and path parameters used to construct the request URL.
@@ -37,6 +37,14 @@ export class ApiRequest {
 		// Copy params to avoid modifying the original object
 		this.params = { ...params };
 	}
+
+	public static async create(
+		uri: string,
+		method: HttpMethod,
+		body: object | object[] | null,
+		params: Record<string, unknown>,
+		clientData: ClientData,
+	): Promise<ApiRequest & { response: ApiResponse }>;
 
 	/**
 	 * Static async factory method to create an ApiRequest instance with a fully resolved response.
@@ -83,8 +91,8 @@ export class ApiRequest {
 		const headers = await this.buildHeaders(clientData, method, body);
 
 		const options: RequestInit = {
-			method: method,
-			headers: headers,
+			method,
+			headers,
 			...(method !== "GET" && body ? { body: JSON.stringify(body) } : {}),
 		};
 
