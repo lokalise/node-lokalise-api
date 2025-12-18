@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.5.0 (18-Dec-2025)
+
+* Add `content_integration` project type to project creation params
+
 ## 15.4.0 (10-Nov-2025)
 
 * Allow to set custom user agent during client initialization via `userAgent` param

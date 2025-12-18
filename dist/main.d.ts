@@ -1765,7 +1765,7 @@ type CreateProjectParams = {
         custom_iso?: string;
     }>;
     base_lang_iso?: string;
-    project_type?: "localization_files" | "paged_documents" | "marketing" | "marketing_integrations";
+    project_type?: "localization_files" | "paged_documents" | "content_integration" | "marketing" | "marketing_integrations";
     is_segmentation_enabled?: boolean;
 };
 type UpdateProjectParams = {
