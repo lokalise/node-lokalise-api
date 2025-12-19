@@ -7,48 +7,56 @@
 
 Official Node interface for the [Lokalise API](https://app.lokalise.com/api2docs/curl/#resource-getting-started).
 
-Looking for a simple solution to perform translation uploading/downloading? Try the new [lokalise-file-exchange](https://github.com/bodrovis/lokalise-node-file-exchange) package.
+> Looking for a simple way to upload/download translations? Try [lokalise-file-exchange](https://github.com/bodrovis/lokalise-node-file-exchange).
 
 ## Quickstart
 
-**Please note that starting from version 9 this SDK is a pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) module. It does not provide a CommonJS export (`require`) anymore.** Therefore you should either [convert your project to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c), use [dynamic import](https://v8.dev/features/dynamic-import) (please find an example below), or stay on [version 8](https://github.com/lokalise/node-lokalise-api/tree/v8).
+**Heads up:** starting from **v9**, this SDK is **pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules)** and no longer ships a CommonJS (`require`) export. Your options:
+- convert your project to ESM ([see this guide](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c))
+- use [dynamic import](https://v8.dev/features/dynamic-import) (example below)
+- or stay on [v8](https://github.com/lokalise/node-lokalise-api/tree/v8)
 
-Install the library:
+Install:
 
 ```bash
 npm install @lokalise/node-api
 ```
 
-Obtain Lokalise API token in your personal profile, initialize and use the client:
+[Get a Lokalise API token from your personal profile](https://docs.lokalise.com/en/articles/1929556-api-and-ota-tokens#h_9ea8e7ff3c), then initialize and use the client:
 
 ```ts
 import { LokaliseApi } from "@lokalise/node-api";
 
-const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
+const lokaliseApi = new LokaliseApi({ apiKey: "<apiKey>" });
+
 const projects = await lokaliseApi.projects().list();
 projects.items[0].name;
 
-process = await lokaliseApi.files().upload(project_id,
-  {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
-process.status // => 'queued'
+const process = await lokaliseApi.files().upload(project_id, {
+  data: data_base64,
+  filename: "test1.json",
+  lang_iso: "en",
+});
+
+process.status; // => "queued"
 ```
 
-Alternatively, you can use tokens obtained via [OAuth2](https://lokalise.github.io/node-lokalise-api/additional_info/oauth2_flow) (don't forget that these tokens have expiration dates):
+Alternatively, you can use tokens obtained via [OAuth2](https://lokalise.github.io/node-lokalise-api/additional_info/oauth2_flow) (*note: OAuth tokens expire*):
 
 ```ts
 import { LokaliseApiOAuth } from "@lokalise/node-api";
 
-const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
+const lokaliseApi = new LokaliseApiOAuth({ apiKey: "<apiKeyObtainedViaOauth2>" });
 
-const projects = lokaliseApi.projects().list();
+const projects = await lokaliseApi.projects().list();
 ```
 
-Here's an example using dynamic import:
+Dynamic import example:
 
 ```ts
 (async function () {
-  const LokaliseApi = await (import('@lokalise/node-api').then(m => m.LokaliseApi));
-  const lokaliseApi = new LokaliseApi({ apiKey: LOKALISE_API_TOKEN});
+  const LokaliseApi = await import("@lokalise/node-api").then((m) => m.LokaliseApi);
+  const lokaliseApi = new LokaliseApi({ apiKey: LOKALISE_API_TOKEN });
 
   // use lokaliseApi here as usual...
 })();
@@ -56,9 +64,13 @@ Here's an example using dynamic import:
 
 ## Usage
 
-Detailed documentation can be found at [lokalise.github.io/node-lokalise-api](https://lokalise.github.io/node-lokalise-api/).
+Full docs live at: [lokalise.github.io/node-lokalise-api](https://lokalise.github.io/node-lokalise-api/).
 
-You can also check [this repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples) and [this blog post with explanations](https://lokalise.com/blog/lokalise-apiv2-in-practice). Finally, you might be interested in our [free course "Lokalise for developers"](https://academy.lokalise.com/course/lokalise-for-developers) that showcases Node SDK usage.
+Also useful:
+
+- [repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples)
+- [blog post with explanations](https://lokalise.com/blog/lokalise-apiv2-in-practice)
+- [free course "Lokalise for developers"](https://academy.lokalise.com/course/lokalise-for-developers) (Node SDK usage)
 
 ## License
 
