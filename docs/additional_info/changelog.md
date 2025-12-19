@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.6.0 (19-Dec-2025)
+
+* Add `content_integration` field to project creation params. It must be present when `project_type: "content_integration"`
+
 ## 15.5.0 (18-Dec-2025)
 
 * Add `content_integration` project type to project creation params

@@ -16,6 +16,7 @@ export type CreateProjectParams = {
 		| "marketing"
 		| "marketing_integrations";
 	is_segmentation_enabled?: boolean;
+	content_integration?: string;
 };
 
 export type UpdateProjectParams = {
