@@ -654,7 +654,7 @@ interface QueuedProcess$1 {
     type: string;
     status: string;
     message: string;
-    created_by: string;
+    created_by: number;
     created_by_email: string;
     created_at: string;
     created_at_timestamp: number;
@@ -666,7 +666,7 @@ declare class QueuedProcess extends BaseModel implements QueuedProcess$1 {
     type: string;
     status: string;
     message: string;
-    created_by: string;
+    created_by: number;
     created_by_email: string;
     created_at: string;
     created_at_timestamp: number;
