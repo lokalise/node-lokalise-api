@@ -5,7 +5,7 @@ export interface QueuedProcess {
 	type: string;
 	status: string;
 	message: string;
-	created_by: string;
+	created_by: number;
 	created_by_email: string;
 	created_at: string;
 	created_at_timestamp: number;

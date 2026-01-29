@@ -7,7 +7,7 @@ export class QueuedProcess extends BaseModel implements QueuedProcessInterface {
 	declare type: string;
 	declare status: string;
 	declare message: string;
-	declare created_by: string;
+	declare created_by: number;
 	declare created_by_email: string;
 	declare created_at: string;
 	declare created_at_timestamp: number;

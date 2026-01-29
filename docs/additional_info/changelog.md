@@ -1,5 +1,9 @@
 # Changelog
 
+## 15.6.1 (29-Jan-2026)
+
+* Fix schema for queued process (`created_by` is changed from `string` to `number`)
+
 ## 15.6.0 (19-Dec-2025)
 
 * Add `content_integration` field to project creation params. It must be present when `project_type: "content_integration"`
