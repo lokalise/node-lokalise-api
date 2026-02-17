@@ -85,3 +85,5 @@ typings/
 .vscode
 demo.js
 demo.ts
+
+docs/Gemfile.lock
