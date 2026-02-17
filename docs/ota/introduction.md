@@ -1,6 +1,6 @@
 ---
 ---
-# Introduction
+# OTA: Introduction
 
 While OTA (over-the-air) endpoints are part of the main Lokalise API, they have certain specifics.
 
