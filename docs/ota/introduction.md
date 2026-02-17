@@ -1,3 +1,5 @@
+---
+---
 # Introduction
 
 While OTA (over-the-air) endpoints are part of the main Lokalise API, they have certain specifics.
@@ -7,9 +9,10 @@ In order to address those specifics, the SDK introduces two additional clients:
 * `LokaliseApiOta` — you'll use this client to create OTA SDK tokens, create bundle freezes, publish bundles, and so on. This client requires a specially generated JWT (see below).
 * `LokaliseOtaBundles` — this client is utilized only to request OTA bundles and it requires an OTA SDK token.
 
-[Please refer to the following guide to learn about the OTA API in general.](https://developers.lokalise.com/reference/working-with-the-ota-api)
+Useful resources:
 
-[To learn about the Node SDK requirements and the installation process, please refer to the Getting started article.](https://lokalise.github.io/node-lokalise-api/api/getting-started)
+* [Refer to the following guide to learn about the OTA API in general.](https://developers.lokalise.com/reference/working-with-the-ota-api)
+* [To learn about the Node SDK requirements and the installation process, refer to the Getting started article.](https://lokalise.github.io/node-lokalise-api/api/getting-started)
 
 ## Managing bundles and tokens
 

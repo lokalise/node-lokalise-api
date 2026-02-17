@@ -1,6 +1,8 @@
+---
+---
 # SDK tokens
 
-**Please note that this endpoint requires an instance of `LokaliseApiOta` with a JWT. Refer to the [OTA introduction article to learn more](https://lokalise.github.io/node-lokalise-api/ota/introduction).**
+**Please note that this endpoint requires an instance of `LokaliseApiOta` with a JWT. Refer to the [OTA introduction article to learn more]({{ '/ota/introduction' | relative_url }}).**
 
 ## List tokens
 

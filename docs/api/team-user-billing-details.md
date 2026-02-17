@@ -1,3 +1,5 @@
+---
+---
 # Team user billing details
 
 [Team user billing details attributes](https://developers.lokalise.com/reference/teamuserbillingdetails-object)

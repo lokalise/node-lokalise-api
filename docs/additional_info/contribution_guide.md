@@ -1,3 +1,5 @@
+---
+---
 # Contributing
 
 1. [Fork the repository.][fork]
@@ -20,7 +22,7 @@
 
 ## Running tests
 
-This library is tested with [Node 10+](https://github.com/lokalise/node-lokalise-api/blob/master/.travis.yml). To test it locally:
+This library is tested with [Node 20+](https://github.com/lokalise/node-lokalise-api/blob/master/.travis.yml). To test it locally:
 
 1. Copypaste `.env.example` file as `.env`. Put your API token inside. The `.env` file is excluded from version control so your token is safe. All in all, we use pre-recorded cassettes, so the actual API requests won't be sent. However, providing at least some token is required.
 2. Run `npm test`. Observe test results and coverage.
@@ -29,5 +31,5 @@ This library is tested with [Node 10+](https://github.com/lokalise/node-lokalise
 
 1. Clone the repo.
 2. `cd docs`
-3. `bundle exec jekyll serve --baseurl=''`.
+3. `bundle exec jekyll serve --baseurl='' --config _config.dev.yml`.
 4. Navigate to `http://localhost:4000` and observe the docs.

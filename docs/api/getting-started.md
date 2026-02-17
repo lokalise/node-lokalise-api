@@ -1,10 +1,12 @@
+---
+---
 # Getting Started
 
 ## Installation and Requirements
 
 **Please note that starting from version 9 this SDK is a pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) module. It does not provide a CommonJS export (`require`) anymore.** Therefore you should either [convert your project to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c), use [dynamic import](https://v8.dev/features/dynamic-import), or stay on [version 8](https://github.com/lokalise/node-lokalise-api/tree/v8) which we are fully supporting.
 
-This library requires [Node 14](https://nodejs.org) and above. Install it with [NPM](https://www.npmjs.com/):
+This library requires [Node 20](https://nodejs.org) and above. Install it with [NPM](https://www.npmjs.com/):
 
 ```bash
 npm install @lokalise/node-api
@@ -12,7 +14,7 @@ npm install @lokalise/node-api
 
 ## Initializing the Client
 
-**[If you'd like to work with the OTA (over-the-air) endpoints, please refer to the OTA introduction article.](https://lokalise.github.io/node-lokalise-api/ota/introduction)**
+**[If you'd like to work with the OTA (over-the-air) endpoints, please refer to the OTA introduction article.]({{ '/ota/introduction' | relative_url }})**
 
 In order to perform API requests, you need a special token that can be obtained in your [personal profile](https://lokalise.com/profile#apitokens) (*API tokens* section).
 

@@ -1,3 +1,5 @@
+---
+---
 # Permission templates
 
 [Permission template attributes](https://developers.lokalise.com/reference/permission-template-object)

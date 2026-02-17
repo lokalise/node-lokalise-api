@@ -15,11 +15,7 @@ strict_front_matter: true
 
 plugins:
   - jekyll-seo-tag
-  - jekyll-minifier
   - jekyll-sitemap
-
-jekyll-minifier:
-  remove_intertag_spaces: true
 
 defaults:
   - scope:

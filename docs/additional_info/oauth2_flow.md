@@ -1,3 +1,5 @@
+---
+---
 # OAuth 2 flow
 
 You can request and refresh OAuth 2 tokens using this client. First of all, import the necessary module and instantiate the class with your client id and client secret:

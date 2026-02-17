@@ -1,3 +1,5 @@
+---
+---
 # Translations
 
 [Translation attributes](https://developers.lokalise.com/reference/translations-object)
@@ -6,7 +8,7 @@
 
 [API doc](https://developers.lokalise.com/reference/list-all-translations)
 
-**This endpoint also supports cursor pagination which is now a recommended approach, especially for fetching large amounts of data. Please [learn more in the Pagination docs](https://lokalise.github.io/node-lokalise-api/api/getting-started#cursor-pagination).**
+**This endpoint also supports cursor pagination which is now a recommended approach, especially for fetching large amounts of data. Please [learn more in the Pagination docs]({{ 'api/getting-started#cursor-pagination' | relative_url }}).**
 
 ```js
 const translations = lokaliseApi.translations().list({

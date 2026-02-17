@@ -1,3 +1,5 @@
+---
+---
 # OTA bundles
 
 [OTA bundle attributes](https://developers.lokalise.com/reference/bundle-object)
@@ -6,7 +8,7 @@
 
 [API doc](https://developers.lokalise.com/reference/get-ota-bundle)
 
-**To learn how to generate an OTA SDK token, [please refer to the OTA Introduction article ("Requesting OTA bundles" section)](https://lokalise.github.io/node-lokalise-api/ota/introduction#requesting-ota-bundles).**
+**To learn how to generate an OTA SDK token, [please refer to the OTA Introduction article ("Requesting OTA bundles" section)]({{ '/ota/introduction#requesting-ota-bundles' | relative_url }}).**
 
 ```ts
 const lokaliseOtaBundles = new LokaliseOtaBundles({ apiKey: "YOUR_OTA_SDK_TOKEN" });

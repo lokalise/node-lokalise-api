@@ -1,28 +1,11 @@
 ---
 ---
 
-@import "{{ site.theme }}";
-
-@font-face {
-  font-family: "FactorA-Regular";
-  src: url('{{ "/assets/fonts/FactorA-Regular.woff2" | relative_url }}') format('woff2'),
-    url('{{ "/assets/fonts/FactorA-Regular.woff" | relative_url }}') format('woff');
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "FactorA-Medium";
-  src: url('{{ "/assets/fonts/FactorA-Medium.woff2" | relative_url }}') format('woff2'),
-    url('{{ "/assets/fonts/FactorA-Medium.woff" | relative_url }}') format('woff');
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
+@use "fonts";
+@use "jekyll-theme-minimal";
 
 body {
-  font-family: "FactorA-Regular", system-ui, "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-family: "FactorA-Regular", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif
 }
 
 h1,
@@ -31,7 +14,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'FactorA-Medium', system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  font-family: 'FactorA-Medium', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
 }
 
 
