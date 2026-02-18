@@ -47,7 +47,7 @@ All object attributes can be found in the [interfaces](https://github.com/lokali
 
 ## Pagination
 
-Bulk fetches support [pagination](https://app.lokalise.com/api2docs/curl/#resource-pagination). There are two common parameters available:
+Bulk fetches support [pagination](https://developers.lokalise.com/reference/api-pagination). There are two common parameters available:
 
 * `limit` (defaults to `100`, maximum is `5000`) &mdash; number of records to display per page
 * `page` (defaults  to `1`) &mdash; page to fetch

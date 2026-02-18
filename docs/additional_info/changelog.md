@@ -847,7 +847,7 @@ lokaliseApi.branches.merge(34567,
 ## 4.0.0 (18-May-20)
 
 * **Breaking change** [All translation files are now uploaded in the background](https://github.com/lokalise/node-lokalise-api#upload-a-file). A `QueuedProcess` with the job status will be returned as a result. Synchronous uploading is still supported by the API but will be removed in the near future (use version 3 to upload synchronously).
-* Added support for [`QueuedProcess` endpoint](https://app.lokalise.com/api2docs/curl/#resource-queued-processes)
+* Added support for [`QueuedProcess` endpoint](https://developers.lokalise.com/reference/list-all-processes)
 * Test against Node 14
 * Fix `webhook_id` type for `Webhooks` endpoint
 * Added linter
@@ -868,7 +868,7 @@ lokaliseApi.branches.merge(34567,
 
 ## 2.1.0 (28-Feb-20)
 
-* Added method to [regenerate webhook secret](https://lokalise.com/api2docs/curl/#transition-regenerate-a-webhook-secret-patch): `lokaliseApi.webhooks.regenerate_secret(webhook_id, {project_id: project_id});`
+* Added method to regenerate webhook secret: `lokaliseApi.webhooks.regenerate_secret(webhook_id, {project_id: project_id});`
 
 ## 2.0.2 (25-Feb-20)
 
@@ -880,7 +880,7 @@ lokaliseApi.branches.merge(34567,
 
 ## 2.0.0 (05-Dec-19)
 
-* Added [error handling mechanism](https://github.com/lokalise/node-lokalise-api#error-handling)
+* Added error handling mechanism
 * Updated dependencies
 
 ## 1.5.0-rc.1 (04-Dec-19)
@@ -890,22 +890,22 @@ lokaliseApi.branches.merge(34567,
 
 ## 1.4.0 (13-Nov-19)
 
-* Added `merge` method for the branches endpoint allowing to [perform merges](https://lokalise.com/api2docs/curl/#transition-merge-a-branch-post)
+* Added `merge` method for the branches endpoint allowing to perform merges
 
 ## 1.3.0 (30-Oct-19)
 
-* Added support for [`Branch` endpoint](https://lokalise.com/api2docs/curl/#resource-branches)
+* Added support for `Branch` endpoint
 * Test against Node 13
 * Update dependencies
 
 ## 1.2.0 (20-Aug-19)
 
-* Added support for [`Webhook` endpoint](https://lokalise.co/api2docs/curl/#resource-webhooks)
+* Added support for `Webhook` endpoint
 
 ## 1.1.0 (18-Jul-19)
 
 * Incorporate new API changes
-* Added support for [`TranslationStatus` endpoint](https://lokalise.co/api2docs/curl/#resource-translation-statuses)
+* Added support for `TranslationStatus` endpoint
 
 ## 1.0.1 (12-07-19)
 

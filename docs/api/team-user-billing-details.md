@@ -2,8 +2,6 @@
 ---
 # Team user billing details
 
-[Team user billing details attributes](https://developers.lokalise.com/reference/teamuserbillingdetails-object)
-
 ## Fetch team user billing details
 
 [API doc](https://developers.lokalise.com/reference/retrieve-team-user-billing-details)

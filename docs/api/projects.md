@@ -2,8 +2,6 @@
 ---
 # Projects
 
-[Project attributes](https://developers.lokalise.com/reference/project-object)
-
 ## Fetch projects
 
 [API doc](https://developers.lokalise.com/reference/list-all-projects)

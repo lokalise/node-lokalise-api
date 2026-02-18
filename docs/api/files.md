@@ -2,8 +2,6 @@
 ---
 # Translation files
 
-[File attributes](https://developers.lokalise.com/reference/file-object)
-
 ## Fetch translation files
 
 [API doc](https://developers.lokalise.com/reference/list-all-files)

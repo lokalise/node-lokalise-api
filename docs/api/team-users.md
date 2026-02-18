@@ -2,8 +2,6 @@
 ---
 # Team users
 
-[Team user attributes](https://developers.lokalise.com/reference/teamusers-object)
-
 ## Fetch team users
 
 [API doc](https://developers.lokalise.com/reference/list-all-team-users)

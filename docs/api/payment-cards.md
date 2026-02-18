@@ -2,8 +2,6 @@
 ---
 # Payment cards
 
-[Payment card attributes](https://developers.lokalise.com/reference/payment-card-object)
-
 ## Fetch payment cards
 
 [API doc](https://developers.lokalise.com/reference/list-all-cards)

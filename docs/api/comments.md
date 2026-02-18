@@ -2,8 +2,6 @@
 ---
 # Comments
 
-[Comments attributes](https://developers.lokalise.com/reference/comment-object)
-
 ## Fetch project comments
 
 [API doc](https://developers.lokalise.com/reference/list-project-comments)

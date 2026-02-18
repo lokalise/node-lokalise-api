@@ -2,8 +2,6 @@
 ---
 # Translation providers
 
-[Translation provider attributes](https://developers.lokalise.com/reference/translationproviders-object)
-
 ## Fetch translation providers
 
 [API doc](https://developers.lokalise.com/reference/list-all-providers)

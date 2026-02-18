@@ -2,8 +2,6 @@
 ---
 # Permission templates
 
-[Permission template attributes](https://developers.lokalise.com/reference/permission-template-object)
-
 ## Fetch permission templates
 
 [API doc](https://developers.lokalise.com/reference/list-all-permission-templates)

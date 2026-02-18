@@ -2,8 +2,6 @@
 ---
 # Contributors
 
-[Contributor attributes](https://developers.lokalise.com/reference/contributor-object)
-
 ## Fetch contributors
 
 [API doc](https://developers.lokalise.com/reference/list-all-contributors)

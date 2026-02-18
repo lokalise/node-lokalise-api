@@ -2,8 +2,6 @@
 ---
 # Teams
 
-[Team attributes](https://developers.lokalise.com/reference/teams-object)
-
 ## Fetch teams
 
 [API doc](https://developers.lokalise.com/reference/list-all-teams)

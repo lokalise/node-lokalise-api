@@ -2,8 +2,6 @@
 ---
 # Queued processes
 
-[Queued processes attributes](https://developers.lokalise.com/reference/queued-process-object)
-
 ## Fetch queued processes
 
 [API doc](https://developers.lokalise.com/reference/list-all-processes)

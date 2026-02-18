@@ -2,8 +2,6 @@
 ---
 # Screenshots
 
-[Screenshot attributes](https://developers.lokalise.com/reference/screenshot-object)
-
 ## Fetch screenshots
 
 [API doc](https://developers.lokalise.com/reference/list-all-screenshots)

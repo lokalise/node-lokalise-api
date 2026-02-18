@@ -2,8 +2,6 @@
 ---
 # Tasks
 
-[Task attributes](https://developers.lokalise.com/reference/tasks-object)
-
 ## Fetch tasks
 
 [API doc](https://developers.lokalise.com/reference/list-all-tasks)

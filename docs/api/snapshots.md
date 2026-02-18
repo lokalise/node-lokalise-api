@@ -2,8 +2,6 @@
 ---
 # Snapshots
 
-[Snapshot attributes](https://app.lokalise.com/api2docs/curl/#object-snapshots)
-
 ## Fetch snapshots
 
 [API doc](https://developers.lokalise.com/reference/list-all-snapshots)

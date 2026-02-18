@@ -5,7 +5,7 @@
 [![Coverage Status](https://coveralls.io/repos/github/lokalise/node-lokalise-api/badge.svg?branch=master)](https://coveralls.io/github/lokalise/node-lokalise-api?branch=master)
 [![NPM Downloads][npm-downloads-image]][npm-downloads-url]
 
-Official Node interface for the [Lokalise API](https://app.lokalise.com/api2docs/curl/#resource-getting-started).
+Official Node interface for the [Lokalise API](https://developers.lokalise.com/reference/lokalise-rest-api).
 
 > Looking for a simple way to upload/download translations? Try [lokalise-file-exchange](https://github.com/bodrovis/lokalise-node-file-exchange).
 
@@ -69,7 +69,7 @@ Full docs live at: [lokalise.github.io/node-lokalise-api](https://lokalise.githu
 Also useful:
 
 - [repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples)
-- [blog post with explanations](https://lokalise.com/blog/lokalise-apiv2-in-practice)
+- [blog post with explanations](https://lokalise.com/blog/lokalise-apiv2-in-practice/)
 - [free course "Lokalise for developers"](https://academy.lokalise.com/course/lokalise-for-developers) (Node SDK usage)
 
 ## License

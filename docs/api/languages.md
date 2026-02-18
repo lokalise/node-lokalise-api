@@ -2,8 +2,6 @@
 ---
 # Languages
 
-[Language attributes](https://developers.lokalise.com/reference/language-object)
-
 ## Fetch system languages
 
 [API doc](https://developers.lokalise.com/reference/list-system-languages)

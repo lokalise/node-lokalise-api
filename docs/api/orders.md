@@ -2,8 +2,6 @@
 ---
 # Translation orders
 
-[Order attributes](https://developers.lokalise.com/reference/order-object)
-
 ## Fetch orders
 
 [API doc](https://developers.lokalise.com/reference/list-all-orders)

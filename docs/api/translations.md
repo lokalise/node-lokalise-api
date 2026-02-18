@@ -2,8 +2,6 @@
 ---
 # Translations
 
-[Translation attributes](https://developers.lokalise.com/reference/translations-object)
-
 ## Fetch translations
 
 [API doc](https://developers.lokalise.com/reference/list-all-translations)

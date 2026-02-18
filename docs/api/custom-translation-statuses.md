@@ -2,8 +2,6 @@
 ---
 # Custom translation statuses
 
-[Translation Status attributes](https://developers.lokalise.com/reference/custom-translation-status-object)
-
 *Custom translation statuses must be enabled for the project before using this endpoint!* It can be done in the project settings.
 
 ## Fetch translation statuses
