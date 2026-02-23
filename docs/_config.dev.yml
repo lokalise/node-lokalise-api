@@ -2,8 +2,8 @@ title: Lokalise APIv2 Node SDK
 email: bodrovis@protonmail.com
 description: >- # this means to ignore newlines until "baseurl:"
   Node interface for the Lokalise APIv2.
-baseurl: "/node-lokalise-api" # the subpath of your site, e.g. /blog
-url: "https://lokalise.github.io" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "" # the subpath of your site, e.g. /blog
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: lokalise
 github_username:  lokalise
 
