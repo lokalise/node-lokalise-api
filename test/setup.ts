@@ -16,16 +16,16 @@ import {
 import { Stub } from "./stubs.js";
 
 export {
-	LokaliseApi,
-	Stub,
+	afterEach,
+	beforeEach,
+	describe,
 	expect,
 	it,
-	describe,
-	LokaliseAuth,
+	LokaliseApi,
 	LokaliseApiOAuth,
 	LokaliseApiOta,
+	LokaliseAuth,
 	LokaliseOtaBundles,
+	Stub,
 	vi,
-	beforeEach,
-	afterEach,
 };

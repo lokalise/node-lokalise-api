@@ -6,9 +6,9 @@ import { OtaSdkTokens } from "./ota_sdk_tokens.js";
 import { OtaUsageStatistics } from "./ota_usage_statistics.js";
 
 export {
-	OtaBundles,
 	OtaBundleManagement,
 	OtaBundlePublishing,
+	OtaBundles,
 	OtaFreezePeriods,
 	OtaSdkTokens,
 	OtaUsageStatistics,
