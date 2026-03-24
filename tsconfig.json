@@ -4,6 +4,7 @@
 		"module": "node20",
 		"moduleResolution": "node16",
 		"outDir": "dist",
+		"rootDir": "./src",
 		"sourceMap": true,
 		"strict": true,
 		"declaration": true,
@@ -18,7 +19,8 @@
 		"verbatimModuleSyntax": true,
 		"exactOptionalPropertyTypes": true,
 		"noUncheckedIndexedAccess": true,
-		"useUnknownInCatchVariables": true
+		"useUnknownInCatchVariables": true,
+		"types": ["node"]
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist"]
