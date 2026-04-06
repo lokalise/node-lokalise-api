@@ -2,6 +2,10 @@
 ---
 # Changelog
 
+## 15.7.0 (06-Apr-2026)
+
+* Update dependencies
+
 ## 15.6.1 (29-Jan-2026)
 
 * Fix schema for queued process (`created_by` is changed from `string` to `number`)
