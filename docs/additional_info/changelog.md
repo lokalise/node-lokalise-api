@@ -2,6 +2,10 @@
 ---
 # Changelog
 
+## 15.7.1 (06-Apr-2026)
+
+* Fix entrypoint
+
 ## 15.7.0 (06-Apr-2026)
 
 * Update dependencies
