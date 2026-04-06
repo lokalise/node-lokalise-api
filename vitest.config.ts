@@ -4,7 +4,7 @@ const isCI = !!process.env.CI;
 
 export default defineConfig({
 	oxc: {
-		target: "es2024",
+		target: "es2025",
 	},
 	test: {
 		silent: isCI,

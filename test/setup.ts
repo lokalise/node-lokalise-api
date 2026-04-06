@@ -1,9 +1,12 @@
 import { existsSync } from "node:fs";
 import { loadEnvFile } from "node:process";
+import { install } from "undici";
 
 if (existsSync(".env")) {
 	loadEnvFile();
 }
+
+install();
 
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
