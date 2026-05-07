@@ -10,11 +10,11 @@ jobs:
       fail-fast: false
       matrix:
         node-version:
-          - 20
           - 22
           - 23
           - 24
           - 25
+          - 26
         os:
           - ubuntu-latest
     env:
