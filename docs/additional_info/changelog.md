@@ -2,6 +2,11 @@
 ---
 # Changelog
 
+## 16.0.0 (07-May-2026)
+
+* **Breaking change**: drop support for Node 20
+* Test with Node 26
+
 ## 15.7.1 (06-Apr-2026)
 
 * Fix entrypoint
