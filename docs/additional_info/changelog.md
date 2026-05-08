@@ -2,7 +2,7 @@
 ---
 # Changelog
 
-## 16.0.0 (07-May-2026)
+## 16.0.0 (08-May-2026)
 
 * **Breaking change**: drop support for Node 20
 * Test with Node 26
