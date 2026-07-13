@@ -1,6 +1,6 @@
 {
 	"name": "@lokalise/node-api",
-	"version": "16.0.0",
+	"version": "16.1.0",
 	"description": "Official Lokalise API 2.0 Node.js client",
 	"license": "BSD-3-Clause",
 	"repository": {
@@ -41,13 +41,21 @@
 	},
 	"homepage": "https://lokalise.github.io/node-lokalise-api",
 	"exports": {
-		".": "./dist/main.mjs"
+		".": {
+			"types": "./dist/main.d.mts",
+			"import": "./dist/main.mjs",
+			"default": "./dist/main.mjs"
+		}
 	},
 	"types": "./dist/main.d.mts",
 	"directories": {
 		"lib": "./src",
 		"test": "./test"
 	},
+	"files": [
+		"dist",
+		"src"
+	],
 	"author": "Lokalise group, Ilya Krukowski",
 	"engines": {
 		"node": ">=22.19.0"

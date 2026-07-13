@@ -1,13 +1,14 @@
 {
 	"compilerOptions": {
 		"target": "es2025",
-		"module": "node20",
 		"moduleResolution": "node16",
+		"module": "node20",
 		"outDir": "dist",
 		"rootDir": "./src",
 		"sourceMap": true,
 		"strict": true,
 		"declaration": true,
+		"declarationMap": true,
 		"pretty": true,
 		"resolveJsonModule": true,
 		"noUnusedLocals": true,
@@ -19,7 +20,6 @@
 		"verbatimModuleSyntax": true,
 		"exactOptionalPropertyTypes": true,
 		"noUncheckedIndexedAccess": true,
-		"useUnknownInCatchVariables": true,
 		"types": ["node"]
 	},
 	"include": ["src/**/*"],

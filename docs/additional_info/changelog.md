@@ -2,6 +2,10 @@
 ---
 # Changelog
 
+## 16.1.0 (13-Jul-2026)
+
+* Use TypeScript 7
+
 ## 16.0.0 (08-May-2026)
 
 * **Breaking change**: drop support for Node 20
