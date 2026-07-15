@@ -2,6 +2,20 @@
 ---
 # Changelog
 
+## 16.2.0 (15-Jul-2026)
+
+Added support for upload from FSS:
+
+```js
+process = await lokaliseApi.files().uploadFromFss(project_id,
+  {fss_file_id: 'fss_file_id', filename: 'test1.json', lang_iso: 'en'}
+);
+
+process.status; // => 'queued'
+```
+
+This imports a file previously uploaded to the Lokalise file storage service (FSS). Instead of passing the file content as base64-encoded `data`, the file is referenced by its storage file ID. The referenced file must have been stored owner-scoped under the same project ID with the `importViaMCP` use case. In all other aspects the endpoint behaves the same as the regular upload.
+
 ## 16.1.0 (13-Jul-2026)
 
 * Use TypeScript 7
