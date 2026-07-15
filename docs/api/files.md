@@ -71,7 +71,7 @@ process = await lokaliseApi.files().upload(project_id,
 process.status; // => 'queued'
 ```
 
-Asynchronous upload will return a [`QueuedProcess`](#queued-processes) containing process ID, status of the process (`queued`, `finished`, `failed` etc) and some other info. You may periodically check the status of the process by using `get()` method:
+Asynchronous upload will return a [`QueuedProcess`](https://lokalise.github.io/node-lokalise-api/api/queued-processes) containing process ID, status of the process (`queued`, `finished`, `failed` etc) and some other info. You may periodically check the status of the process by using `get()` method:
 
 ```js
 process = await lokaliseApi.files().upload(project_id,
@@ -95,7 +95,7 @@ process = await lokaliseApi.files().uploadFromFss(project_id,
 process.status; // => 'queued'
 ```
 
-Like the regular upload, it returns a [`QueuedProcess`](#queued-processes) that you can poll with `queuedProcesses().get()`.
+Like the regular upload, it returns a [`QueuedProcess`](https://lokalise.github.io/node-lokalise-api/api/queued-processes) that you can poll with `queuedProcesses().get()`.
 
 ## Delete translation file
 
