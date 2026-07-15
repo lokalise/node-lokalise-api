@@ -84,6 +84,19 @@ process = await lokaliseApi.queuedProcesses().get(process.process_id, { project_
 process.status // => 'finished'
 ```
 
+## Upload translation file from file storage
+
+Imports a file previously uploaded to the Lokalise file storage service (FSS). Instead of passing the file content as base64-encoded `data`, the file is referenced by its storage file ID. The referenced file must have been stored owner-scoped under the same project ID with the `importViaMCP` use case. In all other aspects the endpoint behaves the same as the regular upload.
+
+```js
+process = await lokaliseApi.files().uploadFromFss(project_id,
+  {fss_file_id: 'fss_file_id', filename: 'test1.json', lang_iso: 'en'}
+);
+process.status; // => 'queued'
+```
+
+Like the regular upload, it returns a [`QueuedProcess`](#queued-processes) that you can poll with `queuedProcesses().get()`.
+
 ## Delete translation file
 
 [API doc](https://developers.lokalise.com/reference/delete-a-file)

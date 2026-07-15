@@ -34,6 +34,7 @@ export type {
 	DownloadFileParams,
 	FileDeleted,
 	ListFileParams,
+	UploadFileFromFssParams,
 	UploadFileParams,
 } from "./files.js";
 export type {

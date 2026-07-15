@@ -1,4 +1,8 @@
-import type { DownloadFileParams, UploadFileParams } from "../../src/main.js";
+import type {
+	DownloadFileParams,
+	UploadFileFromFssParams,
+	UploadFileParams,
+} from "../../src/main.js";
 import { QueuedProcess } from "../../src/models/queued_process.js";
 import type { FileFormat } from "../../src/types/file_format.js";
 import type { DownloadedFileProcessDetails } from "../../src/types/queued_process_details.js";
@@ -117,6 +121,33 @@ describe("Files", () => {
 
 		expect(process.type).to.eq("file-import");
 		expect(process.status).to.eq("queued");
+	});
+
+	it("uploads from FSS", async () => {
+		const params: UploadFileFromFssParams = {
+			fss_file_id: "0195c7a2-8f2e-7c3a-b4d5-123456789abc",
+			filename: "test_node.json",
+			lang_iso: "en",
+			format: "json",
+		};
+
+		const stub = new Stub({
+			fixture: "files/upload_from_fss.json",
+			uri: `projects/${projectId}/files/upload-from-fss`,
+			body: params as unknown as Record<string, unknown>,
+			method: "POST",
+		});
+
+		await stub.setStub();
+
+		const process: QueuedProcess = await lokaliseApi
+			.files()
+			.uploadFromFss(projectId, params);
+
+		expect(process.process_id).to.eq(processId);
+		expect(process.type).to.eq("file-import");
+		expect(process.status).to.eq("queued");
+		expect(process.created_by).to.eq(20181);
 	});
 
 	it("raises error for malformed response", async () => {

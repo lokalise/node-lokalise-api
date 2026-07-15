@@ -7,6 +7,7 @@ import type {
 	DownloadFileParams,
 	FileDeleted,
 	ListFileParams,
+	UploadFileFromFssParams,
 	UploadFileParams,
 } from "../types/files.js";
 import { warn } from "../utils/logger.js";
@@ -62,6 +63,19 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 			this.populateSecondaryObjectFromJsonRoot,
 			upload,
 			"projects/{!:project_id}/files/upload",
+		);
+	}
+
+	uploadFromFss(
+		project_id: string,
+		upload: UploadFileFromFssParams,
+	): Promise<QueuedProcess> {
+		return this.createPromise(
+			"POST",
+			{ project_id },
+			this.populateSecondaryObjectFromJsonRoot,
+			upload,
+			"projects/{!:project_id}/files/upload-from-fss",
 		);
 	}
 
