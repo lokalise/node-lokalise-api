@@ -783,6 +783,9 @@ var Files = class extends BaseCollection {
 	upload(project_id, upload) {
 		return this.createPromise("POST", { project_id }, this.populateSecondaryObjectFromJsonRoot, upload, "projects/{!:project_id}/files/upload");
 	}
+	uploadFromFss(project_id, upload) {
+		return this.createPromise("POST", { project_id }, this.populateSecondaryObjectFromJsonRoot, upload, "projects/{!:project_id}/files/upload-from-fss");
+	}
 	download(project_id, download) {
 		return this.createPromise("POST", { project_id }, this.returnBareJSON, download, "projects/{!:project_id}/files/download");
 	}
