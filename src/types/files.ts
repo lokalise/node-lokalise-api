@@ -141,6 +141,10 @@ export interface UploadFileParams {
 	filter_task_id?: number;
 }
 
+export type UploadFileFromFssParams = Omit<UploadFileParams, "data"> & {
+	fss_file_id: string;
+};
+
 export type ListFileParams = ProjectWithPagination & {
 	filter_filename?: string;
 };
