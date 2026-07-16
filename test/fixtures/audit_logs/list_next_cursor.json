@@ -1,0 +1,32 @@
+{
+	"data": [
+		{
+			"class_uid": 6003,
+			"class_name": "API Activity",
+			"category_uid": 6,
+			"category_name": "Application Activity",
+			"activity_id": 99,
+			"activity_name": "Other",
+			"type_uid": 600399,
+			"severity_id": 1,
+			"severity": "Informational",
+			"status_id": 1,
+			"status": "Success",
+			"time": 1753267400,
+			"metadata": {
+				"uid": "event-2",
+				"version": "1.3.0",
+				"log_provider": "lokalise-audit",
+				"event_code": "project.created"
+			},
+			"actor": {
+				"user": {
+					"uid": "20182",
+					"type_id": 1
+				}
+			}
+		}
+	],
+	"next_cursor": null,
+	"has_more": false
+}

@@ -92,10 +92,16 @@ describe("Errors", () => {
 				project_id: fakeProjectId,
 			});
 		} catch (e) {
+			if (!(e instanceof ApiError)) {
+				throw e;
+			}
+
 			expect(e).toBeInstanceOf(ApiError);
 			expect(e.message).toBe("fetch failed");
 			expect(e.code).toBe(500);
-			expect(e.details).toEqual({ reason: "network or fetch error" });
+			expect(e.details).toEqual({
+				reason: "network or fetch error",
+			});
 		}
 	});
 
@@ -220,9 +226,15 @@ describe("Errors", () => {
 				.branches()
 				.create(params, { project_id: fakeProjectId });
 		} catch (error) {
+			if (!(error instanceof ApiError)) {
+				throw error;
+			}
+
 			expect(error.message).toEqual("Something very bad has happened");
 			expect(error.code).toEqual(500);
-			expect(error.details).toEqual({ status: "failed" });
+			expect(error.details).toEqual({
+				status: "failed",
+			});
 			expect(String(error)).toEqual(
 				"LokaliseError: Something very bad has happened (Code: 500) | Details: status: failed",
 			);

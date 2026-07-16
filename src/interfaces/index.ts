@@ -38,4 +38,7 @@ export type { Translation } from "./translation.js";
 export type { TranslationProvider } from "./translation_provider.js";
 export type { TranslationStatus } from "./translation_status.js";
 export type { UserGroup } from "./user_group.js";
+export type { AuditEventV1 } from "./v1/audit_event.js";
+export type { CursorPaginatedResponseV1 } from "./v1/cursor_paginated_response.js";
+export type { CursorPaginatedResultV1 } from "./v1/cursor_paginated_result.js";
 export type { Webhook } from "./webhook.js";

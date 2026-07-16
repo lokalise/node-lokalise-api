@@ -47,6 +47,10 @@ describe("Comments", () => {
 				project_id: projectId,
 			});
 		} catch (e) {
+			if (!(e instanceof Error)) {
+				throw e;
+			}
+
 			expect(e.message).toEqual(
 				"Expected an array under 'comments' but received: object",
 			);

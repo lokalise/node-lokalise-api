@@ -121,6 +121,8 @@ export type {
 	UpdateTranslationParams,
 } from "./translations.js";
 export type { UserGroupDeleted, UserGroupParams } from "./user_groups.js";
+export type { AuditLogParams } from "./v1/audit_logs.js";
+export type { CursorPaginationParamsV1 } from "./v1/common_get_params.js";
 export type { WebhookProjectBranchAdded } from "./webhook_events/project_branch_added.js";
 export type { WebhookProjectBranchDeleted } from "./webhook_events/project_branch_deleted.js";
 export type { WebhookProjectBranchMerged } from "./webhook_events/project_branch_merged.js";

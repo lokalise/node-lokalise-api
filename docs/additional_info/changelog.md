@@ -2,6 +2,35 @@
 ---
 # Changelog
 
+## 16.3.0 (17-Jul-2026)
+
+Added support for the new [Audit Logs endpoint](https://developers.lokalise.com/reference/list-audit-logs).
+
+This endpoint requires API version `v1`:
+
+```ts
+const lokaliseApi = new LokaliseApi({
+	apiKey: process.env.API_KEY,
+	version: "v1",
+});
+```
+
+Example:
+
+```ts
+const auditLogs = await lokaliseApi.auditLogs().list({
+	limit: 100,
+	event_type: "project.deleted",
+});
+
+console.log(auditLogs.items);
+console.log(auditLogs.items[0].metadata.event_code) // "project.deleted"
+console.log(auditLogs.next_cursor);
+console.log(auditLogs.has_more);
+```
+
+More endpoints will gradually move to the new API version.
+
 ## 16.2.0 (15-Jul-2026)
 
 Added support for upload from FSS:
