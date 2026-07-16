@@ -8,6 +8,20 @@ if (existsSync(".env")) {
 
 install();
 
+async function captureError(promise: Promise<unknown>): Promise<Error> {
+	try {
+		await promise;
+	} catch (error) {
+		if (error instanceof Error) {
+			return error;
+		}
+
+		throw error;
+	}
+
+	throw new Error("Expected promise to reject");
+}
+
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import {
 	LokaliseApi,
@@ -21,6 +35,7 @@ import { Stub } from "./stubs.js";
 export {
 	afterEach,
 	beforeEach,
+	captureError,
 	describe,
 	expect,
 	it,

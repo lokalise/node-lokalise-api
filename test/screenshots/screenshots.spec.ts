@@ -167,6 +167,8 @@ describe("Screenshots", () => {
 			await lokaliseApi.screenshots().create(params, {
 				project_id: projectId,
 			});
+
+			throw new Error("Expected malformed create response to be rejected");
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				throw e;

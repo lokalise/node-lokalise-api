@@ -111,4 +111,33 @@ describe("Audit logs", () => {
 		expect(auditLogs.next_cursor).to.be.null;
 		expect(auditLogs.has_more).to.be.false;
 	});
+
+	it("raises error when a cursor-paginated item is malformed", async () => {
+		const params: AuditLogParams = {
+			limit: 2,
+		};
+
+		const stub = new Stub({
+			fixture: "audit_logs/list_malformed_item.json",
+			uri: "audit-logs",
+			version: "v1",
+			query: params,
+		});
+
+		await stub.setStub();
+
+		try {
+			await lokaliseApi.auditLogs().list(params);
+
+			throw new Error("Expected malformed pagination item to be rejected");
+		} catch (e) {
+			if (!(e instanceof Error)) {
+				throw e;
+			}
+
+			expect(e.message).toEqual(
+				"Expected item at index 1 in 'data' to be an object",
+			);
+		}
+	});
 });

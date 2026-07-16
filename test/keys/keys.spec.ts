@@ -158,6 +158,8 @@ describe("Keys", () => {
 			await lokaliseApi.keys().list({
 				...params,
 			});
+
+			throw new Error("Expected cursor pagination to be malformed");
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				throw e;
@@ -262,6 +264,8 @@ describe("Keys", () => {
 
 		try {
 			await lokaliseApi.keys().get(keyId, params);
+
+			throw new Error("Expected malformed response to be rejected");
 		} catch (e) {
 			if (!(e instanceof Error)) {
 				throw e;

@@ -415,13 +415,15 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 
 		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
 
-		const items = data.map(
-			(obj) =>
-				this.populateObjectFromJson(
-					obj as Record<string, unknown>,
-					headers,
-				) as ElementType,
-		);
+		const items = data.map((obj, index) => {
+			if (!this.isRecord(obj)) {
+				throw new Error(
+					`Expected item at index ${index} in 'data' to be an object`,
+				);
+			}
+
+			return this.populateObjectFromJson(obj, headers) as ElementType;
+		});
 
 		return new CursorPaginatedResultV1({
 			data: items,

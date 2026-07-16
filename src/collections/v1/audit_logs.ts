@@ -1,5 +1,4 @@
 import type { CursorPaginatedResultV1 } from "../../interfaces/v1/cursor_paginated_result.js";
-
 import { AuditEventV1 } from "../../models/v1/audit_event.js";
 import type { AuditLogParams } from "../../types/v1/audit_logs.js";
 import { BaseCollection } from "../base_collection.js";

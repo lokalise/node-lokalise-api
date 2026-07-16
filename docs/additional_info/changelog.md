@@ -19,7 +19,9 @@ Example:
 
 ```ts
 const auditLogs = await lokaliseApi.auditLogs().list({
+  // Optional params:
 	limit: 100,
+  cursor: "some_cursor",
 	event_type: "project.deleted",
 });
 
