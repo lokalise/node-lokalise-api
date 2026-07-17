@@ -11,6 +11,11 @@
       path: branching
     - title: Compression
       path: compression
+- title: Audit logs
+  path: audit_logs
+  sub_paths:
+    - title: List audit logs
+      path: list-audit-logs
 - title: Branches
   path: branches
   sub_paths:

@@ -1,4 +1,11 @@
-import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
+import {
+	captureError,
+	describe,
+	expect,
+	it,
+	LokaliseApi,
+	Stub,
+} from "../setup.js";
 
 describe("Comments", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
@@ -42,15 +49,15 @@ describe("Comments", () => {
 
 		await stub.setStub();
 
-		try {
-			await lokaliseApi.comments().list_project_comments({
+		const error = await captureError(
+			lokaliseApi.comments().list_project_comments({
 				project_id: projectId,
-			});
-		} catch (e) {
-			expect(e.message).toEqual(
-				"Expected an array under 'comments' but received: object",
-			);
-		}
+			}),
+		);
+
+		expect(error.message).toEqual(
+			"Expected an array under 'comments' but received: object",
+		);
 	});
 
 	it("lists project comments", async () => {

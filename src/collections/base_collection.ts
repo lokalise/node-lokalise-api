@@ -3,6 +3,7 @@ import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { ClientData } from "../interfaces/client_data.js";
 import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
 import { PaginatedResult } from "../models/paginated_result.js";
+import { CursorPaginatedResultV1 } from "../models/v1/cursor_paginated_result.js";
 import type { HttpMethod } from "../types/http_method.js";
 
 type ResolveHandler<T> = (json: Record<string, unknown>, headers: Headers) => T;
@@ -123,6 +124,17 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			"GET",
 			params,
 			this.populateArrayFromJsonCursor,
+			null,
+		);
+	}
+
+	protected doListCursorV1(
+		params: Record<string, unknown>,
+	): Promise<CursorPaginatedResultV1<ElementType>> {
+		return this.createPromise<CursorPaginatedResultV1<ElementType>>(
+			"GET",
+			params,
+			this.populateArrayFromJsonCursorV1,
 			null,
 		);
 	}
@@ -383,6 +395,44 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	}
 
 	/**
+	 * Parse a JSON response that contains a cursor-paginated array of items.
+	 * @param json The raw JSON object returned by the API.
+	 */
+	protected populateArrayFromJsonCursorV1(
+		json: Record<string, unknown>,
+		headers: Headers,
+	): CursorPaginatedResultV1<ElementType> {
+		const data = json.data;
+
+		if (!Array.isArray(data)) {
+			throw new Error(
+				`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`,
+			);
+		}
+
+		const nextCursor =
+			typeof json.next_cursor === "string" ? json.next_cursor : null;
+
+		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
+
+		const items = data.map((obj, index) => {
+			if (!this.isRecord(obj)) {
+				throw new Error(
+					`Expected item at index ${index} in 'data' to be an object`,
+				);
+			}
+
+			return this.populateObjectFromJson(obj, headers) as ElementType;
+		});
+
+		return new CursorPaginatedResultV1({
+			data: items,
+			next_cursor: nextCursor,
+			has_more: hasMore,
+		});
+	}
+
+	/**
 	 * Parse a JSON object into either an ElementType or a SecondaryType instance.
 	 * @param json The raw JSON object returned by the API.
 	 * @param _headers The response headers (if needed).
@@ -390,7 +440,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 */
 	protected populateObjectFromJson(
 		json: Record<string, unknown>,
-		_headers: Headers,
+		_headers: Headers = new Headers(),
 		secondary = false,
 	): ElementType | SecondaryType {
 		const cls = secondary ? this.secondaryElementClass : this.elementClass;

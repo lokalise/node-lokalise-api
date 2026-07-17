@@ -1,0 +1,19 @@
+{
+	"data": [
+		{
+			"class_uid": 6003,
+			"category_uid": 6,
+			"activity_id": 99,
+			"type_uid": 600399,
+			"severity_id": 1,
+			"time": 1753267500,
+			"metadata": {
+				"uid": "event-3",
+				"version": "1.3.0",
+				"event_code": "user.updated"
+			}
+		}
+	],
+	"next_cursor": 12345,
+	"has_more": "yes"
+}

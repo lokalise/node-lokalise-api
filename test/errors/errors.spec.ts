@@ -1,6 +1,14 @@
 import type { ProjectWithPagination } from "../../src/main.js";
 import { ApiError } from "../../src/main.js";
-import { describe, expect, it, LokaliseApi, Stub, vi } from "../setup.js";
+import {
+	captureError,
+	describe,
+	expect,
+	it,
+	LokaliseApi,
+	Stub,
+	vi,
+} from "../setup.js";
 
 describe("Errors", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
@@ -87,16 +95,23 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		try {
-			await lokaliseApi.branches().list({
+		const error = await captureError(
+			lokaliseApi.branches().list({
 				project_id: fakeProjectId,
-			});
-		} catch (e) {
-			expect(e).toBeInstanceOf(ApiError);
-			expect(e.message).toBe("fetch failed");
-			expect(e.code).toBe(500);
-			expect(e.details).toEqual({ reason: "network or fetch error" });
+			}),
+		);
+
+		expect(error).toBeInstanceOf(ApiError);
+
+		if (!(error instanceof ApiError)) {
+			throw new Error("Expected an ApiError");
 		}
+
+		expect(error.message).toBe("fetch failed");
+		expect(error.code).toBe(500);
+		expect(error.details).toEqual({
+			reason: "network or fetch error",
+		});
 	});
 
 	it("handles plain errors", async () => {
@@ -215,18 +230,24 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		try {
-			await lokaliseApi
-				.branches()
-				.create(params, { project_id: fakeProjectId });
-		} catch (error) {
-			expect(error.message).toEqual("Something very bad has happened");
-			expect(error.code).toEqual(500);
-			expect(error.details).toEqual({ status: "failed" });
-			expect(String(error)).toEqual(
-				"LokaliseError: Something very bad has happened (Code: 500) | Details: status: failed",
-			);
+		const error = await captureError(
+			lokaliseApi.branches().create(params, { project_id: fakeProjectId }),
+		);
+
+		expect(error).toBeInstanceOf(ApiError);
+
+		if (!(error instanceof ApiError)) {
+			throw new Error("Expected an ApiError");
 		}
+
+		expect(error.message).toEqual("Something very bad has happened");
+		expect(error.code).toEqual(500);
+		expect(error.details).toEqual({
+			status: "failed",
+		});
+		expect(String(error)).toEqual(
+			"LokaliseError: Something very bad has happened (Code: 500) | Details: status: failed",
+		);
 	});
 
 	it("converts errors without details to string", () => {

@@ -164,8 +164,16 @@ describe("Screenshots", () => {
 		await stub.setStub();
 
 		try {
-			await lokaliseApi.screenshots().create(params, { project_id: projectId });
+			await lokaliseApi.screenshots().create(params, {
+				project_id: projectId,
+			});
+
+			throw new Error("Expected malformed create response to be rejected");
 		} catch (e) {
+			if (!(e instanceof Error)) {
+				throw e;
+			}
+
 			expect(e.message).toEqual(
 				"Expected an array under 'screenshots' but received: object",
 			);

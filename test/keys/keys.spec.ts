@@ -158,7 +158,13 @@ describe("Keys", () => {
 			await lokaliseApi.keys().list({
 				...params,
 			});
+
+			throw new Error("Expected cursor pagination to be malformed");
 		} catch (e) {
+			if (!(e instanceof Error)) {
+				throw e;
+			}
+
 			expect(e.message).toEqual(
 				"Expected an array under 'keys' for cursor pagination but received: object",
 			);
@@ -258,7 +264,13 @@ describe("Keys", () => {
 
 		try {
 			await lokaliseApi.keys().get(keyId, params);
+
+			throw new Error("Expected malformed response to be rejected");
 		} catch (e) {
+			if (!(e instanceof Error)) {
+				throw e;
+			}
+
 			expect(e.message).toEqual("Missing property 'key' in JSON object");
 		}
 	});

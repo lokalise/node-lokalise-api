@@ -22,9 +22,11 @@ import { TranslationProviders } from "./translation_providers.js";
 import { TranslationStatuses } from "./translation_statuses.js";
 import { Translations } from "./translations.js";
 import { UserGroups } from "./user_groups.js";
+import { AuditLogs } from "./v1/audit_logs.js";
 import { Webhooks } from "./webhooks.js";
 
 export {
+	AuditLogs,
 	Branches,
 	Comments,
 	Contributors,

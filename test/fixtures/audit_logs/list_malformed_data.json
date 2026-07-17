@@ -1,0 +1,9 @@
+{
+	"data": {
+		"metadata": {
+			"uid": "not-an-array"
+		}
+	},
+	"next_cursor": "cursor-page-2",
+	"has_more": true
+}

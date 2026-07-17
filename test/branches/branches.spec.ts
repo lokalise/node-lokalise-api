@@ -154,7 +154,7 @@ describe("Branches", () => {
 
 	it("merges", async () => {
 		const params = {
-			force_conflict_resolve_using: "master",
+			force_conflict_resolve_using: "source" as const,
 		};
 
 		const branchIdMerge = 344847;
