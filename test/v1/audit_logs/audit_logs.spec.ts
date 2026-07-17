@@ -1,11 +1,10 @@
 import { AuditEventV1 } from "../../../src/models/v1/audit_event.js";
 import type { AuditLogParams } from "../../../src/types/v1/audit_logs.js";
-import { describe, expect, it, LokaliseApi, Stub } from "../../setup.js";
+import { describe, expect, it, LokaliseApiV1, Stub } from "../../setup.js";
 
 describe("Audit logs", () => {
-	const lokaliseApi = new LokaliseApi({
+	const lokaliseApi = new LokaliseApiV1({
 		apiKey: process.env.API_KEY,
-		version: "v1",
 	});
 
 	it("lists audit logs and returns cursor pagination metadata", async () => {
@@ -139,5 +138,14 @@ describe("Audit logs", () => {
 				"Expected item at index 1 in 'data' to be an object",
 			);
 		}
+	});
+
+	it("overrides the default API version when explicitly provided", () => {
+		const lokaliseApi = new LokaliseApiV1({
+			apiKey: "test-api-key",
+			version: "v1333",
+		});
+
+		expect(lokaliseApi.clientData.version).toEqual("v1333");
 	});
 });

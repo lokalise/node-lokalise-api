@@ -1,5 +1,4 @@
 import {
-	AuditLogs,
 	Branches,
 	Comments,
 	Contributors,
@@ -46,13 +45,6 @@ export class LokaliseApi extends BaseClient {
 		// Default to "api2" version if not explicitly provided
 		this.clientData.version = params.version ?? "api2";
 		this.clientData.authHeader = params.header ?? this.clientData.authHeader;
-	}
-
-	/**
-	 * Access Audit-related endpoints.
-	 */
-	auditLogs(): AuditLogs {
-		return new AuditLogs(this.clientData);
 	}
 
 	/**

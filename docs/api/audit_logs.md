@@ -7,12 +7,11 @@
 
 [API doc](https://developers.lokalise.com/reference/list-audit-logs)
 
-**This endpoint is only available through API version `v1`. Make sure to specify the version when initializing the client.**
+This endpoint belongs to the new API version `v1`. Use the `LokaliseApiV1` client for Audit Logs and other endpoints introduced under this API version.
 
 ```js
-const lokaliseApi = new LokaliseApi({
+const lokaliseApi = new LokaliseApiV1({
   apiKey: process.env.API_KEY,
-  version: "v1", // important!
 });
 
 const auditLogs = await lokaliseApi.auditLogs().list({

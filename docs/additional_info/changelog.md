@@ -6,12 +6,11 @@
 
 Added support for the new [Audit Logs endpoint](https://developers.lokalise.com/reference/list-audit-logs).
 
-This endpoint requires API version `v1`:
+Audit Logs are available through the new `LokaliseApiV1` client:
 
 ```ts
-const lokaliseApi = new LokaliseApi({
+const lokaliseApi = new LokaliseApiV1({
 	apiKey: process.env.API_KEY,
-	version: "v1",
 });
 ```
 
@@ -19,19 +18,19 @@ Example:
 
 ```ts
 const auditLogs = await lokaliseApi.auditLogs().list({
-  // Optional params:
+	// Optional parameters:
 	limit: 100,
-  cursor: "some_cursor",
+	cursor: "some_cursor",
 	event_type: "project.deleted",
 });
 
 console.log(auditLogs.items);
-console.log(auditLogs.items[0].metadata.event_code) // "project.deleted"
+console.log(auditLogs.items[0].metadata.event_code); // "project.deleted"
 console.log(auditLogs.next_cursor);
 console.log(auditLogs.has_more);
 ```
 
-More endpoints will gradually move to the new API version.
+More endpoints will gradually become available through `LokaliseApiV1`.
 
 ## 16.2.0 (15-Jul-2026)
 

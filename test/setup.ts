@@ -27,6 +27,7 @@ import {
 	LokaliseApi,
 	LokaliseApiOAuth,
 	LokaliseApiOta,
+	LokaliseApiV1,
 	LokaliseAuth,
 	LokaliseOtaBundles,
 } from "../src/main.js";
@@ -42,6 +43,7 @@ export {
 	LokaliseApi,
 	LokaliseApiOAuth,
 	LokaliseApiOta,
+	LokaliseApiV1,
 	LokaliseAuth,
 	LokaliseOtaBundles,
 	Stub,

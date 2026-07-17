@@ -1,6 +1,7 @@
 import { LokaliseApi } from "./lokalise/lokalise_api.js";
 import { LokaliseApiOAuth } from "./lokalise/lokalise_api_oauth.js";
 import { LokaliseApiOta } from "./lokalise/lokalise_api_ota.js";
+import { LokaliseApiV1 } from "./lokalise/lokalise_api_v1.js";
 import { LokaliseOtaBundles } from "./lokalise/lokalise_ota_bundles.js";
 import { LokaliseAuth } from "./oauth2/lokalise_auth.js";
 
@@ -12,6 +13,7 @@ export {
 	LokaliseApi,
 	LokaliseApiOAuth,
 	LokaliseApiOta,
+	LokaliseApiV1,
 	LokaliseAuth,
 	LokaliseOtaBundles,
 };
