@@ -267,6 +267,28 @@ declare class CursorPaginatedResult$1<T> extends PaginatedResult$1<T> implements
   hasNextCursor(): boolean;
 }
 //#endregion
+//#region src/interfaces/v1/cursor_paginated_response.d.ts
+interface CursorPaginatedResponseV1<T = unknown> {
+  readonly data: T[];
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+}
+//#endregion
+//#region src/interfaces/v1/cursor_paginated_result.d.ts
+interface CursorPaginatedResultV1<T = unknown> {
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+  readonly items: T[];
+}
+//#endregion
+//#region src/models/v1/cursor_paginated_result.d.ts
+declare class CursorPaginatedResultV1$1<T> implements CursorPaginatedResultV1<T> {
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+  readonly items: T[];
+  constructor(response: CursorPaginatedResponseV1<T>);
+}
+//#endregion
 //#region src/collections/base_collection.d.ts
 type ResolveHandler<T> = (json: Record<string, unknown>, headers: Headers) => T;
 type ApiRequestWithResponse = ApiRequest & {
@@ -345,6 +367,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @returns A promise resolving to a CursorPaginatedResult of ElementType.
    */
   protected doListCursor(params: Record<string, unknown>): Promise<CursorPaginatedResult$1<ElementType>>;
+  protected doListCursorV1(params: Record<string, unknown>): Promise<CursorPaginatedResultV1$1<ElementType>>;
   /**
    * Perform a GET request to retrieve a single item by its ID.
    * @param id The ID of the item to retrieve.
@@ -366,7 +389,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @param resolveFn Optional custom resolve handler to parse the response.
    * @returns A promise resolving to an ElementType or SecondaryType instance.
    */
-  protected doCreate(body: object | object[] | null, params?: Record<string, unknown>, resolveFn?: (json: Record<string, unknown>, _headers: Headers, secondary?: boolean) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
+  protected doCreate(body: object | object[] | null, params?: Record<string, unknown>, resolveFn?: (json: Record<string, unknown>, _headers?: Headers, secondary?: boolean) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
   /**
    * Perform a POST request to create multiple resources at once.
    * @param body The object or array of objects to send in the request body.
@@ -438,12 +461,17 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    */
   protected populateArrayFromJsonCursor(json: Record<string, unknown>, headers: Headers): CursorPaginatedResult$1<ElementType>;
   /**
+   * Parse a JSON response that contains a cursor-paginated array of items.
+   * @param json The raw JSON object returned by the API.
+   */
+  protected populateArrayFromJsonCursorV1(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultV1$1<ElementType>;
+  /**
    * Parse a JSON object into either an ElementType or a SecondaryType instance.
    * @param json The raw JSON object returned by the API.
    * @param _headers The response headers (if needed).
    * @param secondary If true, use the secondaryElementClass instead of elementClass.
    */
-  protected populateObjectFromJson(json: Record<string, unknown>, _headers: Headers, secondary?: boolean): ElementType | SecondaryType;
+  protected populateObjectFromJson(json: Record<string, unknown>, _headers?: Headers, secondary?: boolean): ElementType | SecondaryType;
   /**
    * Return the raw JSON as-is.
    * @param json The raw JSON object or array returned by the API.
@@ -1767,6 +1795,74 @@ interface UserGroup {
   role_id: number | null;
 }
 //#endregion
+//#region src/interfaces/v1/audit_event.d.ts
+interface AuditEventV1 {
+  readonly class_uid: number;
+  readonly class_name?: string;
+  readonly category_uid: number;
+  readonly category_name?: string;
+  readonly activity_id: number;
+  readonly activity_name?: string;
+  readonly type_uid: number;
+  readonly type_name?: string;
+  readonly severity_id: number;
+  readonly severity?: string;
+  readonly status_id?: number;
+  readonly status?: string;
+  /**
+   * Unix timestamp in seconds.
+   */
+  readonly time: number;
+  readonly metadata: {
+    readonly uid: string;
+    readonly version: string;
+    readonly log_provider?: string;
+    readonly event_code?: string;
+    readonly product?: {
+      readonly vendor_name?: string;
+      readonly name?: string;
+      readonly version?: string | number;
+      readonly [key: string]: unknown;
+    };
+    readonly [key: string]: unknown;
+  };
+  readonly actor?: {
+    readonly user?: {
+      readonly uid?: string;
+      readonly type_id?: number;
+      readonly [key: string]: unknown;
+    };
+    readonly session?: {
+      readonly is_remote?: boolean;
+      readonly [key: string]: unknown;
+    };
+    readonly [key: string]: unknown;
+  };
+  readonly src_endpoint?: {
+    readonly ip?: string;
+    readonly [key: string]: unknown;
+  };
+  readonly http_request?: {
+    readonly user_agent?: string;
+    readonly url?: {
+      readonly url_string?: string;
+      readonly [key: string]: unknown;
+    };
+    readonly [key: string]: unknown;
+  };
+  readonly enrichments?: Array<{
+    readonly name?: string;
+    readonly value?: string;
+    readonly data?: Record<string, unknown>;
+    readonly [key: string]: unknown;
+  }>;
+  readonly unmapped?: Record<string, unknown>;
+  /**
+   * OCSF events may contain additional fields.
+   */
+  readonly [key: string]: unknown;
+}
+//#endregion
 //#region src/interfaces/webhook.d.ts
 interface Webhook {
   webhook_id: string;
@@ -2002,6 +2098,47 @@ type UserGroupParams = {
 type UserGroupDeleted = {
   team_id: string;
   group_deleted: boolean;
+};
+//#endregion
+//#region src/types/v1/common_get_params.d.ts
+type CursorPaginationParamsV1 = {
+  /**
+   * Number of results per page.
+   * Minimum: 1. Maximum: 1000.
+   */
+  limit?: number;
+  /**
+   * Pagination cursor returned by the previous response.
+   */
+  cursor?: string;
+};
+//#endregion
+//#region src/types/v1/audit_logs.d.ts
+type AuditLogParams = CursorPaginationParamsV1 & {
+  /**
+   * Return events on or after this date.
+   *
+   * Format: YYYY-MM-DD. The date starts at 00:00:00 UTC.
+   */
+  date_from?: string;
+  /**
+   * Return events on or before this date.
+   *
+   * Format: YYYY-MM-DD. The date ends at 23:59:59 UTC.
+   */
+  date_to?: string;
+  /**
+   * Filter by a specific dot-separated event type.
+   */
+  event_type?: string;
+  /**
+   * Filter events to a specific project.
+   */
+  project_id?: number;
+  /**
+   * Filter events initiated by a specific user.
+   */
+  user_id?: number;
 };
 //#endregion
 //#region src/types/webhook_events/project_branch_added.d.ts
@@ -3229,6 +3366,39 @@ declare class UserGroups extends BaseCollection<UserGroup$1> {
   protected populateGroupFromJsonRoot(json: Record<string, unknown>, headers: Headers): UserGroup$1;
 }
 //#endregion
+//#region src/models/v1/audit_event.d.ts
+type WithoutUndefined<T> = Exclude<T, undefined>;
+declare class AuditEventV1$1 implements AuditEventV1 {
+  readonly [key: string]: unknown;
+  readonly class_uid: number;
+  readonly class_name?: string;
+  readonly category_uid: number;
+  readonly category_name?: string;
+  readonly activity_id: number;
+  readonly activity_name?: string;
+  readonly type_uid: number;
+  readonly type_name?: string;
+  readonly severity_id: number;
+  readonly severity?: string;
+  readonly status_id?: number;
+  readonly status?: string;
+  readonly time: number;
+  readonly metadata: AuditEventV1["metadata"];
+  readonly actor?: WithoutUndefined<AuditEventV1["actor"]>;
+  readonly src_endpoint?: WithoutUndefined<AuditEventV1["src_endpoint"]>;
+  readonly http_request?: WithoutUndefined<AuditEventV1["http_request"]>;
+  readonly enrichments?: WithoutUndefined<AuditEventV1["enrichments"]>;
+  readonly unmapped?: WithoutUndefined<AuditEventV1["unmapped"]>;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/v1/audit_logs.d.ts
+declare class AuditLogs extends BaseCollection<AuditEventV1$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => AuditEventV1$1;
+  list(request_params?: AuditLogParams): Promise<CursorPaginatedResultV1<AuditEventV1$1>>;
+}
+//#endregion
 //#region src/models/webhook.d.ts
 declare class Webhook$1 extends BaseModel implements Webhook {
   webhook_id: string;
@@ -3579,6 +3749,23 @@ declare class LokaliseApiOta extends BaseClient {
   otaSdkTokens(): OtaSdkTokens;
 }
 //#endregion
+//#region src/lokalise/lokalise_api_v1.d.ts
+/**
+ * A main entry point for interacting with Lokalise API v1.
+ * Provides access to resource collections available through API version v1.
+ */
+declare class LokaliseApiV1 extends BaseClient {
+  /**
+   * Creates a new instance of the LokaliseApiV1 client.
+   * @param params - Configuration parameters including `apiKey` and optional `version`, `host`, etc.
+   */
+  constructor(params: ClientParams);
+  /**
+   * Access Audit Logs endpoints.
+   */
+  auditLogs(): AuditLogs;
+}
+//#endregion
 //#region src/lokalise/lokalise_ota_bundles.d.ts
 /**
  * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
@@ -3672,5 +3859,5 @@ declare class AuthError extends BaseModel implements IAuthError {
   error_uri?: string;
 }
 //#endregion
-export { ApiError, type AuthData, AuthError, type BillingDetailsParams, type Branch, type BranchDeleted, type BranchMerged, type BranchParams, type BulkResult, type BulkUpdateKeyParams, type CardDeleted, type ClientData, type ClientParams, type Comment, type CommentData, type CommentDeleted, type Contributor, type ContributorCreateData, type ContributorDeleted, type ContributorLanguages, type ContributorRights, type ContributorRoles, type ContributorUpdateData, type CreateCardParams, type CreateKeyData, type CreateKeyParams, type CreateLanguageParams, type CreateOrderParams, type CreateProjectParams, type CreateScreenshotParams, type CreateSnapshotParams, type CreateTaskParams, type CreateTermsParams, type CreateTranslationStatusParams, type CreateWebhookParams, type CursorPaginatedResult, type CursorPagination, type DownloadBundle, type DownloadFileParams, type DownloadedFileProcessDetails, type File, type FileDeleted, type FileFormat, type Filenames, type GetKeyParams, type GetSegmentParams, type GetTranslationParams, type GlossaryTerm, type HttpMethod, type IApiError, type IAuthError, type Jwt, type Key, type KeyDeleted, type KeyParamsWithPagination, type KeyProjectPagination, type KeysBulkDeleted, type Language, type LanguageDeleted, type ListFileParams, type ListSegmentParams, type ListTaskParams, type ListTermsParams, type ListTranslationParams, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseAuth, LokaliseOtaBundles, type MergeBranchParams, type NumericBool, type Order, type OtaBundle, type OtaBundleArchive, type OtaBundleUpdateData, type OtaFramework, type OtaFreezePeriod, type OtaFreezePeriodParams, type OtaProjectFramework, type OtaRequestBundleParams, type OtaResourceDeleted, type OtaSdkToken, type OtaStatistics, type OtaTeamProject, type OtaTeamProjectFramework, type OtaUsageParams, type PaginatedResult, type PaginationParams, type PaymentCard, type Project, type ProjectAndKey, type ProjectDeleted, type ProjectEmptied, type ProjectListParams, type ProjectOnly, type ProjectSettings, type ProjectStatistics, type ProjectWithPagination, type QueuedProcess, type QueuedProcessDetails, type RefreshTokenResponse, type RequestTokenResponse, type Screenshot, type ScreenshotData, type ScreenshotDeleted, type Segment, type Snapshot, type SnapshotDeleted, type SupportedPlatforms, type Task, type TaskDeleted, type TaskLanguage, type Team, type TeamOnly, type TeamUser, type TeamUserBillingDetails, type TeamUserDeleted, type TeamUserParams, type TeamWithPagination, type TermsDeleted, type Translation, type TranslationData, type TranslationProvider, type TranslationStatus, type TranslationStatusColors, type TranslationStatusDeleted, type UpdateKeyData, type UpdateKeyDataWithId, type UpdateLanguageParams, type UpdateProjectParams, type UpdateScreenshotParams, type UpdateSegmentBodyParams, type UpdateSegmentReqParams, type UpdateTaskParams, type UpdateTermsParams, type UpdateTranslationParams, type UpdateTranslationStatusParams, type UpdateWebhookParams, type UploadFileFromFssParams, type UploadFileParams, type UploadedFileProcessDetails, type UserGroup, type UserGroupDeleted, type UserGroupParams, type Webhook, type WebhookDeleted, type WebhookEventLangMap, type WebhookEvents, type WebhookProjectBranchAdded, type WebhookProjectBranchDeleted, type WebhookProjectBranchMerged, type WebhookProjectContributorAdded, type WebhookProjectContributorAddedPublic, type WebhookProjectContributorDeleted, type WebhookProjectCopied, type WebhookProjectDeleted, type WebhookProjectExported, type WebhookProjectImported, type WebhookProjectKeyAdded, type WebhookProjectKeyCommentAdded, type WebhookProjectKeyModified, type WebhookProjectKeysAdded, type WebhookProjectKeysDeleted, type WebhookProjectKeysModified, type WebhookProjectLanguageRemoved, type WebhookProjectLanguageSettingsChanged, type WebhookProjectLanguagesAdded, type WebhookProjectSnapshotCreated, type WebhookProjectTaskClosed, type WebhookProjectTaskCreated, type WebhookProjectTaskDeleted, type WebhookProjectTaskInitialTmLeverageCalculated, type WebhookProjectTaskLanguageClosed, type WebhookProjectTaskQueued, type WebhookProjectTranslationProofread, type WebhookProjectTranslationUpdated, type WebhookProjectTranslationsProofread, type WebhookProjectTranslationsUpdated, type WebhookRegenerated, type WebhookTeamOrderCompleted, type WebhookTeamOrderCreated, type WebhookTeamOrderDeleted };
+export { ApiError, type AuditEventV1, type AuditLogParams, type AuthData, AuthError, type BillingDetailsParams, type Branch, type BranchDeleted, type BranchMerged, type BranchParams, type BulkResult, type BulkUpdateKeyParams, type CardDeleted, type ClientData, type ClientParams, type Comment, type CommentData, type CommentDeleted, type Contributor, type ContributorCreateData, type ContributorDeleted, type ContributorLanguages, type ContributorRights, type ContributorRoles, type ContributorUpdateData, type CreateCardParams, type CreateKeyData, type CreateKeyParams, type CreateLanguageParams, type CreateOrderParams, type CreateProjectParams, type CreateScreenshotParams, type CreateSnapshotParams, type CreateTaskParams, type CreateTermsParams, type CreateTranslationStatusParams, type CreateWebhookParams, type CursorPaginatedResponseV1, type CursorPaginatedResult, type CursorPaginatedResultV1, type CursorPagination, type CursorPaginationParamsV1, type DownloadBundle, type DownloadFileParams, type DownloadedFileProcessDetails, type File, type FileDeleted, type FileFormat, type Filenames, type GetKeyParams, type GetSegmentParams, type GetTranslationParams, type GlossaryTerm, type HttpMethod, type IApiError, type IAuthError, type Jwt, type Key, type KeyDeleted, type KeyParamsWithPagination, type KeyProjectPagination, type KeysBulkDeleted, type Language, type LanguageDeleted, type ListFileParams, type ListSegmentParams, type ListTaskParams, type ListTermsParams, type ListTranslationParams, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseAuth, LokaliseOtaBundles, type MergeBranchParams, type NumericBool, type Order, type OtaBundle, type OtaBundleArchive, type OtaBundleUpdateData, type OtaFramework, type OtaFreezePeriod, type OtaFreezePeriodParams, type OtaProjectFramework, type OtaRequestBundleParams, type OtaResourceDeleted, type OtaSdkToken, type OtaStatistics, type OtaTeamProject, type OtaTeamProjectFramework, type OtaUsageParams, type PaginatedResult, type PaginationParams, type PaymentCard, type Project, type ProjectAndKey, type ProjectDeleted, type ProjectEmptied, type ProjectListParams, type ProjectOnly, type ProjectSettings, type ProjectStatistics, type ProjectWithPagination, type QueuedProcess, type QueuedProcessDetails, type RefreshTokenResponse, type RequestTokenResponse, type Screenshot, type ScreenshotData, type ScreenshotDeleted, type Segment, type Snapshot, type SnapshotDeleted, type SupportedPlatforms, type Task, type TaskDeleted, type TaskLanguage, type Team, type TeamOnly, type TeamUser, type TeamUserBillingDetails, type TeamUserDeleted, type TeamUserParams, type TeamWithPagination, type TermsDeleted, type Translation, type TranslationData, type TranslationProvider, type TranslationStatus, type TranslationStatusColors, type TranslationStatusDeleted, type UpdateKeyData, type UpdateKeyDataWithId, type UpdateLanguageParams, type UpdateProjectParams, type UpdateScreenshotParams, type UpdateSegmentBodyParams, type UpdateSegmentReqParams, type UpdateTaskParams, type UpdateTermsParams, type UpdateTranslationParams, type UpdateTranslationStatusParams, type UpdateWebhookParams, type UploadFileFromFssParams, type UploadFileParams, type UploadedFileProcessDetails, type UserGroup, type UserGroupDeleted, type UserGroupParams, type Webhook, type WebhookDeleted, type WebhookEventLangMap, type WebhookEvents, type WebhookProjectBranchAdded, type WebhookProjectBranchDeleted, type WebhookProjectBranchMerged, type WebhookProjectContributorAdded, type WebhookProjectContributorAddedPublic, type WebhookProjectContributorDeleted, type WebhookProjectCopied, type WebhookProjectDeleted, type WebhookProjectExported, type WebhookProjectImported, type WebhookProjectKeyAdded, type WebhookProjectKeyCommentAdded, type WebhookProjectKeyModified, type WebhookProjectKeysAdded, type WebhookProjectKeysDeleted, type WebhookProjectKeysModified, type WebhookProjectLanguageRemoved, type WebhookProjectLanguageSettingsChanged, type WebhookProjectLanguagesAdded, type WebhookProjectSnapshotCreated, type WebhookProjectTaskClosed, type WebhookProjectTaskCreated, type WebhookProjectTaskDeleted, type WebhookProjectTaskInitialTmLeverageCalculated, type WebhookProjectTaskLanguageClosed, type WebhookProjectTaskQueued, type WebhookProjectTranslationProofread, type WebhookProjectTranslationUpdated, type WebhookProjectTranslationsProofread, type WebhookProjectTranslationsUpdated, type WebhookRegenerated, type WebhookTeamOrderCompleted, type WebhookTeamOrderCreated, type WebhookTeamOrderDeleted };
 //# sourceMappingURL=main.d.mts.map

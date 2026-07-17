@@ -314,6 +314,19 @@ var CursorPaginatedResult = class extends PaginatedResult {
 };
 
 //#endregion
+//#region src/models/v1/cursor_paginated_result.ts
+var CursorPaginatedResultV1 = class {
+	next_cursor;
+	has_more;
+	items;
+	constructor(response) {
+		this.items = response.data;
+		this.next_cursor = response.next_cursor;
+		this.has_more = response.has_more;
+	}
+};
+
+//#endregion
 //#region src/collections/base_collection.ts
 /**
 * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
@@ -396,6 +409,9 @@ var BaseCollection = class {
 	*/
 	doListCursor(params) {
 		return this.createPromise("GET", params, this.populateArrayFromJsonCursor, null);
+	}
+	doListCursorV1(params) {
+		return this.createPromise("GET", params, this.populateArrayFromJsonCursorV1, null);
 	}
 	/**
 	* Perform a GET request to retrieve a single item by its ID.
@@ -547,12 +563,30 @@ var BaseCollection = class {
 		return new CursorPaginatedResult(jsonArray.map((obj) => this.populateObjectFromJson(obj, headers)), headers);
 	}
 	/**
+	* Parse a JSON response that contains a cursor-paginated array of items.
+	* @param json The raw JSON object returned by the API.
+	*/
+	populateArrayFromJsonCursorV1(json, headers) {
+		const data = json.data;
+		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
+		const nextCursor = typeof json.next_cursor === "string" ? json.next_cursor : null;
+		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
+		return new CursorPaginatedResultV1({
+			data: data.map((obj, index) => {
+				if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
+				return this.populateObjectFromJson(obj, headers);
+			}),
+			next_cursor: nextCursor,
+			has_more: hasMore
+		});
+	}
+	/**
 	* Parse a JSON object into either an ElementType or a SecondaryType instance.
 	* @param json The raw JSON object returned by the API.
 	* @param _headers The response headers (if needed).
 	* @param secondary If true, use the secondaryElementClass instead of elementClass.
 	*/
-	populateObjectFromJson(json, _headers, secondary = false) {
+	populateObjectFromJson(json, _headers = new Headers(), secondary = false) {
 		return new (secondary ? this.secondaryElementClass : this.elementClass)(json);
 	}
 	/**
@@ -1440,6 +1474,45 @@ var UserGroups = class extends BaseCollection {
 };
 
 //#endregion
+//#region src/models/v1/audit_event.ts
+var AuditEventV1 = class {
+	class_uid;
+	class_name;
+	category_uid;
+	category_name;
+	activity_id;
+	activity_name;
+	type_uid;
+	type_name;
+	severity_id;
+	severity;
+	status_id;
+	status;
+	time;
+	metadata;
+	actor;
+	src_endpoint;
+	http_request;
+	enrichments;
+	unmapped;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/v1/audit_logs.ts
+var AuditLogs = class extends BaseCollection {
+	static prefixURI = "audit-logs";
+	get elementClass() {
+		return AuditEventV1;
+	}
+	list(request_params = {}) {
+		return this.doListCursorV1(request_params);
+	}
+};
+
+//#endregion
 //#region src/models/webhook.ts
 var Webhook = class extends BaseModel {};
 
@@ -1945,6 +2018,30 @@ var LokaliseApiOta = class extends BaseClient {
 };
 
 //#endregion
+//#region src/lokalise/lokalise_api_v1.ts
+/**
+* A main entry point for interacting with Lokalise API v1.
+* Provides access to resource collections available through API version v1.
+*/
+var LokaliseApiV1 = class extends BaseClient {
+	/**
+	* Creates a new instance of the LokaliseApiV1 client.
+	* @param params - Configuration parameters including `apiKey` and optional `version`, `host`, etc.
+	*/
+	constructor(params) {
+		super(params);
+		this.clientData.version = params.version ?? "v1";
+		this.clientData.authHeader = params.header ?? this.clientData.authHeader;
+	}
+	/**
+	* Access Audit Logs endpoints.
+	*/
+	auditLogs() {
+		return new AuditLogs(this.clientData);
+	}
+};
+
+//#endregion
 //#region src/lokalise/lokalise_ota_bundles.ts
 /**
 * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
@@ -2140,5 +2237,5 @@ var LokaliseAuth = class {
 var AuthError = class extends BaseModel {};
 
 //#endregion
-export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseAuth, LokaliseOtaBundles };
+export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseAuth, LokaliseOtaBundles };
 //# sourceMappingURL=main.mjs.map
