@@ -8,7 +8,17 @@ updates:
     cooldown:
       default-days: 7
     target-branch: "master"
-
+    ignore:
+      - dependency-name: "*"
+        update-types:
+          - "version-update:semver-patch"
+    groups:
+      minor-updates:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
