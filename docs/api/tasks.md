@@ -68,7 +68,7 @@ const task = await lokaliseApi.tasks().create(
 );
 ```
 
-`translation_engine` is accepted only for `automatic_translation` tasks. Machine translation is also subject to extra restrictions: the source language must be the project base language, `save_ai_translation_to_tm` is not accepted, and the engine must support the requested language pair.
+`translation_engine` is accepted only for `automatic_translation` tasks. Machine translation does not accept `save_ai_translation_to_tm`, and the engine must support the requested language pair.
 
 ## Update task
 
