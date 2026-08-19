@@ -2,6 +2,26 @@
 ---
 # Changelog
 
+## 16.4.0 (19-Aug-2026)
+
+Added support for the `translation_engine` parameter when creating a task. An `automatic_translation` task is performed by Lokalise AI by default; pass `translation_engine` to have a machine translation engine do it instead:
+
+```ts
+const task = await lokaliseApi.tasks().create(
+	{
+		title: "node mt task",
+		task_type: "automatic_translation",
+		translation_engine: "deepl", // "ai" (default), "google" or "deepl"
+		keys: [key1, key2],
+		source_language_iso: "en",
+		languages: [{ language_iso: "de" }],
+	},
+	{ project_id: project_id },
+);
+```
+
+The parameter is accepted only for `automatic_translation` tasks, and only when creating one: it is not part of `UpdateTaskParams`.
+
 ## 16.3.0 (17-Jul-2026)
 
 Added support for the new [Audit Logs endpoint](https://developers.lokalise.com/reference/list-audit-logs).
