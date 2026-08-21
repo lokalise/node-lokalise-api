@@ -48,7 +48,7 @@ const task = await lokaliseApi.tasks().create(
 task.task_id;
 ```
 
-To have the task translated automatically, set `task_type` to `automatic_translation`. Such a task is performed by Lokalise AI by default; pass `translation_engine` to have a machine translation engine do it instead:
+When creating a translation task, there are two options. `translation` creates a manual task: you delegate the work to the translators you assign to each language. `automatic_translation` has the work performed by an automation instead — `translation_engine` picks which one, either `ai` (the default, Lokalise AI) or the `google` / `deepl` machine translation engines:
 
 ```js
 const task = await lokaliseApi.tasks().create(
