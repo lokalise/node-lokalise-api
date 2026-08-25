@@ -6,6 +6,7 @@ describe("Tasks", () => {
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const taskId = 21659;
 	const newTaskId = 1927993;
+	const mtTaskId = 1927994;
 
 	it("lists", async () => {
 		const stub = new Stub({
@@ -136,6 +137,38 @@ describe("Tasks", () => {
 		expect(task.task_id).to.eq(newTaskId);
 		expect(task.title).to.eq("node task");
 		expect(task.languages[0].language_iso).to.eq("en");
+	});
+
+	it("creates a machine translation task", async () => {
+		const params: CreateTaskParams = {
+			task_type: "automatic_translation",
+			translation_engine: "deepl",
+			title: "node mt task",
+			keys: [378217831],
+			source_language_iso: "en",
+			languages: [
+				{
+					language_iso: "de",
+				},
+			],
+		};
+
+		const stub = new Stub({
+			fixture: "tasks/create_machine_translation.json",
+			uri: `projects/${projectId}/tasks`,
+			body: params,
+			method: "POST",
+		});
+
+		await stub.setStub();
+
+		const task = await lokaliseApi.tasks().create(params, {
+			project_id: projectId,
+		});
+
+		expect(task.task_id).to.eq(mtTaskId);
+		expect(task.task_type).to.eq("automatic_translation");
+		expect(task.languages[0].language_iso).to.eq("de");
 	});
 
 	it("updates", async () => {

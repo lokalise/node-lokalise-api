@@ -17,6 +17,7 @@ export type CreateTaskParams = {
 	auto_close_task?: boolean;
 	auto_close_items?: boolean;
 	task_type?: "translation" | "automatic_translation" | "lqa_by_ai" | "review";
+	translation_engine?: "ai" | "google" | "deepl";
 	parent_task_id?: string | number;
 	closing_tags?: string[];
 	do_lock_translations?: boolean;
@@ -32,6 +33,7 @@ export type UpdateTaskParams = Omit<
 	| "keys"
 	| "source_language_iso"
 	| "task_type"
+	| "translation_engine"
 	| "parent_task_id"
 	| "custom_translation_status_ids"
 	| "save_ai_translation_to_tm"

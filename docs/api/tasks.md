@@ -48,6 +48,28 @@ const task = await lokaliseApi.tasks().create(
 task.task_id;
 ```
 
+When creating a translation task, there are two options. `translation` creates a manual task: you delegate the work to the translators you assign to each language. `automatic_translation` has the work performed by an automation instead — `translation_engine` picks which one, either `ai` (the default, Lokalise AI) or the `google` / `deepl` machine translation engines:
+
+```js
+const task = await lokaliseApi.tasks().create(
+  {
+    title: 'node mt task',
+    task_type: 'automatic_translation',
+    translation_engine: 'deepl', // 'ai' (default), 'google' or 'deepl'
+    keys: [key1, key2],
+    source_language_iso: 'en',
+    languages: [
+      {
+        "language_iso": "de"
+      }
+    ]
+  },
+  {project_id: project_id}
+);
+```
+
+`translation_engine` is accepted only for `automatic_translation` tasks. Machine translation does not accept `save_ai_translation_to_tm`, and the engine must support the requested language pair.
+
 ## Update task
 
 [API doc](https://developers.lokalise.com/reference/update-a-task)
