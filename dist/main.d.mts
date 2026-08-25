@@ -2030,6 +2030,7 @@ type CreateTaskParams = {
   auto_close_task?: boolean;
   auto_close_items?: boolean;
   task_type?: "translation" | "automatic_translation" | "lqa_by_ai" | "review";
+  translation_engine?: "ai" | "google" | "deepl";
   parent_task_id?: string | number;
   closing_tags?: string[];
   do_lock_translations?: boolean;
@@ -2038,7 +2039,7 @@ type CreateTaskParams = {
   apply_ai_tm100_matches?: boolean;
   mark_verified?: boolean;
 };
-type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_language_iso" | "task_type" | "parent_task_id" | "custom_translation_status_ids" | "save_ai_translation_to_tm" | "apply_ai_tm100_matches" | "mark_verified"> & {
+type UpdateTaskParams = Omit<CreateTaskParams, "title" | "keys" | "source_language_iso" | "task_type" | "translation_engine" | "parent_task_id" | "custom_translation_status_ids" | "save_ai_translation_to_tm" | "apply_ai_tm100_matches" | "mark_verified"> & {
   title?: string;
   close_task?: boolean;
   languages?: Array<TaskLanguage & {

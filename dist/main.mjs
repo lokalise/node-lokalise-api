@@ -560,7 +560,8 @@ var BaseCollection = class {
 		const root = this.rootElementName;
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' for cursor pagination but received: ${typeof jsonArray}`);
-		return new CursorPaginatedResult(jsonArray.map((obj) => this.populateObjectFromJson(obj, headers)), headers);
+		const items = jsonArray.map((obj) => this.populateObjectFromJson(obj, headers));
+		return new CursorPaginatedResult(items, headers);
 	}
 	/**
 	* Parse a JSON response that contains a cursor-paginated array of items.
@@ -571,11 +572,12 @@ var BaseCollection = class {
 		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
 		const nextCursor = typeof json.next_cursor === "string" ? json.next_cursor : null;
 		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
+		const items = data.map((obj, index) => {
+			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
 		return new CursorPaginatedResultV1({
-			data: data.map((obj, index) => {
-				if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
-				return this.populateObjectFromJson(obj, headers);
-			}),
+			data: items,
 			next_cursor: nextCursor,
 			has_more: hasMore
 		});
