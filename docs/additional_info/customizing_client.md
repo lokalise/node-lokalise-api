@@ -15,13 +15,14 @@ const client = new LokaliseApi({
 
 ## Configuring API host
 
-By default, API requests are sent to the `https://api.lokalise.com/api2/` URL that acts as a host.
+By default:
 
-OAuth 2 authentication requests are sent to `https://app.lokalise.com`.
+- API requests made with `LokaliseApi` are sent to `https://api.lokalise.com/api2/`.
+- Requests made with `LokaliseApiV1` are sent to `https://api.lokalise.com/v1/`.
+- OAuth 2 authentication requests are sent to `https://app.lokalise.com`.
+- OTA requests are sent to `https://ota.lokalise.com`.
 
-OTA requests are sent to `https://ota.lokalise.com`.
-
-To override the API host, use the following approach (works for all client types):
+To override the API host, pass the `host` option when creating a client:
 
 ```js
 const client = new LokaliseApi({
@@ -30,7 +31,34 @@ const client = new LokaliseApi({
 });
 ```
 
-Then use your `client` as usual.
+The same option is supported by all client types. Then use your `client` as usual.
+
+## Proxy support
+
+If your environment requires an HTTP or HTTPS proxy to access the Lokalise API, recent Node.js versions provide built-in proxy support for native `fetch`.
+
+Set the appropriate proxy environment variables:
+
+```bash
+HTTPS_PROXY=http://proxy.example.com:8080
+HTTP_PROXY=http://proxy.example.com:8080
+```
+
+Then enable proxy support when starting Node.js:
+
+```bash
+node --use-env-proxy app.js
+```
+
+Alternatively, set the `NODE_USE_ENV_PROXY` environment variable:
+
+```bash
+NODE_USE_ENV_PROXY=1 node app.js
+```
+
+You can also use `NO_PROXY` to exclude specific hosts from proxying.
+
+Built-in environment proxy support is available in Node.js 24.5.0+ and 22.21.0+.
 
 ## Silent mode
 
@@ -42,9 +70,3 @@ const client = new LokaliseApi({
   silent: true,
 });
 ```
-
-## Proxy support
-
-If you are behind a firewall and have to use proxy in order to communicate with Lokalise API, that's not a problem! You can take advantage of the [global-agent](https://github.com/gajus/global-agent) package which allows to enable proxy globally without the need to do any changes to your API-related script.
-
-Detailed explanations and usage instructions can be found in the [global-agent docs](https://github.com/gajus/global-agent#usage).
