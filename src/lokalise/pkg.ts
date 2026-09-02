@@ -1,14 +1,6 @@
 import { readFile } from "node:fs/promises";
 
 /**
- * Returns the relative path to the package.json file.
- * Adjust this if your directory structure changes.
- */
-function pkgPath(): string {
-	return "../../package.json";
-}
-
-/**
  * Attempts to read and parse the local package.json file to retrieve the version.
  * If the file cannot be read or parsed, returns "unknown".
  *
@@ -16,9 +8,11 @@ function pkgPath(): string {
  */
 export async function getVersion(): Promise<string> {
 	try {
-		const data = await readFile(new URL(pkgPath(), import.meta.url));
-		const pkg = JSON.parse(data.toString()) as { version?: string };
-		return String(pkg.version);
+		const data = await readFile(new URL("../../package.json", import.meta.url));
+
+		const pkg = JSON.parse(data.toString()) as { version?: unknown };
+
+		return typeof pkg.version === "string" ? pkg.version : "unknown";
 	} catch {
 		return "unknown";
 	}

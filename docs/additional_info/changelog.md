@@ -2,6 +2,12 @@
 ---
 # Changelog
 
+## 16.4.1 (02-Sep-2026)
+
+* Make types stricter
+* Various bugfixes
+* Update tests
+
 ## 16.4.0 (19-Aug-2026)
 
 Added support for the `translation_engine` parameter when creating a task. An `automatic_translation` task is performed by Lokalise AI by default; pass `translation_engine` to have a machine translation engine do it instead:

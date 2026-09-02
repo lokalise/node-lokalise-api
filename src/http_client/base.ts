@@ -4,7 +4,7 @@ import { ApiError } from "../models/api_error.js";
 import type { HttpMethod } from "../types/http_method.js";
 
 export type ApiResponse = {
-	json: Record<string, unknown>;
+	json: Record<string, unknown> | null;
 	headers: Headers;
 };
 
@@ -124,6 +124,10 @@ export class ApiRequest {
 		options: RequestInit,
 		requestTimeout = 0,
 	): Promise<ApiResponse> {
+		if (!Number.isSafeInteger(requestTimeout) || requestTimeout < 0) {
+			throw new ApiError("requestTimeout must be a non-negative integer", 500);
+		}
+
 		const signal =
 			requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : undefined;
 
@@ -169,12 +173,12 @@ export class ApiRequest {
 				responseJSON = await response.json();
 			}
 		} catch (error) {
-			return Promise.reject(
-				new ApiError((error as Error).message, response.status, {
-					statusText: response.statusText,
-					reason: "JSON parsing error",
-				}),
-			);
+			const message = error instanceof Error ? error.message : String(error);
+
+			throw new ApiError(message, response.status, {
+				statusText: response.statusText,
+				reason: "JSON parsing error",
+			});
 		}
 
 		if (response.ok) {
@@ -184,24 +188,29 @@ export class ApiRequest {
 			};
 		}
 
-		return Promise.reject(this.getErrorFromResp(responseJSON));
+		throw this.getErrorFromResp(responseJSON, response.status);
 	}
 
 	/**
 	 * Derives an ApiError instance from the response JSON, which may follow various patterns.
 	 * @param respJson - The parsed JSON response from the server.
+	 * @param fallbackStatus - Fallback status from the response.
 	 * @returns An ApiError representing the server error.
 	 */
-	protected getErrorFromResp(respJson: unknown): ApiError {
+	protected getErrorFromResp(
+		respJson: unknown,
+		fallbackStatus: number,
+	): ApiError {
 		if (!respJson || typeof respJson !== "object") {
-			return new ApiError("An unknown error occurred", 500, {
+			return new ApiError("An unknown error occurred", fallbackStatus, {
 				reason: "unexpected response format",
 			});
 		}
 
 		const errorObj = respJson as Record<string, unknown>;
 
-		// Top-level error format: { message: string, statusCode: number, error: string }
+		// Top-level error format:
+		// { message: string, statusCode: number, error: string }
 		if (
 			typeof errorObj.message === "string" &&
 			typeof errorObj.statusCode === "number" &&
@@ -212,13 +221,15 @@ export class ApiRequest {
 			});
 		}
 
-		// Nested error object: { error: { message, code, details } }
+		// Nested error object:
+		// { error: { message, code, details } }
 		if (errorObj.error && typeof errorObj.error === "object") {
 			const {
 				message = "Unknown error",
-				code = 500,
+				code = fallbackStatus,
 				details,
 			} = errorObj.error as Record<string, unknown>;
+
 			const safeDetails: Record<string, string | number | boolean> =
 				typeof details === "object" && details !== null
 					? (details as Record<string, string | number | boolean>)
@@ -226,12 +237,13 @@ export class ApiRequest {
 
 			return new ApiError(
 				String(message),
-				typeof code === "number" ? code : 500,
+				typeof code === "number" ? code : fallbackStatus,
 				safeDetails,
 			);
 		}
 
-		// Alternative top-level fields: { message: string, code?: number, errorCode?: number, details?: any }
+		// Alternative top-level fields:
+		// { message: string, code?: number, errorCode?: number, details?: any }
 		if (
 			typeof errorObj.message === "string" &&
 			(typeof errorObj.code === "number" ||
@@ -239,16 +251,19 @@ export class ApiRequest {
 		) {
 			const statusCode =
 				typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
+
 			const rawDetails = errorObj.details;
+
 			const safeDetails: Record<string, string | number | boolean> =
 				typeof rawDetails === "object" && rawDetails !== null
 					? (rawDetails as Record<string, string | number | boolean>)
 					: { reason: "server error without details" };
+
 			return new ApiError(errorObj.message, statusCode as number, safeDetails);
 		}
 
 		// Fallback if no known error format matches
-		return new ApiError("An unknown error occurred", 500, {
+		return new ApiError("An unknown error occurred", fallbackStatus, {
 			reason: "unhandled error format",
 			data: JSON.stringify(respJson),
 		});

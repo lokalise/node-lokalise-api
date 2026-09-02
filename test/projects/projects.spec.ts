@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Projects", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const newProjectId = "43820238650c56462a27f0.61419394";
 
@@ -21,7 +25,7 @@ describe("Projects", () => {
 
 		const projects = await lokaliseApi.projects().list();
 
-		expect(projects.items[0].name).to.eq("Angular");
+		expect(getCollectionItem(projects).name).to.eq("Angular");
 	});
 
 	it("lists and paginates", async () => {
@@ -46,7 +50,7 @@ describe("Projects", () => {
 
 		const projects = await lokaliseApi.projects().list(params);
 
-		expect(projects.items[0].name).to.eq("Blog");
+		expect(getCollectionItem(projects).name).to.eq("Blog");
 		expect(projects.totalResults).to.eq(2);
 		expect(projects.totalPages).to.eq(2);
 		expect(projects.resultsPerPage).to.eq(1);

@@ -1,3 +1,5 @@
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import {
 	captureError,
 	describe,
@@ -8,7 +10,9 @@ import {
 } from "../setup.js";
 
 describe("Comments", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const keyId = 375778480;
 	const commentId = 20456339;
@@ -31,7 +35,7 @@ describe("Comments", () => {
 			project_id: projectId,
 		});
 
-		expect(comments.items[0].comment_id).to.eq(20421626);
+		expect(getCollectionItem(comments).comment_id).to.eq(20421626);
 		expect(comments.totalResults).to.eq(1);
 	});
 
@@ -85,7 +89,7 @@ describe("Comments", () => {
 			...params,
 		});
 
-		expect(comments.items[0].comment_id).to.eq(20456340);
+		expect(getCollectionItem(comments).comment_id).to.eq(20456340);
 		expect(comments.resultsPerPage).to.eq(2);
 		expect(comments.currentPage).to.eq(2);
 		expect(comments.hasNextPage()).to.eq(false);
@@ -111,8 +115,9 @@ describe("Comments", () => {
 			key_id: keyId,
 		});
 
-		expect(comments.items[0].comment_id).to.eq(commentId);
-		expect(comments.items[0].key_id).to.eq(keyId);
+		const commentItem = getCollectionItem(comments);
+		expect(commentItem.comment_id).to.eq(commentId);
+		expect(commentItem.key_id).to.eq(keyId);
 		expect(comments.resultsPerPage).to.eq(100);
 	});
 
@@ -142,7 +147,7 @@ describe("Comments", () => {
 		const params = [
 			{ comment: "Project comment 1" },
 			{ comment: "Project comment 2" },
-		];
+		] satisfies [{ comment: string }, { comment: string }];
 
 		const stub = new Stub({
 			fixture: "comments/create_key_comments.json",
@@ -157,8 +162,8 @@ describe("Comments", () => {
 			.comments()
 			.create(params, { project_id: projectId, key_id: keyId });
 
-		expect(comments[0].comment).to.eq(params[0].comment);
-		expect(comments[1].comment).to.eq(params[1].comment);
+		expect(getArrayItem(comments).comment).to.eq(params[0].comment);
+		expect(getArrayItem(comments, 1).comment).to.eq(params[1].comment);
 	});
 
 	it("creates single comment", async () => {
@@ -177,7 +182,7 @@ describe("Comments", () => {
 			.comments()
 			.create(params, { project_id: projectId, key_id: keyId });
 
-		expect(comments[0].comment).to.eq(params.comment);
+		expect(comments[0]?.comment).to.eq(params.comment);
 	});
 
 	it("deletes", async () => {

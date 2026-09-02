@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Languages", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const langId = 640;
 	const secondLangId = 910;
@@ -24,8 +28,8 @@ describe("Languages", () => {
 			project_id: projectId,
 		});
 
-		expect(languages.items[0].lang_id).to.eq(803);
-		expect(languages.items[0].lang_name).to.eq("Albanian");
+		expect(getCollectionItem(languages).lang_id).to.eq(803);
+		expect(getCollectionItem(languages).lang_name).to.eq("Albanian");
 	});
 
 	it("lists and paginates", async () => {
@@ -53,9 +57,10 @@ describe("Languages", () => {
 			...params,
 		});
 
-		expect(languages.items[0].lang_id).to.eq(langId);
-		expect(languages.items[0].lang_name).to.eq("English");
-		expect(languages.items[0].project_language_uuid).to.include(
+		const language = getCollectionItem(languages);
+		expect(language.lang_id).to.eq(langId);
+		expect(language.lang_name).to.eq("English");
+		expect(language.project_language_uuid).to.include(
 			"01989e27-0e7e-7e1f-a9c3-1941288a4f85",
 		);
 		expect(languages.totalResults).to.eq(3);
@@ -88,8 +93,9 @@ describe("Languages", () => {
 			...params,
 		});
 
-		expect(languages.items[0].lang_id).to.eq(792);
-		expect(languages.items[0].lang_name).to.eq("Afrikaans (South Africa)");
+		const language = getCollectionItem(languages);
+		expect(language.lang_id).to.eq(792);
+		expect(language.lang_name).to.eq("Afrikaans (South Africa)");
 		expect(languages.totalResults).to.eq(619);
 		expect(languages.totalPages).to.eq(310);
 		expect(languages.resultsPerPage).to.eq(2);
@@ -112,8 +118,9 @@ describe("Languages", () => {
 
 		const languages = await lokaliseApi.languages().system_languages();
 
-		expect(languages.items[0].lang_id).to.eq(792);
-		expect(languages.items[0].lang_name).to.eq("Afrikaans (South Africa)");
+		const language = getCollectionItem(languages);
+		expect(language.lang_id).to.eq(792);
+		expect(language.lang_name).to.eq("Afrikaans (South Africa)");
 	});
 
 	it("retrieves", async () => {
@@ -158,8 +165,9 @@ describe("Languages", () => {
 			.languages()
 			.create(params, { project_id: projectId });
 
-		expect(languages.items[0].lang_id).to.eq(secondLangId);
-		expect(languages.items[0].lang_name).to.eq("Akan");
+		const language = getCollectionItem(languages);
+		expect(language.lang_id).to.eq(secondLangId);
+		expect(language.lang_name).to.eq("Akan");
 		expect(languages.errors.length).to.eq(0);
 	});
 

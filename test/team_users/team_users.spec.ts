@@ -1,8 +1,12 @@
 import type { TeamUserParams } from "../../src/main.js";
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("TeamUsers", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const teamId = 176692;
 	const userId = 308781;
 
@@ -22,7 +26,7 @@ describe("TeamUsers", () => {
 
 		const team_users = await lokaliseApi.teamUsers().list({ team_id: teamId });
 
-		expect(team_users.items[0].user_id).to.eq(userId);
+		expect(getCollectionItem(team_users).user_id).to.eq(userId);
 	});
 
 	it("lists and paginates", async () => {
@@ -49,7 +53,7 @@ describe("TeamUsers", () => {
 			.teamUsers()
 			.list({ team_id: teamId, ...params });
 
-		expect(team_users.items[0].user_id).to.eq(141203);
+		expect(getCollectionItem(team_users).user_id).to.eq(141203);
 		expect(team_users.totalResults).to.eq(3);
 		expect(team_users.totalPages).to.eq(2);
 		expect(team_users.resultsPerPage).to.eq(2);

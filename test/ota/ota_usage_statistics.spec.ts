@@ -1,9 +1,11 @@
+import { getArrayItem } from "../helpers/collection.js";
+import { getRequiredEnv } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApiOta, Stub } from "../setup.js";
 
 describe("OtaUsageStatistics", () => {
-	const token = process.env.API_JWT;
-	const lokaliseApiOta = new LokaliseApiOta({ apiKey: process.env.API_JWT });
-	const rootUrl = lokaliseApiOta.clientData.host;
+	const token = getRequiredEnv("API_JWT");
+	const lokaliseApiOta = new LokaliseApiOta({ apiKey: token });
+	const rootUrl = lokaliseApiOta.clientData.host as string;
 	const teamId = 176692;
 	const projectId = "88628569645b945648b474.25982965";
 
@@ -38,10 +40,14 @@ describe("OtaUsageStatistics", () => {
 		expect(stat.from).to.eq(from);
 		expect(stat.to).to.eq(to);
 		expect(stat.sdk).to.eq("");
-		expect(stat.monthly[0].date).to.eq("2023-08-31");
-		expect(stat.monthly[0].downloads).to.eq(2);
-		expect(stat.daily[0].date).to.eq("2023-08-22");
-		expect(stat.daily[0].trafficMb).to.eq(0);
+
+		const monthlyStat = getArrayItem(stat.monthly);
+		expect(monthlyStat.date).to.eq("2023-08-31");
+		expect(monthlyStat.downloads).to.eq(2);
+
+		const dailyStat = getArrayItem(stat.daily);
+		expect(dailyStat.date).to.eq("2023-08-22");
+		expect(dailyStat.trafficMb).to.eq(0);
 		expect(stat.totals.trafficBytes).to.eq("3588");
 	});
 });

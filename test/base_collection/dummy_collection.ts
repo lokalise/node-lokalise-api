@@ -1,5 +1,7 @@
-import { BaseCollection } from "../../src/collections/base_collection";
+import { BaseCollection } from "../../src/collections/base_collection.js";
+import type { BulkResult } from "../../src/interfaces/bulk_result.js";
 import { Branch } from "../../src/models/branch.js";
+import type { CursorPaginatedResult } from "../../src/models/cursor_paginated_result.js";
 
 export class DummyCollection extends BaseCollection<Branch> {
 	protected get elementClass(): new (
@@ -16,7 +18,7 @@ export class DummyCollection extends BaseCollection<Branch> {
 		return this.rootElementName;
 	}
 
-	public testRootElementNameSingular(): string {
+	public testRootElementNameSingular(): string | null {
 		return this.rootElementNameSingular;
 	}
 
@@ -28,5 +30,42 @@ export class DummyCollection extends BaseCollection<Branch> {
 
 	public testSecondaryElementNameSingular(): string {
 		return this.secondaryElementNameSingular;
+	}
+
+	public testCreatePromise(uri: string): Promise<Branch> {
+		return this.createPromise(
+			"GET",
+			{},
+			this.populateObjectFromJson,
+			null,
+			uri,
+		);
+	}
+}
+
+export class DummyCollectionWithRoot extends DummyCollection {
+	protected override get rootElementName(): string {
+		return "items";
+	}
+
+	public testPopulateArray(
+		json: Record<string, unknown>,
+		headers = new Headers(),
+	): Branch[] {
+		return this.populateArray(json, headers);
+	}
+
+	public testPopulateArrayFromJsonBulk(
+		json: Record<string, unknown>,
+		headers = new Headers(),
+	): BulkResult<Branch> {
+		return this.populateArrayFromJsonBulk(json, headers);
+	}
+
+	public testPopulateArrayFromJsonCursor(
+		json: Record<string, unknown>,
+		headers = new Headers(),
+	): CursorPaginatedResult<Branch> {
+		return this.populateArrayFromJsonCursor(json, headers);
 	}
 }

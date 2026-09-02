@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("TranslationStatuses", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const statusId = 16064;
 	const newStatusId = 16065;
@@ -24,7 +28,7 @@ describe("TranslationStatuses", () => {
 			project_id: projectId,
 		});
 
-		expect(statuses.items[0].title).to.eq("new");
+		expect(getCollectionItem(statuses).title).to.eq("new");
 	});
 
 	it("lists and paginates", async () => {
@@ -52,7 +56,7 @@ describe("TranslationStatuses", () => {
 			...params,
 		});
 
-		expect(statuses.items[0].title).to.eq("tested");
+		expect(getCollectionItem(statuses).title).to.eq("tested");
 		expect(statuses.totalResults).to.eq(3);
 		expect(statuses.totalPages).to.eq(2);
 		expect(statuses.resultsPerPage).to.eq(2);

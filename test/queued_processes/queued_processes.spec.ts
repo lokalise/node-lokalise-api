@@ -1,8 +1,12 @@
 import type { UploadedFileProcessDetails } from "../../src/types/queued_process_details.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("QueuedProcesses", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const processId = "7cedb0907b9c9fdccff10ddf2e8420c9f4bd3073";
 
@@ -24,7 +28,7 @@ describe("QueuedProcesses", () => {
 			project_id: projectId,
 		});
 
-		expect(processes.items[0].process_id).to.eq(processId);
+		expect(getCollectionItem(processes).process_id).to.eq(processId);
 	});
 
 	it("lists and paginates", async () => {
@@ -52,7 +56,7 @@ describe("QueuedProcesses", () => {
 			...params,
 		});
 
-		expect(processes.items[0].type).to.eq("file-import");
+		expect(getCollectionItem(processes).type).to.eq("file-import");
 		expect(processes.totalResults).to.eq(3);
 		expect(processes.totalPages).to.eq(3);
 		expect(processes.resultsPerPage).to.eq(1);
@@ -82,7 +86,7 @@ describe("QueuedProcesses", () => {
 		const processDetails = process.details as UploadedFileProcessDetails;
 		expect(processDetails.files.length).to.eq(1);
 
-		const file = processDetails.files[0];
+		const file = getArrayItem(processDetails.files);
 
 		expect(file.name_original).to.eq("test_async.json");
 		expect(file.word_count_total).to.eq(3);

@@ -1,6 +1,8 @@
 import type { ProjectWithPagination } from "../../src/main.js";
 import { ApiError } from "../../src/main.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import {
+	afterEach,
 	captureError,
 	describe,
 	expect,
@@ -10,8 +12,14 @@ import {
 	vi,
 } from "../setup.js";
 
+afterEach(() => {
+	vi.restoreAllMocks();
+});
+
 describe("Errors", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const project_id = "803826145ba90b42d5d860.46800099";
 
 	it("is expected to reject with when there are too many requests", async () => {
@@ -78,7 +86,7 @@ describe("Errors", () => {
 
 		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
 			message: "Server error",
-			code: 500,
+			code: 404,
 			details: {
 				reason: "server error without details",
 			},
@@ -134,6 +142,27 @@ describe("Errors", () => {
 		});
 	});
 
+	it("handles non-Error JSON parsing failures", async () => {
+		vi.spyOn(globalThis, "fetch").mockResolvedValueOnce({
+			ok: true,
+			status: 200,
+			statusText: "OK",
+			headers: new Headers(),
+			json: vi.fn().mockRejectedValueOnce("broken json"),
+		} as unknown as Response);
+
+		await expect(
+			lokaliseApi.branches().list({ project_id }),
+		).rejects.toMatchObject({
+			message: "broken json",
+			code: 200,
+			details: {
+				statusText: "OK",
+				reason: "JSON parsing error",
+			},
+		});
+	});
+
 	it("handles plain errors with errorCode", async () => {
 		const stub = new Stub({
 			fixture: "errors/error_code.json",
@@ -165,49 +194,44 @@ describe("Errors", () => {
 			lokaliseApi.branches().list({ project_id: project_id }),
 		).rejects.toMatchObject({
 			message: "Unknown error",
-			code: 500,
+			code: 401,
 			details: { reason: "server error without details" },
 		});
 	});
 
 	it("handles unexpected fetch errors", async () => {
-		const originalFetch = global.fetch;
-		global.fetch = vi.fn().mockRejectedValueOnce("unexpected fetch error");
+		vi.spyOn(globalThis, "fetch").mockRejectedValueOnce(
+			"unexpected fetch error",
+		);
 
 		await expect(
-			lokaliseApi.branches().list({ project_id: project_id }),
+			lokaliseApi.branches().list({ project_id }),
 		).rejects.toMatchObject({
 			message: "An unknown error occurred",
 			code: 500,
 			details: { reason: "unexpected fetch error" },
 		});
-
-		global.fetch = originalFetch;
 	});
 
 	it("handles errors when the response is unexpected", async () => {
-		const originalFetch = global.fetch;
-		global.fetch = vi.fn().mockResolvedValueOnce({
-			ok: false,
-			status: 400,
-			statusText: "Bad Request",
-			json: async () => "Very unexpected string in response",
-			headers: new Headers(),
-		} as Response);
+		vi.spyOn(globalThis, "fetch").mockResolvedValueOnce(
+			new Response(JSON.stringify("Very unexpected string in response"), {
+				status: 400,
+				statusText: "Bad Request",
+			}),
+		);
 
 		await expect(
-			lokaliseApi.branches().list({ project_id: project_id }),
+			lokaliseApi.branches().list({ project_id }),
 		).rejects.toMatchObject({
 			message: "An unknown error occurred",
-			code: 500,
+			code: 400,
 			details: { reason: "unexpected response format" },
 		});
-
-		global.fetch = originalFetch;
 	});
 
 	it("handles params-related errors", async () => {
-		const params = <ProjectWithPagination>{};
+		const params = {} as ProjectWithPagination;
 
 		await expect(lokaliseApi.branches().list(params)).rejects.toThrow(
 			"Missing required parameter: project_id",

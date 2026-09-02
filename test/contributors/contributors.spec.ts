@@ -1,7 +1,12 @@
+import type { ContributorCreateData } from "../../src/types/contributors.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Contributors", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const userId = 20181;
 	const newUserId = 308781;
@@ -24,7 +29,7 @@ describe("Contributors", () => {
 			project_id: projectId,
 		});
 
-		expect(contributors.items[0].user_id).to.eq(25753);
+		expect(getCollectionItem(contributors).user_id).to.eq(25753);
 	});
 
 	it("lists and paginates", async () => {
@@ -48,7 +53,7 @@ describe("Contributors", () => {
 			...params,
 		});
 
-		expect(contributors.items[0].user_id).to.eq(31113);
+		expect(getCollectionItem(contributors).user_id).to.eq(31113);
 		expect(contributors.totalResults).to.eq(6);
 		expect(contributors.totalPages).to.eq(2);
 		expect(contributors.resultsPerPage).to.eq(3);
@@ -78,8 +83,12 @@ describe("Contributors", () => {
 		expect(contributor.created_at_timestamp).to.eq(1534865725);
 		expect(contributor.is_admin).to.be.true;
 		expect(contributor.is_reviewer).to.be.true;
-		expect(contributor.languages[0].lang_id).to.eq(803);
-		expect(contributor.languages[0].lang_iso).to.eq("sq");
+
+		const language = contributor.languages[0];
+		expect(language).toBeDefined();
+		expect(language?.lang_id).to.eq(803);
+		expect(language?.lang_iso).to.eq("sq");
+
 		expect(contributor.admin_rights).to.include("upload");
 		expect(contributor.role_id).to.eq(5);
 		expect(contributor.uuid).to.eq("123-abc");
@@ -124,7 +133,7 @@ describe("Contributors", () => {
 					},
 				],
 			},
-		];
+		] satisfies [ContributorCreateData];
 
 		const stub = new Stub({
 			fixture: "contributors/create.json",
@@ -139,7 +148,7 @@ describe("Contributors", () => {
 			.contributors()
 			.create(params, { project_id: projectId });
 
-		expect(contributors[0].email).to.eq(params[0].email);
+		expect(getArrayItem(contributors).email).to.eq(params[0].email);
 	});
 
 	it("updates", async () => {

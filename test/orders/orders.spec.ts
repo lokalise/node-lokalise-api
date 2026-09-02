@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Orders", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const teamId = 176692;
 	const orderId = "20200116FM1";
 
@@ -21,7 +25,7 @@ describe("Orders", () => {
 
 		const orders = await lokaliseApi.orders().list({ team_id: teamId });
 
-		expect(orders.items[0].order_id).to.eq(orderId);
+		expect(getCollectionItem(orders).order_id).to.eq(orderId);
 	});
 
 	it("lists and paginates", async () => {
@@ -49,7 +53,7 @@ describe("Orders", () => {
 			...params,
 		});
 
-		expect(orders.items[0].order_id).to.eq("20200127G0B");
+		expect(getCollectionItem(orders).order_id).to.eq("20200127G0B");
 		expect(orders.totalResults).to.eq(4);
 		expect(orders.totalPages).to.eq(2);
 		expect(orders.resultsPerPage).to.eq(2);

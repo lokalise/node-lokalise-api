@@ -1,8 +1,12 @@
 import type { ListTranslationParams } from "../../src/main.js";
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Translations", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const translationId = 304581208;
 
@@ -24,7 +28,7 @@ describe("Translations", () => {
 			project_id: projectId,
 		});
 
-		expect(translations.items[0].translation_id).to.eq(translationId);
+		expect(getCollectionItem(translations).translation_id).to.eq(translationId);
 		expect(translations.nextCursor).to.be.null;
 		expect(translations.hasNextCursor()).to.be.false;
 		expect(translations.responseTooBig).to.be.false;
@@ -49,7 +53,7 @@ describe("Translations", () => {
 			project_id: projectId,
 		});
 
-		expect(translations.items[0].translation_id).to.eq(translationId);
+		expect(getCollectionItem(translations).translation_id).to.eq(translationId);
 		expect(translations.nextCursor).to.be.null;
 		expect(translations.hasNextCursor()).to.be.false;
 		expect(translations.responseTooBig).to.be.true;
@@ -81,7 +85,7 @@ describe("Translations", () => {
 			...params,
 		});
 
-		expect(translations.items[0].translation_id).to.eq(304581213);
+		expect(getCollectionItem(translations).translation_id).to.eq(304581213);
 		expect(translations.totalResults).to.eq(4);
 		expect(translations.totalPages).to.eq(2);
 		expect(translations.resultsPerPage).to.eq(2);
@@ -115,7 +119,7 @@ describe("Translations", () => {
 		});
 
 		expect(projectId).toEqual(project_id);
-		expect(translations.items[0].translation_id).to.eq(304581213);
+		expect(getCollectionItem(translations).translation_id).to.eq(304581213);
 		expect(translations.totalResults).to.eq(0);
 		expect(translations.totalPages).to.eq(0);
 		expect(translations.resultsPerPage).to.eq(100);
@@ -151,7 +155,7 @@ describe("Translations", () => {
 		});
 
 		expect(projectId).toEqual(project_id);
-		expect(translations.items[0].translation_id).to.eq(304581213);
+		expect(getCollectionItem(translations).translation_id).to.eq(304581213);
 		expect(translations.totalResults).to.eq(0);
 		expect(translations.totalPages).to.eq(0);
 		expect(translations.resultsPerPage).to.eq(2);

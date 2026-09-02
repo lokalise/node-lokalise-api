@@ -3,14 +3,15 @@ import type {
 	RefreshTokenResponse,
 	RequestTokenResponse,
 } from "../../src/main.js";
+import { getRequiredEnv } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseAuth, Stub } from "../setup.js";
 
 describe("LokaliseAuth", () => {
-	const client_id = <string>process.env.OAUTH2_CLIENT_ID;
-	const client_secret = <string>process.env.OAUTH2_CLIENT_SECRET;
-	const refresh_token = <string>process.env.OAUTH2_REFRESH_TOKEN;
+	const client_id = getRequiredEnv("OAUTH2_CLIENT_ID");
+	const client_secret = getRequiredEnv("OAUTH2_CLIENT_SECRET");
+	const refresh_token = getRequiredEnv("OAUTH2_REFRESH_TOKEN");
 	const lokaliseAuth = new LokaliseAuth(client_id, client_secret);
-	const rootUrl = lokaliseAuth.authData.host;
+	const rootUrl = lokaliseAuth.authData.host as string;
 
 	describe("constructor", () => {
 		it("is expected to throw an error if the client secret is not provided", () => {

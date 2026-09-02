@@ -1,8 +1,12 @@
 import type { UserGroupParams } from "../../src/main.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("UserGroups", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const teamId = 176692;
 	const groupId = 7561;
 	const newGroupId = 10150;
@@ -27,7 +31,7 @@ describe("UserGroups", () => {
 			team_id: teamId,
 		});
 
-		expect(user_groups.items[1].group_id).to.eq(groupId);
+		expect(getCollectionItem(user_groups, 1).group_id).to.eq(groupId);
 		expect(user_groups.totalResults).to.eq(2);
 		expect(user_groups.currentPage).to.eq(1);
 	});
@@ -57,9 +61,9 @@ describe("UserGroups", () => {
 			...params,
 		});
 
-		expect(user_groups.items[0].group_id).to.eq(2500);
-		expect(user_groups.items[0].role_id).to.eq(5);
-		expect(user_groups.items[1].role_id).to.be.null;
+		expect(getCollectionItem(user_groups).group_id).to.eq(2500);
+		expect(getCollectionItem(user_groups).role_id).to.eq(5);
+		expect(getCollectionItem(user_groups, 1).role_id).to.be.null;
 		expect(user_groups.totalResults).to.eq(4);
 		expect(user_groups.totalPages).to.eq(2);
 		expect(user_groups.resultsPerPage).to.eq(2);
@@ -83,7 +87,7 @@ describe("UserGroups", () => {
 		expect(user_group.permissions.is_admin).to.be.false;
 		expect(user_group.permissions.is_reviewer).to.be.true;
 
-		const languages = user_group.permissions.languages[1];
+		const languages = getArrayItem(user_group.permissions.languages, 1);
 		expect(languages.is_writable).to.be.true;
 		expect(languages.lang_id).to.eq(910);
 		expect(languages.lang_iso).to.eq("ak");

@@ -266,7 +266,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		const record = json as Record<string, unknown>;
 
 		const itemJson = record[root];
-		if (typeof itemJson !== "object" || itemJson === null) {
+		if (!this.isRecord(itemJson)) {
 			throw new Error(
 				`Missing expected secondary property '${root}' in JSON response.`,
 			);
@@ -312,9 +312,15 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			);
 		}
 
-		const items: ElementType[] = jsonArray.map(
-			(obj) => this.populateObjectFromJson(obj, headers) as ElementType,
-		);
+		const items: ElementType[] = jsonArray.map((obj, index) => {
+			if (!this.isRecord(obj)) {
+				throw new Error(
+					`Expected item at index ${index} in '${root}' to be an object`,
+				);
+			}
+
+			return this.populateObjectFromJson(obj, headers) as ElementType;
+		});
 
 		const errors = Array.isArray(json.errors)
 			? (json.errors as BulkResult["errors"])
@@ -362,10 +368,15 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			);
 		}
 
-		return jsonArray.map(
-			(obj: Record<string, unknown>) =>
-				this.populateObjectFromJson(obj, headers) as ElementType,
-		);
+		return jsonArray.map((obj, index) => {
+			if (!this.isRecord(obj)) {
+				throw new Error(
+					`Expected item at index ${index} in '${root}' to be an object`,
+				);
+			}
+
+			return this.populateObjectFromJson(obj, headers) as ElementType;
+		});
 	}
 
 	/**
@@ -386,10 +397,15 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			);
 		}
 
-		const items = jsonArray.map(
-			(obj: Record<string, unknown>) =>
-				this.populateObjectFromJson(obj, headers) as ElementType,
-		);
+		const items = jsonArray.map((obj, index) => {
+			if (!this.isRecord(obj)) {
+				throw new Error(
+					`Expected item at index ${index} in '${root}' to be an object`,
+				);
+			}
+
+			return this.populateObjectFromJson(obj, headers) as ElementType;
+		});
 
 		return new CursorPaginatedResult<ElementType>(items, headers);
 	}
@@ -482,6 +498,11 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		uri: string | null = null,
 	): Promise<T> {
 		const request = await this.prepareRequest(method, body, params, uri);
+
+		if (request.response.json === null) {
+			throw new Error("Expected JSON response body, but received no content.");
+		}
+
 		return resolveFn.call(
 			this,
 			request.response.json,

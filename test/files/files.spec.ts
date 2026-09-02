@@ -6,10 +6,14 @@ import type {
 import { QueuedProcess } from "../../src/models/queued_process.js";
 import type { FileFormat } from "../../src/types/file_format.js";
 import type { DownloadedFileProcessDetails } from "../../src/types/queued_process_details.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub, vi } from "../setup.js";
 
 describe("Files", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const processId = "8c951f34fcea49ad5647bc811fc59e1c9a485082";
 	const data =
@@ -31,7 +35,7 @@ describe("Files", () => {
 
 		const files = await lokaliseApi.files().list({ project_id: projectId });
 
-		const file = files.items[0];
+		const file = getCollectionItem(files);
 
 		expect(file.file_id).to.eq(81446);
 		expect(file.filename).to.eq("%LANG_ISO%.yml");
@@ -60,7 +64,7 @@ describe("Files", () => {
 			...params,
 		});
 
-		expect(files.items[0].filename).to.eq("my_filename.json");
+		expect(getCollectionItem(files).filename).to.eq("my_filename.json");
 		expect(files.totalResults).to.eq(5);
 		expect(files.totalPages).to.eq(5);
 		expect(files.resultsPerPage).to.eq(1);
@@ -155,7 +159,7 @@ describe("Files", () => {
 			data: data,
 			filename: "test_node.json",
 			lang_iso: "en",
-			format: <FileFormat>"json",
+			format: "json" as FileFormat,
 		};
 
 		const stub = new Stub({
@@ -196,7 +200,8 @@ describe("Files", () => {
 		expect(processDetails).to.have.property("files");
 		if ("files" in processDetails) {
 			expect(processDetails.files.length).to.eq(1);
-			const file = processDetails.files[0];
+
+			const file = getArrayItem(processDetails.files);
 			expect(file.name_original).to.eq("test_node.json");
 			expect(file.word_count_total).to.eq(3);
 			expect(file.status).to.eq("finished");
@@ -228,7 +233,7 @@ describe("Files", () => {
 
 	it("reports response as too big for downloads", async () => {
 		const params: DownloadFileParams = {
-			format: <FileFormat>"json",
+			format: "json" as FileFormat,
 			original_filenames: true,
 		};
 

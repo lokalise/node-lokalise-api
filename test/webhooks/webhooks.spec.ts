@@ -2,10 +2,14 @@ import type {
 	CreateWebhookParams,
 	UpdateWebhookParams,
 } from "../../src/main.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Webhooks", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const webhookId = "795565582e5ab15a59bb68156c7e2e9eaa1e8d1a";
 	const newWebhookId = "85b5793926ba936d1a5ca100ec96c0884b9b7f64";
@@ -28,7 +32,7 @@ describe("Webhooks", () => {
 			project_id: projectId,
 		});
 
-		expect(webhooks.items[0].url).to.eq("https://serios.webhook");
+		expect(getCollectionItem(webhooks).url).to.eq("https://serios.webhook");
 	});
 
 	it("lists and pagination", async () => {
@@ -56,7 +60,7 @@ describe("Webhooks", () => {
 			...params,
 		});
 
-		expect(webhooks.items[0].url).to.eq("http://node.hook");
+		expect(getCollectionItem(webhooks).url).to.eq("http://node.hook");
 		expect(webhooks.totalResults).to.eq(2);
 		expect(webhooks.totalPages).to.eq(2);
 		expect(webhooks.resultsPerPage).to.eq(2);
@@ -81,7 +85,7 @@ describe("Webhooks", () => {
 		expect(webhook.branch).to.eq(null);
 		expect(webhook.secret).to.eq("42fd07785e2e281602d75c9044add68a15f454dc");
 		expect(webhook.events[0]).to.eq("project.imported");
-		expect(webhook.event_lang_map[0].event).to.eq(
+		expect(getArrayItem(webhook.event_lang_map).event).to.eq(
 			"project.translation.updated",
 		);
 	});

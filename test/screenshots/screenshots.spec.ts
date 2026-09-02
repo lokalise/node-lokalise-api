@@ -1,7 +1,11 @@
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Screenshots", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const screenshotId = 757673;
 	const secondScreenshotId = 3527037;
@@ -26,7 +30,7 @@ describe("Screenshots", () => {
 			project_id: projectId,
 		});
 
-		expect(screenshots.items[0].screenshot_id).to.eq(757672);
+		expect(getCollectionItem(screenshots).screenshot_id).to.eq(757672);
 	});
 
 	it("lists and paginates", async () => {
@@ -54,8 +58,8 @@ describe("Screenshots", () => {
 			...params,
 		});
 
-		expect(screenshots.items[0].screenshot_id).to.eq(screenshotId);
-		expect(screenshots.items[0].key_ids).to.include(74166107);
+		expect(getCollectionItem(screenshots).screenshot_id).to.eq(screenshotId);
+		expect(getCollectionItem(screenshots).key_ids).to.include(74166107);
 		expect(screenshots.totalResults).to.eq(2);
 		expect(screenshots.totalPages).to.eq(2);
 		expect(screenshots.resultsPerPage).to.eq(1);
@@ -107,8 +111,8 @@ describe("Screenshots", () => {
 		expect(screenshot.title).to.eq("123");
 		expect(screenshot.description).to.eq("");
 		expect(screenshot.screenshot_tags.length).to.eq(0);
-		expect(screenshot.keys[0].key_id).to.eq(74166107);
-		expect(screenshot.keys[0].coordinates.height).to.eq(12);
+		expect(getArrayItem(screenshot.keys).key_id).to.eq(74166107);
+		expect(getArrayItem(screenshot.keys).coordinates.height).to.eq(12);
 		expect(screenshot.url).to.include("s3.eu-central-1");
 		expect(screenshot.width).to.eq(1506);
 		expect(screenshot.height).to.eq(411);
@@ -139,8 +143,9 @@ describe("Screenshots", () => {
 			.screenshots()
 			.create(params, { project_id: projectId });
 
-		expect(screenshots.items[0].screenshot_id).to.eq(secondScreenshotId);
-		expect(screenshots.items[0].key_ids).to.include(378217831);
+		const screenshot = getArrayItem(screenshots.items);
+		expect(screenshot.screenshot_id).to.eq(secondScreenshotId);
+		expect(screenshot.key_ids).to.include(378217831);
 		expect(screenshots.errors).to.be.lengthOf(0);
 	});
 

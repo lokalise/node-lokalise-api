@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("PaymentCards", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const cardId = 1774;
 	const secondCardId = 2185;
 
@@ -21,7 +25,7 @@ describe("PaymentCards", () => {
 
 		const cards = await lokaliseApi.paymentCards().list();
 
-		expect(cards.items[0].card_id).to.eq(cardId);
+		expect(getCollectionItem(cards).card_id).to.eq(cardId);
 	});
 
 	it("lists and paginates", async () => {
@@ -46,7 +50,7 @@ describe("PaymentCards", () => {
 
 		const cards = await lokaliseApi.paymentCards().list(params);
 
-		expect(cards.items[0].card_id).to.eq(secondCardId);
+		expect(getCollectionItem(cards).card_id).to.eq(secondCardId);
 		expect(cards.totalResults).to.eq(4);
 		expect(cards.totalPages).to.eq(4);
 		expect(cards.resultsPerPage).to.eq(1);

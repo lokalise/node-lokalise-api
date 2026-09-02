@@ -2,6 +2,7 @@ import type {
 	WebhookProjectImported,
 	WebhookProjectLanguagesAdded,
 } from "../../src/main.js";
+import { getArrayItem } from "../helpers/collection.js";
 import { describe, expect, it } from "../setup.js";
 
 describe("Webhook event types", () => {
@@ -55,6 +56,6 @@ describe("Webhook event types", () => {
 			created_at_timestamp: 1564395511,
 		};
 
-		expect(eventLangs.languages[0].id).to.eq(734);
+		expect(getArrayItem(eventLangs.languages).id).to.eq(734);
 	});
 });

@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Branches", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const branchId = 41284;
 
@@ -23,7 +27,7 @@ describe("Branches", () => {
 			project_id: projectId,
 		});
 
-		expect(branches.items[0].branch_id).to.eq(14699);
+		expect(getCollectionItem(branches).branch_id).to.eq(14699);
 		expect(branches.prevPage()).to.eq(1);
 	});
 
@@ -52,7 +56,7 @@ describe("Branches", () => {
 			...params,
 		});
 
-		expect(branches.items[0].name).to.eq("merge-it");
+		expect(getCollectionItem(branches).name).to.eq("merge-it");
 		expect(branches.totalResults).to.eq(5);
 		expect(branches.totalPages).to.eq(5);
 		expect(branches.resultsPerPage).to.eq(1);

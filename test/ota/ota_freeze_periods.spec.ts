@@ -1,9 +1,11 @@
+import { getArrayItem } from "../helpers/collection.js";
+import { getRequiredEnv } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApiOta, Stub } from "../setup.js";
 
 describe("OtaFreezePeriods", () => {
-	const token = process.env.API_JWT;
+	const token = getRequiredEnv("API_JWT");
 	const lokaliseApiOta = new LokaliseApiOta({ apiKey: token });
-	const rootUrl = lokaliseApiOta.clientData.host;
+	const rootUrl = lokaliseApiOta.clientData.host as string;
 	const teamId = 176692;
 	const projectId = "88628569645b945648b474.25982965";
 	const freezeId = 38301;
@@ -33,7 +35,7 @@ describe("OtaFreezePeriods", () => {
 
 		expect(freezes.length).to.eq(2);
 
-		const freeze = freezes[0];
+		const freeze = getArrayItem(freezes);
 		expect(freeze.id).to.eq(38299);
 	});
 

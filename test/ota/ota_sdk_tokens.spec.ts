@@ -1,9 +1,11 @@
+import { getArrayItem } from "../helpers/collection.js";
+import { getRequiredEnv } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApiOta, Stub } from "../setup.js";
 
 describe("OtaSdkTokens", () => {
-	const token = process.env.API_JWT;
-	const lokaliseApiOta = new LokaliseApiOta({ apiKey: process.env.API_JWT });
-	const rootUrl = lokaliseApiOta.clientData.host;
+	const token = getRequiredEnv("API_JWT");
+	const lokaliseApiOta = new LokaliseApiOta({ apiKey: token });
+	const rootUrl = lokaliseApiOta.clientData.host as string;
 	const teamId = 176692;
 	const projectId = "88628569645b945648b474.25982965";
 	const tokenId = 9709;
@@ -55,7 +57,7 @@ describe("OtaSdkTokens", () => {
 			lokaliseProjectId: projectId,
 		});
 
-		expect(tokens[0].id).to.eq(9690);
+		expect(getArrayItem(tokens).id).to.eq(9690);
 		expect(tokens.length).to.eq(3);
 	});
 

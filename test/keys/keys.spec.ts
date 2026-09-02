@@ -5,10 +5,14 @@ import type {
 	KeyParamsWithPagination,
 	UpdateKeyData,
 } from "../../src/main.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Keys", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const keyId = 74189435;
 	const secondKeyId = 74166139;
@@ -31,7 +35,7 @@ describe("Keys", () => {
 
 		const keys = await lokaliseApi.keys().list(params);
 
-		expect(keys.items[0].key_id).to.eq(15519786);
+		expect(getCollectionItem(keys).key_id).to.eq(15519786);
 		expect(keys.nextCursor).to.be.null;
 		expect(keys.hasNextCursor()).to.be.false;
 		expect(keys.responseTooBig).to.be.false;
@@ -56,7 +60,7 @@ describe("Keys", () => {
 
 		const keys = await lokaliseApi.keys().list(params);
 
-		expect(keys.items[0].key_id).to.eq(15519786);
+		expect(getCollectionItem(keys).key_id).to.eq(15519786);
 		expect(keys.nextCursor).to.be.null;
 		expect(keys.hasNextCursor()).to.be.false;
 		expect(keys.responseTooBig).to.be.true;
@@ -87,7 +91,7 @@ describe("Keys", () => {
 			...params,
 		});
 
-		expect(keys.items[0].key_id).to.eq(15571975);
+		expect(getCollectionItem(keys).key_id).to.eq(15571975);
 		expect(keys.totalResults).to.eq(2);
 		expect(keys.totalPages).to.eq(2);
 		expect(keys.resultsPerPage).to.eq(1);
@@ -122,7 +126,7 @@ describe("Keys", () => {
 		});
 
 		expect(projectId).toEqual(project_id);
-		expect(keys.items[0].key_id).to.eq(15519786);
+		expect(getCollectionItem(keys).key_id).to.eq(15519786);
 		expect(keys.totalResults).to.eq(0);
 		expect(keys.totalPages).to.eq(0);
 		expect(keys.resultsPerPage).to.eq(2);
@@ -198,7 +202,7 @@ describe("Keys", () => {
 		});
 
 		expect(projectId).toEqual(project_id);
-		expect(keys.items[0].key_id).to.eq(15571975);
+		expect(getCollectionItem(keys).key_id).to.eq(15571975);
 		expect(keys.totalResults).to.eq(0);
 		expect(keys.totalPages).to.eq(0);
 		expect(keys.resultsPerPage).to.eq(2);
@@ -231,9 +235,9 @@ describe("Keys", () => {
 		expect(key.description).to.eq("");
 		expect(key.platforms).to.include("web");
 		expect(key.tags).to.have.lengthOf(0);
-		expect(key.comments[0].comment_id).to.eq(20421626);
+		expect(getArrayItem(key.comments).comment_id).to.eq(20421626);
 		expect(key.screenshots).to.have.lengthOf(0);
-		expect(key.translations[0].translation_id).to.eq(527556580);
+		expect(getArrayItem(key.translations).translation_id).to.eq(527556580);
 		expect(key.is_plural).to.be.false;
 		expect(key.plural_name).to.eq("");
 		expect(key.is_hidden).to.be.false;
@@ -323,14 +327,16 @@ describe("Keys", () => {
 			.keys()
 			.create(params, { project_id: projectId });
 
-		expect(keys.items[0].key_name.web).to.eq("welcome_web_new");
-		expect(keys.items[0].platforms).to.include("web");
-		expect(keys.items[0].filenames.web).to.eq("my_filename.json");
-		expect(keys.items[0].translations[0].translation).to.eq("Welcome");
+		const firstKey = getArrayItem(keys.items);
+		expect(firstKey.key_name.web).to.eq("welcome_web_new");
+		expect(firstKey.platforms).to.include("web");
+		expect(firstKey.filenames.web).to.eq("my_filename.json");
+		expect(getArrayItem(firstKey.translations).translation).to.eq("Welcome");
 
-		expect(keys.items[1].key_name.ios).to.eq("welcome_ios_new");
-		expect(keys.items[1].platforms).to.include("ios");
-		expect(keys.items[1].translations[0].language_iso).to.eq("en");
+		const secondKey = getArrayItem(keys.items, 1);
+		expect(secondKey.key_name.ios).to.eq("welcome_ios_new");
+		expect(secondKey.platforms).to.include("ios");
+		expect(getArrayItem(secondKey.translations).language_iso).to.eq("en");
 	});
 
 	it("creates with errors", async () => {
@@ -381,12 +387,14 @@ describe("Keys", () => {
 			.keys()
 			.create(params, { project_id: projectId });
 
-		expect(keys.items[0].key_name.ios).to.eq("welcome_ios_supernew");
-		expect(keys.items[0].platforms).to.include("ios");
-		expect(keys.items[0].translations[0].language_iso).to.eq("en");
+		const key = getArrayItem(keys.items);
+		expect(key.key_name.ios).to.eq("welcome_ios_supernew");
+		expect(key.platforms).to.include("ios");
+		expect(getArrayItem(key.translations).language_iso).to.eq("en");
 
-		expect(keys.errors[0].message).to.eq("This key name is already taken");
-		const keyName = keys.errors[0].key_name as { ios: string };
+		const keyError = getArrayItem(keys.errors);
+		expect(keyError.message).to.eq("This key name is already taken");
+		const keyName = keyError.key_name as { ios: string };
 		expect(keyName.ios).to.eq("welcome_web");
 	});
 
@@ -424,7 +432,7 @@ describe("Keys", () => {
 			.keys()
 			.create(params, { project_id: projectId });
 
-		const key = keys.items[0];
+		const key = getArrayItem(keys.items);
 
 		expect(key.key_name.web).to.eq("name_for_web2");
 		expect(key.key_name.ios).to.eq("name_for_ios2");
@@ -484,13 +492,15 @@ describe("Keys", () => {
 			.keys()
 			.bulk_update(params, { project_id: projectId });
 
-		expect(keys.items[1].key_id).to.eq(keyId);
-		expect(keys.items[1].description).to.eq("Bulk node");
-		expect(keys.items[1].platforms).to.include("web");
-		expect(keys.items[1].platforms).not.to.include("other");
+		const firstKey = getArrayItem(keys.items, 0);
+		expect(firstKey.key_id).to.eq(secondKeyId);
+		expect(firstKey.description).to.eq("Second bulk");
 
-		expect(keys.items[0].key_id).to.eq(secondKeyId);
-		expect(keys.items[0].description).to.eq("Second bulk");
+		const secondKey = getArrayItem(keys.items, 1);
+		expect(secondKey.key_id).to.eq(keyId);
+		expect(secondKey.description).to.eq("Bulk node");
+		expect(secondKey.platforms).to.include("web");
+		expect(secondKey.platforms).not.to.include("other");
 
 		expect(keys.errors.length).to.eq(0);
 	});

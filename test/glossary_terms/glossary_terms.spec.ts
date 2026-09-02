@@ -3,10 +3,14 @@ import type {
 	ListTermsParams,
 	UpdateTermsParams,
 } from "../../src/main.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("GlossaryTerms", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "6504960967ab53d45e0ed7.15877499";
 	const termId = 5319746;
 
@@ -33,7 +37,7 @@ describe("GlossaryTerms", () => {
 		expect(termObject.createdAt).toEqual("2025-03-31 15:01:00 (Etc/UTC)");
 		expect(termObject.updatedAt).toEqual(null);
 
-		const translation = termObject.translations[0];
+		const translation = getArrayItem(termObject.translations);
 		expect(translation.langId).toEqual(597);
 		expect(translation.langName).toEqual("Russian");
 		expect(translation.langIso).toEqual("ru");
@@ -66,8 +70,10 @@ describe("GlossaryTerms", () => {
 
 		expect(projectId).toEqual(project_id);
 		expect(terms.items.length).toEqual(2);
-		expect(terms.items[0].id).toEqual(termId);
-		expect(terms.items[0].projectId).toEqual(projectId);
+
+		const term = getCollectionItem(terms);
+		expect(term.id).toEqual(termId);
+		expect(term.projectId).toEqual(projectId);
 
 		expect(terms.nextCursor).toEqual("5489103");
 	});
@@ -99,8 +105,10 @@ describe("GlossaryTerms", () => {
 			.create(term_params, { project_id: projectId });
 
 		expect(terms.items.length).toEqual(1);
-		expect(terms.items[0].term).toEqual("test");
-		expect(terms.items[0].caseSensitive).toEqual(false);
+
+		const termEntry = getCollectionItem(terms);
+		expect(termEntry.term).toEqual("test");
+		expect(termEntry.caseSensitive).toEqual(false);
 	});
 
 	it("updates", async () => {
@@ -128,8 +136,10 @@ describe("GlossaryTerms", () => {
 			.update(term_params, { project_id: projectId });
 
 		expect(terms.items.length).toEqual(1);
-		expect(terms.items[0].term).toEqual("test updated");
-		expect(terms.items[0].caseSensitive).toEqual(false);
+
+		const termEntry = getCollectionItem(terms);
+		expect(termEntry.term).toEqual("test updated");
+		expect(termEntry.caseSensitive).toEqual(false);
 	});
 
 	it("deletes", async () => {
@@ -150,6 +160,8 @@ describe("GlossaryTerms", () => {
 
 		expect(termsDeleted.deleted.count).toEqual(1);
 		expect(termsDeleted.deleted.ids).toEqual([12345]);
-		expect(termsDeleted.failed[0].message).toEqual("Term IDs not found");
+		expect(getArrayItem(termsDeleted.failed).message).toEqual(
+			"Term IDs not found",
+		);
 	});
 });

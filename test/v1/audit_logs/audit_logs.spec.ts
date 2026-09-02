@@ -1,10 +1,12 @@
 import { AuditEventV1 } from "../../../src/models/v1/audit_event.js";
 import type { AuditLogParams } from "../../../src/types/v1/audit_logs.js";
+import { getCollectionItem } from "../../helpers/collection.js";
+import { getTestApiKey } from "../../helpers/get_env.js";
 import { describe, expect, it, LokaliseApiV1, Stub } from "../../setup.js";
 
 describe("Audit logs", () => {
 	const lokaliseApi = new LokaliseApiV1({
-		apiKey: process.env.API_KEY,
+		apiKey: getTestApiKey(),
 	});
 
 	it("lists audit logs and returns cursor pagination metadata", async () => {
@@ -24,11 +26,12 @@ describe("Audit logs", () => {
 		const auditLogs = await lokaliseApi.auditLogs().list(params);
 
 		expect(auditLogs.items).to.have.lengthOf(1);
-		expect(auditLogs.items[0]).to.be.instanceOf(AuditEventV1);
 
-		expect(auditLogs.items[0].metadata.uid).to.eq("event-1");
-		expect(auditLogs.items[0].metadata.event_code).to.eq("project.deleted");
-		expect(auditLogs.items[0].time).to.eq(1753267304);
+		const logEntry = getCollectionItem(auditLogs);
+		expect(logEntry).to.be.instanceOf(AuditEventV1);
+		expect(logEntry.metadata.uid).to.eq("event-1");
+		expect(logEntry.metadata.event_code).to.eq("project.deleted");
+		expect(logEntry.time).to.eq(1753267304);
 
 		expect(auditLogs.next_cursor).to.eq("cursor-page-2");
 		expect(auditLogs.has_more).to.be.true;
@@ -53,8 +56,10 @@ describe("Audit logs", () => {
 		const auditLogs = await lokaliseApi.auditLogs().list(params);
 
 		expect(auditLogs.items).to.have.lengthOf(1);
-		expect(auditLogs.items[0].metadata.uid).to.eq("event-2");
-		expect(auditLogs.items[0].metadata.event_code).to.eq("project.created");
+
+		const logEntry = getCollectionItem(auditLogs);
+		expect(logEntry.metadata.uid).to.eq("event-2");
+		expect(logEntry.metadata.event_code).to.eq("project.created");
 
 		expect(auditLogs.next_cursor).to.be.null;
 		expect(auditLogs.has_more).to.be.false;
@@ -105,7 +110,9 @@ describe("Audit logs", () => {
 		const auditLogs = await lokaliseApi.auditLogs().list(params);
 
 		expect(auditLogs.items).to.have.lengthOf(1);
-		expect(auditLogs.items[0].metadata.uid).to.eq("event-3");
+
+		const logEntry = getCollectionItem(auditLogs);
+		expect(logEntry.metadata.uid).to.eq("event-3");
 
 		expect(auditLogs.next_cursor).to.be.null;
 		expect(auditLogs.has_more).to.be.false;

@@ -116,12 +116,18 @@ export class Stub {
 		isError: boolean,
 		respOpts: MockInterceptor.MockResponseOptions,
 	) {
+		const interceptOpts: MockInterceptor.Options = {
+			...mockOpts,
+			...(this.requestBody !== undefined ? { body: this.requestBody } : {}),
+		};
+
 		if (isError) {
-			mockPool.intercept(mockOpts).replyWithError(new Error("Fail"));
+			mockPool.intercept(interceptOpts).replyWithError(new Error("Fail"));
 		} else {
 			const responseData = this.data ?? (await this.readFixture());
+
 			const pool = mockPool
-				.intercept({ ...mockOpts, body: this.requestBody })
+				.intercept(interceptOpts)
 				.reply(this.statusCode, responseData, respOpts);
 
 			if (this.delay > 0) {
@@ -181,13 +187,19 @@ export class Stub {
 		return {
 			method: this.httpMethod,
 			path: `/${this.version}/${this.uriPath}`,
-			headers: this.requestHeaders,
+			...(this.requestHeaders !== undefined
+				? { headers: this.requestHeaders }
+				: {}),
 		};
 	}
 
 	private buildResponseOptions(): MockInterceptor.MockResponseOptions {
-		return {
-			headers: this.responseHeaders,
-		};
+		const options: MockInterceptor.MockResponseOptions = {};
+
+		if (this.responseHeaders !== undefined) {
+			options.headers = this.responseHeaders;
+		}
+
+		return options;
 	}
 }

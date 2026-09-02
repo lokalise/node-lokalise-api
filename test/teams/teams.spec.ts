@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Teams", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const teamId = 176692;
 
 	it("lists", async () => {
@@ -19,7 +23,7 @@ describe("Teams", () => {
 		await stub.setStub();
 
 		const teams = await lokaliseApi.teams().list();
-		const team = teams.items[0];
+		const team = getCollectionItem(teams);
 		expect(team.team_id).to.eq(186612);
 		expect(team.name).to.eq("NikaNika");
 		expect(team.plan).to.eq("Trial");
@@ -50,7 +54,7 @@ describe("Teams", () => {
 
 		const teams = await lokaliseApi.teams().list(params);
 
-		expect(teams.items[0].team_id).to.eq(176692);
+		expect(getCollectionItem(teams).team_id).to.eq(176692);
 		expect(teams.totalResults).to.eq(3);
 		expect(teams.totalPages).to.eq(3);
 		expect(teams.resultsPerPage).to.eq(1);

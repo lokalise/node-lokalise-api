@@ -1,11 +1,12 @@
+import { getRequiredEnv } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseOtaBundles, Stub } from "../setup.js";
 
 describe("OtaBundles", () => {
-	const token = process.env.SDK_TOKEN;
+	const token = getRequiredEnv("SDK_TOKEN");
 	const lokaliseOtaBundles = new LokaliseOtaBundles({
 		apiKey: token,
 	});
-	const rootUrl = lokaliseOtaBundles.clientData.host;
+	const rootUrl = lokaliseOtaBundles.clientData.host as string;
 	const projectId = "88628569645b945648b474.25982965";
 	const framework = "ios_sdk";
 

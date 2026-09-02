@@ -1,7 +1,11 @@
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("TranslationProviders", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const teamId = 176692;
 
 	it("lists", async () => {
@@ -22,7 +26,7 @@ describe("TranslationProviders", () => {
 			team_id: teamId,
 		});
 
-		expect(providers.items[0].name).to.eq("Gengo");
+		expect(getCollectionItem(providers).name).to.eq("Gengo");
 	});
 
 	it("lists and paginates", async () => {
@@ -50,7 +54,7 @@ describe("TranslationProviders", () => {
 			...params,
 		});
 
-		expect(providers.items[0].name).to.eq("Lokalise");
+		expect(getCollectionItem(providers).name).to.eq("Lokalise");
 		expect(providers.totalResults).to.eq(4);
 		expect(providers.totalPages).to.eq(2);
 		expect(providers.resultsPerPage).to.eq(2);
@@ -78,12 +82,12 @@ describe("TranslationProviders", () => {
 		expect(provider.website_url).to.eq("https://lokalise.com");
 		expect(provider.description).to.include("Our native professional");
 		expect(provider.tiers).to.have.lengthOf(4);
-		expect(provider.tiers[1].tier_id).to.eq(2);
-		expect(provider.tiers[0].title).to.eq(
+		expect(getArrayItem(provider.tiers, 1).tier_id).to.eq(2);
+		expect(getArrayItem(provider.tiers).title).to.eq(
 			"Translation only by a native professional linguist",
 		);
 
-		const pair = provider.pairs[0];
+		const pair = getArrayItem(provider.pairs);
 		expect(pair.tier_id).to.eq(1);
 		expect(pair.price_per_word).to.eq(0.1);
 		expect(pair.from_lang_name).to.eq("Russian");

@@ -1,8 +1,12 @@
 import type { Project } from "../../src/main.js";
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Snapshots", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const snapshotId = 516514;
 	const newSnapshotId = 2533466;
@@ -25,8 +29,8 @@ describe("Snapshots", () => {
 			project_id: projectId,
 		});
 
-		expect(snapshots.items[0].snapshot_id).to.eq(27882);
-		expect(snapshots.items[1].snapshot_id).to.eq(243330);
+		expect(getCollectionItem(snapshots).snapshot_id).to.eq(27882);
+		expect(getCollectionItem(snapshots, 1).snapshot_id).to.eq(243330);
 	});
 
 	it("lists and paginates", async () => {
@@ -54,7 +58,7 @@ describe("Snapshots", () => {
 			...params,
 		});
 
-		expect(snapshots.items[0].snapshot_id).to.eq(snapshotId);
+		expect(getCollectionItem(snapshots).snapshot_id).to.eq(snapshotId);
 		expect(snapshots.totalResults).to.eq(5);
 		expect(snapshots.totalPages).to.eq(3);
 		expect(snapshots.resultsPerPage).to.eq(2);

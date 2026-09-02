@@ -1,6 +1,6 @@
 {
 	"name": "@lokalise/node-api",
-	"version": "16.4.0",
+	"version": "16.4.1",
 	"description": "Official Lokalise API 2.0 Node.js client",
 	"license": "BSD-3-Clause",
 	"repository": {
@@ -22,7 +22,8 @@
 		"test:watch": "vitest watch",
 		"lint": "npx @biomejs/biome check ./",
 		"lint:fix": "npx @biomejs/biome check --write ./",
-		"lint:fix:unsafe": "npx @biomejs/biome check --write --unsafe ./"
+		"lint:fix:unsafe": "npx @biomejs/biome check --write --unsafe ./",
+		"typecheck": "tsc -p tsconfig.test.json --noEmit"
 	},
 	"publishConfig": {
 		"access": "public"

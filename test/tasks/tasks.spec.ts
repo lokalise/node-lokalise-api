@@ -1,8 +1,12 @@
 import type { CreateTaskParams } from "../../src/main.js";
+import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Tasks", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "803826145ba90b42d5d860.46800099";
 	const taskId = 21659;
 	const newTaskId = 1927993;
@@ -26,7 +30,7 @@ describe("Tasks", () => {
 			project_id: projectId,
 		});
 
-		expect(tasks.items[0].task_id).to.eq(taskId);
+		expect(getCollectionItem(tasks).task_id).to.eq(taskId);
 	});
 
 	it("lists and paginates", async () => {
@@ -54,7 +58,7 @@ describe("Tasks", () => {
 			...params,
 		});
 
-		expect(tasks.items[0].task_id).to.eq(10001);
+		expect(getCollectionItem(tasks).task_id).to.eq(10001);
 		expect(tasks.totalResults).to.eq(3);
 		expect(tasks.totalPages).to.eq(2);
 		expect(tasks.resultsPerPage).to.eq(2);
@@ -92,7 +96,7 @@ describe("Tasks", () => {
 		expect(task.created_by_email).to.eq("bodrovis@protonmail.com");
 		expect(task.source_language_iso).to.eq("en");
 
-		const language = task.languages[0];
+		const language = getArrayItem(task.languages);
 		expect(language.language_iso).to.eq("fr");
 		expect(language.tm_leverage.status).to.eq("completed");
 		expect(language.tm_leverage.value["50%+"]).to.eq(31);
@@ -136,7 +140,7 @@ describe("Tasks", () => {
 
 		expect(task.task_id).to.eq(newTaskId);
 		expect(task.title).to.eq("node task");
-		expect(task.languages[0].language_iso).to.eq("en");
+		expect(getArrayItem(task.languages).language_iso).to.eq("en");
 	});
 
 	it("creates a machine translation task", async () => {
@@ -168,7 +172,7 @@ describe("Tasks", () => {
 
 		expect(task.task_id).to.eq(mtTaskId);
 		expect(task.task_type).to.eq("automatic_translation");
-		expect(task.languages[0].language_iso).to.eq("de");
+		expect(getArrayItem(task.languages).language_iso).to.eq("de");
 	});
 
 	it("updates", async () => {

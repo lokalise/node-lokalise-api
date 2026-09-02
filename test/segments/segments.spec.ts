@@ -1,7 +1,11 @@
+import { getArrayItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Segments", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const projectId = "36730698650d6bd755c737.69639337";
 	const keyId = 379099395;
 	const segmentNumber = 1;
@@ -28,8 +32,8 @@ describe("Segments", () => {
 			...params,
 		});
 
-		expect(segments[0].language_iso).to.eq("en");
-		expect(segments[1].value).to.eq("Pineapple");
+		expect(getArrayItem(segments).language_iso).to.eq("en");
+		expect(getArrayItem(segments, 1).value).to.eq("Pineapple");
 	});
 
 	it("retrieves", async () => {

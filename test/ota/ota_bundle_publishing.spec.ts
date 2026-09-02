@@ -1,13 +1,14 @@
+import { getRequiredEnv } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApiOta, Stub } from "../setup.js";
 
 describe("OtaBundlePublishing", () => {
-	const token = process.env.API_JWT;
+	const token = getRequiredEnv("API_JWT");
 	const lokaliseApiOta = new LokaliseApiOta({ apiKey: token });
 	const teamId = 176692;
 	const projectId = "88628569645b945648b474.25982965";
 	const bundleId = 682463;
 	const framework = "ios_sdk";
-	const rootUrl = lokaliseApiOta.clientData.host;
+	const rootUrl = lokaliseApiOta.clientData.host as string;
 
 	it("publishes", async () => {
 		const stub = new Stub({

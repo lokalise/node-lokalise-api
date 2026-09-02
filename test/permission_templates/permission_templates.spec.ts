@@ -1,7 +1,11 @@
+import { getCollectionItem } from "../helpers/collection.js";
+import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Permission templates", () => {
-	const lokaliseApi = new LokaliseApi({ apiKey: process.env.API_KEY });
+	const lokaliseApi = new LokaliseApi({
+		apiKey: getTestApiKey(),
+	});
 	const teamId = 176692;
 
 	it("lists", async () => {
@@ -22,7 +26,7 @@ describe("Permission templates", () => {
 			team_id: teamId,
 		});
 
-		const roleDetails = roles.items[0];
+		const roleDetails = getCollectionItem(roles);
 
 		expect(roleDetails.id).to.eq(1);
 		expect(roleDetails.role).to.eq("Manager");
