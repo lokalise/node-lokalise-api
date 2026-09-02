@@ -142,7 +142,7 @@ type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 //#endregion
 //#region src/http_client/base.d.ts
 type ApiResponse = {
-  json: Record<string, unknown>;
+  json: Record<string, unknown> | null;
   headers: Headers;
 };
 /**
@@ -199,9 +199,10 @@ declare class ApiRequest {
   /**
    * Derives an ApiError instance from the response JSON, which may follow various patterns.
    * @param respJson - The parsed JSON response from the server.
+   * @param fallbackStatus - Fallback status from the response.
    * @returns An ApiError representing the server error.
    */
-  protected getErrorFromResp(respJson: unknown): ApiError;
+  protected getErrorFromResp(respJson: unknown, fallbackStatus: number): ApiError;
   /**
    * Builds the request headers, including authentication, compression, and JSON headers as needed.
    * @param clientData - Client configuration and auth data.

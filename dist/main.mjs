@@ -14,13 +14,6 @@ var Branch = class extends BaseModel {};
 //#endregion
 //#region src/lokalise/pkg.ts
 /**
-* Returns the relative path to the package.json file.
-* Adjust this if your directory structure changes.
-*/
-function pkgPath() {
-	return "../../package.json";
-}
-/**
 * Attempts to read and parse the local package.json file to retrieve the version.
 * If the file cannot be read or parsed, returns "unknown".
 *
@@ -28,9 +21,9 @@ function pkgPath() {
 */
 async function getVersion() {
 	try {
-		const data = await readFile(new URL(pkgPath(), import.meta.url));
+		const data = await readFile(new URL("../../package.json", import.meta.url));
 		const pkg = JSON.parse(data.toString());
-		return String(pkg.version);
+		return typeof pkg.version === "string" ? pkg.version : "unknown";
 	} catch {
 		return "unknown";
 	}
@@ -149,6 +142,7 @@ var ApiRequest = class ApiRequest {
 	* @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
 	*/
 	async fetchAndHandleResponse(target, options, requestTimeout = 0) {
+		if (!Number.isSafeInteger(requestTimeout) || requestTimeout < 0) throw new ApiError("requestTimeout must be a non-negative integer", 500);
 		const signal = requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : void 0;
 		try {
 			const response = await fetch(target, {
@@ -175,29 +169,31 @@ var ApiRequest = class ApiRequest {
 		try {
 			if (response.status !== 204) responseJSON = await response.json();
 		} catch (error) {
-			return Promise.reject(new ApiError(error.message, response.status, {
+			const message = error instanceof Error ? error.message : String(error);
+			throw new ApiError(message, response.status, {
 				statusText: response.statusText,
 				reason: "JSON parsing error"
-			}));
+			});
 		}
 		if (response.ok) return {
 			json: responseJSON,
 			headers: response.headers
 		};
-		return Promise.reject(this.getErrorFromResp(responseJSON));
+		throw this.getErrorFromResp(responseJSON, response.status);
 	}
 	/**
 	* Derives an ApiError instance from the response JSON, which may follow various patterns.
 	* @param respJson - The parsed JSON response from the server.
+	* @param fallbackStatus - Fallback status from the response.
 	* @returns An ApiError representing the server error.
 	*/
-	getErrorFromResp(respJson) {
-		if (!respJson || typeof respJson !== "object") return new ApiError("An unknown error occurred", 500, { reason: "unexpected response format" });
+	getErrorFromResp(respJson, fallbackStatus) {
+		if (!respJson || typeof respJson !== "object") return new ApiError("An unknown error occurred", fallbackStatus, { reason: "unexpected response format" });
 		const errorObj = respJson;
 		if (typeof errorObj.message === "string" && typeof errorObj.statusCode === "number" && typeof errorObj.error === "string") return new ApiError(errorObj.message, errorObj.statusCode, { reason: errorObj.error });
 		if (errorObj.error && typeof errorObj.error === "object") {
-			const { message = "Unknown error", code = 500, details } = errorObj.error;
-			return new ApiError(String(message), typeof code === "number" ? code : 500, typeof details === "object" && details !== null ? details : { reason: "server error without details" });
+			const { message = "Unknown error", code = fallbackStatus, details } = errorObj.error;
+			return new ApiError(String(message), typeof code === "number" ? code : fallbackStatus, typeof details === "object" && details !== null ? details : { reason: "server error without details" });
 		}
 		if (typeof errorObj.message === "string" && (typeof errorObj.code === "number" || typeof errorObj.errorCode === "number")) {
 			const statusCode = typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
@@ -205,7 +201,7 @@ var ApiRequest = class ApiRequest {
 			const safeDetails = typeof rawDetails === "object" && rawDetails !== null ? rawDetails : { reason: "server error without details" };
 			return new ApiError(errorObj.message, statusCode, safeDetails);
 		}
-		return new ApiError("An unknown error occurred", 500, {
+		return new ApiError("An unknown error occurred", fallbackStatus, {
 			reason: "unhandled error format",
 			data: JSON.stringify(respJson)
 		});
@@ -499,7 +495,7 @@ var BaseCollection = class {
 	populateSecondaryObjectFromJsonRoot(json, headers) {
 		const root = this.secondaryElementNameSingular;
 		const itemJson = json[root];
-		if (typeof itemJson !== "object" || itemJson === null) throw new Error(`Missing expected secondary property '${root}' in JSON response.`);
+		if (!this.isRecord(itemJson)) throw new Error(`Missing expected secondary property '${root}' in JSON response.`);
 		return this.populateObjectFromJson(itemJson, headers, true);
 	}
 	/**
@@ -522,7 +518,10 @@ var BaseCollection = class {
 		const root = this.rootElementName;
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
-		const items = jsonArray.map((obj) => this.populateObjectFromJson(obj, headers));
+		const items = jsonArray.map((obj, index) => {
+			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
 		return {
 			errors: Array.isArray(json.errors) ? json.errors : [],
 			items
@@ -549,7 +548,10 @@ var BaseCollection = class {
 		const root = this.rootElementName;
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
-		return jsonArray.map((obj) => this.populateObjectFromJson(obj, headers));
+		return jsonArray.map((obj, index) => {
+			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
 	}
 	/**
 	* Parse a JSON response that contains a cursor-paginated array of items.
@@ -560,7 +562,10 @@ var BaseCollection = class {
 		const root = this.rootElementName;
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' for cursor pagination but received: ${typeof jsonArray}`);
-		const items = jsonArray.map((obj) => this.populateObjectFromJson(obj, headers));
+		const items = jsonArray.map((obj, index) => {
+			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
 		return new CursorPaginatedResult(items, headers);
 	}
 	/**
@@ -616,6 +621,7 @@ var BaseCollection = class {
 	*/
 	async createPromise(method, params, resolveFn, body, uri = null) {
 		const request = await this.prepareRequest(method, body, params, uri);
+		if (request.response.json === null) throw new Error("Expected JSON response body, but received no content.");
 		return resolveFn.call(this, request.response.json, request.response.headers);
 	}
 	/**
