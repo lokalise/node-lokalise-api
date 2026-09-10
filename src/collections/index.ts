@@ -23,6 +23,7 @@ import { TranslationStatuses } from "./translation_statuses.js";
 import { Translations } from "./translations.js";
 import { UserGroups } from "./user_groups.js";
 import { AuditLogs } from "./v1/audit_logs.js";
+import { ProjectItems } from "./vantage/project_items.js";
 import { Webhooks } from "./webhooks.js";
 
 export {
@@ -38,6 +39,7 @@ export {
 	Orders,
 	PaymentCards,
 	PermissionTemplates,
+	ProjectItems,
 	Projects,
 	QueuedProcesses,
 	Screenshots,

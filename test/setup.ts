@@ -30,6 +30,7 @@ import {
 	LokaliseApiV1,
 	LokaliseAuth,
 	LokaliseOtaBundles,
+	LokaliseApiVantage
 } from "../src/main.js";
 import { Stub } from "./stubs.js";
 
@@ -48,4 +49,5 @@ export {
 	LokaliseOtaBundles,
 	Stub,
 	vi,
+	LokaliseApiVantage
 };

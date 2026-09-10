@@ -16,7 +16,7 @@ export class ApiRequest {
 	/**
 	 * The default base URL for the Lokalise API.
 	 */
-	protected static readonly urlRoot = "https://api.lokalise.com/api2/";
+	protected static readonly urlRoot = "https://api.lokalise.com/";
 
 	/**
 	 * The resolved response from the API request.
@@ -97,6 +97,7 @@ export class ApiRequest {
 		};
 
 		const target = new URL(url, prefixUrl);
+
 		const stringifiedParams: Record<string, string> = Object.fromEntries(
 			Object.entries(this.params)
 				.filter(([, value]) => value !== undefined && value !== null)
