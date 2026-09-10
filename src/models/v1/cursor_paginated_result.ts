@@ -1,5 +1,4 @@
 import type { CursorPaginatedResponseV1 } from "../../interfaces/v1/cursor_paginated_response.js";
-
 import type { CursorPaginatedResultV1 as ICursorPaginatedResultV1 } from "../../interfaces/v1/cursor_paginated_result.js";
 
 export class CursorPaginatedResultV1<T> implements ICursorPaginatedResultV1<T> {
