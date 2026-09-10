@@ -9,7 +9,8 @@ describe("Project items", () => {
 		apiKey: getTestApiKey(),
 	});
 
-  // it("works", async () => {
-  //   console.log(await lokaliseVantageApi.projectItems().list({project_id: "019d29d9-de47-7a57-ac2d-53194197d213"}))
-  // });
+  it("works", async () => {
+    console.log("TODO: pending")
+    // console.log(await lokaliseVantageApi.projectItems().list({project_id: "019d29d9-de47-7a57-ac2d-53194197d213"}))
+  });
 });
