@@ -1,9 +1,9 @@
-import type { CursorPaginatedResultV1 } from "../../interfaces/v1/cursor_paginated_result.js";
+import type { CursorPaginatedResultVantage } from "../../interfaces/vantage/cursor_paginated_result.js";
 import { ProjectItemVantage } from "../../models/vantage/project_item.js";
 import type { ProjectItemParams } from "../../types/vantage/project_items.js";
-import { BaseCollection } from "../base_collection.js";
+import { BaseCollectionVantage } from "../base_collection_vantage.js";
 
-export class ProjectItems extends BaseCollection<ProjectItemVantage> {
+export class ProjectItems extends BaseCollectionVantage<ProjectItemVantage> {
 	protected static override prefixURI = "projects/{!:project_id}/items";
 
 	protected override get elementClass(): new (
@@ -14,7 +14,7 @@ export class ProjectItems extends BaseCollection<ProjectItemVantage> {
 
 	list(
 		request_params: ProjectItemParams,
-	): Promise<CursorPaginatedResultV1<ProjectItemVantage>> {
-		return this.doListCursorV1(request_params);
+	): Promise<CursorPaginatedResultVantage<ProjectItemVantage>> {
+		return this.doListCursorVantage(request_params);
 	}
 }

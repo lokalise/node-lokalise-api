@@ -1,9 +1,9 @@
 import type { CursorPaginatedResultV1 } from "../../interfaces/v1/cursor_paginated_result.js";
 import { AuditEventV1 } from "../../models/v1/audit_event.js";
 import type { AuditLogParams } from "../../types/v1/audit_logs.js";
-import { BaseCollection } from "../base_collection.js";
+import { BaseCollectionV1 } from "../base_collection_v1.js";
 
-export class AuditLogs extends BaseCollection<AuditEventV1> {
+export class AuditLogs extends BaseCollectionV1<AuditEventV1> {
 	protected static override prefixURI = "audit-logs";
 
 	protected override get elementClass(): new (
