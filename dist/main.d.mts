@@ -112,7 +112,7 @@ interface IApiError {
 /**
  * Represents an API error with a specific code and optional details.
  */
-declare class ApiError extends Error implements IApiError {
+export declare class ApiError extends Error implements IApiError {
   /**
    * The error code representing the type of API error.
    */
@@ -968,6 +968,20 @@ declare class Jwt$1 extends BaseCollection<Jwt$2> {
   }): Promise<Jwt$2>;
 }
 //#endregion
+//#region src/interfaces/ai_scoring.d.ts
+interface AiScoringIssue {
+  category: string;
+  severity: string;
+  comment: string;
+  penalty: number;
+}
+interface AiScoring {
+  score: number;
+  last_updated: string;
+  last_updated_timestamp: number;
+  issues: AiScoringIssue[];
+}
+//#endregion
 //#region src/interfaces/screenshot.d.ts
 interface Screenshot {
   screenshot_id: number;
@@ -1014,6 +1028,7 @@ interface Translation {
   reviewed_by: number;
   words: number;
   custom_translation_statuses: TranslationStatus[];
+  ai_scoring: AiScoring | null;
   task_id: number;
   segment_number: number;
 }
@@ -1048,6 +1063,7 @@ interface Key {
   is_hidden: boolean;
   is_archived: boolean;
   context: string;
+  ai_scoring: AiScoring | null;
   base_words: number;
   char_limit: number;
   custom_attributes: string;
@@ -1075,6 +1091,7 @@ declare class Key$1 extends BaseModel implements Key {
   plural_name: string;
   is_hidden: boolean;
   is_archived: boolean;
+  ai_scoring: AiScoring | null;
   context: string;
   base_words: number;
   char_limit: number;
@@ -1132,9 +1149,11 @@ type ListTranslationParams = ProjectWithPagination & CursorPagination & {
   filter_untranslated?: number | string;
   filter_qa_issues?: string;
   filter_active_task_id?: number | string;
+  include_ai_scoring?: NumericBool;
 };
 type GetTranslationParams = ProjectOnly & {
   disable_references?: number | string;
+  include_ai_scoring?: NumericBool;
 };
 //#endregion
 //#region src/types/keys.d.ts
@@ -1189,6 +1208,7 @@ type KeyParamsWithPagination = ProjectWithPagination & CursorPagination & {
   include_comments?: NumericBool;
   include_screenshots?: NumericBool;
   include_translations?: NumericBool;
+  include_ai_scoring?: NumericBool;
   filter_translation_lang_ids?: string;
   filter_tags?: string;
   filter_filenames?: string;
@@ -1201,6 +1221,7 @@ type KeyParamsWithPagination = ProjectWithPagination & CursorPagination & {
 };
 type GetKeyParams = ProjectOnly & {
   disable_references?: NumericBool;
+  include_ai_scoring?: NumericBool;
 };
 //#endregion
 //#region src/collections/keys.d.ts
@@ -3310,6 +3331,7 @@ declare class Translation$1 extends BaseModel implements Translation {
   is_reviewed: boolean;
   reviewed_by: number;
   is_fuzzy: boolean;
+  ai_scoring: AiScoring | null;
   words: number;
   custom_translation_statuses: TranslationStatus[];
   task_id: number;
@@ -3453,7 +3475,7 @@ declare class BaseClient {
  * Provides easy access to various resource collections (Branches, Comments, Projects, etc.)
  * through dedicated methods.
  */
-declare class LokaliseApi extends BaseClient {
+export declare class LokaliseApi extends BaseClient {
   /**
    * Creates a new instance of the LokaliseApi client.
    * @param params - Configuration parameters including `apiKey` and optional `version`, `host`, etc.
@@ -3566,7 +3588,7 @@ declare class LokaliseApi extends BaseClient {
  * A specialized client for interacting with the Lokalise API using OAuth authentication.
  * Extends `LokaliseApi` and configures the token type and authorization header to use Bearer tokens.
  */
-declare class LokaliseApiOAuth extends LokaliseApi {
+export declare class LokaliseApiOAuth extends LokaliseApi {
   /**
    * Constructs a new LokaliseApiOAuth client instance.
    * @param params - Configuration parameters including `apiKey` (OAuth token)
@@ -3722,7 +3744,7 @@ declare class OtaUsageStatistics extends OtaCollection<OtaStatistics$1> {
  * - `host` defaults to "https://ota.lokalise.com"
  * - `version` defaults to "v3"
  */
-declare class LokaliseApiOta extends BaseClient {
+export declare class LokaliseApiOta extends BaseClient {
   /**
    * Creates a new LokaliseApiOta client instance.
    * @param params - Configuration parameters including `apiKey` and optional overrides for tokenType, host, version, etc.
@@ -3756,7 +3778,7 @@ declare class LokaliseApiOta extends BaseClient {
  * A main entry point for interacting with Lokalise API v1.
  * Provides access to resource collections available through API version v1.
  */
-declare class LokaliseApiV1 extends BaseClient {
+export declare class LokaliseApiV1 extends BaseClient {
   /**
    * Creates a new instance of the LokaliseApiV1 client.
    * @param params - Configuration parameters including `apiKey` and optional `version`, `host`, etc.
@@ -3773,7 +3795,7 @@ declare class LokaliseApiV1 extends BaseClient {
  * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
  * Extends the BaseClient to configure authentication and endpoint specifics for OTA bundles.
  */
-declare class LokaliseOtaBundles extends BaseClient {
+export declare class LokaliseOtaBundles extends BaseClient {
   /**
    * Constructs a new LokaliseOtaBundles client instance.
    * @param params - Configuration parameters, including the required `apiKey`.
@@ -3790,7 +3812,7 @@ declare class LokaliseOtaBundles extends BaseClient {
 }
 //#endregion
 //#region src/oauth2/lokalise_auth.d.ts
-declare class LokaliseAuth {
+export declare class LokaliseAuth {
   authData: AuthData;
   /**
    * Instantiate LokaliseAuth to work with OAuth 2 tokens
@@ -3854,12 +3876,12 @@ declare class LokaliseAuth {
 }
 //#endregion
 //#region src/models/auth_error.d.ts
-declare class AuthError extends BaseModel implements IAuthError {
+export declare class AuthError extends BaseModel implements IAuthError {
   code: number;
   error: string;
   error_description: string;
   error_uri?: string;
 }
 //#endregion
-export { ApiError, type AuditEventV1, type AuditLogParams, type AuthData, AuthError, type BillingDetailsParams, type Branch, type BranchDeleted, type BranchMerged, type BranchParams, type BulkResult, type BulkUpdateKeyParams, type CardDeleted, type ClientData, type ClientParams, type Comment, type CommentData, type CommentDeleted, type Contributor, type ContributorCreateData, type ContributorDeleted, type ContributorLanguages, type ContributorRights, type ContributorRoles, type ContributorUpdateData, type CreateCardParams, type CreateKeyData, type CreateKeyParams, type CreateLanguageParams, type CreateOrderParams, type CreateProjectParams, type CreateScreenshotParams, type CreateSnapshotParams, type CreateTaskParams, type CreateTermsParams, type CreateTranslationStatusParams, type CreateWebhookParams, type CursorPaginatedResponseV1, type CursorPaginatedResult, type CursorPaginatedResultV1, type CursorPagination, type CursorPaginationParamsV1, type DownloadBundle, type DownloadFileParams, type DownloadedFileProcessDetails, type File, type FileDeleted, type FileFormat, type Filenames, type GetKeyParams, type GetSegmentParams, type GetTranslationParams, type GlossaryTerm, type HttpMethod, type IApiError, type IAuthError, type Jwt, type Key, type KeyDeleted, type KeyParamsWithPagination, type KeyProjectPagination, type KeysBulkDeleted, type Language, type LanguageDeleted, type ListFileParams, type ListSegmentParams, type ListTaskParams, type ListTermsParams, type ListTranslationParams, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseAuth, LokaliseOtaBundles, type MergeBranchParams, type NumericBool, type Order, type OtaBundle, type OtaBundleArchive, type OtaBundleUpdateData, type OtaFramework, type OtaFreezePeriod, type OtaFreezePeriodParams, type OtaProjectFramework, type OtaRequestBundleParams, type OtaResourceDeleted, type OtaSdkToken, type OtaStatistics, type OtaTeamProject, type OtaTeamProjectFramework, type OtaUsageParams, type PaginatedResult, type PaginationParams, type PaymentCard, type Project, type ProjectAndKey, type ProjectDeleted, type ProjectEmptied, type ProjectListParams, type ProjectOnly, type ProjectSettings, type ProjectStatistics, type ProjectWithPagination, type QueuedProcess, type QueuedProcessDetails, type RefreshTokenResponse, type RequestTokenResponse, type Screenshot, type ScreenshotData, type ScreenshotDeleted, type Segment, type Snapshot, type SnapshotDeleted, type SupportedPlatforms, type Task, type TaskDeleted, type TaskLanguage, type Team, type TeamOnly, type TeamUser, type TeamUserBillingDetails, type TeamUserDeleted, type TeamUserParams, type TeamWithPagination, type TermsDeleted, type Translation, type TranslationData, type TranslationProvider, type TranslationStatus, type TranslationStatusColors, type TranslationStatusDeleted, type UpdateKeyData, type UpdateKeyDataWithId, type UpdateLanguageParams, type UpdateProjectParams, type UpdateScreenshotParams, type UpdateSegmentBodyParams, type UpdateSegmentReqParams, type UpdateTaskParams, type UpdateTermsParams, type UpdateTranslationParams, type UpdateTranslationStatusParams, type UpdateWebhookParams, type UploadFileFromFssParams, type UploadFileParams, type UploadedFileProcessDetails, type UserGroup, type UserGroupDeleted, type UserGroupParams, type Webhook, type WebhookDeleted, type WebhookEventLangMap, type WebhookEvents, type WebhookProjectBranchAdded, type WebhookProjectBranchDeleted, type WebhookProjectBranchMerged, type WebhookProjectContributorAdded, type WebhookProjectContributorAddedPublic, type WebhookProjectContributorDeleted, type WebhookProjectCopied, type WebhookProjectDeleted, type WebhookProjectExported, type WebhookProjectImported, type WebhookProjectKeyAdded, type WebhookProjectKeyCommentAdded, type WebhookProjectKeyModified, type WebhookProjectKeysAdded, type WebhookProjectKeysDeleted, type WebhookProjectKeysModified, type WebhookProjectLanguageRemoved, type WebhookProjectLanguageSettingsChanged, type WebhookProjectLanguagesAdded, type WebhookProjectSnapshotCreated, type WebhookProjectTaskClosed, type WebhookProjectTaskCreated, type WebhookProjectTaskDeleted, type WebhookProjectTaskInitialTmLeverageCalculated, type WebhookProjectTaskLanguageClosed, type WebhookProjectTaskQueued, type WebhookProjectTranslationProofread, type WebhookProjectTranslationUpdated, type WebhookProjectTranslationsProofread, type WebhookProjectTranslationsUpdated, type WebhookRegenerated, type WebhookTeamOrderCompleted, type WebhookTeamOrderCreated, type WebhookTeamOrderDeleted };
+export type { AiScoring, AuditEventV1, AuditLogParams, AuthData, BillingDetailsParams, Branch, BranchDeleted, BranchMerged, BranchParams, BulkResult, BulkUpdateKeyParams, CardDeleted, ClientData, ClientParams, Comment, CommentData, CommentDeleted, Contributor, ContributorCreateData, ContributorDeleted, ContributorLanguages, ContributorRights, ContributorRoles, ContributorUpdateData, CreateCardParams, CreateKeyData, CreateKeyParams, CreateLanguageParams, CreateOrderParams, CreateProjectParams, CreateScreenshotParams, CreateSnapshotParams, CreateTaskParams, CreateTermsParams, CreateTranslationStatusParams, CreateWebhookParams, CursorPaginatedResponseV1, CursorPaginatedResult, CursorPaginatedResultV1, CursorPagination, CursorPaginationParamsV1, DownloadBundle, DownloadFileParams, DownloadedFileProcessDetails, File, FileDeleted, FileFormat, Filenames, GetKeyParams, GetSegmentParams, GetTranslationParams, GlossaryTerm, HttpMethod, IApiError, IAuthError, Jwt, Key, KeyDeleted, KeyParamsWithPagination, KeyProjectPagination, KeysBulkDeleted, Language, LanguageDeleted, ListFileParams, ListSegmentParams, ListTaskParams, ListTermsParams, ListTranslationParams, MergeBranchParams, NumericBool, Order, OtaBundle, OtaBundleArchive, OtaBundleUpdateData, OtaFramework, OtaFreezePeriod, OtaFreezePeriodParams, OtaProjectFramework, OtaRequestBundleParams, OtaResourceDeleted, OtaSdkToken, OtaStatistics, OtaTeamProject, OtaTeamProjectFramework, OtaUsageParams, PaginatedResult, PaginationParams, PaymentCard, Project, ProjectAndKey, ProjectDeleted, ProjectEmptied, ProjectListParams, ProjectOnly, ProjectSettings, ProjectStatistics, ProjectWithPagination, QueuedProcess, QueuedProcessDetails, RefreshTokenResponse, RequestTokenResponse, Screenshot, ScreenshotData, ScreenshotDeleted, Segment, Snapshot, SnapshotDeleted, SupportedPlatforms, Task, TaskDeleted, TaskLanguage, Team, TeamOnly, TeamUser, TeamUserBillingDetails, TeamUserDeleted, TeamUserParams, TeamWithPagination, TermsDeleted, Translation, TranslationData, TranslationProvider, TranslationStatus, TranslationStatusColors, TranslationStatusDeleted, UpdateKeyData, UpdateKeyDataWithId, UpdateLanguageParams, UpdateProjectParams, UpdateScreenshotParams, UpdateSegmentBodyParams, UpdateSegmentReqParams, UpdateTaskParams, UpdateTermsParams, UpdateTranslationParams, UpdateTranslationStatusParams, UpdateWebhookParams, UploadFileFromFssParams, UploadFileParams, UploadedFileProcessDetails, UserGroup, UserGroupDeleted, UserGroupParams, Webhook, WebhookDeleted, WebhookEventLangMap, WebhookEvents, WebhookProjectBranchAdded, WebhookProjectBranchDeleted, WebhookProjectBranchMerged, WebhookProjectContributorAdded, WebhookProjectContributorAddedPublic, WebhookProjectContributorDeleted, WebhookProjectCopied, WebhookProjectDeleted, WebhookProjectExported, WebhookProjectImported, WebhookProjectKeyAdded, WebhookProjectKeyCommentAdded, WebhookProjectKeyModified, WebhookProjectKeysAdded, WebhookProjectKeysDeleted, WebhookProjectKeysModified, WebhookProjectLanguageRemoved, WebhookProjectLanguageSettingsChanged, WebhookProjectLanguagesAdded, WebhookProjectSnapshotCreated, WebhookProjectTaskClosed, WebhookProjectTaskCreated, WebhookProjectTaskDeleted, WebhookProjectTaskInitialTmLeverageCalculated, WebhookProjectTaskLanguageClosed, WebhookProjectTaskQueued, WebhookProjectTranslationProofread, WebhookProjectTranslationUpdated, WebhookProjectTranslationsProofread, WebhookProjectTranslationsUpdated, WebhookRegenerated, WebhookTeamOrderCompleted, WebhookTeamOrderCreated, WebhookTeamOrderDeleted };
 //# sourceMappingURL=main.d.mts.map

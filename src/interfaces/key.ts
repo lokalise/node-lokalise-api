@@ -3,6 +3,7 @@ import type { Screenshot } from "../interfaces/screenshot.js";
 import type { Translation } from "../interfaces/translation.js";
 import type { Filenames, Filenames as Keynames } from "../types/filenames.js";
 import type { SupportedPlatforms } from "../types/supported_platforms.js";
+import type { AiScoring } from "./ai_scoring.js";
 
 type KeyComment = Omit<Comment, "key_id">;
 
@@ -23,6 +24,7 @@ export interface Key {
 	is_hidden: boolean;
 	is_archived: boolean;
 	context: string;
+	ai_scoring: AiScoring | null;
 	base_words: number;
 	char_limit: number;
 	custom_attributes: string;

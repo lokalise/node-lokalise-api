@@ -2,6 +2,10 @@
 ---
 # Changelog
 
+## 16.5.0 (17-Sep-2026)
+
+* Add support for AI scoring (keys and translations)
+
 ## 16.4.1 (02-Sep-2026)
 
 * Make types stricter

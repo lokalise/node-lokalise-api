@@ -1,6 +1,6 @@
 {
 	"name": "@lokalise/node-api",
-	"version": "16.4.1",
+	"version": "16.5.0",
 	"description": "Official Lokalise API 2.0 Node.js client",
 	"license": "BSD-3-Clause",
 	"repository": {
@@ -31,11 +31,11 @@
 	"devDependencies": {
 		"@biomejs/biome": "^2.0.6",
 		"@types/node": "^26.0.1",
-		"@vitest/coverage-v8": "^4.0.3",
-		"tsdown": "^0.22.0",
+		"@vitest/coverage-v8": "^5.0.1",
+		"tsdown": "^0.23",
 		"typescript": "^7.0.2",
 		"undici": "^8.0.2",
-		"vitest": "^4.0.3"
+		"vitest": "^5.0.1"
 	},
 	"bugs": {
 		"url": "https://github.com/lokalise/node-lokalise-api/issues"

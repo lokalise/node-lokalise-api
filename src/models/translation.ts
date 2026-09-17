@@ -1,3 +1,4 @@
+import type { AiScoring } from "../interfaces/ai_scoring.js";
 import type { Translation as TranslationInterface } from "../interfaces/translation.js";
 import type { TranslationStatus } from "../interfaces/translation_status.js";
 import { BaseModel } from "./base_model.js";
@@ -15,6 +16,7 @@ export class Translation extends BaseModel implements TranslationInterface {
 	declare is_reviewed: boolean;
 	declare reviewed_by: number;
 	declare is_fuzzy: boolean;
+	declare ai_scoring: AiScoring | null;
 	declare words: number;
 	declare custom_translation_statuses: TranslationStatus[];
 	declare task_id: number;

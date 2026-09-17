@@ -72,6 +72,7 @@ export type KeyParamsWithPagination = ProjectWithPagination &
 		include_comments?: NumericBool;
 		include_screenshots?: NumericBool;
 		include_translations?: NumericBool;
+		include_ai_scoring?: NumericBool;
 		filter_translation_lang_ids?: string;
 		filter_tags?: string;
 		filter_filenames?: string;
@@ -85,4 +86,5 @@ export type KeyParamsWithPagination = ProjectWithPagination &
 
 export type GetKeyParams = ProjectOnly & {
 	disable_references?: NumericBool;
+	include_ai_scoring?: NumericBool;
 };

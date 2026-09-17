@@ -1,3 +1,4 @@
+export type { AiScoring } from "./ai_scoring.js";
 export type { IApiError } from "./api_error.js";
 export type { AuthData } from "./auth_data.js";
 export type { IAuthError } from "./auth_error.js";
