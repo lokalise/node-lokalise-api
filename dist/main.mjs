@@ -1322,6 +1322,25 @@ var Teams = class extends BaseCollection {
 };
 
 //#endregion
+//#region src/models/translation_memory.ts
+var TranslationMemory = class extends BaseModel {};
+
+//#endregion
+//#region src/collections/translation_memories.ts
+var TranslationMemories = class extends BaseCollection {
+	static prefixURI = "projects/{!:project_id}/translation-memories";
+	get elementClass() {
+		return TranslationMemory;
+	}
+	get rootElementName() {
+		return "translation_memories";
+	}
+	list(request_params) {
+		return this.doList(request_params);
+	}
+};
+
+//#endregion
 //#region src/models/translation_provider.ts
 var TranslationProvider = class extends BaseModel {};
 
@@ -1742,6 +1761,12 @@ var LokaliseApi = class extends BaseClient {
 	*/
 	translations() {
 		return new Translations(this.clientData);
+	}
+	/**
+	* Access Translation memories-related endpoints.
+	*/
+	translationMemories() {
+		return new TranslationMemories(this.clientData);
 	}
 	/**
 	* Access Translation Provider-related endpoints.

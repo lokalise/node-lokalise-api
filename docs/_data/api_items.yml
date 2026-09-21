@@ -272,6 +272,11 @@
       path: fetch-a-single-translation
     - title: Update translation
       path: update-translation
+- title: Translation memories
+  path: translation-memories
+  sub_paths:
+    - title: List translation memories
+      path: list-translation-memories
 - title: Translation providers
   path: translation-providers
   sub_paths:
