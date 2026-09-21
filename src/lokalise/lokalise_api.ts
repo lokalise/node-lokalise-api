@@ -19,6 +19,7 @@ import {
 	Teams,
 	TeamUserBillingDetails,
 	TeamUsers,
+	TranslationMemories,
 	TranslationProviders,
 	TranslationStatuses,
 	Translations,
@@ -192,6 +193,13 @@ export class LokaliseApi extends BaseClient {
 	 */
 	translations(): Translations {
 		return new Translations(this.clientData);
+	}
+
+	/**
+	 * Access Translation memories-related endpoints.
+	 */
+	translationMemories(): TranslationMemories {
+		return new TranslationMemories(this.clientData);
 	}
 
 	/**

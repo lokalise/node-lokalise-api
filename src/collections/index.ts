@@ -18,6 +18,7 @@ import { Tasks } from "./tasks.js";
 import { TeamUserBillingDetails } from "./team_user_billing_details.js";
 import { TeamUsers } from "./team_users.js";
 import { Teams } from "./teams.js";
+import { TranslationMemories } from "./translation_memories.js";
 import { TranslationProviders } from "./translation_providers.js";
 import { TranslationStatuses } from "./translation_statuses.js";
 import { Translations } from "./translations.js";
@@ -47,6 +48,7 @@ export {
 	Teams,
 	TeamUserBillingDetails,
 	TeamUsers,
+	TranslationMemories,
 	TranslationProviders,
 	TranslationStatuses,
 	Translations,
