@@ -1,3 +1,4 @@
+export type { AiScoring } from "./ai_scoring.js";
 export type { IApiError } from "./api_error.js";
 export type { AuthData } from "./auth_data.js";
 export type { IAuthError } from "./auth_error.js";
@@ -35,6 +36,7 @@ export type { Team } from "./team.js";
 export type { TeamUser } from "./team_user.js";
 export type { TeamUserBillingDetails } from "./team_user_billing_details.js";
 export type { Translation } from "./translation.js";
+export type { TranslationMemory } from "./translation_memory.js";
 export type { TranslationProvider } from "./translation_provider.js";
 export type { TranslationStatus } from "./translation_status.js";
 export type { UserGroup } from "./user_group.js";

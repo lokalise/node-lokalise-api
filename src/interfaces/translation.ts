@@ -1,3 +1,4 @@
+import type { AiScoring } from "./ai_scoring.js";
 import type { TranslationStatus } from "./translation_status.js";
 
 export interface Translation {
@@ -15,6 +16,7 @@ export interface Translation {
 	reviewed_by: number;
 	words: number;
 	custom_translation_statuses: TranslationStatus[];
+	ai_scoring: AiScoring | null;
 	task_id: number;
 	segment_number: number;
 }

@@ -1,3 +1,4 @@
+import type { AiScoring } from "../interfaces/ai_scoring.js";
 import type { Comment } from "../interfaces/comment.js";
 import type { Key as KeyInterface } from "../interfaces/key.js";
 import type { Screenshot } from "../interfaces/screenshot.js";
@@ -24,6 +25,7 @@ export class Key extends BaseModel implements KeyInterface {
 	declare plural_name: string;
 	declare is_hidden: boolean;
 	declare is_archived: boolean;
+	declare ai_scoring: AiScoring | null;
 	declare context: string;
 	declare base_words: number;
 	declare char_limit: number;

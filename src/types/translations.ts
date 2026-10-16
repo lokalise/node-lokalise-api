@@ -3,6 +3,7 @@ import type {
 	ProjectOnly,
 	ProjectWithPagination,
 } from "./common_get_params.js";
+import type { NumericBool } from "./numeric_bool.js";
 
 export type TranslationData = {
 	language_iso?: string;
@@ -28,8 +29,10 @@ export type ListTranslationParams = ProjectWithPagination &
 		filter_untranslated?: number | string;
 		filter_qa_issues?: string;
 		filter_active_task_id?: number | string;
+		include_ai_scoring?: NumericBool;
 	};
 
 export type GetTranslationParams = ProjectOnly & {
 	disable_references?: number | string;
+	include_ai_scoring?: NumericBool;
 };
