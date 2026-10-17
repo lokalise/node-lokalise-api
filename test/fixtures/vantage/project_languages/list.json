@@ -1,0 +1,16 @@
+{
+	"data": [
+		{
+			"languageId": "019d29d9-de52-7ba2-87c6-b5355ebf9c72",
+			"locale": "en",
+			"languageName": "English",
+			"isRtl": false
+		},
+		{
+			"languageId": "019d29d9-de52-7ba2-87c6-b5355efd2aa7",
+			"locale": "fr",
+			"languageName": "French",
+			"isRtl": false
+		}
+	]
+}

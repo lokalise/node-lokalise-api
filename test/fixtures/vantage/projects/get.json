@@ -1,0 +1,34 @@
+{
+	"data": {
+		"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+		"teamId": "9ef160a0-d4c7-45f5-ab80-bc9e22e95b12",
+		"name": "Alice",
+		"description": "",
+		"baseLanguage": {
+			"languageId": "019d29d9-de52-7ba2-87c6-b5355ebf9c72",
+			"locale": "en",
+			"systemLanguageId": 640,
+			"projectLanguageId": 4542855,
+			"languageIso": "en",
+			"projectLanguageUuid": "019d29d9-de52-7ba2-87c6-b5355ebf9c72"
+		},
+		"targetLanguages": [
+			{
+				"languageId": "019d29d9-de52-7ba2-87c6-b5355efd2aa7",
+				"locale": "fr",
+				"systemLanguageId": 673,
+				"projectLanguageId": 4542856,
+				"languageIso": "fr",
+				"projectLanguageUuid": "019d29d9-de52-7ba2-87c6-b5355efd2aa7"
+			}
+		],
+		"translationSettings": {
+			"workflowType": "AI_HUMAN_REVIEW",
+			"reviewThreshold": "FULL_REVIEW",
+			"reviewTurnaroundDays": 5
+		},
+		"contentSourceType": "file",
+		"contentSourceName": null,
+		"projectType": "marketing"
+	}
+}

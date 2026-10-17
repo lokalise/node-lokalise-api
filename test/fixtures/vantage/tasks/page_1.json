@@ -1,0 +1,38 @@
+{
+	"data": [
+		{
+			"id": "019efe61-65fc-7e82-94bd-0856e9211f1c",
+			"publicId": "RE-8",
+			"title": "alice",
+			"type": "review",
+			"status": "created",
+			"description": null,
+			"taskAssignments": [
+				{
+					"languageId": "019d29d9-de52-7ba2-87c6-b5355efd2aa7",
+					"assignees": [
+						{
+							"contributorId": "01655d20-5648-7d1e-8dd7-6206606b7818",
+							"type": "user"
+						}
+					],
+					"progress": {
+						"completedUnits": 0,
+						"totalUnits": 40,
+						"completedWords": 0,
+						"totalWords": 399
+					},
+					"segments": []
+				}
+			],
+			"dueDate": "2026-09-30T23:59:59.000Z",
+			"createdAt": "2026-06-25T10:44:16.519Z",
+			"requestedBy": null
+		}
+	],
+	"meta": {
+		"count": 1,
+		"cursor": "019efe61-65fc-7e82-94bd-0856e9211f1c",
+		"hasMore": true
+	}
+}

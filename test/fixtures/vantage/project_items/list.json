@@ -1,0 +1,23 @@
+{
+	"data": [
+		{
+			"id": "019d29da-3f21-dad8-0084-175d6fea47d2",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"name": "alice.md",
+			"createdAt": "2026-03-26T11:14:22.114Z",
+			"updatedAt": "2026-03-26T11:14:22.496Z"
+		},
+		{
+			"id": "019efe60-00ef-a7a1-c448-74e764fdbdea",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"name": "alice.docx",
+			"createdAt": "2026-06-25T10:42:45.106Z",
+			"updatedAt": "2026-06-25T10:42:46.039Z"
+		}
+	],
+	"meta": {
+		"count": 2,
+		"cursor": "019efe60-00ef-a7a1-c448-74e764fdbdea",
+		"hasMore": false
+	}
+}

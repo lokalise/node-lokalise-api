@@ -3,8 +3,8 @@ import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { ClientData } from "../interfaces/client_data.js";
 import { CursorPaginatedResult } from "../models/cursor_paginated_result.js";
 import { PaginatedResult } from "../models/paginated_result.js";
-import { CursorPaginatedResultV1 } from "../models/v1/cursor_paginated_result.js";
 import type { HttpMethod } from "../types/http_method.js";
+import { isRecord } from "../utils/type_guards.js";
 
 type ResolveHandler<T> = (json: Record<string, unknown>, headers: Headers) => T;
 type ApiRequestWithResponse = ApiRequest & { response: ApiResponse };
@@ -128,17 +128,6 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		);
 	}
 
-	protected doListCursorV1(
-		params: Record<string, unknown>,
-	): Promise<CursorPaginatedResultV1<ElementType>> {
-		return this.createPromise<CursorPaginatedResultV1<ElementType>>(
-			"GET",
-			params,
-			this.populateArrayFromJsonCursorV1,
-			null,
-		);
-	}
-
 	/**
 	 * Perform a GET request to retrieve a single item by its ID.
 	 * @param id The ID of the item to retrieve.
@@ -241,7 +230,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		if (rootElementName) {
 			const picked = jsonData[rootElementName];
 
-			if (!this.isRecord(picked)) {
+			if (!isRecord(picked)) {
 				throw new Error(`Missing property '${rootElementName}' in JSON object`);
 			}
 
@@ -266,7 +255,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		const record = json as Record<string, unknown>;
 
 		const itemJson = record[root];
-		if (!this.isRecord(itemJson)) {
+		if (!isRecord(itemJson)) {
 			throw new Error(
 				`Missing expected secondary property '${root}' in JSON response.`,
 			);
@@ -313,7 +302,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		}
 
 		const items: ElementType[] = jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) {
+			if (!isRecord(obj)) {
 				throw new Error(
 					`Expected item at index ${index} in '${root}' to be an object`,
 				);
@@ -369,7 +358,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		}
 
 		return jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) {
+			if (!isRecord(obj)) {
 				throw new Error(
 					`Expected item at index ${index} in '${root}' to be an object`,
 				);
@@ -398,7 +387,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		}
 
 		const items = jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) {
+			if (!isRecord(obj)) {
 				throw new Error(
 					`Expected item at index ${index} in '${root}' to be an object`,
 				);
@@ -408,44 +397,6 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		});
 
 		return new CursorPaginatedResult<ElementType>(items, headers);
-	}
-
-	/**
-	 * Parse a JSON response that contains a cursor-paginated array of items.
-	 * @param json The raw JSON object returned by the API.
-	 */
-	protected populateArrayFromJsonCursorV1(
-		json: Record<string, unknown>,
-		headers: Headers,
-	): CursorPaginatedResultV1<ElementType> {
-		const data = json.data;
-
-		if (!Array.isArray(data)) {
-			throw new Error(
-				`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`,
-			);
-		}
-
-		const nextCursor =
-			typeof json.next_cursor === "string" ? json.next_cursor : null;
-
-		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
-
-		const items = data.map((obj, index) => {
-			if (!this.isRecord(obj)) {
-				throw new Error(
-					`Expected item at index ${index} in 'data' to be an object`,
-				);
-			}
-
-			return this.populateObjectFromJson(obj, headers) as ElementType;
-		});
-
-		return new CursorPaginatedResultV1({
-			data: items,
-			next_cursor: nextCursor,
-			has_more: hasMore,
-		});
 	}
 
 	/**
@@ -561,14 +512,5 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			headers.has("x-pagination-total-count") &&
 			headers.has("x-pagination-page")
 		);
-	}
-
-	/**
-	 * Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
-	 *
-	 * @param value The value to test.
-	 */
-	private isRecord(value: unknown): value is Record<string, unknown> {
-		return value !== null && typeof value === "object" && !Array.isArray(value);
 	}
 }
