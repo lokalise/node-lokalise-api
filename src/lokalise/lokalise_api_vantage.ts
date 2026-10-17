@@ -1,4 +1,8 @@
-import { ProjectItems } from "../collections/vantage/project_items.js";
+import { ContentUnitsVantage } from "../collections/vantage/content_units.js";
+import { ProjectItemsVantage } from "../collections/vantage/project_items.js";
+import { ProjectsVantage } from "../collections/vantage/projects.js";
+import { SegmentsVantage } from "../collections/vantage/segments.js";
+import { TasksVantage } from "../collections/vantage/tasks.js";
 import type { ClientParams } from "../interfaces/client_params.js";
 import { BaseClient } from "./base_client.js";
 
@@ -10,7 +14,23 @@ export class LokaliseApiVantage extends BaseClient {
 		this.clientData.authHeader = params.header ?? this.clientData.authHeader;
 	}
 
-	projectItems(): ProjectItems {
-		return new ProjectItems(this.clientData);
+	contentUnits(): ContentUnitsVantage {
+		return new ContentUnitsVantage(this.clientData);
+	}
+
+	projects(): ProjectsVantage {
+		return new ProjectsVantage(this.clientData);
+	}
+
+	projectItems(): ProjectItemsVantage {
+		return new ProjectItemsVantage(this.clientData);
+	}
+
+	segments(): SegmentsVantage {
+		return new SegmentsVantage(this.clientData);
+	}
+
+	tasks(): TasksVantage {
+		return new TasksVantage(this.clientData);
 	}
 }

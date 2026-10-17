@@ -1,59 +1,32 @@
-import { Branches } from "./branches.js";
-import { Comments } from "./comments.js";
-import { Contributors } from "./contributors.js";
-import { Files } from "./files.js";
-import { GlossaryTerms } from "./glossary_terms.js";
-import { Jwt } from "./jwt.js";
-import { Keys } from "./keys.js";
-import { Languages } from "./languages.js";
-import { Orders } from "./orders.js";
-import { PaymentCards } from "./payment_cards.js";
-import { PermissionTemplates } from "./permission_templates.js";
-import { Projects } from "./projects.js";
-import { QueuedProcesses } from "./queued_processes.js";
-import { Screenshots } from "./screenshots.js";
-import { Segments } from "./segments.js";
-import { Snapshots } from "./snapshots.js";
-import { Tasks } from "./tasks.js";
-import { TeamUserBillingDetails } from "./team_user_billing_details.js";
-import { TeamUsers } from "./team_users.js";
-import { Teams } from "./teams.js";
-import { TranslationMemories } from "./translation_memories.js";
-import { TranslationProviders } from "./translation_providers.js";
-import { TranslationStatuses } from "./translation_statuses.js";
-import { Translations } from "./translations.js";
-import { UserGroups } from "./user_groups.js";
-import { AuditLogs } from "./v1/audit_logs.js";
-import { ProjectItems } from "./vantage/project_items.js";
-import { Webhooks } from "./webhooks.js";
-
-export {
-	AuditLogs,
-	Branches,
-	Comments,
-	Contributors,
-	Files,
-	GlossaryTerms,
-	Jwt,
-	Keys,
-	Languages,
-	Orders,
-	PaymentCards,
-	PermissionTemplates,
-	ProjectItems,
-	Projects,
-	QueuedProcesses,
-	Screenshots,
-	Segments,
-	Snapshots,
-	Tasks,
-	Teams,
-	TeamUserBillingDetails,
-	TeamUsers,
-	TranslationMemories,
-	TranslationProviders,
-	TranslationStatuses,
-	Translations,
-	UserGroups,
-	Webhooks,
-};
+export { Branches } from "./branches.js";
+export { Comments } from "./comments.js";
+export { Contributors } from "./contributors.js";
+export { Files } from "./files.js";
+export { GlossaryTerms } from "./glossary_terms.js";
+export { Jwt } from "./jwt.js";
+export { Keys } from "./keys.js";
+export { Languages } from "./languages.js";
+export { Orders } from "./orders.js";
+export { PaymentCards } from "./payment_cards.js";
+export { PermissionTemplates } from "./permission_templates.js";
+export { Projects } from "./projects.js";
+export { QueuedProcesses } from "./queued_processes.js";
+export { Screenshots } from "./screenshots.js";
+export { Segments } from "./segments.js";
+export { Snapshots } from "./snapshots.js";
+export { Tasks } from "./tasks.js";
+export { TeamUserBillingDetails } from "./team_user_billing_details.js";
+export { TeamUsers } from "./team_users.js";
+export { Teams } from "./teams.js";
+export { TranslationMemories } from "./translation_memories.js";
+export { TranslationProviders } from "./translation_providers.js";
+export { TranslationStatuses } from "./translation_statuses.js";
+export { Translations } from "./translations.js";
+export { UserGroups } from "./user_groups.js";
+export { AuditLogs } from "./v1/audit_logs.js";
+export { ContentUnitsVantage } from "./vantage/content_units.js";
+export { ProjectItemsVantage } from "./vantage/project_items.js";
+export { ProjectsVantage } from "./vantage/projects.js";
+export { SegmentsVantage } from "./vantage/segments.js";
+export { TasksVantage } from "./vantage/tasks.js";
+export { Webhooks } from "./webhooks.js";

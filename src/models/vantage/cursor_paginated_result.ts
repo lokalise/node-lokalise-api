@@ -5,14 +5,14 @@ export class CursorPaginatedResultVantage<T>
 	implements ICursorPaginatedResultVantage<T>
 {
 	readonly count: number;
-	readonly nextCursor: string | null;
+	readonly cursor: string | null;
 	readonly hasMore: boolean;
 	readonly items: T[];
 
 	constructor(response: CursorPaginatedResponseVantage<T>) {
 		this.items = response.data;
 		this.count = response.meta.count;
-		this.nextCursor = response.meta.cursor;
+		this.cursor = response.meta.cursor;
 		this.hasMore = response.meta.hasMore;
 	}
 }

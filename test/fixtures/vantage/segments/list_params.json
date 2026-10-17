@@ -1,0 +1,52 @@
+{
+	"data": [
+		{
+			"id": "019d29da-401d-31f1-7eef-1e2dc7d22298",
+			"number": 0,
+			"value": "Alice was beginning to get very tired of sitting by her sister on the",
+			"status": "APPROVED",
+			"lastChangeSource": "IMPORT",
+			"contentLanguageId": "019d29d9-de52-7ba2-87c6-b5355ebf9c72",
+			"contentUnitId": "019d29da-3fee-8fad-b137-bb110afc5af0",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"metadata": null,
+			"createdAt": "2026-03-26T11:14:22.360Z",
+			"updatedAt": "2026-03-26T11:14:22.360Z"
+		},
+		{
+			"id": "019d29da-401d-31f1-7eef-1e2e7272e8c4",
+			"number": 1,
+			"value": "bank, and of having nothing to do.",
+			"status": "APPROVED",
+			"lastChangeSource": "IMPORT",
+			"contentLanguageId": "019d29d9-de52-7ba2-87c6-b5355ebf9c72",
+			"contentUnitId": "019d29da-3fee-8fad-b137-bb110afc5af0",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"metadata": {
+				"prefix": "\n"
+			},
+			"createdAt": "2026-03-26T11:14:22.360Z",
+			"updatedAt": "2026-03-26T11:14:22.360Z"
+		},
+		{
+			"id": "019d29da-401d-31f1-7eef-1e2ec59c0a3c",
+			"number": 2,
+			"value": "Once or twice she had peeped into the",
+			"status": "APPROVED",
+			"lastChangeSource": "IMPORT",
+			"contentLanguageId": "019d29d9-de52-7ba2-87c6-b5355ebf9c72",
+			"contentUnitId": "019d29da-3fee-8fad-b137-bb110afc5af0",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"metadata": {
+				"prefix": " "
+			},
+			"createdAt": "2026-03-26T11:14:22.360Z",
+			"updatedAt": "2026-03-26T11:14:22.360Z"
+		}
+	],
+	"meta": {
+		"count": 3,
+		"cursor": "019d29da-401d-31f1-7eef-1e2ec59c0a3c",
+		"hasMore": false
+	}
+}

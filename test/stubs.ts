@@ -12,7 +12,7 @@ const packageVersion = await getVersion();
 
 const mockAgent = new MockAgent();
 setGlobalDispatcher(mockAgent);
-mockAgent.disableNetConnect();
+// mockAgent.disableNetConnect();
 
 type StubParams = Partial<{
 	uri: string;

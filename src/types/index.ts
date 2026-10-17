@@ -123,6 +123,28 @@ export type {
 export type { UserGroupDeleted, UserGroupParams } from "./user_groups.js";
 export type { AuditLogParams } from "./v1/audit_logs.js";
 export type { CursorPaginationParamsV1 } from "./v1/common_get_params.js";
+export type {
+	ContentUnitParams,
+	ContentUnitTypeVantage,
+} from "./vantage/content_unit_type.js";
+export type {
+	ProjectParams,
+	ProjectReviewThresholdVantage,
+	ProjectTranslationSettingsVantage,
+} from "./vantage/project.js";
+export type { ProjectItemParams } from "./vantage/project_item.js";
+export type {
+	SegmentLastChangeSourceVantage,
+	SegmentParams,
+	SegmentStatusVantage,
+} from "./vantage/segment.js";
+export type {
+	TaskAssigneeTypeVantage,
+	TaskParams,
+	TaskSegmentStatusVantage,
+	TaskStatusVantage,
+	TaskTypeVantage,
+} from "./vantage/task.js";
 export type { WebhookProjectBranchAdded } from "./webhook_events/project_branch_added.js";
 export type { WebhookProjectBranchDeleted } from "./webhook_events/project_branch_deleted.js";
 export type { WebhookProjectBranchMerged } from "./webhook_events/project_branch_merged.js";
