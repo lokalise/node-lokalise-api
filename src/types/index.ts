@@ -133,10 +133,13 @@ export type {
 	ProjectTranslationSettingsVantage,
 } from "./vantage/project.js";
 export type { ProjectItemParams } from "./vantage/project_item.js";
+export type { ProjectLanguageParams } from "./vantage/project_language.js";
 export type {
 	SegmentLastChangeSourceVantage,
 	SegmentParams,
 	SegmentStatusVantage,
+	SegmentUpdateBody,
+	SegmentUpdateStatus,
 } from "./vantage/segment.js";
 export type {
 	TaskAssigneeTypeVantage,

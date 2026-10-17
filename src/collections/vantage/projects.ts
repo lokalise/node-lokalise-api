@@ -17,4 +17,8 @@ export class ProjectsVantage extends BaseCollectionVantage<ProjectVantage> {
 	): Promise<CursorPaginatedResultVantage<ProjectVantage>> {
 		return this.doListCursorVantage(request_params);
 	}
+
+	get(request_params: { project_id: string }): Promise<ProjectVantage> {
+		return this.doGetVantage(request_params, "projects/{!:project_id}");
+	}
 }

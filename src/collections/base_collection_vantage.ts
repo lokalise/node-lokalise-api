@@ -6,6 +6,14 @@ export abstract class BaseCollectionVantage<
 	ElementType,
 	SecondaryType = ElementType,
 > extends BaseCollection<ElementType, SecondaryType> {
+	protected override get rootElementName(): string {
+		return "data";
+	}
+
+	protected override get rootElementNameSingular(): string {
+		return "data";
+	}
+
 	protected doListCursorVantage(
 		params: Record<string, unknown>,
 	): Promise<CursorPaginatedResultVantage<ElementType>> {
@@ -59,5 +67,24 @@ export abstract class BaseCollectionVantage<
 				hasMore,
 			},
 		});
+	}
+
+	protected doGetVantage(
+		params: Record<string, unknown>,
+		uri: string | null = null,
+	): Promise<ElementType> {
+		return this.createPromise(
+			"GET",
+			params,
+			this.populateObjectFromJsonRoot,
+			null,
+			uri,
+		);
+	}
+
+	protected doListArrayVantage(
+		params: Record<string, unknown>,
+	): Promise<ElementType[]> {
+		return this.createPromise("GET", params, this.populateArray, null);
 	}
 }

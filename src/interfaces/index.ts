@@ -52,6 +52,10 @@ export type { ProjectItemVantage } from "./vantage/project_item.js";
 export type { ProjectLanguageVantage } from "./vantage/project_language.js";
 export type { SegmentVantage } from "./vantage/segment.js";
 export type {
+	SegmentUpdateResultVantage,
+	SegmentWarningVantage,
+} from "./vantage/segment_update_result.js";
+export type {
 	TaskAssignmentVantage,
 	TaskSegmentVantage,
 	TaskVantage,

@@ -18,3 +18,15 @@ export type SegmentParams = CursorPaginationParams & {
 	content_unit_id: string;
 	"filter-languages"?: string[];
 };
+
+export type SegmentUpdateStatus = "APPROVED" | "PENDING_REVIEW";
+
+export type SegmentUpdateBody =
+	| {
+			value: string;
+			status?: SegmentUpdateStatus;
+	  }
+	| {
+			value?: string;
+			status: SegmentUpdateStatus;
+	  };

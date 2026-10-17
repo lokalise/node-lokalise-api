@@ -153,4 +153,98 @@ describe("Segments", () => {
 		expect(getCollectionItem(secondPage, 0)).toBeInstanceOf(Segment);
 		expect(getCollectionItem(secondPage, 0).number).toBe(1);
 	});
+
+	describe("Segment updates", () => {
+		const project_id = "019d29d9-de47-7a57-ac2d-53194197d213";
+		const segment_id = "019d29da-cd10-9b67-afe8-1fd14d0a5dee";
+		const params = { project_id, segment_id };
+
+		const lokaliseVantageApi = new LokaliseApiVantage({
+			apiKey: getTestApiKey(),
+		});
+
+		async function setUpdateStub(
+			fixture: string,
+			body: Record<string, unknown>,
+		): Promise<void> {
+			const stub = new Stub({
+				fixture: `vantage/segments/${fixture}`,
+				uri: `projects/${project_id}/segments/${segment_id}`,
+				version: "vantage/v1",
+				method: "PATCH",
+				body,
+			});
+
+			await stub.setStub();
+		}
+
+		it("updates a segment without warnings", async () => {
+			const body = { status: "PENDING_REVIEW" as const };
+			await setUpdateStub("update.json", body);
+
+			const result = await lokaliseVantageApi.segments().update(params, body);
+
+			expect(result.data).toBeInstanceOf(Segment);
+			expect(result.data.id).toBe(segment_id);
+			expect(result.data.status).toBe("PENDING_REVIEW");
+			expect(result.data.lastChangeSource).toBe("AI");
+			expect(result.data.contentUnitId).toBe(
+				"019d29da-3fee-8fad-b137-bb110afc5af0",
+			);
+			expect(result).not.toHaveProperty("warnings");
+		});
+
+		it("updates a segment and returns warnings", async () => {
+			const body = { value: "Bonjour le monde" };
+			await setUpdateStub("update_warnings.json", body);
+
+			const result = await lokaliseVantageApi.segments().update(params, body);
+
+			expect(result.data).toBeInstanceOf(Segment);
+			expect(result.data.value).toBe("Bonjour le monde");
+			expect(result.data.lastChangeSource).toBe("HUMAN");
+			expect(result.warnings).toEqual([
+				{
+					code: "NON_TRANSLATABLE_TAGS_MISMATCH",
+					details: { expected: ["<b>"], actual: [] },
+				},
+				{ code: "OTHER_WARNING" },
+			]);
+		});
+
+		it("accepts an empty warnings array", async () => {
+			const body = { status: "APPROVED" as const };
+			await setUpdateStub("update_empty_warnings.json", body);
+
+			const result = await lokaliseVantageApi.segments().update(params, body);
+
+			expect(result.data).toBeInstanceOf(Segment);
+			expect(result.warnings).toEqual([]);
+		});
+
+		it("rejects a response when data is not an object", async () => {
+			const body = { value: "invalid-data-case" };
+			await setUpdateStub("update_invalid_data.json", body);
+
+			await expect(
+				lokaliseVantageApi.segments().update(params, body),
+			).rejects.toThrow("Expected 'data' to be an object");
+		});
+
+		it.each([
+			"update_invalid_warnings_type.json",
+			"update_invalid_warning_entry.json",
+			"update_invalid_warning_code.json",
+			"update_invalid_warning_details.json",
+		])("rejects malformed warnings in %s", async (fixture) => {
+			const body = { value: fixture };
+			await setUpdateStub(fixture, body);
+
+			await expect(
+				lokaliseVantageApi.segments().update(params, body),
+			).rejects.toThrow(
+				"Expected 'warnings' to be an array of warning objects",
+			);
+		});
+	});
 });

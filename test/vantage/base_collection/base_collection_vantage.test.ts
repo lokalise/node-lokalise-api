@@ -1,6 +1,6 @@
-import { ContentUnitVantage } from "../../src/models/vantage/content_unit.js";
-import { getTestApiKey } from "../helpers/get_env.js";
-import { describe, expect, it, LokaliseApiVantage } from "../setup.js";
+import { ContentUnitVantage } from "../../../src/models/vantage/content_unit.js";
+import { getTestApiKey } from "../../helpers/get_env.js";
+import { describe, expect, it, LokaliseApiVantage } from "../../setup.js";
 import { DummyCollectionVantage } from "./dummy_collection_vantage.js";
 
 describe("BaseCollectionVantage", () => {

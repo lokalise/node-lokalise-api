@@ -141,4 +141,45 @@ describe("Projects", () => {
 		expect(secondProject.name).toBe("GDrive");
 		expect(secondProject).toBeInstanceOf(Project);
 	});
+
+	it("gets", async () => {
+		const project_id = "019d29d9-de47-7a57-ac2d-53194197d213";
+
+		const stub = new Stub({
+			fixture: "vantage/projects/get.json",
+			uri: `projects/${project_id}`,
+			version: "vantage/v1",
+		});
+
+		await stub.setStub();
+
+		const project = await lokaliseVantageApi.projects().get({ project_id });
+
+		expect(project).toBeInstanceOf(Project);
+		expect(project.projectId).toBe(project_id);
+		expect(project.teamId).toBe("9ef160a0-d4c7-45f5-ab80-bc9e22e95b12");
+		expect(project.name).toBe("Alice");
+		expect(project.description).toBe("");
+
+		expect(project.baseLanguage).toMatchObject({
+			languageId: "019d29d9-de52-7ba2-87c6-b5355ebf9c72",
+			locale: "en",
+		});
+
+		expect(project.targetLanguages).toHaveLength(1);
+		expect(project.targetLanguages[0]).toMatchObject({
+			languageId: "019d29d9-de52-7ba2-87c6-b5355efd2aa7",
+			locale: "fr",
+		});
+
+		expect(project.translationSettings).toEqual({
+			workflowType: "AI_HUMAN_REVIEW",
+			reviewThreshold: "FULL_REVIEW",
+			reviewTurnaroundDays: 5,
+		});
+
+		expect(project.contentSourceType).toBe("file");
+		expect(project.contentSourceName).toBeNull();
+		expect(project.projectType).toBe("marketing");
+	});
 });
