@@ -49,21 +49,3 @@ Here's an example using dynamic import:
 ```
 
 You can also check [this repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples) and [this blog post with explanations](https://lokalise.com/blog/lokalise-apiv2-in-practice/). Finally, you might be interested in our [free course "Lokalise for developers"](https://academy.lokalise.com/course/lokalise-for-developers) that showcases Node SDK usage.
-
-## Usage
-
-<nav class="index">
-  {% include nav_full.html %}
-</nav>
-
-## OTA
-
-<nav class="index">
-  {% include nav_ota_full.html %}
-</nav>
-
-## Additional info
-
-<nav class="index">
-  {% include nav_full_additional.html %}
-</nav>

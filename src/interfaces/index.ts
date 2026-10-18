@@ -47,6 +47,8 @@ export type { ApiErrorVantage } from "./vantage/api_error.js";
 export type { ContentUnitVantage } from "./vantage/content_unit.js";
 export type { CursorPaginatedResponseVantage } from "./vantage/cursor_paginated_response.js";
 export type { CursorPaginatedResultVantage } from "./vantage/cursor_paginated_result.js";
+export type { ExportVantage } from "./vantage/export.js";
+export type { ExportDownloadUrlVantage } from "./vantage/export_download_url.js";
 export type { ProjectVantage } from "./vantage/project.js";
 export type { ProjectItemVantage } from "./vantage/project_item.js";
 export type { ProjectLanguageVantage } from "./vantage/project_language.js";

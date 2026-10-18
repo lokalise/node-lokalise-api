@@ -72,6 +72,24 @@ var ApiError = class extends Error {
 };
 
 //#endregion
+//#region src/models/vantage/api_error.ts
+var ApiErrorVantage = class extends Error {
+	code;
+	details;
+	constructor(message, code, details) {
+		super(message);
+		this.name = "ApiErrorVantage";
+		this.code = code;
+		if (details !== void 0) this.details = details;
+	}
+	toString() {
+		let result = `${this.name}: ${this.message} (Code: ${this.code})`;
+		if (this.details) result += ` | Details: ${JSON.stringify(this.details)}`;
+		return result;
+	}
+};
+
+//#endregion
 //#region src/http_client/base.ts
 /**
 * Represents a single API request to the Lokalise API.
@@ -81,7 +99,7 @@ var ApiRequest = class ApiRequest {
 	/**
 	* The default base URL for the Lokalise API.
 	*/
-	static urlRoot = "https://api.lokalise.com/api2/";
+	static urlRoot = "https://api.lokalise.com/";
 	/**
 	* The resolved response from the API request.
 	*/
@@ -131,7 +149,7 @@ var ApiRequest = class ApiRequest {
 		const target = new URL(url, prefixUrl);
 		const stringifiedParams = Object.fromEntries(Object.entries(this.params).filter(([, value]) => value !== void 0 && value !== null).map(([key, value]) => [key, String(value)]));
 		target.search = new URLSearchParams(stringifiedParams).toString();
-		return this.fetchAndHandleResponse(target, options, clientData.requestTimeout);
+		return this.fetchAndHandleResponse(target, options, clientData.requestTimeout, clientData.version);
 	}
 	/**
 	* Executes the fetch request and handles network-level errors.
@@ -141,30 +159,32 @@ var ApiRequest = class ApiRequest {
 	* @param requestTimeout - Optional timeout in milliseconds.
 	* @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
 	*/
-	async fetchAndHandleResponse(target, options, requestTimeout = 0) {
+	async fetchAndHandleResponse(target, options, requestTimeout = 0, version = "api2") {
 		if (!Number.isSafeInteger(requestTimeout) || requestTimeout < 0) throw new ApiError("requestTimeout must be a non-negative integer", 500);
 		const signal = requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : void 0;
+		let response;
 		try {
-			const response = await fetch(target, {
+			response = await fetch(target, {
 				...options,
 				...signal ? { signal } : {}
 			});
-			return this.processResponse(response);
 		} catch (err) {
 			if (err instanceof Error) {
-				if (err.name === "TimeoutError") return Promise.reject(new ApiError(`Request timed out after ${requestTimeout}ms`, 408, { reason: "timeout" }));
-				return Promise.reject(new ApiError(err.message, 500, { reason: "network or fetch error" }));
+				if (err.name === "TimeoutError") throw new ApiError(`Request timed out after ${requestTimeout}ms`, 408, { reason: "timeout" });
+				throw new ApiError(err.message, 500, { reason: "network or fetch error" });
 			}
-			return Promise.reject(new ApiError("An unknown error occurred", 500, { reason: String(err) }));
+			throw new ApiError("An unknown error occurred", 500, { reason: String(err) });
 		}
+		return this.processResponse(response, version);
 	}
 	/**
 	* Processes the fetch response.
 	* Attempts to parse JSON unless the status is 204 (No Content).
 	* @param response - The raw fetch Response object.
+	* @param version - API version
 	* @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
 	*/
-	async processResponse(response) {
+	async processResponse(response, version = "api2") {
 		let responseJSON = null;
 		try {
 			if (response.status !== 204) responseJSON = await response.json();
@@ -179,6 +199,7 @@ var ApiRequest = class ApiRequest {
 			json: responseJSON,
 			headers: response.headers
 		};
+		if (version.startsWith("vantage/")) throw this.getVantageErrorFromResp(responseJSON, response.status);
 		throw this.getErrorFromResp(responseJSON, response.status);
 	}
 	/**
@@ -251,6 +272,28 @@ var ApiRequest = class ApiRequest {
 			return "";
 		};
 	}
+	parseVantageError(json) {
+		if (!json || typeof json !== "object" || Array.isArray(json)) return null;
+		const error = json;
+		if (typeof error.message !== "string" || typeof error.code !== "string") return null;
+		const details = error.details && typeof error.details === "object" && !Array.isArray(error.details) ? error.details : void 0;
+		return new ApiErrorVantage(error.message, error.code, details);
+	}
+	getVantageErrorFromResp(respJson, fallbackStatus) {
+		if (respJson && typeof respJson === "object" && !Array.isArray(respJson)) {
+			const json = respJson;
+			if (Array.isArray(json.errors)) {
+				const errors = json.errors.map((error) => this.parseVantageError(error)).filter((error) => error !== null);
+				if (errors.length > 0) return new AggregateError(errors, `Vantage API returned ${errors.length} error(s)`);
+			}
+			const error = this.parseVantageError(json);
+			if (error) return error;
+		}
+		return new ApiErrorVantage("An unknown error occurred", "unknown_error", {
+			status: fallbackStatus,
+			reason: "unexpected response format"
+		});
+	}
 };
 
 //#endregion
@@ -310,17 +353,10 @@ var CursorPaginatedResult = class extends PaginatedResult {
 };
 
 //#endregion
-//#region src/models/v1/cursor_paginated_result.ts
-var CursorPaginatedResultV1 = class {
-	next_cursor;
-	has_more;
-	items;
-	constructor(response) {
-		this.items = response.data;
-		this.next_cursor = response.next_cursor;
-		this.has_more = response.has_more;
-	}
-};
+//#region src/utils/type_guards.ts
+function isRecord(value) {
+	return value !== null && typeof value === "object" && !Array.isArray(value);
+}
 
 //#endregion
 //#region src/collections/base_collection.ts
@@ -406,9 +442,6 @@ var BaseCollection = class {
 	doListCursor(params) {
 		return this.createPromise("GET", params, this.populateArrayFromJsonCursor, null);
 	}
-	doListCursorV1(params) {
-		return this.createPromise("GET", params, this.populateArrayFromJsonCursorV1, null);
-	}
 	/**
 	* Perform a GET request to retrieve a single item by its ID.
 	* @param id The ID of the item to retrieve.
@@ -480,7 +513,7 @@ var BaseCollection = class {
 		const rootElementName = this.rootElementNameSingular;
 		if (rootElementName) {
 			const picked = jsonData[rootElementName];
-			if (!this.isRecord(picked)) throw new Error(`Missing property '${rootElementName}' in JSON object`);
+			if (!isRecord(picked)) throw new Error(`Missing property '${rootElementName}' in JSON object`);
 			jsonData = picked;
 		}
 		return this.populateObjectFromJson(jsonData, headers);
@@ -495,7 +528,7 @@ var BaseCollection = class {
 	populateSecondaryObjectFromJsonRoot(json, headers) {
 		const root = this.secondaryElementNameSingular;
 		const itemJson = json[root];
-		if (!this.isRecord(itemJson)) throw new Error(`Missing expected secondary property '${root}' in JSON response.`);
+		if (!isRecord(itemJson)) throw new Error(`Missing expected secondary property '${root}' in JSON response.`);
 		return this.populateObjectFromJson(itemJson, headers, true);
 	}
 	/**
@@ -519,7 +552,7 @@ var BaseCollection = class {
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
 		const items = jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			return this.populateObjectFromJson(obj, headers);
 		});
 		return {
@@ -549,7 +582,7 @@ var BaseCollection = class {
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
 		return jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			return this.populateObjectFromJson(obj, headers);
 		});
 	}
@@ -563,29 +596,10 @@ var BaseCollection = class {
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' for cursor pagination but received: ${typeof jsonArray}`);
 		const items = jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			return this.populateObjectFromJson(obj, headers);
 		});
 		return new CursorPaginatedResult(items, headers);
-	}
-	/**
-	* Parse a JSON response that contains a cursor-paginated array of items.
-	* @param json The raw JSON object returned by the API.
-	*/
-	populateArrayFromJsonCursorV1(json, headers) {
-		const data = json.data;
-		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
-		const nextCursor = typeof json.next_cursor === "string" ? json.next_cursor : null;
-		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
-		const items = data.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
-			return this.populateObjectFromJson(obj, headers);
-		});
-		return new CursorPaginatedResultV1({
-			data: items,
-			next_cursor: nextCursor,
-			has_more: hasMore
-		});
 	}
 	/**
 	* Parse a JSON object into either an ElementType or a SecondaryType instance.
@@ -654,14 +668,6 @@ var BaseCollection = class {
 	*/
 	isPaginated(headers) {
 		return headers.has("x-pagination-total-count") && headers.has("x-pagination-page");
-	}
-	/**
-	* Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
-	*
-	* @param value The value to test.
-	*/
-	isRecord(value) {
-		return value !== null && typeof value === "object" && !Array.isArray(value);
 	}
 };
 
@@ -1528,14 +1534,331 @@ var AuditEventV1 = class {
 };
 
 //#endregion
+//#region src/models/v1/cursor_paginated_result.ts
+var CursorPaginatedResultV1 = class {
+	next_cursor;
+	has_more;
+	items;
+	constructor(response) {
+		this.items = response.data;
+		this.next_cursor = response.next_cursor;
+		this.has_more = response.has_more;
+	}
+};
+
+//#endregion
+//#region src/collections/base_collection_v1.ts
+var BaseCollectionV1 = class extends BaseCollection {
+	doListCursorV1(params) {
+		return this.createPromise("GET", params, this.populateArrayFromJsonCursorV1, null);
+	}
+	populateArrayFromJsonCursorV1(json, headers) {
+		const data = json.data;
+		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
+		const nextCursor = typeof json.next_cursor === "string" ? json.next_cursor : null;
+		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
+		const items = data.map((obj, index) => {
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
+		return new CursorPaginatedResultV1({
+			data: items,
+			next_cursor: nextCursor,
+			has_more: hasMore
+		});
+	}
+};
+
+//#endregion
 //#region src/collections/v1/audit_logs.ts
-var AuditLogs = class extends BaseCollection {
+var AuditLogs = class extends BaseCollectionV1 {
 	static prefixURI = "audit-logs";
 	get elementClass() {
 		return AuditEventV1;
 	}
 	list(request_params = {}) {
 		return this.doListCursorV1(request_params);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/content_unit.ts
+var ContentUnitVantage = class {
+	id;
+	projectId;
+	type;
+	key;
+	position;
+	sourceSegmentsCount;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/cursor_paginated_result.ts
+var CursorPaginatedResultVantage = class {
+	count;
+	cursor;
+	hasMore;
+	items;
+	constructor(response) {
+		this.items = response.data;
+		this.count = response.meta.count;
+		this.cursor = response.meta.cursor;
+		this.hasMore = response.meta.hasMore;
+	}
+};
+
+//#endregion
+//#region src/collections/base_collection_vantage.ts
+var BaseCollectionVantage = class extends BaseCollection {
+	get rootElementName() {
+		return "data";
+	}
+	get rootElementNameSingular() {
+		return "data";
+	}
+	doListCursorVantage(params) {
+		return this.createPromise("GET", params, this.populateArrayFromJsonCursorVantage, null);
+	}
+	populateArrayFromJsonCursorVantage(json, headers) {
+		const data = json.data;
+		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
+		const meta = json.meta;
+		if (!isRecord(meta)) throw new Error(`Expected 'meta' to be an object for Vantage cursor pagination but received: ${typeof meta}`);
+		const count = typeof meta.count === "number" ? meta.count : 0;
+		const cursor = typeof meta.cursor === "string" ? meta.cursor : null;
+		const hasMore = typeof meta.hasMore === "boolean" ? meta.hasMore : false;
+		const items = data.map((obj, index) => {
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
+		return new CursorPaginatedResultVantage({
+			data: items,
+			meta: {
+				count,
+				cursor,
+				hasMore
+			}
+		});
+	}
+	doGetVantage(params, uri = null) {
+		return this.createPromise("GET", params, this.populateObjectFromJsonRoot, null, uri);
+	}
+	doListArrayVantage(params) {
+		return this.createPromise("GET", params, this.populateArray, null);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/content_units.ts
+var ContentUnitsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/items/{!:item_id}/content-units";
+	get elementClass() {
+		return ContentUnitVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/export.ts
+var ExportVantage = class {
+	exportId;
+	status;
+	createdAt;
+	totalItemsCount;
+	processedItemsCount;
+	failReason;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/export_download_url.ts
+var ExportDownloadUrlVantage = class {
+	downloadUrl;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/exports.ts
+var ExportsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/exports/{:export_id}";
+	get elementClass() {
+		return ExportVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	get(request_params) {
+		return this.doGetVantage(request_params);
+	}
+	create(request_params, body) {
+		return this.createPromise("POST", request_params, this.populateObjectFromJsonRoot, body);
+	}
+	getDownloadUrl(request_params) {
+		return this.createPromise("GET", request_params, (json) => new ExportDownloadUrlVantage(json.data), null, "projects/{!:project_id}/exports/{!:export_id}/download-url");
+	}
+};
+
+//#endregion
+//#region src/models/vantage/project_item.ts
+var ProjectItemVantage = class {
+	id;
+	projectId;
+	name;
+	createdAt;
+	updatedAt;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/project_items.ts
+var ProjectItemsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/items";
+	get elementClass() {
+		return ProjectItemVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/project_language.ts
+var ProjectLanguageVantage = class {
+	languageId;
+	locale;
+	languageName;
+	isRtl;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/project_languages.ts
+var ProjectLanguagesVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/languages";
+	get elementClass() {
+		return ProjectLanguageVantage;
+	}
+	list(request_params) {
+		return this.doListArrayVantage(request_params);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/project.ts
+var ProjectVantage = class {
+	projectId;
+	teamId;
+	name;
+	description;
+	baseLanguage;
+	targetLanguages;
+	translationSettings;
+	contentSourceType;
+	contentSourceName;
+	projectType;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/projects.ts
+var ProjectsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "teams/{!:team_id}/projects";
+	get elementClass() {
+		return ProjectVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	get(request_params) {
+		return this.doGetVantage(request_params, "projects/{!:project_id}");
+	}
+};
+
+//#endregion
+//#region src/models/vantage/segment.ts
+var SegmentVantage = class {
+	id;
+	number;
+	value;
+	status;
+	lastChangeSource;
+	contentLanguageId;
+	contentUnitId;
+	projectId;
+	metadata;
+	createdAt;
+	updatedAt;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/segments.ts
+var SegmentsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/content-units/{!:content_unit_id}/segments/{:segment_id}";
+	get elementClass() {
+		return SegmentVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	update(request_params, body) {
+		return this.createPromise("PATCH", request_params, (json, headers) => {
+			const data = json.data;
+			if (!isRecord(data)) throw new Error("Expected 'data' to be an object");
+			const warnings = json.warnings;
+			if (warnings !== void 0 && (!Array.isArray(warnings) || !warnings.every((warning) => isRecord(warning) && typeof warning.code === "string" && (warning.details === void 0 || isRecord(warning.details))))) throw new Error("Expected 'warnings' to be an array of warning objects");
+			return {
+				data: this.populateObjectFromJson(data, headers),
+				...warnings !== void 0 ? { warnings } : {}
+			};
+		}, body, "projects/{!:project_id}/segments/{!:segment_id}");
+	}
+};
+
+//#endregion
+//#region src/models/vantage/task.ts
+var TaskVantage = class {
+	id;
+	publicId;
+	title;
+	type;
+	status;
+	description;
+	taskAssignments;
+	dueDate;
+	createdAt;
+	requestedBy;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/tasks.ts
+var TasksVantage = class extends BaseCollectionVantage {
+	static prefixURI = "teams/{!:team_id}/projects/{!:project_id}/tasks";
+	get elementClass() {
+		return TaskVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
 	}
 };
 
@@ -2075,6 +2398,37 @@ var LokaliseApiV1 = class extends BaseClient {
 };
 
 //#endregion
+//#region src/lokalise/lokalise_api_vantage.ts
+var LokaliseApiVantage = class extends BaseClient {
+	constructor(params) {
+		super(params);
+		this.clientData.version = params.version ?? "vantage/v1";
+		this.clientData.authHeader = params.header ?? this.clientData.authHeader;
+	}
+	contentUnits() {
+		return new ContentUnitsVantage(this.clientData);
+	}
+	exports() {
+		return new ExportsVantage(this.clientData);
+	}
+	projects() {
+		return new ProjectsVantage(this.clientData);
+	}
+	projectItems() {
+		return new ProjectItemsVantage(this.clientData);
+	}
+	projectLanguages() {
+		return new ProjectLanguagesVantage(this.clientData);
+	}
+	segments() {
+		return new SegmentsVantage(this.clientData);
+	}
+	tasks() {
+		return new TasksVantage(this.clientData);
+	}
+};
+
+//#endregion
 //#region src/lokalise/lokalise_ota_bundles.ts
 /**
 * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
@@ -2270,5 +2624,5 @@ var LokaliseAuth = class {
 var AuthError = class extends BaseModel {};
 
 //#endregion
-export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseAuth, LokaliseOtaBundles };
+export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseApiVantage, LokaliseAuth, LokaliseOtaBundles };
 //# sourceMappingURL=main.mjs.map

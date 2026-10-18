@@ -1,4 +1,5 @@
 import { ContentUnitsVantage } from "../collections/vantage/content_units.js";
+import { ExportsVantage } from "../collections/vantage/exports.js";
 import { ProjectItemsVantage } from "../collections/vantage/project_items.js";
 import { ProjectLanguagesVantage } from "../collections/vantage/project_languages.js";
 import { ProjectsVantage } from "../collections/vantage/projects.js";
@@ -17,6 +18,10 @@ export class LokaliseApiVantage extends BaseClient {
 
 	contentUnits(): ContentUnitsVantage {
 		return new ContentUnitsVantage(this.clientData);
+	}
+
+	exports(): ExportsVantage {
+		return new ExportsVantage(this.clientData);
 	}
 
 	projects(): ProjectsVantage {

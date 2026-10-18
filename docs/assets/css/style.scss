@@ -5,7 +5,8 @@
 @use "jekyll-theme-minimal";
 
 body {
-  font-family: "FactorA-Regular", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif
+  font-family:
+    "FactorA-Regular", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1,
@@ -14,46 +15,39 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'FactorA-Medium', system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-family:
+    "FactorA-Medium",
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Arial,
+    sans-serif;
 }
-
 
 .highlight {
   margin-left: 0;
   margin-right: 0;
 }
 
-.wrapper {
-  width: 1200px;
-}
-
-section {
-  width: 840px;
-}
-
-header {
-  position: static;
-}
-
 header nav.menu ul {
   height: auto;
   background: transparent;
   border-radius: 0;
-  border: 0 none;
+  border: 0;
   width: auto;
 }
 
 header nav.menu ul li {
-  width: auto !important;
+  width: auto;
   float: none;
-  border: 0 none;
+  border: 0;
   height: auto;
   margin-bottom: 5px;
   display: block;
 }
 
 header nav.menu li:last-child a {
-  border-radius: 0 none;
+  border-radius: 0;
 }
 
 header nav.menu ul li a {
@@ -67,61 +61,16 @@ header nav.menu ul li span {
   font-size: 1rem;
 }
 
-header nav.menu ul li .active {
+header nav.menu ul li a.active {
   font-weight: 600;
-  padding-top: 6px;
-  line-height: 1;
+  color: #222;
+  text-decoration: none;
 }
 
 header nav.menu ul li a:active {
   background: transparent;
 }
 
-footer {
-  clear: both;
-  position: static;
-  width: auto;
-  bottom: 0;
-  float: none;
-}
-
 nav.index {
   font-size: 1rem;
-}
-
-@media print, screen and (max-width: 1280px) {
-  .wrapper {
-    width: 100%;
-  }
-
-  section {
-    width: 70%;
-  }
-
-  header {
-    width: 25%;
-  }
-}
-
-@media print, screen and (max-width: 960px) {
-  .wrapper {
-    width: 100% !important;
-  }
-
-  section {
-    width: 100%;
-    float: none;
-  }
-
-  header {
-    width: 100%;
-    float: none;
-    padding-right: 0;
-  }
-
-  header nav ul {
-    position: static;
-    right: 0;
-    top: 0;
-  }
 }

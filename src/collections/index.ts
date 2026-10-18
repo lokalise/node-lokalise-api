@@ -25,6 +25,7 @@ export { Translations } from "./translations.js";
 export { UserGroups } from "./user_groups.js";
 export { AuditLogs } from "./v1/audit_logs.js";
 export { ContentUnitsVantage } from "./vantage/content_units.js";
+export { ExportsVantage } from "./vantage/exports.js";
 export { ProjectItemsVantage } from "./vantage/project_items.js";
 export { ProjectLanguagesVantage } from "./vantage/project_languages.js";
 export { ProjectsVantage } from "./vantage/projects.js";

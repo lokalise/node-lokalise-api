@@ -128,6 +128,12 @@ export type {
 	ContentUnitTypeVantage,
 } from "./vantage/content_unit_type.js";
 export type {
+	ExportItemVantage,
+	ExportLanguagesVantage,
+	ExportListParams,
+	ExportParams,
+} from "./vantage/export.js";
+export type {
 	ProjectParams,
 	ProjectReviewThresholdVantage,
 	ProjectTranslationSettingsVantage,

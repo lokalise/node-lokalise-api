@@ -137,6 +137,21 @@ export declare class ApiError extends Error implements IApiError {
   toString(): string;
 }
 //#endregion
+//#region src/interfaces/vantage/api_error.d.ts
+interface ApiErrorVantage {
+  readonly message: string;
+  readonly code: string;
+  readonly details?: Record<string, unknown>;
+}
+//#endregion
+//#region src/models/vantage/api_error.d.ts
+declare class ApiErrorVantage$1 extends Error implements ApiErrorVantage {
+  readonly code: string;
+  readonly details?: Record<string, unknown>;
+  constructor(message: string, code: string, details?: Record<string, unknown>);
+  toString(): string;
+}
+//#endregion
 //#region src/types/http_method.d.ts
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 //#endregion
@@ -153,7 +168,7 @@ declare class ApiRequest {
   /**
    * The default base URL for the Lokalise API.
    */
-  protected static readonly urlRoot = "https://api.lokalise.com/api2/";
+  protected static readonly urlRoot = "https://api.lokalise.com/";
   /**
    * The resolved response from the API request.
    */
@@ -188,14 +203,15 @@ declare class ApiRequest {
    * @param requestTimeout - Optional timeout in milliseconds.
    * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
    */
-  protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout?: number): Promise<ApiResponse>;
+  protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout?: number, version?: string): Promise<ApiResponse>;
   /**
    * Processes the fetch response.
    * Attempts to parse JSON unless the status is 204 (No Content).
    * @param response - The raw fetch Response object.
+   * @param version - API version
    * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
    */
-  protected processResponse(response: Response): Promise<ApiResponse>;
+  protected processResponse(response: Response, version?: string): Promise<ApiResponse>;
   /**
    * Derives an ApiError instance from the response JSON, which may follow various patterns.
    * @param respJson - The parsed JSON response from the server.
@@ -225,6 +241,8 @@ declare class ApiRequest {
    * @throws Error if a required parameter is missing.
    */
   protected mapUriParams(): (substring: string, isMandatory: string, paramName: string) => string;
+  protected parseVantageError(json: unknown): ApiErrorVantage$1 | null;
+  protected getVantageErrorFromResp(respJson: unknown, fallbackStatus: number): Error;
 }
 //#endregion
 //#region src/interfaces/bulk_result.d.ts
@@ -266,28 +284,6 @@ declare class CursorPaginatedResult$1<T> extends PaginatedResult$1<T> implements
   nextCursor: string | null;
   constructor(items: T[], headers: Headers);
   hasNextCursor(): boolean;
-}
-//#endregion
-//#region src/interfaces/v1/cursor_paginated_response.d.ts
-interface CursorPaginatedResponseV1<T = unknown> {
-  readonly data: T[];
-  readonly next_cursor: string | null;
-  readonly has_more: boolean;
-}
-//#endregion
-//#region src/interfaces/v1/cursor_paginated_result.d.ts
-interface CursorPaginatedResultV1<T = unknown> {
-  readonly next_cursor: string | null;
-  readonly has_more: boolean;
-  readonly items: T[];
-}
-//#endregion
-//#region src/models/v1/cursor_paginated_result.d.ts
-declare class CursorPaginatedResultV1$1<T> implements CursorPaginatedResultV1<T> {
-  readonly next_cursor: string | null;
-  readonly has_more: boolean;
-  readonly items: T[];
-  constructor(response: CursorPaginatedResponseV1<T>);
 }
 //#endregion
 //#region src/collections/base_collection.d.ts
@@ -368,7 +364,6 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @returns A promise resolving to a CursorPaginatedResult of ElementType.
    */
   protected doListCursor(params: Record<string, unknown>): Promise<CursorPaginatedResult$1<ElementType>>;
-  protected doListCursorV1(params: Record<string, unknown>): Promise<CursorPaginatedResultV1$1<ElementType>>;
   /**
    * Perform a GET request to retrieve a single item by its ID.
    * @param id The ID of the item to retrieve.
@@ -462,11 +457,6 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    */
   protected populateArrayFromJsonCursor(json: Record<string, unknown>, headers: Headers): CursorPaginatedResult$1<ElementType>;
   /**
-   * Parse a JSON response that contains a cursor-paginated array of items.
-   * @param json The raw JSON object returned by the API.
-   */
-  protected populateArrayFromJsonCursorV1(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultV1$1<ElementType>;
-  /**
    * Parse a JSON object into either an ElementType or a SecondaryType instance.
    * @param json The raw JSON object returned by the API.
    * @param _headers The response headers (if needed).
@@ -513,12 +503,6 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @param headers The response headers.
    */
   private isPaginated;
-  /**
-   * Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
-   *
-   * @param value The value to test.
-   */
-  private isRecord;
 }
 //#endregion
 //#region src/collections/branches.d.ts
@@ -1891,6 +1875,219 @@ interface AuditEventV1 {
   readonly [key: string]: unknown;
 }
 //#endregion
+//#region src/interfaces/v1/cursor_paginated_response.d.ts
+interface CursorPaginatedResponseV1<T = unknown> {
+  readonly data: T[];
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+}
+//#endregion
+//#region src/interfaces/v1/cursor_paginated_result.d.ts
+interface CursorPaginatedResultV1<T = unknown> {
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+  readonly items: T[];
+}
+//#endregion
+//#region src/types/vantage/cursor_pagination_params.d.ts
+type CursorPaginationParams = {
+  after?: string;
+  limit?: number;
+};
+//#endregion
+//#region src/types/vantage/content_unit_type.d.ts
+type ContentUnitParams = CursorPaginationParams & {
+  project_id: string;
+  item_id: string;
+  "filter-keys"?: string[];
+};
+type ContentUnitTypeVantage = "HTML_FILE" | "DOCX_FILE" | "PPTX_FILE" | "XLSX_FILE" | "MARKDOWN_FILE" | "IDML_FILE" | "JSON_FILE" | "YAML_FILE" | "XCSTRINGS_FILE" | "PO_FILE" | "XLIFF_FILE" | "PDF_FILE" | "TEXT" | "HTML" | "JSON" | "CONTENTFUL_RICH_TEXT";
+//#endregion
+//#region src/interfaces/vantage/content_unit.d.ts
+interface ContentUnitVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly type: ContentUnitTypeVantage;
+  readonly key: string;
+  readonly position: number;
+  readonly sourceSegmentsCount: number;
+}
+//#endregion
+//#region src/interfaces/vantage/cursor_paginated_response.d.ts
+interface CursorPaginatedResponseVantage<T = unknown> {
+  readonly data: T[];
+  readonly meta: {
+    readonly count: number;
+    readonly cursor: string | null;
+    readonly hasMore: boolean;
+  };
+}
+//#endregion
+//#region src/interfaces/vantage/cursor_paginated_result.d.ts
+interface CursorPaginatedResultVantage<T = unknown> {
+  readonly count: number;
+  readonly cursor: string | null;
+  readonly hasMore: boolean;
+  readonly items: T[];
+}
+//#endregion
+//#region src/interfaces/vantage/export.d.ts
+type ExportStatusVantage = "IN_PROGRESS" | "COMPLETED" | "FAILED";
+interface ExportVantage {
+  readonly exportId: string;
+  readonly status: ExportStatusVantage;
+  readonly createdAt?: string;
+  readonly totalItemsCount?: number;
+  readonly processedItemsCount?: number;
+  readonly failReason?: string | null;
+}
+//#endregion
+//#region src/interfaces/vantage/export_download_url.d.ts
+interface ExportDownloadUrlVantage {
+  readonly downloadUrl: string;
+}
+//#endregion
+//#region src/types/vantage/project.d.ts
+type ProjectReviewThresholdVantage = "FULL_REVIEW" | "CRITICAL_MAJOR_MINOR" | "CRITICAL_MAJOR" | "CRITICAL";
+type ProjectTranslationSettingsVantage = {
+  readonly reviewTurnaroundDays: number;
+  readonly workflowType: "AI_HUMAN_REVIEW";
+  readonly reviewThreshold: ProjectReviewThresholdVantage;
+} | {
+  readonly reviewTurnaroundDays: number;
+  readonly workflowType: "AI_ONLY";
+  readonly reviewThreshold: null;
+};
+type ProjectParams = CursorPaginationParams & {
+  team_id: string;
+};
+//#endregion
+//#region src/interfaces/vantage/project_language.d.ts
+interface ProjectLanguageVantage {
+  readonly languageId: string;
+  readonly locale: string;
+  readonly languageName: string;
+  readonly isRtl: boolean;
+}
+//#endregion
+//#region src/interfaces/vantage/project.d.ts
+interface ProjectVantage {
+  readonly projectId: string;
+  readonly teamId: string;
+  readonly name: string;
+  readonly description: string;
+  readonly baseLanguage: Pick<ProjectLanguageVantage, "languageId" | "locale">;
+  readonly targetLanguages: Pick<ProjectLanguageVantage, "languageId" | "locale">[];
+  readonly translationSettings: ProjectTranslationSettingsVantage;
+  readonly contentSourceType: string | null;
+  readonly contentSourceName?: string | null;
+  readonly projectType: string;
+}
+//#endregion
+//#region src/interfaces/vantage/project_item.d.ts
+interface ProjectItemVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly name: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+//#endregion
+//#region src/types/vantage/segment.d.ts
+type SegmentStatusVantage = "TRANSLATING" | "TRANSLATION_FAILED" | "LQA_IN_PROGRESS" | "PENDING_REVIEW" | "APPROVED";
+type SegmentLastChangeSourceVantage = "TRANSLATION_MEMORY" | "AI" | "HUMAN" | "IMPORT";
+type SegmentParams = CursorPaginationParams & {
+  project_id: string;
+  content_unit_id: string;
+  "filter-languages"?: string[];
+};
+type SegmentUpdateStatus = "APPROVED" | "PENDING_REVIEW";
+type SegmentUpdateBody = {
+  value: string;
+  status?: SegmentUpdateStatus;
+} | {
+  value?: string;
+  status: SegmentUpdateStatus;
+};
+//#endregion
+//#region src/interfaces/vantage/segment.d.ts
+interface SegmentVantage {
+  readonly id: string;
+  readonly number: number;
+  readonly value: string;
+  readonly status: SegmentStatusVantage;
+  readonly lastChangeSource: SegmentLastChangeSourceVantage;
+  readonly contentLanguageId: string;
+  readonly contentUnitId: string;
+  readonly projectId: string;
+  readonly metadata?: {
+    readonly prefix?: string;
+    readonly suffix?: string;
+  } | null;
+  readonly createdAt: string;
+  readonly updatedAt?: string;
+}
+//#endregion
+//#region src/interfaces/vantage/segment_update_result.d.ts
+interface SegmentWarningVantage {
+  readonly code: string;
+  readonly details?: Record<string, unknown>;
+}
+interface SegmentUpdateResultVantage {
+  readonly data: SegmentVantage;
+  readonly warnings?: SegmentWarningVantage[];
+}
+//#endregion
+//#region src/types/vantage/task.d.ts
+type TaskTypeVantage = "review";
+type TaskStatusVantage = "created" | "in_progress" | "closed";
+type TaskAssigneeTypeVantage = "user" | "user_group";
+type TaskSegmentStatusVantage = "pending" | "completed";
+type TaskParams = CursorPaginationParams & {
+  team_id: string;
+  project_id: string;
+  "filter-ids"?: string[];
+  "filter-item-ids"?: string[];
+  "include-segments"?: boolean;
+};
+//#endregion
+//#region src/interfaces/vantage/task.d.ts
+interface TaskAssigneeVantage {
+  readonly contributorId: string;
+  readonly type: TaskAssigneeTypeVantage;
+}
+interface TaskProgressVantage {
+  readonly completedUnits: number;
+  readonly totalUnits: number;
+  readonly completedWords: number;
+  readonly totalWords: number;
+}
+interface TaskSegmentVantage {
+  readonly id: string;
+  readonly unitId: string;
+  readonly status: TaskSegmentStatusVantage;
+  readonly createdAt: string;
+  readonly completedAt?: string | null;
+}
+interface TaskAssignmentVantage {
+  readonly languageId: string;
+  readonly assignees: TaskAssigneeVantage[];
+  readonly progress: TaskProgressVantage;
+  readonly segments: TaskSegmentVantage[];
+}
+interface TaskVantage {
+  readonly id: string;
+  readonly publicId: string;
+  readonly title: string;
+  readonly type: TaskTypeVantage;
+  readonly status: TaskStatusVantage;
+  readonly description: string | null;
+  readonly taskAssignments: TaskAssignmentVantage[];
+  readonly dueDate?: string | null;
+  readonly createdAt: string;
+  readonly requestedBy: string | null;
+}
+//#endregion
 //#region src/interfaces/webhook.d.ts
 interface Webhook {
   webhook_id: string;
@@ -2168,6 +2365,55 @@ type AuditLogParams = CursorPaginationParamsV1 & {
    * Filter events initiated by a specific user.
    */
   user_id?: number;
+};
+//#endregion
+//#region src/types/vantage/export.d.ts
+type ExportLanguagesVantage = {
+  locales: string[];
+  languageIds?: never;
+} | {
+  locales?: never;
+  languageIds: string[];
+} | {
+  locales?: never;
+  languageIds?: never;
+};
+type ExportItemVantage = {
+  itemId: string;
+} & ExportLanguagesVantage;
+type ExportParams = {
+  locales: string[];
+  languageIds?: never;
+  items?: never;
+} | {
+  locales?: never;
+  languageIds: string[];
+  items?: never;
+} | {
+  locales?: never;
+  languageIds?: never;
+  items: ExportItemVantage[];
+} | {
+  locales?: never;
+  languageIds?: never;
+  items?: never;
+};
+type ExportListParams = {
+  project_id: string;
+  "filter-status"?: ExportStatusVantage;
+  "filter-ids"?: string[];
+} & CursorPaginationParams;
+//#endregion
+//#region src/types/vantage/project_item.d.ts
+type ProjectItemParams = CursorPaginationParams & {
+  project_id: string;
+  "filter-ids"?: string[];
+  "filter-names"?: string[];
+};
+//#endregion
+//#region src/types/vantage/project_language.d.ts
+type ProjectLanguageParams = {
+  project_id: string;
 };
 //#endregion
 //#region src/types/webhook_events/project_branch_added.d.ts
@@ -3436,11 +3682,207 @@ declare class AuditEventV1$1 implements AuditEventV1 {
   constructor(json: Record<string, unknown>);
 }
 //#endregion
+//#region src/models/v1/cursor_paginated_result.d.ts
+declare class CursorPaginatedResultV1$1<T> implements CursorPaginatedResultV1<T> {
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+  readonly items: T[];
+  constructor(response: CursorPaginatedResponseV1<T>);
+}
+//#endregion
+//#region src/collections/base_collection_v1.d.ts
+declare abstract class BaseCollectionV1<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
+  protected doListCursorV1(params: Record<string, unknown>): Promise<CursorPaginatedResultV1$1<ElementType>>;
+  protected populateArrayFromJsonCursorV1(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultV1$1<ElementType>;
+}
+//#endregion
 //#region src/collections/v1/audit_logs.d.ts
-declare class AuditLogs extends BaseCollection<AuditEventV1$1> {
+declare class AuditLogs extends BaseCollectionV1<AuditEventV1$1> {
   protected static prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => AuditEventV1$1;
   list(request_params?: AuditLogParams): Promise<CursorPaginatedResultV1<AuditEventV1$1>>;
+}
+//#endregion
+//#region src/models/vantage/content_unit.d.ts
+declare class ContentUnitVantage$1 implements ContentUnitVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly type: ContentUnitTypeVantage;
+  readonly key: string;
+  readonly position: number;
+  readonly sourceSegmentsCount: number;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/models/vantage/cursor_paginated_result.d.ts
+declare class CursorPaginatedResultVantage$1<T> implements CursorPaginatedResultVantage<T> {
+  readonly count: number;
+  readonly cursor: string | null;
+  readonly hasMore: boolean;
+  readonly items: T[];
+  constructor(response: CursorPaginatedResponseVantage<T>);
+}
+//#endregion
+//#region src/collections/base_collection_vantage.d.ts
+declare abstract class BaseCollectionVantage<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
+  protected get rootElementName(): string;
+  protected get rootElementNameSingular(): string;
+  protected doListCursorVantage(params: Record<string, unknown>): Promise<CursorPaginatedResultVantage$1<ElementType>>;
+  protected populateArrayFromJsonCursorVantage(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultVantage$1<ElementType>;
+  protected doGetVantage(params: Record<string, unknown>, uri?: string | null): Promise<ElementType>;
+  protected doListArrayVantage(params: Record<string, unknown>): Promise<ElementType[]>;
+}
+//#endregion
+//#region src/collections/vantage/content_units.d.ts
+declare class ContentUnitsVantage extends BaseCollectionVantage<ContentUnitVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => ContentUnitVantage$1;
+  list(request_params: ContentUnitParams): Promise<CursorPaginatedResultVantage<ContentUnitVantage$1>>;
+}
+//#endregion
+//#region src/models/vantage/export.d.ts
+declare class ExportVantage$1 implements ExportVantage {
+  readonly exportId: string;
+  readonly status: ExportStatusVantage;
+  readonly createdAt?: string;
+  readonly totalItemsCount?: number;
+  readonly processedItemsCount?: number;
+  readonly failReason?: string | null;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/models/vantage/export_download_url.d.ts
+declare class ExportDownloadUrlVantage$1 implements ExportDownloadUrlVantage {
+  readonly downloadUrl: string;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/exports.d.ts
+declare class ExportsVantage extends BaseCollectionVantage<ExportVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => ExportVantage$1;
+  list(request_params: ExportListParams): Promise<CursorPaginatedResultVantage$1<ExportVantage$1>>;
+  get(request_params: {
+    project_id: string;
+    export_id: string;
+  }): Promise<ExportVantage$1>;
+  create(request_params: {
+    project_id: string;
+  }, body: ExportParams): Promise<ExportVantage$1>;
+  getDownloadUrl(request_params: {
+    project_id: string;
+    export_id: string;
+  }): Promise<ExportDownloadUrlVantage$1>;
+}
+//#endregion
+//#region src/models/vantage/project_item.d.ts
+declare class ProjectItemVantage$1 implements ProjectItemVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly name: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/project_items.d.ts
+declare class ProjectItemsVantage extends BaseCollectionVantage<ProjectItemVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => ProjectItemVantage$1;
+  list(request_params: ProjectItemParams): Promise<CursorPaginatedResultVantage<ProjectItemVantage$1>>;
+}
+//#endregion
+//#region src/models/vantage/project_language.d.ts
+declare class ProjectLanguageVantage$1 implements ProjectLanguageVantage {
+  readonly languageId: string;
+  readonly locale: string;
+  readonly languageName: string;
+  readonly isRtl: boolean;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/project_languages.d.ts
+declare class ProjectLanguagesVantage extends BaseCollectionVantage<ProjectLanguageVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => ProjectLanguageVantage$1;
+  list(request_params: ProjectLanguageParams): Promise<ProjectLanguageVantage$1[]>;
+}
+//#endregion
+//#region src/models/vantage/project.d.ts
+declare class ProjectVantage$1 implements ProjectVantage {
+  readonly projectId: string;
+  readonly teamId: string;
+  readonly name: string;
+  readonly description: string;
+  readonly baseLanguage: Pick<ProjectLanguageVantage, "languageId" | "locale">;
+  readonly targetLanguages: Pick<ProjectLanguageVantage, "languageId" | "locale">[];
+  readonly translationSettings: ProjectTranslationSettingsVantage;
+  readonly contentSourceType: string | null;
+  readonly contentSourceName?: string | null;
+  readonly projectType: string;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/projects.d.ts
+declare class ProjectsVantage extends BaseCollectionVantage<ProjectVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => ProjectVantage$1;
+  list(request_params: ProjectParams): Promise<CursorPaginatedResultVantage<ProjectVantage$1>>;
+  get(request_params: {
+    project_id: string;
+  }): Promise<ProjectVantage$1>;
+}
+//#endregion
+//#region src/models/vantage/segment.d.ts
+declare class SegmentVantage$1 implements SegmentVantage {
+  readonly id: string;
+  readonly number: number;
+  readonly value: string;
+  readonly status: SegmentStatusVantage;
+  readonly lastChangeSource: SegmentLastChangeSourceVantage;
+  readonly contentLanguageId: string;
+  readonly contentUnitId: string;
+  readonly projectId: string;
+  readonly metadata: {
+    readonly prefix: string;
+    readonly suffix: string;
+  } | null;
+  readonly createdAt: string;
+  readonly updatedAt?: string;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/segments.d.ts
+declare class SegmentsVantage extends BaseCollectionVantage<SegmentVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => SegmentVantage$1;
+  list(request_params: SegmentParams): Promise<CursorPaginatedResultVantage<SegmentVantage$1>>;
+  update(request_params: {
+    project_id: string;
+    segment_id: string;
+  }, body: SegmentUpdateBody): Promise<SegmentUpdateResultVantage>;
+}
+//#endregion
+//#region src/models/vantage/task.d.ts
+declare class TaskVantage$1 implements TaskVantage {
+  readonly id: string;
+  readonly publicId: string;
+  readonly title: string;
+  readonly type: TaskTypeVantage;
+  readonly status: TaskStatusVantage;
+  readonly description: string | null;
+  readonly taskAssignments: TaskAssignmentVantage[];
+  readonly dueDate?: string | null;
+  readonly createdAt: string;
+  readonly requestedBy: string | null;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/tasks.d.ts
+declare class TasksVantage extends BaseCollectionVantage<TaskVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => TaskVantage$1;
+  list(request_params: TaskParams): Promise<CursorPaginatedResultVantage<TaskVantage$1>>;
 }
 //#endregion
 //#region src/models/webhook.d.ts
@@ -3814,6 +4256,18 @@ export declare class LokaliseApiV1 extends BaseClient {
   auditLogs(): AuditLogs;
 }
 //#endregion
+//#region src/lokalise/lokalise_api_vantage.d.ts
+export declare class LokaliseApiVantage extends BaseClient {
+  constructor(params: ClientParams);
+  contentUnits(): ContentUnitsVantage;
+  exports(): ExportsVantage;
+  projects(): ProjectsVantage;
+  projectItems(): ProjectItemsVantage;
+  projectLanguages(): ProjectLanguagesVantage;
+  segments(): SegmentsVantage;
+  tasks(): TasksVantage;
+}
+//#endregion
 //#region src/lokalise/lokalise_ota_bundles.d.ts
 /**
  * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
@@ -3907,5 +4361,5 @@ export declare class AuthError extends BaseModel implements IAuthError {
   error_uri?: string;
 }
 //#endregion
-export type { AiScoring, AuditEventV1, AuditLogParams, AuthData, BillingDetailsParams, Branch, BranchDeleted, BranchMerged, BranchParams, BulkResult, BulkUpdateKeyParams, CardDeleted, ClientData, ClientParams, Comment, CommentData, CommentDeleted, Contributor, ContributorCreateData, ContributorDeleted, ContributorLanguages, ContributorRights, ContributorRoles, ContributorUpdateData, CreateCardParams, CreateKeyData, CreateKeyParams, CreateLanguageParams, CreateOrderParams, CreateProjectParams, CreateScreenshotParams, CreateSnapshotParams, CreateTaskParams, CreateTermsParams, CreateTranslationStatusParams, CreateWebhookParams, CursorPaginatedResponseV1, CursorPaginatedResult, CursorPaginatedResultV1, CursorPagination, CursorPaginationParamsV1, DownloadBundle, DownloadFileParams, DownloadedFileProcessDetails, File, FileDeleted, FileFormat, Filenames, GetKeyParams, GetSegmentParams, GetTranslationParams, GlossaryTerm, HttpMethod, IApiError, IAuthError, Jwt, Key, KeyDeleted, KeyParamsWithPagination, KeyProjectPagination, KeysBulkDeleted, Language, LanguageDeleted, ListFileParams, ListSegmentParams, ListTaskParams, ListTermsParams, ListTranslationParams, MergeBranchParams, NumericBool, Order, OtaBundle, OtaBundleArchive, OtaBundleUpdateData, OtaFramework, OtaFreezePeriod, OtaFreezePeriodParams, OtaProjectFramework, OtaRequestBundleParams, OtaResourceDeleted, OtaSdkToken, OtaStatistics, OtaTeamProject, OtaTeamProjectFramework, OtaUsageParams, PaginatedResult, PaginationParams, PaymentCard, Project, ProjectAndKey, ProjectDeleted, ProjectEmptied, ProjectListParams, ProjectOnly, ProjectSettings, ProjectStatistics, ProjectWithPagination, QueuedProcess, QueuedProcessDetails, RefreshTokenResponse, RequestTokenResponse, Screenshot, ScreenshotData, ScreenshotDeleted, Segment, Snapshot, SnapshotDeleted, SupportedPlatforms, Task, TaskDeleted, TaskLanguage, Team, TeamOnly, TeamUser, TeamUserBillingDetails, TeamUserDeleted, TeamUserParams, TeamWithPagination, TermsDeleted, Translation, TranslationData, TranslationMemory, TranslationProvider, TranslationStatus, TranslationStatusColors, TranslationStatusDeleted, UpdateKeyData, UpdateKeyDataWithId, UpdateLanguageParams, UpdateProjectParams, UpdateScreenshotParams, UpdateSegmentBodyParams, UpdateSegmentReqParams, UpdateTaskParams, UpdateTermsParams, UpdateTranslationParams, UpdateTranslationStatusParams, UpdateWebhookParams, UploadFileFromFssParams, UploadFileParams, UploadedFileProcessDetails, UserGroup, UserGroupDeleted, UserGroupParams, Webhook, WebhookDeleted, WebhookEventLangMap, WebhookEvents, WebhookProjectBranchAdded, WebhookProjectBranchDeleted, WebhookProjectBranchMerged, WebhookProjectContributorAdded, WebhookProjectContributorAddedPublic, WebhookProjectContributorDeleted, WebhookProjectCopied, WebhookProjectDeleted, WebhookProjectExported, WebhookProjectImported, WebhookProjectKeyAdded, WebhookProjectKeyCommentAdded, WebhookProjectKeyModified, WebhookProjectKeysAdded, WebhookProjectKeysDeleted, WebhookProjectKeysModified, WebhookProjectLanguageRemoved, WebhookProjectLanguageSettingsChanged, WebhookProjectLanguagesAdded, WebhookProjectSnapshotCreated, WebhookProjectTaskClosed, WebhookProjectTaskCreated, WebhookProjectTaskDeleted, WebhookProjectTaskInitialTmLeverageCalculated, WebhookProjectTaskLanguageClosed, WebhookProjectTaskQueued, WebhookProjectTranslationProofread, WebhookProjectTranslationUpdated, WebhookProjectTranslationsProofread, WebhookProjectTranslationsUpdated, WebhookRegenerated, WebhookTeamOrderCompleted, WebhookTeamOrderCreated, WebhookTeamOrderDeleted };
+export type { AiScoring, ApiErrorVantage, AuditEventV1, AuditLogParams, AuthData, BillingDetailsParams, Branch, BranchDeleted, BranchMerged, BranchParams, BulkResult, BulkUpdateKeyParams, CardDeleted, ClientData, ClientParams, Comment, CommentData, CommentDeleted, ContentUnitParams, ContentUnitTypeVantage, ContentUnitVantage, Contributor, ContributorCreateData, ContributorDeleted, ContributorLanguages, ContributorRights, ContributorRoles, ContributorUpdateData, CreateCardParams, CreateKeyData, CreateKeyParams, CreateLanguageParams, CreateOrderParams, CreateProjectParams, CreateScreenshotParams, CreateSnapshotParams, CreateTaskParams, CreateTermsParams, CreateTranslationStatusParams, CreateWebhookParams, CursorPaginatedResponseV1, CursorPaginatedResponseVantage, CursorPaginatedResult, CursorPaginatedResultV1, CursorPaginatedResultVantage, CursorPagination, CursorPaginationParamsV1, DownloadBundle, DownloadFileParams, DownloadedFileProcessDetails, ExportDownloadUrlVantage, ExportItemVantage, ExportLanguagesVantage, ExportListParams, ExportParams, ExportVantage, File, FileDeleted, FileFormat, Filenames, GetKeyParams, GetSegmentParams, GetTranslationParams, GlossaryTerm, HttpMethod, IApiError, IAuthError, Jwt, Key, KeyDeleted, KeyParamsWithPagination, KeyProjectPagination, KeysBulkDeleted, Language, LanguageDeleted, ListFileParams, ListSegmentParams, ListTaskParams, ListTermsParams, ListTranslationParams, MergeBranchParams, NumericBool, Order, OtaBundle, OtaBundleArchive, OtaBundleUpdateData, OtaFramework, OtaFreezePeriod, OtaFreezePeriodParams, OtaProjectFramework, OtaRequestBundleParams, OtaResourceDeleted, OtaSdkToken, OtaStatistics, OtaTeamProject, OtaTeamProjectFramework, OtaUsageParams, PaginatedResult, PaginationParams, PaymentCard, Project, ProjectAndKey, ProjectDeleted, ProjectEmptied, ProjectItemParams, ProjectItemVantage, ProjectLanguageParams, ProjectLanguageVantage, ProjectListParams, ProjectOnly, ProjectParams, ProjectReviewThresholdVantage, ProjectSettings, ProjectStatistics, ProjectTranslationSettingsVantage, ProjectVantage, ProjectWithPagination, QueuedProcess, QueuedProcessDetails, RefreshTokenResponse, RequestTokenResponse, Screenshot, ScreenshotData, ScreenshotDeleted, Segment, SegmentLastChangeSourceVantage, SegmentParams, SegmentStatusVantage, SegmentUpdateBody, SegmentUpdateResultVantage, SegmentUpdateStatus, SegmentVantage, SegmentWarningVantage, Snapshot, SnapshotDeleted, SupportedPlatforms, Task, TaskAssigneeTypeVantage, TaskAssignmentVantage, TaskDeleted, TaskLanguage, TaskParams, TaskSegmentStatusVantage, TaskSegmentVantage, TaskStatusVantage, TaskTypeVantage, TaskVantage, Team, TeamOnly, TeamUser, TeamUserBillingDetails, TeamUserDeleted, TeamUserParams, TeamWithPagination, TermsDeleted, Translation, TranslationData, TranslationMemory, TranslationProvider, TranslationStatus, TranslationStatusColors, TranslationStatusDeleted, UpdateKeyData, UpdateKeyDataWithId, UpdateLanguageParams, UpdateProjectParams, UpdateScreenshotParams, UpdateSegmentBodyParams, UpdateSegmentReqParams, UpdateTaskParams, UpdateTermsParams, UpdateTranslationParams, UpdateTranslationStatusParams, UpdateWebhookParams, UploadFileFromFssParams, UploadFileParams, UploadedFileProcessDetails, UserGroup, UserGroupDeleted, UserGroupParams, Webhook, WebhookDeleted, WebhookEventLangMap, WebhookEvents, WebhookProjectBranchAdded, WebhookProjectBranchDeleted, WebhookProjectBranchMerged, WebhookProjectContributorAdded, WebhookProjectContributorAddedPublic, WebhookProjectContributorDeleted, WebhookProjectCopied, WebhookProjectDeleted, WebhookProjectExported, WebhookProjectImported, WebhookProjectKeyAdded, WebhookProjectKeyCommentAdded, WebhookProjectKeyModified, WebhookProjectKeysAdded, WebhookProjectKeysDeleted, WebhookProjectKeysModified, WebhookProjectLanguageRemoved, WebhookProjectLanguageSettingsChanged, WebhookProjectLanguagesAdded, WebhookProjectSnapshotCreated, WebhookProjectTaskClosed, WebhookProjectTaskCreated, WebhookProjectTaskDeleted, WebhookProjectTaskInitialTmLeverageCalculated, WebhookProjectTaskLanguageClosed, WebhookProjectTaskQueued, WebhookProjectTranslationProofread, WebhookProjectTranslationUpdated, WebhookProjectTranslationsProofread, WebhookProjectTranslationsUpdated, WebhookRegenerated, WebhookTeamOrderCompleted, WebhookTeamOrderCreated, WebhookTeamOrderDeleted };
 //# sourceMappingURL=main.d.mts.map
