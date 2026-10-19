@@ -52,14 +52,7 @@ type PluralFormat =
 	| "i18next"
 	| "i18next_v4";
 
-type PlaceholderFormat =
-	| "printf"
-	| "ios"
-	| "icu"
-	| "net"
-	| "symfony"
-	| "i18n"
-	| "raw";
+type PlaceholderFormat = "printf" | "ios" | "icu" | "net" | "symfony" | "i18n" | "raw";
 
 type Indentation =
 	| "default"

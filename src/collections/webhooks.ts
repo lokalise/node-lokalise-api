@@ -1,9 +1,6 @@
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Webhook } from "../models/webhook.js";
-import type {
-	ProjectOnly,
-	ProjectWithPagination,
-} from "../types/common_get_params.js";
+import type { ProjectOnly, ProjectWithPagination } from "../types/common_get_params.js";
 import type {
 	CreateWebhookParams,
 	UpdateWebhookParams,
@@ -13,8 +10,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Webhooks extends BaseCollection<Webhook> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/webhooks/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/webhooks/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -30,27 +26,15 @@ export class Webhooks extends BaseCollection<Webhook> {
 		return "webhook";
 	}
 
-	list(
-		request_params: ProjectWithPagination,
-	): Promise<PaginatedResult<Webhook>> {
+	list(request_params: ProjectWithPagination): Promise<PaginatedResult<Webhook>> {
 		return this.doList(request_params) as Promise<PaginatedResult<Webhook>>;
 	}
 
-	create(
-		webhook_params: CreateWebhookParams,
-		request_params: ProjectOnly,
-	): Promise<Webhook> {
-		return this.doCreate(
-			webhook_params,
-			request_params,
-			this.populateObjectFromJsonRoot,
-		);
+	create(webhook_params: CreateWebhookParams, request_params: ProjectOnly): Promise<Webhook> {
+		return this.doCreate(webhook_params, request_params, this.populateObjectFromJsonRoot);
 	}
 
-	get(
-		webhook_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<Webhook> {
+	get(webhook_id: string | number, request_params: ProjectOnly): Promise<Webhook> {
 		return this.doGet(webhook_id, request_params);
 	}
 
@@ -62,10 +46,7 @@ export class Webhooks extends BaseCollection<Webhook> {
 		return this.doUpdate(webhook_id, webhook_params, request_params);
 	}
 
-	delete(
-		webhook_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<WebhookDeleted> {
+	delete(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookDeleted> {
 		return this.doDelete(webhook_id, request_params);
 	}
 

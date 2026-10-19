@@ -5,10 +5,7 @@ export type GetSegmentParams = {
 	disable_references?: number | string;
 };
 
-export type UpdateSegmentReqParams = Omit<
-	GetSegmentParams,
-	"disable_references"
->;
+export type UpdateSegmentReqParams = Omit<GetSegmentParams, "disable_references">;
 
 export type UpdateSegmentBodyParams = {
 	value: string;

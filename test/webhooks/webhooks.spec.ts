@@ -1,7 +1,4 @@
-import type {
-	CreateWebhookParams,
-	UpdateWebhookParams,
-} from "../../src/main.js";
+import type { CreateWebhookParams, UpdateWebhookParams } from "../../src/main.js";
 import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
 import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
@@ -85,9 +82,7 @@ describe("Webhooks", () => {
 		expect(webhook.branch).to.eq(null);
 		expect(webhook.secret).to.eq("42fd07785e2e281602d75c9044add68a15f454dc");
 		expect(webhook.events[0]).to.eq("project.imported");
-		expect(getArrayItem(webhook.event_lang_map).event).to.eq(
-			"project.translation.updated",
-		);
+		expect(getArrayItem(webhook.event_lang_map).event).to.eq("project.translation.updated");
 	});
 
 	it("creates", async () => {
@@ -105,9 +100,7 @@ describe("Webhooks", () => {
 
 		await stub.setStub();
 
-		const webhook = await lokaliseApi
-			.webhooks()
-			.create(params, { project_id: projectId });
+		const webhook = await lokaliseApi.webhooks().create(params, { project_id: projectId });
 
 		expect(webhook.webhook_id).to.eq(newWebhookId);
 		expect(webhook.url).to.eq(params.url);
@@ -147,11 +140,9 @@ describe("Webhooks", () => {
 
 		await stub.setStub();
 
-		const response = await lokaliseApi
-			.webhooks()
-			.regenerate_secret(newWebhookId, {
-				project_id: projectId,
-			});
+		const response = await lokaliseApi.webhooks().regenerate_secret(newWebhookId, {
+			project_id: projectId,
+		});
 
 		expect(response.project_id).to.eq(projectId);
 		expect(response.secret).to.eq("18f078b45fbaba782f768324c031080eee0040c7");

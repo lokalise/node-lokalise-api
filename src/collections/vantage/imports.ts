@@ -11,15 +11,7 @@ export class ImportsVantage extends BaseCollectionVantage<ImportVantage> {
 		return ImportVantage;
 	}
 
-	create(
-		request_params: { project_id: string },
-		body: ImportParams,
-	): Promise<ImportVantage> {
-		return this.createPromise(
-			"POST",
-			request_params,
-			this.populateObjectFromJsonRoot,
-			body,
-		);
+	create(request_params: { project_id: string }, body: ImportParams): Promise<ImportVantage> {
+		return this.createPromise("POST", request_params, this.populateObjectFromJsonRoot, body);
 	}
 }

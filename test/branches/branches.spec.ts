@@ -128,9 +128,7 @@ describe("Branches", () => {
 
 		await stub.setStub();
 
-		const branch = await lokaliseApi
-			.branches()
-			.create(params, { project_id: projectId });
+		const branch = await lokaliseApi.branches().create(params, { project_id: projectId });
 
 		expect(branch.name).to.eq(params.name);
 	});
@@ -149,9 +147,7 @@ describe("Branches", () => {
 
 		await stub.setStub();
 
-		const branch = await lokaliseApi
-			.branches()
-			.update(branchId, params, { project_id: projectId });
+		const branch = await lokaliseApi.branches().update(branchId, params, { project_id: projectId });
 
 		expect(branch.name).to.eq(params.name);
 	});
@@ -193,9 +189,7 @@ describe("Branches", () => {
 
 		await stub.setStub();
 
-		const response = await lokaliseApi
-			.branches()
-			.merge(branchIdMerge, { project_id: projectId });
+		const response = await lokaliseApi.branches().merge(branchIdMerge, { project_id: projectId });
 
 		expect(response.project_id).to.eq(projectId);
 		expect(response.branch_merged).to.eq(true);

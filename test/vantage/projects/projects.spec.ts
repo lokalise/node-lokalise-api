@@ -32,9 +32,7 @@ describe("Projects", () => {
 		expect(alice.teamId).toBe(team_id);
 		expect(alice.name).toBe("Alice");
 		expect(alice.description).toBe("");
-		expect(alice.baseLanguage.languageId).toBe(
-			"019d29d9-de52-7ba2-87c6-b5355ebf9c72",
-		);
+		expect(alice.baseLanguage.languageId).toBe("019d29d9-de52-7ba2-87c6-b5355ebf9c72");
 		expect(alice.baseLanguage.locale).toBe("en");
 		expect(alice.targetLanguages).toHaveLength(1);
 		expect(alice.targetLanguages[0]?.locale).toBe("fr");
@@ -80,10 +78,7 @@ describe("Projects", () => {
 		expect(projects.count).toBe(2);
 		expect(projects.hasMore).toBe(true);
 		expect(projects.cursor).toBe("eyIxIjo2MDE1ODJ9");
-		expect(projects.items.map((project) => project.name)).toEqual([
-			"Alice",
-			"GDrive",
-		]);
+		expect(projects.items.map((project) => project.name)).toEqual(["Alice", "GDrive"]);
 	});
 
 	it("lists with cursor pagination", async () => {

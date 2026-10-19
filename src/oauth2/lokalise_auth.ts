@@ -22,9 +22,7 @@ export class LokaliseAuth {
 		version = "oauth2",
 	) {
 		if (!clientId || !clientSecret) {
-			throw new Error(
-				"Error: Instantiation failed: Please pass client ID and client secret",
-			);
+			throw new Error("Error: Instantiation failed: Please pass client ID and client secret");
 		}
 
 		this.authData = {

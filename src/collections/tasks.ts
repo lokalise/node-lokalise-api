@@ -30,15 +30,8 @@ export class Tasks extends BaseCollection<Task> {
 		return this.doList(request_params) as Promise<PaginatedResult<Task>>;
 	}
 
-	create(
-		task_params: CreateTaskParams,
-		request_params: ProjectOnly,
-	): Promise<Task> {
-		return this.doCreate(
-			task_params,
-			request_params,
-			this.populateObjectFromJsonRoot,
-		);
+	create(task_params: CreateTaskParams, request_params: ProjectOnly): Promise<Task> {
+		return this.doCreate(task_params, request_params, this.populateObjectFromJsonRoot);
 	}
 
 	get(task_id: string | number, request_params: ProjectOnly): Promise<Task> {
@@ -53,10 +46,7 @@ export class Tasks extends BaseCollection<Task> {
 		return this.doUpdate(task_id, task_params, request_params);
 	}
 
-	delete(
-		task_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<TaskDeleted> {
+	delete(task_id: string | number, request_params: ProjectOnly): Promise<TaskDeleted> {
 		return this.doDelete(task_id, request_params);
 	}
 }

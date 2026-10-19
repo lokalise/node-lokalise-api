@@ -22,9 +22,7 @@ export class DummyCollection extends BaseCollection<Branch> {
 		return this.rootElementNameSingular;
 	}
 
-	public testSecondaryElementClass(): new (
-		json: Record<string, unknown>,
-	) => Branch {
+	public testSecondaryElementClass(): new (json: Record<string, unknown>) => Branch {
 		return this.secondaryElementClass;
 	}
 
@@ -33,13 +31,7 @@ export class DummyCollection extends BaseCollection<Branch> {
 	}
 
 	public testCreatePromise(uri: string): Promise<Branch> {
-		return this.createPromise(
-			"GET",
-			{},
-			this.populateObjectFromJson,
-			null,
-			uri,
-		);
+		return this.createPromise("GET", {}, this.populateObjectFromJson, null, uri);
 	}
 }
 
@@ -48,10 +40,7 @@ export class DummyCollectionWithRoot extends DummyCollection {
 		return "items";
 	}
 
-	public testPopulateArray(
-		json: Record<string, unknown>,
-		headers = new Headers(),
-	): Branch[] {
+	public testPopulateArray(json: Record<string, unknown>, headers = new Headers()): Branch[] {
 		return this.populateArray(json, headers);
 	}
 

@@ -4,10 +4,7 @@ import { describe, expect, it, LokaliseApiVantage, Stub } from "../../setup.js";
 
 describe("ApiErrorVantage", () => {
 	it("creates an error without details", () => {
-		const error = new ApiErrorVantage(
-			"Resource not found",
-			"resource_not_found",
-		);
+		const error = new ApiErrorVantage("Resource not found", "resource_not_found");
 
 		expect(error).toBeInstanceOf(Error);
 		expect(error).toBeInstanceOf(ApiErrorVantage);
@@ -18,14 +15,9 @@ describe("ApiErrorVantage", () => {
 	});
 
 	it("converts an error without details to a string", () => {
-		const error = new ApiErrorVantage(
-			"Resource not found",
-			"resource_not_found",
-		);
+		const error = new ApiErrorVantage("Resource not found", "resource_not_found");
 
-		expect(error.toString()).toBe(
-			"ApiErrorVantage: Resource not found (Code: resource_not_found)",
-		);
+		expect(error.toString()).toBe("ApiErrorVantage: Resource not found (Code: resource_not_found)");
 	});
 
 	it("converts an error with details to a string", () => {

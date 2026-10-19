@@ -1,51 +1,99 @@
 ---
 ---
 
-# Lokalise APIv2 Node interface
+# Lokalise Node.js SDK
 
-**Please note that starting from version 9 this SDK is a pure [ESM](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules) module. It does not provide a CommonJS export (`require`) anymore.** Therefore you should either [convert your project to ESM](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c), use [dynamic import](https://v8.dev/features/dynamic-import) (find the example below), or stay on [version 8](https://github.com/lokalise/node-lokalise-api/tree/v8).
+Install the library using [npm](https://www.npmjs.com/):
 
-Install the library using [NPM](https://www.npmjs.com/):
-
-```
+```bash
 npm install @lokalise/node-api
 ```
 
-Obtain [Lokalise API token](https://docs.lokalise.com/en/articles/1929556-api-and-ota-tokens#h_9ea8e7ff3c) in your personal profile, initialize and use the client:
+Obtain a [Lokalise API token](https://docs.lokalise.com/en/articles/1929556-api-and-ota-tokens#h_9ea8e7ff3c) from your personal profile, then initialize the client for the API you want to use.
+
+## Expert API
+
+Use `LokaliseApi` to work with Expert projects, translations, files, and other resources.
 
 ```ts
 import { LokaliseApi } from "@lokalise/node-api";
 
-const lokaliseApi = new LokaliseApi({ apiKey: '<apiKey>'});
+const lokaliseApi = new LokaliseApi({ apiKey: "<apiKey>" });
+
+// List projects.
 const projects = await lokaliseApi.projects().list();
 projects.items[0].name;
 
-process = await lokaliseApi.files().upload(project_id,
-  {data: data_base64, filename: 'test1.json', lang_iso: 'en'})
-process.status // => 'queued'
+// Upload a file.
+const process = await lokaliseApi.files().upload(project_id, {
+  data: data_base64,
+  filename: "test1.json",
+  lang_iso: "en",
+});
+
+process.status; // "queued"
 ```
 
-> Looking for a simple solution to perform translation uploading/downloading? Try the new [lokalise-file-exchange](https://github.com/bodrovis/lokalise-node-file-exchange) package.
+> Looking for a simple solution to upload and download translations? Try the [lokalise-file-exchange](https://github.com/bodrovis/lokalise-node-file-exchange) package.
 
-Alternatively, you can use tokens obtained via [OAuth2](https://lokalise.github.io/node-lokalise-api/additional_info/oauth2_flow) (don't forget that these tokens have expiration dates):
+You can also use tokens obtained via [OAuth2](https://lokalise.github.io/node-lokalise-api/additional_info/oauth2_flow). Note that OAuth tokens expire.
 
 ```ts
-import { LokaliseApiOAuth } from '@lokalise/node-api';
+import { LokaliseApiOAuth } from "@lokalise/node-api";
 
-const lokaliseApi = new LokaliseApiOAuth({ apiKey: '<apiKeyObtainedViaOauth2>' });
+const lokaliseApi = new LokaliseApiOAuth({
+  apiKey: "<apiKeyObtainedViaOauth2>",
+});
 
-const projects = lokaliseApi.projects().list();
+const projects = await lokaliseApi.projects().list();
 ```
 
-Here's an example using dynamic import:
+For more examples, check the [sample repository](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples) and [blog post](https://lokalise.com/blog/lokalise-apiv2-in-practice/). You can also take our free [Lokalise for developers](https://academy.lokalise.com/course/lokalise-for-developers) course, which demonstrates Node.js SDK usage.
+
+## Vantage API
+
+Use `LokaliseApiVantage` to manage Vantage projects, content, translations, uploads, imports, and exports.
 
 ```ts
-(async function () {
-  const LokaliseApi = await (import('@lokalise/node-api').then(m => m.LokaliseApi));
-  const lokaliseApi = new LokaliseApi({ apiKey: LOKALISE_API_TOKEN});
+import { LokaliseApiVantage } from "@lokalise/node-api";
 
-  // use lokaliseApi here as usual...
-})();
+const lokaliseVantageApi = new LokaliseApiVantage({
+  apiKey: "<apiKey>",
+});
+
+// List projects in a team.
+const projects = await lokaliseVantageApi.projects().list({
+  team_id: "<teamId>",
+  limit: 10,
+});
+
+projects.items[0].name;
+
+// List project items.
+const items = await lokaliseVantageApi.projectItems().list({
+  project_id: "<projectId>",
+  limit: 10,
+});
+
+items.items[0].name;
 ```
 
-You can also check [this repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples) and [this blog post with explanations](https://lokalise.com/blog/lokalise-apiv2-in-practice/). Finally, you might be interested in our [free course "Lokalise for developers"](https://academy.lokalise.com/course/lokalise-for-developers) that showcases Node SDK usage.
+Both Expert and Vantage clients use the same API token. You can initialize both clients in the same application.
+
+## Dynamic imports
+
+Both clients support dynamic imports:
+
+```ts
+const { LokaliseApi, LokaliseApiVantage } = await import(
+  "@lokalise/node-api"
+);
+
+const expertApi = new LokaliseApi({
+  apiKey: "<apiKey>",
+});
+
+const vantageApi = new LokaliseApiVantage({
+  apiKey: "<apiKey>",
+});
+```

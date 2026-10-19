@@ -96,12 +96,10 @@ describe("OtaFreezePeriods", () => {
 
 		await stub.setStub();
 
-		const freeze = await lokaliseApiOta
-			.otaFreezePeriods()
-			.update(freezeId, params, {
-				teamId: teamId,
-				lokaliseProjectId: projectId,
-			});
+		const freeze = await lokaliseApiOta.otaFreezePeriods().update(freezeId, params, {
+			teamId: teamId,
+			lokaliseProjectId: projectId,
+		});
 
 		expect(freeze.to).to.eq("7.0");
 	});

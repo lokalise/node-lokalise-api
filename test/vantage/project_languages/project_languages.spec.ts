@@ -18,9 +18,7 @@ describe("Project languages", () => {
 
 		await stub.setStub();
 
-		const languages = await lokaliseVantageApi
-			.projectLanguages()
-			.list({ project_id });
+		const languages = await lokaliseVantageApi.projectLanguages().list({ project_id });
 
 		expect(languages).toHaveLength(2);
 

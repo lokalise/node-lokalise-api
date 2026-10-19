@@ -5,8 +5,7 @@ import type { TeamWithPagination } from "../types/teams.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class TranslationProviders extends BaseCollection<TranslationProvider> {
-	protected static override prefixURI =
-		"teams/{!:team_id}/translation_providers/{:id}";
+	protected static override prefixURI = "teams/{!:team_id}/translation_providers/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -22,18 +21,11 @@ export class TranslationProviders extends BaseCollection<TranslationProvider> {
 		return null;
 	}
 
-	list(
-		request_params: TeamWithPagination,
-	): Promise<PaginatedResult<TranslationProvider>> {
-		return this.doList(request_params) as Promise<
-			PaginatedResult<TranslationProvider>
-		>;
+	list(request_params: TeamWithPagination): Promise<PaginatedResult<TranslationProvider>> {
+		return this.doList(request_params) as Promise<PaginatedResult<TranslationProvider>>;
 	}
 
-	get(
-		provider_id: string | number,
-		request_params: TeamOnly,
-	): Promise<TranslationProvider> {
+	get(provider_id: string | number, request_params: TeamOnly): Promise<TranslationProvider> {
 		return this.doGet(provider_id, request_params);
 	}
 }

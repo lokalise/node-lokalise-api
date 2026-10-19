@@ -4,10 +4,7 @@ import type {
 	SegmentWarningVantage,
 } from "../../interfaces/vantage/segment_update_result.js";
 import { SegmentVantage } from "../../models/vantage/segment.js";
-import type {
-	SegmentParams,
-	SegmentUpdateBody,
-} from "../../types/vantage/segment.js";
+import type { SegmentParams, SegmentUpdateBody } from "../../types/vantage/segment.js";
 import { isRecord } from "../../utils/type_guards.js";
 import { BaseCollectionVantage } from "../base_collection_vantage.js";
 
@@ -21,9 +18,7 @@ export class SegmentsVantage extends BaseCollectionVantage<SegmentVantage> {
 		return SegmentVantage;
 	}
 
-	list(
-		request_params: SegmentParams,
-	): Promise<CursorPaginatedResultVantage<SegmentVantage>> {
+	list(request_params: SegmentParams): Promise<CursorPaginatedResultVantage<SegmentVantage>> {
 		return this.doListCursorVantage(request_params);
 	}
 
@@ -53,16 +48,12 @@ export class SegmentsVantage extends BaseCollectionVantage<SegmentVantage> {
 								(warning.details === undefined || isRecord(warning.details)),
 						))
 				) {
-					throw new Error(
-						"Expected 'warnings' to be an array of warning objects",
-					);
+					throw new Error("Expected 'warnings' to be an array of warning objects");
 				}
 
 				return {
 					data: this.populateObjectFromJson(data, headers) as SegmentVantage,
-					...(warnings !== undefined
-						? { warnings: warnings as SegmentWarningVantage[] }
-						: {}),
+					...(warnings !== undefined ? { warnings: warnings as SegmentWarningVantage[] } : {}),
 				};
 			},
 			body,

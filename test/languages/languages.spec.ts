@@ -60,9 +60,7 @@ describe("Languages", () => {
 		const language = getCollectionItem(languages);
 		expect(language.lang_id).to.eq(langId);
 		expect(language.lang_name).to.eq("English");
-		expect(language.project_language_uuid).to.include(
-			"01989e27-0e7e-7e1f-a9c3-1941288a4f85",
-		);
+		expect(language.project_language_uuid).to.include("01989e27-0e7e-7e1f-a9c3-1941288a4f85");
 		expect(languages.totalResults).to.eq(3);
 		expect(languages.totalPages).to.eq(3);
 		expect(languages.resultsPerPage).to.eq(1);
@@ -140,9 +138,7 @@ describe("Languages", () => {
 		expect(language.lang_iso).to.eq("en");
 		expect(language.is_rtl).to.be.false;
 		expect(language.plural_forms).to.include("other");
-		expect(language.project_language_uuid).to.include(
-			"01989e27-0e7e-7e1f-a9c3-1941288a4f85",
-		);
+		expect(language.project_language_uuid).to.include("01989e27-0e7e-7e1f-a9c3-1941288a4f85");
 	});
 
 	it("creates", async () => {
@@ -161,9 +157,7 @@ describe("Languages", () => {
 
 		await stub.setStub();
 
-		const languages = await lokaliseApi
-			.languages()
-			.create(params, { project_id: projectId });
+		const languages = await lokaliseApi.languages().create(params, { project_id: projectId });
 
 		const language = getCollectionItem(languages);
 		expect(language.lang_id).to.eq(secondLangId);

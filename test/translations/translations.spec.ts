@@ -205,11 +205,9 @@ describe("Translations", () => {
 
 		await stub.setStub();
 
-		const translation = await lokaliseApi
-			.translations()
-			.update(translationId, params, {
-				project_id: projectId,
-			});
+		const translation = await lokaliseApi.translations().update(translationId, params, {
+			project_id: projectId,
+		});
 
 		expect(translation.translation_id).to.eq(translationId);
 		expect(translation.translation).to.eq("test");

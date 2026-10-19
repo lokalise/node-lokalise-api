@@ -179,15 +179,16 @@ var ApiRequest = class ApiRequest {
 	}
 	/**
 	* Processes the fetch response.
-	* Attempts to parse JSON unless the status is 204 (No Content).
+	* Parses JSON when the response body is not empty.
 	* @param response - The raw fetch Response object.
-	* @param version - API version
+	* @param version - API version.
 	* @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
 	*/
 	async processResponse(response, version = "api2") {
 		let responseJSON = null;
 		try {
-			if (response.status !== 204) responseJSON = await response.json();
+			const responseText = await response.text();
+			if (responseText.length > 0) responseJSON = JSON.parse(responseText);
 		} catch (error) {
 			const message = error instanceof Error ? error.message : String(error);
 			throw new ApiError(message, response.status, {
@@ -275,9 +276,9 @@ var ApiRequest = class ApiRequest {
 	parseVantageError(json) {
 		if (!json || typeof json !== "object" || Array.isArray(json)) return null;
 		const error = json;
-		if (typeof error.message !== "string" || typeof error.code !== "string") return null;
+		if (typeof error.message !== "string" || typeof error.errorCode !== "string") return null;
 		const details = error.details && typeof error.details === "object" && !Array.isArray(error.details) ? error.details : void 0;
-		return new ApiErrorVantage(error.message, error.code, details);
+		return new ApiErrorVantage(error.message, error.errorCode, details);
 	}
 	getVantageErrorFromResp(respJson, fallbackStatus) {
 		if (respJson && typeof respJson === "object" && !Array.isArray(respJson)) {
@@ -637,6 +638,9 @@ var BaseCollection = class {
 		const request = await this.prepareRequest(method, body, params, uri);
 		if (request.response.json === null) throw new Error("Expected JSON response body, but received no content.");
 		return resolveFn.call(this, request.response.json, request.response.headers);
+	}
+	async createNoContentPromise(method, params, body, uri = null) {
+		await this.prepareRequest(method, body, params, uri);
 	}
 	/**
 	* Prepare the API request by creating a new ApiRequest instance using the static async factory method.
@@ -1708,6 +1712,27 @@ var ExportsVantage = class extends BaseCollectionVantage {
 };
 
 //#endregion
+//#region src/models/vantage/import.ts
+var ImportVantage = class {
+	importId;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/imports.ts
+var ImportsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/imports";
+	get elementClass() {
+		return ImportVantage;
+	}
+	create(request_params, body) {
+		return this.createPromise("POST", request_params, this.populateObjectFromJsonRoot, body);
+	}
+};
+
+//#endregion
 //#region src/models/vantage/project_item.ts
 var ProjectItemVantage = class {
 	id;
@@ -1859,6 +1884,76 @@ var TasksVantage = class extends BaseCollectionVantage {
 	}
 	list(request_params) {
 		return this.doListCursorVantage(request_params);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/translation_status.ts
+var TranslationStatusVantage = class {
+	projectId;
+	importId;
+	status;
+	languages;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/translation_statuses.ts
+var TranslationStatusesVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/translation-statuses";
+	get elementClass() {
+		return TranslationStatusVantage;
+	}
+	get(request_params) {
+		return this.doGetVantage(request_params, "projects/{!:project_id}/translation-statuses/{!:import_id}");
+	}
+};
+
+//#endregion
+//#region src/models/vantage/upload.ts
+var UploadVantage = class {
+	uploadId;
+	batchId;
+	fileName;
+	size;
+	createdAt;
+	status;
+	wordCount;
+	locale;
+	itemId;
+	error;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/models/vantage/upload_stage.ts
+var UploadStageVantage = class {
+	batchId;
+	uploads;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+//#endregion
+//#region src/collections/vantage/uploads.ts
+var UploadsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/uploads";
+	get elementClass() {
+		return UploadVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	create(request_params, body) {
+		return this.createPromise("POST", request_params, (json) => new UploadStageVantage(json.data), body);
+	}
+	complete(request_params, body) {
+		return this.createNoContentPromise("POST", request_params, body, "projects/{!:project_id}/uploads/actions/complete");
 	}
 };
 
@@ -2157,7 +2252,7 @@ var OtaCollection = class extends BaseCollection {
 		throw new Error("Invalid response format: expected object or array of objects in `data`");
 	}
 	async createVoidPromise(method, params, body, uri = null) {
-		await this.prepareRequest(method, body, params, uri);
+		await this.createNoContentPromise(method, params, body, uri);
 		return null;
 	}
 };
@@ -2411,6 +2506,9 @@ var LokaliseApiVantage = class extends BaseClient {
 	exports() {
 		return new ExportsVantage(this.clientData);
 	}
+	imports() {
+		return new ImportsVantage(this.clientData);
+	}
 	projects() {
 		return new ProjectsVantage(this.clientData);
 	}
@@ -2425,6 +2523,12 @@ var LokaliseApiVantage = class extends BaseClient {
 	}
 	tasks() {
 		return new TasksVantage(this.clientData);
+	}
+	translationStatuses() {
+		return new TranslationStatusesVantage(this.clientData);
+	}
+	uploads() {
+		return new UploadsVantage(this.clientData);
 	}
 };
 

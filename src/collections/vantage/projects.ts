@@ -12,9 +12,7 @@ export class ProjectsVantage extends BaseCollectionVantage<ProjectVantage> {
 		return ProjectVantage;
 	}
 
-	list(
-		request_params: ProjectParams,
-	): Promise<CursorPaginatedResultVantage<ProjectVantage>> {
+	list(request_params: ProjectParams): Promise<CursorPaginatedResultVantage<ProjectVantage>> {
 		return this.doListCursorVantage(request_params);
 	}
 

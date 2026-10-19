@@ -2,10 +2,7 @@ import type {
 	TaskVantage as ITaskVantage,
 	TaskAssignmentVantage,
 } from "../../interfaces/vantage/task.js";
-import type {
-	TaskStatusVantage,
-	TaskTypeVantage,
-} from "../../types/vantage/task.js";
+import type { TaskStatusVantage, TaskTypeVantage } from "../../types/vantage/task.js";
 
 export class TaskVantage implements ITaskVantage {
 	readonly id!: string;

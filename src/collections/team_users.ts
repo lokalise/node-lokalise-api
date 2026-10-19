@@ -26,10 +26,7 @@ export class TeamUsers extends BaseCollection<TeamUser> {
 		return this.doList(request_params) as Promise<PaginatedResult<TeamUser>>;
 	}
 
-	get(
-		team_user_id: string | number,
-		request_params: TeamOnly,
-	): Promise<TeamUser> {
+	get(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUser> {
 		return this.doGet(team_user_id, request_params);
 	}
 
@@ -41,10 +38,7 @@ export class TeamUsers extends BaseCollection<TeamUser> {
 		return this.doUpdate(team_user_id, team_user_params, request_params);
 	}
 
-	delete(
-		team_user_id: string | number,
-		request_params: TeamOnly,
-	): Promise<TeamUserDeleted> {
+	delete(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUserDeleted> {
 		return this.doDelete(team_user_id, request_params);
 	}
 }

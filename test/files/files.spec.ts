@@ -88,9 +88,7 @@ describe("Files", () => {
 
 		await stub.setStub();
 
-		const process: QueuedProcess = await lokaliseApi
-			.files()
-			.upload(projectId, params);
+		const process: QueuedProcess = await lokaliseApi.files().upload(projectId, params);
 
 		expect(process.process_id).to.eq(processId);
 		expect(process.type).to.eq("file-import");
@@ -119,9 +117,7 @@ describe("Files", () => {
 
 		await stub.setStub();
 
-		const process: QueuedProcess = await lokaliseApi
-			.files()
-			.upload(projectId, params);
+		const process: QueuedProcess = await lokaliseApi.files().upload(projectId, params);
 
 		expect(process.type).to.eq("file-import");
 		expect(process.status).to.eq("queued");
@@ -144,9 +140,7 @@ describe("Files", () => {
 
 		await stub.setStub();
 
-		const process: QueuedProcess = await lokaliseApi
-			.files()
-			.uploadFromFss(projectId, params);
+		const process: QueuedProcess = await lokaliseApi.files().uploadFromFss(projectId, params);
 
 		expect(process.process_id).to.eq(processId);
 		expect(process.type).to.eq("file-import");
@@ -277,9 +271,7 @@ describe("Files", () => {
 
 		await stub.setStub();
 
-		const process: QueuedProcess = await lokaliseApi
-			.files()
-			.async_download(projectId, params);
+		const process: QueuedProcess = await lokaliseApi.files().async_download(projectId, params);
 
 		expect(process).toBeInstanceOf(QueuedProcess);
 		expect(process.process_id).to.eq("2efe5657-8e10-655a-b1c3-ce96b16d47b2");
@@ -317,9 +309,7 @@ describe("Files", () => {
 
 		await stub.setStub();
 
-		const response = await lokaliseApi
-			.files()
-			.delete(fileId, { project_id: docsProjectId });
+		const response = await lokaliseApi.files().delete(fileId, { project_id: docsProjectId });
 
 		expect(response.project_id).to.eq(docsProjectId);
 		expect(response.file_deleted).to.be.true;

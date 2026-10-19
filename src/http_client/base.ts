@@ -64,12 +64,7 @@ export class ApiRequest {
 		clientData: ClientData,
 	): Promise<ApiRequest> {
 		const apiRequest = new ApiRequest(params);
-		apiRequest.response = await apiRequest.createPromise(
-			uri,
-			method,
-			body,
-			clientData,
-		);
+		apiRequest.response = await apiRequest.createPromise(uri, method, body, clientData);
 		return apiRequest;
 	}
 
@@ -132,8 +127,7 @@ export class ApiRequest {
 			throw new ApiError("requestTimeout must be a non-negative integer", 500);
 		}
 
-		const signal =
-			requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : undefined;
+		const signal = requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : undefined;
 
 		let response: Response;
 
@@ -145,11 +139,9 @@ export class ApiRequest {
 		} catch (err) {
 			if (err instanceof Error) {
 				if (err.name === "TimeoutError") {
-					throw new ApiError(
-						`Request timed out after ${requestTimeout}ms`,
-						408,
-						{ reason: "timeout" },
-					);
+					throw new ApiError(`Request timed out after ${requestTimeout}ms`, 408, {
+						reason: "timeout",
+					});
 				}
 
 				throw new ApiError(err.message, 500, {
@@ -172,10 +164,7 @@ export class ApiRequest {
 	 * @param version - API version.
 	 * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
 	 */
-	protected async processResponse(
-		response: Response,
-		version = "api2",
-	): Promise<ApiResponse> {
+	protected async processResponse(response: Response, version = "api2"): Promise<ApiResponse> {
 		let responseJSON: unknown = null;
 
 		try {
@@ -213,10 +202,7 @@ export class ApiRequest {
 	 * @param fallbackStatus - Fallback status from the response.
 	 * @returns An ApiError representing the server error.
 	 */
-	protected getErrorFromResp(
-		respJson: unknown,
-		fallbackStatus: number,
-	): ApiError {
+	protected getErrorFromResp(respJson: unknown, fallbackStatus: number): ApiError {
 		if (!respJson || typeof respJson !== "object") {
 			return new ApiError("An unknown error occurred", fallbackStatus, {
 				reason: "unexpected response format",
@@ -262,11 +248,9 @@ export class ApiRequest {
 		// { message: string, code?: number, errorCode?: number, details?: any }
 		if (
 			typeof errorObj.message === "string" &&
-			(typeof errorObj.code === "number" ||
-				typeof errorObj.errorCode === "number")
+			(typeof errorObj.code === "number" || typeof errorObj.errorCode === "number")
 		) {
-			const statusCode =
-				typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
+			const statusCode = typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
 
 			const rawDetails = errorObj.details;
 
@@ -297,8 +281,7 @@ export class ApiRequest {
 		method: HttpMethod,
 		body: object | object[] | null,
 	): Promise<Headers> {
-		const userAgent =
-			clientData.userAgent?.trim() || `node-lokalise-api/${await getVersion()}`;
+		const userAgent = clientData.userAgent?.trim() || `node-lokalise-api/${await getVersion()}`;
 		const headers = new Headers({
 			Accept: "application/json",
 			"User-Agent": userAgent,
@@ -341,16 +324,8 @@ export class ApiRequest {
 	 * @returns A function used as a replacement callback in `composeURI`.
 	 * @throws Error if a required parameter is missing.
 	 */
-	protected mapUriParams(): (
-		substring: string,
-		isMandatory: string,
-		paramName: string,
-	) => string {
-		return (
-			_substring: string,
-			isMandatory: string,
-			paramName: string,
-		): string => {
+	protected mapUriParams(): (substring: string, isMandatory: string, paramName: string) => string {
+		return (_substring: string, isMandatory: string, paramName: string): string => {
 			if (this.params[paramName] != null) {
 				const paramValue = String(this.params[paramName]);
 				// Remove the parameter so it doesn't appear as a query parameter
@@ -371,27 +346,19 @@ export class ApiRequest {
 
 		const error = json as Record<string, unknown>;
 
-		if (
-			typeof error.message !== "string" ||
-			typeof error.errorCode !== "string"
-		) {
+		if (typeof error.message !== "string" || typeof error.errorCode !== "string") {
 			return null;
 		}
 
 		const details =
-			error.details &&
-			typeof error.details === "object" &&
-			!Array.isArray(error.details)
+			error.details && typeof error.details === "object" && !Array.isArray(error.details)
 				? (error.details as Record<string, unknown>)
 				: undefined;
 
 		return new ApiErrorVantage(error.message, error.errorCode, details);
 	}
 
-	protected getVantageErrorFromResp(
-		respJson: unknown,
-		fallbackStatus: number,
-	): Error {
+	protected getVantageErrorFromResp(respJson: unknown, fallbackStatus: number): Error {
 		if (respJson && typeof respJson === "object" && !Array.isArray(respJson)) {
 			const json = respJson as Record<string, unknown>;
 
@@ -401,10 +368,7 @@ export class ApiRequest {
 					.filter((error): error is ApiErrorVantage => error !== null);
 
 				if (errors.length > 0) {
-					return new AggregateError(
-						errors,
-						`Vantage API returned ${errors.length} error(s)`,
-					);
+					return new AggregateError(errors, `Vantage API returned ${errors.length} error(s)`);
 				}
 			}
 

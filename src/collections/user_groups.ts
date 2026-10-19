@@ -2,10 +2,7 @@ import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { UserGroup } from "../models/user_group.js";
 import type { TeamOnly } from "../types/common_get_params.js";
 import type { TeamWithPagination } from "../types/teams.js";
-import type {
-	UserGroupDeleted,
-	UserGroupParams,
-} from "../types/user_groups.js";
+import type { UserGroupDeleted, UserGroupParams } from "../types/user_groups.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class UserGroups extends BaseCollection<UserGroup> {
@@ -25,27 +22,15 @@ export class UserGroups extends BaseCollection<UserGroup> {
 		return null;
 	}
 
-	list(
-		request_params: TeamWithPagination,
-	): Promise<PaginatedResult<UserGroup>> {
+	list(request_params: TeamWithPagination): Promise<PaginatedResult<UserGroup>> {
 		return this.doList(request_params) as Promise<PaginatedResult<UserGroup>>;
 	}
 
-	create(
-		user_group_params: UserGroupParams,
-		request_params: TeamOnly,
-	): Promise<UserGroup> {
-		return this.doCreate(
-			user_group_params,
-			request_params,
-			this.populateGroupFromJsonRoot,
-		);
+	create(user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup> {
+		return this.doCreate(user_group_params, request_params, this.populateGroupFromJsonRoot);
 	}
 
-	get(
-		user_group_id: string | number,
-		request_params: TeamOnly,
-	): Promise<UserGroup> {
+	get(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroup> {
 		return this.doGet(user_group_id, request_params);
 	}
 
@@ -62,10 +47,7 @@ export class UserGroups extends BaseCollection<UserGroup> {
 		);
 	}
 
-	delete(
-		user_group_id: string | number,
-		request_params: TeamOnly,
-	): Promise<UserGroupDeleted> {
+	delete(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroupDeleted> {
 		return this.doDelete(user_group_id, request_params);
 	}
 
@@ -145,10 +127,7 @@ export class UserGroups extends BaseCollection<UserGroup> {
 		);
 	}
 
-	protected populateGroupFromJsonRoot(
-		json: Record<string, unknown>,
-		headers: Headers,
-	): UserGroup {
+	protected populateGroupFromJsonRoot(json: Record<string, unknown>, headers: Headers): UserGroup {
 		const formatted_json = json.group as Record<string, unknown>;
 		return this.populateObjectFromJson(formatted_json, headers);
 	}

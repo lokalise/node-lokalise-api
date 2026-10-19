@@ -51,9 +51,7 @@ export abstract class BaseCollectionVantage<
 
 		const items = data.map((obj, index) => {
 			if (!isRecord(obj)) {
-				throw new Error(
-					`Expected item at index ${index} in 'data' to be an object`,
-				);
+				throw new Error(`Expected item at index ${index} in 'data' to be an object`);
 			}
 
 			return this.populateObjectFromJson(obj, headers) as ElementType;
@@ -73,18 +71,10 @@ export abstract class BaseCollectionVantage<
 		params: Record<string, unknown>,
 		uri: string | null = null,
 	): Promise<ElementType> {
-		return this.createPromise(
-			"GET",
-			params,
-			this.populateObjectFromJsonRoot,
-			null,
-			uri,
-		);
+		return this.createPromise("GET", params, this.populateObjectFromJsonRoot, null, uri);
 	}
 
-	protected doListArrayVantage(
-		params: Record<string, unknown>,
-	): Promise<ElementType[]> {
+	protected doListArrayVantage(params: Record<string, unknown>): Promise<ElementType[]> {
 		return this.createPromise("GET", params, this.populateArray, null);
 	}
 }

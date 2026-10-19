@@ -1,16 +1,7 @@
 import type { ProjectWithPagination } from "../../src/main.js";
 import { ApiError } from "../../src/main.js";
 import { getTestApiKey } from "../helpers/get_env.js";
-import {
-	afterEach,
-	captureError,
-	describe,
-	expect,
-	it,
-	LokaliseApi,
-	Stub,
-	vi,
-} from "../setup.js";
+import { afterEach, captureError, describe, expect, it, LokaliseApi, Stub, vi } from "../setup.js";
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -129,9 +120,7 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await expect(
-			lokaliseApi.branches().list({ project_id: fakeProjectId }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id: fakeProjectId })).rejects.toMatchObject({
 			message: "Auth error",
 			code: 401,
 			details: { reason: "server error without details" },
@@ -147,9 +136,7 @@ describe("Errors", () => {
 			text: vi.fn().mockRejectedValueOnce("broken json"),
 		} as unknown as Response);
 
-		await expect(
-			lokaliseApi.branches().list({ project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id })).rejects.toMatchObject({
 			message: "broken json",
 			code: 200,
 			details: {
@@ -186,9 +173,7 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await expect(
-			lokaliseApi.branches().list({ project_id: project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id: project_id })).rejects.toMatchObject({
 			message: "Auth error",
 			code: 401,
 			details: { status: "failed" },
@@ -204,9 +189,7 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await expect(
-			lokaliseApi.branches().list({ project_id: project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id: project_id })).rejects.toMatchObject({
 			message: "Unknown error",
 			code: 401,
 			details: { reason: "server error without details" },
@@ -214,13 +197,9 @@ describe("Errors", () => {
 	});
 
 	it("handles unexpected fetch errors", async () => {
-		vi.spyOn(globalThis, "fetch").mockRejectedValueOnce(
-			"unexpected fetch error",
-		);
+		vi.spyOn(globalThis, "fetch").mockRejectedValueOnce("unexpected fetch error");
 
-		await expect(
-			lokaliseApi.branches().list({ project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id })).rejects.toMatchObject({
 			message: "An unknown error occurred",
 			code: 500,
 			details: { reason: "unexpected fetch error" },
@@ -235,9 +214,7 @@ describe("Errors", () => {
 			}),
 		);
 
-		await expect(
-			lokaliseApi.branches().list({ project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id })).rejects.toMatchObject({
 			message: "An unknown error occurred",
 			code: 400,
 			details: { reason: "unexpected response format" },

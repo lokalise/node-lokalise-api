@@ -18,6 +18,4 @@ export type DownloadedFileProcessDetails = {
 	total_number_of_keys: number;
 };
 
-export type QueuedProcessDetails =
-	| UploadedFileProcessDetails
-	| DownloadedFileProcessDetails;
+export type QueuedProcessDetails = UploadedFileProcessDetails | DownloadedFileProcessDetails;

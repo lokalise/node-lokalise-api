@@ -4,7 +4,7 @@
 
 ## 17.0.0
 
-- Added support for the **Lokalise Vantage API** through the new `LokaliseApiVantage` client. It uses the same API token as the standard Lokalise API and provides access to Vantage projects, content, translations, uploads, imports, and exports.
+- Added support for the **Lokalise Vantage API** through the new `LokaliseApiVantage` client. It uses the same API token as the standard Lokalise API and provides access to Vantage projects, content, translations, uploads, imports, and exports. Please note that the Vantage API is still in beta.
 - Added support for cursor-based pagination in Vantage API responses.
 
 **Example usage:**

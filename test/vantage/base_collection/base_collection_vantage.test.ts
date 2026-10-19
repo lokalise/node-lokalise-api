@@ -61,9 +61,7 @@ describe("BaseCollectionVantage", () => {
 				data: "invalid",
 				meta: {},
 			}),
-		).toThrow(
-			"Expected 'data' to be an array for cursor pagination but received: string",
-		);
+		).toThrow("Expected 'data' to be an array for cursor pagination but received: string");
 	});
 
 	it("throws when meta is not an object", () => {
@@ -72,9 +70,7 @@ describe("BaseCollectionVantage", () => {
 				data: [],
 				meta: null,
 			}),
-		).toThrow(
-			"Expected 'meta' to be an object for Vantage cursor pagination but received: object",
-		);
+		).toThrow("Expected 'meta' to be an object for Vantage cursor pagination but received: object");
 	});
 
 	it("throws when a data item is not an object", () => {

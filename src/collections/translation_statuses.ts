@@ -1,9 +1,6 @@
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { TranslationStatus } from "../models/translation_status.js";
-import type {
-	ProjectOnly,
-	ProjectWithPagination,
-} from "../types/common_get_params.js";
+import type { ProjectOnly, ProjectWithPagination } from "../types/common_get_params.js";
 import type {
 	CreateTranslationStatusParams,
 	TranslationStatusColors,
@@ -13,8 +10,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class TranslationStatuses extends BaseCollection<TranslationStatus> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/custom_translation_statuses/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/custom_translation_statuses/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -30,12 +26,8 @@ export class TranslationStatuses extends BaseCollection<TranslationStatus> {
 		return "custom_translation_status";
 	}
 
-	list(
-		request_params: ProjectWithPagination,
-	): Promise<PaginatedResult<TranslationStatus>> {
-		return this.doList(request_params) as Promise<
-			PaginatedResult<TranslationStatus>
-		>;
+	list(request_params: ProjectWithPagination): Promise<PaginatedResult<TranslationStatus>> {
+		return this.doList(request_params) as Promise<PaginatedResult<TranslationStatus>>;
 	}
 
 	create(
@@ -61,11 +53,7 @@ export class TranslationStatuses extends BaseCollection<TranslationStatus> {
 		translation_status_params: UpdateTranslationStatusParams,
 		request_params: ProjectOnly,
 	): Promise<TranslationStatus> {
-		return this.doUpdate(
-			translation_status_id,
-			translation_status_params,
-			request_params,
-		);
+		return this.doUpdate(translation_status_id, translation_status_params, request_params);
 	}
 
 	delete(
@@ -75,9 +63,7 @@ export class TranslationStatuses extends BaseCollection<TranslationStatus> {
 		return this.doDelete(translation_status_id, request_params);
 	}
 
-	available_colors(
-		request_params: ProjectOnly,
-	): Promise<TranslationStatusColors> {
+	available_colors(request_params: ProjectOnly): Promise<TranslationStatusColors> {
 		return this.createPromise(
 			"GET",
 			request_params,

@@ -1,10 +1,7 @@
 import { readFile } from "node:fs/promises";
 import { MockAgent, setGlobalDispatcher } from "undici";
 import type { IncomingHttpHeaders } from "undici/types/header.js";
-import type {
-	Interceptable,
-	MockInterceptor,
-} from "undici/types/mock-interceptor.js";
+import type { Interceptable, MockInterceptor } from "undici/types/mock-interceptor.js";
 import { getVersion } from "../src/lokalise/pkg.js";
 import type { HttpMethod } from "../src/types/http_method.js";
 
@@ -70,11 +67,7 @@ export class Stub {
 		this.uriPath = this.buildUriPath(uri, query);
 		this.fixturePath = fixture ? `./fixtures/${fixture}` : "";
 		this.httpMethod = method;
-		this.requestHeaders = this.buildRequestHeaders(
-			skipApiToken,
-			body,
-			reqHeaders,
-		);
+		this.requestHeaders = this.buildRequestHeaders(skipApiToken, body, reqHeaders);
 		this.responseHeaders = respHeaders;
 		this.requestBody = body ? JSON.stringify(body) : undefined;
 		this.statusCode = status;
@@ -92,14 +85,10 @@ export class Stub {
 			await this.setupMock(mockPool);
 		} catch (error) {
 			if (error instanceof Error) {
-				throw new Error(
-					`Failed to set up mock for URI: ${this.uriPath} - ${error.message}`,
-				);
+				throw new Error(`Failed to set up mock for URI: ${this.uriPath} - ${error.message}`);
 			}
 
-			throw new Error(
-				`Failed to set up mock for URI: ${this.uriPath} - ${String(error)}`,
-			);
+			throw new Error(`Failed to set up mock for URI: ${this.uriPath} - ${String(error)}`);
 		}
 	}
 
@@ -126,9 +115,7 @@ export class Stub {
 		} else {
 			const responseData = this.data ?? (await this.readFixture());
 
-			const pool = mockPool
-				.intercept(interceptOpts)
-				.reply(this.statusCode, responseData, respOpts);
+			const pool = mockPool.intercept(interceptOpts).reply(this.statusCode, responseData, respOpts);
 
 			if (this.delay > 0) {
 				pool.delay(this.delay);
@@ -142,15 +129,10 @@ export class Stub {
 		}
 
 		try {
-			const fileContent = await readFile(
-				new URL(this.fixturePath, import.meta.url),
-			);
+			const fileContent = await readFile(new URL(this.fixturePath, import.meta.url));
 			return JSON.parse(fileContent.toString());
 		} catch (error) {
-			console.error(
-				`Error reading fixture file at ${this.fixturePath}:`,
-				error,
-			);
+			console.error(`Error reading fixture file at ${this.fixturePath}:`, error);
 			throw error;
 		}
 	}
@@ -187,9 +169,7 @@ export class Stub {
 		return {
 			method: this.httpMethod,
 			path: `/${this.version}/${this.uriPath}`,
-			...(this.requestHeaders !== undefined
-				? { headers: this.requestHeaders }
-				: {}),
+			...(this.requestHeaders !== undefined ? { headers: this.requestHeaders } : {}),
 		};
 	}
 

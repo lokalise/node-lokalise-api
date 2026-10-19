@@ -1,31 +1,34 @@
 {
 	"name": "@lokalise/node-api",
 	"version": "17.0.0",
-	"description": "Official Lokalise API 2.0 Node.js client",
+	"description": "Official Node.js SDK for Lokalise Expert and Vantage APIs",
 	"license": "BSD-3-Clause",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/lokalise/node-lokalise-api.git"
 	},
 	"keywords": [
-		"api",
-		"node",
-		"typescript",
 		"lokalise",
-		"client",
-		"client library"
+		"localization",
+		"translation",
+		"i18n",
+		"api",
+		"sdk",
+		"typescript",
+		"nodejs",
+		"vantage"
 	],
 	"type": "module",
 	"scripts": {
 		"build": "tsdown",
 		"test": "vitest run",
 		"test:watch": "vitest watch",
-		"lint": "npx @biomejs/biome check ./",
-		"lint:fix": "npx @biomejs/biome check --write ./",
-		"lint:fix:unsafe": "npx @biomejs/biome check --write --unsafe ./",
-		"typecheck": "tsc -p tsconfig.test.json --noEmit",
-		"format": "npx @biomejs/biome format ./",
-		"format:fix": "npx @biomejs/biome format --write ./"
+		"lint": "biome check .",
+		"lint:fix": "biome check --write .",
+		"lint:fix:unsafe": "biome check --write --unsafe .",
+		"format": "biome format .",
+		"format:fix": "biome format --write .",
+		"typecheck": "tsc -p tsconfig.test.json --noEmit"
 	},
 	"publishConfig": {
 		"access": "public"
@@ -56,8 +59,7 @@
 		"test": "./test"
 	},
 	"files": [
-		"dist",
-		"src"
+		"dist"
 	],
 	"author": "Lokalise group, Ilya Krukowski",
 	"engines": {

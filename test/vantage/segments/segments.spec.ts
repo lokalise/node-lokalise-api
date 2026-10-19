@@ -22,9 +22,7 @@ describe("Segments", () => {
 
 		await stub.setStub();
 
-		const segments = await lokaliseVantageApi
-			.segments()
-			.list({ project_id, content_unit_id });
+		const segments = await lokaliseVantageApi.segments().list({ project_id, content_unit_id });
 
 		expect(segments.items.length).toBe(6);
 		expect(segments.count).toBe(6);
@@ -163,10 +161,7 @@ describe("Segments", () => {
 			apiKey: getTestApiKey(),
 		});
 
-		async function setUpdateStub(
-			fixture: string,
-			body: Record<string, unknown>,
-		): Promise<void> {
+		async function setUpdateStub(fixture: string, body: Record<string, unknown>): Promise<void> {
 			const stub = new Stub({
 				fixture: `vantage/segments/${fixture}`,
 				uri: `projects/${project_id}/segments/${segment_id}`,
@@ -188,9 +183,7 @@ describe("Segments", () => {
 			expect(result.data.id).toBe(segment_id);
 			expect(result.data.status).toBe("PENDING_REVIEW");
 			expect(result.data.lastChangeSource).toBe("AI");
-			expect(result.data.contentUnitId).toBe(
-				"019d29da-3fee-8fad-b137-bb110afc5af0",
-			);
+			expect(result.data.contentUnitId).toBe("019d29da-3fee-8fad-b137-bb110afc5af0");
 			expect(result).not.toHaveProperty("warnings");
 		});
 
@@ -226,9 +219,9 @@ describe("Segments", () => {
 			const body = { value: "invalid-data-case" };
 			await setUpdateStub("update_invalid_data.json", body);
 
-			await expect(
-				lokaliseVantageApi.segments().update(params, body),
-			).rejects.toThrow("Expected 'data' to be an object");
+			await expect(lokaliseVantageApi.segments().update(params, body)).rejects.toThrow(
+				"Expected 'data' to be an object",
+			);
 		});
 
 		it.each([
@@ -240,9 +233,7 @@ describe("Segments", () => {
 			const body = { value: fixture };
 			await setUpdateStub(fixture, body);
 
-			await expect(
-				lokaliseVantageApi.segments().update(params, body),
-			).rejects.toThrow(
+			await expect(lokaliseVantageApi.segments().update(params, body)).rejects.toThrow(
 				"Expected 'warnings' to be an array of warning objects",
 			);
 		});

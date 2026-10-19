@@ -3,8 +3,7 @@ import type { ProjectOnly } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class TranslationMemories extends BaseCollection<TranslationMemory> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/translation-memories";
+	protected static override prefixURI = "projects/{!:project_id}/translation-memories";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,

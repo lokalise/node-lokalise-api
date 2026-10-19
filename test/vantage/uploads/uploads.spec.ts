@@ -2,14 +2,7 @@ import { createHash } from "node:crypto";
 import { UploadVantage as Upload } from "../../../src/models/vantage/upload.js";
 import { UploadStageVantage } from "../../../src/models/vantage/upload_stage.js";
 import { getTestApiKey } from "../../helpers/get_env.js";
-import {
-	describe,
-	expect,
-	it,
-	LokaliseApiVantage,
-	Stub,
-	vi,
-} from "../../setup.js";
+import { describe, expect, it, LokaliseApiVantage, Stub, vi } from "../../setup.js";
 
 describe("Uploads", () => {
 	const lokaliseVantageApi = new LokaliseApiVantage({
@@ -99,10 +92,7 @@ describe("Uploads", () => {
 			{
 				fileName: "vantage-test.md",
 				mimeType: "text/markdown",
-				content: Buffer.from(
-					"# Vantage SDK test\n\nHello from the Node.js SDK!\n",
-					"utf8",
-				),
+				content: Buffer.from("# Vantage SDK test\n\nHello from the Node.js SDK!\n", "utf8"),
 			},
 			{
 				fileName: "vantage-test.html",
@@ -159,12 +149,8 @@ describe("Uploads", () => {
 			expect(item.upload?.expiresAt).toBe("2026-10-19T13:34:53.000Z");
 		}
 
-		expect(markdown?.upload?.fields["Content-MD5"]).toBe(
-			"l1FqaDTofj9AB4hiMKDdTg==",
-		);
-		expect(html?.upload?.fields["Content-MD5"]).toBe(
-			"oGpk52OZT+aZTmQuODgM3g==",
-		);
+		expect(markdown?.upload?.fields["Content-MD5"]).toBe("l1FqaDTofj9AB4hiMKDdTg==");
+		expect(html?.upload?.fields["Content-MD5"]).toBe("oGpk52OZT+aZTmQuODgM3g==");
 	});
 
 	it("uploads and imports files", async () => {
@@ -172,10 +158,7 @@ describe("Uploads", () => {
 			{
 				fileName: "vantage-test.md",
 				mimeType: "text/markdown",
-				content: Buffer.from(
-					"# Vantage SDK test\n\nHello from the Node.js SDK!\n",
-					"utf8",
-				),
+				content: Buffer.from("# Vantage SDK test\n\nHello from the Node.js SDK!\n", "utf8"),
 			},
 			{
 				fileName: "vantage-test.html",
@@ -214,32 +197,22 @@ describe("Uploads", () => {
 
 		// Step 2: Simulate sending the files directly to S3.
 		// Mock fetch only during S3 uploads, leaving SDK requests untouched.
-		const s3Fetch = vi
-			.spyOn(globalThis, "fetch")
-			.mockImplementation(async (input, init) => {
-				const url =
-					typeof input === "string"
-						? input
-						: input instanceof URL
-							? input.toString()
-							: input.url;
+		const s3Fetch = vi.spyOn(globalThis, "fetch").mockImplementation(async (input, init) => {
+			const url =
+				typeof input === "string" ? input : input instanceof URL ? input.toString() : input.url;
 
-				expect(url).toBe(
-					"https://example-bucket.s3.eu-central-1.amazonaws.com/",
-				);
-				expect(init?.method).toBe("POST");
-				expect(init?.body).toBeInstanceOf(FormData);
+			expect(url).toBe("https://example-bucket.s3.eu-central-1.amazonaws.com/");
+			expect(init?.method).toBe("POST");
+			expect(init?.body).toBeInstanceOf(FormData);
 
-				// S3 responds with 204 and no body on success.
-				return new Response(null, { status: 204 });
-			});
+			// S3 responds with 204 and no body on success.
+			return new Response(null, { status: 204 });
+		});
 
 		try {
 			for (const item of staged.uploads) {
 				if (item.error) {
-					throw new Error(
-						`Failed to stage ${item.fileName}: ${item.error.message}`,
-					);
+					throw new Error(`Failed to stage ${item.fileName}: ${item.error.message}`);
 				}
 
 				const file = files.find((file) => file.fileName === item.fileName);
@@ -285,9 +258,7 @@ describe("Uploads", () => {
 					throw new Error("Expected a file in FormData");
 				}
 
-				expect(Buffer.from(await uploadedFile.arrayBuffer())).toEqual(
-					file.content,
-				);
+				expect(Buffer.from(await uploadedFile.arrayBuffer())).toEqual(file.content);
 
 				const response = await fetch(item.upload.url, {
 					method: "POST",
@@ -343,9 +314,7 @@ describe("Uploads", () => {
 				throw new Error(`Missing upload ID for ${item.fileName}`);
 			}
 
-			const uploaded = uploads.items.find(
-				(uploaded) => uploaded.uploadId === item.uploadId,
-			);
+			const uploaded = uploads.items.find((uploaded) => uploaded.uploadId === item.uploadId);
 
 			expect(uploaded).toBeDefined();
 			expect(uploaded?.status).toBe("UPLOADED");
@@ -379,12 +348,10 @@ describe("Uploads", () => {
 
 		await statusStub.setStub();
 
-		const translationStatus = await lokaliseVantageApi
-			.translationStatuses()
-			.get({
-				project_id,
-				import_id: imported.importId,
-			});
+		const translationStatus = await lokaliseVantageApi.translationStatuses().get({
+			project_id,
+			import_id: imported.importId,
+		});
 
 		expect(translationStatus.projectId).toBe(project_id);
 		expect(translationStatus.importId).toBe(imported.importId);
@@ -408,9 +375,7 @@ describe("Uploads", () => {
 
 		await stub.setStub();
 
-		const result = await lokaliseVantageApi
-			.uploads()
-			.complete({ project_id }, { batchId });
+		const result = await lokaliseVantageApi.uploads().complete({ project_id }, { batchId });
 
 		expect(result).toBeUndefined();
 	});

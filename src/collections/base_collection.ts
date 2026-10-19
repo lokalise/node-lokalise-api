@@ -62,9 +62,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @throws Error if not defined by the subclass.
 	 */
 	protected get rootElementName(): string {
-		throw new Error(
-			"rootElementName is not defined. Subclasses must override `rootElementName`.",
-		);
+		throw new Error("rootElementName is not defined. Subclasses must override `rootElementName`.");
 	}
 
 	/**
@@ -120,12 +118,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	protected doListCursor(
 		params: Record<string, unknown>,
 	): Promise<CursorPaginatedResult<ElementType>> {
-		return this.createPromise(
-			"GET",
-			params,
-			this.populateArrayFromJsonCursor,
-			null,
-		);
+		return this.createPromise("GET", params, this.populateArrayFromJsonCursor, null);
 	}
 
 	/**
@@ -134,16 +127,8 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param params Optional query or request parameters.
 	 * @returns A promise resolving to a single ElementType instance.
 	 */
-	protected doGet(
-		id: string | number,
-		params: Record<string, unknown> = {},
-	): Promise<ElementType> {
-		return this.createPromise(
-			"GET",
-			{ ...params, id },
-			this.populateObjectFromJsonRoot,
-			null,
-		);
+	protected doGet(id: string | number, params: Record<string, unknown> = {}): Promise<ElementType> {
+		return this.createPromise("GET", { ...params, id }, this.populateObjectFromJsonRoot, null);
 	}
 
 	/**
@@ -156,12 +141,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		id: string | number,
 		params: Record<string, unknown> = {},
 	): Promise<T> {
-		return this.createPromise(
-			"DELETE",
-			{ ...params, id },
-			this.returnBareJSON,
-			null,
-		) as Promise<T>;
+		return this.createPromise("DELETE", { ...params, id }, this.returnBareJSON, null) as Promise<T>;
 	}
 
 	/**
@@ -256,9 +236,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 
 		const itemJson = record[root];
 		if (!isRecord(itemJson)) {
-			throw new Error(
-				`Missing expected secondary property '${root}' in JSON response.`,
-			);
+			throw new Error(`Missing expected secondary property '${root}' in JSON response.`);
 		}
 
 		return this.populateObjectFromJson(
@@ -296,24 +274,18 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		const jsonArray = json[root];
 
 		if (!Array.isArray(jsonArray)) {
-			throw new Error(
-				`Expected an array under '${root}' but received: ${typeof jsonArray}`,
-			);
+			throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
 		}
 
 		const items: ElementType[] = jsonArray.map((obj, index) => {
 			if (!isRecord(obj)) {
-				throw new Error(
-					`Expected item at index ${index} in '${root}' to be an object`,
-				);
+				throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			}
 
 			return this.populateObjectFromJson(obj, headers) as ElementType;
 		});
 
-		const errors = Array.isArray(json.errors)
-			? (json.errors as BulkResult["errors"])
-			: [];
+		const errors = Array.isArray(json.errors) ? (json.errors as BulkResult["errors"]) : [];
 
 		return {
 			errors,
@@ -333,9 +305,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		headers: Headers,
 	): PaginatedResult<ElementType> | ElementType[] {
 		const array = this.populateArray(json, headers);
-		return this.isPaginated(headers)
-			? new PaginatedResult<ElementType>(array, headers)
-			: array;
+		return this.isPaginated(headers) ? new PaginatedResult<ElementType>(array, headers) : array;
 	}
 
 	/**
@@ -344,24 +314,17 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param json The raw JSON object returned by the API.
 	 * @param headers The response headers.
 	 */
-	protected populateArray(
-		json: Record<string, unknown>,
-		headers: Headers,
-	): ElementType[] {
+	protected populateArray(json: Record<string, unknown>, headers: Headers): ElementType[] {
 		const root = this.rootElementName;
 		const jsonArray = json[root];
 
 		if (!Array.isArray(jsonArray)) {
-			throw new Error(
-				`Expected an array under '${root}' but received: ${typeof jsonArray}`,
-			);
+			throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
 		}
 
 		return jsonArray.map((obj, index) => {
 			if (!isRecord(obj)) {
-				throw new Error(
-					`Expected item at index ${index} in '${root}' to be an object`,
-				);
+				throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			}
 
 			return this.populateObjectFromJson(obj, headers) as ElementType;
@@ -388,9 +351,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 
 		const items = jsonArray.map((obj, index) => {
 			if (!isRecord(obj)) {
-				throw new Error(
-					`Expected item at index ${index} in '${root}' to be an object`,
-				);
+				throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			}
 
 			return this.populateObjectFromJson(obj, headers) as ElementType;
@@ -454,11 +415,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 			throw new Error("Expected JSON response body, but received no content.");
 		}
 
-		return resolveFn.call(
-			this,
-			request.response.json,
-			request.response.headers,
-		);
+		return resolveFn.call(this, request.response.json, request.response.headers);
 	}
 
 	protected async createNoContentPromise(
@@ -483,13 +440,7 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		params: Record<string, unknown>,
 		uri: string | null,
 	): Promise<ApiRequestWithResponse> {
-		return await ApiRequest.create(
-			this.getUri(uri),
-			method,
-			body,
-			params,
-			this.clientData,
-		);
+		return await ApiRequest.create(this.getUri(uri), method, body, params, this.clientData);
 	}
 
 	/**
@@ -517,9 +468,6 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	 * @param headers The response headers.
 	 */
 	private isPaginated(headers: Headers): boolean {
-		return (
-			headers.has("x-pagination-total-count") &&
-			headers.has("x-pagination-page")
-		);
+		return headers.has("x-pagination-total-count") && headers.has("x-pagination-page");
 	}
 }

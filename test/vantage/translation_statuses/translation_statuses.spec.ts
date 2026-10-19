@@ -19,9 +19,7 @@ describe("Translation statuses", () => {
 
 		await stub.setStub();
 
-		const result = await lokaliseVantageApi
-			.translationStatuses()
-			.get({ project_id, import_id });
+		const result = await lokaliseVantageApi.translationStatuses().get({ project_id, import_id });
 
 		expect(result).toBeInstanceOf(TranslationStatus);
 		expect(result.projectId).toBe(project_id);

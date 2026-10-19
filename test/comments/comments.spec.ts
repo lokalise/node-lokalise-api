@@ -1,13 +1,6 @@
 import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
 import { getTestApiKey } from "../helpers/get_env.js";
-import {
-	captureError,
-	describe,
-	expect,
-	it,
-	LokaliseApi,
-	Stub,
-} from "../setup.js";
+import { captureError, describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
 describe("Comments", () => {
 	const lokaliseApi = new LokaliseApi({
@@ -59,9 +52,7 @@ describe("Comments", () => {
 			}),
 		);
 
-		expect(error.message).toEqual(
-			"Expected an array under 'comments' but received: object",
-		);
+		expect(error.message).toEqual("Expected an array under 'comments' but received: object");
 	});
 
 	it("lists project comments", async () => {
@@ -144,10 +135,10 @@ describe("Comments", () => {
 	});
 
 	it("creates", async () => {
-		const params = [
-			{ comment: "Project comment 1" },
-			{ comment: "Project comment 2" },
-		] satisfies [{ comment: string }, { comment: string }];
+		const params = [{ comment: "Project comment 1" }, { comment: "Project comment 2" }] satisfies [
+			{ comment: string },
+			{ comment: string },
+		];
 
 		const stub = new Stub({
 			fixture: "comments/create_key_comments.json",

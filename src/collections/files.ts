@@ -66,10 +66,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		);
 	}
 
-	uploadFromFss(
-		project_id: string,
-		upload: UploadFileFromFssParams,
-	): Promise<QueuedProcess> {
+	uploadFromFss(project_id: string, upload: UploadFileFromFssParams): Promise<QueuedProcess> {
 		return this.createPromise(
 			"POST",
 			{ project_id },
@@ -79,10 +76,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		);
 	}
 
-	download(
-		project_id: string,
-		download: DownloadFileParams,
-	): Promise<DownloadBundle> {
+	download(project_id: string, download: DownloadFileParams): Promise<DownloadBundle> {
 		return this.createPromise(
 			"POST",
 			{ project_id },
@@ -92,10 +86,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		);
 	}
 
-	async_download(
-		project_id: string,
-		download: DownloadFileParams,
-	): Promise<QueuedProcess> {
+	async_download(project_id: string, download: DownloadFileParams): Promise<QueuedProcess> {
 		return this.createPromise(
 			"POST",
 			{ project_id },
@@ -105,10 +96,7 @@ export class Files extends BaseCollection<File, QueuedProcess> {
 		);
 	}
 
-	delete(
-		file_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<FileDeleted> {
+	delete(file_id: string | number, request_params: ProjectOnly): Promise<FileDeleted> {
 		return this.doDelete(file_id, request_params);
 	}
 }

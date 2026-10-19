@@ -11,9 +11,7 @@ export class ProjectLanguagesVantage extends BaseCollectionVantage<ProjectLangua
 		return ProjectLanguageVantage;
 	}
 
-	list(
-		request_params: ProjectLanguageParams,
-	): Promise<ProjectLanguageVantage[]> {
+	list(request_params: ProjectLanguageParams): Promise<ProjectLanguageVantage[]> {
 		return this.doListArrayVantage(request_params);
 	}
 }

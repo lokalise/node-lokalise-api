@@ -20,9 +20,7 @@ describe("Content units", () => {
 
 		await stub.setStub();
 
-		const contentUnits = await lokaliseVantageApi
-			.contentUnits()
-			.list({ project_id, item_id });
+		const contentUnits = await lokaliseVantageApi.contentUnits().list({ project_id, item_id });
 
 		expect(contentUnits.items.length).toBe(4);
 		expect(contentUnits.count).toBe(4);

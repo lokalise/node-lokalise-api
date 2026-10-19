@@ -9,9 +9,7 @@ export class PaginatedResult<T> implements PaginatedResultInterface {
 	items: T[];
 
 	constructor(items: T[], headers: Headers) {
-		this.totalResults = this.safeParseInt(
-			headers.get("x-pagination-total-count"),
-		);
+		this.totalResults = this.safeParseInt(headers.get("x-pagination-total-count"));
 		this.totalPages = this.safeParseInt(headers.get("x-pagination-page-count"));
 		this.resultsPerPage = this.safeParseInt(headers.get("x-pagination-limit"));
 		this.currentPage = this.safeParseInt(headers.get("x-pagination-page"));

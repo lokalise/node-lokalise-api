@@ -17,9 +17,7 @@ export class UploadsVantage extends BaseCollectionVantage<UploadVantage> {
 		return UploadVantage;
 	}
 
-	list(
-		request_params: UploadListParams,
-	): Promise<CursorPaginatedResultVantage<UploadVantage>> {
+	list(request_params: UploadListParams): Promise<CursorPaginatedResultVantage<UploadVantage>> {
 		return this.doListCursorVantage(request_params);
 	}
 
@@ -35,10 +33,7 @@ export class UploadsVantage extends BaseCollectionVantage<UploadVantage> {
 		);
 	}
 
-	complete(
-		request_params: { project_id: string },
-		body: UploadCompleteParams,
-	): Promise<void> {
+	complete(request_params: { project_id: string }, body: UploadCompleteParams): Promise<void> {
 		return this.createNoContentPromise(
 			"POST",
 			request_params,

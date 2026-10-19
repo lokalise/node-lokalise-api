@@ -7,10 +7,7 @@ export interface ProjectVantage {
 	readonly name: string;
 	readonly description: string;
 	readonly baseLanguage: Pick<ProjectLanguageVantage, "languageId" | "locale">;
-	readonly targetLanguages: Pick<
-		ProjectLanguageVantage,
-		"languageId" | "locale"
-	>[];
+	readonly targetLanguages: Pick<ProjectLanguageVantage, "languageId" | "locale">[];
 	readonly translationSettings: ProjectTranslationSettingsVantage;
 	readonly contentSourceType: string | null;
 	readonly contentSourceName?: string | null;

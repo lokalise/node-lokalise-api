@@ -113,11 +113,9 @@ describe("TranslationStatuses", () => {
 
 		await stub.setStub();
 
-		const status = await lokaliseApi
-			.translationStatuses()
-			.update(newStatusId, params, {
-				project_id: projectId,
-			});
+		const status = await lokaliseApi.translationStatuses().update(newStatusId, params, {
+			project_id: projectId,
+		});
 
 		expect(status.title).to.eq("node updated");
 	});
@@ -131,11 +129,9 @@ describe("TranslationStatuses", () => {
 
 		await stub.setStub();
 
-		const response = await lokaliseApi
-			.translationStatuses()
-			.delete(newStatusId, {
-				project_id: projectId,
-			});
+		const response = await lokaliseApi.translationStatuses().delete(newStatusId, {
+			project_id: projectId,
+		});
 
 		expect(response.project_id).to.eq(projectId);
 		expect(response.custom_translation_status_deleted).to.be.true;
@@ -151,11 +147,9 @@ describe("TranslationStatuses", () => {
 
 		await stub.setStub();
 
-		const colors_data = await lokaliseApi
-			.translationStatuses()
-			.available_colors({
-				project_id: projectId,
-			});
+		const colors_data = await lokaliseApi.translationStatuses().available_colors({
+			project_id: projectId,
+		});
 
 		expect(colors_data.colors).to.include("#f2d600");
 	});

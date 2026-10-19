@@ -33,11 +33,7 @@ export class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod> {
 		freezeParams: OtaFreezePeriodParams,
 		requestParams: OtaTeamProject,
 	): Promise<OtaFreezePeriod> {
-		return this.doCreate(
-			freezeParams,
-			requestParams,
-			this.populateObjectFromJsonRoot,
-		);
+		return this.doCreate(freezeParams, requestParams, this.populateObjectFromJsonRoot);
 	}
 
 	update(
@@ -48,10 +44,7 @@ export class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod> {
 		return this.doUpdate(freezeId, freezeParams, requestParams);
 	}
 
-	delete(
-		freezeId: string | number,
-		requestParams: OtaTeamProject,
-	): Promise<OtaResourceDeleted> {
+	delete(freezeId: string | number, requestParams: OtaTeamProject): Promise<OtaResourceDeleted> {
 		return this.doDelete(freezeId, requestParams);
 	}
 }

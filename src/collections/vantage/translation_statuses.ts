@@ -2,8 +2,7 @@ import { TranslationStatusVantage } from "../../models/vantage/translation_statu
 import { BaseCollectionVantage } from "../base_collection_vantage.js";
 
 export class TranslationStatusesVantage extends BaseCollectionVantage<TranslationStatusVantage> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/translation-statuses";
+	protected static override prefixURI = "projects/{!:project_id}/translation-statuses";
 
 	protected override get elementClass(): new (
 		json: Record<string, unknown>,

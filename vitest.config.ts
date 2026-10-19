@@ -7,14 +7,13 @@ export default defineConfig({
 		target: "es2025",
 	},
 	test: {
-		silent: isCI,
 		sequence: {
 			shuffle: { files: true, tests: true },
 		},
 		coverage: {
 			enabled: true,
 			provider: "v8",
-			reporter: isCI ? ["lcov"] : ["html", "text-summary"],
+			reporter: isCI ? ["lcov", "text-summary"] : ["html", "text-summary"],
 			include: ["src/**/*.ts"],
 			clean: true,
 		},

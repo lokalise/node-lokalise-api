@@ -73,9 +73,7 @@ describe("Exports", () => {
 		expect(result.items[0]).toBeInstanceOf(Export);
 		expect(result.items[1]).toBeInstanceOf(Export);
 
-		expect(result.items.map((item) => item.exportId).sort()).toEqual(
-			[...exportIds].sort(),
-		);
+		expect(result.items.map((item) => item.exportId).sort()).toEqual([...exportIds].sort());
 	});
 
 	it("lists completed exports", async () => {
@@ -160,9 +158,7 @@ describe("Exports", () => {
 
 		await stub.setStub();
 
-		const result = await lokaliseVantageApi
-			.exports()
-			.create({ project_id }, { locales: ["fr"] });
+		const result = await lokaliseVantageApi.exports().create({ project_id }, { locales: ["fr"] });
 
 		expect(result).toBeInstanceOf(Export);
 		expect(result.exportId).toBe("01a14ff9-0232-48da-7ab0-2144dc32fd5d");

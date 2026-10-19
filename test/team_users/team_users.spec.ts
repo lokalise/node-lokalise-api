@@ -49,9 +49,7 @@ describe("TeamUsers", () => {
 
 		await stub.setStub();
 
-		const team_users = await lokaliseApi
-			.teamUsers()
-			.list({ team_id: teamId, ...params });
+		const team_users = await lokaliseApi.teamUsers().list({ team_id: teamId, ...params });
 
 		expect(getCollectionItem(team_users).user_id).to.eq(141203);
 		expect(team_users.totalResults).to.eq(3);
@@ -92,9 +90,7 @@ describe("TeamUsers", () => {
 
 		await stub.setStub();
 
-		const team_user = await lokaliseApi
-			.teamUsers()
-			.update(userId, params, { team_id: teamId });
+		const team_user = await lokaliseApi.teamUsers().update(userId, params, { team_id: teamId });
 
 		expect(team_user.user_id).to.eq(userId);
 		expect(team_user.role).to.eq("admin");

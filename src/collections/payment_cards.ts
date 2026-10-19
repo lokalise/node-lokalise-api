@@ -21,9 +21,7 @@ export class PaymentCards extends BaseCollection<PaymentCard> {
 		return "payment_card";
 	}
 
-	list(
-		request_params: PaginationParams = {},
-	): Promise<PaginatedResult<PaymentCard>> {
+	list(request_params: PaginationParams = {}): Promise<PaginatedResult<PaymentCard>> {
 		return this.doList(request_params) as Promise<PaginatedResult<PaymentCard>>;
 	}
 

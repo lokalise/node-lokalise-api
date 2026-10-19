@@ -1,10 +1,7 @@
 import type { TranslationProvider as TranslationProviderInterface } from "../interfaces/translation_provider.js";
 import { BaseModel } from "./base_model.js";
 
-export class TranslationProvider
-	extends BaseModel
-	implements TranslationProviderInterface
-{
+export class TranslationProvider extends BaseModel implements TranslationProviderInterface {
 	declare provider_id: number;
 	declare name: string;
 	declare slug: string;

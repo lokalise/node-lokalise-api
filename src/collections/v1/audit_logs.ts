@@ -12,9 +12,7 @@ export class AuditLogs extends BaseCollectionV1<AuditEventV1> {
 		return AuditEventV1;
 	}
 
-	list(
-		request_params: AuditLogParams = {},
-	): Promise<CursorPaginatedResultV1<AuditEventV1>> {
+	list(request_params: AuditLogParams = {}): Promise<CursorPaginatedResultV1<AuditEventV1>> {
 		return this.doListCursorV1(request_params);
 	}
 }

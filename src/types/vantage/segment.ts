@@ -7,11 +7,7 @@ export type SegmentStatusVantage =
 	| "PENDING_REVIEW"
 	| "APPROVED";
 
-export type SegmentLastChangeSourceVantage =
-	| "TRANSLATION_MEMORY"
-	| "AI"
-	| "HUMAN"
-	| "IMPORT";
+export type SegmentLastChangeSourceVantage = "TRANSLATION_MEMORY" | "AI" | "HUMAN" | "IMPORT";
 
 export type SegmentParams = CursorPaginationParams & {
 	project_id: string;

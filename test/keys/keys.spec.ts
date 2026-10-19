@@ -323,9 +323,7 @@ describe("Keys", () => {
 
 		await stub.setStub();
 
-		const keys = await lokaliseApi
-			.keys()
-			.create(params, { project_id: projectId });
+		const keys = await lokaliseApi.keys().create(params, { project_id: projectId });
 
 		const firstKey = getArrayItem(keys.items);
 		expect(firstKey.key_name.web).to.eq("welcome_web_new");
@@ -383,9 +381,7 @@ describe("Keys", () => {
 
 		await stub.setStub();
 
-		const keys = await lokaliseApi
-			.keys()
-			.create(params, { project_id: projectId });
+		const keys = await lokaliseApi.keys().create(params, { project_id: projectId });
 
 		const key = getArrayItem(keys.items);
 		expect(key.key_name.ios).to.eq("welcome_ios_supernew");
@@ -428,9 +424,7 @@ describe("Keys", () => {
 
 		await stub.setStub();
 
-		const keys = await lokaliseApi
-			.keys()
-			.create(params, { project_id: projectId });
+		const keys = await lokaliseApi.keys().create(params, { project_id: projectId });
 
 		const key = getArrayItem(keys.items);
 
@@ -455,9 +449,7 @@ describe("Keys", () => {
 
 		await stub.setStub();
 
-		const key = await lokaliseApi
-			.keys()
-			.update(keyId, params, { project_id: projectId });
+		const key = await lokaliseApi.keys().update(keyId, params, { project_id: projectId });
 
 		expect(key.key_id).to.eq(keyId);
 		expect(key.platforms).to.include("web", "other");
@@ -488,9 +480,7 @@ describe("Keys", () => {
 
 		await stub.setStub();
 
-		const keys = await lokaliseApi
-			.keys()
-			.bulk_update(params, { project_id: projectId });
+		const keys = await lokaliseApi.keys().bulk_update(params, { project_id: projectId });
 
 		const firstKey = getArrayItem(keys.items, 0);
 		expect(firstKey.key_id).to.eq(secondKeyId);

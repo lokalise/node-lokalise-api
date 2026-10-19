@@ -89,12 +89,10 @@ describe("OtaBundleManagement", () => {
 
 		await stub.setStub();
 
-		const bundle = await lokaliseApiOta
-			.otaBundleManagement()
-			.update(bundleId, params, {
-				teamId: teamId,
-				lokaliseProjectId: projectId,
-			});
+		const bundle = await lokaliseApiOta.otaBundleManagement().update(bundleId, params, {
+			teamId: teamId,
+			lokaliseProjectId: projectId,
+		});
 
 		expect(bundle.description).to.eq(params.description);
 	});
@@ -114,12 +112,10 @@ describe("OtaBundleManagement", () => {
 
 		await stub.setStub();
 
-		const response = await lokaliseApiOta
-			.otaBundleManagement()
-			.delete(bundleId, {
-				teamId: teamId,
-				lokaliseProjectId: projectId,
-			});
+		const response = await lokaliseApiOta.otaBundleManagement().delete(bundleId, {
+			teamId: teamId,
+			lokaliseProjectId: projectId,
+		});
 
 		expect(response.id).to.eq(bundleId);
 		expect(response.deleted).to.be.true;
@@ -146,8 +142,7 @@ describe("OtaBundleManagement", () => {
 				lokaliseProjectId: projectId,
 			}),
 		).rejects.toMatchObject({
-			message:
-				"Invalid response format: expected object or array of objects in `data`",
+			message: "Invalid response format: expected object or array of objects in `data`",
 		});
 	});
 
@@ -172,8 +167,7 @@ describe("OtaBundleManagement", () => {
 				lokaliseProjectId: projectId,
 			}),
 		).rejects.toMatchObject({
-			message:
-				"Invalid response format: expected object or array of objects in `data`",
+			message: "Invalid response format: expected object or array of objects in `data`",
 		});
 	});
 });

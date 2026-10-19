@@ -7,14 +7,8 @@ export class ProjectVantage implements IProjectVantage {
 	readonly teamId!: string;
 	readonly name!: string;
 	readonly description!: string;
-	readonly baseLanguage!: Pick<
-		IProjectLanguageVantage,
-		"languageId" | "locale"
-	>;
-	readonly targetLanguages!: Pick<
-		IProjectLanguageVantage,
-		"languageId" | "locale"
-	>[];
+	readonly baseLanguage!: Pick<IProjectLanguageVantage, "languageId" | "locale">;
+	readonly targetLanguages!: Pick<IProjectLanguageVantage, "languageId" | "locale">[];
 	readonly translationSettings!: ProjectTranslationSettingsVantage;
 	readonly contentSourceType!: string | null;
 	readonly contentSourceName?: string | null;

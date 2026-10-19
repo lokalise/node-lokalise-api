@@ -1,10 +1,7 @@
 import type { BulkResult } from "../interfaces/bulk_result.js";
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Screenshot } from "../models/screenshot.js";
-import type {
-	ProjectOnly,
-	ProjectWithPagination,
-} from "../types/common_get_params.js";
+import type { ProjectOnly, ProjectWithPagination } from "../types/common_get_params.js";
 import type {
 	CreateScreenshotParams,
 	ScreenshotDeleted,
@@ -13,8 +10,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Screenshots extends BaseCollection<Screenshot> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/screenshots/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/screenshots/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -30,9 +26,7 @@ export class Screenshots extends BaseCollection<Screenshot> {
 		return "screenshot";
 	}
 
-	list(
-		request_params: ProjectWithPagination,
-	): Promise<PaginatedResult<Screenshot>> {
+	list(request_params: ProjectWithPagination): Promise<PaginatedResult<Screenshot>> {
 		return this.doList(request_params) as Promise<PaginatedResult<Screenshot>>;
 	}
 
@@ -42,18 +36,10 @@ export class Screenshots extends BaseCollection<Screenshot> {
 	): Promise<BulkResult<Screenshot>> {
 		const body = { screenshots: this.objToArray(raw_body) };
 
-		return this.createPromise(
-			"POST",
-			request_params,
-			this.populateArrayFromJsonBulk,
-			body,
-		);
+		return this.createPromise("POST", request_params, this.populateArrayFromJsonBulk, body);
 	}
 
-	get(
-		screnshot_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<Screenshot> {
+	get(screnshot_id: string | number, request_params: ProjectOnly): Promise<Screenshot> {
 		return this.doGet(screnshot_id, request_params);
 	}
 
@@ -65,10 +51,7 @@ export class Screenshots extends BaseCollection<Screenshot> {
 		return this.doUpdate(screenshot_id, screenshot_params, request_params);
 	}
 
-	delete(
-		screenshot_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<ScreenshotDeleted> {
+	delete(screenshot_id: string | number, request_params: ProjectOnly): Promise<ScreenshotDeleted> {
 		return this.doDelete(screenshot_id, request_params);
 	}
 }

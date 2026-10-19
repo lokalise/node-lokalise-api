@@ -206,9 +206,9 @@ declare class ApiRequest {
   protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout?: number, version?: string): Promise<ApiResponse>;
   /**
    * Processes the fetch response.
-   * Attempts to parse JSON unless the status is 204 (No Content).
+   * Parses JSON when the response body is not empty.
    * @param response - The raw fetch Response object.
-   * @param version - API version
+   * @param version - API version.
    * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
    */
   protected processResponse(response: Response, version?: string): Promise<ApiResponse>;
@@ -483,6 +483,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @param uri An explicit URI to use for the request. If not provided, prefixURI is used.
    */
   protected createPromise<T>(method: HttpMethod, params: Record<string, unknown>, resolveFn: ResolveHandler<T>, body: object | object[] | null, uri?: string | null): Promise<T>;
+  protected createNoContentPromise(method: HttpMethod, params: Record<string, unknown>, body: object | object[] | null, uri?: string | null): Promise<void>;
   /**
    * Prepare the API request by creating a new ApiRequest instance using the static async factory method.
    * @param method The HTTP method.
@@ -1947,6 +1948,11 @@ interface ExportDownloadUrlVantage {
   readonly downloadUrl: string;
 }
 //#endregion
+//#region src/interfaces/vantage/import.d.ts
+interface ImportVantage {
+  readonly importId: string;
+}
+//#endregion
 //#region src/types/vantage/project.d.ts
 type ProjectReviewThresholdVantage = "FULL_REVIEW" | "CRITICAL_MAJOR_MINOR" | "CRITICAL_MAJOR" | "CRITICAL";
 type ProjectTranslationSettingsVantage = {
@@ -2086,6 +2092,65 @@ interface TaskVantage {
   readonly dueDate?: string | null;
   readonly createdAt: string;
   readonly requestedBy: string | null;
+}
+//#endregion
+//#region src/interfaces/vantage/translation_status.d.ts
+type TranslationProgressStatusVantage = "TRANSLATING" | "PENDING_REVIEW" | "COMPLETED" | "FAILED" | (string & {});
+type TranslationLanguageStatusVantage = "TRANSLATING" | "PENDING_REVIEW" | "COMPLETED" | (string & {});
+interface TranslationStatusLanguageVantage {
+  readonly languageId: string;
+  readonly locale: string;
+  readonly status: TranslationLanguageStatusVantage;
+}
+interface TranslationStatusVantage {
+  readonly projectId: string;
+  readonly importId: string;
+  readonly status: TranslationProgressStatusVantage;
+  readonly languages: TranslationStatusLanguageVantage[];
+}
+//#endregion
+//#region src/interfaces/vantage/upload.d.ts
+type UploadStatusVantage = "UPLOADING" | "UPLOADED" | "IMPORTING" | "IMPORTED" | "UPLOAD_FAILED" | "IMPORT_FAILED";
+interface UploadErrorVantage {
+  readonly code: string;
+  readonly message: string;
+}
+interface UploadVantage {
+  readonly uploadId: string;
+  readonly batchId: string;
+  readonly fileName: string;
+  readonly size: number;
+  readonly createdAt: string;
+  readonly status: UploadStatusVantage;
+  readonly wordCount?: number;
+  readonly locale?: string;
+  readonly itemId?: string;
+  readonly error?: UploadErrorVantage;
+}
+//#endregion
+//#region src/interfaces/vantage/upload_stage.d.ts
+interface UploadTargetVantage {
+  readonly url: string;
+  readonly fields: Record<string, string>;
+  readonly expiresAt: string;
+}
+interface StagedUploadSuccessVantage {
+  readonly fileName: string;
+  readonly uploadId: string;
+  readonly status: "UPLOADING";
+  readonly upload: UploadTargetVantage;
+  readonly error?: never;
+}
+interface StagedUploadFailureVantage {
+  readonly fileName: string;
+  readonly error: UploadErrorVantage;
+  readonly uploadId?: never;
+  readonly status?: never;
+  readonly upload?: never;
+}
+interface UploadStageVantage {
+  readonly batchId: string;
+  readonly uploads: (StagedUploadSuccessVantage | StagedUploadFailureVantage)[];
 }
 //#endregion
 //#region src/interfaces/webhook.d.ts
@@ -2414,6 +2479,30 @@ type ProjectItemParams = CursorPaginationParams & {
 //#region src/types/vantage/project_language.d.ts
 type ProjectLanguageParams = {
   project_id: string;
+};
+//#endregion
+//#region src/types/vantage/upload.d.ts
+type UploadListParams = {
+  project_id: string;
+  "filter-batch-id"?: string;
+  "filter-ids"?: string[];
+} & CursorPaginationParams;
+type UploadStageFileParams = {
+  fileName: string;
+  mimeType: string;
+  size: number;
+  checksum: string;
+};
+type UploadStageParams = {
+  batchId?: string;
+  uploads: UploadStageFileParams[];
+};
+type UploadCompleteParams = {
+  batchId: string;
+  uploadIds?: never;
+} | {
+  batchId?: never;
+  uploadIds: string[];
 };
 //#endregion
 //#region src/types/webhook_events/project_branch_added.d.ts
@@ -3775,6 +3864,32 @@ declare class ExportsVantage extends BaseCollectionVantage<ExportVantage$1> {
   }): Promise<ExportDownloadUrlVantage$1>;
 }
 //#endregion
+//#region src/models/vantage/import.d.ts
+declare class ImportVantage$1 implements ImportVantage {
+  readonly importId: string;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/types/vantage/import.d.ts
+type ImportParams = {
+  batchId: string;
+  uploads?: never;
+} | {
+  batchId?: never;
+  uploads: {
+    uploadId: string;
+  }[];
+};
+//#endregion
+//#region src/collections/vantage/imports.d.ts
+declare class ImportsVantage extends BaseCollectionVantage<ImportVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => ImportVantage$1;
+  create(request_params: {
+    project_id: string;
+  }, body: ImportParams): Promise<ImportVantage$1>;
+}
+//#endregion
 //#region src/models/vantage/project_item.d.ts
 declare class ProjectItemVantage$1 implements ProjectItemVantage {
   readonly id: string;
@@ -3883,6 +3998,60 @@ declare class TasksVantage extends BaseCollectionVantage<TaskVantage$1> {
   protected static prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TaskVantage$1;
   list(request_params: TaskParams): Promise<CursorPaginatedResultVantage<TaskVantage$1>>;
+}
+//#endregion
+//#region src/models/vantage/translation_status.d.ts
+declare class TranslationStatusVantage$1 implements TranslationStatusVantage {
+  readonly projectId: string;
+  readonly importId: string;
+  readonly status: TranslationProgressStatusVantage;
+  readonly languages: TranslationStatusLanguageVantage[];
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/translation_statuses.d.ts
+declare class TranslationStatusesVantage extends BaseCollectionVantage<TranslationStatusVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => TranslationStatusVantage$1;
+  get(request_params: {
+    project_id: string;
+    import_id: string;
+  }): Promise<TranslationStatusVantage$1>;
+}
+//#endregion
+//#region src/models/vantage/upload.d.ts
+declare class UploadVantage$1 implements UploadVantage {
+  readonly uploadId: string;
+  readonly batchId: string;
+  readonly fileName: string;
+  readonly size: number;
+  readonly createdAt: string;
+  readonly status: UploadStatusVantage;
+  readonly wordCount?: number;
+  readonly locale?: string;
+  readonly itemId?: string;
+  readonly error?: UploadErrorVantage;
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/models/vantage/upload_stage.d.ts
+declare class UploadStageVantage$1 implements UploadStageVantage {
+  readonly batchId: string;
+  readonly uploads: (StagedUploadSuccessVantage | StagedUploadFailureVantage)[];
+  constructor(json: Record<string, unknown>);
+}
+//#endregion
+//#region src/collections/vantage/uploads.d.ts
+declare class UploadsVantage extends BaseCollectionVantage<UploadVantage$1> {
+  protected static prefixURI: string;
+  protected get elementClass(): new (json: Record<string, unknown>) => UploadVantage$1;
+  list(request_params: UploadListParams): Promise<CursorPaginatedResultVantage$1<UploadVantage$1>>;
+  create(request_params: {
+    project_id: string;
+  }, body: UploadStageParams): Promise<UploadStageVantage$1>;
+  complete(request_params: {
+    project_id: string;
+  }, body: UploadCompleteParams): Promise<void>;
 }
 //#endregion
 //#region src/models/webhook.d.ts
@@ -4261,11 +4430,14 @@ export declare class LokaliseApiVantage extends BaseClient {
   constructor(params: ClientParams);
   contentUnits(): ContentUnitsVantage;
   exports(): ExportsVantage;
+  imports(): ImportsVantage;
   projects(): ProjectsVantage;
   projectItems(): ProjectItemsVantage;
   projectLanguages(): ProjectLanguagesVantage;
   segments(): SegmentsVantage;
   tasks(): TasksVantage;
+  translationStatuses(): TranslationStatusesVantage;
+  uploads(): UploadsVantage;
 }
 //#endregion
 //#region src/lokalise/lokalise_ota_bundles.d.ts
@@ -4361,5 +4533,5 @@ export declare class AuthError extends BaseModel implements IAuthError {
   error_uri?: string;
 }
 //#endregion
-export type { AiScoring, ApiErrorVantage, AuditEventV1, AuditLogParams, AuthData, BillingDetailsParams, Branch, BranchDeleted, BranchMerged, BranchParams, BulkResult, BulkUpdateKeyParams, CardDeleted, ClientData, ClientParams, Comment, CommentData, CommentDeleted, ContentUnitParams, ContentUnitTypeVantage, ContentUnitVantage, Contributor, ContributorCreateData, ContributorDeleted, ContributorLanguages, ContributorRights, ContributorRoles, ContributorUpdateData, CreateCardParams, CreateKeyData, CreateKeyParams, CreateLanguageParams, CreateOrderParams, CreateProjectParams, CreateScreenshotParams, CreateSnapshotParams, CreateTaskParams, CreateTermsParams, CreateTranslationStatusParams, CreateWebhookParams, CursorPaginatedResponseV1, CursorPaginatedResponseVantage, CursorPaginatedResult, CursorPaginatedResultV1, CursorPaginatedResultVantage, CursorPagination, CursorPaginationParamsV1, DownloadBundle, DownloadFileParams, DownloadedFileProcessDetails, ExportDownloadUrlVantage, ExportItemVantage, ExportLanguagesVantage, ExportListParams, ExportParams, ExportVantage, File, FileDeleted, FileFormat, Filenames, GetKeyParams, GetSegmentParams, GetTranslationParams, GlossaryTerm, HttpMethod, IApiError, IAuthError, Jwt, Key, KeyDeleted, KeyParamsWithPagination, KeyProjectPagination, KeysBulkDeleted, Language, LanguageDeleted, ListFileParams, ListSegmentParams, ListTaskParams, ListTermsParams, ListTranslationParams, MergeBranchParams, NumericBool, Order, OtaBundle, OtaBundleArchive, OtaBundleUpdateData, OtaFramework, OtaFreezePeriod, OtaFreezePeriodParams, OtaProjectFramework, OtaRequestBundleParams, OtaResourceDeleted, OtaSdkToken, OtaStatistics, OtaTeamProject, OtaTeamProjectFramework, OtaUsageParams, PaginatedResult, PaginationParams, PaymentCard, Project, ProjectAndKey, ProjectDeleted, ProjectEmptied, ProjectItemParams, ProjectItemVantage, ProjectLanguageParams, ProjectLanguageVantage, ProjectListParams, ProjectOnly, ProjectParams, ProjectReviewThresholdVantage, ProjectSettings, ProjectStatistics, ProjectTranslationSettingsVantage, ProjectVantage, ProjectWithPagination, QueuedProcess, QueuedProcessDetails, RefreshTokenResponse, RequestTokenResponse, Screenshot, ScreenshotData, ScreenshotDeleted, Segment, SegmentLastChangeSourceVantage, SegmentParams, SegmentStatusVantage, SegmentUpdateBody, SegmentUpdateResultVantage, SegmentUpdateStatus, SegmentVantage, SegmentWarningVantage, Snapshot, SnapshotDeleted, SupportedPlatforms, Task, TaskAssigneeTypeVantage, TaskAssignmentVantage, TaskDeleted, TaskLanguage, TaskParams, TaskSegmentStatusVantage, TaskSegmentVantage, TaskStatusVantage, TaskTypeVantage, TaskVantage, Team, TeamOnly, TeamUser, TeamUserBillingDetails, TeamUserDeleted, TeamUserParams, TeamWithPagination, TermsDeleted, Translation, TranslationData, TranslationMemory, TranslationProvider, TranslationStatus, TranslationStatusColors, TranslationStatusDeleted, UpdateKeyData, UpdateKeyDataWithId, UpdateLanguageParams, UpdateProjectParams, UpdateScreenshotParams, UpdateSegmentBodyParams, UpdateSegmentReqParams, UpdateTaskParams, UpdateTermsParams, UpdateTranslationParams, UpdateTranslationStatusParams, UpdateWebhookParams, UploadFileFromFssParams, UploadFileParams, UploadedFileProcessDetails, UserGroup, UserGroupDeleted, UserGroupParams, Webhook, WebhookDeleted, WebhookEventLangMap, WebhookEvents, WebhookProjectBranchAdded, WebhookProjectBranchDeleted, WebhookProjectBranchMerged, WebhookProjectContributorAdded, WebhookProjectContributorAddedPublic, WebhookProjectContributorDeleted, WebhookProjectCopied, WebhookProjectDeleted, WebhookProjectExported, WebhookProjectImported, WebhookProjectKeyAdded, WebhookProjectKeyCommentAdded, WebhookProjectKeyModified, WebhookProjectKeysAdded, WebhookProjectKeysDeleted, WebhookProjectKeysModified, WebhookProjectLanguageRemoved, WebhookProjectLanguageSettingsChanged, WebhookProjectLanguagesAdded, WebhookProjectSnapshotCreated, WebhookProjectTaskClosed, WebhookProjectTaskCreated, WebhookProjectTaskDeleted, WebhookProjectTaskInitialTmLeverageCalculated, WebhookProjectTaskLanguageClosed, WebhookProjectTaskQueued, WebhookProjectTranslationProofread, WebhookProjectTranslationUpdated, WebhookProjectTranslationsProofread, WebhookProjectTranslationsUpdated, WebhookRegenerated, WebhookTeamOrderCompleted, WebhookTeamOrderCreated, WebhookTeamOrderDeleted };
+export type { AiScoring, ApiErrorVantage, AuditEventV1, AuditLogParams, AuthData, BillingDetailsParams, Branch, BranchDeleted, BranchMerged, BranchParams, BulkResult, BulkUpdateKeyParams, CardDeleted, ClientData, ClientParams, Comment, CommentData, CommentDeleted, ContentUnitParams, ContentUnitTypeVantage, ContentUnitVantage, Contributor, ContributorCreateData, ContributorDeleted, ContributorLanguages, ContributorRights, ContributorRoles, ContributorUpdateData, CreateCardParams, CreateKeyData, CreateKeyParams, CreateLanguageParams, CreateOrderParams, CreateProjectParams, CreateScreenshotParams, CreateSnapshotParams, CreateTaskParams, CreateTermsParams, CreateTranslationStatusParams, CreateWebhookParams, CursorPaginatedResponseV1, CursorPaginatedResponseVantage, CursorPaginatedResult, CursorPaginatedResultV1, CursorPaginatedResultVantage, CursorPagination, CursorPaginationParamsV1, DownloadBundle, DownloadFileParams, DownloadedFileProcessDetails, ExportDownloadUrlVantage, ExportItemVantage, ExportLanguagesVantage, ExportListParams, ExportParams, ExportVantage, File, FileDeleted, FileFormat, Filenames, GetKeyParams, GetSegmentParams, GetTranslationParams, GlossaryTerm, HttpMethod, IApiError, IAuthError, ImportVantage, Jwt, Key, KeyDeleted, KeyParamsWithPagination, KeyProjectPagination, KeysBulkDeleted, Language, LanguageDeleted, ListFileParams, ListSegmentParams, ListTaskParams, ListTermsParams, ListTranslationParams, MergeBranchParams, NumericBool, Order, OtaBundle, OtaBundleArchive, OtaBundleUpdateData, OtaFramework, OtaFreezePeriod, OtaFreezePeriodParams, OtaProjectFramework, OtaRequestBundleParams, OtaResourceDeleted, OtaSdkToken, OtaStatistics, OtaTeamProject, OtaTeamProjectFramework, OtaUsageParams, PaginatedResult, PaginationParams, PaymentCard, Project, ProjectAndKey, ProjectDeleted, ProjectEmptied, ProjectItemParams, ProjectItemVantage, ProjectLanguageParams, ProjectLanguageVantage, ProjectListParams, ProjectOnly, ProjectParams, ProjectReviewThresholdVantage, ProjectSettings, ProjectStatistics, ProjectTranslationSettingsVantage, ProjectVantage, ProjectWithPagination, QueuedProcess, QueuedProcessDetails, RefreshTokenResponse, RequestTokenResponse, Screenshot, ScreenshotData, ScreenshotDeleted, Segment, SegmentLastChangeSourceVantage, SegmentParams, SegmentStatusVantage, SegmentUpdateBody, SegmentUpdateResultVantage, SegmentUpdateStatus, SegmentVantage, SegmentWarningVantage, Snapshot, SnapshotDeleted, StagedUploadFailureVantage, StagedUploadSuccessVantage, SupportedPlatforms, Task, TaskAssigneeTypeVantage, TaskAssignmentVantage, TaskDeleted, TaskLanguage, TaskParams, TaskSegmentStatusVantage, TaskSegmentVantage, TaskStatusVantage, TaskTypeVantage, TaskVantage, Team, TeamOnly, TeamUser, TeamUserBillingDetails, TeamUserDeleted, TeamUserParams, TeamWithPagination, TermsDeleted, Translation, TranslationData, TranslationMemory, TranslationProvider, TranslationStatus, TranslationStatusColors, TranslationStatusDeleted, TranslationStatusLanguageVantage, TranslationStatusVantage, UpdateKeyData, UpdateKeyDataWithId, UpdateLanguageParams, UpdateProjectParams, UpdateScreenshotParams, UpdateSegmentBodyParams, UpdateSegmentReqParams, UpdateTaskParams, UpdateTermsParams, UpdateTranslationParams, UpdateTranslationStatusParams, UpdateWebhookParams, UploadCompleteParams, UploadFileFromFssParams, UploadFileParams, UploadListParams, UploadStageFileParams, UploadStageParams, UploadStageVantage, UploadTargetVantage, UploadVantage, UploadedFileProcessDetails, UserGroup, UserGroupDeleted, UserGroupParams, Webhook, WebhookDeleted, WebhookEventLangMap, WebhookEvents, WebhookProjectBranchAdded, WebhookProjectBranchDeleted, WebhookProjectBranchMerged, WebhookProjectContributorAdded, WebhookProjectContributorAddedPublic, WebhookProjectContributorDeleted, WebhookProjectCopied, WebhookProjectDeleted, WebhookProjectExported, WebhookProjectImported, WebhookProjectKeyAdded, WebhookProjectKeyCommentAdded, WebhookProjectKeyModified, WebhookProjectKeysAdded, WebhookProjectKeysDeleted, WebhookProjectKeysModified, WebhookProjectLanguageRemoved, WebhookProjectLanguageSettingsChanged, WebhookProjectLanguagesAdded, WebhookProjectSnapshotCreated, WebhookProjectTaskClosed, WebhookProjectTaskCreated, WebhookProjectTaskDeleted, WebhookProjectTaskInitialTmLeverageCalculated, WebhookProjectTaskLanguageClosed, WebhookProjectTaskQueued, WebhookProjectTranslationProofread, WebhookProjectTranslationUpdated, WebhookProjectTranslationsProofread, WebhookProjectTranslationsUpdated, WebhookRegenerated, WebhookTeamOrderCompleted, WebhookTeamOrderCreated, WebhookTeamOrderDeleted };
 //# sourceMappingURL=main.d.mts.map

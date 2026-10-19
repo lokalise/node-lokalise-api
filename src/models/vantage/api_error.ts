@@ -4,11 +4,7 @@ export class ApiErrorVantage extends Error implements IApiErrorVantage {
 	readonly code: string;
 	readonly details?: Record<string, unknown>;
 
-	constructor(
-		message: string,
-		code: string,
-		details?: Record<string, unknown>,
-	) {
+	constructor(message: string, code: string, details?: Record<string, unknown>) {
 		super(message);
 		this.name = "ApiErrorVantage";
 		this.code = code;

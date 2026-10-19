@@ -26,9 +26,7 @@ export class Projects extends BaseCollection<Project> {
 		return null;
 	}
 
-	list(
-		request_params: ProjectListParams = {},
-	): Promise<PaginatedResult<Project>> {
+	list(request_params: ProjectListParams = {}): Promise<PaginatedResult<Project>> {
 		return this.doList(request_params) as Promise<PaginatedResult<Project>>;
 	}
 
@@ -40,16 +38,8 @@ export class Projects extends BaseCollection<Project> {
 		return this.doGet(project_id);
 	}
 
-	update(
-		project_id: string,
-		project_params: UpdateProjectParams,
-	): Promise<Project> {
-		return this.doUpdate(
-			project_id,
-			project_params,
-			{},
-			this.populateObjectFromJson,
-		);
+	update(project_id: string, project_params: UpdateProjectParams): Promise<Project> {
+		return this.doUpdate(project_id, project_params, {}, this.populateObjectFromJson);
 	}
 
 	delete(project_id: string): Promise<ProjectDeleted> {

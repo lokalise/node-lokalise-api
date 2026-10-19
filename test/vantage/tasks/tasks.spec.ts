@@ -25,9 +25,7 @@ describe("Tasks", () => {
 
 		await stub.setStub();
 
-		const tasks = await lokaliseVantageApi
-			.tasks()
-			.list({ team_id, project_id });
+		const tasks = await lokaliseVantageApi.tasks().list({ team_id, project_id });
 
 		expect(tasks.items.length).toBe(2);
 		expect(tasks.count).toBe(2);
@@ -81,9 +79,7 @@ describe("Tasks", () => {
 
 		await stub.setStub();
 
-		const tasks = await lokaliseVantageApi
-			.tasks()
-			.list({ team_id, project_id, ...query });
+		const tasks = await lokaliseVantageApi.tasks().list({ team_id, project_id, ...query });
 
 		expect(tasks.items.length).toBe(1);
 		expect(tasks.count).toBe(1);
@@ -107,9 +103,7 @@ describe("Tasks", () => {
 
 		await firstStub.setStub();
 
-		const firstPage = await lokaliseVantageApi
-			.tasks()
-			.list({ team_id, project_id, ...firstQuery });
+		const firstPage = await lokaliseVantageApi.tasks().list({ team_id, project_id, ...firstQuery });
 
 		expect(firstPage.items).toHaveLength(1);
 		expect(firstPage.count).toBe(1);
@@ -155,9 +149,7 @@ describe("Tasks", () => {
 
 		await stub.setStub();
 
-		const tasks = await lokaliseVantageApi
-			.tasks()
-			.list({ team_id, project_id, ...query });
+		const tasks = await lokaliseVantageApi.tasks().list({ team_id, project_id, ...query });
 
 		expect(tasks.items).toHaveLength(2);
 		expect(tasks.count).toBe(2);

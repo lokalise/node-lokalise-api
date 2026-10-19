@@ -4,8 +4,7 @@ import type { ContentUnitParams } from "../../types/vantage/content_unit_type.js
 import { BaseCollectionVantage } from "../base_collection_vantage.js";
 
 export class ContentUnitsVantage extends BaseCollectionVantage<ContentUnitVantage> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/items/{!:item_id}/content-units";
+	protected static override prefixURI = "projects/{!:project_id}/items/{!:item_id}/content-units";
 
 	protected override get elementClass(): new (
 		json: Record<string, unknown>,

@@ -37,10 +37,7 @@ export type CreateWebhookParams = {
 	event_lang_map?: WebhookEventLangMap[];
 };
 
-export type UpdateWebhookParams = Omit<
-	CreateWebhookParams,
-	"url" | "events"
-> & {
+export type UpdateWebhookParams = Omit<CreateWebhookParams, "url" | "events"> & {
 	url?: string;
 	events?: WebhookEvents[];
 };

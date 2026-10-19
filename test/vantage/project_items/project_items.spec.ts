@@ -18,9 +18,7 @@ describe("Project items", () => {
 
 		await stub.setStub();
 
-		const projectItems = await lokaliseVantageApi
-			.projectItems()
-			.list({ project_id });
+		const projectItems = await lokaliseVantageApi.projectItems().list({ project_id });
 		expect(projectItems.items.length).toBe(2);
 		expect(projectItems.count).toBe(2);
 		expect(projectItems.hasMore).toBe(false);
@@ -49,9 +47,7 @@ describe("Project items", () => {
 
 		await stub.setStub();
 
-		const projectItems = await lokaliseVantageApi
-			.projectItems()
-			.list({ project_id, ...query });
+		const projectItems = await lokaliseVantageApi.projectItems().list({ project_id, ...query });
 
 		expect(projectItems.items.length).toBe(1);
 		expect(projectItems.count).toBe(1);
