@@ -38,22 +38,18 @@ describe("Errors", () => {
 		});
 	});
 
-	it("is expected to throw when JSON processing failed", async () => {
+	it("throws when a JSON response is expected but the body is empty", async () => {
 		const stub = new Stub({
 			uri: `projects/${project_id}`,
 			status: 200,
+			data: "",
 		});
 
 		await stub.setStub();
 
-		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
-			message: "Unexpected end of JSON input",
-			code: 200,
-			details: {
-				statusText: "OK",
-				reason: "JSON parsing error",
-			},
-		});
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toThrow(
+			"Expected JSON response body, but received no content.",
+		);
 	});
 
 	it("is expected to handle cases when error codes are not numbers", async () => {
@@ -142,19 +138,37 @@ describe("Errors", () => {
 		});
 	});
 
-	it("handles non-Error JSON parsing failures", async () => {
+	it("handles non-Error response reading failures", async () => {
 		vi.spyOn(globalThis, "fetch").mockResolvedValueOnce({
 			ok: true,
 			status: 200,
 			statusText: "OK",
 			headers: new Headers(),
-			json: vi.fn().mockRejectedValueOnce("broken json"),
+			text: vi.fn().mockRejectedValueOnce("broken json"),
 		} as unknown as Response);
 
 		await expect(
 			lokaliseApi.branches().list({ project_id }),
 		).rejects.toMatchObject({
 			message: "broken json",
+			code: 200,
+			details: {
+				statusText: "OK",
+				reason: "JSON parsing error",
+			},
+		});
+	});
+
+	it("throws when the response contains invalid JSON", async () => {
+		const stub = new Stub({
+			uri: `projects/${project_id}`,
+			status: 200,
+			data: "{",
+		});
+
+		await stub.setStub();
+
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
 			code: 200,
 			details: {
 				statusText: "OK",

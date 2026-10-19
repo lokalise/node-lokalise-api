@@ -42,7 +42,7 @@ export abstract class OtaCollection<
 		body: object | object[] | null,
 		uri: string | null = null,
 	): Promise<null> {
-		await this.prepareRequest(method, body, params, uri);
+		await this.createNoContentPromise(method, params, body, uri);
 		return null;
 	}
 }

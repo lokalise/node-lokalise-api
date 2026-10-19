@@ -167,9 +167,9 @@ export class ApiRequest {
 
 	/**
 	 * Processes the fetch response.
-	 * Attempts to parse JSON unless the status is 204 (No Content).
+	 * Parses JSON when the response body is not empty.
 	 * @param response - The raw fetch Response object.
-	 * @param version - API version
+	 * @param version - API version.
 	 * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
 	 */
 	protected async processResponse(
@@ -179,8 +179,10 @@ export class ApiRequest {
 		let responseJSON: unknown = null;
 
 		try {
-			if (response.status !== 204) {
-				responseJSON = await response.json();
+			const responseText = await response.text();
+
+			if (responseText.length > 0) {
+				responseJSON = JSON.parse(responseText);
 			}
 		} catch (error) {
 			const message = error instanceof Error ? error.message : String(error);
@@ -369,7 +371,10 @@ export class ApiRequest {
 
 		const error = json as Record<string, unknown>;
 
-		if (typeof error.message !== "string" || typeof error.code !== "string") {
+		if (
+			typeof error.message !== "string" ||
+			typeof error.errorCode !== "string"
+		) {
 			return null;
 		}
 
@@ -380,7 +385,7 @@ export class ApiRequest {
 				? (error.details as Record<string, unknown>)
 				: undefined;
 
-		return new ApiErrorVantage(error.message, error.code, details);
+		return new ApiErrorVantage(error.message, error.errorCode, details);
 	}
 
 	protected getVantageErrorFromResp(

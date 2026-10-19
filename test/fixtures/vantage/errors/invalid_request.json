@@ -1,6 +1,6 @@
 {
 	"message": "The request could not be processed.",
-	"code": "invalid_request",
+	"errorCode": "invalid_request",
 	"details": {
 		"field": "projectId"
 	}

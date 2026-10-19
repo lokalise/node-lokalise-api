@@ -1,0 +1,47 @@
+{
+	"data": {
+		"batchId": "01a1545a-b48f-47a3-d2bd-953ac4c2427d",
+		"uploads": [
+			{
+				"fileName": "vantage-test.md",
+				"uploadId": "01a1545a-b49a-8243-6f67-ec3eed132bd5",
+				"status": "UPLOADING",
+				"upload": {
+					"url": "https://example-bucket.s3.eu-central-1.amazonaws.com/",
+					"fields": {
+						"Content-MD5": "l1FqaDTofj9AB4hiMKDdTg==",
+						"bucket": "example-bucket",
+						"X-Amz-Algorithm": "AWS4-HMAC-SHA256",
+						"X-Amz-Credential": "EXAMPLE/20261019/eu-central-1/s3/aws4_request",
+						"X-Amz-Date": "20261019T132953Z",
+						"X-Amz-Security-Token": "example-security-token",
+						"key": "test/importViaUploadPostForm/markdown-file",
+						"Policy": "example-policy",
+						"X-Amz-Signature": "example-signature"
+					},
+					"expiresAt": "2026-10-19T13:34:53.000Z"
+				}
+			},
+			{
+				"fileName": "vantage-test.html",
+				"uploadId": "01a1545a-b4d3-9ca5-dba8-e213361bcef0",
+				"status": "UPLOADING",
+				"upload": {
+					"url": "https://example-bucket.s3.eu-central-1.amazonaws.com/",
+					"fields": {
+						"Content-MD5": "oGpk52OZT+aZTmQuODgM3g==",
+						"bucket": "example-bucket",
+						"X-Amz-Algorithm": "AWS4-HMAC-SHA256",
+						"X-Amz-Credential": "EXAMPLE/20261019/eu-central-1/s3/aws4_request",
+						"X-Amz-Date": "20261019T132953Z",
+						"X-Amz-Security-Token": "example-security-token",
+						"key": "test/importViaUploadPostForm/html-file",
+						"Policy": "example-policy",
+						"X-Amz-Signature": "example-signature"
+					},
+					"expiresAt": "2026-10-19T13:34:53.000Z"
+				}
+			}
+		]
+	}
+}

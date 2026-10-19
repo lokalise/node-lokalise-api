@@ -461,6 +461,15 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		);
 	}
 
+	protected async createNoContentPromise(
+		method: HttpMethod,
+		params: Record<string, unknown>,
+		body: object | object[] | null,
+		uri: string | null = null,
+	): Promise<void> {
+		await this.prepareRequest(method, body, params, uri);
+	}
+
 	/**
 	 * Prepare the API request by creating a new ApiRequest instance using the static async factory method.
 	 * @param method The HTTP method.

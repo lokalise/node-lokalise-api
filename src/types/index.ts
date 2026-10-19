@@ -154,6 +154,12 @@ export type {
 	TaskStatusVantage,
 	TaskTypeVantage,
 } from "./vantage/task.js";
+export type {
+	UploadCompleteParams,
+	UploadListParams,
+	UploadStageFileParams,
+	UploadStageParams,
+} from "./vantage/upload.js";
 export type { WebhookProjectBranchAdded } from "./webhook_events/project_branch_added.js";
 export type { WebhookProjectBranchDeleted } from "./webhook_events/project_branch_deleted.js";
 export type { WebhookProjectBranchMerged } from "./webhook_events/project_branch_merged.js";

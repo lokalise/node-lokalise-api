@@ -49,6 +49,7 @@ export type { CursorPaginatedResponseVantage } from "./vantage/cursor_paginated_
 export type { CursorPaginatedResultVantage } from "./vantage/cursor_paginated_result.js";
 export type { ExportVantage } from "./vantage/export.js";
 export type { ExportDownloadUrlVantage } from "./vantage/export_download_url.js";
+export type { ImportVantage } from "./vantage/import.js";
 export type { ProjectVantage } from "./vantage/project.js";
 export type { ProjectItemVantage } from "./vantage/project_item.js";
 export type { ProjectLanguageVantage } from "./vantage/project_language.js";
@@ -62,4 +63,15 @@ export type {
 	TaskSegmentVantage,
 	TaskVantage,
 } from "./vantage/task.js";
+export type {
+	TranslationStatusLanguageVantage,
+	TranslationStatusVantage,
+} from "./vantage/translation_status.js";
+export type { UploadVantage } from "./vantage/upload.js";
+export type {
+	StagedUploadFailureVantage,
+	StagedUploadSuccessVantage,
+	UploadStageVantage,
+	UploadTargetVantage,
+} from "./vantage/upload_stage.js";
 export type { Webhook } from "./webhook.js";

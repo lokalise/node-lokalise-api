@@ -1,0 +1,14 @@
+{
+	"data": {
+		"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+		"importId": "019d29da-1111-4111-8111-111111111111",
+		"status": "PENDING_REVIEW",
+		"languages": [
+			{
+				"languageId": "019d29d9-de52-7ba2-87c6-b5355efd2aa7",
+				"locale": "fr",
+				"status": "PENDING_REVIEW"
+			}
+		]
+	}
+}

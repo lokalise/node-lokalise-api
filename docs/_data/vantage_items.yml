@@ -12,3 +12,5 @@
   path: segments
 - title: Tasks
   path: tasks
+- title: Uploads
+  path: uploads

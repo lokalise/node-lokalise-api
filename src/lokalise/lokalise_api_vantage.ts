@@ -1,10 +1,13 @@
 import { ContentUnitsVantage } from "../collections/vantage/content_units.js";
 import { ExportsVantage } from "../collections/vantage/exports.js";
+import { ImportsVantage } from "../collections/vantage/imports.js";
 import { ProjectItemsVantage } from "../collections/vantage/project_items.js";
 import { ProjectLanguagesVantage } from "../collections/vantage/project_languages.js";
 import { ProjectsVantage } from "../collections/vantage/projects.js";
 import { SegmentsVantage } from "../collections/vantage/segments.js";
 import { TasksVantage } from "../collections/vantage/tasks.js";
+import { TranslationStatusesVantage } from "../collections/vantage/translation_statuses.js";
+import { UploadsVantage } from "../collections/vantage/uploads.js";
 import type { ClientParams } from "../interfaces/client_params.js";
 import { BaseClient } from "./base_client.js";
 
@@ -22,6 +25,10 @@ export class LokaliseApiVantage extends BaseClient {
 
 	exports(): ExportsVantage {
 		return new ExportsVantage(this.clientData);
+	}
+
+	imports(): ImportsVantage {
+		return new ImportsVantage(this.clientData);
 	}
 
 	projects(): ProjectsVantage {
@@ -42,5 +49,13 @@ export class LokaliseApiVantage extends BaseClient {
 
 	tasks(): TasksVantage {
 		return new TasksVantage(this.clientData);
+	}
+
+	translationStatuses(): TranslationStatusesVantage {
+		return new TranslationStatusesVantage(this.clientData);
+	}
+
+	uploads(): UploadsVantage {
+		return new UploadsVantage(this.clientData);
 	}
 }

@@ -2,12 +2,12 @@
 	"errors": [
 		{
 			"message": "Invalid value.",
-			"code": "validation_error",
+			"errorCode": "validation_error",
 			"details": { "field": "name" }
 		},
 		{
 			"message": "Invalid value.",
-			"code": "validation_error",
+			"errorCode": "validation_error",
 			"details": { "field": "language" }
 		}
 	]
