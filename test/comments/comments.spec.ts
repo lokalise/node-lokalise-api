@@ -32,7 +32,7 @@ describe("Comments", () => {
 		expect(comments.totalResults).to.eq(1);
 	});
 
-	it("lists project comments", async () => {
+	it("rejects malformed project comments responses", async () => {
 		const stub = new Stub({
 			fixture: "comments/project_comments_malformed.json",
 			uri: `projects/${projectId}/comments`,
@@ -55,7 +55,7 @@ describe("Comments", () => {
 		expect(error.message).toEqual("Expected an array under 'comments' but received: object");
 	});
 
-	it("lists project comments", async () => {
+	it("lists paginated project comments", async () => {
 		const params = {
 			page: 2,
 			limit: 2,

@@ -8,4 +8,4 @@ to keep the conversation linked together.
 ### Other Information
 
 If there's anything else that's important and relevant to your pull
-request, mention that information here. 
+request, mention that information here.

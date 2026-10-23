@@ -6,7 +6,6 @@
 [![NPM Downloads][npm-downloads-image]][npm-downloads-url]
 
 Official Node.js SDK for the Lokalise Expert and Vantage APIs.
-
 - **Expert API:** Manage projects, translations, files, tasks, and other resources. See the [Expert API reference](https://developers.lokalise.com/reference/lokalise-rest-api).
 - **Vantage API:** Manage projects, content, uploads, imports, exports, and translation workflows. See the [Vantage API reference](https://developers.lokalise.com/reference/lokalise-vantage-api-introduction).
 
@@ -37,9 +36,9 @@ projects.items[0].name;
 
 // Upload a file.
 const process = await lokaliseApi.files().upload(project_id, {
-  data: data_base64,
-  filename: "test1.json",
-  lang_iso: "en",
+	data: data_base64,
+	filename: "test1.json",
+	lang_iso: "en",
 });
 
 process.status; // "queued"
@@ -53,21 +52,21 @@ Use `LokaliseApiVantage` to work with Vantage projects, content, uploads, import
 import { LokaliseApiVantage } from "@lokalise/node-api";
 
 const lokaliseVantageApi = new LokaliseApiVantage({
-  apiKey: "<apiKey>",
+	apiKey: "<apiKey>",
 });
 
 // List projects in a team.
 const projects = await lokaliseVantageApi.projects().list({
-  team_id: "<teamId>",
-  limit: 10,
+	team_id: "<teamId>",
+	limit: 10,
 });
 
 projects.items[0].name;
 
 // List project items.
 const items = await lokaliseVantageApi.projectItems().list({
-  project_id: "<projectId>",
-  limit: 10,
+	project_id: "<projectId>",
+	limit: 10,
 });
 
 items.items[0].name;
@@ -85,7 +84,7 @@ For the Expert API, you can alternatively use tokens obtained via [OAuth2](https
 import { LokaliseApiOAuth } from "@lokalise/node-api";
 
 const lokaliseApi = new LokaliseApiOAuth({
-  apiKey: "<apiKeyObtainedViaOauth2>",
+	apiKey: "<apiKeyObtainedViaOauth2>",
 });
 
 const projects = await lokaliseApi.projects().list();
@@ -96,16 +95,14 @@ const projects = await lokaliseApi.projects().list();
 You can also import the API clients dynamically:
 
 ```ts
-const { LokaliseApi, LokaliseApiVantage } = await import(
-  "@lokalise/node-api"
-);
+const { LokaliseApi, LokaliseApiVantage } = await import("@lokalise/node-api");
 
 const expertApi = new LokaliseApi({
-  apiKey: "<apiKey>",
+	apiKey: "<apiKey>",
 });
 
 const vantageApi = new LokaliseApiVantage({
-  apiKey: "<apiKey>",
+	apiKey: "<apiKey>",
 });
 ```
 
@@ -114,7 +111,6 @@ const vantageApi = new LokaliseApiVantage({
 Full docs live at: [lokalise.github.io/node-lokalise-api](https://lokalise.github.io/node-lokalise-api/).
 
 Also useful:
-
 - [repo containing some usage examples](https://github.com/bodrovis-learning/Lokalise-APIv2-Samples)
 - [blog post with explanations](https://lokalise.com/blog/lokalise-apiv2-in-practice/)
 - [free course "Lokalise for developers"](https://academy.lokalise.com/course/lokalise-for-developers) (Node SDK usage)

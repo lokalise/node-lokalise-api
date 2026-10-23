@@ -12,6 +12,7 @@ describe("ApiErrorVantage", () => {
 		expect(error.message).toBe("Resource not found");
 		expect(error.code).toBe("resource_not_found");
 		expect(error.details).toBeUndefined();
+		expect(error.validationErrors).toBeUndefined();
 	});
 
 	it("converts an error without details to a string", () => {
@@ -185,5 +186,88 @@ describe("Vantage API errors", () => {
 				reason: "unexpected response format",
 			},
 		});
+	});
+
+	it("extracts validation errors from details", () => {
+		const validationErrors = [
+			{
+				keyword: "invalid_format",
+				instancePath: "/importId",
+				schemaPath: "#/importId/invalid_format",
+				message: "Invalid GUID",
+				params: {
+					origin: "string",
+					format: "guid",
+				},
+			},
+			{
+				keyword: "required",
+				instancePath: "/",
+				schemaPath: "#/required",
+				message: "Required property is missing",
+				params: {
+					missingProperty: "projectId",
+				},
+			},
+		];
+
+		const details = { error: validationErrors };
+		const error = new ApiErrorVantage("Invalid params", "VALIDATION_ERROR", details);
+
+		expect(error.validationErrors).toEqual(validationErrors);
+		expect(error.validationErrors).toHaveLength(2);
+		expect(error.validationErrors?.[0]?.message).toBe("Invalid GUID");
+		expect(error.validationErrors?.[0]?.instancePath).toBe("/importId");
+
+		// The original API response remains available.
+		expect(error.details).toEqual(details);
+		expect(error.details?.error).toBe(validationErrors);
+	});
+
+	it("ignores malformed validation error entries", () => {
+		const validError = {
+			keyword: "invalid_format",
+			instancePath: "/importId",
+			schemaPath: "#/importId/invalid_format",
+			message: "Invalid GUID",
+			params: { format: "guid" },
+		};
+
+		const error = new ApiErrorVantage("Invalid params", "VALIDATION_ERROR", {
+			error: [
+				validError,
+				null,
+				"Invalid value",
+				{ message: "Missing required properties" },
+				{
+					keyword: "invalid_format",
+					instancePath: "/projectId",
+					schemaPath: "#/projectId/invalid_format",
+					params: "invalid",
+				},
+			],
+		});
+
+		expect(error.validationErrors).toEqual([validError]);
+		expect(error.details?.error).toHaveLength(5);
+	});
+
+	it("does not extract validation errors for other error codes", () => {
+		const details = {
+			error: [
+				{
+					keyword: "invalid_format",
+					instancePath: "/importId",
+					schemaPath: "#/importId/invalid_format",
+					message: "Invalid GUID",
+					params: { format: "guid" },
+				},
+			],
+		};
+
+		const error = new ApiErrorVantage("Access denied", "ACCESS_DENIED", details);
+
+		expect(error.validationErrors).toBeUndefined();
+		expect(error.details).toEqual(details);
 	});
 });

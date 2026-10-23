@@ -1,18 +1,16 @@
 import { readFile } from "node:fs/promises";
 
-//#region src/models/base_model.ts
+// src/models/base_model.ts
 var BaseModel = class {
 	constructor(params) {
 		Object.assign(this, params);
 	}
 };
 
-//#endregion
-//#region src/models/branch.ts
+// src/models/branch.ts
 var Branch = class extends BaseModel {};
 
-//#endregion
-//#region src/lokalise/pkg.ts
+// src/lokalise/pkg.ts
 /**
 * Attempts to read and parse the local package.json file to retrieve the version.
 * If the file cannot be read or parsed, returns "unknown".
@@ -29,8 +27,7 @@ async function getVersion() {
 	}
 }
 
-//#endregion
-//#region src/models/api_error.ts
+// src/models/api_error.ts
 /**
 * Represents an API error with a specific code and optional details.
 */
@@ -71,17 +68,53 @@ var ApiError = class extends Error {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/api_error.ts
+// src/utils/type_guards.ts
+function isRecord(value) {
+	return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+// src/models/vantage/api_error.ts
+/**
+* Checks whether a value matches the Vantage API validation error structure.
+*
+* Validation errors are received as untrusted JSON, so their properties
+* must be checked before exposing them as typed objects.
+*/
+function isValidationError(value) {
+	if (!isRecord(value)) return false;
+	return typeof value.keyword === "string" && typeof value.instancePath === "string" && typeof value.schemaPath === "string" && (value.message === void 0 || typeof value.message === "string") && isRecord(value.params);
+}
+/**
+* Represents an error returned by the Lokalise Vantage API.
+*
+* Preserves the original API error details and provides convenient access
+* to individual validation issues when the error code is VALIDATION_ERROR.
+*/
 var ApiErrorVantage = class extends Error {
+	/** Machine-readable API error code. */
 	code;
+	/** Original error details returned by the API. */
 	details;
+	/**
+	* Individual validation issues returned by the API.
+	*
+	* Populated only for VALIDATION_ERROR responses containing an array
+	* of recognized validation issues in details.error.
+	*
+	* The original validation data remains available in details.
+	*/
+	validationErrors;
 	constructor(message, code, details) {
 		super(message);
 		this.name = "ApiErrorVantage";
 		this.code = code;
 		if (details !== void 0) this.details = details;
+		if (code === "VALIDATION_ERROR" && Array.isArray(details?.error)) this.validationErrors = details.error.filter(isValidationError);
 	}
+	/**
+	* Returns a readable error description, including the error code
+	* and original details when available.
+	*/
 	toString() {
 		let result = `${this.name}: ${this.message} (Code: ${this.code})`;
 		if (this.details) result += ` | Details: ${JSON.stringify(this.details)}`;
@@ -89,8 +122,7 @@ var ApiErrorVantage = class extends Error {
 	}
 };
 
-//#endregion
-//#region src/http_client/base.ts
+// src/http_client/base.ts
 /**
 * Represents a single API request to the Lokalise API.
 * Handles URL construction, request initiation, response processing, and error handling.
@@ -297,8 +329,7 @@ var ApiRequest = class ApiRequest {
 	}
 };
 
-//#endregion
-//#region src/models/paginated_result.ts
+// src/models/paginated_result.ts
 var PaginatedResult = class {
 	totalResults;
 	totalPages;
@@ -340,8 +371,7 @@ var PaginatedResult = class {
 	}
 };
 
-//#endregion
-//#region src/models/cursor_paginated_result.ts
+// src/models/cursor_paginated_result.ts
 var CursorPaginatedResult = class extends PaginatedResult {
 	nextCursor;
 	constructor(items, headers) {
@@ -353,14 +383,7 @@ var CursorPaginatedResult = class extends PaginatedResult {
 	}
 };
 
-//#endregion
-//#region src/utils/type_guards.ts
-function isRecord(value) {
-	return value !== null && typeof value === "object" && !Array.isArray(value);
-}
-
-//#endregion
-//#region src/collections/base_collection.ts
+// src/collections/base_collection.ts
 /**
 * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
 * and handling for pagination, cursor pagination, and bulk operations. Other "collection" classes
@@ -675,8 +698,7 @@ var BaseCollection = class {
 	}
 };
 
-//#endregion
-//#region src/collections/branches.ts
+// src/collections/branches.ts
 var Branches = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/branches/{:id}";
 	get elementClass() {
@@ -712,12 +734,10 @@ var Branches = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/comment.ts
+// src/models/comment.ts
 var Comment = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/comments.ts
+// src/collections/comments.ts
 var Comments = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
 	get elementClass() {
@@ -747,12 +767,10 @@ var Comments = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/contributor.ts
+// src/models/contributor.ts
 var Contributor = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/contributors.ts
+// src/collections/contributors.ts
 var Contributors = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/contributors/{:id}";
 	get elementClass() {
@@ -785,16 +803,13 @@ var Contributors = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/file.ts
+// src/models/file.ts
 var File = class extends BaseModel {};
 
-//#endregion
-//#region src/models/queued_process.ts
+// src/models/queued_process.ts
 var QueuedProcess = class extends BaseModel {};
 
-//#endregion
-//#region src/utils/logger.ts
+// src/utils/logger.ts
 /**
 * Emits a warning to the console unless `silent` is true.
 *
@@ -806,8 +821,7 @@ function warn(silent, ...args) {
 	console.warn(...args);
 }
 
-//#endregion
-//#region src/collections/files.ts
+// src/collections/files.ts
 var Files = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/files/{:id}";
 	get elementClass() {
@@ -849,12 +863,10 @@ var Files = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/glossary_term.ts
+// src/models/glossary_term.ts
 var GlossaryTerm = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/glossary_terms.ts
+// src/collections/glossary_terms.ts
 var GlossaryTerms = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/glossary-terms/{:id}";
 	get elementClass() {
@@ -887,12 +899,10 @@ var GlossaryTerms = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/jwt.ts
+// src/models/jwt.ts
 var Jwt$1 = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/jwt.ts
+// src/collections/jwt.ts
 var Jwt = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/tokens";
 	get elementClass() {
@@ -904,12 +914,10 @@ var Jwt = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/key.ts
+// src/models/key.ts
 var Key = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/keys.ts
+// src/collections/keys.ts
 var Keys = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/keys/{:id}";
 	get elementClass() {
@@ -945,12 +953,10 @@ var Keys = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/language.ts
+// src/models/language.ts
 var Language = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/languages.ts
+// src/collections/languages.ts
 var Languages = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/languages/{:id}";
 	get elementClass() {
@@ -983,12 +989,10 @@ var Languages = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/order.ts
+// src/models/order.ts
 var Order = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/orders.ts
+// src/collections/orders.ts
 var Orders = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/orders/{:id}";
 	get elementClass() {
@@ -1011,12 +1015,10 @@ var Orders = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/payment_card.ts
+// src/models/payment_card.ts
 var PaymentCard = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/payment_cards.ts
+// src/collections/payment_cards.ts
 var PaymentCards = class extends BaseCollection {
 	static prefixURI = "payment_cards/{:id}";
 	get elementClass() {
@@ -1042,12 +1044,10 @@ var PaymentCards = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/permission_template.ts
+// src/models/permission_template.ts
 var PermissionTemplate = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/permission_templates.ts
+// src/collections/permission_templates.ts
 var PermissionTemplates = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/roles";
 	get elementClass() {
@@ -1061,12 +1061,10 @@ var PermissionTemplates = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/project.ts
+// src/models/project.ts
 var Project = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/projects.ts
+// src/collections/projects.ts
 var Projects = class extends BaseCollection {
 	static prefixURI = "projects/{:id}";
 	get elementClass() {
@@ -1098,8 +1096,7 @@ var Projects = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/collections/queued_processes.ts
+// src/collections/queued_processes.ts
 var QueuedProcesses = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/processes/{:id}";
 	get elementClass() {
@@ -1119,12 +1116,10 @@ var QueuedProcesses = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/screenshot.ts
+// src/models/screenshot.ts
 var Screenshot = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/screenshots.ts
+// src/collections/screenshots.ts
 var Screenshots = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
 	get elementClass() {
@@ -1154,12 +1149,10 @@ var Screenshots = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/segment.ts
+// src/models/segment.ts
 var Segment = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/segments.ts
+// src/collections/segments.ts
 var Segments = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
 	get elementClass() {
@@ -1182,12 +1175,10 @@ var Segments = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/snapshot.ts
+// src/models/snapshot.ts
 var Snapshot = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/snapshots.ts
+// src/collections/snapshots.ts
 var Snapshots = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
 	get elementClass() {
@@ -1217,12 +1208,10 @@ var Snapshots = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/task.ts
+// src/models/task.ts
 var Task = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/tasks.ts
+// src/collections/tasks.ts
 var Tasks = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/tasks/{:id}";
 	get elementClass() {
@@ -1251,12 +1240,10 @@ var Tasks = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/team_user_billing_details.ts
+// src/models/team_user_billing_details.ts
 var TeamUserBillingDetails$1 = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/team_user_billing_details.ts
+// src/collections/team_user_billing_details.ts
 var TeamUserBillingDetails = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/billing_details";
 	get elementClass() {
@@ -1275,12 +1262,10 @@ var TeamUserBillingDetails = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/team_user.ts
+// src/models/team_user.ts
 var TeamUser = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/team_users.ts
+// src/collections/team_users.ts
 var TeamUsers = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/users/{:id}";
 	get elementClass() {
@@ -1306,12 +1291,10 @@ var TeamUsers = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/team.ts
+// src/models/team.ts
 var Team = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/teams.ts
+// src/collections/teams.ts
 var Teams = class extends BaseCollection {
 	static prefixURI = "teams/{:id}";
 	get elementClass() {
@@ -1331,12 +1314,10 @@ var Teams = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation_memory.ts
+// src/models/translation_memory.ts
 var TranslationMemory = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translation_memories.ts
+// src/collections/translation_memories.ts
 var TranslationMemories = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/translation-memories";
 	get elementClass() {
@@ -1350,12 +1331,10 @@ var TranslationMemories = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation_provider.ts
+// src/models/translation_provider.ts
 var TranslationProvider = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translation_providers.ts
+// src/collections/translation_providers.ts
 var TranslationProviders = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/translation_providers/{:id}";
 	get elementClass() {
@@ -1375,12 +1354,10 @@ var TranslationProviders = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation_status.ts
+// src/models/translation_status.ts
 var TranslationStatus = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translation_statuses.ts
+// src/collections/translation_statuses.ts
 var TranslationStatuses = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/custom_translation_statuses/{:id}";
 	get elementClass() {
@@ -1412,12 +1389,10 @@ var TranslationStatuses = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation.ts
+// src/models/translation.ts
 var Translation = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translations.ts
+// src/collections/translations.ts
 var Translations = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/translations/{:id}";
 	get elementClass() {
@@ -1440,12 +1415,10 @@ var Translations = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/user_group.ts
+// src/models/user_group.ts
 var UserGroup = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/user_groups.ts
+// src/collections/user_groups.ts
 var UserGroups = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/groups/{:id}";
 	get elementClass() {
@@ -1510,8 +1483,7 @@ var UserGroups = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/v1/audit_event.ts
+// src/models/v1/audit_event.ts
 var AuditEventV1 = class {
 	class_uid;
 	class_name;
@@ -1537,8 +1509,7 @@ var AuditEventV1 = class {
 	}
 };
 
-//#endregion
-//#region src/models/v1/cursor_paginated_result.ts
+// src/models/v1/cursor_paginated_result.ts
 var CursorPaginatedResultV1 = class {
 	next_cursor;
 	has_more;
@@ -1550,8 +1521,7 @@ var CursorPaginatedResultV1 = class {
 	}
 };
 
-//#endregion
-//#region src/collections/base_collection_v1.ts
+// src/collections/base_collection_v1.ts
 var BaseCollectionV1 = class extends BaseCollection {
 	doListCursorV1(params) {
 		return this.createPromise("GET", params, this.populateArrayFromJsonCursorV1, null);
@@ -1573,8 +1543,7 @@ var BaseCollectionV1 = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/collections/v1/audit_logs.ts
+// src/collections/v1/audit_logs.ts
 var AuditLogs = class extends BaseCollectionV1 {
 	static prefixURI = "audit-logs";
 	get elementClass() {
@@ -1585,8 +1554,7 @@ var AuditLogs = class extends BaseCollectionV1 {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/content_unit.ts
+// src/models/vantage/content_unit.ts
 var ContentUnitVantage = class {
 	id;
 	projectId;
@@ -1599,8 +1567,7 @@ var ContentUnitVantage = class {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/cursor_paginated_result.ts
+// src/models/vantage/cursor_paginated_result.ts
 var CursorPaginatedResultVantage = class {
 	count;
 	cursor;
@@ -1614,8 +1581,7 @@ var CursorPaginatedResultVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/base_collection_vantage.ts
+// src/collections/base_collection_vantage.ts
 var BaseCollectionVantage = class extends BaseCollection {
 	get rootElementName() {
 		return "data";
@@ -1655,8 +1621,7 @@ var BaseCollectionVantage = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/content_units.ts
+// src/collections/vantage/content_units.ts
 var ContentUnitsVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/items/{!:item_id}/content-units";
 	get elementClass() {
@@ -1667,8 +1632,7 @@ var ContentUnitsVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/export.ts
+// src/models/vantage/export.ts
 var ExportVantage = class {
 	exportId;
 	status;
@@ -1681,8 +1645,7 @@ var ExportVantage = class {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/export_download_url.ts
+// src/models/vantage/export_download_url.ts
 var ExportDownloadUrlVantage = class {
 	downloadUrl;
 	constructor(json) {
@@ -1690,8 +1653,7 @@ var ExportDownloadUrlVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/exports.ts
+// src/collections/vantage/exports.ts
 var ExportsVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/exports/{:export_id}";
 	get elementClass() {
@@ -1711,8 +1673,7 @@ var ExportsVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/import.ts
+// src/models/vantage/import.ts
 var ImportVantage = class {
 	importId;
 	constructor(json) {
@@ -1720,8 +1681,7 @@ var ImportVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/imports.ts
+// src/collections/vantage/imports.ts
 var ImportsVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/imports";
 	get elementClass() {
@@ -1732,8 +1692,7 @@ var ImportsVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/project_item.ts
+// src/models/vantage/project_item.ts
 var ProjectItemVantage = class {
 	id;
 	projectId;
@@ -1745,8 +1704,7 @@ var ProjectItemVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/project_items.ts
+// src/collections/vantage/project_items.ts
 var ProjectItemsVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/items";
 	get elementClass() {
@@ -1757,8 +1715,7 @@ var ProjectItemsVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/project_language.ts
+// src/models/vantage/project_language.ts
 var ProjectLanguageVantage = class {
 	languageId;
 	locale;
@@ -1769,8 +1726,7 @@ var ProjectLanguageVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/project_languages.ts
+// src/collections/vantage/project_languages.ts
 var ProjectLanguagesVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/languages";
 	get elementClass() {
@@ -1781,8 +1737,7 @@ var ProjectLanguagesVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/project.ts
+// src/models/vantage/project.ts
 var ProjectVantage = class {
 	projectId;
 	teamId;
@@ -1799,8 +1754,7 @@ var ProjectVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/projects.ts
+// src/collections/vantage/projects.ts
 var ProjectsVantage = class extends BaseCollectionVantage {
 	static prefixURI = "teams/{!:team_id}/projects";
 	get elementClass() {
@@ -1814,8 +1768,7 @@ var ProjectsVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/segment.ts
+// src/models/vantage/segment.ts
 var SegmentVantage = class {
 	id;
 	number;
@@ -1833,8 +1786,7 @@ var SegmentVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/segments.ts
+// src/collections/vantage/segments.ts
 var SegmentsVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/content-units/{!:content_unit_id}/segments/{:segment_id}";
 	get elementClass() {
@@ -1857,8 +1809,7 @@ var SegmentsVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/task.ts
+// src/models/vantage/task.ts
 var TaskVantage = class {
 	id;
 	publicId;
@@ -1875,8 +1826,7 @@ var TaskVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/tasks.ts
+// src/collections/vantage/tasks.ts
 var TasksVantage = class extends BaseCollectionVantage {
 	static prefixURI = "teams/{!:team_id}/projects/{!:project_id}/tasks";
 	get elementClass() {
@@ -1887,8 +1837,7 @@ var TasksVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/translation_status.ts
+// src/models/vantage/translation_status.ts
 var TranslationStatusVantage = class {
 	projectId;
 	importId;
@@ -1899,8 +1848,7 @@ var TranslationStatusVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/translation_statuses.ts
+// src/collections/vantage/translation_statuses.ts
 var TranslationStatusesVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/translation-statuses";
 	get elementClass() {
@@ -1911,8 +1859,7 @@ var TranslationStatusesVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/upload.ts
+// src/models/vantage/upload.ts
 var UploadVantage = class {
 	uploadId;
 	batchId;
@@ -1929,8 +1876,7 @@ var UploadVantage = class {
 	}
 };
 
-//#endregion
-//#region src/models/vantage/upload_stage.ts
+// src/models/vantage/upload_stage.ts
 var UploadStageVantage = class {
 	batchId;
 	uploads;
@@ -1939,8 +1885,7 @@ var UploadStageVantage = class {
 	}
 };
 
-//#endregion
-//#region src/collections/vantage/uploads.ts
+// src/collections/vantage/uploads.ts
 var UploadsVantage = class extends BaseCollectionVantage {
 	static prefixURI = "projects/{!:project_id}/uploads";
 	get elementClass() {
@@ -1957,12 +1902,10 @@ var UploadsVantage = class extends BaseCollectionVantage {
 	}
 };
 
-//#endregion
-//#region src/models/webhook.ts
+// src/models/webhook.ts
 var Webhook = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/webhooks.ts
+// src/collections/webhooks.ts
 var Webhooks = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
 	get elementClass() {
@@ -1998,8 +1941,7 @@ var Webhooks = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/lokalise/base_client.ts
+// src/lokalise/base_client.ts
 /**
 * A foundational client class that establishes authentication and configuration data.
 * Other specialized clients can inherit from this class to leverage the configured
@@ -2037,8 +1979,7 @@ var BaseClient = class {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api.ts
+// src/lokalise/lokalise_api.ts
 /**
 * A main entry point for interacting with the Lokalise API.
 * Provides easy access to various resource collections (Branches, Comments, Projects, etc.)
@@ -2212,8 +2153,7 @@ var LokaliseApi = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api_oauth.ts
+// src/lokalise/lokalise_api_oauth.ts
 /**
 * A specialized client for interacting with the Lokalise API using OAuth authentication.
 * Extends `LokaliseApi` and configures the token type and authorization header to use Bearer tokens.
@@ -2232,12 +2172,10 @@ var LokaliseApiOAuth = class extends LokaliseApi {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_bundle.ts
+// src/models/ota/ota_bundle.ts
 var OtaBundle = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_collection.ts
+// src/ota_collections/ota_collection.ts
 var OtaCollection = class extends BaseCollection {
 	doDelete(id, req_params) {
 		const params = {
@@ -2257,8 +2195,7 @@ var OtaCollection = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/ota_collections/ota_bundle_management.ts
+// src/ota_collections/ota_bundle_management.ts
 var OtaBundleManagement = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundles/{:id}";
 	get elementClass() {
@@ -2284,8 +2221,7 @@ var OtaBundleManagement = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/ota_collections/ota_bundle_publishing.ts
+// src/ota_collections/ota_bundle_publishing.ts
 var OtaBundlePublishing = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/frameworks/{!:framework}/{!:action}";
 	/* v8 ignore next 5 */
@@ -2308,12 +2244,10 @@ var OtaBundlePublishing = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_bundle_archive.ts
+// src/models/ota/ota_bundle_archive.ts
 var OtaBundleArchive = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_bundles.ts
+// src/ota_collections/ota_bundles.ts
 var OtaBundles = class extends OtaCollection {
 	static rootElementNameSingular = "data";
 	static prefixURI = "lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";
@@ -2333,12 +2267,10 @@ var OtaBundles = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_freeze_period.ts
+// src/models/ota/ota_freeze_period.ts
 var OtaFreezePeriod = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_freeze_periods.ts
+// src/ota_collections/ota_freeze_periods.ts
 var OtaFreezePeriods = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundle-freezes/{:id}";
 	get elementClass() {
@@ -2364,12 +2296,10 @@ var OtaFreezePeriods = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_sdk_token.ts
+// src/models/ota/ota_sdk_token.ts
 var OtaSdkToken = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_sdk_tokens.ts
+// src/ota_collections/ota_sdk_tokens.ts
 var OtaSdkTokens = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/tokens/{:id}";
 	get elementClass() {
@@ -2392,12 +2322,10 @@ var OtaSdkTokens = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_statistics.ts
+// src/models/ota/ota_statistics.ts
 var OtaStatistics = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_usage_statistics.ts
+// src/ota_collections/ota_usage_statistics.ts
 var OtaUsageStatistics = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/stats";
 	static elementClass = OtaStatistics;
@@ -2413,8 +2341,7 @@ var OtaUsageStatistics = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api_ota.ts
+// src/lokalise/lokalise_api_ota.ts
 /**
 * A specialized client configured for interacting with Lokalise OTA endpoints.
 * Extends `BaseClient` and sets defaults suitable for OTA requests:
@@ -2468,8 +2395,7 @@ var LokaliseApiOta = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api_v1.ts
+// src/lokalise/lokalise_api_v1.ts
 /**
 * A main entry point for interacting with Lokalise API v1.
 * Provides access to resource collections available through API version v1.
@@ -2492,8 +2418,7 @@ var LokaliseApiV1 = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api_vantage.ts
+// src/lokalise/lokalise_api_vantage.ts
 var LokaliseApiVantage = class extends BaseClient {
 	constructor(params) {
 		super(params);
@@ -2532,8 +2457,7 @@ var LokaliseApiVantage = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_ota_bundles.ts
+// src/lokalise/lokalise_ota_bundles.ts
 /**
 * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
 * Extends the BaseClient to configure authentication and endpoint specifics for OTA bundles.
@@ -2561,8 +2485,7 @@ var LokaliseOtaBundles = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/oauth2/auth_request.ts
+// src/oauth2/auth_request.ts
 /**
 * Builds and returns headers for the request.
 */
@@ -2610,8 +2533,7 @@ async function createPromise(uri, method, body, { host, version }) {
 	});
 }
 
-//#endregion
-//#region src/oauth2/lokalise_auth.ts
+// src/oauth2/lokalise_auth.ts
 var LokaliseAuth = class {
 	authData;
 	/**
@@ -2723,10 +2645,8 @@ var LokaliseAuth = class {
 	}
 };
 
-//#endregion
-//#region src/models/auth_error.ts
+// src/models/auth_error.ts
 var AuthError = class extends BaseModel {};
 
-//#endregion
 export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseApiVantage, LokaliseAuth, LokaliseOtaBundles };
 //# sourceMappingURL=main.mjs.map
