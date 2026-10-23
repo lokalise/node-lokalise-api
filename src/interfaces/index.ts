@@ -43,7 +43,10 @@ export type { UserGroup } from "./user_group.js";
 export type { AuditEventV1 } from "./v1/audit_event.js";
 export type { CursorPaginatedResponseV1 } from "./v1/cursor_paginated_response.js";
 export type { CursorPaginatedResultV1 } from "./v1/cursor_paginated_result.js";
-export type { ApiErrorVantage } from "./vantage/api_error.js";
+export type {
+	ApiErrorVantage as ApiErrorVantageInterface,
+	VantageValidationError,
+} from "./vantage/api_error.js";
 export type { ContentUnitVantage } from "./vantage/content_unit.js";
 export type { CursorPaginatedResponseVantage } from "./vantage/cursor_paginated_response.js";
 export type { CursorPaginatedResultVantage } from "./vantage/cursor_paginated_result.js";

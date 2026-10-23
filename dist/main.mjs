@@ -2485,6 +2485,9 @@ var LokaliseOtaBundles = class extends BaseClient {
 	}
 };
 
+// src/models/auth_error.ts
+var AuthError = class extends BaseModel {};
+
 // src/oauth2/auth_request.ts
 /**
 * Builds and returns headers for the request.
@@ -2645,8 +2648,5 @@ var LokaliseAuth = class {
 	}
 };
 
-// src/models/auth_error.ts
-var AuthError = class extends BaseModel {};
-
-export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseApiVantage, LokaliseAuth, LokaliseOtaBundles };
+export { ApiError, ApiErrorVantage, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseApiVantage, LokaliseAuth, LokaliseOtaBundles };
 //# sourceMappingURL=main.mjs.map

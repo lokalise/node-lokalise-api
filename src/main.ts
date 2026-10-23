@@ -1,21 +1,12 @@
-import { LokaliseApi } from "./lokalise/lokalise_api.js";
-import { LokaliseApiOAuth } from "./lokalise/lokalise_api_oauth.js";
-import { LokaliseApiOta } from "./lokalise/lokalise_api_ota.js";
-import { LokaliseApiV1 } from "./lokalise/lokalise_api_v1.js";
-import { LokaliseApiVantage } from "./lokalise/lokalise_api_vantage.js";
-import { LokaliseOtaBundles } from "./lokalise/lokalise_ota_bundles.js";
-import { LokaliseAuth } from "./oauth2/lokalise_auth.js";
-
 export * from "./interfaces/index.js";
+export { LokaliseApi } from "./lokalise/lokalise_api.js";
+export { LokaliseApiOAuth } from "./lokalise/lokalise_api_oauth.js";
+export { LokaliseApiOta } from "./lokalise/lokalise_api_ota.js";
+export { LokaliseApiV1 } from "./lokalise/lokalise_api_v1.js";
+export { LokaliseApiVantage } from "./lokalise/lokalise_api_vantage.js";
+export { LokaliseOtaBundles } from "./lokalise/lokalise_ota_bundles.js";
 export { ApiError } from "./models/api_error.js";
 export { AuthError } from "./models/auth_error.js";
+export { ApiErrorVantage } from "./models/vantage/api_error.js";
+export { LokaliseAuth } from "./oauth2/lokalise_auth.js";
 export type * from "./types/index.js";
-export {
-	LokaliseApi,
-	LokaliseApiOAuth,
-	LokaliseApiOta,
-	LokaliseApiV1,
-	LokaliseApiVantage,
-	LokaliseAuth,
-	LokaliseOtaBundles,
-};

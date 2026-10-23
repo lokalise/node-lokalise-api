@@ -2,6 +2,10 @@
 ---
 # Changelog
 
+## 17.0.1 (23-Oct-2026)
+
+* Export Vantage error-related objects
+
 ## 17.0.0 (23-Oct-2026)
 
 - Added support for the **Lokalise Vantage API** through the new `LokaliseApiVantage` client. It uses the same API token as the standard Lokalise API and provides access to Vantage projects, content, translations, uploads, imports, and exports. Please note that the Vantage API is still in beta.

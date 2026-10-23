@@ -1,6 +1,6 @@
 {
 	"name": "@lokalise/node-api",
-	"version": "17.0.0",
+	"version": "17.0.1",
 	"description": "Official Node.js SDK for Lokalise Expert and Vantage APIs",
 	"license": "BSD-3-Clause",
 	"repository": {
