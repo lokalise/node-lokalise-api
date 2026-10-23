@@ -1,8 +1,4 @@
-import type {
-	CreateTermsParams,
-	ListTermsParams,
-	UpdateTermsParams,
-} from "../../src/main.js";
+import type { CreateTermsParams, ListTermsParams, UpdateTermsParams } from "../../src/main.js";
 import { getArrayItem, getCollectionItem } from "../helpers/collection.js";
 import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
@@ -100,9 +96,7 @@ describe("GlossaryTerms", () => {
 
 		await stub.setStub();
 
-		const terms = await lokaliseApi
-			.glossaryTerms()
-			.create(term_params, { project_id: projectId });
+		const terms = await lokaliseApi.glossaryTerms().create(term_params, { project_id: projectId });
 
 		expect(terms.items.length).toEqual(1);
 
@@ -131,9 +125,7 @@ describe("GlossaryTerms", () => {
 
 		await stub.setStub();
 
-		const terms = await lokaliseApi
-			.glossaryTerms()
-			.update(term_params, { project_id: projectId });
+		const terms = await lokaliseApi.glossaryTerms().update(term_params, { project_id: projectId });
 
 		expect(terms.items.length).toEqual(1);
 
@@ -160,8 +152,6 @@ describe("GlossaryTerms", () => {
 
 		expect(termsDeleted.deleted.count).toEqual(1);
 		expect(termsDeleted.deleted.ids).toEqual([12345]);
-		expect(getArrayItem(termsDeleted.failed).message).toEqual(
-			"Term IDs not found",
-		);
+		expect(getArrayItem(termsDeleted.failed).message).toEqual("Term IDs not found");
 	});
 });

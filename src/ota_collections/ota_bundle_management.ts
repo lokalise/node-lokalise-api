@@ -1,9 +1,5 @@
 import { OtaBundle } from "../models/ota/ota_bundle.js";
-import type {
-	OtaBundleUpdateData,
-	OtaResourceDeleted,
-	OtaTeamProject,
-} from "../types/ota.js";
+import type { OtaBundleUpdateData, OtaResourceDeleted, OtaTeamProject } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
 
 export class OtaBundleManagement extends OtaCollection<OtaBundle> {
@@ -28,10 +24,7 @@ export class OtaBundleManagement extends OtaCollection<OtaBundle> {
 		return this.doList(request_params) as Promise<OtaBundle[]>;
 	}
 
-	get(
-		bundleId: string | number,
-		requestParams: OtaTeamProject,
-	): Promise<OtaBundle> {
+	get(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaBundle> {
 		return this.doGet(bundleId, requestParams);
 	}
 
@@ -49,10 +42,7 @@ export class OtaBundleManagement extends OtaCollection<OtaBundle> {
 		);
 	}
 
-	delete(
-		bundleId: string | number,
-		requestParams: OtaTeamProject,
-	): Promise<OtaResourceDeleted> {
+	delete(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaResourceDeleted> {
 		return this.doDelete(bundleId, requestParams);
 	}
 }

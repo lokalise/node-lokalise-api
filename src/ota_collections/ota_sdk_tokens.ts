@@ -28,10 +28,7 @@ export class OtaSdkTokens extends OtaCollection<OtaSdkToken> {
 		return this.doCreate(null, request_params, this.populateObjectFromJsonRoot);
 	}
 
-	delete(
-		tokenId: string | number,
-		request_params: OtaTeamProject,
-	): Promise<OtaResourceDeleted> {
+	delete(tokenId: string | number, request_params: OtaTeamProject): Promise<OtaResourceDeleted> {
 		return this.doDelete(tokenId, request_params);
 	}
 }

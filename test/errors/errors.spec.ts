@@ -1,16 +1,7 @@
 import type { ProjectWithPagination } from "../../src/main.js";
 import { ApiError } from "../../src/main.js";
 import { getTestApiKey } from "../helpers/get_env.js";
-import {
-	afterEach,
-	captureError,
-	describe,
-	expect,
-	it,
-	LokaliseApi,
-	Stub,
-	vi,
-} from "../setup.js";
+import { afterEach, captureError, describe, expect, it, LokaliseApi, Stub, vi } from "../setup.js";
 
 afterEach(() => {
 	vi.restoreAllMocks();
@@ -38,22 +29,18 @@ describe("Errors", () => {
 		});
 	});
 
-	it("is expected to throw when JSON processing failed", async () => {
+	it("throws when a JSON response is expected but the body is empty", async () => {
 		const stub = new Stub({
 			uri: `projects/${project_id}`,
 			status: 200,
+			data: "",
 		});
 
 		await stub.setStub();
 
-		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
-			message: "Unexpected end of JSON input",
-			code: 200,
-			details: {
-				statusText: "OK",
-				reason: "JSON parsing error",
-			},
-		});
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toThrow(
+			"Expected JSON response body, but received no content.",
+		);
 	});
 
 	it("is expected to handle cases when error codes are not numbers", async () => {
@@ -133,28 +120,42 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await expect(
-			lokaliseApi.branches().list({ project_id: fakeProjectId }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id: fakeProjectId })).rejects.toMatchObject({
 			message: "Auth error",
 			code: 401,
 			details: { reason: "server error without details" },
 		});
 	});
 
-	it("handles non-Error JSON parsing failures", async () => {
+	it("handles non-Error response reading failures", async () => {
 		vi.spyOn(globalThis, "fetch").mockResolvedValueOnce({
 			ok: true,
 			status: 200,
 			statusText: "OK",
 			headers: new Headers(),
-			json: vi.fn().mockRejectedValueOnce("broken json"),
+			text: vi.fn().mockRejectedValueOnce("broken json"),
 		} as unknown as Response);
 
-		await expect(
-			lokaliseApi.branches().list({ project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id })).rejects.toMatchObject({
 			message: "broken json",
+			code: 200,
+			details: {
+				statusText: "OK",
+				reason: "JSON parsing error",
+			},
+		});
+	});
+
+	it("throws when the response contains invalid JSON", async () => {
+		const stub = new Stub({
+			uri: `projects/${project_id}`,
+			status: 200,
+			data: "{",
+		});
+
+		await stub.setStub();
+
+		await expect(lokaliseApi.projects().get(project_id)).rejects.toMatchObject({
 			code: 200,
 			details: {
 				statusText: "OK",
@@ -172,9 +173,7 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await expect(
-			lokaliseApi.branches().list({ project_id: project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id: project_id })).rejects.toMatchObject({
 			message: "Auth error",
 			code: 401,
 			details: { status: "failed" },
@@ -190,9 +189,7 @@ describe("Errors", () => {
 
 		await stub.setStub();
 
-		await expect(
-			lokaliseApi.branches().list({ project_id: project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id: project_id })).rejects.toMatchObject({
 			message: "Unknown error",
 			code: 401,
 			details: { reason: "server error without details" },
@@ -200,13 +197,9 @@ describe("Errors", () => {
 	});
 
 	it("handles unexpected fetch errors", async () => {
-		vi.spyOn(globalThis, "fetch").mockRejectedValueOnce(
-			"unexpected fetch error",
-		);
+		vi.spyOn(globalThis, "fetch").mockRejectedValueOnce("unexpected fetch error");
 
-		await expect(
-			lokaliseApi.branches().list({ project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id })).rejects.toMatchObject({
 			message: "An unknown error occurred",
 			code: 500,
 			details: { reason: "unexpected fetch error" },
@@ -221,9 +214,7 @@ describe("Errors", () => {
 			}),
 		);
 
-		await expect(
-			lokaliseApi.branches().list({ project_id }),
-		).rejects.toMatchObject({
+		await expect(lokaliseApi.branches().list({ project_id })).rejects.toMatchObject({
 			message: "An unknown error occurred",
 			code: 400,
 			details: { reason: "unexpected response format" },

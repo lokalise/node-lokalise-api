@@ -5,7 +5,8 @@
 @use "jekyll-theme-minimal";
 
 body {
-  font-family: "FactorA-Regular", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family:
+    "FactorA-Regular", system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
 
 h1,
@@ -14,7 +15,13 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "FactorA-Medium", system-ui, -apple-system, Segoe UI, Arial, sans-serif;
+  font-family:
+    "FactorA-Medium",
+    system-ui,
+    -apple-system,
+    Segoe UI,
+    Arial,
+    sans-serif;
 }
 
 .highlight {
@@ -54,10 +61,10 @@ header nav.menu ul li span {
   font-size: 1rem;
 }
 
-header nav.menu ul li .active {
+header nav.menu ul li a.active {
   font-weight: 600;
-  padding-top: 6px;
-  line-height: 1;
+  color: #222;
+  text-decoration: none;
 }
 
 header nav.menu ul li a:active {

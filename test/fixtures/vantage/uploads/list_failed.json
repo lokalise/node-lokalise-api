@@ -1,0 +1,21 @@
+{
+	"data": [
+		{
+			"uploadId": "019efe5f-f028-703d-883c-2c03c6ae7a84",
+			"batchId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"fileName": "broken.docx",
+			"size": 7079,
+			"createdAt": "2026-06-25T10:42:40.808Z",
+			"status": "UPLOAD_FAILED",
+			"error": {
+				"code": "EXAMPLE_ERROR",
+				"message": "Upload failed"
+			}
+		}
+	],
+	"meta": {
+		"count": 1,
+		"cursor": null,
+		"hasMore": false
+	}
+}

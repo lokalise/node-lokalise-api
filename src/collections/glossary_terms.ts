@@ -11,8 +11,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class GlossaryTerms extends BaseCollection<GlossaryTerm> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/glossary-terms/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/glossary-terms/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -28,16 +27,11 @@ export class GlossaryTerms extends BaseCollection<GlossaryTerm> {
 		return "data";
 	}
 
-	get(
-		term_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<GlossaryTerm> {
+	get(term_id: string | number, request_params: ProjectOnly): Promise<GlossaryTerm> {
 		return this.doGet(term_id, request_params);
 	}
 
-	list(
-		request_params: ListTermsParams,
-	): Promise<CursorPaginatedResult<GlossaryTerm>> {
+	list(request_params: ListTermsParams): Promise<CursorPaginatedResult<GlossaryTerm>> {
 		return this.doListCursor(request_params);
 	}
 
@@ -45,12 +39,7 @@ export class GlossaryTerms extends BaseCollection<GlossaryTerm> {
 		term_params: CreateTermsParams,
 		request_params: ProjectOnly,
 	): Promise<BulkResult<GlossaryTerm>> {
-		return this.createPromise(
-			"POST",
-			request_params,
-			this.populateArrayFromJsonBulk,
-			term_params,
-		);
+		return this.createPromise("POST", request_params, this.populateArrayFromJsonBulk, term_params);
 	}
 
 	update(
@@ -66,10 +55,7 @@ export class GlossaryTerms extends BaseCollection<GlossaryTerm> {
 		);
 	}
 
-	delete(
-		term_ids: number[],
-		request_params: ProjectOnly,
-	): Promise<TermsDeleted> {
+	delete(term_ids: number[], request_params: ProjectOnly): Promise<TermsDeleted> {
 		const keys = { terms: term_ids };
 
 		return this.createPromise<TermsDeleted>(
@@ -81,10 +67,7 @@ export class GlossaryTerms extends BaseCollection<GlossaryTerm> {
 		);
 	}
 
-	private populateFromBulkDelete(
-		json: Record<string, unknown>,
-		_headers: Headers,
-	): TermsDeleted {
+	private populateFromBulkDelete(json: Record<string, unknown>, _headers: Headers): TermsDeleted {
 		const dataRecord = json as Record<string, Record<string, unknown>>;
 		const jsonData = dataRecord.data;
 

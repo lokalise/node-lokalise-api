@@ -144,11 +144,9 @@ describe("UserGroups", () => {
 
 		await stub.setStub();
 
-		const user_group = await lokaliseApi
-			.userGroups()
-			.update(newGroupId, params, {
-				team_id: teamId,
-			});
+		const user_group = await lokaliseApi.userGroups().update(newGroupId, params, {
+			team_id: teamId,
+		});
 
 		expect(user_group.group_id).to.eq(newGroupId);
 		expect(user_group.name).to.eq("Node updated2");
@@ -244,9 +242,7 @@ describe("UserGroups", () => {
 
 		await stub.setStub();
 
-		const response = await lokaliseApi
-			.userGroups()
-			.delete(newGroupId, { team_id: teamId });
+		const response = await lokaliseApi.userGroups().delete(newGroupId, { team_id: teamId });
 
 		expect(response.team_id).to.eq(teamId);
 		expect(response.group_deleted).to.be.true;

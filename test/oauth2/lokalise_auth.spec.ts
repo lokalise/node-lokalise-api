@@ -1,8 +1,4 @@
-import type {
-	AuthError,
-	RefreshTokenResponse,
-	RequestTokenResponse,
-} from "../../src/main.js";
+import type { AuthError, RefreshTokenResponse, RequestTokenResponse } from "../../src/main.js";
 import { getRequiredEnv } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseAuth, Stub } from "../setup.js";
 
@@ -44,9 +40,7 @@ describe("LokaliseAuth", () => {
 			expect(url).to.include(`?client_id=${client_id}`);
 			expect(url).to.include("&scope=read_projects+write_team_groups");
 			expect(url).to.include("&state=random123");
-			expect(url).to.include(
-				"&redirect_uri=http%3A%2F%2Fexample.com%2Fredirect",
-			);
+			expect(url).to.include("&redirect_uri=http%3A%2F%2Fexample.com%2Fredirect");
 		});
 
 		it("returns proper url with scope as string", () => {
@@ -130,9 +124,7 @@ describe("LokaliseAuth", () => {
 			await lokaliseAuth.token("fake").catch((e: AuthError) => {
 				expect(e.code).to.equal(400);
 				expect(e.error).to.equal("invalid_request");
-				expect(e.error_description).to.equal(
-					"code: Code must be 40 characters long",
-				);
+				expect(e.error_description).to.equal("code: Code must be 40 characters long");
 				expect(e.error_uri).to.equal("");
 			});
 		});
@@ -157,8 +149,7 @@ describe("LokaliseAuth", () => {
 
 			await stub.setStub();
 
-			const resp: RefreshTokenResponse =
-				await lokaliseAuth.refresh(refresh_token);
+			const resp: RefreshTokenResponse = await lokaliseAuth.refresh(refresh_token);
 
 			expect(resp.access_token).to.eq("stubbed access");
 			expect(resp.scope).to.eq("write_team_groups read_projects");
@@ -211,9 +202,7 @@ describe("LokaliseAuth", () => {
 			await lokaliseAuth.refresh("fake").catch((e: AuthError) => {
 				expect(e.code).to.equal(400);
 				expect(e.error).to.equal("invalid_request");
-				expect(e.error_description).to.equal(
-					"refresh_token: Refresh token too short",
-				);
+				expect(e.error_description).to.equal("refresh_token: Refresh token too short");
 				expect(e.error_uri).to.equal("");
 			});
 		});

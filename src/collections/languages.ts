@@ -14,8 +14,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Languages extends BaseCollection<Language> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/languages/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/languages/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -31,9 +30,7 @@ export class Languages extends BaseCollection<Language> {
 		return "language";
 	}
 
-	system_languages(
-		params: PaginationParams = {},
-	): Promise<PaginatedResult<Language>> {
+	system_languages(params: PaginationParams = {}): Promise<PaginatedResult<Language>> {
 		return this.createPromise(
 			"GET",
 			params,
@@ -43,9 +40,7 @@ export class Languages extends BaseCollection<Language> {
 		) as Promise<PaginatedResult<Language>>;
 	}
 
-	list(
-		request_params: ProjectWithPagination,
-	): Promise<PaginatedResult<Language>> {
+	list(request_params: ProjectWithPagination): Promise<PaginatedResult<Language>> {
 		return this.doList(request_params) as Promise<PaginatedResult<Language>>;
 	}
 
@@ -55,18 +50,10 @@ export class Languages extends BaseCollection<Language> {
 	): Promise<BulkResult<Language>> {
 		const body = { languages: this.objToArray(raw_body) };
 
-		return this.createPromise(
-			"POST",
-			request_params,
-			this.populateArrayFromJsonBulk,
-			body,
-		);
+		return this.createPromise("POST", request_params, this.populateArrayFromJsonBulk, body);
 	}
 
-	get(
-		lang_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<Language> {
+	get(lang_id: string | number, request_params: ProjectOnly): Promise<Language> {
 		return this.doGet(lang_id, request_params);
 	}
 
@@ -78,10 +65,7 @@ export class Languages extends BaseCollection<Language> {
 		return this.doUpdate(lang_id, lang_params, request_params);
 	}
 
-	delete(
-		lang_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<LanguageDeleted> {
+	delete(lang_id: string | number, request_params: ProjectOnly): Promise<LanguageDeleted> {
 		return super.doDelete(lang_id, request_params);
 	}
 }

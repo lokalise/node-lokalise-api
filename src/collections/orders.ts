@@ -26,15 +26,8 @@ export class Orders extends BaseCollection<Order> {
 		return this.doList(request_params) as Promise<PaginatedResult<Order>>;
 	}
 
-	create(
-		order_params: CreateOrderParams,
-		request_params: TeamOnly,
-	): Promise<Order> {
-		return this.doCreate(
-			order_params,
-			request_params,
-			this.populateObjectFromJsonRoot,
-		);
+	create(order_params: CreateOrderParams, request_params: TeamOnly): Promise<Order> {
+		return this.doCreate(order_params, request_params, this.populateObjectFromJsonRoot);
 	}
 
 	get(order_id: string | number, request_params: TeamOnly): Promise<Order> {

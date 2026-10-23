@@ -2,31 +2,12 @@
   path: oauth2_flow
 - title: Exception handling
   path: exception_handling
-  sub_paths:
-    - title: API Rate Limits
-      path: api-rate-limits
-    - title: Too big responses
-      path: too-big-responses
 - title: Customizing client
   path: customizing_client
-  sub_paths:
-    - title: Configuring timeouts
-      path: configuring-timeouts
-    - title: Configuring API host
-      path: configuring-api-host
-    - title: Proxy support
-      path: proxy-support
 - title: Webhook events
   path: webhook_events
 - title: Contributing
   path: contribution_guide
-  sub_paths:
-    - title: Running tests
-      path: running-tests
-    - title: Building
-      path: building
-    - title: Previewing the docs locally
-      path: previewing-the-docs-locally
 - title: Changelog
   path: changelog
 - title: License

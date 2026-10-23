@@ -98,11 +98,9 @@ describe("Snapshots", () => {
 
 		await stub.setStub();
 
-		const project: Project = await lokaliseApi
-			.snapshots()
-			.restore(newSnapshotId, {
-				project_id: projectId,
-			});
+		const project: Project = await lokaliseApi.snapshots().restore(newSnapshotId, {
+			project_id: projectId,
+		});
 
 		expect(project.project_id).not.to.eq(projectId);
 		expect(project.name).to.eq("Demo Phoenix copy");

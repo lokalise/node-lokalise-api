@@ -2,6 +2,40 @@
 ---
 # Changelog
 
+## 17.0.0 (23-Oct-2026)
+
+- Added support for the **Lokalise Vantage API** through the new `LokaliseApiVantage` client. It uses the same API token as the standard Lokalise API and provides access to Vantage projects, content, translations, uploads, imports, and exports. Please note that the Vantage API is still in beta.
+- Added support for cursor-based pagination in Vantage API responses.
+
+**Example usage:**
+
+```typescript
+import { LokaliseApiVantage } from "@lokalise/node-api";
+
+const api = new LokaliseApiVantage({
+  apiKey: "your-api-key",
+});
+
+// List Vantage projects.
+const projects = await api.projects().list({
+  team_id: "your-team-uuid",
+  limit: 10,
+});
+
+// Retrieve the next page.
+const nextPage = await api.projects().list({
+  team_id: "your-team-uuid",
+  after: projects.cursor!,
+});
+
+// Get project languages.
+const languages = await api.projectLanguages().list({
+  project_id: "your-project-uuid",
+});
+```
+
+For more details, see the [Vantage API documentation](https://developers.lokalise.com/reference/lokalise-vantage-api-introduction).
+
 ## 16.6.0 (21-Sep-2026)
 
 * Add support for the [list translation memories endpoint](https://developers.lokalise.com/reference/list-project-translation-memories)

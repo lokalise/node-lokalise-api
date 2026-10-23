@@ -45,9 +45,7 @@ describe("Team user billing details", () => {
 
 		await stub.setStub();
 
-		const details = await lokaliseApi
-			.teamUserBillingDetails()
-			.create(params, { team_id: teamId });
+		const details = await lokaliseApi.teamUserBillingDetails().create(params, { team_id: teamId });
 
 		expect(details.billing_email).to.eq("hello@example.com");
 		expect(details.country_code).to.eq("LV");
@@ -72,9 +70,7 @@ describe("Team user billing details", () => {
 
 		await stub.setStub();
 
-		const details = await lokaliseApi
-			.teamUserBillingDetails()
-			.update(teamId, params);
+		const details = await lokaliseApi.teamUserBillingDetails().update(teamId, params);
 
 		expect(details.billing_email).to.eq("updated@example.com");
 		expect(details.country_code).to.eq("LV");

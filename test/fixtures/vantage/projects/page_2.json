@@ -1,0 +1,41 @@
+{
+	"data": [
+		{
+			"projectId": "019d3e4b-4342-71fd-9ade-7a058973ea62",
+			"teamId": "9ef160a0-d4c7-45f5-ab80-bc9e22e95b12",
+			"name": "GDrive",
+			"description": "",
+			"baseLanguage": {
+				"languageId": "019d3e4b-4349-7c7a-897a-6ace780a1b70",
+				"locale": "en",
+				"systemLanguageId": 640,
+				"projectLanguageId": 4557148,
+				"languageIso": "en",
+				"projectLanguageUuid": "019d3e4b-4349-7c7a-897a-6ace780a1b70"
+			},
+			"targetLanguages": [
+				{
+					"languageId": "019d3e4b-4349-7c7a-897a-6ace78f91fa2",
+					"locale": "fr",
+					"systemLanguageId": 673,
+					"projectLanguageId": 4557149,
+					"languageIso": "fr",
+					"projectLanguageUuid": "019d3e4b-4349-7c7a-897a-6ace78f91fa2"
+				}
+			],
+			"translationSettings": {
+				"workflowType": "AI_ONLY",
+				"reviewThreshold": null,
+				"reviewTurnaroundDays": 5
+			},
+			"contentSourceType": "google-drive",
+			"contentSourceName": "Google Drive",
+			"projectType": "marketing_integrations"
+		}
+	],
+	"meta": {
+		"count": 1,
+		"cursor": "eyIxIjo2MDE1ODJ9",
+		"hasMore": true
+	}
+}

@@ -1,7 +1,4 @@
-import type {
-	ProjectOnly,
-	ProjectWithPagination,
-} from "./common_get_params.js";
+import type { ProjectOnly, ProjectWithPagination } from "./common_get_params.js";
 
 export type CommentData = {
 	comment?: string;

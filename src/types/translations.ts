@@ -1,8 +1,4 @@
-import type {
-	CursorPagination,
-	ProjectOnly,
-	ProjectWithPagination,
-} from "./common_get_params.js";
+import type { CursorPagination, ProjectOnly, ProjectWithPagination } from "./common_get_params.js";
 import type { NumericBool } from "./numeric_bool.js";
 
 export type TranslationData = {

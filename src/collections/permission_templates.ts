@@ -17,8 +17,6 @@ export class PermissionTemplates extends BaseCollection<PermissionTemplate> {
 	}
 
 	list(request_params: TeamOnly): Promise<PaginatedResult<PermissionTemplate>> {
-		return this.doList(request_params) as Promise<
-			PaginatedResult<PermissionTemplate>
-		>;
+		return this.doList(request_params) as Promise<PaginatedResult<PermissionTemplate>>;
 	}
 }

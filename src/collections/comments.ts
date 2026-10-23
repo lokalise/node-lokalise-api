@@ -10,8 +10,7 @@ import type { ProjectWithPagination } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class Comments extends BaseCollection<Comment> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -27,9 +26,7 @@ export class Comments extends BaseCollection<Comment> {
 		return "comment";
 	}
 
-	list(
-		request_params: KeyProjectPagination,
-	): Promise<PaginatedResult<Comment>> {
+	list(request_params: KeyProjectPagination): Promise<PaginatedResult<Comment>> {
 		return this.doList(request_params) as Promise<PaginatedResult<Comment>>;
 	}
 
@@ -42,23 +39,15 @@ export class Comments extends BaseCollection<Comment> {
 		return this.doCreateArray(body, request_params);
 	}
 
-	get(
-		comment_id: string | number,
-		request_params: ProjectAndKey,
-	): Promise<Comment> {
+	get(comment_id: string | number, request_params: ProjectAndKey): Promise<Comment> {
 		return this.doGet(comment_id, request_params);
 	}
 
-	delete(
-		comment_id: string | number,
-		request_params: ProjectAndKey,
-	): Promise<CommentDeleted> {
+	delete(comment_id: string | number, request_params: ProjectAndKey): Promise<CommentDeleted> {
 		return this.doDelete(comment_id, request_params);
 	}
 
-	list_project_comments(
-		params: ProjectWithPagination,
-	): Promise<PaginatedResult<Comment>> {
+	list_project_comments(params: ProjectWithPagination): Promise<PaginatedResult<Comment>> {
 		return this.createPromise(
 			"GET",
 			params,

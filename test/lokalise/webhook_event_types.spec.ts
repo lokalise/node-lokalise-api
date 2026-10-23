@@ -1,7 +1,4 @@
-import type {
-	WebhookProjectImported,
-	WebhookProjectLanguagesAdded,
-} from "../../src/main.js";
+import type { WebhookProjectImported, WebhookProjectLanguagesAdded } from "../../src/main.js";
 import { getArrayItem } from "../helpers/collection.js";
 import { describe, expect, it } from "../setup.js";
 

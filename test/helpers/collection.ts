@@ -1,7 +1,4 @@
-export function getCollectionItem<T>(
-	collection: { items: readonly T[] },
-	index?: number,
-): T;
+export function getCollectionItem<T>(collection: { items: readonly T[] }, index?: number): T;
 
 export function getCollectionItem<T, K extends string>(
 	collection: Record<K, readonly T[]>,
@@ -21,9 +18,7 @@ export function getCollectionItem<T>(
 	const items = collection[key];
 
 	if (!items) {
-		throw new Error(
-			`Expected collection property "${key}" to contain an array`,
-		);
+		throw new Error(`Expected collection property "${key}" to contain an array`);
 	}
 
 	const item = items[resolvedIndex];
@@ -41,9 +36,7 @@ export function getArrayItem<T>(items: readonly T[], index = 0): T {
 	const item = items[index];
 
 	if (item === undefined) {
-		throw new Error(
-			`Expected array item at index ${index}, but array has ${items.length} item(s)`,
-		);
+		throw new Error(`Expected array item at index ${index}, but array has ${items.length} item(s)`);
 	}
 
 	return item;

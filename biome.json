@@ -1,5 +1,5 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+	"$schema": "https://biomejs.dev/schemas/2.6.2/schema.json",
 	"vcs": {
 		"enabled": true,
 		"clientKind": "git",
@@ -7,7 +7,8 @@
 	},
 	"formatter": {
 		"enabled": true,
-		"indentStyle": "tab"
+		"indentStyle": "tab",
+		"lineWidth": 100
 	},
 	"linter": {
 		"enabled": true,
@@ -16,7 +17,12 @@
 		}
 	},
 	"assist": {
-		"enabled": true
+		"enabled": true,
+		"actions": {
+			"source": {
+				"organizeImports": "on"
+			}
+		}
 	},
 	"javascript": {
 		"formatter": {
@@ -24,6 +30,6 @@
 		}
 	},
 	"files": {
-		"includes": ["**", "!dist", "!docs"]
+		"includes": ["**", "!!dist", "!!docs"]
 	}
 }

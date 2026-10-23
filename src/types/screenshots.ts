@@ -7,10 +7,7 @@ export type CreateScreenshotParams = {
 	tags?: string[];
 };
 
-export type UpdateScreenshotParams = Omit<
-	CreateScreenshotParams,
-	"data" | "ocr"
->;
+export type UpdateScreenshotParams = Omit<CreateScreenshotParams, "data" | "ocr">;
 
 export type ScreenshotDeleted = {
 	project_id: string;

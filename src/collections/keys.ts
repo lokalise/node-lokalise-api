@@ -30,22 +30,12 @@ export class Keys extends BaseCollection<Key> {
 		return "key";
 	}
 
-	list(
-		request_params: KeyParamsWithPagination,
-	): Promise<CursorPaginatedResult<Key>> {
+	list(request_params: KeyParamsWithPagination): Promise<CursorPaginatedResult<Key>> {
 		return this.doListCursor(request_params);
 	}
 
-	create(
-		key_params: CreateKeyParams,
-		request_params: ProjectOnly,
-	): Promise<BulkResult<Key>> {
-		return this.createPromise(
-			"POST",
-			request_params,
-			this.populateArrayFromJsonBulk,
-			key_params,
-		);
+	create(key_params: CreateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key>> {
+		return this.createPromise("POST", request_params, this.populateArrayFromJsonBulk, key_params);
 	}
 
 	get(key_id: string | number, request_params: GetKeyParams): Promise<Key> {
@@ -60,10 +50,7 @@ export class Keys extends BaseCollection<Key> {
 		return this.doUpdate(key_id, key_params, request_params);
 	}
 
-	delete(
-		key_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<KeyDeleted> {
+	delete(key_id: string | number, request_params: ProjectOnly): Promise<KeyDeleted> {
 		return this.doDelete(key_id, request_params);
 	}
 
@@ -80,10 +67,7 @@ export class Keys extends BaseCollection<Key> {
 		);
 	}
 
-	bulk_delete(
-		key_ids: number[] | string[],
-		request_params: ProjectOnly,
-	): Promise<KeysBulkDeleted> {
+	bulk_delete(key_ids: number[] | string[], request_params: ProjectOnly): Promise<KeysBulkDeleted> {
 		const keys = { keys: key_ids };
 
 		return this.createPromise(

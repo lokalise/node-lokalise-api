@@ -1,7 +1,6 @@
 import type { CursorPagination, ProjectOnly } from "./common_get_params.js";
 
-export type ListTermsParams = ProjectOnly &
-	Omit<CursorPagination, "pagination">;
+export type ListTermsParams = ProjectOnly & Omit<CursorPagination, "pagination">;
 
 export type CreateTermsParams = {
 	terms: Array<{

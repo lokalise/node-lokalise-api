@@ -1,4 +1,3 @@
-//#region src/interfaces/paginated_result.d.ts
 interface PaginatedResult<T = unknown> {
   readonly totalResults: number;
   readonly totalPages: number;
@@ -13,8 +12,6 @@ interface PaginatedResult<T = unknown> {
   nextPage(): number;
   prevPage(): number;
 }
-//#endregion
-//#region src/interfaces/branch.d.ts
 interface Branch {
   branch_id: number;
   name: string;
@@ -23,13 +20,9 @@ interface Branch {
   created_by: number;
   created_by_email: string;
 }
-//#endregion
-//#region src/models/base_model.d.ts
 declare abstract class BaseModel<T extends Record<string, unknown> = Record<string, unknown>> {
   constructor(params: Partial<T>);
 }
-//#endregion
-//#region src/models/branch.d.ts
 declare class Branch$1 extends BaseModel implements Branch {
   branch_id: number;
   name: string;
@@ -38,8 +31,6 @@ declare class Branch$1 extends BaseModel implements Branch {
   created_by: number;
   created_by_email: string;
 }
-//#endregion
-//#region src/types/branches.d.ts
 type BranchParams = {
   name?: string;
 };
@@ -57,8 +48,6 @@ type BranchMerged = {
   branch: Branch;
   target_branch: Branch;
 };
-//#endregion
-//#region src/types/common_get_params.d.ts
 type TeamOnly = {
   team_id: string | number;
 };
@@ -75,8 +64,6 @@ type CursorPagination = {
   pagination?: "offset" | "cursor";
   cursor?: string;
 };
-//#endregion
-//#region src/interfaces/client_data.d.ts
 interface ClientData {
   token: string;
   tokenType: string;
@@ -88,8 +75,6 @@ interface ClientData {
   requestTimeout?: number;
   userAgent?: string | undefined;
 }
-//#endregion
-//#region src/interfaces/api_error.d.ts
 /**
  * Interface representing the structure of an API error.
  */
@@ -107,8 +92,6 @@ interface IApiError {
    */
   details?: Record<string, string | number | boolean>;
 }
-//#endregion
-//#region src/models/api_error.d.ts
 /**
  * Represents an API error with a specific code and optional details.
  */
@@ -134,13 +117,69 @@ export declare class ApiError extends Error implements IApiError {
    *
    * @returns The formatted error message.
    */
-  toString(): string;
+  override toString(): string;
 }
-//#endregion
-//#region src/types/http_method.d.ts
+/**
+ * Describes a single Vantage API request validation issue.
+ *
+ * The structure corresponds to the validation errors returned by the API.
+ */
+interface VantageValidationError {
+  /** Validation rule that failed, for example "invalid_format". */
+  keyword: string;
+  /** JSON pointer to the invalid field, for example "/importId". */
+  instancePath: string;
+  /** Path to the validation rule in the schema. */
+  schemaPath: string;
+  /** Human-readable description, for example "Invalid GUID". */
+  message?: string;
+  /** Additional information about the failed validation rule. */
+  params: Record<string, unknown>;
+}
+/**
+ * Represents an error returned by the Vantage API.
+ */
+interface ApiErrorVantage {
+  /** Machine-readable API error code, for example "VALIDATION_ERROR". */
+  readonly code: string;
+  /** Original error details returned by the API. */
+  readonly details?: Record<string, unknown>;
+  /**
+   * Individual request validation issues.
+   *
+   * Available when the API returns a VALIDATION_ERROR containing
+   * a recognized validation error structure.
+   */
+  readonly validationErrors?: VantageValidationError[];
+}
+/**
+ * Represents an error returned by the Lokalise Vantage API.
+ *
+ * Preserves the original API error details and provides convenient access
+ * to individual validation issues when the error code is VALIDATION_ERROR.
+ */
+declare class ApiErrorVantage$1 extends Error implements ApiErrorVantage {
+  /** Machine-readable API error code. */
+  readonly code: string;
+  /** Original error details returned by the API. */
+  readonly details?: Record<string, unknown>;
+  /**
+   * Individual validation issues returned by the API.
+   *
+   * Populated only for VALIDATION_ERROR responses containing an array
+   * of recognized validation issues in details.error.
+   *
+   * The original validation data remains available in details.
+   */
+  readonly validationErrors?: VantageValidationError[];
+  constructor(message: string, code: string, details?: Record<string, unknown>);
+  /**
+   * Returns a readable error description, including the error code
+   * and original details when available.
+   */
+  override toString(): string;
+}
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
-//#endregion
-//#region src/http_client/base.d.ts
 type ApiResponse = {
   json: Record<string, unknown> | null;
   headers: Headers;
@@ -153,7 +192,7 @@ declare class ApiRequest {
   /**
    * The default base URL for the Lokalise API.
    */
-  protected static readonly urlRoot = "https://api.lokalise.com/api2/";
+  protected static readonly urlRoot = "https://api.lokalise.com/";
   /**
    * The resolved response from the API request.
    */
@@ -188,14 +227,15 @@ declare class ApiRequest {
    * @param requestTimeout - Optional timeout in milliseconds.
    * @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
    */
-  protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout?: number): Promise<ApiResponse>;
+  protected fetchAndHandleResponse(target: URL, options: RequestInit, requestTimeout?: number, version?: string): Promise<ApiResponse>;
   /**
    * Processes the fetch response.
-   * Attempts to parse JSON unless the status is 204 (No Content).
+   * Parses JSON when the response body is not empty.
    * @param response - The raw fetch Response object.
+   * @param version - API version.
    * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
    */
-  protected processResponse(response: Response): Promise<ApiResponse>;
+  protected processResponse(response: Response, version?: string): Promise<ApiResponse>;
   /**
    * Derives an ApiError instance from the response JSON, which may follow various patterns.
    * @param respJson - The parsed JSON response from the server.
@@ -225,9 +265,9 @@ declare class ApiRequest {
    * @throws Error if a required parameter is missing.
    */
   protected mapUriParams(): (substring: string, isMandatory: string, paramName: string) => string;
+  protected parseVantageError(json: unknown): ApiErrorVantage$1 | null;
+  protected getVantageErrorFromResp(respJson: unknown, fallbackStatus: number): Error;
 }
-//#endregion
-//#region src/interfaces/bulk_result.d.ts
 interface BulkResult<T = unknown> {
   readonly items: T[];
   readonly errors: {
@@ -236,14 +276,10 @@ interface BulkResult<T = unknown> {
     [key: string]: unknown;
   }[];
 }
-//#endregion
-//#region src/interfaces/cursor_paginated_result.d.ts
 interface CursorPaginatedResult<T = unknown> extends PaginatedResult<T> {
   readonly nextCursor: string | null;
   hasNextCursor(): boolean;
 }
-//#endregion
-//#region src/models/paginated_result.d.ts
 declare class PaginatedResult$1<T> implements PaginatedResult {
   totalResults: number;
   totalPages: number;
@@ -260,37 +296,11 @@ declare class PaginatedResult$1<T> implements PaginatedResult {
   prevPage(): number;
   private safeParseInt;
 }
-//#endregion
-//#region src/models/cursor_paginated_result.d.ts
 declare class CursorPaginatedResult$1<T> extends PaginatedResult$1<T> implements CursorPaginatedResult {
   nextCursor: string | null;
   constructor(items: T[], headers: Headers);
   hasNextCursor(): boolean;
 }
-//#endregion
-//#region src/interfaces/v1/cursor_paginated_response.d.ts
-interface CursorPaginatedResponseV1<T = unknown> {
-  readonly data: T[];
-  readonly next_cursor: string | null;
-  readonly has_more: boolean;
-}
-//#endregion
-//#region src/interfaces/v1/cursor_paginated_result.d.ts
-interface CursorPaginatedResultV1<T = unknown> {
-  readonly next_cursor: string | null;
-  readonly has_more: boolean;
-  readonly items: T[];
-}
-//#endregion
-//#region src/models/v1/cursor_paginated_result.d.ts
-declare class CursorPaginatedResultV1$1<T> implements CursorPaginatedResultV1<T> {
-  readonly next_cursor: string | null;
-  readonly has_more: boolean;
-  readonly items: T[];
-  constructor(response: CursorPaginatedResponseV1<T>);
-}
-//#endregion
-//#region src/collections/base_collection.d.ts
 type ResolveHandler<T> = (json: Record<string, unknown>, headers: Headers) => T;
 type ApiRequestWithResponse = ApiRequest & {
   response: ApiResponse;
@@ -368,7 +378,6 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @returns A promise resolving to a CursorPaginatedResult of ElementType.
    */
   protected doListCursor(params: Record<string, unknown>): Promise<CursorPaginatedResult$1<ElementType>>;
-  protected doListCursorV1(params: Record<string, unknown>): Promise<CursorPaginatedResultV1$1<ElementType>>;
   /**
    * Perform a GET request to retrieve a single item by its ID.
    * @param id The ID of the item to retrieve.
@@ -390,7 +399,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @param resolveFn Optional custom resolve handler to parse the response.
    * @returns A promise resolving to an ElementType or SecondaryType instance.
    */
-  protected doCreate(body: object | object[] | null, params?: Record<string, unknown>, resolveFn?: (json: Record<string, unknown>, _headers?: Headers, secondary?: boolean) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
+  protected doCreate(body: object | object[] | null, params?: Record<string, unknown>, resolveFn?: (json: Record<string, unknown>, headers: Headers) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
   /**
    * Perform a POST request to create multiple resources at once.
    * @param body The object or array of objects to send in the request body.
@@ -462,11 +471,6 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    */
   protected populateArrayFromJsonCursor(json: Record<string, unknown>, headers: Headers): CursorPaginatedResult$1<ElementType>;
   /**
-   * Parse a JSON response that contains a cursor-paginated array of items.
-   * @param json The raw JSON object returned by the API.
-   */
-  protected populateArrayFromJsonCursorV1(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultV1$1<ElementType>;
-  /**
    * Parse a JSON object into either an ElementType or a SecondaryType instance.
    * @param json The raw JSON object returned by the API.
    * @param _headers The response headers (if needed).
@@ -493,6 +497,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @param uri An explicit URI to use for the request. If not provided, prefixURI is used.
    */
   protected createPromise<T>(method: HttpMethod, params: Record<string, unknown>, resolveFn: ResolveHandler<T>, body: object | object[] | null, uri?: string | null): Promise<T>;
+  protected createNoContentPromise(method: HttpMethod, params: Record<string, unknown>, body: object | object[] | null, uri?: string | null): Promise<void>;
   /**
    * Prepare the API request by creating a new ApiRequest instance using the static async factory method.
    * @param method The HTTP method.
@@ -513,20 +518,12 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @param headers The response headers.
    */
   private isPaginated;
-  /**
-   * Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
-   *
-   * @param value The value to test.
-   */
-  private isRecord;
 }
-//#endregion
-//#region src/collections/branches.d.ts
 declare class Branches extends BaseCollection<Branch$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Branch$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Branch$1>>;
   create(branch_params: BranchParams, request_params: ProjectOnly): Promise<Branch$1>;
   get(branch_id: string | number, request_params: ProjectOnly): Promise<Branch$1>;
@@ -534,8 +531,6 @@ declare class Branches extends BaseCollection<Branch$1> {
   delete(branch_id: string | number, request_params: ProjectOnly): Promise<BranchDeleted>;
   merge(branch_id: string | number, request_params: ProjectOnly, body?: MergeBranchParams): Promise<BranchMerged>;
 }
-//#endregion
-//#region src/interfaces/comment.d.ts
 interface Comment {
   comment_id: number;
   key_id: number;
@@ -545,8 +540,6 @@ interface Comment {
   added_at: string;
   added_at_timestamp: number;
 }
-//#endregion
-//#region src/models/comment.d.ts
 declare class Comment$1 extends BaseModel implements Comment {
   comment_id: number;
   key_id: number;
@@ -556,8 +549,6 @@ declare class Comment$1 extends BaseModel implements Comment {
   added_at: string;
   added_at_timestamp: number;
 }
-//#endregion
-//#region src/types/comments.d.ts
 type CommentData = {
   comment?: string;
 };
@@ -572,21 +563,17 @@ type ProjectAndKey = ProjectOnly & {
 type KeyProjectPagination = ProjectWithPagination & {
   key_id: number | string;
 };
-//#endregion
-//#region src/collections/comments.d.ts
 declare class Comments extends BaseCollection<Comment$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Comment$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: KeyProjectPagination): Promise<PaginatedResult<Comment$1>>;
   create(comment_params: CommentData | CommentData[], request_params: ProjectAndKey): Promise<Comment$1[]>;
   get(comment_id: string | number, request_params: ProjectAndKey): Promise<Comment$1>;
   delete(comment_id: string | number, request_params: ProjectAndKey): Promise<CommentDeleted>;
   list_project_comments(params: ProjectWithPagination): Promise<PaginatedResult<Comment$1>>;
 }
-//#endregion
-//#region src/interfaces/contributor.d.ts
 interface Contributor {
   user_id: number;
   email: string;
@@ -605,8 +592,6 @@ interface Contributor {
   role_id: number;
   uuid?: string;
 }
-//#endregion
-//#region src/models/contributor.d.ts
 declare class Contributor$1 extends BaseModel implements Contributor {
   user_id: number;
   email: string;
@@ -625,14 +610,8 @@ declare class Contributor$1 extends BaseModel implements Contributor {
   role_id: number;
   uuid?: string;
 }
-//#endregion
-//#region src/types/contributor_rights.d.ts
 type ContributorRights = "activity" | "branches_create" | "branches_main_modify" | "branches_merge" | "contributors" | "custom_status_modify" | "download" | "glossary" | "glossary_delete" | "glossary_edit" | "keys" | "manage_languages" | "review" | "screenshots" | "settings" | "statistics" | "tasks" | "upload";
-//#endregion
-//#region src/types/contributor_roles.d.ts
 type ContributorRoles = 1 | 2 | 3 | 4 | 5;
-//#endregion
-//#region src/types/contributors.d.ts
 type ContributorLanguages = {
   lang_iso: string;
   is_writable?: boolean;
@@ -658,13 +637,11 @@ type ContributorDeleted = {
   contributor_deleted: boolean;
   branch?: string;
 };
-//#endregion
-//#region src/collections/contributors.d.ts
 declare class Contributors extends BaseCollection<Contributor$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Contributor$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Contributor$1>>;
   create(contributor_params: ContributorCreateData | ContributorCreateData[], request_params: ProjectOnly): Promise<Contributor$1[]>;
   get(contributor_id: string | number, request_params: ProjectOnly): Promise<Contributor$1>;
@@ -672,22 +649,16 @@ declare class Contributors extends BaseCollection<Contributor$1> {
   update(contributor_id: string | number, contributor_params: ContributorUpdateData, request_params: ProjectOnly): Promise<Contributor$1>;
   delete(contributor_id: string | number, request_params: ProjectOnly): Promise<ContributorDeleted>;
 }
-//#endregion
-//#region src/interfaces/file.d.ts
 interface File {
   file_id: number;
   filename: string;
   key_count: number;
 }
-//#endregion
-//#region src/models/file.d.ts
 declare class File$1 extends BaseModel implements File {
   file_id: number;
   filename: string;
   key_count: number;
 }
-//#endregion
-//#region src/types/queued_process_details.d.ts
 type UploadedFileProcessDetails = {
   files: {
     status: string;
@@ -707,8 +678,6 @@ type DownloadedFileProcessDetails = {
   total_number_of_keys: number;
 };
 type QueuedProcessDetails = UploadedFileProcessDetails | DownloadedFileProcessDetails;
-//#endregion
-//#region src/interfaces/queued_process.d.ts
 interface QueuedProcess {
   process_id: string;
   type: string;
@@ -720,8 +689,6 @@ interface QueuedProcess {
   created_at_timestamp: number;
   details: QueuedProcessDetails;
 }
-//#endregion
-//#region src/models/queued_process.d.ts
 declare class QueuedProcess$1 extends BaseModel implements QueuedProcess {
   process_id: string;
   type: string;
@@ -733,11 +700,7 @@ declare class QueuedProcess$1 extends BaseModel implements QueuedProcess {
   created_at_timestamp: number;
   details: QueuedProcessDetails;
 }
-//#endregion
-//#region src/types/file_format.d.ts
 type FileFormat = "android_sdk" | "arb" | "csv" | "docx" | "flutter_sdk" | "html" | "ini" | "ios_sdk" | "js" | "json" | "json_structured" | "offline_xliff" | "php_array" | "php_laravel" | "plist" | "po" | "properties" | "react_native" | "resx" | "ruby_yaml" | "stf" | "strings" | "symfony_xliff" | "ts" | "xlf" | "xliff" | "xlsx" | "xml" | "yaml";
-//#endregion
-//#region src/types/files.d.ts
 type DownloadBundle = {
   project_id: string;
   bundle_url: string;
@@ -831,15 +794,13 @@ type UploadFileFromFssParams = Omit<UploadFileParams, "data"> & {
 type ListFileParams = ProjectWithPagination & {
   filter_filename?: string;
 };
-//#endregion
-//#region src/collections/files.d.ts
 declare class Files extends BaseCollection<File$1, QueuedProcess$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => File$1;
-  protected get rootElementName(): string;
-  protected get secondaryElementClass(): new (json: Record<string, unknown>) => QueuedProcess$1;
-  protected get secondaryElementNameSingular(): string;
-  protected returnBareJSON<T>(json: Record<string, unknown> | Record<string, unknown>[], headers: Headers): T;
+  protected override get rootElementName(): string;
+  protected override get secondaryElementClass(): new (json: Record<string, unknown>) => QueuedProcess$1;
+  protected override get secondaryElementNameSingular(): string;
+  protected override returnBareJSON<T>(json: Record<string, unknown> | Record<string, unknown>[], headers: Headers): T;
   list(request_params: ListFileParams): Promise<PaginatedResult<File$1>>;
   upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess$1>;
   uploadFromFss(project_id: string, upload: UploadFileFromFssParams): Promise<QueuedProcess$1>;
@@ -847,8 +808,6 @@ declare class Files extends BaseCollection<File$1, QueuedProcess$1> {
   async_download(project_id: string, download: DownloadFileParams): Promise<QueuedProcess$1>;
   delete(file_id: string | number, request_params: ProjectOnly): Promise<FileDeleted>;
 }
-//#endregion
-//#region src/interfaces/glossary_term.d.ts
 interface GlossaryTerm {
   id: number;
   projectId: string;
@@ -868,8 +827,6 @@ interface GlossaryTerm {
   createdAt: string;
   updatedAt: string | null;
 }
-//#endregion
-//#region src/models/glossary_term.d.ts
 declare class GlossaryTerm$1 extends BaseModel implements GlossaryTerm {
   id: number;
   projectId: string;
@@ -889,8 +846,6 @@ declare class GlossaryTerm$1 extends BaseModel implements GlossaryTerm {
   createdAt: string;
   updatedAt: string | null;
 }
-//#endregion
-//#region src/types/glossary_terms.d.ts
 type ListTermsParams = ProjectOnly & Omit<CursorPagination, "pagination">;
 type CreateTermsParams = {
   terms: Array<{
@@ -934,13 +889,11 @@ type TermsDeleted = {
     message: string;
   }>;
 };
-//#endregion
-//#region src/collections/glossary_terms.d.ts
 declare class GlossaryTerms extends BaseCollection<GlossaryTerm$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => GlossaryTerm$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   get(term_id: string | number, request_params: ProjectOnly): Promise<GlossaryTerm$1>;
   list(request_params: ListTermsParams): Promise<CursorPaginatedResult<GlossaryTerm$1>>;
   create(term_params: CreateTermsParams, request_params: ProjectOnly): Promise<BulkResult<GlossaryTerm$1>>;
@@ -948,27 +901,19 @@ declare class GlossaryTerms extends BaseCollection<GlossaryTerm$1> {
   delete(term_ids: number[], request_params: ProjectOnly): Promise<TermsDeleted>;
   private populateFromBulkDelete;
 }
-//#endregion
-//#region src/interfaces/jwt.d.ts
 interface Jwt {
   jwt: string;
 }
-//#endregion
-//#region src/models/jwt.d.ts
 declare class Jwt$2 extends BaseModel implements Jwt {
   jwt: string;
 }
-//#endregion
-//#region src/collections/jwt.d.ts
 declare class Jwt$1 extends BaseCollection<Jwt$2> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Jwt$2;
   create(project_id: string, body?: {
     service: string;
   }): Promise<Jwt$2>;
 }
-//#endregion
-//#region src/interfaces/ai_scoring.d.ts
 interface AiScoringIssue {
   category: string;
   severity: string;
@@ -981,8 +926,6 @@ interface AiScoring {
   last_updated_timestamp: number;
   issues: AiScoringIssue[];
 }
-//#endregion
-//#region src/interfaces/screenshot.d.ts
 interface Screenshot {
   screenshot_id: number;
   key_ids: number[];
@@ -1004,15 +947,11 @@ interface Screenshot {
   created_at: string;
   created_at_timestamp: number;
 }
-//#endregion
-//#region src/interfaces/translation_status.d.ts
 interface TranslationStatus {
   status_id: number;
   title: string;
   color: string;
 }
-//#endregion
-//#region src/interfaces/translation.d.ts
 interface Translation {
   translation_id: number;
   key_id: number;
@@ -1032,19 +971,13 @@ interface Translation {
   task_id: number;
   segment_number: number;
 }
-//#endregion
-//#region src/types/filenames.d.ts
 type Filenames = {
   ios?: string | null;
   android?: string | null;
   web?: string | null;
   other?: string | null;
 };
-//#endregion
-//#region src/types/supported_platforms.d.ts
 type SupportedPlatforms = "ios" | "android" | "web" | "other";
-//#endregion
-//#region src/interfaces/key.d.ts
 type KeyComment$1 = Omit<Comment, "key_id">;
 interface Key {
   key_id: number;
@@ -1072,8 +1005,6 @@ interface Key {
   translations_modified_at: string;
   translations_modified_at_timestamp: number;
 }
-//#endregion
-//#region src/models/key.d.ts
 type KeyComment = Omit<Comment, "key_id">;
 declare class Key$1 extends BaseModel implements Key {
   key_id: number;
@@ -1101,11 +1032,7 @@ declare class Key$1 extends BaseModel implements Key {
   translations_modified_at: string;
   translations_modified_at_timestamp: number;
 }
-//#endregion
-//#region src/types/numeric_bool.d.ts
 type NumericBool = 0 | 1;
-//#endregion
-//#region src/types/screenshots.d.ts
 type CreateScreenshotParams = {
   data: string;
   title?: string;
@@ -1126,8 +1053,6 @@ type ScreenshotData = {
   screenshot_tags?: string[];
   data?: string;
 };
-//#endregion
-//#region src/types/translations.d.ts
 type TranslationData = {
   language_iso?: string;
   translation?: string | Record<string, unknown>;
@@ -1155,8 +1080,6 @@ type GetTranslationParams = ProjectOnly & {
   disable_references?: number | string;
   include_ai_scoring?: NumericBool;
 };
-//#endregion
-//#region src/types/keys.d.ts
 type CreateKeyData = {
   key_name: string | Filenames;
   description?: string;
@@ -1223,13 +1146,11 @@ type GetKeyParams = ProjectOnly & {
   disable_references?: NumericBool;
   include_ai_scoring?: NumericBool;
 };
-//#endregion
-//#region src/collections/keys.d.ts
 declare class Keys extends BaseCollection<Key$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Key$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: KeyParamsWithPagination): Promise<CursorPaginatedResult<Key$1>>;
   create(key_params: CreateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key$1>>;
   get(key_id: string | number, request_params: GetKeyParams): Promise<Key$1>;
@@ -1238,8 +1159,6 @@ declare class Keys extends BaseCollection<Key$1> {
   bulk_update(key_params: BulkUpdateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key$1>>;
   bulk_delete(key_ids: number[] | string[], request_params: ProjectOnly): Promise<KeysBulkDeleted>;
 }
-//#endregion
-//#region src/interfaces/language.d.ts
 interface Language {
   lang_id: number;
   lang_iso: string;
@@ -1248,8 +1167,6 @@ interface Language {
   plural_forms: string[];
   project_language_uuid?: string;
 }
-//#endregion
-//#region src/models/language.d.ts
 declare class Language$1 extends BaseModel implements Language {
   lang_id: number;
   lang_iso: string;
@@ -1258,8 +1175,6 @@ declare class Language$1 extends BaseModel implements Language {
   plural_forms: string[];
   project_language_uuid?: string;
 }
-//#endregion
-//#region src/types/languages.d.ts
 type CreateLanguageParams = {
   lang_iso: string;
   custom_iso?: string;
@@ -1276,13 +1191,11 @@ type LanguageDeleted = {
   language_deleted: boolean;
   branch?: string;
 };
-//#endregion
-//#region src/collections/languages.d.ts
 declare class Languages extends BaseCollection<Language$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Language$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   system_languages(params?: PaginationParams): Promise<PaginatedResult<Language$1>>;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Language$1>>;
   create(raw_body: CreateLanguageParams | CreateLanguageParams[], request_params: ProjectOnly): Promise<BulkResult<Language$1>>;
@@ -1290,8 +1203,6 @@ declare class Languages extends BaseCollection<Language$1> {
   update(lang_id: string | number, lang_params: UpdateLanguageParams, request_params: ProjectOnly): Promise<Language$1>;
   delete(lang_id: string | number, request_params: ProjectOnly): Promise<LanguageDeleted>;
 }
-//#endregion
-//#region src/interfaces/order.d.ts
 interface Order {
   order_id: string;
   project_id: string;
@@ -1316,8 +1227,6 @@ interface Order {
   total: number;
   dry_run: boolean;
 }
-//#endregion
-//#region src/models/order.d.ts
 declare class Order$1 extends BaseModel implements Order {
   order_id: string;
   project_id: string;
@@ -1342,8 +1251,6 @@ declare class Order$1 extends BaseModel implements Order {
   is_saved_to_translation_memory: boolean;
   dry_run: boolean;
 }
-//#endregion
-//#region src/types/orders.d.ts
 type CreateOrderParams = {
   project_id: string;
   branch?: string;
@@ -1359,22 +1266,16 @@ type CreateOrderParams = {
   dry_run?: boolean;
   translation_style?: "formal" | "informal" | "business" | "friendly";
 };
-//#endregion
-//#region src/types/teams.d.ts
 type TeamWithPagination = TeamOnly & PaginationParams;
-//#endregion
-//#region src/collections/orders.d.ts
 declare class Orders extends BaseCollection<Order$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Order$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<Order$1>>;
   create(order_params: CreateOrderParams, request_params: TeamOnly): Promise<Order$1>;
   get(order_id: string | number, request_params: TeamOnly): Promise<Order$1>;
 }
-//#endregion
-//#region src/interfaces/payment_card.d.ts
 interface PaymentCard {
   card_id: number;
   last4: string;
@@ -1382,8 +1283,6 @@ interface PaymentCard {
   created_at: string;
   created_at_timestamp: number;
 }
-//#endregion
-//#region src/models/payment_card.d.ts
 declare class PaymentCard$1 extends BaseModel implements PaymentCard {
   card_id: number;
   last4: string;
@@ -1391,8 +1290,6 @@ declare class PaymentCard$1 extends BaseModel implements PaymentCard {
   created_at: string;
   created_at_timestamp: number;
 }
-//#endregion
-//#region src/types/cards.d.ts
 type CreateCardParams = {
   number: string;
   cvc: string | number;
@@ -1403,36 +1300,28 @@ type CardDeleted = {
   card_id: string;
   card_deleted: boolean;
 };
-//#endregion
-//#region src/collections/payment_cards.d.ts
 declare class PaymentCards extends BaseCollection<PaymentCard$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => PaymentCard$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params?: PaginationParams): Promise<PaginatedResult<PaymentCard$1>>;
   create(card_params: CreateCardParams): Promise<PaymentCard$1>;
   get(card_id: string | number): Promise<PaymentCard$1>;
   delete(card_id: string | number): Promise<CardDeleted>;
 }
-//#endregion
-//#region src/interfaces/auth_data.d.ts
 interface AuthData {
   client_id: string;
   client_secret: string;
   host?: string;
   version?: string;
 }
-//#endregion
-//#region src/interfaces/auth_error.d.ts
 interface IAuthError {
   code: number;
   error: string;
   error_description: string;
   error_uri?: string;
 }
-//#endregion
-//#region src/interfaces/client_params.d.ts
 /**
  * Parameters used to configure a BaseClient instance.
  */
@@ -1476,8 +1365,6 @@ type ClientParams = {
    */
   userAgent?: string;
 };
-//#endregion
-//#region src/interfaces/ota/ota_bundle.d.ts
 interface OtaBundle {
   id: number;
   projectId: string;
@@ -1493,14 +1380,10 @@ interface OtaBundle {
   fileUrl: string;
   modifiedAt: string;
 }
-//#endregion
-//#region src/interfaces/ota/ota_bundle_archive.d.ts
 interface OtaBundleArchive {
   url: string;
   version: number;
 }
-//#endregion
-//#region src/interfaces/ota/ota_freeze_period.d.ts
 interface OtaFreezePeriod {
   id: number;
   projectId: number;
@@ -1509,8 +1392,6 @@ interface OtaFreezePeriod {
   from: string;
   to: string;
 }
-//#endregion
-//#region src/interfaces/ota/ota_sdk_token.d.ts
 interface OtaSdkToken {
   id: number;
   token: string;
@@ -1518,8 +1399,6 @@ interface OtaSdkToken {
   lokaliseId: number;
   createdAt: string;
 }
-//#endregion
-//#region src/interfaces/ota/ota_statistics.d.ts
 interface OtaStatistics {
   lokaliseProjectId: string;
   from: string;
@@ -1545,8 +1424,6 @@ interface OtaStatistics {
     trafficBytes: string;
   };
 }
-//#endregion
-//#region src/interfaces/project_settings.d.ts
 interface ProjectSettings {
   per_platform_key_names: boolean;
   reviewing: boolean;
@@ -1559,8 +1436,6 @@ interface ProjectSettings {
   custom_translation_statuses: boolean;
   custom_translation_statuses_allow_multiple: boolean;
 }
-//#endregion
-//#region src/interfaces/project_statistics.d.ts
 interface ProjectStatistics {
   progress_total: number;
   keys_total: number;
@@ -1592,8 +1467,6 @@ interface ProjectStatistics {
     words_to_do: number;
   }>;
 }
-//#endregion
-//#region src/interfaces/project.d.ts
 interface Project {
   project_id: string;
   project_type: string;
@@ -1611,24 +1484,18 @@ interface Project {
   settings: ProjectSettings;
   statistics: ProjectStatistics;
 }
-//#endregion
-//#region src/interfaces/refresh_token_response.d.ts
 interface RefreshTokenResponse {
   access_token: string;
   scope: string;
   expires_in: string | number;
   token_type: string;
 }
-//#endregion
-//#region src/interfaces/request_token_response.d.ts
 interface RequestTokenResponse {
   access_token: string;
   refresh_token: string;
   expires_in: string | number;
   token_type: string;
 }
-//#endregion
-//#region src/interfaces/segment.d.ts
 interface Segment {
   segment_number: number;
   language_iso: string;
@@ -1643,8 +1510,6 @@ interface Segment {
   words: number;
   custom_translation_statuses: TranslationStatus[];
 }
-//#endregion
-//#region src/interfaces/snapshot.d.ts
 interface Snapshot {
   snapshot_id: number;
   title: string;
@@ -1653,8 +1518,6 @@ interface Snapshot {
   created_by: number;
   created_by_email: string;
 }
-//#endregion
-//#region src/interfaces/task.d.ts
 interface Task {
   task_id: number;
   title: string;
@@ -1723,8 +1586,6 @@ interface Task {
   completed_by_email: string;
   custom_translation_status_ids: number[];
 }
-//#endregion
-//#region src/interfaces/team.d.ts
 interface Team {
   team_id: number;
   name: string;
@@ -1746,8 +1607,6 @@ interface Team {
     ai_words: number;
   };
 }
-//#endregion
-//#region src/interfaces/team_user.d.ts
 interface TeamUser {
   user_id: number;
   email: string;
@@ -1757,8 +1616,6 @@ interface TeamUser {
   role: string;
   uuid?: string;
 }
-//#endregion
-//#region src/interfaces/team_user_billing_details.d.ts
 interface TeamUserBillingDetails {
   billing_email: string;
   country_code: string;
@@ -1771,14 +1628,10 @@ interface TeamUserBillingDetails {
   company: string;
   vatnumber: string;
 }
-//#endregion
-//#region src/interfaces/translation_memory.d.ts
 interface TranslationMemory {
   id: number;
   name: string;
 }
-//#endregion
-//#region src/interfaces/translation_provider.d.ts
 interface TranslationProvider {
   provider_id: number;
   name: string;
@@ -1799,8 +1652,6 @@ interface TranslationProvider {
     price_per_word: number;
   }>;
 }
-//#endregion
-//#region src/interfaces/user_group.d.ts
 interface UserGroup {
   group_id: number;
   name: string;
@@ -1822,8 +1673,6 @@ interface UserGroup {
   members: number[] | string[];
   role_id: number | null;
 }
-//#endregion
-//#region src/interfaces/v1/audit_event.d.ts
 interface AuditEventV1 {
   readonly class_uid: number;
   readonly class_name?: string;
@@ -1890,8 +1739,239 @@ interface AuditEventV1 {
    */
   readonly [key: string]: unknown;
 }
-//#endregion
-//#region src/interfaces/webhook.d.ts
+interface CursorPaginatedResponseV1<T = unknown> {
+  readonly data: T[];
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+}
+interface CursorPaginatedResultV1<T = unknown> {
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+  readonly items: T[];
+}
+type CursorPaginationParams = {
+  after?: string;
+  limit?: number;
+};
+type ContentUnitParams = CursorPaginationParams & {
+  project_id: string;
+  item_id: string;
+  "filter-keys"?: string[];
+};
+type ContentUnitTypeVantage = "HTML_FILE" | "DOCX_FILE" | "PPTX_FILE" | "XLSX_FILE" | "MARKDOWN_FILE" | "IDML_FILE" | "JSON_FILE" | "YAML_FILE" | "XCSTRINGS_FILE" | "PO_FILE" | "XLIFF_FILE" | "PDF_FILE" | "TEXT" | "HTML" | "JSON" | "CONTENTFUL_RICH_TEXT";
+interface ContentUnitVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly type: ContentUnitTypeVantage;
+  readonly key: string;
+  readonly position: number;
+  readonly sourceSegmentsCount: number;
+}
+interface CursorPaginatedResponseVantage<T = unknown> {
+  readonly data: T[];
+  readonly meta: {
+    readonly count: number;
+    readonly cursor: string | null;
+    readonly hasMore: boolean;
+  };
+}
+interface CursorPaginatedResultVantage<T = unknown> {
+  readonly count: number;
+  readonly cursor: string | null;
+  readonly hasMore: boolean;
+  readonly items: T[];
+}
+type ExportStatusVantage = "IN_PROGRESS" | "COMPLETED" | "FAILED";
+interface ExportVantage {
+  readonly exportId: string;
+  readonly status: ExportStatusVantage;
+  readonly createdAt?: string;
+  readonly totalItemsCount?: number;
+  readonly processedItemsCount?: number;
+  readonly failReason?: string | null;
+}
+interface ExportDownloadUrlVantage {
+  readonly downloadUrl: string;
+}
+interface ImportVantage {
+  readonly importId: string;
+}
+type ProjectReviewThresholdVantage = "FULL_REVIEW" | "CRITICAL_MAJOR_MINOR" | "CRITICAL_MAJOR" | "CRITICAL";
+type ProjectTranslationSettingsVantage = {
+  readonly reviewTurnaroundDays: number;
+  readonly workflowType: "AI_HUMAN_REVIEW";
+  readonly reviewThreshold: ProjectReviewThresholdVantage;
+} | {
+  readonly reviewTurnaroundDays: number;
+  readonly workflowType: "AI_ONLY";
+  readonly reviewThreshold: null;
+};
+type ProjectParams = CursorPaginationParams & {
+  team_id: string;
+};
+interface ProjectLanguageVantage {
+  readonly languageId: string;
+  readonly locale: string;
+  readonly languageName: string;
+  readonly isRtl: boolean;
+}
+interface ProjectVantage {
+  readonly projectId: string;
+  readonly teamId: string;
+  readonly name: string;
+  readonly description: string;
+  readonly baseLanguage: Pick<ProjectLanguageVantage, "languageId" | "locale">;
+  readonly targetLanguages: Pick<ProjectLanguageVantage, "languageId" | "locale">[];
+  readonly translationSettings: ProjectTranslationSettingsVantage;
+  readonly contentSourceType: string | null;
+  readonly contentSourceName?: string | null;
+  readonly projectType: string;
+}
+interface ProjectItemVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly name: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+}
+type SegmentStatusVantage = "TRANSLATING" | "TRANSLATION_FAILED" | "LQA_IN_PROGRESS" | "PENDING_REVIEW" | "APPROVED";
+type SegmentLastChangeSourceVantage = "TRANSLATION_MEMORY" | "AI" | "HUMAN" | "IMPORT";
+type SegmentParams = CursorPaginationParams & {
+  project_id: string;
+  content_unit_id: string;
+  "filter-languages"?: string[];
+};
+type SegmentUpdateStatus = "APPROVED" | "PENDING_REVIEW";
+type SegmentUpdateBody = {
+  value: string;
+  status?: SegmentUpdateStatus;
+} | {
+  value?: string;
+  status: SegmentUpdateStatus;
+};
+interface SegmentVantage {
+  readonly id: string;
+  readonly number: number;
+  readonly value: string;
+  readonly status: SegmentStatusVantage;
+  readonly lastChangeSource: SegmentLastChangeSourceVantage;
+  readonly contentLanguageId: string;
+  readonly contentUnitId: string;
+  readonly projectId: string;
+  readonly metadata?: {
+    readonly prefix?: string;
+    readonly suffix?: string;
+  } | null;
+  readonly createdAt: string;
+  readonly updatedAt?: string;
+}
+interface SegmentWarningVantage {
+  readonly code: string;
+  readonly details?: Record<string, unknown>;
+}
+interface SegmentUpdateResultVantage {
+  readonly data: SegmentVantage;
+  readonly warnings?: SegmentWarningVantage[];
+}
+type TaskTypeVantage = "review";
+type TaskStatusVantage = "created" | "in_progress" | "closed";
+type TaskAssigneeTypeVantage = "user" | "user_group";
+type TaskSegmentStatusVantage = "pending" | "completed";
+type TaskParams = CursorPaginationParams & {
+  team_id: string;
+  project_id: string;
+  "filter-ids"?: string[];
+  "filter-item-ids"?: string[];
+  "include-segments"?: boolean;
+};
+interface TaskAssigneeVantage {
+  readonly contributorId: string;
+  readonly type: TaskAssigneeTypeVantage;
+}
+interface TaskProgressVantage {
+  readonly completedUnits: number;
+  readonly totalUnits: number;
+  readonly completedWords: number;
+  readonly totalWords: number;
+}
+interface TaskSegmentVantage {
+  readonly id: string;
+  readonly unitId: string;
+  readonly status: TaskSegmentStatusVantage;
+  readonly createdAt: string;
+  readonly completedAt?: string | null;
+}
+interface TaskAssignmentVantage {
+  readonly languageId: string;
+  readonly assignees: TaskAssigneeVantage[];
+  readonly progress: TaskProgressVantage;
+  readonly segments: TaskSegmentVantage[];
+}
+interface TaskVantage {
+  readonly id: string;
+  readonly publicId: string;
+  readonly title: string;
+  readonly type: TaskTypeVantage;
+  readonly status: TaskStatusVantage;
+  readonly description: string | null;
+  readonly taskAssignments: TaskAssignmentVantage[];
+  readonly dueDate?: string | null;
+  readonly createdAt: string;
+  readonly requestedBy: string | null;
+}
+type TranslationProgressStatusVantage = "TRANSLATING" | "PENDING_REVIEW" | "COMPLETED" | "FAILED" | (string & {});
+type TranslationLanguageStatusVantage = "TRANSLATING" | "PENDING_REVIEW" | "COMPLETED" | (string & {});
+interface TranslationStatusLanguageVantage {
+  readonly languageId: string;
+  readonly locale: string;
+  readonly status: TranslationLanguageStatusVantage;
+}
+interface TranslationStatusVantage {
+  readonly projectId: string;
+  readonly importId: string;
+  readonly status: TranslationProgressStatusVantage;
+  readonly languages: TranslationStatusLanguageVantage[];
+}
+type UploadStatusVantage = "UPLOADING" | "UPLOADED" | "IMPORTING" | "IMPORTED" | "UPLOAD_FAILED" | "IMPORT_FAILED";
+interface UploadErrorVantage {
+  readonly code: string;
+  readonly message: string;
+}
+interface UploadVantage {
+  readonly uploadId: string;
+  readonly batchId: string;
+  readonly fileName: string;
+  readonly size: number;
+  readonly createdAt: string;
+  readonly status: UploadStatusVantage;
+  readonly wordCount?: number;
+  readonly locale?: string;
+  readonly itemId?: string;
+  readonly error?: UploadErrorVantage;
+}
+interface UploadTargetVantage {
+  readonly url: string;
+  readonly fields: Record<string, string>;
+  readonly expiresAt: string;
+}
+interface StagedUploadSuccessVantage {
+  readonly fileName: string;
+  readonly uploadId: string;
+  readonly status: "UPLOADING";
+  readonly upload: UploadTargetVantage;
+  readonly error?: never;
+}
+interface StagedUploadFailureVantage {
+  readonly fileName: string;
+  readonly error: UploadErrorVantage;
+  readonly uploadId?: never;
+  readonly status?: never;
+  readonly upload?: never;
+}
+interface UploadStageVantage {
+  readonly batchId: string;
+  readonly uploads: (StagedUploadSuccessVantage | StagedUploadFailureVantage)[];
+}
 interface Webhook {
   webhook_id: string;
   url: string;
@@ -1903,8 +1983,6 @@ interface Webhook {
     lang_iso_codes: string[];
   }>;
 }
-//#endregion
-//#region src/interfaces/permission_template.d.ts
 interface PermissionTemplate$1 {
   id: number;
   role: string;
@@ -1915,8 +1993,6 @@ interface PermissionTemplate$1 {
   tagInfo: string | null;
   doesEnableAllReadOnlyLanguages: boolean;
 }
-//#endregion
-//#region src/models/permission_template.d.ts
 declare class PermissionTemplate extends BaseModel implements PermissionTemplate$1 {
   id: number;
   role: string;
@@ -1927,8 +2003,6 @@ declare class PermissionTemplate extends BaseModel implements PermissionTemplate
   tagInfo: string | null;
   doesEnableAllReadOnlyLanguages: boolean;
 }
-//#endregion
-//#region src/types/billing_details.d.ts
 type BillingDetailsParams = {
   billing_email: string;
   country_code: string;
@@ -1941,8 +2015,6 @@ type BillingDetailsParams = {
   company?: string;
   vatnumber?: string;
 };
-//#endregion
-//#region src/types/ota.d.ts
 type OtaResourceDeleted = {
   id: number;
   deleted: boolean;
@@ -1976,8 +2048,6 @@ type OtaRequestBundleParams = {
   transVersion: number;
   prerelease?: boolean;
 };
-//#endregion
-//#region src/types/projects.d.ts
 type CreateProjectParams = {
   name: string;
   team_id?: number | string;
@@ -2009,8 +2079,6 @@ type ProjectListParams = PaginationParams & {
   include_statistics?: string | number;
   include_settings?: string | number;
 };
-//#endregion
-//#region src/types/segments.d.ts
 type GetSegmentParams = {
   project_id: string;
   key_id: number | string;
@@ -2030,8 +2098,6 @@ type ListSegmentParams = GetSegmentParams & {
   filter_untranslated?: number | string;
   filter_qa_issues?: string;
 };
-//#endregion
-//#region src/types/snapshots.d.ts
 type CreateSnapshotParams = {
   title: string;
 };
@@ -2040,8 +2106,6 @@ type SnapshotDeleted = {
   snapshot_deleted: boolean;
   branch?: string;
 };
-//#endregion
-//#region src/types/tasks.d.ts
 type TaskLanguage = {
   language_iso: string;
   users?: string[] | number[];
@@ -2083,8 +2147,6 @@ type ListTaskParams = ProjectWithPagination & {
   filter_title?: string;
   filter_statuses?: "created" | "queued" | "in_progress" | "completed";
 };
-//#endregion
-//#region src/types/team_users.d.ts
 type TeamUserParams = {
   role?: "owner" | "admin" | "member" | "biller";
 };
@@ -2092,8 +2154,6 @@ type TeamUserDeleted = {
   team_id: string;
   team_user_deleted: boolean;
 };
-//#endregion
-//#region src/types/translation_statuses.d.ts
 type CreateTranslationStatusParams = {
   title: string;
   color: string;
@@ -2110,8 +2170,6 @@ type TranslationStatusDeleted = {
 type TranslationStatusColors = {
   colors: string[];
 };
-//#endregion
-//#region src/types/user_groups.d.ts
 type GroupLanguages = {
   reference: string[];
   contributable: string[];
@@ -2128,8 +2186,6 @@ type UserGroupDeleted = {
   team_id: string;
   group_deleted: boolean;
 };
-//#endregion
-//#region src/types/v1/common_get_params.d.ts
 type CursorPaginationParamsV1 = {
   /**
    * Number of results per page.
@@ -2141,8 +2197,6 @@ type CursorPaginationParamsV1 = {
    */
   cursor?: string;
 };
-//#endregion
-//#region src/types/v1/audit_logs.d.ts
 type AuditLogParams = CursorPaginationParamsV1 & {
   /**
    * Return events on or after this date.
@@ -2169,8 +2223,71 @@ type AuditLogParams = CursorPaginationParamsV1 & {
    */
   user_id?: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_branch_added.d.ts
+type ExportLanguagesVantage = {
+  locales: string[];
+  languageIds?: never;
+} | {
+  locales?: never;
+  languageIds: string[];
+} | {
+  locales?: never;
+  languageIds?: never;
+};
+type ExportItemVantage = {
+  itemId: string;
+} & ExportLanguagesVantage;
+type ExportParams = {
+  locales: string[];
+  languageIds?: never;
+  items?: never;
+} | {
+  locales?: never;
+  languageIds: string[];
+  items?: never;
+} | {
+  locales?: never;
+  languageIds?: never;
+  items: ExportItemVantage[];
+} | {
+  locales?: never;
+  languageIds?: never;
+  items?: never;
+};
+type ExportListParams = {
+  project_id: string;
+  "filter-status"?: ExportStatusVantage;
+  "filter-ids"?: string[];
+} & CursorPaginationParams;
+type ProjectItemParams = CursorPaginationParams & {
+  project_id: string;
+  "filter-ids"?: string[];
+  "filter-names"?: string[];
+};
+type ProjectLanguageParams = {
+  project_id: string;
+};
+type UploadListParams = {
+  project_id: string;
+  "filter-batch-id"?: string;
+  "filter-ids"?: string[];
+} & CursorPaginationParams;
+type UploadStageFileParams = {
+  fileName: string;
+  mimeType: string;
+  size: number;
+  checksum: string;
+};
+type UploadStageParams = {
+  batchId?: string;
+  uploads: UploadStageFileParams[];
+};
+type UploadCompleteParams = {
+  batchId: string;
+  uploadIds?: never;
+} | {
+  batchId?: never;
+  uploadIds: string[];
+};
 type WebhookProjectBranchAdded = {
   event: "project.branch.added";
   project: {
@@ -2188,8 +2305,6 @@ type WebhookProjectBranchAdded = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_branch_deleted.d.ts
 type WebhookProjectBranchDeleted = {
   event: "project.branch.deleted";
   project: {
@@ -2207,8 +2322,6 @@ type WebhookProjectBranchDeleted = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_branch_merged.d.ts
 type WebhookProjectBranchMerged = {
   event: "project.branch.merged";
   project: {
@@ -2234,8 +2347,6 @@ type WebhookProjectBranchMerged = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_contributor_added.d.ts
 type WebhookProjectContributorAdded = {
   event: "project.contributor.added";
   contributor: {
@@ -2252,8 +2363,6 @@ type WebhookProjectContributorAdded = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_contributor_added_public.d.ts
 type WebhookProjectContributorAddedPublic = {
   event: "project.contributor.added_public";
   contributor: {
@@ -2270,8 +2379,6 @@ type WebhookProjectContributorAddedPublic = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_contributor_deleted.d.ts
 type WebhookProjectContributorDeleted = {
   event: "project.contributor.deleted";
   contributor: {
@@ -2288,8 +2395,6 @@ type WebhookProjectContributorDeleted = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_copied.d.ts
 type WebhookProjectCopied = {
   event: "project.copied";
   action?: string;
@@ -2308,8 +2413,6 @@ type WebhookProjectCopied = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_deleted.d.ts
 type WebhookProjectDeleted = {
   event: "project.deleted";
   project: {
@@ -2323,8 +2426,6 @@ type WebhookProjectDeleted = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_exported.d.ts
 type WebhookProjectExported = {
   event: "project.exported";
   export: {
@@ -2344,8 +2445,6 @@ type WebhookProjectExported = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_imported.d.ts
 type WebhookProjectImported = {
   event: "project.imported";
   import: {
@@ -2387,8 +2486,6 @@ type WebhookProjectImported = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_key_added.d.ts
 type WebhookProjectKeyAdded = {
   event: "project.key.added";
   key: {
@@ -2410,8 +2507,6 @@ type WebhookProjectKeyAdded = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_key_comment_added.d.ts
 type WebhookProjectKeyCommentAdded = {
   event: "project.key.comment.added";
   comment: {
@@ -2434,8 +2529,6 @@ type WebhookProjectKeyCommentAdded = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_key_modified.d.ts
 type WebhookProjectKeyModified = {
   event: "project.key.modified";
   key: {
@@ -2459,8 +2552,6 @@ type WebhookProjectKeyModified = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_keys_added.d.ts
 type WebhookProjectKeysAdded = {
   event: "project.keys.added";
   action?: "string";
@@ -2486,8 +2577,6 @@ type WebhookProjectKeysAdded = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_keys_deleted.d.ts
 type WebhookProjectKeysDeleted = {
   event: "project.keys.deleted";
   action?: string;
@@ -2509,8 +2598,6 @@ type WebhookProjectKeysDeleted = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_keys_modified.d.ts
 type WebhookProjectKeysModified = {
   event: "project.keys.modified";
   action?: string;
@@ -2535,8 +2622,6 @@ type WebhookProjectKeysModified = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_language_removed.d.ts
 type WebhookProjectLanguageRemoved = {
   event: "project.language.removed";
   language: {
@@ -2555,8 +2640,6 @@ type WebhookProjectLanguageRemoved = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_language_settings_changed.d.ts
 type WebhookProjectLanguageSettingsChanged = {
   event: "project.language.settings_changed";
   language: {
@@ -2576,8 +2659,6 @@ type WebhookProjectLanguageSettingsChanged = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_languages_added.d.ts
 type WebhookProjectLanguagesAdded = {
   event: "project.languages.added";
   languages: Array<{
@@ -2597,8 +2678,6 @@ type WebhookProjectLanguagesAdded = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_snapshot_created.d.ts
 type WebhookProjectSnapshotCreated = {
   event: "project.snapshot";
   project: {
@@ -2612,8 +2691,6 @@ type WebhookProjectSnapshotCreated = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_task_closed.d.ts
 type WebhookProjectTaskClosed = {
   event: "project.task.closed";
   task: {
@@ -2635,8 +2712,6 @@ type WebhookProjectTaskClosed = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_task_created.d.ts
 type WebhookProjectTaskCreated = {
   event: "project.task.created";
   task: {
@@ -2658,8 +2733,6 @@ type WebhookProjectTaskCreated = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_task_deleted.d.ts
 type WebhookProjectTaskDeleted = {
   event: "project.task.deleted";
   task: {
@@ -2681,8 +2754,6 @@ type WebhookProjectTaskDeleted = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_task_initial_tm_leverage_calculated.d.ts
 type TmLeverage = {
   "0": number;
   "50": number;
@@ -2709,8 +2780,6 @@ type WebhookProjectTaskInitialTmLeverageCalculated = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_task_language_closed.d.ts
 type WebhookProjectTaskLanguageClosed = {
   event: "project.task.language.closed";
   language: {
@@ -2737,8 +2806,6 @@ type WebhookProjectTaskLanguageClosed = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_task_queued.d.ts
 type WebhookProjectTaskQueued = {
   event: "project.task.queued";
   task: {
@@ -2759,8 +2826,6 @@ type WebhookProjectTaskQueued = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_translation_proofread.d.ts
 type WebhookProjectTranslationProofread = {
   event: "project.translation.proofread";
   translation: {
@@ -2791,8 +2856,6 @@ type WebhookProjectTranslationProofread = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_translation_updated.d.ts
 type WebhookProjectTranslationUpdated = {
   event: "project.translation.updated";
   translation: {
@@ -2823,8 +2886,6 @@ type WebhookProjectTranslationUpdated = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_translations_proofread.d.ts
 type WebhookProjectTranslationsProofread = {
   event: "project.translations.proofread";
   action: string;
@@ -2855,8 +2916,6 @@ type WebhookProjectTranslationsProofread = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/project_translations_updated.d.ts
 type WebhookProjectTranslationsUpdated = {
   event: "project.translations.updated";
   action: string;
@@ -2887,8 +2946,6 @@ type WebhookProjectTranslationsUpdated = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/team_order_completed.d.ts
 type WebhookTeamOrderCompleted = {
   event: "team.order.completed";
   project: {
@@ -2903,8 +2960,6 @@ type WebhookTeamOrderCompleted = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/team_order_created.d.ts
 type WebhookTeamOrderCreated = {
   event: "team.order.created";
   project: {
@@ -2930,8 +2985,6 @@ type WebhookTeamOrderCreated = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhook_events/team_order_deleted.d.ts
 type WebhookTeamOrderDeleted = {
   event: "team.order.deleted";
   project: {
@@ -2946,8 +2999,6 @@ type WebhookTeamOrderDeleted = {
   created_at: string;
   created_at_timestamp: number;
 };
-//#endregion
-//#region src/types/webhooks.d.ts
 type WebhookEvents = "project.branch.added" | "project.branch.deleted" | "project.branch.merged" | "project.contributor.added" | "project.contributor.deleted" | "project.deleted" | "project.exported" | "project.imported" | "project.key.added" | "project.key.comment.added" | "project.key.modified" | "project.keys.deleted" | "project.language.removed" | "project.language.settings_changed" | "project.languages.added" | "project.snapshot" | "project.task.closed" | "project.task.created" | "project.task.deleted" | "project.task.language.closed" | "project.translation.proofread" | "project.translation.updated" | "team.order.completed" | "team.order.created" | "team.order.deleted";
 type WebhookEventLangMap = {
   event?: WebhookEvents;
@@ -2971,16 +3022,12 @@ type WebhookRegenerated = {
   project_id: string;
   secret: string;
 };
-//#endregion
-//#region src/collections/permission_templates.d.ts
 declare class PermissionTemplates extends BaseCollection<PermissionTemplate> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => PermissionTemplate;
-  protected get rootElementName(): string;
+  protected override get rootElementName(): string;
   list(request_params: TeamOnly): Promise<PaginatedResult<PermissionTemplate>>;
 }
-//#endregion
-//#region src/models/project.d.ts
 declare class Project$1 extends BaseModel implements Project {
   project_id: string;
   project_type: string;
@@ -2998,13 +3045,11 @@ declare class Project$1 extends BaseModel implements Project {
   settings: ProjectSettings;
   statistics: ProjectStatistics;
 }
-//#endregion
-//#region src/collections/projects.d.ts
 declare class Projects extends BaseCollection<Project$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Project$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params?: ProjectListParams): Promise<PaginatedResult<Project$1>>;
   create(project_params: CreateProjectParams): Promise<Project$1>;
   get(project_id: string): Promise<Project$1>;
@@ -3012,18 +3057,14 @@ declare class Projects extends BaseCollection<Project$1> {
   delete(project_id: string): Promise<ProjectDeleted>;
   empty(project_id: string): Promise<ProjectEmptied>;
 }
-//#endregion
-//#region src/collections/queued_processes.d.ts
 declare class QueuedProcesses extends BaseCollection<QueuedProcess$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => QueuedProcess$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<QueuedProcess$1>>;
   get(process_id: string | number, request_params: ProjectOnly): Promise<QueuedProcess$1>;
 }
-//#endregion
-//#region src/models/screenshot.d.ts
 declare class Screenshot$1 extends BaseModel implements Screenshot {
   screenshot_id: number;
   key_ids: number[];
@@ -3045,28 +3086,22 @@ declare class Screenshot$1 extends BaseModel implements Screenshot {
   created_at: string;
   created_at_timestamp: number;
 }
-//#endregion
-//#region src/collections/screenshots.d.ts
 declare class Screenshots extends BaseCollection<Screenshot$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Screenshot$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Screenshot$1>>;
   create(raw_body: CreateScreenshotParams | CreateScreenshotParams[], request_params: ProjectOnly): Promise<BulkResult<Screenshot$1>>;
   get(screnshot_id: string | number, request_params: ProjectOnly): Promise<Screenshot$1>;
   update(screenshot_id: string | number, screenshot_params: UpdateScreenshotParams, request_params: ProjectOnly): Promise<Screenshot$1>;
   delete(screenshot_id: string | number, request_params: ProjectOnly): Promise<ScreenshotDeleted>;
 }
-//#endregion
-//#region src/models/translation_status.d.ts
 declare class TranslationStatus$1 extends BaseModel implements TranslationStatus {
   status_id: number;
   title: string;
   color: string;
 }
-//#endregion
-//#region src/models/segment.d.ts
 declare class Segment$1 extends BaseModel implements Segment {
   segment_number: number;
   language_iso: string;
@@ -3081,19 +3116,15 @@ declare class Segment$1 extends BaseModel implements Segment {
   words: number;
   custom_translation_statuses: TranslationStatus$1[];
 }
-//#endregion
-//#region src/collections/segments.d.ts
 declare class Segments extends BaseCollection<Segment$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Segment$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ListSegmentParams): Promise<Segment$1[]>;
   get(segment_number: string | number, request_params: GetSegmentParams): Promise<Segment$1>;
   update(segment_number: string | number, segment_params: UpdateSegmentBodyParams, request_params: UpdateSegmentReqParams): Promise<Segment$1>;
 }
-//#endregion
-//#region src/models/snapshot.d.ts
 declare class Snapshot$1 extends BaseModel implements Snapshot {
   snapshot_id: number;
   title: string;
@@ -3102,20 +3133,16 @@ declare class Snapshot$1 extends BaseModel implements Snapshot {
   created_by: number;
   created_by_email: string;
 }
-//#endregion
-//#region src/collections/snapshots.d.ts
 declare class Snapshots extends BaseCollection<Snapshot$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Snapshot$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Snapshot$1>>;
   create(snapshot_params: CreateSnapshotParams, request_params: ProjectOnly): Promise<Snapshot$1>;
   restore(snapshot_id: string | number, request_params: ProjectOnly): Promise<Project$1>;
   delete(snapshot_id: string | number, request_params: ProjectOnly): Promise<SnapshotDeleted>;
 }
-//#endregion
-//#region src/models/task.d.ts
 declare class Task$1 extends BaseModel implements Task {
   task_id: number;
   title: string;
@@ -3184,21 +3211,17 @@ declare class Task$1 extends BaseModel implements Task {
   completed_by_email: string;
   custom_translation_status_ids: number[];
 }
-//#endregion
-//#region src/collections/tasks.d.ts
 declare class Tasks extends BaseCollection<Task$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Task$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ListTaskParams): Promise<PaginatedResult<Task$1>>;
   create(task_params: CreateTaskParams, request_params: ProjectOnly): Promise<Task$1>;
   get(task_id: string | number, request_params: ProjectOnly): Promise<Task$1>;
   update(task_id: string | number, task_params: UpdateTaskParams, request_params: ProjectOnly): Promise<Task$1>;
   delete(task_id: string | number, request_params: ProjectOnly): Promise<TaskDeleted>;
 }
-//#endregion
-//#region src/models/team_user_billing_details.d.ts
 declare class TeamUserBillingDetails$2 extends BaseModel implements TeamUserBillingDetails {
   billing_email: string;
   country_code: string;
@@ -3211,17 +3234,13 @@ declare class TeamUserBillingDetails$2 extends BaseModel implements TeamUserBill
   company: string;
   vatnumber: string;
 }
-//#endregion
-//#region src/collections/team_user_billing_details.d.ts
 declare class TeamUserBillingDetails$1 extends BaseCollection<TeamUserBillingDetails$2> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TeamUserBillingDetails$2;
   get(team_id: string | number): Promise<TeamUserBillingDetails$2>;
   create(billing_details_params: BillingDetailsParams, request_params: TeamOnly): Promise<TeamUserBillingDetails$2>;
   update(team_id: string | number, billing_details_params: BillingDetailsParams): Promise<TeamUserBillingDetails$2>;
 }
-//#endregion
-//#region src/models/team_user.d.ts
 declare class TeamUser$1 extends BaseModel implements TeamUser {
   user_id: number;
   email: string;
@@ -3231,20 +3250,16 @@ declare class TeamUser$1 extends BaseModel implements TeamUser {
   role: string;
   uuid?: string;
 }
-//#endregion
-//#region src/collections/team_users.d.ts
 declare class TeamUsers extends BaseCollection<TeamUser$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TeamUser$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<TeamUser$1>>;
   get(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUser$1>;
   update(team_user_id: string | number, team_user_params: TeamUserParams, request_params: TeamOnly): Promise<TeamUser$1>;
   delete(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUserDeleted>;
 }
-//#endregion
-//#region src/models/team.d.ts
 declare class Team$1 extends BaseModel implements Team {
   team_id: number;
   name: string;
@@ -3266,32 +3281,24 @@ declare class Team$1 extends BaseModel implements Team {
     ai_words: number;
   };
 }
-//#endregion
-//#region src/collections/teams.d.ts
 declare class Teams extends BaseCollection<Team$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Team$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params?: PaginationParams): Promise<PaginatedResult<Team$1>>;
   get(id: number | string): Promise<Team$1>;
 }
-//#endregion
-//#region src/models/translation_memory.d.ts
 declare class TranslationMemory$1 extends BaseModel implements TranslationMemory {
   id: number;
   name: string;
 }
-//#endregion
-//#region src/collections/translation_memories.d.ts
 declare class TranslationMemories extends BaseCollection<TranslationMemory$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TranslationMemory$1;
-  protected get rootElementName(): string;
+  protected override get rootElementName(): string;
   list(request_params: ProjectOnly): Promise<TranslationMemory$1[]>;
 }
-//#endregion
-//#region src/models/translation_provider.d.ts
 declare class TranslationProvider$1 extends BaseModel implements TranslationProvider {
   provider_id: number;
   name: string;
@@ -3312,23 +3319,19 @@ declare class TranslationProvider$1 extends BaseModel implements TranslationProv
     price_per_word: number;
   }>;
 }
-//#endregion
-//#region src/collections/translation_providers.d.ts
 declare class TranslationProviders extends BaseCollection<TranslationProvider$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TranslationProvider$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<TranslationProvider$1>>;
   get(provider_id: string | number, request_params: TeamOnly): Promise<TranslationProvider$1>;
 }
-//#endregion
-//#region src/collections/translation_statuses.d.ts
 declare class TranslationStatuses extends BaseCollection<TranslationStatus$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TranslationStatus$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<TranslationStatus$1>>;
   create(translation_status_params: CreateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus$1>;
   get(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatus$1>;
@@ -3336,8 +3339,6 @@ declare class TranslationStatuses extends BaseCollection<TranslationStatus$1> {
   delete(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatusDeleted>;
   available_colors(request_params: ProjectOnly): Promise<TranslationStatusColors>;
 }
-//#endregion
-//#region src/models/translation.d.ts
 declare class Translation$1 extends BaseModel implements Translation {
   translation_id: number;
   key_id: number;
@@ -3357,19 +3358,15 @@ declare class Translation$1 extends BaseModel implements Translation {
   task_id: number;
   segment_number: number;
 }
-//#endregion
-//#region src/collections/translations.d.ts
 declare class Translations extends BaseCollection<Translation$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Translation$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ListTranslationParams): Promise<CursorPaginatedResult<Translation$1>>;
   get(translation_id: string | number, request_params: GetTranslationParams): Promise<Translation$1>;
   update(translation_id: string | number, translation_params: UpdateTranslationParams, request_params: ProjectOnly): Promise<Translation$1>;
 }
-//#endregion
-//#region src/models/user_group.d.ts
 declare class UserGroup$1 extends BaseModel implements UserGroup {
   group_id: number;
   name: string;
@@ -3391,13 +3388,11 @@ declare class UserGroup$1 extends BaseModel implements UserGroup {
   members: number[] | string[];
   role_id: number | null;
 }
-//#endregion
-//#region src/collections/user_groups.d.ts
 declare class UserGroups extends BaseCollection<UserGroup$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => UserGroup$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<UserGroup$1>>;
   create(user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup$1>;
   get(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroup$1>;
@@ -3409,8 +3404,6 @@ declare class UserGroups extends BaseCollection<UserGroup$1> {
   remove_projects_from_group(team_id: string | number, group_id: string | number, project_ids: string[] | number[]): Promise<UserGroup$1>;
   protected populateGroupFromJsonRoot(json: Record<string, unknown>, headers: Headers): UserGroup$1;
 }
-//#endregion
-//#region src/models/v1/audit_event.d.ts
 type WithoutUndefined<T> = Exclude<T, undefined>;
 declare class AuditEventV1$1 implements AuditEventV1 {
   readonly [key: string]: unknown;
@@ -3435,15 +3428,233 @@ declare class AuditEventV1$1 implements AuditEventV1 {
   readonly unmapped?: WithoutUndefined<AuditEventV1["unmapped"]>;
   constructor(json: Record<string, unknown>);
 }
-//#endregion
-//#region src/collections/v1/audit_logs.d.ts
-declare class AuditLogs extends BaseCollection<AuditEventV1$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => AuditEventV1$1;
+declare class CursorPaginatedResultV1$1<T> implements CursorPaginatedResultV1<T> {
+  readonly next_cursor: string | null;
+  readonly has_more: boolean;
+  readonly items: T[];
+  constructor(response: CursorPaginatedResponseV1<T>);
+}
+declare abstract class BaseCollectionV1<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
+  protected doListCursorV1(params: Record<string, unknown>): Promise<CursorPaginatedResultV1$1<ElementType>>;
+  protected populateArrayFromJsonCursorV1(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultV1$1<ElementType>;
+}
+declare class AuditLogs extends BaseCollectionV1<AuditEventV1$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => AuditEventV1$1;
   list(request_params?: AuditLogParams): Promise<CursorPaginatedResultV1<AuditEventV1$1>>;
 }
-//#endregion
-//#region src/models/webhook.d.ts
+declare class ContentUnitVantage$1 implements ContentUnitVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly type: ContentUnitTypeVantage;
+  readonly key: string;
+  readonly position: number;
+  readonly sourceSegmentsCount: number;
+  constructor(json: Record<string, unknown>);
+}
+declare class CursorPaginatedResultVantage$1<T> implements CursorPaginatedResultVantage<T> {
+  readonly count: number;
+  readonly cursor: string | null;
+  readonly hasMore: boolean;
+  readonly items: T[];
+  constructor(response: CursorPaginatedResponseVantage<T>);
+}
+declare abstract class BaseCollectionVantage<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string;
+  protected doListCursorVantage(params: Record<string, unknown>): Promise<CursorPaginatedResultVantage$1<ElementType>>;
+  protected populateArrayFromJsonCursorVantage(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultVantage$1<ElementType>;
+  protected doGetVantage(params: Record<string, unknown>, uri?: string | null): Promise<ElementType>;
+  protected doListArrayVantage(params: Record<string, unknown>): Promise<ElementType[]>;
+}
+declare class ContentUnitsVantage extends BaseCollectionVantage<ContentUnitVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ContentUnitVantage$1;
+  list(request_params: ContentUnitParams): Promise<CursorPaginatedResultVantage<ContentUnitVantage$1>>;
+}
+declare class ExportVantage$1 implements ExportVantage {
+  readonly exportId: string;
+  readonly status: ExportStatusVantage;
+  readonly createdAt?: string;
+  readonly totalItemsCount?: number;
+  readonly processedItemsCount?: number;
+  readonly failReason?: string | null;
+  constructor(json: Record<string, unknown>);
+}
+declare class ExportDownloadUrlVantage$1 implements ExportDownloadUrlVantage {
+  readonly downloadUrl: string;
+  constructor(json: Record<string, unknown>);
+}
+declare class ExportsVantage extends BaseCollectionVantage<ExportVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ExportVantage$1;
+  list(request_params: ExportListParams): Promise<CursorPaginatedResultVantage$1<ExportVantage$1>>;
+  get(request_params: {
+    project_id: string;
+    export_id: string;
+  }): Promise<ExportVantage$1>;
+  create(request_params: {
+    project_id: string;
+  }, body: ExportParams): Promise<ExportVantage$1>;
+  getDownloadUrl(request_params: {
+    project_id: string;
+    export_id: string;
+  }): Promise<ExportDownloadUrlVantage$1>;
+}
+declare class ImportVantage$1 implements ImportVantage {
+  readonly importId: string;
+  constructor(json: Record<string, unknown>);
+}
+type ImportParams = {
+  batchId: string;
+  uploads?: never;
+} | {
+  batchId?: never;
+  uploads: {
+    uploadId: string;
+  }[];
+};
+declare class ImportsVantage extends BaseCollectionVantage<ImportVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ImportVantage$1;
+  create(request_params: {
+    project_id: string;
+  }, body: ImportParams): Promise<ImportVantage$1>;
+}
+declare class ProjectItemVantage$1 implements ProjectItemVantage {
+  readonly id: string;
+  readonly projectId: string;
+  readonly name: string;
+  readonly createdAt: string;
+  readonly updatedAt: string;
+  constructor(json: Record<string, unknown>);
+}
+declare class ProjectItemsVantage extends BaseCollectionVantage<ProjectItemVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ProjectItemVantage$1;
+  list(request_params: ProjectItemParams): Promise<CursorPaginatedResultVantage<ProjectItemVantage$1>>;
+}
+declare class ProjectLanguageVantage$1 implements ProjectLanguageVantage {
+  readonly languageId: string;
+  readonly locale: string;
+  readonly languageName: string;
+  readonly isRtl: boolean;
+  constructor(json: Record<string, unknown>);
+}
+declare class ProjectLanguagesVantage extends BaseCollectionVantage<ProjectLanguageVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ProjectLanguageVantage$1;
+  list(request_params: ProjectLanguageParams): Promise<ProjectLanguageVantage$1[]>;
+}
+declare class ProjectVantage$1 implements ProjectVantage {
+  readonly projectId: string;
+  readonly teamId: string;
+  readonly name: string;
+  readonly description: string;
+  readonly baseLanguage: Pick<ProjectLanguageVantage, "languageId" | "locale">;
+  readonly targetLanguages: Pick<ProjectLanguageVantage, "languageId" | "locale">[];
+  readonly translationSettings: ProjectTranslationSettingsVantage;
+  readonly contentSourceType: string | null;
+  readonly contentSourceName?: string | null;
+  readonly projectType: string;
+  constructor(json: Record<string, unknown>);
+}
+declare class ProjectsVantage extends BaseCollectionVantage<ProjectVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ProjectVantage$1;
+  list(request_params: ProjectParams): Promise<CursorPaginatedResultVantage<ProjectVantage$1>>;
+  get(request_params: {
+    project_id: string;
+  }): Promise<ProjectVantage$1>;
+}
+declare class SegmentVantage$1 implements SegmentVantage {
+  readonly id: string;
+  readonly number: number;
+  readonly value: string;
+  readonly status: SegmentStatusVantage;
+  readonly lastChangeSource: SegmentLastChangeSourceVantage;
+  readonly contentLanguageId: string;
+  readonly contentUnitId: string;
+  readonly projectId: string;
+  readonly metadata: {
+    readonly prefix: string;
+    readonly suffix: string;
+  } | null;
+  readonly createdAt: string;
+  readonly updatedAt?: string;
+  constructor(json: Record<string, unknown>);
+}
+declare class SegmentsVantage extends BaseCollectionVantage<SegmentVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => SegmentVantage$1;
+  list(request_params: SegmentParams): Promise<CursorPaginatedResultVantage<SegmentVantage$1>>;
+  update(request_params: {
+    project_id: string;
+    segment_id: string;
+  }, body: SegmentUpdateBody): Promise<SegmentUpdateResultVantage>;
+}
+declare class TaskVantage$1 implements TaskVantage {
+  readonly id: string;
+  readonly publicId: string;
+  readonly title: string;
+  readonly type: TaskTypeVantage;
+  readonly status: TaskStatusVantage;
+  readonly description: string | null;
+  readonly taskAssignments: TaskAssignmentVantage[];
+  readonly dueDate?: string | null;
+  readonly createdAt: string;
+  readonly requestedBy: string | null;
+  constructor(json: Record<string, unknown>);
+}
+declare class TasksVantage extends BaseCollectionVantage<TaskVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => TaskVantage$1;
+  list(request_params: TaskParams): Promise<CursorPaginatedResultVantage<TaskVantage$1>>;
+}
+declare class TranslationStatusVantage$1 implements TranslationStatusVantage {
+  readonly projectId: string;
+  readonly importId: string;
+  readonly status: TranslationProgressStatusVantage;
+  readonly languages: TranslationStatusLanguageVantage[];
+  constructor(json: Record<string, unknown>);
+}
+declare class TranslationStatusesVantage extends BaseCollectionVantage<TranslationStatusVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => TranslationStatusVantage$1;
+  get(request_params: {
+    project_id: string;
+    import_id: string;
+  }): Promise<TranslationStatusVantage$1>;
+}
+declare class UploadVantage$1 implements UploadVantage {
+  readonly uploadId: string;
+  readonly batchId: string;
+  readonly fileName: string;
+  readonly size: number;
+  readonly createdAt: string;
+  readonly status: UploadStatusVantage;
+  readonly wordCount?: number;
+  readonly locale?: string;
+  readonly itemId?: string;
+  readonly error?: UploadErrorVantage;
+  constructor(json: Record<string, unknown>);
+}
+declare class UploadStageVantage$1 implements UploadStageVantage {
+  readonly batchId: string;
+  readonly uploads: (StagedUploadSuccessVantage | StagedUploadFailureVantage)[];
+  constructor(json: Record<string, unknown>);
+}
+declare class UploadsVantage extends BaseCollectionVantage<UploadVantage$1> {
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => UploadVantage$1;
+  list(request_params: UploadListParams): Promise<CursorPaginatedResultVantage$1<UploadVantage$1>>;
+  create(request_params: {
+    project_id: string;
+  }, body: UploadStageParams): Promise<UploadStageVantage$1>;
+  complete(request_params: {
+    project_id: string;
+  }, body: UploadCompleteParams): Promise<void>;
+}
 declare class Webhook$1 extends BaseModel implements Webhook {
   webhook_id: string;
   branch: string;
@@ -3455,13 +3666,11 @@ declare class Webhook$1 extends BaseModel implements Webhook {
     lang_iso_codes: string[];
   }>;
 }
-//#endregion
-//#region src/collections/webhooks.d.ts
 declare class Webhooks extends BaseCollection<Webhook$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Webhook$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Webhook$1>>;
   create(webhook_params: CreateWebhookParams, request_params: ProjectOnly): Promise<Webhook$1>;
   get(webhook_id: string | number, request_params: ProjectOnly): Promise<Webhook$1>;
@@ -3469,8 +3678,6 @@ declare class Webhooks extends BaseCollection<Webhook$1> {
   delete(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookDeleted>;
   regenerate_secret(webhook_id: string | number, request_params: ProjectOnly): Promise<WebhookRegenerated>;
 }
-//#endregion
-//#region src/lokalise/base_client.d.ts
 /**
  * A foundational client class that establishes authentication and configuration data.
  * Other specialized clients can inherit from this class to leverage the configured
@@ -3488,8 +3695,6 @@ declare class BaseClient {
    */
   constructor({ apiKey, enableCompression, silent, tokenType, host, requestTimeout, userAgent }: ClientParams);
 }
-//#endregion
-//#region src/lokalise/lokalise_api.d.ts
 /**
  * A main entry point for interacting with the Lokalise API.
  * Provides easy access to various resource collections (Branches, Comments, Projects, etc.)
@@ -3606,8 +3811,6 @@ export declare class LokaliseApi extends BaseClient {
    */
   webhooks(): Webhooks;
 }
-//#endregion
-//#region src/lokalise/lokalise_api_oauth.d.ts
 /**
  * A specialized client for interacting with the Lokalise API using OAuth authentication.
  * Extends `LokaliseApi` and configures the token type and authorization header to use Bearer tokens.
@@ -3621,8 +3824,6 @@ export declare class LokaliseApiOAuth extends LokaliseApi {
    */
   constructor(params: ClientParams);
 }
-//#endregion
-//#region src/models/ota/ota_bundle.d.ts
 declare class OtaBundle$1 extends BaseModel implements OtaBundle {
   id: number;
   projectId: string;
@@ -3638,51 +3839,39 @@ declare class OtaBundle$1 extends BaseModel implements OtaBundle {
   fileUrl: string;
   modifiedAt: string;
 }
-//#endregion
-//#region src/ota_collections/ota_collection.d.ts
 declare abstract class OtaCollection<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
-  protected doDelete<T = Record<string, unknown> | Record<string, unknown>[]>(id: string | number, req_params: Record<string, unknown>): Promise<T>;
+  protected override doDelete<T = Record<string, unknown> | Record<string, unknown>[]>(id: string | number, req_params: Record<string, unknown>): Promise<T>;
   protected returnJSONFromData(json: Record<string, unknown>): Record<string, unknown> | Array<Record<string, unknown>>;
   protected createVoidPromise(method: HttpMethod, params: Record<string, unknown>, body: object | object[] | null, uri?: string | null): Promise<null>;
 }
-//#endregion
-//#region src/ota_collections/ota_bundle_management.d.ts
 declare class OtaBundleManagement extends OtaCollection<OtaBundle$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaBundle$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: OtaTeamProject): Promise<OtaBundle$1[]>;
   get(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaBundle$1>;
   update(bundleId: string | number, bundleParams: OtaBundleUpdateData, requestParams: OtaTeamProject): Promise<OtaBundle$1>;
   delete(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaResourceDeleted>;
 }
-//#endregion
-//#region src/ota_collections/ota_bundle_publishing.d.ts
 declare class OtaBundlePublishing extends OtaCollection<void> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Branch$1;
   publish(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
   stage(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
 }
-//#endregion
-//#region src/models/ota/ota_bundle_archive.d.ts
 declare class OtaBundleArchive$1 extends BaseModel implements OtaBundleArchive {
   url: string;
   version: number;
 }
-//#endregion
-//#region src/ota_collections/ota_bundles.d.ts
 declare class OtaBundles extends OtaCollection<OtaBundleArchive$1> {
   protected static rootElementNameSingular: string;
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected static elementClass: typeof OtaBundleArchive$1;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaBundleArchive$1;
-  protected get rootElementNameSingular(): string;
+  protected override get rootElementNameSingular(): string;
   get(bundle_params: OtaRequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundleArchive$1>;
 }
-//#endregion
-//#region src/models/ota/ota_freeze_period.d.ts
 declare class OtaFreezePeriod$1 extends BaseModel implements OtaFreezePeriod {
   id: number;
   projectId: number;
@@ -3691,20 +3880,16 @@ declare class OtaFreezePeriod$1 extends BaseModel implements OtaFreezePeriod {
   from: string;
   to: string;
 }
-//#endregion
-//#region src/ota_collections/ota_freeze_periods.d.ts
 declare class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaFreezePeriod$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(requestParams: OtaTeamProjectFramework): Promise<OtaFreezePeriod$1[]>;
   create(freezeParams: OtaFreezePeriodParams, requestParams: OtaTeamProject): Promise<OtaFreezePeriod$1>;
   update(freezeId: string | number, freezeParams: OtaFreezePeriodParams, requestParams: OtaTeamProject): Promise<OtaFreezePeriod$1>;
   delete(freezeId: string | number, requestParams: OtaTeamProject): Promise<OtaResourceDeleted>;
 }
-//#endregion
-//#region src/models/ota/ota_sdk_token.d.ts
 declare class OtaSdkToken$1 extends BaseModel implements OtaSdkToken {
   id: number;
   token: string;
@@ -3712,19 +3897,15 @@ declare class OtaSdkToken$1 extends BaseModel implements OtaSdkToken {
   lokaliseId: number;
   createdAt: string;
 }
-//#endregion
-//#region src/ota_collections/ota_sdk_tokens.d.ts
 declare class OtaSdkTokens extends OtaCollection<OtaSdkToken$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaSdkToken$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: OtaTeamProject): Promise<OtaSdkToken$1[]>;
   create(request_params: OtaTeamProject): Promise<OtaSdkToken$1>;
   delete(tokenId: string | number, request_params: OtaTeamProject): Promise<OtaResourceDeleted>;
 }
-//#endregion
-//#region src/models/ota/ota_statistics.d.ts
 declare class OtaStatistics$1 extends BaseModel implements OtaStatistics {
   lokaliseProjectId: string;
   from: string;
@@ -3750,16 +3931,12 @@ declare class OtaStatistics$1 extends BaseModel implements OtaStatistics {
     trafficBytes: string;
   };
 }
-//#endregion
-//#region src/ota_collections/ota_usage_statistics.d.ts
 declare class OtaUsageStatistics extends OtaCollection<OtaStatistics$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected static elementClass: typeof OtaStatistics$1;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaStatistics$1;
   get(bundle_params: OtaUsageParams, request_params: OtaTeamProject): Promise<OtaStatistics$1>;
 }
-//#endregion
-//#region src/lokalise/lokalise_api_ota.d.ts
 /**
  * A specialized client configured for interacting with Lokalise OTA endpoints.
  * Extends `BaseClient` and sets defaults suitable for OTA requests:
@@ -3796,8 +3973,6 @@ export declare class LokaliseApiOta extends BaseClient {
    */
   otaSdkTokens(): OtaSdkTokens;
 }
-//#endregion
-//#region src/lokalise/lokalise_api_v1.d.ts
 /**
  * A main entry point for interacting with Lokalise API v1.
  * Provides access to resource collections available through API version v1.
@@ -3813,8 +3988,19 @@ export declare class LokaliseApiV1 extends BaseClient {
    */
   auditLogs(): AuditLogs;
 }
-//#endregion
-//#region src/lokalise/lokalise_ota_bundles.d.ts
+export declare class LokaliseApiVantage extends BaseClient {
+  constructor(params: ClientParams);
+  contentUnits(): ContentUnitsVantage;
+  exports(): ExportsVantage;
+  imports(): ImportsVantage;
+  projects(): ProjectsVantage;
+  projectItems(): ProjectItemsVantage;
+  projectLanguages(): ProjectLanguagesVantage;
+  segments(): SegmentsVantage;
+  tasks(): TasksVantage;
+  translationStatuses(): TranslationStatusesVantage;
+  uploads(): UploadsVantage;
+}
 /**
  * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
  * Extends the BaseClient to configure authentication and endpoint specifics for OTA bundles.
@@ -3834,8 +4020,6 @@ export declare class LokaliseOtaBundles extends BaseClient {
    */
   otaBundles(): OtaBundles;
 }
-//#endregion
-//#region src/oauth2/lokalise_auth.d.ts
 export declare class LokaliseAuth {
   authData: AuthData;
   /**
@@ -3898,14 +4082,11 @@ export declare class LokaliseAuth {
    */
   private handleReject;
 }
-//#endregion
-//#region src/models/auth_error.d.ts
 export declare class AuthError extends BaseModel implements IAuthError {
   code: number;
   error: string;
   error_description: string;
   error_uri?: string;
 }
-//#endregion
-export type { AiScoring, AuditEventV1, AuditLogParams, AuthData, BillingDetailsParams, Branch, BranchDeleted, BranchMerged, BranchParams, BulkResult, BulkUpdateKeyParams, CardDeleted, ClientData, ClientParams, Comment, CommentData, CommentDeleted, Contributor, ContributorCreateData, ContributorDeleted, ContributorLanguages, ContributorRights, ContributorRoles, ContributorUpdateData, CreateCardParams, CreateKeyData, CreateKeyParams, CreateLanguageParams, CreateOrderParams, CreateProjectParams, CreateScreenshotParams, CreateSnapshotParams, CreateTaskParams, CreateTermsParams, CreateTranslationStatusParams, CreateWebhookParams, CursorPaginatedResponseV1, CursorPaginatedResult, CursorPaginatedResultV1, CursorPagination, CursorPaginationParamsV1, DownloadBundle, DownloadFileParams, DownloadedFileProcessDetails, File, FileDeleted, FileFormat, Filenames, GetKeyParams, GetSegmentParams, GetTranslationParams, GlossaryTerm, HttpMethod, IApiError, IAuthError, Jwt, Key, KeyDeleted, KeyParamsWithPagination, KeyProjectPagination, KeysBulkDeleted, Language, LanguageDeleted, ListFileParams, ListSegmentParams, ListTaskParams, ListTermsParams, ListTranslationParams, MergeBranchParams, NumericBool, Order, OtaBundle, OtaBundleArchive, OtaBundleUpdateData, OtaFramework, OtaFreezePeriod, OtaFreezePeriodParams, OtaProjectFramework, OtaRequestBundleParams, OtaResourceDeleted, OtaSdkToken, OtaStatistics, OtaTeamProject, OtaTeamProjectFramework, OtaUsageParams, PaginatedResult, PaginationParams, PaymentCard, Project, ProjectAndKey, ProjectDeleted, ProjectEmptied, ProjectListParams, ProjectOnly, ProjectSettings, ProjectStatistics, ProjectWithPagination, QueuedProcess, QueuedProcessDetails, RefreshTokenResponse, RequestTokenResponse, Screenshot, ScreenshotData, ScreenshotDeleted, Segment, Snapshot, SnapshotDeleted, SupportedPlatforms, Task, TaskDeleted, TaskLanguage, Team, TeamOnly, TeamUser, TeamUserBillingDetails, TeamUserDeleted, TeamUserParams, TeamWithPagination, TermsDeleted, Translation, TranslationData, TranslationMemory, TranslationProvider, TranslationStatus, TranslationStatusColors, TranslationStatusDeleted, UpdateKeyData, UpdateKeyDataWithId, UpdateLanguageParams, UpdateProjectParams, UpdateScreenshotParams, UpdateSegmentBodyParams, UpdateSegmentReqParams, UpdateTaskParams, UpdateTermsParams, UpdateTranslationParams, UpdateTranslationStatusParams, UpdateWebhookParams, UploadFileFromFssParams, UploadFileParams, UploadedFileProcessDetails, UserGroup, UserGroupDeleted, UserGroupParams, Webhook, WebhookDeleted, WebhookEventLangMap, WebhookEvents, WebhookProjectBranchAdded, WebhookProjectBranchDeleted, WebhookProjectBranchMerged, WebhookProjectContributorAdded, WebhookProjectContributorAddedPublic, WebhookProjectContributorDeleted, WebhookProjectCopied, WebhookProjectDeleted, WebhookProjectExported, WebhookProjectImported, WebhookProjectKeyAdded, WebhookProjectKeyCommentAdded, WebhookProjectKeyModified, WebhookProjectKeysAdded, WebhookProjectKeysDeleted, WebhookProjectKeysModified, WebhookProjectLanguageRemoved, WebhookProjectLanguageSettingsChanged, WebhookProjectLanguagesAdded, WebhookProjectSnapshotCreated, WebhookProjectTaskClosed, WebhookProjectTaskCreated, WebhookProjectTaskDeleted, WebhookProjectTaskInitialTmLeverageCalculated, WebhookProjectTaskLanguageClosed, WebhookProjectTaskQueued, WebhookProjectTranslationProofread, WebhookProjectTranslationUpdated, WebhookProjectTranslationsProofread, WebhookProjectTranslationsUpdated, WebhookRegenerated, WebhookTeamOrderCompleted, WebhookTeamOrderCreated, WebhookTeamOrderDeleted };
+export type { AiScoring, ApiErrorVantage, AuditEventV1, AuditLogParams, AuthData, BillingDetailsParams, Branch, BranchDeleted, BranchMerged, BranchParams, BulkResult, BulkUpdateKeyParams, CardDeleted, ClientData, ClientParams, Comment, CommentData, CommentDeleted, ContentUnitParams, ContentUnitTypeVantage, ContentUnitVantage, Contributor, ContributorCreateData, ContributorDeleted, ContributorLanguages, ContributorRights, ContributorRoles, ContributorUpdateData, CreateCardParams, CreateKeyData, CreateKeyParams, CreateLanguageParams, CreateOrderParams, CreateProjectParams, CreateScreenshotParams, CreateSnapshotParams, CreateTaskParams, CreateTermsParams, CreateTranslationStatusParams, CreateWebhookParams, CursorPaginatedResponseV1, CursorPaginatedResponseVantage, CursorPaginatedResult, CursorPaginatedResultV1, CursorPaginatedResultVantage, CursorPagination, CursorPaginationParamsV1, DownloadBundle, DownloadFileParams, DownloadedFileProcessDetails, ExportDownloadUrlVantage, ExportItemVantage, ExportLanguagesVantage, ExportListParams, ExportParams, ExportVantage, File, FileDeleted, FileFormat, Filenames, GetKeyParams, GetSegmentParams, GetTranslationParams, GlossaryTerm, HttpMethod, IApiError, IAuthError, ImportVantage, Jwt, Key, KeyDeleted, KeyParamsWithPagination, KeyProjectPagination, KeysBulkDeleted, Language, LanguageDeleted, ListFileParams, ListSegmentParams, ListTaskParams, ListTermsParams, ListTranslationParams, MergeBranchParams, NumericBool, Order, OtaBundle, OtaBundleArchive, OtaBundleUpdateData, OtaFramework, OtaFreezePeriod, OtaFreezePeriodParams, OtaProjectFramework, OtaRequestBundleParams, OtaResourceDeleted, OtaSdkToken, OtaStatistics, OtaTeamProject, OtaTeamProjectFramework, OtaUsageParams, PaginatedResult, PaginationParams, PaymentCard, Project, ProjectAndKey, ProjectDeleted, ProjectEmptied, ProjectItemParams, ProjectItemVantage, ProjectLanguageParams, ProjectLanguageVantage, ProjectListParams, ProjectOnly, ProjectParams, ProjectReviewThresholdVantage, ProjectSettings, ProjectStatistics, ProjectTranslationSettingsVantage, ProjectVantage, ProjectWithPagination, QueuedProcess, QueuedProcessDetails, RefreshTokenResponse, RequestTokenResponse, Screenshot, ScreenshotData, ScreenshotDeleted, Segment, SegmentLastChangeSourceVantage, SegmentParams, SegmentStatusVantage, SegmentUpdateBody, SegmentUpdateResultVantage, SegmentUpdateStatus, SegmentVantage, SegmentWarningVantage, Snapshot, SnapshotDeleted, StagedUploadFailureVantage, StagedUploadSuccessVantage, SupportedPlatforms, Task, TaskAssigneeTypeVantage, TaskAssignmentVantage, TaskDeleted, TaskLanguage, TaskParams, TaskSegmentStatusVantage, TaskSegmentVantage, TaskStatusVantage, TaskTypeVantage, TaskVantage, Team, TeamOnly, TeamUser, TeamUserBillingDetails, TeamUserDeleted, TeamUserParams, TeamWithPagination, TermsDeleted, Translation, TranslationData, TranslationMemory, TranslationProvider, TranslationStatus, TranslationStatusColors, TranslationStatusDeleted, TranslationStatusLanguageVantage, TranslationStatusVantage, UpdateKeyData, UpdateKeyDataWithId, UpdateLanguageParams, UpdateProjectParams, UpdateScreenshotParams, UpdateSegmentBodyParams, UpdateSegmentReqParams, UpdateTaskParams, UpdateTermsParams, UpdateTranslationParams, UpdateTranslationStatusParams, UpdateWebhookParams, UploadCompleteParams, UploadFileFromFssParams, UploadFileParams, UploadListParams, UploadStageFileParams, UploadStageParams, UploadStageVantage, UploadTargetVantage, UploadVantage, UploadedFileProcessDetails, UserGroup, UserGroupDeleted, UserGroupParams, Webhook, WebhookDeleted, WebhookEventLangMap, WebhookEvents, WebhookProjectBranchAdded, WebhookProjectBranchDeleted, WebhookProjectBranchMerged, WebhookProjectContributorAdded, WebhookProjectContributorAddedPublic, WebhookProjectContributorDeleted, WebhookProjectCopied, WebhookProjectDeleted, WebhookProjectExported, WebhookProjectImported, WebhookProjectKeyAdded, WebhookProjectKeyCommentAdded, WebhookProjectKeyModified, WebhookProjectKeysAdded, WebhookProjectKeysDeleted, WebhookProjectKeysModified, WebhookProjectLanguageRemoved, WebhookProjectLanguageSettingsChanged, WebhookProjectLanguagesAdded, WebhookProjectSnapshotCreated, WebhookProjectTaskClosed, WebhookProjectTaskCreated, WebhookProjectTaskDeleted, WebhookProjectTaskInitialTmLeverageCalculated, WebhookProjectTaskLanguageClosed, WebhookProjectTaskQueued, WebhookProjectTranslationProofread, WebhookProjectTranslationUpdated, WebhookProjectTranslationsProofread, WebhookProjectTranslationsUpdated, WebhookRegenerated, WebhookTeamOrderCompleted, WebhookTeamOrderCreated, WebhookTeamOrderDeleted };
 //# sourceMappingURL=main.d.mts.map

@@ -29,11 +29,6 @@ export class TeamUserBillingDetails extends BaseCollection<BillingDetailsModel> 
 		billing_details_params: BillingDetailsParams,
 	): Promise<BillingDetailsModel> {
 		const params = { team_id: team_id };
-		return this.createPromise(
-			"PUT",
-			params,
-			this.populateObjectFromJson,
-			billing_details_params,
-		);
+		return this.createPromise("PUT", params, this.populateObjectFromJson, billing_details_params);
 	}
 }

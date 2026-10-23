@@ -9,8 +9,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Translations extends BaseCollection<Translation> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/translations/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/translations/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -26,16 +25,11 @@ export class Translations extends BaseCollection<Translation> {
 		return "translation";
 	}
 
-	list(
-		request_params: ListTranslationParams,
-	): Promise<CursorPaginatedResult<Translation>> {
+	list(request_params: ListTranslationParams): Promise<CursorPaginatedResult<Translation>> {
 		return this.doListCursor(request_params);
 	}
 
-	get(
-		translation_id: string | number,
-		request_params: GetTranslationParams,
-	): Promise<Translation> {
+	get(translation_id: string | number, request_params: GetTranslationParams): Promise<Translation> {
 		return this.doGet(translation_id, request_params);
 	}
 

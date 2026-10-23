@@ -1,15 +1,12 @@
 import { OtaBundleArchive } from "../models/ota/ota_bundle_archive.js";
-import type {
-	OtaProjectFramework,
-	OtaRequestBundleParams,
-} from "../types/ota.js";
+import type { OtaProjectFramework, OtaRequestBundleParams } from "../types/ota.js";
 import { OtaCollection } from "./ota_collection.js";
 
 export class OtaBundles extends OtaCollection<OtaBundleArchive> {
 	protected static rootElementNameSingular = "data";
 	protected static override prefixURI =
 		"lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";
-	protected static elementClass = OtaBundleArchive;
+	protected static elementClass: typeof OtaBundleArchive = OtaBundleArchive;
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -30,11 +27,6 @@ export class OtaBundles extends OtaCollection<OtaBundleArchive> {
 			...bundle_params,
 		};
 
-		return this.createPromise(
-			"GET",
-			params,
-			this.populateObjectFromJsonRoot,
-			null,
-		);
+		return this.createPromise("GET", params, this.populateObjectFromJsonRoot, null);
 	}
 }

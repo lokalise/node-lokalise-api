@@ -29,10 +29,7 @@ export class Segments extends BaseCollection<Segment> {
 		return this.doList(request_params) as Promise<Segment[]>;
 	}
 
-	get(
-		segment_number: string | number,
-		request_params: GetSegmentParams,
-	): Promise<Segment> {
+	get(segment_number: string | number, request_params: GetSegmentParams): Promise<Segment> {
 		return this.doGet(segment_number, request_params);
 	}
 

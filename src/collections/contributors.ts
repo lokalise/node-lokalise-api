@@ -1,9 +1,6 @@
 import type { PaginatedResult } from "../interfaces/paginated_result.js";
 import { Contributor } from "../models/contributor.js";
-import type {
-	ProjectOnly,
-	ProjectWithPagination,
-} from "../types/common_get_params.js";
+import type { ProjectOnly, ProjectWithPagination } from "../types/common_get_params.js";
 import type {
 	ContributorCreateData,
 	ContributorDeleted,
@@ -12,8 +9,7 @@ import type {
 import { BaseCollection } from "./base_collection.js";
 
 export class Contributors extends BaseCollection<Contributor> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/contributors/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/contributors/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -29,9 +25,7 @@ export class Contributors extends BaseCollection<Contributor> {
 		return "contributor";
 	}
 
-	list(
-		request_params: ProjectWithPagination,
-	): Promise<PaginatedResult<Contributor>> {
+	list(request_params: ProjectWithPagination): Promise<PaginatedResult<Contributor>> {
 		return this.doList(request_params) as Promise<PaginatedResult<Contributor>>;
 	}
 
@@ -44,10 +38,7 @@ export class Contributors extends BaseCollection<Contributor> {
 		return this.doCreateArray(body, request_params);
 	}
 
-	get(
-		contributor_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<Contributor> {
+	get(contributor_id: string | number, request_params: ProjectOnly): Promise<Contributor> {
 		return this.doGet(contributor_id, request_params);
 	}
 

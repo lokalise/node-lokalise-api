@@ -1,0 +1,14 @@
+{
+	"errors": [
+		{
+			"message": "Invalid value.",
+			"errorCode": "validation_error",
+			"details": { "field": "name" }
+		},
+		{
+			"message": "Invalid value.",
+			"errorCode": "validation_error",
+			"details": { "field": "language" }
+		}
+	]
+}

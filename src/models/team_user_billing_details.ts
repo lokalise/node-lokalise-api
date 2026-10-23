@@ -1,10 +1,7 @@
 import type { TeamUserBillingDetails as TeamUserBillingDetailsInterface } from "../interfaces/team_user_billing_details.js";
 import { BaseModel } from "./base_model.js";
 
-export class TeamUserBillingDetails
-	extends BaseModel
-	implements TeamUserBillingDetailsInterface
-{
+export class TeamUserBillingDetails extends BaseModel implements TeamUserBillingDetailsInterface {
 	declare billing_email: string;
 	declare country_code: string;
 	declare zip: string;

@@ -144,9 +144,7 @@ describe("Contributors", () => {
 
 		await stub.setStub();
 
-		const contributors = await lokaliseApi
-			.contributors()
-			.create(params, { project_id: projectId });
+		const contributors = await lokaliseApi.contributors().create(params, { project_id: projectId });
 
 		expect(getArrayItem(contributors).email).to.eq(params[0].email);
 	});

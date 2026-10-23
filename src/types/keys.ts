@@ -1,9 +1,5 @@
 import type { CommentData } from "./comments.js";
-import type {
-	CursorPagination,
-	ProjectOnly,
-	ProjectWithPagination,
-} from "./common_get_params.js";
+import type { CursorPagination, ProjectOnly, ProjectWithPagination } from "./common_get_params.js";
 import type { Filenames, Filenames as Keynames } from "./filenames.js";
 import type { NumericBool } from "./numeric_bool.js";
 import type { ScreenshotData } from "./screenshots.js";
@@ -33,10 +29,7 @@ export type CreateKeyParams = {
 	use_automations?: boolean;
 };
 
-export type UpdateKeyData = Omit<
-	CreateKeyData,
-	"key_name" | "platforms" | "translations"
-> & {
+export type UpdateKeyData = Omit<CreateKeyData, "key_name" | "platforms" | "translations"> & {
 	key_name?: string | Keynames;
 	merge_tags?: boolean;
 	platforms?: SupportedPlatforms[];

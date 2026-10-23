@@ -1,18 +1,13 @@
 import { getTestApiKey } from "../helpers/get_env.js";
 import { describe, expect, it, LokaliseApi, Stub } from "../setup.js";
 
-import {
-	DummyCollection,
-	DummyCollectionWithRoot,
-} from "./dummy_collection.js";
+import { DummyCollection, DummyCollectionWithRoot } from "./dummy_collection.js";
 
 describe("BaseCollection", () => {
 	const lokaliseApi = new LokaliseApi({ apiKey: getTestApiKey() });
 
 	const collection = new DummyCollection(lokaliseApi.clientData);
-	const collectionWithRoot = new DummyCollectionWithRoot(
-		lokaliseApi.clientData,
-	);
+	const collectionWithRoot = new DummyCollectionWithRoot(lokaliseApi.clientData);
 
 	it("should throw error if rootElementName is not defined", () => {
 		expect(() => collection.testRootElementName()).toThrow(
@@ -54,9 +49,7 @@ describe("BaseCollection", () => {
 	});
 
 	it("should throw error if no URI or prefixURI is provided", () => {
-		expect(() => collection.testGetUri(null)).toThrow(
-			"No URI or prefixURI provided.",
-		);
+		expect(() => collection.testGetUri(null)).toThrow("No URI or prefixURI provided.");
 	});
 
 	it("should reject non-object items in arrays", () => {

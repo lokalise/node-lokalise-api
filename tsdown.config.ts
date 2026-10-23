@@ -4,7 +4,13 @@ export default defineConfig({
 	entry: ["src/main.ts"],
 	outDir: "dist",
 	format: ["esm"],
-	dts: true,
+	outExtensions: () => ({
+		js: ".mjs",
+		dts: ".d.mts",
+	}),
+	dts: {
+		generator: "oxc",
+	},
 	sourcemap: true,
 	clean: true,
 	minify: false,

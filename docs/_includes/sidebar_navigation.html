@@ -1,20 +1,27 @@
 <nav class="menu">
   <h3>Usage</h3>
-  {% include nav.html %}
+  {% include nav_items.html items=site.data.api_items section="api" %}
+</nav>
+
+<hr>
+
+<nav class="menu">
+  <h3>Vantage</h3>
+  {% include nav_items.html items=site.data.vantage_items section="vantage" %}
 </nav>
 
 <hr>
 
 <nav class="menu">
   <h3>OTA</h3>
-  {% include nav_ota.html %}
+  {% include nav_items.html items=site.data.ota_items section="ota" %}
 </nav>
 
 <hr>
 
 <nav class="menu">
   <h3>Additional info</h3>
-  {% include nav_additional.html %}
+  {% include nav_items.html items=site.data.additional_items section="additional_info" %}
 </nav>
 
 <hr>

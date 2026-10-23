@@ -8,9 +8,7 @@ describe("LokaliseApi", () => {
 	it("is expected to throw an error if the API key is not provided", () => {
 		expect(() => {
 			new LokaliseApi({ apiKey: "" });
-		}).toThrow(
-			"Instantiation failed: A non-empty API key or JWT must be provided.",
-		);
+		}).toThrow("Instantiation failed: A non-empty API key or JWT must be provided.");
 	});
 
 	it("is expected to contain clientData", () => {
@@ -141,9 +139,7 @@ describe("LokaliseApi gzip", () => {
 			enableCompression: true,
 		});
 
-		const contributors = await client
-			.contributors()
-			.list({ project_id: project_id, limit: 2 });
+		const contributors = await client.contributors().list({ project_id: project_id, limit: 2 });
 
 		expect(getCollectionItem(contributors).fullname).to.eq("Ilya B");
 	});

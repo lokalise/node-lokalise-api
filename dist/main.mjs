@@ -1,18 +1,16 @@
 import { readFile } from "node:fs/promises";
 
-//#region src/models/base_model.ts
+// src/models/base_model.ts
 var BaseModel = class {
 	constructor(params) {
 		Object.assign(this, params);
 	}
 };
 
-//#endregion
-//#region src/models/branch.ts
+// src/models/branch.ts
 var Branch = class extends BaseModel {};
 
-//#endregion
-//#region src/lokalise/pkg.ts
+// src/lokalise/pkg.ts
 /**
 * Attempts to read and parse the local package.json file to retrieve the version.
 * If the file cannot be read or parsed, returns "unknown".
@@ -29,8 +27,7 @@ async function getVersion() {
 	}
 }
 
-//#endregion
-//#region src/models/api_error.ts
+// src/models/api_error.ts
 /**
 * Represents an API error with a specific code and optional details.
 */
@@ -71,8 +68,61 @@ var ApiError = class extends Error {
 	}
 };
 
-//#endregion
-//#region src/http_client/base.ts
+// src/utils/type_guards.ts
+function isRecord(value) {
+	return value !== null && typeof value === "object" && !Array.isArray(value);
+}
+
+// src/models/vantage/api_error.ts
+/**
+* Checks whether a value matches the Vantage API validation error structure.
+*
+* Validation errors are received as untrusted JSON, so their properties
+* must be checked before exposing them as typed objects.
+*/
+function isValidationError(value) {
+	if (!isRecord(value)) return false;
+	return typeof value.keyword === "string" && typeof value.instancePath === "string" && typeof value.schemaPath === "string" && (value.message === void 0 || typeof value.message === "string") && isRecord(value.params);
+}
+/**
+* Represents an error returned by the Lokalise Vantage API.
+*
+* Preserves the original API error details and provides convenient access
+* to individual validation issues when the error code is VALIDATION_ERROR.
+*/
+var ApiErrorVantage = class extends Error {
+	/** Machine-readable API error code. */
+	code;
+	/** Original error details returned by the API. */
+	details;
+	/**
+	* Individual validation issues returned by the API.
+	*
+	* Populated only for VALIDATION_ERROR responses containing an array
+	* of recognized validation issues in details.error.
+	*
+	* The original validation data remains available in details.
+	*/
+	validationErrors;
+	constructor(message, code, details) {
+		super(message);
+		this.name = "ApiErrorVantage";
+		this.code = code;
+		if (details !== void 0) this.details = details;
+		if (code === "VALIDATION_ERROR" && Array.isArray(details?.error)) this.validationErrors = details.error.filter(isValidationError);
+	}
+	/**
+	* Returns a readable error description, including the error code
+	* and original details when available.
+	*/
+	toString() {
+		let result = `${this.name}: ${this.message} (Code: ${this.code})`;
+		if (this.details) result += ` | Details: ${JSON.stringify(this.details)}`;
+		return result;
+	}
+};
+
+// src/http_client/base.ts
 /**
 * Represents a single API request to the Lokalise API.
 * Handles URL construction, request initiation, response processing, and error handling.
@@ -81,7 +131,7 @@ var ApiRequest = class ApiRequest {
 	/**
 	* The default base URL for the Lokalise API.
 	*/
-	static urlRoot = "https://api.lokalise.com/api2/";
+	static urlRoot = "https://api.lokalise.com/";
 	/**
 	* The resolved response from the API request.
 	*/
@@ -131,7 +181,7 @@ var ApiRequest = class ApiRequest {
 		const target = new URL(url, prefixUrl);
 		const stringifiedParams = Object.fromEntries(Object.entries(this.params).filter(([, value]) => value !== void 0 && value !== null).map(([key, value]) => [key, String(value)]));
 		target.search = new URLSearchParams(stringifiedParams).toString();
-		return this.fetchAndHandleResponse(target, options, clientData.requestTimeout);
+		return this.fetchAndHandleResponse(target, options, clientData.requestTimeout, clientData.version);
 	}
 	/**
 	* Executes the fetch request and handles network-level errors.
@@ -141,33 +191,36 @@ var ApiRequest = class ApiRequest {
 	* @param requestTimeout - Optional timeout in milliseconds.
 	* @returns A promise resolving to an ApiResponse or rejecting with an ApiError.
 	*/
-	async fetchAndHandleResponse(target, options, requestTimeout = 0) {
+	async fetchAndHandleResponse(target, options, requestTimeout = 0, version = "api2") {
 		if (!Number.isSafeInteger(requestTimeout) || requestTimeout < 0) throw new ApiError("requestTimeout must be a non-negative integer", 500);
 		const signal = requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : void 0;
+		let response;
 		try {
-			const response = await fetch(target, {
+			response = await fetch(target, {
 				...options,
 				...signal ? { signal } : {}
 			});
-			return this.processResponse(response);
 		} catch (err) {
 			if (err instanceof Error) {
-				if (err.name === "TimeoutError") return Promise.reject(new ApiError(`Request timed out after ${requestTimeout}ms`, 408, { reason: "timeout" }));
-				return Promise.reject(new ApiError(err.message, 500, { reason: "network or fetch error" }));
+				if (err.name === "TimeoutError") throw new ApiError(`Request timed out after ${requestTimeout}ms`, 408, { reason: "timeout" });
+				throw new ApiError(err.message, 500, { reason: "network or fetch error" });
 			}
-			return Promise.reject(new ApiError("An unknown error occurred", 500, { reason: String(err) }));
+			throw new ApiError("An unknown error occurred", 500, { reason: String(err) });
 		}
+		return this.processResponse(response, version);
 	}
 	/**
 	* Processes the fetch response.
-	* Attempts to parse JSON unless the status is 204 (No Content).
+	* Parses JSON when the response body is not empty.
 	* @param response - The raw fetch Response object.
+	* @param version - API version.
 	* @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
 	*/
-	async processResponse(response) {
+	async processResponse(response, version = "api2") {
 		let responseJSON = null;
 		try {
-			if (response.status !== 204) responseJSON = await response.json();
+			const responseText = await response.text();
+			if (responseText.length > 0) responseJSON = JSON.parse(responseText);
 		} catch (error) {
 			const message = error instanceof Error ? error.message : String(error);
 			throw new ApiError(message, response.status, {
@@ -179,6 +232,7 @@ var ApiRequest = class ApiRequest {
 			json: responseJSON,
 			headers: response.headers
 		};
+		if (version.startsWith("vantage/")) throw this.getVantageErrorFromResp(responseJSON, response.status);
 		throw this.getErrorFromResp(responseJSON, response.status);
 	}
 	/**
@@ -251,10 +305,31 @@ var ApiRequest = class ApiRequest {
 			return "";
 		};
 	}
+	parseVantageError(json) {
+		if (!json || typeof json !== "object" || Array.isArray(json)) return null;
+		const error = json;
+		if (typeof error.message !== "string" || typeof error.errorCode !== "string") return null;
+		const details = error.details && typeof error.details === "object" && !Array.isArray(error.details) ? error.details : void 0;
+		return new ApiErrorVantage(error.message, error.errorCode, details);
+	}
+	getVantageErrorFromResp(respJson, fallbackStatus) {
+		if (respJson && typeof respJson === "object" && !Array.isArray(respJson)) {
+			const json = respJson;
+			if (Array.isArray(json.errors)) {
+				const errors = json.errors.map((error) => this.parseVantageError(error)).filter((error) => error !== null);
+				if (errors.length > 0) return new AggregateError(errors, `Vantage API returned ${errors.length} error(s)`);
+			}
+			const error = this.parseVantageError(json);
+			if (error) return error;
+		}
+		return new ApiErrorVantage("An unknown error occurred", "unknown_error", {
+			status: fallbackStatus,
+			reason: "unexpected response format"
+		});
+	}
 };
 
-//#endregion
-//#region src/models/paginated_result.ts
+// src/models/paginated_result.ts
 var PaginatedResult = class {
 	totalResults;
 	totalPages;
@@ -296,8 +371,7 @@ var PaginatedResult = class {
 	}
 };
 
-//#endregion
-//#region src/models/cursor_paginated_result.ts
+// src/models/cursor_paginated_result.ts
 var CursorPaginatedResult = class extends PaginatedResult {
 	nextCursor;
 	constructor(items, headers) {
@@ -309,21 +383,7 @@ var CursorPaginatedResult = class extends PaginatedResult {
 	}
 };
 
-//#endregion
-//#region src/models/v1/cursor_paginated_result.ts
-var CursorPaginatedResultV1 = class {
-	next_cursor;
-	has_more;
-	items;
-	constructor(response) {
-		this.items = response.data;
-		this.next_cursor = response.next_cursor;
-		this.has_more = response.has_more;
-	}
-};
-
-//#endregion
-//#region src/collections/base_collection.ts
+// src/collections/base_collection.ts
 /**
 * An abstract base class that provides generic CRUD (Create, Read, Update, Delete) operations
 * and handling for pagination, cursor pagination, and bulk operations. Other "collection" classes
@@ -406,9 +466,6 @@ var BaseCollection = class {
 	doListCursor(params) {
 		return this.createPromise("GET", params, this.populateArrayFromJsonCursor, null);
 	}
-	doListCursorV1(params) {
-		return this.createPromise("GET", params, this.populateArrayFromJsonCursorV1, null);
-	}
 	/**
 	* Perform a GET request to retrieve a single item by its ID.
 	* @param id The ID of the item to retrieve.
@@ -480,7 +537,7 @@ var BaseCollection = class {
 		const rootElementName = this.rootElementNameSingular;
 		if (rootElementName) {
 			const picked = jsonData[rootElementName];
-			if (!this.isRecord(picked)) throw new Error(`Missing property '${rootElementName}' in JSON object`);
+			if (!isRecord(picked)) throw new Error(`Missing property '${rootElementName}' in JSON object`);
 			jsonData = picked;
 		}
 		return this.populateObjectFromJson(jsonData, headers);
@@ -495,7 +552,7 @@ var BaseCollection = class {
 	populateSecondaryObjectFromJsonRoot(json, headers) {
 		const root = this.secondaryElementNameSingular;
 		const itemJson = json[root];
-		if (!this.isRecord(itemJson)) throw new Error(`Missing expected secondary property '${root}' in JSON response.`);
+		if (!isRecord(itemJson)) throw new Error(`Missing expected secondary property '${root}' in JSON response.`);
 		return this.populateObjectFromJson(itemJson, headers, true);
 	}
 	/**
@@ -519,7 +576,7 @@ var BaseCollection = class {
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
 		const items = jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			return this.populateObjectFromJson(obj, headers);
 		});
 		return {
@@ -549,7 +606,7 @@ var BaseCollection = class {
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' but received: ${typeof jsonArray}`);
 		return jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			return this.populateObjectFromJson(obj, headers);
 		});
 	}
@@ -563,29 +620,10 @@ var BaseCollection = class {
 		const jsonArray = json[root];
 		if (!Array.isArray(jsonArray)) throw new Error(`Expected an array under '${root}' for cursor pagination but received: ${typeof jsonArray}`);
 		const items = jsonArray.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in '${root}' to be an object`);
 			return this.populateObjectFromJson(obj, headers);
 		});
 		return new CursorPaginatedResult(items, headers);
-	}
-	/**
-	* Parse a JSON response that contains a cursor-paginated array of items.
-	* @param json The raw JSON object returned by the API.
-	*/
-	populateArrayFromJsonCursorV1(json, headers) {
-		const data = json.data;
-		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
-		const nextCursor = typeof json.next_cursor === "string" ? json.next_cursor : null;
-		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
-		const items = data.map((obj, index) => {
-			if (!this.isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
-			return this.populateObjectFromJson(obj, headers);
-		});
-		return new CursorPaginatedResultV1({
-			data: items,
-			next_cursor: nextCursor,
-			has_more: hasMore
-		});
 	}
 	/**
 	* Parse a JSON object into either an ElementType or a SecondaryType instance.
@@ -624,6 +662,9 @@ var BaseCollection = class {
 		if (request.response.json === null) throw new Error("Expected JSON response body, but received no content.");
 		return resolveFn.call(this, request.response.json, request.response.headers);
 	}
+	async createNoContentPromise(method, params, body, uri = null) {
+		await this.prepareRequest(method, body, params, uri);
+	}
 	/**
 	* Prepare the API request by creating a new ApiRequest instance using the static async factory method.
 	* @param method The HTTP method.
@@ -655,18 +696,9 @@ var BaseCollection = class {
 	isPaginated(headers) {
 		return headers.has("x-pagination-total-count") && headers.has("x-pagination-page");
 	}
-	/**
-	* Runtime type guard for narrowing `unknown` to `Record<string, unknown>`.
-	*
-	* @param value The value to test.
-	*/
-	isRecord(value) {
-		return value !== null && typeof value === "object" && !Array.isArray(value);
-	}
 };
 
-//#endregion
-//#region src/collections/branches.ts
+// src/collections/branches.ts
 var Branches = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/branches/{:id}";
 	get elementClass() {
@@ -702,12 +734,10 @@ var Branches = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/comment.ts
+// src/models/comment.ts
 var Comment = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/comments.ts
+// src/collections/comments.ts
 var Comments = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/comments/{:id}";
 	get elementClass() {
@@ -737,12 +767,10 @@ var Comments = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/contributor.ts
+// src/models/contributor.ts
 var Contributor = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/contributors.ts
+// src/collections/contributors.ts
 var Contributors = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/contributors/{:id}";
 	get elementClass() {
@@ -775,16 +803,13 @@ var Contributors = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/file.ts
+// src/models/file.ts
 var File = class extends BaseModel {};
 
-//#endregion
-//#region src/models/queued_process.ts
+// src/models/queued_process.ts
 var QueuedProcess = class extends BaseModel {};
 
-//#endregion
-//#region src/utils/logger.ts
+// src/utils/logger.ts
 /**
 * Emits a warning to the console unless `silent` is true.
 *
@@ -796,8 +821,7 @@ function warn(silent, ...args) {
 	console.warn(...args);
 }
 
-//#endregion
-//#region src/collections/files.ts
+// src/collections/files.ts
 var Files = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/files/{:id}";
 	get elementClass() {
@@ -839,12 +863,10 @@ var Files = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/glossary_term.ts
+// src/models/glossary_term.ts
 var GlossaryTerm = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/glossary_terms.ts
+// src/collections/glossary_terms.ts
 var GlossaryTerms = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/glossary-terms/{:id}";
 	get elementClass() {
@@ -877,12 +899,10 @@ var GlossaryTerms = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/jwt.ts
+// src/models/jwt.ts
 var Jwt$1 = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/jwt.ts
+// src/collections/jwt.ts
 var Jwt = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/tokens";
 	get elementClass() {
@@ -894,12 +914,10 @@ var Jwt = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/key.ts
+// src/models/key.ts
 var Key = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/keys.ts
+// src/collections/keys.ts
 var Keys = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/keys/{:id}";
 	get elementClass() {
@@ -935,12 +953,10 @@ var Keys = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/language.ts
+// src/models/language.ts
 var Language = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/languages.ts
+// src/collections/languages.ts
 var Languages = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/languages/{:id}";
 	get elementClass() {
@@ -973,12 +989,10 @@ var Languages = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/order.ts
+// src/models/order.ts
 var Order = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/orders.ts
+// src/collections/orders.ts
 var Orders = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/orders/{:id}";
 	get elementClass() {
@@ -1001,12 +1015,10 @@ var Orders = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/payment_card.ts
+// src/models/payment_card.ts
 var PaymentCard = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/payment_cards.ts
+// src/collections/payment_cards.ts
 var PaymentCards = class extends BaseCollection {
 	static prefixURI = "payment_cards/{:id}";
 	get elementClass() {
@@ -1032,12 +1044,10 @@ var PaymentCards = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/permission_template.ts
+// src/models/permission_template.ts
 var PermissionTemplate = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/permission_templates.ts
+// src/collections/permission_templates.ts
 var PermissionTemplates = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/roles";
 	get elementClass() {
@@ -1051,12 +1061,10 @@ var PermissionTemplates = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/project.ts
+// src/models/project.ts
 var Project = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/projects.ts
+// src/collections/projects.ts
 var Projects = class extends BaseCollection {
 	static prefixURI = "projects/{:id}";
 	get elementClass() {
@@ -1088,8 +1096,7 @@ var Projects = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/collections/queued_processes.ts
+// src/collections/queued_processes.ts
 var QueuedProcesses = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/processes/{:id}";
 	get elementClass() {
@@ -1109,12 +1116,10 @@ var QueuedProcesses = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/screenshot.ts
+// src/models/screenshot.ts
 var Screenshot = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/screenshots.ts
+// src/collections/screenshots.ts
 var Screenshots = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/screenshots/{:id}";
 	get elementClass() {
@@ -1144,12 +1149,10 @@ var Screenshots = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/segment.ts
+// src/models/segment.ts
 var Segment = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/segments.ts
+// src/collections/segments.ts
 var Segments = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/keys/{!:key_id}/segments/{!:language_iso}/{:id}";
 	get elementClass() {
@@ -1172,12 +1175,10 @@ var Segments = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/snapshot.ts
+// src/models/snapshot.ts
 var Snapshot = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/snapshots.ts
+// src/collections/snapshots.ts
 var Snapshots = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/snapshots/{:id}";
 	get elementClass() {
@@ -1207,12 +1208,10 @@ var Snapshots = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/task.ts
+// src/models/task.ts
 var Task = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/tasks.ts
+// src/collections/tasks.ts
 var Tasks = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/tasks/{:id}";
 	get elementClass() {
@@ -1241,12 +1240,10 @@ var Tasks = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/team_user_billing_details.ts
+// src/models/team_user_billing_details.ts
 var TeamUserBillingDetails$1 = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/team_user_billing_details.ts
+// src/collections/team_user_billing_details.ts
 var TeamUserBillingDetails = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/billing_details";
 	get elementClass() {
@@ -1265,12 +1262,10 @@ var TeamUserBillingDetails = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/team_user.ts
+// src/models/team_user.ts
 var TeamUser = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/team_users.ts
+// src/collections/team_users.ts
 var TeamUsers = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/users/{:id}";
 	get elementClass() {
@@ -1296,12 +1291,10 @@ var TeamUsers = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/team.ts
+// src/models/team.ts
 var Team = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/teams.ts
+// src/collections/teams.ts
 var Teams = class extends BaseCollection {
 	static prefixURI = "teams/{:id}";
 	get elementClass() {
@@ -1321,12 +1314,10 @@ var Teams = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation_memory.ts
+// src/models/translation_memory.ts
 var TranslationMemory = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translation_memories.ts
+// src/collections/translation_memories.ts
 var TranslationMemories = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/translation-memories";
 	get elementClass() {
@@ -1340,12 +1331,10 @@ var TranslationMemories = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation_provider.ts
+// src/models/translation_provider.ts
 var TranslationProvider = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translation_providers.ts
+// src/collections/translation_providers.ts
 var TranslationProviders = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/translation_providers/{:id}";
 	get elementClass() {
@@ -1365,12 +1354,10 @@ var TranslationProviders = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation_status.ts
+// src/models/translation_status.ts
 var TranslationStatus = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translation_statuses.ts
+// src/collections/translation_statuses.ts
 var TranslationStatuses = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/custom_translation_statuses/{:id}";
 	get elementClass() {
@@ -1402,12 +1389,10 @@ var TranslationStatuses = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/translation.ts
+// src/models/translation.ts
 var Translation = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/translations.ts
+// src/collections/translations.ts
 var Translations = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/translations/{:id}";
 	get elementClass() {
@@ -1430,12 +1415,10 @@ var Translations = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/user_group.ts
+// src/models/user_group.ts
 var UserGroup = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/user_groups.ts
+// src/collections/user_groups.ts
 var UserGroups = class extends BaseCollection {
 	static prefixURI = "teams/{!:team_id}/groups/{:id}";
 	get elementClass() {
@@ -1500,8 +1483,7 @@ var UserGroups = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/v1/audit_event.ts
+// src/models/v1/audit_event.ts
 var AuditEventV1 = class {
 	class_uid;
 	class_name;
@@ -1527,9 +1509,42 @@ var AuditEventV1 = class {
 	}
 };
 
-//#endregion
-//#region src/collections/v1/audit_logs.ts
-var AuditLogs = class extends BaseCollection {
+// src/models/v1/cursor_paginated_result.ts
+var CursorPaginatedResultV1 = class {
+	next_cursor;
+	has_more;
+	items;
+	constructor(response) {
+		this.items = response.data;
+		this.next_cursor = response.next_cursor;
+		this.has_more = response.has_more;
+	}
+};
+
+// src/collections/base_collection_v1.ts
+var BaseCollectionV1 = class extends BaseCollection {
+	doListCursorV1(params) {
+		return this.createPromise("GET", params, this.populateArrayFromJsonCursorV1, null);
+	}
+	populateArrayFromJsonCursorV1(json, headers) {
+		const data = json.data;
+		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
+		const nextCursor = typeof json.next_cursor === "string" ? json.next_cursor : null;
+		const hasMore = typeof json.has_more === "boolean" ? json.has_more : false;
+		const items = data.map((obj, index) => {
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
+		return new CursorPaginatedResultV1({
+			data: items,
+			next_cursor: nextCursor,
+			has_more: hasMore
+		});
+	}
+};
+
+// src/collections/v1/audit_logs.ts
+var AuditLogs = class extends BaseCollectionV1 {
 	static prefixURI = "audit-logs";
 	get elementClass() {
 		return AuditEventV1;
@@ -1539,12 +1554,358 @@ var AuditLogs = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/models/webhook.ts
+// src/models/vantage/content_unit.ts
+var ContentUnitVantage = class {
+	id;
+	projectId;
+	type;
+	key;
+	position;
+	sourceSegmentsCount;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/models/vantage/cursor_paginated_result.ts
+var CursorPaginatedResultVantage = class {
+	count;
+	cursor;
+	hasMore;
+	items;
+	constructor(response) {
+		this.items = response.data;
+		this.count = response.meta.count;
+		this.cursor = response.meta.cursor;
+		this.hasMore = response.meta.hasMore;
+	}
+};
+
+// src/collections/base_collection_vantage.ts
+var BaseCollectionVantage = class extends BaseCollection {
+	get rootElementName() {
+		return "data";
+	}
+	get rootElementNameSingular() {
+		return "data";
+	}
+	doListCursorVantage(params) {
+		return this.createPromise("GET", params, this.populateArrayFromJsonCursorVantage, null);
+	}
+	populateArrayFromJsonCursorVantage(json, headers) {
+		const data = json.data;
+		if (!Array.isArray(data)) throw new Error(`Expected 'data' to be an array for cursor pagination but received: ${typeof data}`);
+		const meta = json.meta;
+		if (!isRecord(meta)) throw new Error(`Expected 'meta' to be an object for Vantage cursor pagination but received: ${typeof meta}`);
+		const count = typeof meta.count === "number" ? meta.count : 0;
+		const cursor = typeof meta.cursor === "string" ? meta.cursor : null;
+		const hasMore = typeof meta.hasMore === "boolean" ? meta.hasMore : false;
+		const items = data.map((obj, index) => {
+			if (!isRecord(obj)) throw new Error(`Expected item at index ${index} in 'data' to be an object`);
+			return this.populateObjectFromJson(obj, headers);
+		});
+		return new CursorPaginatedResultVantage({
+			data: items,
+			meta: {
+				count,
+				cursor,
+				hasMore
+			}
+		});
+	}
+	doGetVantage(params, uri = null) {
+		return this.createPromise("GET", params, this.populateObjectFromJsonRoot, null, uri);
+	}
+	doListArrayVantage(params) {
+		return this.createPromise("GET", params, this.populateArray, null);
+	}
+};
+
+// src/collections/vantage/content_units.ts
+var ContentUnitsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/items/{!:item_id}/content-units";
+	get elementClass() {
+		return ContentUnitVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+};
+
+// src/models/vantage/export.ts
+var ExportVantage = class {
+	exportId;
+	status;
+	createdAt;
+	totalItemsCount;
+	processedItemsCount;
+	failReason;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/models/vantage/export_download_url.ts
+var ExportDownloadUrlVantage = class {
+	downloadUrl;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/exports.ts
+var ExportsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/exports/{:export_id}";
+	get elementClass() {
+		return ExportVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	get(request_params) {
+		return this.doGetVantage(request_params);
+	}
+	create(request_params, body) {
+		return this.createPromise("POST", request_params, this.populateObjectFromJsonRoot, body);
+	}
+	getDownloadUrl(request_params) {
+		return this.createPromise("GET", request_params, (json) => new ExportDownloadUrlVantage(json.data), null, "projects/{!:project_id}/exports/{!:export_id}/download-url");
+	}
+};
+
+// src/models/vantage/import.ts
+var ImportVantage = class {
+	importId;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/imports.ts
+var ImportsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/imports";
+	get elementClass() {
+		return ImportVantage;
+	}
+	create(request_params, body) {
+		return this.createPromise("POST", request_params, this.populateObjectFromJsonRoot, body);
+	}
+};
+
+// src/models/vantage/project_item.ts
+var ProjectItemVantage = class {
+	id;
+	projectId;
+	name;
+	createdAt;
+	updatedAt;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/project_items.ts
+var ProjectItemsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/items";
+	get elementClass() {
+		return ProjectItemVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+};
+
+// src/models/vantage/project_language.ts
+var ProjectLanguageVantage = class {
+	languageId;
+	locale;
+	languageName;
+	isRtl;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/project_languages.ts
+var ProjectLanguagesVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/languages";
+	get elementClass() {
+		return ProjectLanguageVantage;
+	}
+	list(request_params) {
+		return this.doListArrayVantage(request_params);
+	}
+};
+
+// src/models/vantage/project.ts
+var ProjectVantage = class {
+	projectId;
+	teamId;
+	name;
+	description;
+	baseLanguage;
+	targetLanguages;
+	translationSettings;
+	contentSourceType;
+	contentSourceName;
+	projectType;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/projects.ts
+var ProjectsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "teams/{!:team_id}/projects";
+	get elementClass() {
+		return ProjectVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	get(request_params) {
+		return this.doGetVantage(request_params, "projects/{!:project_id}");
+	}
+};
+
+// src/models/vantage/segment.ts
+var SegmentVantage = class {
+	id;
+	number;
+	value;
+	status;
+	lastChangeSource;
+	contentLanguageId;
+	contentUnitId;
+	projectId;
+	metadata;
+	createdAt;
+	updatedAt;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/segments.ts
+var SegmentsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/content-units/{!:content_unit_id}/segments/{:segment_id}";
+	get elementClass() {
+		return SegmentVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	update(request_params, body) {
+		return this.createPromise("PATCH", request_params, (json, headers) => {
+			const data = json.data;
+			if (!isRecord(data)) throw new Error("Expected 'data' to be an object");
+			const warnings = json.warnings;
+			if (warnings !== void 0 && (!Array.isArray(warnings) || !warnings.every((warning) => isRecord(warning) && typeof warning.code === "string" && (warning.details === void 0 || isRecord(warning.details))))) throw new Error("Expected 'warnings' to be an array of warning objects");
+			return {
+				data: this.populateObjectFromJson(data, headers),
+				...warnings !== void 0 ? { warnings } : {}
+			};
+		}, body, "projects/{!:project_id}/segments/{!:segment_id}");
+	}
+};
+
+// src/models/vantage/task.ts
+var TaskVantage = class {
+	id;
+	publicId;
+	title;
+	type;
+	status;
+	description;
+	taskAssignments;
+	dueDate;
+	createdAt;
+	requestedBy;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/tasks.ts
+var TasksVantage = class extends BaseCollectionVantage {
+	static prefixURI = "teams/{!:team_id}/projects/{!:project_id}/tasks";
+	get elementClass() {
+		return TaskVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+};
+
+// src/models/vantage/translation_status.ts
+var TranslationStatusVantage = class {
+	projectId;
+	importId;
+	status;
+	languages;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/translation_statuses.ts
+var TranslationStatusesVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/translation-statuses";
+	get elementClass() {
+		return TranslationStatusVantage;
+	}
+	get(request_params) {
+		return this.doGetVantage(request_params, "projects/{!:project_id}/translation-statuses/{!:import_id}");
+	}
+};
+
+// src/models/vantage/upload.ts
+var UploadVantage = class {
+	uploadId;
+	batchId;
+	fileName;
+	size;
+	createdAt;
+	status;
+	wordCount;
+	locale;
+	itemId;
+	error;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/models/vantage/upload_stage.ts
+var UploadStageVantage = class {
+	batchId;
+	uploads;
+	constructor(json) {
+		Object.assign(this, json);
+	}
+};
+
+// src/collections/vantage/uploads.ts
+var UploadsVantage = class extends BaseCollectionVantage {
+	static prefixURI = "projects/{!:project_id}/uploads";
+	get elementClass() {
+		return UploadVantage;
+	}
+	list(request_params) {
+		return this.doListCursorVantage(request_params);
+	}
+	create(request_params, body) {
+		return this.createPromise("POST", request_params, (json) => new UploadStageVantage(json.data), body);
+	}
+	complete(request_params, body) {
+		return this.createNoContentPromise("POST", request_params, body, "projects/{!:project_id}/uploads/actions/complete");
+	}
+};
+
+// src/models/webhook.ts
 var Webhook = class extends BaseModel {};
 
-//#endregion
-//#region src/collections/webhooks.ts
+// src/collections/webhooks.ts
 var Webhooks = class extends BaseCollection {
 	static prefixURI = "projects/{!:project_id}/webhooks/{:id}";
 	get elementClass() {
@@ -1580,8 +1941,7 @@ var Webhooks = class extends BaseCollection {
 	}
 };
 
-//#endregion
-//#region src/lokalise/base_client.ts
+// src/lokalise/base_client.ts
 /**
 * A foundational client class that establishes authentication and configuration data.
 * Other specialized clients can inherit from this class to leverage the configured
@@ -1619,8 +1979,7 @@ var BaseClient = class {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api.ts
+// src/lokalise/lokalise_api.ts
 /**
 * A main entry point for interacting with the Lokalise API.
 * Provides easy access to various resource collections (Branches, Comments, Projects, etc.)
@@ -1794,8 +2153,7 @@ var LokaliseApi = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api_oauth.ts
+// src/lokalise/lokalise_api_oauth.ts
 /**
 * A specialized client for interacting with the Lokalise API using OAuth authentication.
 * Extends `LokaliseApi` and configures the token type and authorization header to use Bearer tokens.
@@ -1814,12 +2172,10 @@ var LokaliseApiOAuth = class extends LokaliseApi {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_bundle.ts
+// src/models/ota/ota_bundle.ts
 var OtaBundle = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_collection.ts
+// src/ota_collections/ota_collection.ts
 var OtaCollection = class extends BaseCollection {
 	doDelete(id, req_params) {
 		const params = {
@@ -1834,13 +2190,12 @@ var OtaCollection = class extends BaseCollection {
 		throw new Error("Invalid response format: expected object or array of objects in `data`");
 	}
 	async createVoidPromise(method, params, body, uri = null) {
-		await this.prepareRequest(method, body, params, uri);
+		await this.createNoContentPromise(method, params, body, uri);
 		return null;
 	}
 };
 
-//#endregion
-//#region src/ota_collections/ota_bundle_management.ts
+// src/ota_collections/ota_bundle_management.ts
 var OtaBundleManagement = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundles/{:id}";
 	get elementClass() {
@@ -1866,8 +2221,7 @@ var OtaBundleManagement = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/ota_collections/ota_bundle_publishing.ts
+// src/ota_collections/ota_bundle_publishing.ts
 var OtaBundlePublishing = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/frameworks/{!:framework}/{!:action}";
 	/* v8 ignore next 5 */
@@ -1890,12 +2244,10 @@ var OtaBundlePublishing = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_bundle_archive.ts
+// src/models/ota/ota_bundle_archive.ts
 var OtaBundleArchive = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_bundles.ts
+// src/ota_collections/ota_bundles.ts
 var OtaBundles = class extends OtaCollection {
 	static rootElementNameSingular = "data";
 	static prefixURI = "lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";
@@ -1915,12 +2267,10 @@ var OtaBundles = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_freeze_period.ts
+// src/models/ota/ota_freeze_period.ts
 var OtaFreezePeriod = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_freeze_periods.ts
+// src/ota_collections/ota_freeze_periods.ts
 var OtaFreezePeriods = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/bundle-freezes/{:id}";
 	get elementClass() {
@@ -1946,12 +2296,10 @@ var OtaFreezePeriods = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_sdk_token.ts
+// src/models/ota/ota_sdk_token.ts
 var OtaSdkToken = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_sdk_tokens.ts
+// src/ota_collections/ota_sdk_tokens.ts
 var OtaSdkTokens = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/tokens/{:id}";
 	get elementClass() {
@@ -1974,12 +2322,10 @@ var OtaSdkTokens = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/models/ota/ota_statistics.ts
+// src/models/ota/ota_statistics.ts
 var OtaStatistics = class extends BaseModel {};
 
-//#endregion
-//#region src/ota_collections/ota_usage_statistics.ts
+// src/ota_collections/ota_usage_statistics.ts
 var OtaUsageStatistics = class extends OtaCollection {
 	static prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/stats";
 	static elementClass = OtaStatistics;
@@ -1995,8 +2341,7 @@ var OtaUsageStatistics = class extends OtaCollection {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api_ota.ts
+// src/lokalise/lokalise_api_ota.ts
 /**
 * A specialized client configured for interacting with Lokalise OTA endpoints.
 * Extends `BaseClient` and sets defaults suitable for OTA requests:
@@ -2050,8 +2395,7 @@ var LokaliseApiOta = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_api_v1.ts
+// src/lokalise/lokalise_api_v1.ts
 /**
 * A main entry point for interacting with Lokalise API v1.
 * Provides access to resource collections available through API version v1.
@@ -2074,8 +2418,46 @@ var LokaliseApiV1 = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/lokalise/lokalise_ota_bundles.ts
+// src/lokalise/lokalise_api_vantage.ts
+var LokaliseApiVantage = class extends BaseClient {
+	constructor(params) {
+		super(params);
+		this.clientData.version = params.version ?? "vantage/v1";
+		this.clientData.authHeader = params.header ?? this.clientData.authHeader;
+	}
+	contentUnits() {
+		return new ContentUnitsVantage(this.clientData);
+	}
+	exports() {
+		return new ExportsVantage(this.clientData);
+	}
+	imports() {
+		return new ImportsVantage(this.clientData);
+	}
+	projects() {
+		return new ProjectsVantage(this.clientData);
+	}
+	projectItems() {
+		return new ProjectItemsVantage(this.clientData);
+	}
+	projectLanguages() {
+		return new ProjectLanguagesVantage(this.clientData);
+	}
+	segments() {
+		return new SegmentsVantage(this.clientData);
+	}
+	tasks() {
+		return new TasksVantage(this.clientData);
+	}
+	translationStatuses() {
+		return new TranslationStatusesVantage(this.clientData);
+	}
+	uploads() {
+		return new UploadsVantage(this.clientData);
+	}
+};
+
+// src/lokalise/lokalise_ota_bundles.ts
 /**
 * A specialized client for interacting with Lokalise OTA (Over-The-Air) bundle resources.
 * Extends the BaseClient to configure authentication and endpoint specifics for OTA bundles.
@@ -2103,8 +2485,7 @@ var LokaliseOtaBundles = class extends BaseClient {
 	}
 };
 
-//#endregion
-//#region src/oauth2/auth_request.ts
+// src/oauth2/auth_request.ts
 /**
 * Builds and returns headers for the request.
 */
@@ -2152,8 +2533,7 @@ async function createPromise(uri, method, body, { host, version }) {
 	});
 }
 
-//#endregion
-//#region src/oauth2/lokalise_auth.ts
+// src/oauth2/lokalise_auth.ts
 var LokaliseAuth = class {
 	authData;
 	/**
@@ -2265,10 +2645,8 @@ var LokaliseAuth = class {
 	}
 };
 
-//#endregion
-//#region src/models/auth_error.ts
+// src/models/auth_error.ts
 var AuthError = class extends BaseModel {};
 
-//#endregion
-export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseAuth, LokaliseOtaBundles };
+export { ApiError, AuthError, LokaliseApi, LokaliseApiOAuth, LokaliseApiOta, LokaliseApiV1, LokaliseApiVantage, LokaliseAuth, LokaliseOtaBundles };
 //# sourceMappingURL=main.mjs.map

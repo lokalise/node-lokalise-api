@@ -1,6 +1,7 @@
 import type { ClientData } from "../interfaces/client_data.js";
 import { getVersion } from "../lokalise/pkg.js";
 import { ApiError } from "../models/api_error.js";
+import { ApiErrorVantage } from "../models/vantage/api_error.js";
 import type { HttpMethod } from "../types/http_method.js";
 
 export type ApiResponse = {
@@ -16,7 +17,7 @@ export class ApiRequest {
 	/**
 	 * The default base URL for the Lokalise API.
 	 */
-	protected static readonly urlRoot = "https://api.lokalise.com/api2/";
+	protected static readonly urlRoot = "https://api.lokalise.com/";
 
 	/**
 	 * The resolved response from the API request.
@@ -63,12 +64,7 @@ export class ApiRequest {
 		clientData: ClientData,
 	): Promise<ApiRequest> {
 		const apiRequest = new ApiRequest(params);
-		apiRequest.response = await apiRequest.createPromise(
-			uri,
-			method,
-			body,
-			clientData,
-		);
+		apiRequest.response = await apiRequest.createPromise(uri, method, body, clientData);
 		return apiRequest;
 	}
 
@@ -97,6 +93,7 @@ export class ApiRequest {
 		};
 
 		const target = new URL(url, prefixUrl);
+
 		const stringifiedParams: Record<string, string> = Object.fromEntries(
 			Object.entries(this.params)
 				.filter(([, value]) => value !== undefined && value !== null)
@@ -108,6 +105,7 @@ export class ApiRequest {
 			target,
 			options,
 			clientData.requestTimeout,
+			clientData.version,
 		);
 	}
 
@@ -123,54 +121,57 @@ export class ApiRequest {
 		target: URL,
 		options: RequestInit,
 		requestTimeout = 0,
+		version = "api2",
 	): Promise<ApiResponse> {
 		if (!Number.isSafeInteger(requestTimeout) || requestTimeout < 0) {
 			throw new ApiError("requestTimeout must be a non-negative integer", 500);
 		}
 
-		const signal =
-			requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : undefined;
+		const signal = requestTimeout > 0 ? AbortSignal.timeout(requestTimeout) : undefined;
+
+		let response: Response;
 
 		try {
-			const response = await fetch(target, {
+			response = await fetch(target, {
 				...options,
 				...(signal ? { signal } : {}),
 			});
-
-			return this.processResponse(response);
 		} catch (err) {
 			if (err instanceof Error) {
 				if (err.name === "TimeoutError") {
-					return Promise.reject(
-						new ApiError(`Request timed out after ${requestTimeout}ms`, 408, {
-							reason: "timeout",
-						}),
-					);
+					throw new ApiError(`Request timed out after ${requestTimeout}ms`, 408, {
+						reason: "timeout",
+					});
 				}
-				return Promise.reject(
-					new ApiError(err.message, 500, { reason: "network or fetch error" }),
-				);
+
+				throw new ApiError(err.message, 500, {
+					reason: "network or fetch error",
+				});
 			}
-			return Promise.reject(
-				new ApiError("An unknown error occurred", 500, {
-					reason: String(err),
-				}),
-			);
+
+			throw new ApiError("An unknown error occurred", 500, {
+				reason: String(err),
+			});
 		}
+
+		return this.processResponse(response, version);
 	}
 
 	/**
 	 * Processes the fetch response.
-	 * Attempts to parse JSON unless the status is 204 (No Content).
+	 * Parses JSON when the response body is not empty.
 	 * @param response - The raw fetch Response object.
+	 * @param version - API version.
 	 * @returns A promise resolving to an ApiResponse if successful, or rejecting with ApiError otherwise.
 	 */
-	protected async processResponse(response: Response): Promise<ApiResponse> {
+	protected async processResponse(response: Response, version = "api2"): Promise<ApiResponse> {
 		let responseJSON: unknown = null;
 
 		try {
-			if (response.status !== 204) {
-				responseJSON = await response.json();
+			const responseText = await response.text();
+
+			if (responseText.length > 0) {
+				responseJSON = JSON.parse(responseText);
 			}
 		} catch (error) {
 			const message = error instanceof Error ? error.message : String(error);
@@ -188,6 +189,10 @@ export class ApiRequest {
 			};
 		}
 
+		if (version.startsWith("vantage/")) {
+			throw this.getVantageErrorFromResp(responseJSON, response.status);
+		}
+
 		throw this.getErrorFromResp(responseJSON, response.status);
 	}
 
@@ -197,10 +202,7 @@ export class ApiRequest {
 	 * @param fallbackStatus - Fallback status from the response.
 	 * @returns An ApiError representing the server error.
 	 */
-	protected getErrorFromResp(
-		respJson: unknown,
-		fallbackStatus: number,
-	): ApiError {
+	protected getErrorFromResp(respJson: unknown, fallbackStatus: number): ApiError {
 		if (!respJson || typeof respJson !== "object") {
 			return new ApiError("An unknown error occurred", fallbackStatus, {
 				reason: "unexpected response format",
@@ -246,11 +248,9 @@ export class ApiRequest {
 		// { message: string, code?: number, errorCode?: number, details?: any }
 		if (
 			typeof errorObj.message === "string" &&
-			(typeof errorObj.code === "number" ||
-				typeof errorObj.errorCode === "number")
+			(typeof errorObj.code === "number" || typeof errorObj.errorCode === "number")
 		) {
-			const statusCode =
-				typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
+			const statusCode = typeof errorObj.code === "number" ? errorObj.code : errorObj.errorCode;
 
 			const rawDetails = errorObj.details;
 
@@ -281,8 +281,7 @@ export class ApiRequest {
 		method: HttpMethod,
 		body: object | object[] | null,
 	): Promise<Headers> {
-		const userAgent =
-			clientData.userAgent?.trim() || `node-lokalise-api/${await getVersion()}`;
+		const userAgent = clientData.userAgent?.trim() || `node-lokalise-api/${await getVersion()}`;
 		const headers = new Headers({
 			Accept: "application/json",
 			"User-Agent": userAgent,
@@ -325,16 +324,8 @@ export class ApiRequest {
 	 * @returns A function used as a replacement callback in `composeURI`.
 	 * @throws Error if a required parameter is missing.
 	 */
-	protected mapUriParams(): (
-		substring: string,
-		isMandatory: string,
-		paramName: string,
-	) => string {
-		return (
-			_substring: string,
-			isMandatory: string,
-			paramName: string,
-		): string => {
+	protected mapUriParams(): (substring: string, isMandatory: string, paramName: string) => string {
+		return (_substring: string, isMandatory: string, paramName: string): string => {
 			if (this.params[paramName] != null) {
 				const paramValue = String(this.params[paramName]);
 				// Remove the parameter so it doesn't appear as a query parameter
@@ -346,5 +337,51 @@ export class ApiRequest {
 			}
 			return "";
 		};
+	}
+
+	protected parseVantageError(json: unknown): ApiErrorVantage | null {
+		if (!json || typeof json !== "object" || Array.isArray(json)) {
+			return null;
+		}
+
+		const error = json as Record<string, unknown>;
+
+		if (typeof error.message !== "string" || typeof error.errorCode !== "string") {
+			return null;
+		}
+
+		const details =
+			error.details && typeof error.details === "object" && !Array.isArray(error.details)
+				? (error.details as Record<string, unknown>)
+				: undefined;
+
+		return new ApiErrorVantage(error.message, error.errorCode, details);
+	}
+
+	protected getVantageErrorFromResp(respJson: unknown, fallbackStatus: number): Error {
+		if (respJson && typeof respJson === "object" && !Array.isArray(respJson)) {
+			const json = respJson as Record<string, unknown>;
+
+			if (Array.isArray(json.errors)) {
+				const errors = json.errors
+					.map((error) => this.parseVantageError(error))
+					.filter((error): error is ApiErrorVantage => error !== null);
+
+				if (errors.length > 0) {
+					return new AggregateError(errors, `Vantage API returned ${errors.length} error(s)`);
+				}
+			}
+
+			const error = this.parseVantageError(json);
+
+			if (error) {
+				return error;
+			}
+		}
+
+		return new ApiErrorVantage("An unknown error occurred", "unknown_error", {
+			status: fallbackStatus,
+			reason: "unexpected response format",
+		});
 	}
 }

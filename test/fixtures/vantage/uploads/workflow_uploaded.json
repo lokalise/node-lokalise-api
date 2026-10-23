@@ -1,0 +1,29 @@
+{
+	"data": [
+		{
+			"uploadId": "01a1545a-b49a-8243-6f67-ec3eed132bd5",
+			"batchId": "01a1545a-b48f-47a3-d2bd-953ac4c2427d",
+			"fileName": "vantage-test.md",
+			"size": 48,
+			"createdAt": "2026-10-19T13:29:53.000Z",
+			"status": "UPLOADED",
+			"wordCount": 9,
+			"locale": "nl"
+		},
+		{
+			"uploadId": "01a1545a-b4d3-9ca5-dba8-e213361bcef0",
+			"batchId": "01a1545a-b48f-47a3-d2bd-953ac4c2427d",
+			"fileName": "vantage-test.html",
+			"size": 100,
+			"createdAt": "2026-10-19T13:29:53.000Z",
+			"status": "UPLOADED",
+			"wordCount": 9,
+			"locale": "nl"
+		}
+	],
+	"meta": {
+		"count": 2,
+		"cursor": "01a1545a-b4d3-9ca5-dba8-e213361bcef0",
+		"hasMore": false
+	}
+}

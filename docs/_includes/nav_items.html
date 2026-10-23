@@ -1,0 +1,20 @@
+{% assign current_url = page.url | remove: '.html' | remove: '/index' %}
+
+<ul>
+  {% for item in include.items %}
+    {% assign item_url = '/' | append: include.section | append: '/' | append: item.path %}
+    {% assign item_url_slash = item_url | append: '/' %}
+
+    {% assign is_active = false %}
+    {% if current_url == item_url or current_url == item_url_slash %}
+      {% assign is_active = true %}
+    {% endif %}
+    
+    <li>
+      <a href="{{ item_url | relative_url }}"
+         {% if is_active %}class="active" aria-current="page"{% endif %}>
+        {{ item.title }}
+      </a>
+    </li>
+  {% endfor %}
+</ul>

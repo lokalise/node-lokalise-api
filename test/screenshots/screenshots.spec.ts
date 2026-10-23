@@ -139,9 +139,7 @@ describe("Screenshots", () => {
 
 		await stub.setStub();
 
-		const screenshots = await lokaliseApi
-			.screenshots()
-			.create(params, { project_id: projectId });
+		const screenshots = await lokaliseApi.screenshots().create(params, { project_id: projectId });
 
 		const screenshot = getArrayItem(screenshots.items);
 		expect(screenshot.screenshot_id).to.eq(secondScreenshotId);
@@ -179,9 +177,7 @@ describe("Screenshots", () => {
 				throw e;
 			}
 
-			expect(e.message).toEqual(
-				"Expected an array under 'screenshots' but received: object",
-			);
+			expect(e.message).toEqual("Expected an array under 'screenshots' but received: object");
 		}
 	});
 

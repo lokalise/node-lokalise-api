@@ -1,0 +1,41 @@
+{
+	"data": [
+		{
+			"id": "019d29da-3fed-d8d1-0c06-3eb85c80d6f9",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"type": "TEXT",
+			"key": "tu1",
+			"position": 1,
+			"sourceSegmentsCount": 1
+		},
+		{
+			"id": "019d29da-3fee-8fad-b137-bb110afc5aee",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"type": "TEXT",
+			"key": "tu2",
+			"position": 2,
+			"sourceSegmentsCount": 1
+		},
+		{
+			"id": "019d29da-3fee-8fad-b137-bb110afc5af0",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"type": "TEXT",
+			"key": "tu3",
+			"position": 3,
+			"sourceSegmentsCount": 6
+		},
+		{
+			"id": "019d29da-3fee-8fad-b137-bb110afc5af1",
+			"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+			"type": "TEXT",
+			"key": "tu4",
+			"position": 4,
+			"sourceSegmentsCount": 2
+		}
+	],
+	"meta": {
+		"count": 4,
+		"cursor": "019d29da-3fee-8fad-b137-bb110afc5af1",
+		"hasMore": false
+	}
+}

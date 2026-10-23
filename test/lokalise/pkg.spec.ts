@@ -16,9 +16,7 @@ describe("getVersion", () => {
 	});
 
 	it("returns the package version", async () => {
-		mockedReadFile.mockResolvedValue(
-			Buffer.from(JSON.stringify({ version: "12.3.4" })),
-		);
+		mockedReadFile.mockResolvedValue(Buffer.from(JSON.stringify({ version: "12.3.4" })));
 
 		await expect(getVersion()).resolves.toBe("12.3.4");
 	});
@@ -30,9 +28,7 @@ describe("getVersion", () => {
 	});
 
 	it("returns 'unknown' if version is not a string", async () => {
-		mockedReadFile.mockResolvedValue(
-			Buffer.from(JSON.stringify({ version: 123 })),
-		);
+		mockedReadFile.mockResolvedValue(Buffer.from(JSON.stringify({ version: 123 })));
 
 		await expect(getVersion()).resolves.toBe("unknown");
 	});

@@ -141,9 +141,7 @@ describe("Audit logs", () => {
 				throw e;
 			}
 
-			expect(e.message).toEqual(
-				"Expected item at index 1 in 'data' to be an object",
-			);
+			expect(e.message).toEqual("Expected item at index 1 in 'data' to be an object");
 		}
 	});
 

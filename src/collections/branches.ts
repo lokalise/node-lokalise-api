@@ -6,15 +6,11 @@ import type {
 	BranchParams,
 	MergeBranchParams,
 } from "../types/branches.js";
-import type {
-	ProjectOnly,
-	ProjectWithPagination,
-} from "../types/common_get_params.js";
+import type { ProjectOnly, ProjectWithPagination } from "../types/common_get_params.js";
 import { BaseCollection } from "./base_collection.js";
 
 export class Branches extends BaseCollection<Branch> {
-	protected static override prefixURI =
-		"projects/{!:project_id}/branches/{:id}";
+	protected static override prefixURI = "projects/{!:project_id}/branches/{:id}";
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,
@@ -30,27 +26,15 @@ export class Branches extends BaseCollection<Branch> {
 		return "branch";
 	}
 
-	list(
-		request_params: ProjectWithPagination,
-	): Promise<PaginatedResult<Branch>> {
+	list(request_params: ProjectWithPagination): Promise<PaginatedResult<Branch>> {
 		return this.doList(request_params) as Promise<PaginatedResult<Branch>>;
 	}
 
-	create(
-		branch_params: BranchParams,
-		request_params: ProjectOnly,
-	): Promise<Branch> {
-		return this.doCreate(
-			branch_params,
-			request_params,
-			this.populateObjectFromJsonRoot,
-		);
+	create(branch_params: BranchParams, request_params: ProjectOnly): Promise<Branch> {
+		return this.doCreate(branch_params, request_params, this.populateObjectFromJsonRoot);
 	}
 
-	get(
-		branch_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<Branch> {
+	get(branch_id: string | number, request_params: ProjectOnly): Promise<Branch> {
 		return this.doGet(branch_id, request_params);
 	}
 
@@ -62,10 +46,7 @@ export class Branches extends BaseCollection<Branch> {
 		return this.doUpdate(branch_id, branch_params, request_params);
 	}
 
-	delete(
-		branch_id: string | number,
-		request_params: ProjectOnly,
-	): Promise<BranchDeleted> {
+	delete(branch_id: string | number, request_params: ProjectOnly): Promise<BranchDeleted> {
 		return this.doDelete<BranchDeleted>(branch_id, request_params);
 	}
 

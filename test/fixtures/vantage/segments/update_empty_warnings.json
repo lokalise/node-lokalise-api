@@ -1,0 +1,16 @@
+{
+	"data": {
+		"id": "019d29da-cd10-9b67-afe8-1fd14d0a5dee",
+		"number": 0,
+		"value": "Alice commençait à se sentir très lasse d'être assise à côté de sa sœur sur la",
+		"status": "PENDING_REVIEW",
+		"lastChangeSource": "AI",
+		"contentLanguageId": "019d29d9-de52-7ba2-87c6-b5355efd2aa7",
+		"contentUnitId": "019d29da-3fee-8fad-b137-bb110afc5af0",
+		"projectId": "019d29d9-de47-7a57-ac2d-53194197d213",
+		"metadata": null,
+		"createdAt": "2026-03-26T11:14:58.441Z",
+		"updatedAt": "2026-03-26T11:16:17.983Z"
+	},
+	"warnings": []
+}

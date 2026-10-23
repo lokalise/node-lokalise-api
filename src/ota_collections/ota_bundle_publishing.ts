@@ -15,10 +15,7 @@ export class OtaBundlePublishing extends OtaCollection<void> {
 		return Branch;
 	}
 
-	publish(
-		bundleId: number | string,
-		request_params: OtaTeamProjectFramework,
-	): Promise<null> {
+	publish(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null> {
 		const params = {
 			...request_params,
 			...{ action: "publish" },
@@ -28,10 +25,7 @@ export class OtaBundlePublishing extends OtaCollection<void> {
 		});
 	}
 
-	stage(
-		bundleId: number | string,
-		request_params: OtaTeamProjectFramework,
-	): Promise<null> {
+	stage(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null> {
 		const params = {
 			...request_params,
 			...{ action: "stage" },
