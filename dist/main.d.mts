@@ -117,7 +117,7 @@ export declare class ApiError extends Error implements IApiError {
    *
    * @returns The formatted error message.
    */
-  toString(): string;
+  override toString(): string;
 }
 /**
  * Describes a single Vantage API request validation issue.
@@ -177,7 +177,7 @@ declare class ApiErrorVantage$1 extends Error implements ApiErrorVantage {
    * Returns a readable error description, including the error code
    * and original details when available.
    */
-  toString(): string;
+  override toString(): string;
 }
 type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE";
 type ApiResponse = {
@@ -399,7 +399,7 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
    * @param resolveFn Optional custom resolve handler to parse the response.
    * @returns A promise resolving to an ElementType or SecondaryType instance.
    */
-  protected doCreate(body: object | object[] | null, params?: Record<string, unknown>, resolveFn?: (json: Record<string, unknown>, _headers?: Headers, secondary?: boolean) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
+  protected doCreate(body: object | object[] | null, params?: Record<string, unknown>, resolveFn?: (json: Record<string, unknown>, headers: Headers) => ElementType | SecondaryType): Promise<ElementType | SecondaryType>;
   /**
    * Perform a POST request to create multiple resources at once.
    * @param body The object or array of objects to send in the request body.
@@ -520,10 +520,10 @@ declare abstract class BaseCollection<ElementType, SecondaryType = ElementType> 
   private isPaginated;
 }
 declare class Branches extends BaseCollection<Branch$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Branch$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Branch$1>>;
   create(branch_params: BranchParams, request_params: ProjectOnly): Promise<Branch$1>;
   get(branch_id: string | number, request_params: ProjectOnly): Promise<Branch$1>;
@@ -564,10 +564,10 @@ type KeyProjectPagination = ProjectWithPagination & {
   key_id: number | string;
 };
 declare class Comments extends BaseCollection<Comment$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Comment$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: KeyProjectPagination): Promise<PaginatedResult<Comment$1>>;
   create(comment_params: CommentData | CommentData[], request_params: ProjectAndKey): Promise<Comment$1[]>;
   get(comment_id: string | number, request_params: ProjectAndKey): Promise<Comment$1>;
@@ -638,10 +638,10 @@ type ContributorDeleted = {
   branch?: string;
 };
 declare class Contributors extends BaseCollection<Contributor$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Contributor$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Contributor$1>>;
   create(contributor_params: ContributorCreateData | ContributorCreateData[], request_params: ProjectOnly): Promise<Contributor$1[]>;
   get(contributor_id: string | number, request_params: ProjectOnly): Promise<Contributor$1>;
@@ -795,12 +795,12 @@ type ListFileParams = ProjectWithPagination & {
   filter_filename?: string;
 };
 declare class Files extends BaseCollection<File$1, QueuedProcess$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => File$1;
-  protected get rootElementName(): string;
-  protected get secondaryElementClass(): new (json: Record<string, unknown>) => QueuedProcess$1;
-  protected get secondaryElementNameSingular(): string;
-  protected returnBareJSON<T>(json: Record<string, unknown> | Record<string, unknown>[], headers: Headers): T;
+  protected override get rootElementName(): string;
+  protected override get secondaryElementClass(): new (json: Record<string, unknown>) => QueuedProcess$1;
+  protected override get secondaryElementNameSingular(): string;
+  protected override returnBareJSON<T>(json: Record<string, unknown> | Record<string, unknown>[], headers: Headers): T;
   list(request_params: ListFileParams): Promise<PaginatedResult<File$1>>;
   upload(project_id: string, upload: UploadFileParams): Promise<QueuedProcess$1>;
   uploadFromFss(project_id: string, upload: UploadFileFromFssParams): Promise<QueuedProcess$1>;
@@ -890,10 +890,10 @@ type TermsDeleted = {
   }>;
 };
 declare class GlossaryTerms extends BaseCollection<GlossaryTerm$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => GlossaryTerm$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   get(term_id: string | number, request_params: ProjectOnly): Promise<GlossaryTerm$1>;
   list(request_params: ListTermsParams): Promise<CursorPaginatedResult<GlossaryTerm$1>>;
   create(term_params: CreateTermsParams, request_params: ProjectOnly): Promise<BulkResult<GlossaryTerm$1>>;
@@ -908,7 +908,7 @@ declare class Jwt$2 extends BaseModel implements Jwt {
   jwt: string;
 }
 declare class Jwt$1 extends BaseCollection<Jwt$2> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Jwt$2;
   create(project_id: string, body?: {
     service: string;
@@ -1147,10 +1147,10 @@ type GetKeyParams = ProjectOnly & {
   include_ai_scoring?: NumericBool;
 };
 declare class Keys extends BaseCollection<Key$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Key$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: KeyParamsWithPagination): Promise<CursorPaginatedResult<Key$1>>;
   create(key_params: CreateKeyParams, request_params: ProjectOnly): Promise<BulkResult<Key$1>>;
   get(key_id: string | number, request_params: GetKeyParams): Promise<Key$1>;
@@ -1192,10 +1192,10 @@ type LanguageDeleted = {
   branch?: string;
 };
 declare class Languages extends BaseCollection<Language$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Language$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   system_languages(params?: PaginationParams): Promise<PaginatedResult<Language$1>>;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Language$1>>;
   create(raw_body: CreateLanguageParams | CreateLanguageParams[], request_params: ProjectOnly): Promise<BulkResult<Language$1>>;
@@ -1268,10 +1268,10 @@ type CreateOrderParams = {
 };
 type TeamWithPagination = TeamOnly & PaginationParams;
 declare class Orders extends BaseCollection<Order$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Order$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<Order$1>>;
   create(order_params: CreateOrderParams, request_params: TeamOnly): Promise<Order$1>;
   get(order_id: string | number, request_params: TeamOnly): Promise<Order$1>;
@@ -1301,10 +1301,10 @@ type CardDeleted = {
   card_deleted: boolean;
 };
 declare class PaymentCards extends BaseCollection<PaymentCard$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => PaymentCard$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params?: PaginationParams): Promise<PaginatedResult<PaymentCard$1>>;
   create(card_params: CreateCardParams): Promise<PaymentCard$1>;
   get(card_id: string | number): Promise<PaymentCard$1>;
@@ -3023,9 +3023,9 @@ type WebhookRegenerated = {
   secret: string;
 };
 declare class PermissionTemplates extends BaseCollection<PermissionTemplate> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => PermissionTemplate;
-  protected get rootElementName(): string;
+  protected override get rootElementName(): string;
   list(request_params: TeamOnly): Promise<PaginatedResult<PermissionTemplate>>;
 }
 declare class Project$1 extends BaseModel implements Project {
@@ -3046,10 +3046,10 @@ declare class Project$1 extends BaseModel implements Project {
   statistics: ProjectStatistics;
 }
 declare class Projects extends BaseCollection<Project$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Project$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params?: ProjectListParams): Promise<PaginatedResult<Project$1>>;
   create(project_params: CreateProjectParams): Promise<Project$1>;
   get(project_id: string): Promise<Project$1>;
@@ -3058,10 +3058,10 @@ declare class Projects extends BaseCollection<Project$1> {
   empty(project_id: string): Promise<ProjectEmptied>;
 }
 declare class QueuedProcesses extends BaseCollection<QueuedProcess$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => QueuedProcess$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<QueuedProcess$1>>;
   get(process_id: string | number, request_params: ProjectOnly): Promise<QueuedProcess$1>;
 }
@@ -3087,10 +3087,10 @@ declare class Screenshot$1 extends BaseModel implements Screenshot {
   created_at_timestamp: number;
 }
 declare class Screenshots extends BaseCollection<Screenshot$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Screenshot$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Screenshot$1>>;
   create(raw_body: CreateScreenshotParams | CreateScreenshotParams[], request_params: ProjectOnly): Promise<BulkResult<Screenshot$1>>;
   get(screnshot_id: string | number, request_params: ProjectOnly): Promise<Screenshot$1>;
@@ -3117,10 +3117,10 @@ declare class Segment$1 extends BaseModel implements Segment {
   custom_translation_statuses: TranslationStatus$1[];
 }
 declare class Segments extends BaseCollection<Segment$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Segment$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ListSegmentParams): Promise<Segment$1[]>;
   get(segment_number: string | number, request_params: GetSegmentParams): Promise<Segment$1>;
   update(segment_number: string | number, segment_params: UpdateSegmentBodyParams, request_params: UpdateSegmentReqParams): Promise<Segment$1>;
@@ -3134,10 +3134,10 @@ declare class Snapshot$1 extends BaseModel implements Snapshot {
   created_by_email: string;
 }
 declare class Snapshots extends BaseCollection<Snapshot$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Snapshot$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Snapshot$1>>;
   create(snapshot_params: CreateSnapshotParams, request_params: ProjectOnly): Promise<Snapshot$1>;
   restore(snapshot_id: string | number, request_params: ProjectOnly): Promise<Project$1>;
@@ -3212,10 +3212,10 @@ declare class Task$1 extends BaseModel implements Task {
   custom_translation_status_ids: number[];
 }
 declare class Tasks extends BaseCollection<Task$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Task$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ListTaskParams): Promise<PaginatedResult<Task$1>>;
   create(task_params: CreateTaskParams, request_params: ProjectOnly): Promise<Task$1>;
   get(task_id: string | number, request_params: ProjectOnly): Promise<Task$1>;
@@ -3235,7 +3235,7 @@ declare class TeamUserBillingDetails$2 extends BaseModel implements TeamUserBill
   vatnumber: string;
 }
 declare class TeamUserBillingDetails$1 extends BaseCollection<TeamUserBillingDetails$2> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TeamUserBillingDetails$2;
   get(team_id: string | number): Promise<TeamUserBillingDetails$2>;
   create(billing_details_params: BillingDetailsParams, request_params: TeamOnly): Promise<TeamUserBillingDetails$2>;
@@ -3251,10 +3251,10 @@ declare class TeamUser$1 extends BaseModel implements TeamUser {
   uuid?: string;
 }
 declare class TeamUsers extends BaseCollection<TeamUser$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TeamUser$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<TeamUser$1>>;
   get(team_user_id: string | number, request_params: TeamOnly): Promise<TeamUser$1>;
   update(team_user_id: string | number, team_user_params: TeamUserParams, request_params: TeamOnly): Promise<TeamUser$1>;
@@ -3282,10 +3282,10 @@ declare class Team$1 extends BaseModel implements Team {
   };
 }
 declare class Teams extends BaseCollection<Team$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Team$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params?: PaginationParams): Promise<PaginatedResult<Team$1>>;
   get(id: number | string): Promise<Team$1>;
 }
@@ -3294,9 +3294,9 @@ declare class TranslationMemory$1 extends BaseModel implements TranslationMemory
   name: string;
 }
 declare class TranslationMemories extends BaseCollection<TranslationMemory$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TranslationMemory$1;
-  protected get rootElementName(): string;
+  protected override get rootElementName(): string;
   list(request_params: ProjectOnly): Promise<TranslationMemory$1[]>;
 }
 declare class TranslationProvider$1 extends BaseModel implements TranslationProvider {
@@ -3320,18 +3320,18 @@ declare class TranslationProvider$1 extends BaseModel implements TranslationProv
   }>;
 }
 declare class TranslationProviders extends BaseCollection<TranslationProvider$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TranslationProvider$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<TranslationProvider$1>>;
   get(provider_id: string | number, request_params: TeamOnly): Promise<TranslationProvider$1>;
 }
 declare class TranslationStatuses extends BaseCollection<TranslationStatus$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => TranslationStatus$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<TranslationStatus$1>>;
   create(translation_status_params: CreateTranslationStatusParams, request_params: ProjectOnly): Promise<TranslationStatus$1>;
   get(translation_status_id: string | number, request_params: ProjectOnly): Promise<TranslationStatus$1>;
@@ -3359,10 +3359,10 @@ declare class Translation$1 extends BaseModel implements Translation {
   segment_number: number;
 }
 declare class Translations extends BaseCollection<Translation$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Translation$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ListTranslationParams): Promise<CursorPaginatedResult<Translation$1>>;
   get(translation_id: string | number, request_params: GetTranslationParams): Promise<Translation$1>;
   update(translation_id: string | number, translation_params: UpdateTranslationParams, request_params: ProjectOnly): Promise<Translation$1>;
@@ -3389,10 +3389,10 @@ declare class UserGroup$1 extends BaseModel implements UserGroup {
   role_id: number | null;
 }
 declare class UserGroups extends BaseCollection<UserGroup$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => UserGroup$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: TeamWithPagination): Promise<PaginatedResult<UserGroup$1>>;
   create(user_group_params: UserGroupParams, request_params: TeamOnly): Promise<UserGroup$1>;
   get(user_group_id: string | number, request_params: TeamOnly): Promise<UserGroup$1>;
@@ -3439,8 +3439,8 @@ declare abstract class BaseCollectionV1<ElementType, SecondaryType = ElementType
   protected populateArrayFromJsonCursorV1(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultV1$1<ElementType>;
 }
 declare class AuditLogs extends BaseCollectionV1<AuditEventV1$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => AuditEventV1$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => AuditEventV1$1;
   list(request_params?: AuditLogParams): Promise<CursorPaginatedResultV1<AuditEventV1$1>>;
 }
 declare class ContentUnitVantage$1 implements ContentUnitVantage {
@@ -3460,16 +3460,16 @@ declare class CursorPaginatedResultVantage$1<T> implements CursorPaginatedResult
   constructor(response: CursorPaginatedResponseVantage<T>);
 }
 declare abstract class BaseCollectionVantage<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string;
   protected doListCursorVantage(params: Record<string, unknown>): Promise<CursorPaginatedResultVantage$1<ElementType>>;
   protected populateArrayFromJsonCursorVantage(json: Record<string, unknown>, headers: Headers): CursorPaginatedResultVantage$1<ElementType>;
   protected doGetVantage(params: Record<string, unknown>, uri?: string | null): Promise<ElementType>;
   protected doListArrayVantage(params: Record<string, unknown>): Promise<ElementType[]>;
 }
 declare class ContentUnitsVantage extends BaseCollectionVantage<ContentUnitVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => ContentUnitVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ContentUnitVantage$1;
   list(request_params: ContentUnitParams): Promise<CursorPaginatedResultVantage<ContentUnitVantage$1>>;
 }
 declare class ExportVantage$1 implements ExportVantage {
@@ -3486,8 +3486,8 @@ declare class ExportDownloadUrlVantage$1 implements ExportDownloadUrlVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class ExportsVantage extends BaseCollectionVantage<ExportVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => ExportVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ExportVantage$1;
   list(request_params: ExportListParams): Promise<CursorPaginatedResultVantage$1<ExportVantage$1>>;
   get(request_params: {
     project_id: string;
@@ -3515,8 +3515,8 @@ type ImportParams = {
   }[];
 };
 declare class ImportsVantage extends BaseCollectionVantage<ImportVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => ImportVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ImportVantage$1;
   create(request_params: {
     project_id: string;
   }, body: ImportParams): Promise<ImportVantage$1>;
@@ -3530,8 +3530,8 @@ declare class ProjectItemVantage$1 implements ProjectItemVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class ProjectItemsVantage extends BaseCollectionVantage<ProjectItemVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => ProjectItemVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ProjectItemVantage$1;
   list(request_params: ProjectItemParams): Promise<CursorPaginatedResultVantage<ProjectItemVantage$1>>;
 }
 declare class ProjectLanguageVantage$1 implements ProjectLanguageVantage {
@@ -3542,8 +3542,8 @@ declare class ProjectLanguageVantage$1 implements ProjectLanguageVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class ProjectLanguagesVantage extends BaseCollectionVantage<ProjectLanguageVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => ProjectLanguageVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ProjectLanguageVantage$1;
   list(request_params: ProjectLanguageParams): Promise<ProjectLanguageVantage$1[]>;
 }
 declare class ProjectVantage$1 implements ProjectVantage {
@@ -3560,8 +3560,8 @@ declare class ProjectVantage$1 implements ProjectVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class ProjectsVantage extends BaseCollectionVantage<ProjectVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => ProjectVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => ProjectVantage$1;
   list(request_params: ProjectParams): Promise<CursorPaginatedResultVantage<ProjectVantage$1>>;
   get(request_params: {
     project_id: string;
@@ -3585,8 +3585,8 @@ declare class SegmentVantage$1 implements SegmentVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class SegmentsVantage extends BaseCollectionVantage<SegmentVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => SegmentVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => SegmentVantage$1;
   list(request_params: SegmentParams): Promise<CursorPaginatedResultVantage<SegmentVantage$1>>;
   update(request_params: {
     project_id: string;
@@ -3607,8 +3607,8 @@ declare class TaskVantage$1 implements TaskVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class TasksVantage extends BaseCollectionVantage<TaskVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => TaskVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => TaskVantage$1;
   list(request_params: TaskParams): Promise<CursorPaginatedResultVantage<TaskVantage$1>>;
 }
 declare class TranslationStatusVantage$1 implements TranslationStatusVantage {
@@ -3619,8 +3619,8 @@ declare class TranslationStatusVantage$1 implements TranslationStatusVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class TranslationStatusesVantage extends BaseCollectionVantage<TranslationStatusVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => TranslationStatusVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => TranslationStatusVantage$1;
   get(request_params: {
     project_id: string;
     import_id: string;
@@ -3645,8 +3645,8 @@ declare class UploadStageVantage$1 implements UploadStageVantage {
   constructor(json: Record<string, unknown>);
 }
 declare class UploadsVantage extends BaseCollectionVantage<UploadVantage$1> {
-  protected static prefixURI: string;
-  protected get elementClass(): new (json: Record<string, unknown>) => UploadVantage$1;
+  protected static override prefixURI: string;
+  protected override get elementClass(): new (json: Record<string, unknown>) => UploadVantage$1;
   list(request_params: UploadListParams): Promise<CursorPaginatedResultVantage$1<UploadVantage$1>>;
   create(request_params: {
     project_id: string;
@@ -3667,10 +3667,10 @@ declare class Webhook$1 extends BaseModel implements Webhook {
   }>;
 }
 declare class Webhooks extends BaseCollection<Webhook$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Webhook$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: ProjectWithPagination): Promise<PaginatedResult<Webhook$1>>;
   create(webhook_params: CreateWebhookParams, request_params: ProjectOnly): Promise<Webhook$1>;
   get(webhook_id: string | number, request_params: ProjectOnly): Promise<Webhook$1>;
@@ -3840,22 +3840,22 @@ declare class OtaBundle$1 extends BaseModel implements OtaBundle {
   modifiedAt: string;
 }
 declare abstract class OtaCollection<ElementType, SecondaryType = ElementType> extends BaseCollection<ElementType, SecondaryType> {
-  protected doDelete<T = Record<string, unknown> | Record<string, unknown>[]>(id: string | number, req_params: Record<string, unknown>): Promise<T>;
+  protected override doDelete<T = Record<string, unknown> | Record<string, unknown>[]>(id: string | number, req_params: Record<string, unknown>): Promise<T>;
   protected returnJSONFromData(json: Record<string, unknown>): Record<string, unknown> | Array<Record<string, unknown>>;
   protected createVoidPromise(method: HttpMethod, params: Record<string, unknown>, body: object | object[] | null, uri?: string | null): Promise<null>;
 }
 declare class OtaBundleManagement extends OtaCollection<OtaBundle$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaBundle$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: OtaTeamProject): Promise<OtaBundle$1[]>;
   get(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaBundle$1>;
   update(bundleId: string | number, bundleParams: OtaBundleUpdateData, requestParams: OtaTeamProject): Promise<OtaBundle$1>;
   delete(bundleId: string | number, requestParams: OtaTeamProject): Promise<OtaResourceDeleted>;
 }
 declare class OtaBundlePublishing extends OtaCollection<void> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => Branch$1;
   publish(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
   stage(bundleId: number | string, request_params: OtaTeamProjectFramework): Promise<null>;
@@ -3866,10 +3866,10 @@ declare class OtaBundleArchive$1 extends BaseModel implements OtaBundleArchive {
 }
 declare class OtaBundles extends OtaCollection<OtaBundleArchive$1> {
   protected static rootElementNameSingular: string;
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected static elementClass: typeof OtaBundleArchive$1;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaBundleArchive$1;
-  protected get rootElementNameSingular(): string;
+  protected override get rootElementNameSingular(): string;
   get(bundle_params: OtaRequestBundleParams, request_params: OtaProjectFramework): Promise<OtaBundleArchive$1>;
 }
 declare class OtaFreezePeriod$1 extends BaseModel implements OtaFreezePeriod {
@@ -3881,10 +3881,10 @@ declare class OtaFreezePeriod$1 extends BaseModel implements OtaFreezePeriod {
   to: string;
 }
 declare class OtaFreezePeriods extends OtaCollection<OtaFreezePeriod$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaFreezePeriod$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(requestParams: OtaTeamProjectFramework): Promise<OtaFreezePeriod$1[]>;
   create(freezeParams: OtaFreezePeriodParams, requestParams: OtaTeamProject): Promise<OtaFreezePeriod$1>;
   update(freezeId: string | number, freezeParams: OtaFreezePeriodParams, requestParams: OtaTeamProject): Promise<OtaFreezePeriod$1>;
@@ -3898,10 +3898,10 @@ declare class OtaSdkToken$1 extends BaseModel implements OtaSdkToken {
   createdAt: string;
 }
 declare class OtaSdkTokens extends OtaCollection<OtaSdkToken$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaSdkToken$1;
-  protected get rootElementName(): string;
-  protected get rootElementNameSingular(): string | null;
+  protected override get rootElementName(): string;
+  protected override get rootElementNameSingular(): string | null;
   list(request_params: OtaTeamProject): Promise<OtaSdkToken$1[]>;
   create(request_params: OtaTeamProject): Promise<OtaSdkToken$1>;
   delete(tokenId: string | number, request_params: OtaTeamProject): Promise<OtaResourceDeleted>;
@@ -3932,7 +3932,7 @@ declare class OtaStatistics$1 extends BaseModel implements OtaStatistics {
   };
 }
 declare class OtaUsageStatistics extends OtaCollection<OtaStatistics$1> {
-  protected static prefixURI: string;
+  protected static override prefixURI: string;
   protected static elementClass: typeof OtaStatistics$1;
   protected get elementClass(): new (json: Record<string, unknown>) => OtaStatistics$1;
   get(bundle_params: OtaUsageParams, request_params: OtaTeamProject): Promise<OtaStatistics$1>;

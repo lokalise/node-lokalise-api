@@ -6,7 +6,7 @@ export class OtaBundles extends OtaCollection<OtaBundleArchive> {
 	protected static rootElementNameSingular = "data";
 	protected static override prefixURI =
 		"lokalise/projects/{!:lokaliseProjectId}/frameworks/{!:framework}";
-	protected static elementClass = OtaBundleArchive;
+	protected static elementClass: typeof OtaBundleArchive = OtaBundleArchive;
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,

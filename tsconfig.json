@@ -20,7 +20,8 @@
 		"verbatimModuleSyntax": true,
 		"exactOptionalPropertyTypes": true,
 		"noUncheckedIndexedAccess": true,
-		"types": ["node"]
+		"types": ["node"],
+		"isolatedDeclarations": true
 	},
 	"include": ["src/**/*"],
 	"exclude": ["node_modules", "dist"]

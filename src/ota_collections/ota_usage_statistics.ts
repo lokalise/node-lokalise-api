@@ -4,7 +4,7 @@ import { OtaCollection } from "./ota_collection.js";
 
 export class OtaUsageStatistics extends OtaCollection<OtaStatistics> {
 	protected static override prefixURI = "teams/{!:teamId}/projects/{!:lokaliseProjectId}/stats";
-	protected static elementClass = OtaStatistics;
+	protected static elementClass: typeof OtaStatistics = OtaStatistics;
 
 	protected get elementClass(): new (
 		json: Record<string, unknown>,

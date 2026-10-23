@@ -154,7 +154,10 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 	protected doCreate(
 		body: object | object[] | null,
 		params: Record<string, unknown> = {},
-		resolveFn = this.populateObjectFromJson,
+		resolveFn: (
+			json: Record<string, unknown>,
+			headers: Headers,
+		) => ElementType | SecondaryType = this.populateObjectFromJson,
 	): Promise<ElementType | SecondaryType> {
 		return this.createPromise("POST", params, resolveFn, body);
 	}
@@ -187,7 +190,8 @@ export abstract class BaseCollection<ElementType, SecondaryType = ElementType> {
 		id: string | number,
 		body: Record<string, unknown> | null,
 		params: Record<string, unknown>,
-		resolveFn = this.populateObjectFromJsonRoot,
+		resolveFn: (json: Record<string, unknown>, headers: Headers) => ElementType = this
+			.populateObjectFromJsonRoot,
 		method: HttpMethod = "PUT",
 	): Promise<ElementType> {
 		return this.createPromise(method, { ...params, id }, resolveFn, body);

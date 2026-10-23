@@ -78,7 +78,7 @@ export class Stub {
 		this.delay = delay ?? 0;
 	}
 
-	async setStub() {
+	async setStub(): Promise<void> {
 		const mockPool = mockAgent.get(this.rootUrl);
 
 		try {
@@ -92,7 +92,7 @@ export class Stub {
 		}
 	}
 
-	private async setupMock(mockPool: Interceptable) {
+	private async setupMock(mockPool: Interceptable): Promise<void> {
 		const mockOpts = this.buildMockOptions();
 		const respOpts = this.buildResponseOptions();
 
@@ -104,7 +104,7 @@ export class Stub {
 		mockOpts: MockInterceptor.Options,
 		isError: boolean,
 		respOpts: MockInterceptor.MockResponseOptions,
-	) {
+	): Promise<void> {
 		const interceptOpts: MockInterceptor.Options = {
 			...mockOpts,
 			...(this.requestBody !== undefined ? { body: this.requestBody } : {}),

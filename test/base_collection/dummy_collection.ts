@@ -40,20 +40,23 @@ export class DummyCollectionWithRoot extends DummyCollection {
 		return "items";
 	}
 
-	public testPopulateArray(json: Record<string, unknown>, headers = new Headers()): Branch[] {
+	public testPopulateArray(
+		json: Record<string, unknown>,
+		headers: Headers = new Headers(),
+	): Branch[] {
 		return this.populateArray(json, headers);
 	}
 
 	public testPopulateArrayFromJsonBulk(
 		json: Record<string, unknown>,
-		headers = new Headers(),
+		headers: Headers = new Headers(),
 	): BulkResult<Branch> {
 		return this.populateArrayFromJsonBulk(json, headers);
 	}
 
 	public testPopulateArrayFromJsonCursor(
 		json: Record<string, unknown>,
-		headers = new Headers(),
+		headers: Headers = new Headers(),
 	): CursorPaginatedResult<Branch> {
 		return this.populateArrayFromJsonCursor(json, headers);
 	}
