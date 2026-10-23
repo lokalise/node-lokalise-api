@@ -1,8 +1,10 @@
-## Handling API errors
+---
+---
+# Handling API errors
 
 The Lokalise Vantage API returns structured errors containing a message, an error code, and optional details. The SDK converts these responses into `ApiErrorVantage` instances, allowing you to inspect errors and handle specific cases.
 
-### The ApiErrorVantage class
+## The ApiErrorVantage class
 
 An `ApiErrorVantage` instance provides the following properties:
 
@@ -15,7 +17,7 @@ An `ApiErrorVantage` instance provides the following properties:
 
 The original error details are preserved, including any properties that the SDK does not explicitly recognize.
 
-### Handling validation errors
+## Handling validation errors
 
 When a request contains invalid parameters, the API may return a `VALIDATION_ERROR`. For example, passing an incorrectly formatted import ID can produce a validation issue with the message `Invalid GUID`.
 
@@ -71,7 +73,7 @@ Each validation issue can include:
 
 The `validationErrors` property is optional. It is populated only when the API returns a `VALIDATION_ERROR` with recognized validation entries. Other error formats remain accessible through `details`.
 
-### Handling multiple API errors
+## Handling multiple API errors
 
 Some Vantage API responses contain an `errors` array instead of a single error object. When the SDK encounters valid entries in this array, it throws a standard JavaScript `AggregateError` containing individual `ApiErrorVantage` instances.
 
@@ -101,7 +103,7 @@ try {
 
 Each nested error retains its own code, message, and optional details. If an individual error contains recognized validation issues, you can also access its `validationErrors` property.
 
-### Unexpected error responses
+## Unexpected error responses
 
 If the API returns an error response that does not match the expected structure, the SDK creates an `ApiErrorVantage` with the code `unknown_error`.
 
