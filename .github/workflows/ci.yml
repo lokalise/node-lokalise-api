@@ -41,5 +41,8 @@ jobs:
       - run: npm ci --ignore-scripts
       - run: npm test
 
-      - uses: coverallsapp/github-action@8d6379e14d29928660c4ba802d8e85393440b329
+      - uses: qltysh/qlty-action/coverage@c9b09987143d1e4ac955f4803c7bea742102feb5
         if: matrix.node-version == 24
+        with:
+          token: ${{secrets.QLTY_COVERAGE_TOKEN}}
+          files: coverage/lcov.info
