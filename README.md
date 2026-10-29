@@ -2,10 +2,12 @@
 
 ![npm](https://img.shields.io/npm/v/@lokalise/node-api)
 ![CI](https://github.com/lokalise/node-lokalise-api/actions/workflows/ci.yml/badge.svg)
-[![Coverage Status](https://coveralls.io/repos/github/lokalise/node-lokalise-api/badge.svg?branch=master)](https://coveralls.io/github/lokalise/node-lokalise-api?branch=master)
+[![Code Coverage](https://qlty.sh/gh/lokalise/projects/node-lokalise-api/coverage.svg)](https://qlty.sh/gh/lokalise/projects/node-lokalise-api)
+[![Maintainability](https://qlty.sh/gh/lokalise/projects/node-lokalise-api/maintainability.svg)](https://qlty.sh/gh/lokalise/projects/node-lokalise-api)
 [![NPM Downloads][npm-downloads-image]][npm-downloads-url]
 
 Official Node.js SDK for the Lokalise Expert and Vantage APIs.
+
 - **Expert API:** Manage projects, translations, files, tasks, and other resources. See the [Expert API reference](https://developers.lokalise.com/reference/lokalise-rest-api).
 - **Vantage API:** Manage projects, content, uploads, imports, exports, and translation workflows. See the [Vantage API reference](https://developers.lokalise.com/reference/lokalise-vantage-api-introduction).
 
